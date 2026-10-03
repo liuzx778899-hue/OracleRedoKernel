@@ -41,3 +41,5 @@ python lab/compare_dump.py <oracle-dump.trc> <records.txt>
 `HeapUndoPair`按同record/CON_ID唯一精确UBA匹配正向与逆向片段，并校验位置、逆操作、XID和UPDATE出现列集合；拒绝XR恢复后引用。18对跨两个目标物理块的独立对账见 [配对反馈](docs/workorders/DELIVERY_W3_PAIR_20261004.md)。仍须通过活跃事务、补偿链和完整行/字典门禁。
 
 `HeapCompensation`联合5.6 header与原undo逆向行片段匹配唯一原pair，必须另经完整活跃XID校验；低wrap不替代完整sequence。`matchBegin`为5.11从活跃segment/slot读取完整XID后交叉匹配begin undo，匹配拒绝锁定生命周期。四次补偿与保留row7的dump/SQL字节对账见 [begin补偿反馈](docs/workorders/DELIVERY_W4_BEGIN_COMPENSATION_20261004.md)。index/完整undo链仍未接受，matcher不发布或取消CDC事件。
+
+`UndoLink` / `UndoChain`审计包含heap/index节点的同块原始前驱图，九个commit tail读取原生5.4引用，缺节点或分叉等拒绝。原始图含已补偿操作，尚不等于生效集合。11链/32节点及六项派生拒绝见 [原始链反馈](docs/workorders/DELIVERY_W4_UNDO_CHAIN_20261004.md)，跨block规则、index效果和恢复仍待证。

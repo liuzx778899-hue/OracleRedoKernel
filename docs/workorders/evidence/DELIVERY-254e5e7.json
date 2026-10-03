@@ -1,0 +1,80 @@
+{
+  "source_commit": "254e5e7b90b6d83743e8251e6bd980be31a6443d",
+  "branch": "main",
+  "artifact": {
+    "build_from": "git archive 254e5e7 complete tracked tree",
+    "path": "lab/out/release-undo-chain/build/target/oracle-redo-kernel-0.1.0-SNAPSHOT.jar",
+    "sha256": "2df2a2f212ff01ca2ba4bb243f86936a83fbb058c550ed1a7fffb17fd27f52a6",
+    "coordinate": "com.streamhouse.oracle:oracle-redo-kernel:0.1.0-SNAPSHOT"
+  },
+  "tests": {
+    "executed": 78,
+    "failed": 0,
+    "skipped": 0
+  },
+  "inputs": [
+    {
+      "thread": "1",
+      "sequence": "8",
+      "first_scn": "2146496",
+      "next_scn": "2149085",
+      "oracle_blocks": "31803",
+      "block_size": "512",
+      "source_path": "/opt/oracle/product/19c/dbhome_1/dbs/arch1_8_1245693159.dbf",
+      "path": "archive-1-8.dbf",
+      "bytes": 16283648,
+      "sha256": "e9ec1dafaedb93c65e2a0dbc7bc0a4f8d492a5cbd350fd46c7a994f2f34a4aae"
+    },
+    {
+      "thread": "1",
+      "sequence": "9",
+      "first_scn": "2149085",
+      "next_scn": "2149123",
+      "oracle_blocks": "20",
+      "block_size": "512",
+      "source_path": "/opt/oracle/product/19c/dbhome_1/dbs/arch1_9_1245693159.dbf",
+      "path": "archive-1-9.dbf",
+      "bytes": 10752,
+      "sha256": "99ea74e7cc2e1f8d89c329179ed16dad2d3633beceb5ac76beb7a91c722a0ba2"
+    }
+  ],
+  "independent_dump_sha256": {
+    "lab/out/oracle19-nosupp-20261004/dump-8.trc": "babfc5a1cc6bdfd4c71ee1083fe7e13bd3036d90bec045c9ef21b830abab140a",
+    "lab/out/oracle19-nosupp-20261004/dump-9.trc": "95ca77b8d60e9ae8549a967345d65abd8cf55282acedfd90ead0e17191dcdd57"
+  },
+  "verified_report": {
+    "chains_compared": 11,
+    "heap_nodes": 18,
+    "index_nodes": 14,
+    "native_commit_tails": 9,
+    "mismatches": 0,
+    "errors": [],
+    "scope": "original same-block chains including compensated nodes; no index effects, cross-block or recovery acceptance"
+  },
+  "positive_decode_and_comparator_rc": 0,
+  "derived_negative_report": {
+    "scope": "in-memory real-node derivatives, not new Oracle executions",
+    "seed": "T007 original five-node graph from archive8",
+    "passed": 6,
+    "harness_rc": 0,
+    "cases": [
+      "missing_middle_index|REFUSED|UNDO_CHAIN_HOLE",
+      "duplicate_index|REFUSED|DUPLICATE_UNDO_CHAIN_ADDRESS",
+      "wrong_predecessor|REFUSED|UNDO_CHAIN_HOLE",
+      "branch|REFUSED|UNDO_CHAIN_BRANCH",
+      "wrong_end_tail|REFUSED|UNDO_CHAIN_END_REFERENCE_MISMATCH",
+      "unproven_cross_block|REFUSED|CROSS_BLOCK_UNDO_LINK_NOT_PROVEN"
+    ]
+  },
+  "scope": "11 original same-block heap+index chains, 9 native commit tails; rollback tails are graph-only; no surviving effects/cross-block/recovery acceptance",
+  "cdc_events": 0,
+  "deployment": "none; offline same frozen inputs",
+  "evidence_sha256": {
+    "lab/out/release-undo-chain/build.txt": "d2b6c08df88bda4fdcd84f0ef0e15895f902364c0e4faca243984071efde2f45",
+    "lab/out/release-undo-chain/chains.stderr.txt": "97fc6aae381b5eac81f81a31347301afd12af9956db9f98f573d1428436d2db1",
+    "lab/out/release-undo-chain/chains.txt": "aac4d6a885e9d69b5d30e8e22e72a72bcd0d5f444993aa5a83bb495b6ea8473b",
+    "lab/out/release-undo-chain/negative.stderr.txt": "5a9dd990365fdf11d177d643d7c5c3538dcb1cb90974ba92d193b5eda9c04e13",
+    "lab/out/release-undo-chain/negative.txt": "a2897d78eaedd73cf9f9f3315d68991c4805ef8b10c15dde1fb6ad6a92e99359",
+    "lab/out/release-undo-chain/parity.json": "4f40c33062c0e640ae9070ab7a38cc904162a5f009b93cc3a1bd58877b79d544"
+  }
+}
