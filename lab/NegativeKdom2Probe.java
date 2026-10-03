@@ -39,8 +39,8 @@ public class NegativeKdom2Probe {
         }
         System.err.println("audit_cases=21;derived_real_vectors_only;cdc_events=0");
     }
-    interface Check { void run() throws Exception; }
-    static void expect(String name,Check check,String reason)throws Exception {
+    interface Check { void run() throws RedoException; }
+    static void expect(String name,Check check,String reason)throws RedoException {
         try {check.run();throw new IllegalStateException("NEGATIVE_ACCEPTED:"+name);}
         catch(RedoException e){if(!e.getMessage().equals(reason))throw e;System.out.println(name+"|"+reason);}
     }
