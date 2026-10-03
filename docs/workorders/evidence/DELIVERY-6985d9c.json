@@ -1,0 +1,415 @@
+{
+  "source_commit": "6985d9c19a17cf9c9cf281f28dcf336cc56c7df4",
+  "branch": "main",
+  "artifact": {
+    "build_from": "complete git archive tree",
+    "path": "lab/out/release-kdom2/build/target/oracle-redo-kernel-0.1.0-SNAPSHOT.jar",
+    "sha256": "e125894bd67255b76db0f0f12d52ddd8638f834e403ccb325e6c6c1062df1beb"
+  },
+  "tests": {
+    "tests": 82,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0
+  },
+  "input": {
+    "source_id": "oraredo-19c-lab-20261004",
+    "start_scn": 2158699,
+    "end_scn": 2158815,
+    "supplemental_logging": "OFF",
+    "files": [
+      {
+        "thread": 1,
+        "sequence": 10,
+        "first_scn": 2149123,
+        "next_scn": 2158819,
+        "oracle_blocks": 27260,
+        "block_size": 512,
+        "source_path": "/opt/oracle/product/19c/dbhome_1/dbs/arch1_10_1245693159.dbf",
+        "path": "archive-1-10.dbf",
+        "bytes": 13957632,
+        "sha256": "3325f2b389093ce1f6e7f5653c9d5a1c7677147eca97af86ad5762ec2126e46e"
+      }
+    ]
+  },
+  "native_parity": {
+    "counts": {
+      "FORWARD": 181,
+      "INVERSE": 121,
+      "XR": 60,
+      "cross_block_headers": 15
+    },
+    "undo_blocks": [
+      "02400081",
+      "02400082",
+      "02400083",
+      "02400084",
+      "02400085",
+      "02400086",
+      "02400087",
+      "02400088",
+      "02400089",
+      "02402171",
+      "02402172",
+      "02402173",
+      "02402174",
+      "02402175",
+      "02402176",
+      "02402177"
+    ],
+    "long_xids": [
+      "0x0001.001.0000025c"
+    ],
+    "mismatches": 0,
+    "errors": [],
+    "last_xr_matches_sql_final_value": true,
+    "scope": "physical columns only; no complete cross-block chain or surviving transaction effects acceptance"
+  },
+  "negative": {
+    "audit_rc": 0,
+    "real_vector_poison_cases": 6,
+    "unchanged_cross_block_refusals": 15,
+    "cdc_events": 0
+  },
+  "events": {
+    "rc": 1,
+    "stdout_bytes": 0,
+    "reason": "Header[sha256=3325f2b389093ce1f6e7f5653c9d5a1c7677147eca97af86ad5762ec2126e46e, bytes=13957632, dbid=1276726821, activationId=1276717861, compatibility=318767104, thread=1, sequence=10, resetlogsId=1245693159, resetlogsScn=1920977, firstScn=2149123, nextScn=2158819, blocks=27261]\nREFUSED:DML_TRANSACTION_DICTIONARY_GATES_NOT_ACCEPTED;cdc_events=0"
+  },
+  "original_pair_regression": {
+    "8": {
+      "pairs_compared": 15,
+      "forward_present_columns": 39,
+      "inverse_present_columns": 9,
+      "mismatches": 0,
+      "errors": [],
+      "scope": "selected same-record forward/inverse pairs; no complete rows or compensation cancellation"
+    },
+    "9": {
+      "pairs_compared": 3,
+      "forward_present_columns": 9,
+      "inverse_present_columns": 1,
+      "mismatches": 0,
+      "errors": [],
+      "scope": "selected same-record forward/inverse pairs; no complete rows or compensation cancellation"
+    }
+  },
+  "binding": {
+    "source_id": "oraredo-19c-lab-20261004",
+    "supplemental": "NO/NO",
+    "source_dml_replayed": false,
+    "archive_mode": "dedicated lab only; production mode gate unaccepted"
+  },
+  "evidence_files": [
+    {
+      "path": "lab/out/oracle19-cross-undo-20261004-r2/binding.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle19-cross-undo-20261004-r2/binding.stdout.txt",
+      "bytes": 85,
+      "sha256": "a5de9b75537e24a07023fdd281893ab2558ba0adb73f1a4fce9103e77ccfe5ee"
+    },
+    {
+      "path": "lab/out/oracle19-cross-undo-20261004-r2/build-dev.txt",
+      "bytes": 4809,
+      "sha256": "4799ff64b73f8466abee216242d19be87226a0fd939466f588e36e7ca6e7863b"
+    },
+    {
+      "path": "lab/out/oracle19-cross-undo-20261004-r2/capture-10.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle19-cross-undo-20261004-r2/capture-10.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle19-cross-undo-20261004-r2/commands.jsonl",
+      "bytes": 1807,
+      "sha256": "1d5d9c583cf20c8fa9198f3564119316415dad64271719eb499131a97f372c34"
+    },
+    {
+      "path": "lab/out/oracle19-cross-undo-20261004-r2/copy-script.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle19-cross-undo-20261004-r2/copy-script.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle19-cross-undo-20261004-r2/dump-10.trc",
+      "bytes": 1435517,
+      "sha256": "1e01ee5700dd6239d330bd0162ff92cf710579fa2e03c1602b5be1dec3479d64"
+    },
+    {
+      "path": "lab/out/oracle19-cross-undo-20261004-r2/dump.sql",
+      "bytes": 341,
+      "sha256": "d2b34af1762c705013e41a4c28e2c626b3c7d7d5e44b6cb5825a2f1fe765d02c"
+    },
+    {
+      "path": "lab/out/oracle19-cross-undo-20261004-r2/dump.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle19-cross-undo-20261004-r2/dump.stdout.txt",
+      "bytes": 81,
+      "sha256": "ca3997f1b8695785380b8c7d22c42725d646c3628942a674adb8ec82a67f9cd8"
+    },
+    {
+      "path": "lab/out/oracle19-cross-undo-20261004-r2/executed-fixture.sql",
+      "bytes": 2736,
+      "sha256": "3e3bec1f50580908b8730d8a9af48899190e876eef213bdc46bf08677cc3e7b0"
+    },
+    {
+      "path": "lab/out/oracle19-cross-undo-20261004-r2/executed-script.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle19-cross-undo-20261004-r2/executed-script.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle19-cross-undo-20261004-r2/fixture.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle19-cross-undo-20261004-r2/fixture.stdout.txt",
+      "bytes": 4620,
+      "sha256": "c3057592bd0109a523aff455d16db620a40986c02da5a48bb0f4acf65b95d080"
+    },
+    {
+      "path": "lab/out/oracle19-cross-undo-20261004-r2/manifest.json",
+      "bytes": 551,
+      "sha256": "1c1769d03700a31f8ae0027411d06a51d9ca28641e1f930790e6e8c8571c3e81"
+    },
+    {
+      "path": "lab/out/oracle19-cross-undo-20261004-r2/negative-compile-r2.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle19-cross-undo-20261004-r2/negative-compile-r2.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle19-cross-undo-20261004-r2/negative-dev-r2.stderr.txt",
+      "bytes": 55,
+      "sha256": "c1746c9af8e57c59aaf53937fda019aec2c02069a5e2518cda80ad904ac1de5c"
+    },
+    {
+      "path": "lab/out/oracle19-cross-undo-20261004-r2/negative-dev-r2.txt",
+      "bytes": 932,
+      "sha256": "c02679eb41ec023e3c255c750b716b9effd1d5eb5f74a23c6b963cffabc25d01"
+    },
+    {
+      "path": "lab/out/oracle19-cross-undo-20261004-r2/negative-dev.stderr.txt",
+      "bytes": 151,
+      "sha256": "1091f4dee9b126ad3991d0ed90e5b097cacfb6c1264b866ab5db77c1037aafe5"
+    },
+    {
+      "path": "lab/out/oracle19-cross-undo-20261004-r2/negative-dev.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle19-cross-undo-20261004-r2/parity-dev-r2.json",
+      "bytes": 4718,
+      "sha256": "da4546a80b0fe53ecd8a2ac2406a3d71cecbc59b203138d3e315bb717f0b0a42"
+    },
+    {
+      "path": "lab/out/oracle19-cross-undo-20261004-r2/parity-dev-r3.json",
+      "bytes": 611,
+      "sha256": "96313c55da7b32bc2d211be18c94e565e3e49ee8ef0c0977c4426fc3953a6ab1"
+    },
+    {
+      "path": "lab/out/oracle19-cross-undo-20261004-r2/parity-dev.json",
+      "bytes": 21932,
+      "sha256": "09bd27110d0d7cbc290735eed43b67c4c06557824d58ff3e2822fde184757c58"
+    },
+    {
+      "path": "lab/out/oracle19-cross-undo-20261004-r2/patches-dev.stderr.txt",
+      "bytes": 67,
+      "sha256": "fa7005915e491f1e7b7183b62e815e13fec18a9e73adcc51567a4c3f1217697c"
+    },
+    {
+      "path": "lab/out/oracle19-cross-undo-20261004-r2/patches-dev.txt",
+      "bytes": 558664,
+      "sha256": "25f115b24ffae37e80e031c8286c1ce6794befc783010415bcd7b8ccfe6c9ec2"
+    },
+    {
+      "path": "lab/out/oracle19-cross-undo-20261004-r2/raw-links.txt",
+      "bytes": 245053,
+      "sha256": "ce573e3b361e76b57879f71779fb1073b001770863de645bb8ffe2e39d74ef0d"
+    },
+    {
+      "path": "lab/out/oracle19-cross-undo-20261004-r2/raw-rows.txt",
+      "bytes": 73967,
+      "sha256": "1ae6ef3df209e7202ae7bb50a5f115c543aaf45b1c68cf26778f8ee8e7d497ff"
+    },
+    {
+      "path": "lab/out/oracle19-cross-undo-20261004-r2/records.stderr.txt",
+      "bytes": 321,
+      "sha256": "d10fdd92854fabd63ea2ffc36e51dd4d83b413fffdd29d5f8d0071786cb62fd7"
+    },
+    {
+      "path": "lab/out/oracle19-cross-undo-20261004-r2/records.txt",
+      "bytes": 960977,
+      "sha256": "6069daf439569b78bedd7266bb9a4307777f041c1ce6f53c3a176c383fb16541"
+    },
+    {
+      "path": "lab/out/oracle19-cross-undo-20261004-r2/recovery-binding.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle19-cross-undo-20261004-r2/recovery-binding.stdout.txt",
+      "bytes": 85,
+      "sha256": "a5de9b75537e24a07023fdd281893ab2558ba0adb73f1a4fce9103e77ccfe5ee"
+    },
+    {
+      "path": "lab/out/oracle19-cross-undo-20261004-r2/recovery-truth-copy.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle19-cross-undo-20261004-r2/recovery-truth-copy.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle19-cross-undo-20261004-r2/recovery-truth.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle19-cross-undo-20261004-r2/recovery-truth.stdout.txt",
+      "bytes": 3963,
+      "sha256": "b54c4c1a3097f612c699e18ee5a94d6e987f03ea1fbd24c2d04e155b4543c439"
+    },
+    {
+      "path": "lab/out/oracle19-cross-undo-20261004-r2/truth.json",
+      "bytes": 4107,
+      "sha256": "b2d7d80ef7fb34443b9ea8af9f9992b4a54d7e581013fdefa960a98000a64895"
+    },
+    {
+      "path": "lab/out/release-kdom2/build.stderr.txt",
+      "bytes": 301,
+      "sha256": "a73235e74b7212a667f3c9a6209ea0afe89e0cb01c372b4298f0f1a5e284ba49"
+    },
+    {
+      "path": "lab/out/release-kdom2/build.stdout.txt",
+      "bytes": 4592,
+      "sha256": "a57ea53fe8edc4286863d47e5bfcbb096cfefb882585d6bf431794d76e15d5f3"
+    },
+    {
+      "path": "lab/out/release-kdom2/commands.json",
+      "bytes": 4766,
+      "sha256": "81d40e052f9253d85eafc22cdd9b0851c84e2e18d825053632c8611d6d8c6179"
+    },
+    {
+      "path": "lab/out/release-kdom2/compile.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/release-kdom2/compile.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/release-kdom2/events.stderr.txt",
+      "bytes": 350,
+      "sha256": "432c69b350cfb8fce04ccf1f02752a1f7f77aae39656c3db89982d5b0155dc4f"
+    },
+    {
+      "path": "lab/out/release-kdom2/events.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/release-kdom2/native-parity.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/release-kdom2/native-parity.stdout.txt",
+      "bytes": 655,
+      "sha256": "3bec2925d254020b3c25a9bc2e01e010c73cb185da8a846f08952ce35dae74de"
+    },
+    {
+      "path": "lab/out/release-kdom2/negative.stderr.txt",
+      "bytes": 55,
+      "sha256": "c1746c9af8e57c59aaf53937fda019aec2c02069a5e2518cda80ad904ac1de5c"
+    },
+    {
+      "path": "lab/out/release-kdom2/negative.stdout.txt",
+      "bytes": 932,
+      "sha256": "c02679eb41ec023e3c255c750b716b9effd1d5eb5f74a23c6b963cffabc25d01"
+    },
+    {
+      "path": "lab/out/release-kdom2/pairs-8.stderr.txt",
+      "bytes": 48,
+      "sha256": "0e3c1ac9fa447b3b795653a8b1d5f756e3d343c92afae8e875c7b336427d493d"
+    },
+    {
+      "path": "lab/out/release-kdom2/pairs-8.stdout.txt",
+      "bytes": 2160,
+      "sha256": "b530a50340158cc32f4d12a3d0ccec0b966116e1af6064a74cb67df66cdb489b"
+    },
+    {
+      "path": "lab/out/release-kdom2/pairs-9.stderr.txt",
+      "bytes": 48,
+      "sha256": "0e3c1ac9fa447b3b795653a8b1d5f756e3d343c92afae8e875c7b336427d493d"
+    },
+    {
+      "path": "lab/out/release-kdom2/pairs-9.stdout.txt",
+      "bytes": 472,
+      "sha256": "e478c41c9e9194b0ba4f905e40ec6e40aa9a7d9b8b2a2f517cfa20c6df54d6a9"
+    },
+    {
+      "path": "lab/out/release-kdom2/pairs-parity-8.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/release-kdom2/pairs-parity-8.stdout.txt",
+      "bytes": 239,
+      "sha256": "026d8dd7209d6d83a39ded07dd4109b906d92f6898731a50983de0f89d04a37b"
+    },
+    {
+      "path": "lab/out/release-kdom2/pairs-parity-9.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/release-kdom2/pairs-parity-9.stdout.txt",
+      "bytes": 237,
+      "sha256": "d1b122e01500d0e63e55073d439c788b59885612c175d57ec05cee47ec444cda"
+    },
+    {
+      "path": "lab/out/release-kdom2/patches.stderr.txt",
+      "bytes": 67,
+      "sha256": "fa7005915e491f1e7b7183b62e815e13fec18a9e73adcc51567a4c3f1217697c"
+    },
+    {
+      "path": "lab/out/release-kdom2/patches.stdout.txt",
+      "bytes": 558664,
+      "sha256": "25f115b24ffae37e80e031c8286c1ce6794befc783010415bcd7b8ccfe6c9ec2"
+    },
+    {
+      "path": "lab/out/release-kdom2/source-tree.tar",
+      "bytes": 389120,
+      "sha256": "3bc246f5af4a29c11b85ba73d58d23a1390794a7fb90fd64139d675a9341358f"
+    }
+  ]
+}
