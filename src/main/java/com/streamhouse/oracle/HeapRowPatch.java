@@ -23,13 +23,7 @@ public final class HeapRowPatch {
             throw new RedoException("UNSUPPORTED_HEAP_COLUMN_COUNT");
         List<byte[]> fields=vector.fields();
         if (fields.size() < 2) throw new RedoException("MISSING_KTB_KDO_FIELDS");
-        byte[] ktb=fields.get(0), kdo=fields.get(1);
-        int op=vector.opcodeMinor();
-        int expectedKdo=op == 2 ? 49 : op == 3 ? 20 : 29;
-        if (kdo.length != expectedKdo || (kdo[10]&255) != op || u32(kdo,0) != vector.dba())
-            throw new RedoException("UNSUPPORTED_KDO_LAYOUT_OR_BLOCK");
-        int xtype=kdo[11]&255;
-        if (xtype != 1 && xtype != 2) throw new RedoException("UNSUPPORTED_KDO_XTYPE");
+        byte[] ktb=fields.get(0);
         if (ktb.length < 16) throw new RedoException("TRUNCATED_KTB");
         Xid xid=null;
         int ubaOffset=-1;
@@ -44,6 +38,22 @@ public final class HeapRowPatch {
         }
         else throw new RedoException("UNSUPPORTED_KTB_OPERATION");
         Uba uba=ubaOffset < 0 ? null : new Uba(u32(ktb,ubaOffset),u16(ktb,ubaOffset+4),ktb[ubaOffset+6]&255);
+        var row=decodeKdo(fields,vector.opcodeMinor(),vector.dba(),dictionaryColumns);
+        return new Patch(row.kind(),row.dba(),row.slot(),row.xtype(),xid,uba,row.columns());
+    }
+
+    /** Shared physical KDO decoding. Undo KTB does not describe the current transaction identity. */
+    static Patch decodeKdo(List<byte[]> fields,int op,long dba,int dictionaryColumns) throws RedoException {
+        if (dictionaryColumns < 1 || dictionaryColumns > 255)
+            throw new RedoException("UNSUPPORTED_HEAP_COLUMN_COUNT");
+        if (fields.size()<2 || (op!=2 && op!=3 && op!=5))
+            throw new RedoException("UNSUPPORTED_HEAP_OPCODE_OR_FIELDS");
+        byte[] kdo=fields.get(1);
+        int expectedKdo=op == 2 ? 49 : op == 3 ? 20 : 29;
+        if (kdo.length != expectedKdo || (kdo[10]&255) != op || u32(kdo,0) != dba)
+            throw new RedoException("UNSUPPORTED_KDO_LAYOUT_OR_BLOCK");
+        int xtype=kdo[11]&255;
+        if (xtype != 1 && xtype != 2) throw new RedoException("UNSUPPORTED_KDO_XTYPE");
         List<Column> columns=new ArrayList<>();
         for (int i=0;i<dictionaryColumns;i++) columns.add(new Column(State.ABSENT,new byte[0]));
         int slot;
@@ -72,10 +82,10 @@ public final class HeapRowPatch {
             kind=Kind.DELETE; slot=u16(kdo,16);
             if (fields.size() != 2) throw new RedoException("UNSUPPORTED_DELETE_ROWPIECE");
         }
-        return new Patch(kind,vector.dba(),slot,xtype,xid,uba,List.copyOf(columns));
+        return new Patch(kind,dba,slot,xtype,null,null,List.copyOf(columns));
     }
 
-    private Column value(byte[] bytes) {
+    private static Column value(byte[] bytes) {
         return new Column(bytes.length == 0 ? State.NULL : State.VALUE,bytes.clone());
     }
 }
