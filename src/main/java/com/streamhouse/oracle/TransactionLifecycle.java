@@ -64,6 +64,27 @@ public final class TransactionLifecycle {
             refuse("PAIR_WITHOUT_ACTIVE_TRANSACTION_IDENTITY");
     }
 
+    public UndoHeader advance(RedoRecords.Record record,RedoRecords.Vector vector) throws RedoException {
+        checkRecord(record);
+        try {
+            if (!record.vectors().contains(vector)) refuse("UNDO_ADVANCE_NOT_IN_RECORD");
+            var advance=UndoBlockAdvance.decode(vector);var h=advance.bindUndo(record);
+            int controls=0;
+            for (var candidate:record.vectors()) {
+                if (candidate.containerId()!=vector.containerId() || candidate.opcodeMajor()!=5 || candidate.opcodeMinor()!=2
+                        || candidate.dba()!=vector.dba() || candidate.fields().isEmpty() || candidate.fields().get(0).length!=32
+                        || u16(candidate.fields().get(0),16)!=10) continue;
+                var other=UndoBlockAdvance.decode(candidate);
+                if (other.uba().equals(advance.uba())) controls++;
+            }
+            if (controls!=1) refuse("AMBIGUOUS_UNDO_ADVANCE_CONTROL_UBA");
+            var key=identities.get(new Identity(record.containerUid(),vector.containerId(),h.xid()));
+            if (key==null || key.segment()!=advance.segmentDba() || key.slot()!=advance.slot())
+                refuse("UNDO_ADVANCE_WITHOUT_ACTIVE_SEGMENT_IDENTITY");
+            return h;
+        } catch (RedoException e) { failed=true; throw e; }
+    }
+
     public HeapRowPatch.Xid beginCompensationIdentity(RedoRecords.Record record,RedoRecords.Vector marker) throws RedoException {
         checkRecord(record);
         try {
