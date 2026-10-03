@@ -1,0 +1,27 @@
+# OracleRedoKernel
+
+Oracle Direct Redo 独立解析内核。目标：源库零配置改动，解析与采集分离，证据不足拒绝发布。
+
+**当前只是文件/块/record/vector 结构解析，DML/事务/字典尚未验收。** `events` 命令明确失败且零事件，不能用于生产同步。进度看 [STATUS](docs/workorders/STATUS.md)，方案看 [执行方案](docs/Oracle_Direct_Redo_技术方案_v0.1_20261004.md)。
+
+使用 JDK17（Windows默认Java8需覆盖）：
+
+```powershell
+$env:JAVA_HOME='D:\work\Java\jdk-17.0.7'
+$env:PATH="$env:JAVA_HOME\bin;$env:PATH"
+mvn -B test package
+java -jar target\oracle-redo-kernel-0.1.0-SNAPSHOT.jar scan <frozen-archive>
+java -jar target\oracle-redo-kernel-0.1.0-SNAPSHOT.jar records <frozen-archive>
+```
+
+`scan` 返回SHA256/源身份/SCN并检验归档长度、块号、sequence、checksum；`records` 输出 `block|offset|length|validity|scn|subScn|containerUid|opcodes`。这些是研究结构证据，不是CDC事件，可能在后续结构失败前已经输出部分行；调用方须检查rc，禁止转成可发布事件。
+
+当前只支持已观察的 Linux x86_64 little-endian、512字节 archived redo、compatibility 19/21；其他形态显式拒绝。schema、row、commit、rollback、日志连续性与字典版本未通过前没有事件出口。
+
+`lab/sql/` 是专属实验环境脚本，禁止直接向业务库执行。真实样本/dump/制品留 `lab/out/`，不进入Git。独立对账：
+
+```text
+python lab/compare_dump.py <oracle-dump.trc> <records.txt>
+```
+
+0条比较直接失败。AGPL参考代码未复制；当前二进制布局来自独立Oracle字节/dump观察。
