@@ -3,15 +3,30 @@ package com.streamhouse.oracle;
 import java.util.Arrays;
 import java.util.List;
 
-/** Matches observed 5.6 heap compensation. Does not cancel an event or prove the complete undo chain. */
+/** Matches observed heap compensation. Does not cancel an event or prove the complete undo chain. */
 public final class HeapCompensation {
     public static HeapUndoPair match(RedoRecords.Record record,RedoRecords.Vector marker,RedoRecords.Vector row,
                                     List<HeapUndoPair> history,int columns) throws RedoException {
+        return match(record,marker,row,history,columns,null);
+    }
+
+    public static HeapUndoPair matchBegin(RedoRecords.Record record,RedoRecords.Vector marker,RedoRecords.Vector row,
+                                         List<HeapUndoPair> history,int columns,TransactionLifecycle state) throws RedoException {
+        try {
+            var xid=state.beginCompensationIdentity(record,marker);
+            var pair=match(record,marker,row,history,columns,xid);
+            state.requireActive(record,pair);
+            return pair;
+        } catch (RedoException e) { state.compensationRefused(); throw e; }
+    }
+
+    private static HeapUndoPair match(RedoRecords.Record record,RedoRecords.Vector marker,RedoRecords.Vector row,
+                                     List<HeapUndoPair> history,int columns,HeapRowPatch.Xid beginXid) throws RedoException {
         if (!record.vectors().contains(marker) || !record.vectors().contains(row)
                 || marker.containerId()!=row.containerId())
             throw new RedoException("COMPENSATION_RECORD_OR_CONTAINER_MISMATCH");
         var c=UndoCompensation.decode(marker);
-        if (c.beginsTransaction() || c.opcodeMajor()!=11 || c.opcodeMinor()!=1)
+        if (c.beginsTransaction()!=(beginXid!=null) || c.opcodeMajor()!=11 || c.opcodeMinor()!=1)
             throw new RedoException("UNSUPPORTED_HEAP_COMPENSATION_ASSOCIATION");
         var rollback=new HeapRowPatch().decode(row,columns);
         if (rollback.xtype()!=2) throw new RedoException("NOT_HEAP_COMPENSATION_ROW");
@@ -19,11 +34,12 @@ public final class HeapCompensation {
         for (var pair:history) {
             var u=pair.undo(); var h=u.identity();
             if (pair.containerUid()!=record.containerUid() || pair.containerId()!=marker.containerId()
-                    || h.beginsTransaction() || h.uba().dba()!=c.dba() || h.xid().slot()!=c.slot()
-                    || (h.xid().sequence()&0xffff)!=c.wrap() || u.wrap()!=c.wrap()
+                    || h.beginsTransaction()!=c.beginsTransaction() || h.xid().slot()!=c.slot() || u.wrap()!=c.wrap()
                     || h.objectId()!=c.objectId() || h.dataObjectId()!=c.dataObjectId() || h.tablespace()!=c.tablespace()
                     || u.previousDba()!=c.previousDba() || u.predecessorRecord()!=c.predecessorRecord()
                     || !sameInverse(u.inverse(),rollback)) continue;
+            if (beginXid!=null ? !h.xid().equals(beginXid)
+                    : h.uba().dba()!=c.dba() || (h.xid().sequence()&0xffff)!=c.wrap()) continue;
             if (match!=null) throw new RedoException("AMBIGUOUS_HEAP_COMPENSATION_ORIGINAL");
             match=pair;
         }

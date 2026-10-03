@@ -64,6 +64,27 @@ public final class TransactionLifecycle {
             refuse("PAIR_WITHOUT_ACTIVE_TRANSACTION_IDENTITY");
     }
 
+    public HeapRowPatch.Xid beginCompensationIdentity(RedoRecords.Record record,RedoRecords.Vector marker) throws RedoException {
+        checkRecord(record);
+        try {
+            var c=UndoCompensation.decode(marker);
+            if (!c.beginsTransaction() || !record.vectors().contains(marker))
+                refuse("NOT_BEGIN_COMPENSATION_IN_RECORD");
+            HeapRowPatch.Xid xid=null;
+            for (var entry:pending.entrySet()) {
+                var key=entry.getKey();
+                if (key.uid()!=record.containerUid() || key.container()!=marker.containerId()
+                        || key.segment()!=c.dba() || key.slot()!=c.slot()) continue;
+                if (xid!=null) refuse("AMBIGUOUS_BEGIN_COMPENSATION_IDENTITY");
+                xid=entry.getValue().identity().xid();
+            }
+            if (xid==null) refuse("BEGIN_COMPENSATION_WITHOUT_ACTIVE_IDENTITY");
+            return xid;
+        } catch (RedoException e) { failed=true; throw e; }
+    }
+
+    void compensationRefused() { failed=true; }
+
     public boolean knowsEnd(RedoRecords.Record record,RedoRecords.Vector vector) throws RedoException {
         checkRecord(record);
         try {
