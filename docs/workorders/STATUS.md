@@ -32,6 +32,8 @@
 
 ## 接续与限制
 
+最新研究：[跨块cursor缺节点反例](RESEARCH_W4_CURSOR_HOLE_20261004.md)，研究源码b64a090，生产制品仍0445b43。三个冻结正样本各120节点零差异；各省略一个跨块前驱节点后，119节点仍通过15次局部切块及提交尾检查，但native全量比较均rc1。研究模式刻意调整fixture计数，未修改生产拒绝门禁；证明局部cursor约束不足，完整输入与跨块前驱仍需独立证据。无新数据库动作、CDC零发布。
+
 最新：[普通跨块5.11与多heap block反馈](DELIVERY_W4_CROSS_COMPENSATION_20261004.md)，源码0445b43，[封存清单](evidence/DELIVERY-0445b43.json)。93项测试全通过；三批360pair/180补偿/180保留物理patch与native零差异，23个普通跨块5.11匹配；9项真实派生拒绝与锁定。946物理patch字节及新两批最终SQL值通过。不同heap block的118个历史KTB引用反驳通用前驱替代规则。实验cursor的完整跨块前驱仍未独立认证，index/恢复/W5仍待证，CDC零发布。
 
 最新：[跨块控制身份反馈](DELIVERY_W4_UNDO_ADVANCE_20261004.md)，源码b99828e，[封存清单](evidence/DELIVERY-b99828e.json)。87项测试全通过；长事务120 undo、15显式UBA切换、1扩展提交身份闭合，17个控制/起止字段与native零差异；9项真实派生拒绝、8生命周期锁定。302patch和旧18pair同件jar回归通过。完整跨块前驱/60撤销保留集合仍待证，CDC零发布。
