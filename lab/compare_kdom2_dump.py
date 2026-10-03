@@ -54,6 +54,15 @@ for record in re.split(r'(?=REDO RECORD - Thread:)',dump):
 errors=[{'position':key,'reason':'PATCH_DIFF','expected':expected.get(key),'actual':actual.get(key)} for key in actual.keys()|expected.keys() if actual.get(key)!=expected.get(key)]
 if len(actual)!=len(rows) or counts['FORWARD']!=181 or counts['INVERSE']!=121 or counts['XR']!=60 or counts['cross_block_headers']==0:
     errors.append({'reason':'COVERAGE_MISMATCH'})
+truth_match=None
+if len(sys.argv)>3:
+    truth=json.loads(Path(sys.argv[3]).read_text(encoding='utf-8'))
+    source=[r for r in truth if r.get('id')==1]
+    last_xr=[r for r in rows if r[3]=='FORWARD' and r[7]=='2'][-1]
+    final=bytes.fromhex(last_xr[8].split(',')[1].split(':')[1])
+    truth_match=len(source)==1 and source[0]['txt_length']==900 and final==source[0]['txt'].encode('utf-8') and final.startswith(b'keep-060')
+    if not truth_match: errors.append({'reason':'FINAL_XR_SQL_VALUE_DIFF'})
 print(json.dumps({'counts':counts,'undo_blocks':sorted(undo_blocks),'long_xids':sorted(long_xids),'mismatches':len(errors),'errors':errors,
+                  'last_xr_matches_sql_final_value':truth_match,
                   'scope':'physical columns only; no complete cross-block chain or surviving transaction effects acceptance'},indent=2))
 sys.exit(bool(errors))
