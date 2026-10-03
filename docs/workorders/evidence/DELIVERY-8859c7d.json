@@ -1,0 +1,100 @@
+{
+  "source_commit": "8859c7df0d648b44a50dca5b05c7502e30ccf953",
+  "branch": "main",
+  "artifact": {
+    "sha256": "b87dc42f7f0ee026222844d4e7edc932869a3f09040053967ce53544cf87a0be",
+    "build_from": "git archive 8859c7d complete tracked tree",
+    "coordinate": "com.streamhouse.oracle:oracle-redo-kernel:0.1.0-SNAPSHOT",
+    "path": "lab/out/release-lifecycle/build/target/oracle-redo-kernel-0.1.0-SNAPSHOT.jar"
+  },
+  "tests": {
+    "skipped": 0,
+    "executed": 46,
+    "failed": 0
+  },
+  "inputs": [
+    {
+      "thread": "1",
+      "sequence": "8",
+      "first_scn": "2146496",
+      "next_scn": "2149085",
+      "oracle_blocks": "31803",
+      "block_size": "512",
+      "source_path": "/opt/oracle/product/19c/dbhome_1/dbs/arch1_8_1245693159.dbf",
+      "path": "archive-1-8.dbf",
+      "bytes": 16283648,
+      "sha256": "e9ec1dafaedb93c65e2a0dbc7bc0a4f8d492a5cbd350fd46c7a994f2f34a4aae"
+    },
+    {
+      "thread": "1",
+      "sequence": "9",
+      "first_scn": "2149085",
+      "next_scn": "2149123",
+      "oracle_blocks": "20",
+      "block_size": "512",
+      "source_path": "/opt/oracle/product/19c/dbhome_1/dbs/arch1_9_1245693159.dbf",
+      "path": "archive-1-9.dbf",
+      "bytes": 10752,
+      "sha256": "99ea74e7cc2e1f8d89c329179ed16dad2d3633beceb5ac76beb7a91c722a0ba2"
+    }
+  ],
+  "independent_dump_sha256": {
+    "lab/out/oracle19-nosupp-20261004/dump-8.trc": "babfc5a1cc6bdfd4c71ee1083fe7e13bd3036d90bec045c9ef21b830abab140a",
+    "lab/out/oracle19-nosupp-20261004/dump-9.trc": "95ca77b8d60e9ae8549a967345d65abd8cf55282acedfd90ead0e17191dcdd57"
+  },
+  "verified_report": {
+    "identities_compared": 11,
+    "commit_markers": 9,
+    "rollback_markers": 2,
+    "cross_archive_identities": 1,
+    "mismatches": 0,
+    "errors": [],
+    "scope": "19.3 selected identity closure only; begin SCN is first begin record, not ktubl txn start SCN; no row/savepoint acceptance"
+  },
+  "negative_report": {
+    "cases": [
+      {
+        "case": "missing_begin_archive",
+        "rc": 1,
+        "stdout_bytes": 0,
+        "reason": "UNDO_WITHOUT_VERIFIED_TRANSACTION_BEGIN",
+        "passed": true
+      },
+      {
+        "case": "missing_end_archive",
+        "rc": 1,
+        "stdout_bytes": 0,
+        "reason": "INCOMPLETE_TRANSACTION_IDENTITIES",
+        "passed": true
+      },
+      {
+        "case": "duplicate_archive",
+        "rc": 1,
+        "stdout_bytes": 0,
+        "reason": "ARCHIVE_SEQUENCE_OR_SCN_GAP",
+        "passed": true
+      }
+    ],
+    "passed": 3,
+    "scope": "selected identity lifecycle and atomic research output; CDC events remain disabled"
+  },
+  "positive_decode_and_comparator_rc": 0,
+  "scope": "19.3 object 73024 identity lifecycle; no row binding, savepoint cancellation or dictionary acceptance",
+  "cdc_events": 0,
+  "deployment": "none; offline existing frozen input",
+  "retained_failure": "lab/out/transactions19-20261004/lifecycle.stderr.txt: unrelated unsupported end layout",
+  "evidence_sha256": {
+    "lab/out/release-lifecycle/build.txt": "621224a3007445b896deacd67229d98605ac023c140956dbac5675c723e17c49",
+    "lab/out/release-lifecycle/lifecycle.stderr.txt": "daf25d5151757a809575b6bb66db7563956e8d4f8320c5b682b5d96c8252f0a5",
+    "lab/out/release-lifecycle/lifecycle.txt": "03c1ff2ef84330d4d48d5aa829f3f259009220d130413a12ac640050867dd33a",
+    "lab/out/release-lifecycle/negative-report.json": "3c0edfba419af0d75de258b52e4c52f331425f9b1d94e933dd72c27d5857e81c",
+    "lab/out/release-lifecycle/negative/duplicate_archive.stderr": "f983791caa0753cc9126b88167ffd4192c4c3fa69150d9556ad6e6a4808a1764",
+    "lab/out/release-lifecycle/negative/duplicate_archive.stdout": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "lab/out/release-lifecycle/negative/missing_begin_archive.stderr": "c1dccce31f5aad7881fb394d6240ec11cbf1f265e1473375b4207b45e3d92407",
+    "lab/out/release-lifecycle/negative/missing_begin_archive.stdout": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "lab/out/release-lifecycle/negative/missing_end_archive.stderr": "a2c935339a4897e34702b31d523f167a6ba36b3b9ac93993e895a66a42c0e434",
+    "lab/out/release-lifecycle/negative/missing_end_archive.stdout": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "lab/out/release-lifecycle/negative/verdict.json": "36fe9b9ba99cd8608bc6ab2fe82b88630daf24976f267d4f285a402bd58a27be",
+    "lab/out/release-lifecycle/parity.json": "e6be999dca6e9c394c72ea20bb19afb37e75818129af34c0273549d24e640f89"
+  }
+}

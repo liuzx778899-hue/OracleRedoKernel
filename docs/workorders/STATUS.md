@@ -10,7 +10,7 @@
 | W1 文件/块 scanner | 通过：首批fa61476 | 通过：19c/21c有界样本/5个真实派生反例 | 待证：真实capture | 未开始 | 待证 | 未开始 |
 | W2 record/vector | 通过：首批fa61476 | 通过：19c seq8/9完整dump、21c选定范围 | 待证：事务/字典 | 未开始 | 待证 | 未开始 |
 | W3 基础行/类型 | 进行中：scalar + raw heap patch | 通过：21物理patch/45出现列；完整行/键待证 | 未开始 | 未开始 | 待证 | 未开始 |
-| W4 事务/回滚 | 进行中：undo/end/compensation/start | 通过：18 undo、93结束/补偿、11精确起点；完整链待证 | 未开始 | 未开始 | 待证 | 未开始 |
+| W4 事务/回滚 | 进行中：身份生命周期 | 通过：11身份闭合、3个真实拒绝；行/补偿待证 | 进行中：有界身份；完整事务待证 | 未开始 | 待证 | 未开始 |
 | W5 SCN字典/基线 | 未开始 | 待证 | 未开始 | 未开始 | 待证 | 未开始 |
 | W6 StreamHouse接入 | 未开始 | 待证 | 未开始 | 未开始 | 待证 | 未开始 |
 | W7 online采集 | 未开始 | 待证 | 未开始 | 未开始 | 待证 | 未开始 |
@@ -31,6 +31,8 @@
 - 首轮PDB切日志ORA-65040、CDB VLD9/13/marker结构缺口、SQLPlus中文显示与LogMiner status3均保留原文；两会话交叉事务/跨switch动作已执行。细节见[首批反馈](DELIVERY_W0_W2_20261004.md)。
 
 ## 接续与限制
+
+最新：[有界身份生命周期反馈](DELIVERY_W4_LIFECYCLE_20261004.md)，源码8859c7d，[封存清单](evidence/DELIVERY-8859c7d.json)。46项测试0失败0跳过；11个身份（9commit/2rollback/1跨archive）与dump零差异；缺开始、缺结束、重复archive均rc1且stdout空。行变化、savepoint撤销、undo链与W5仍未验收，CDC零发布。
 
 最新：[起点身份绑定反馈](DELIVERY_W4_BEGIN_20261004.md)，源码0b36846，[封存清单](evidence/DELIVERY-0b36846.json)。36项测试0失败0跳过；11个目标表5.2与唯一同record5.1 begin精确UBA绑定，dump零差异。结束/补偿链、跨归档连续性及W5仍待证。
 

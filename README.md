@@ -33,3 +33,5 @@ python lab/compare_dump.py <oracle-dump.trc> <records.txt>
 `TransactionEnd` / `UndoCompensation`支持有界19.3的5.4结束、5.6/5.11补偿字段。segment DBA不猜USN；begin补偿wrap1不当原事务sequence；marker不直接触发事件发布或撤销。93个真实marker字段独立对账见 [W4反馈](docs/workorders/DELIVERY_W4_MARKERS_20261004.md)，事务绑定与undo链仍待证。
 
 `TransactionStart.bindBegin(record)`按CON_ID和精确UBA绑定同record唯一5.1 begin，再核对slot/sequence读取完整XID。缺失、多义、容器或身份错配拒绝；11个目标表真实起点对账见 [起点反馈](docs/workorders/DELIVERY_W4_BEGIN_20261004.md)。仍没有完整事务事件出口。
+
+`TransactionLifecycle`维护来源、归档连续性和目标事务身份闭合，拒绝后锁定实例。`ClosedIdentity`仅含身份及begin/end record SCN，不授权行事件或savepoint撤销。11个真实身份闭合与3个缺失/重复归档拒绝见 [生命周期反馈](docs/workorders/DELIVERY_W4_LIFECYCLE_20261004.md)。
