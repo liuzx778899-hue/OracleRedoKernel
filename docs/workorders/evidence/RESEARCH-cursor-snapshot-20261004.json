@@ -1,0 +1,405 @@
+{
+  "research_source_commit": "140711e6a22faaedc570f22964909842e772d85c",
+  "production_changed": false,
+  "database_actions": 0,
+  "reports": {
+    "positive": {
+      "native_original_nodes": 120,
+      "cross_edges_compared": 15,
+      "mismatches": 0,
+      "errors": [],
+      "edges": [
+        {
+          "position": [
+            26592,
+            16,
+            55
+          ],
+          "predecessor": "37757297:229:33",
+          "snapshot_irb": 33,
+          "cnt_irb_differ": false
+        },
+        {
+          "position": [
+            26592,
+            16,
+            63
+          ],
+          "predecessor": "37757298:229:8",
+          "snapshot_irb": 8,
+          "cnt_irb_differ": false
+        },
+        {
+          "position": [
+            26592,
+            16,
+            71
+          ],
+          "predecessor": "37757299:229:8",
+          "snapshot_irb": 8,
+          "cnt_irb_differ": false
+        },
+        {
+          "position": [
+            26592,
+            16,
+            79
+          ],
+          "predecessor": "37757300:229:8",
+          "snapshot_irb": 8,
+          "cnt_irb_differ": false
+        },
+        {
+          "position": [
+            26592,
+            16,
+            87
+          ],
+          "predecessor": "37757301:229:8",
+          "snapshot_irb": 8,
+          "cnt_irb_differ": false
+        },
+        {
+          "position": [
+            26774,
+            88,
+            2
+          ],
+          "predecessor": "37757302:229:8",
+          "snapshot_irb": 8,
+          "cnt_irb_differ": false
+        },
+        {
+          "position": [
+            26807,
+            300,
+            2
+          ],
+          "predecessor": "37757303:229:8",
+          "snapshot_irb": 8,
+          "cnt_irb_differ": false
+        },
+        {
+          "position": [
+            26841,
+            56,
+            2
+          ],
+          "predecessor": "37748865:230:8",
+          "snapshot_irb": 8,
+          "cnt_irb_differ": false
+        },
+        {
+          "position": [
+            26874,
+            268,
+            2
+          ],
+          "predecessor": "37748866:230:8",
+          "snapshot_irb": 1,
+          "cnt_irb_differ": true
+        },
+        {
+          "position": [
+            26908,
+            16,
+            2
+          ],
+          "predecessor": "37748867:230:8",
+          "snapshot_irb": 1,
+          "cnt_irb_differ": true
+        },
+        {
+          "position": [
+            26941,
+            228,
+            2
+          ],
+          "predecessor": "37748868:230:8",
+          "snapshot_irb": 1,
+          "cnt_irb_differ": true
+        },
+        {
+          "position": [
+            26974,
+            440,
+            2
+          ],
+          "predecessor": "37748869:230:8",
+          "snapshot_irb": 1,
+          "cnt_irb_differ": true
+        },
+        {
+          "position": [
+            27008,
+            176,
+            2
+          ],
+          "predecessor": "37748870:230:8",
+          "snapshot_irb": 1,
+          "cnt_irb_differ": true
+        },
+        {
+          "position": [
+            27041,
+            388,
+            2
+          ],
+          "predecessor": "37748871:230:8",
+          "snapshot_irb": 1,
+          "cnt_irb_differ": true
+        },
+        {
+          "position": [
+            27075,
+            144,
+            2
+          ],
+          "predecessor": "37748872:231:8",
+          "snapshot_irb": 1,
+          "cnt_irb_differ": true
+        }
+      ],
+      "unreferenced_snapshot_pages": [
+        {
+          "dba": 37748873,
+          "header_xid": "0x0001.020.0000025b",
+          "sequence": 231,
+          "cnt": 23
+        }
+      ],
+      "scope": "later predecessor-page sequence/CNT observations corroborate this fixture and reject selector-hole candidate; archive-time consistency and raw-only derivation not certified; cdc_events=0"
+    },
+    "omitted": {
+      "native_original_nodes": 120,
+      "cross_edges_compared": 15,
+      "mismatches": 1,
+      "errors": [
+        {
+          "position": [
+            26592,
+            16,
+            55
+          ],
+          "reason": "SNAPSHOT_CNT_PREDECESSOR_DIFF",
+          "expected": "37757297:229:33",
+          "actual": "37757297:229:32"
+        }
+      ],
+      "edges": [
+        {
+          "position": [
+            26592,
+            16,
+            55
+          ],
+          "predecessor": "37757297:229:33",
+          "snapshot_irb": 33,
+          "cnt_irb_differ": false
+        },
+        {
+          "position": [
+            26592,
+            16,
+            63
+          ],
+          "predecessor": "37757298:229:8",
+          "snapshot_irb": 8,
+          "cnt_irb_differ": false
+        },
+        {
+          "position": [
+            26592,
+            16,
+            71
+          ],
+          "predecessor": "37757299:229:8",
+          "snapshot_irb": 8,
+          "cnt_irb_differ": false
+        },
+        {
+          "position": [
+            26592,
+            16,
+            79
+          ],
+          "predecessor": "37757300:229:8",
+          "snapshot_irb": 8,
+          "cnt_irb_differ": false
+        },
+        {
+          "position": [
+            26592,
+            16,
+            87
+          ],
+          "predecessor": "37757301:229:8",
+          "snapshot_irb": 8,
+          "cnt_irb_differ": false
+        },
+        {
+          "position": [
+            26774,
+            88,
+            2
+          ],
+          "predecessor": "37757302:229:8",
+          "snapshot_irb": 8,
+          "cnt_irb_differ": false
+        },
+        {
+          "position": [
+            26807,
+            300,
+            2
+          ],
+          "predecessor": "37757303:229:8",
+          "snapshot_irb": 8,
+          "cnt_irb_differ": false
+        },
+        {
+          "position": [
+            26841,
+            56,
+            2
+          ],
+          "predecessor": "37748865:230:8",
+          "snapshot_irb": 8,
+          "cnt_irb_differ": false
+        },
+        {
+          "position": [
+            26874,
+            268,
+            2
+          ],
+          "predecessor": "37748866:230:8",
+          "snapshot_irb": 1,
+          "cnt_irb_differ": true
+        },
+        {
+          "position": [
+            26908,
+            16,
+            2
+          ],
+          "predecessor": "37748867:230:8",
+          "snapshot_irb": 1,
+          "cnt_irb_differ": true
+        },
+        {
+          "position": [
+            26941,
+            228,
+            2
+          ],
+          "predecessor": "37748868:230:8",
+          "snapshot_irb": 1,
+          "cnt_irb_differ": true
+        },
+        {
+          "position": [
+            26974,
+            440,
+            2
+          ],
+          "predecessor": "37748869:230:8",
+          "snapshot_irb": 1,
+          "cnt_irb_differ": true
+        },
+        {
+          "position": [
+            27008,
+            176,
+            2
+          ],
+          "predecessor": "37748870:230:8",
+          "snapshot_irb": 1,
+          "cnt_irb_differ": true
+        },
+        {
+          "position": [
+            27041,
+            388,
+            2
+          ],
+          "predecessor": "37748871:230:8",
+          "snapshot_irb": 1,
+          "cnt_irb_differ": true
+        },
+        {
+          "position": [
+            27075,
+            144,
+            2
+          ],
+          "predecessor": "37748872:231:8",
+          "snapshot_irb": 1,
+          "cnt_irb_differ": true
+        }
+      ],
+      "unreferenced_snapshot_pages": [
+        {
+          "dba": 37748873,
+          "header_xid": "0x0001.020.0000025b",
+          "sequence": 231,
+          "cnt": 23
+        }
+      ],
+      "scope": "later predecessor-page sequence/CNT observations corroborate this fixture and reject selector-hole candidate; archive-time consistency and raw-only derivation not certified; cdc_events=0"
+    }
+  },
+  "scope": "later-page corroboration only; no archive-time consistency or raw-only generic chain acceptance",
+  "files": [
+    {
+      "path": "lab/out/research-cursor-snapshot-20261004/compare_cursor_snapshot.py",
+      "bytes": 3591,
+      "sha256": "d3cffe4ac5948310b5cd3fb351b71205abd00dc1fd978a341dfbf571d3ea5c77"
+    },
+    {
+      "path": "lab/out/research-cursor-snapshot-20261004/omitted.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/research-cursor-snapshot-20261004/omitted.stdout.txt",
+      "bytes": 3457,
+      "sha256": "f26b923f4c87422302fcff7fb664823369958d6fb8e7940fab573c0bcf04b548"
+    },
+    {
+      "path": "lab/out/research-cursor-snapshot-20261004/positive.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/research-cursor-snapshot-20261004/positive.stdout.txt",
+      "bytes": 3244,
+      "sha256": "ec61b23039d666cd044afd8fc309840090bb4464ec521a075202fefe3b688aad"
+    },
+    {
+      "path": "lab/out/research-cursor-snapshot-20261004/commands.json",
+      "bytes": 1305,
+      "sha256": "a5638b5af409d06c7e4f02505790ffaef7fae05b5503a3bb7e8c77bb22498ab7"
+    },
+    {
+      "path": "lab/out/oracle19-cross-undo-20261004-r2/dump-10.trc",
+      "bytes": 1435517,
+      "sha256": "1e01ee5700dd6239d330bd0162ff92cf710579fa2e03c1602b5be1dec3479d64"
+    },
+    {
+      "path": "lab/out/oracle19-cross-undo-20261004-r2/undo-blocks.trc",
+      "bytes": 1152865,
+      "sha256": "ee1af94001eabc95beca66f1049c1090c123df9832605709560655a3ccd71325"
+    },
+    {
+      "path": "lab/out/research-cursor-hole-20261004/10-positive.stdout.txt",
+      "bytes": 9474,
+      "sha256": "83b2709a54b73e4eb0a13280e7f57e20a68bd7da8b0541e08f8eec3f980c161c"
+    },
+    {
+      "path": "lab/out/research-cursor-hole-20261004/10-omitted.stdout.txt",
+      "bytes": 9392,
+      "sha256": "26dda9d0185487a8aa974c42a929196dda1686135a86cc930ec1efdb2d321c1e"
+    }
+  ]
+}
