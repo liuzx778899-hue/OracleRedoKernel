@@ -1,0 +1,93 @@
+{
+  "source_commit": "d3f07b326142e5ec6295b8aa03cdf7982039ee3e",
+  "branch": "main",
+  "artifact": {
+    "build_from": "git archive d3f07b3 complete tracked tree",
+    "path": "lab/out/release-begin-compensation/build/target/oracle-redo-kernel-0.1.0-SNAPSHOT.jar",
+    "sha256": "45b516bf9da3959b77e24cd37ee48eb397b6ab13343591b1237c7b51a2f98e7f",
+    "coordinate": "com.streamhouse.oracle:oracle-redo-kernel:0.1.0-SNAPSHOT"
+  },
+  "tests": {
+    "skipped": 0,
+    "failed": 0,
+    "executed": 72
+  },
+  "inputs": [
+    {
+      "thread": "1",
+      "sequence": "8",
+      "first_scn": "2146496",
+      "next_scn": "2149085",
+      "oracle_blocks": "31803",
+      "block_size": "512",
+      "source_path": "/opt/oracle/product/19c/dbhome_1/dbs/arch1_8_1245693159.dbf",
+      "path": "archive-1-8.dbf",
+      "bytes": 16283648,
+      "sha256": "e9ec1dafaedb93c65e2a0dbc7bc0a4f8d492a5cbd350fd46c7a994f2f34a4aae"
+    },
+    {
+      "thread": "1",
+      "sequence": "9",
+      "first_scn": "2149085",
+      "next_scn": "2149123",
+      "oracle_blocks": "20",
+      "block_size": "512",
+      "source_path": "/opt/oracle/product/19c/dbhome_1/dbs/arch1_9_1245693159.dbf",
+      "path": "archive-1-9.dbf",
+      "bytes": 10752,
+      "sha256": "99ea74e7cc2e1f8d89c329179ed16dad2d3633beceb5ac76beb7a91c722a0ba2"
+    }
+  ],
+  "independent_dump_sha256": {
+    "lab/out/oracle19-nosupp-20261004/dump-8.trc": "babfc5a1cc6bdfd4c71ee1083fe7e13bd3036d90bec045c9ef21b830abab140a",
+    "lab/out/oracle19-nosupp-20261004/dump-9.trc": "95ca77b8d60e9ae8549a967345d65abd8cf55282acedfd90ead0e17191dcdd57"
+  },
+  "independent_sql_truth": {
+    "path": "lab/out/oracle19-nosupp-20261004/truth-utf8.txt",
+    "sha256": "c4e9e09fd4deca303f208c0a7a21c2207ed80d75e593d37e4f259b0f552b970d"
+  },
+  "verified_report": {
+    "original_pairs": 18,
+    "compensations_compared": 4,
+    "retained_savepoint_pairs": 1,
+    "begin_compensations": 2,
+    "regular_compensations": 2,
+    "sql_row7_columns_compared": 4,
+    "mismatches": 0,
+    "errors": [],
+    "scope": "5.6/5.11 original association and frozen row7/rolled-back IDs truth; index/full chain/dictionary pending"
+  },
+  "positive_decode_and_comparator_rc": 0,
+  "negative_report": [
+    {
+      "rc": 1,
+      "case": "only_archive_8",
+      "stdout_bytes": 0,
+      "reason": "INCOMPLETE_TRANSACTION_IDENTITIES"
+    },
+    {
+      "rc": 1,
+      "case": "only_archive_9",
+      "stdout_bytes": 0,
+      "reason": "UNDO_WITHOUT_VERIFIED_TRANSACTION_BEGIN"
+    }
+  ],
+  "retained_failure": {
+    "reason": "unit fixture copied one extra zero byte into 5.2; parser refused layout; corrected against raw frozen bytes",
+    "path": "lab/out/transactions19-20261004/build-begin-compensation-r3.txt",
+    "sha256": "50ed36a5868966ba12a72400a7f0475278d3a1929b869f121164ed637f139594"
+  },
+  "scope": "bounded 5.6/5.11 original association; no index/full-chain/schema/baseline/CDC acceptance",
+  "cdc_events": 0,
+  "deployment": "none; offline same frozen input",
+  "evidence_sha256": {
+    "lab/out/release-begin-compensation/build.txt": "2d082160942888ccdeeefaaa0dc9ccd22eb817be6f9dc77640b573b35814d941",
+    "lab/out/release-begin-compensation/compensation.stderr.txt": "9fcaa2da3dbd0ab9f2d3158fc3e692f910b6ceee7097c943173c0b9b253469ba",
+    "lab/out/release-begin-compensation/compensation.txt": "e7031e16ba9f8e554c4ff3f4c8cf3c13a2b217a9c241b9b6c3ba9b30e70e48a2",
+    "lab/out/release-begin-compensation/only-8.stderr.txt": "e7e653185467bf02f3e61a7f543981cc7363f8194d85578a8b3d20710a3bb89a",
+    "lab/out/release-begin-compensation/only-8.stdout.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "lab/out/release-begin-compensation/only-9.stderr.txt": "ccd1cf7fbac424cc5d8a5737d4b64aa85eb52d847c2a5348e73ca293d918a73d",
+    "lab/out/release-begin-compensation/only-9.stdout.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "lab/out/release-begin-compensation/parity.json": "e8f833be81f03b39973a291f7b9216476ab85a356265b6c0241edece9e1fb0a1"
+  }
+}

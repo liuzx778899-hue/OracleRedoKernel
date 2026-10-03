@@ -10,7 +10,7 @@
 | W1 文件/块 scanner | 通过：首批fa61476 | 通过：19c/21c有界样本/5个真实派生反例 | 待证：真实capture | 未开始 | 待证 | 未开始 |
 | W2 record/vector | 通过：首批fa61476 | 通过：19c seq8/9完整dump、21c选定范围 | 待证：事务/字典 | 未开始 | 待证 | 未开始 |
 | W3 基础行/类型 | 进行中：scalar + heap/undo pair | 通过：18精确pair/完整行待证 | 进行中：物理配对；字典/基线待证 | 未开始 | 待证 | 未开始 |
-| W4 事务/回滚 | 进行中：身份/5.6补偿匹配 | 通过：11身份、T007两补偿/保留真值；完整链待证 | 进行中：有界T007；5.11/index/恢复待证 | 未开始 | 待证 | 未开始 |
+| W4 事务/回滚 | 进行中：身份/5.6/5.11匹配 | 通过：11身份、四补偿/保留真值；完整链待证 | 进行中：有界补偿；index/恢复待证 | 未开始 | 待证 | 未开始 |
 | W5 SCN字典/基线 | 未开始 | 待证 | 未开始 | 未开始 | 待证 | 未开始 |
 | W6 StreamHouse接入 | 未开始 | 待证 | 未开始 | 未开始 | 待证 | 未开始 |
 | W7 online采集 | 未开始 | 待证 | 未开始 | 未开始 | 待证 | 未开始 |
@@ -31,6 +31,8 @@
 - 首轮PDB切日志ORA-65040、CDB VLD9/13/marker结构缺口、SQLPlus中文显示与LogMiner status3均保留原文；两会话交叉事务/跨switch动作已执行。细节见[首批反馈](DELIVERY_W0_W2_20261004.md)。
 
 ## 接续与限制
+
+最新：[5.11 begin补偿反馈](DELIVERY_W4_BEGIN_COMPENSATION_20261004.md)，源码d3f07b3，[封存清单](evidence/DELIVERY-d3f07b3.json)。72项测试0失败0跳过；四次5.6/5.11补偿原操作与dump零差异，保留row7四列与SQL字节一致，缺归档反例stdout空。index/完整undo链、恢复及W5仍待证，CDC零发布。
 
 最新：[5.6补偿关联反馈](DELIVERY_W4_COMPENSATION_20261004.md)，源码0c5ff4c，[封存清单](evidence/DELIVERY-0c5ff4c.json)。66项测试0失败0跳过；T007撤销原undo36 INSERT8/35 UPDATE，保留undo33 INSERT7，与dump及SQL row7四列字节零差异。两个缺archive反例均rc1且stdout空。5.11、index/完整undo链、恢复及W5仍待证，CDC零发布。
 
