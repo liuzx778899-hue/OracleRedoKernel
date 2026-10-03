@@ -49,10 +49,11 @@ public final class HeapRowPatch {
         if (fields.size()<2 || (op!=2 && op!=3 && op!=5))
             throw new RedoException("UNSUPPORTED_HEAP_OPCODE_OR_FIELDS");
         byte[] kdo=fields.get(1);
-        int expectedKdo=op == 2 ? 49 : op == 3 ? 20 : 29;
+        boolean packed=op==5 && kdo.length==28 && ((kdo[11]&255)==0x81 || (kdo[11]&255)==0x82);
+        int expectedKdo=op == 2 ? 49 : op == 3 ? 20 : packed ? 28 : 29;
         if (kdo.length != expectedKdo || (kdo[10]&255) != op || u32(kdo,0) != dba)
             throw new RedoException("UNSUPPORTED_KDO_LAYOUT_OR_BLOCK");
-        int xtype=kdo[11]&255;
+        int xtype=(kdo[11]&255)&(packed ? 0x7f : 0xff);
         if (xtype != 1 && xtype != 2) throw new RedoException("UNSUPPORTED_KDO_XTYPE");
         List<Column> columns=new ArrayList<>();
         for (int i=0;i<dictionaryColumns;i++) columns.add(new Column(State.ABSENT,new byte[0]));
@@ -69,6 +70,8 @@ public final class HeapRowPatch {
         } else if (op == 5) {
             kind=Kind.UPDATE; slot=u16(kdo,20);
             int count=kdo[23]&255;
+            if (packed && (count!=1 || u16(kdo,24)!=0 || u16(kdo,26)!=3))
+                throw new RedoException("UNSUPPORTED_KDOM2_UPDATE_LAYOUT");
             if ((kdo[16]&255) != 0x2c || (kdo[22]&255) != dictionaryColumns
                     || fields.size() != count+3 || fields.get(2).length != count*2)
                 throw new RedoException("UNSUPPORTED_UPDATE_ROWPIECE");
@@ -76,7 +79,7 @@ public final class HeapRowPatch {
                 int index=u16(fields.get(2),i*2);
                 if (index >= dictionaryColumns || columns.get(index).state() != State.ABSENT)
                     throw new RedoException("INVALID_UPDATE_COLUMN_MAP");
-                columns.set(index,value(fields.get(i+3)));
+                columns.set(index,value(packed ? extendedPackedValue(fields.get(i+3)) : fields.get(i+3)));
             }
         } else {
             kind=Kind.DELETE; slot=u16(kdo,16);
@@ -87,5 +90,12 @@ public final class HeapRowPatch {
 
     private static Column value(byte[] bytes) {
         return new Column(bytes.length == 0 ? State.NULL : State.VALUE,bytes.clone());
+    }
+
+    /** Observed single-column KDOM2 extended value: 0xfe, little-endian length, exact payload. */
+    private static byte[] extendedPackedValue(byte[] bytes) throws RedoException {
+        if (bytes.length<3 || (bytes[0]&255)!=0xfe || u16(bytes,1)<254 || u16(bytes,1)!=bytes.length-3)
+            throw new RedoException("UNSUPPORTED_KDOM2_VALUE_LENGTH");
+        return java.util.Arrays.copyOfRange(bytes,3,bytes.length);
     }
 }
