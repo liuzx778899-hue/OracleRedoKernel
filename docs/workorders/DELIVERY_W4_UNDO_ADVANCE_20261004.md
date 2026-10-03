@@ -19,3 +19,11 @@
 同期更正[undo快照研究](RESEARCH_W4_UNDO_SNAPSHOT_20261004.md)：0x02400088原始节点已经sequence0xe7，并非事后变化；页头XID不同仅使采用未证身份假设的研究器保守拒绝，不证明页面复用。原执行与拒绝证据保持，错误推论撤回。
 
 六列：控制身份代码交付/针对性验证通过，完整W4集成进行中，部署/发布未开始，现场验收待证。下一步将显式UBA切换、原始节点图和60补偿联合，证明跨块前驱及缺块/缺补偿/错误tail的拒绝；随后推进SCN字典/基线与StreamHouse接入。W4未关闭，目标继续。
+
+## 原始事务cursor的下一项可证伪假设
+
+本轮查阅Oracle19c官方[事务概念](https://docs.oracle.com/en/database/oracle/oracle-database/19/cncpt/transactions.html)确认活跃事务表持有逆应用次序的undo指针；[逻辑存储结构](https://docs.oracle.com/en/database/oracle/oracle-database/19/cncpt/logical-storage-structures.html)说明事务顺序写current undo extent且同extent可并发写入。官方概念未定义这里的5.2 flags0x000a、rci或CNT/IRB二进制映射，不能拿概念文档充当字段验收。
+
+待验证的候选算法：在完整归档record流内维护每个来源/CON/完整XID的原始undo cursor；普通同块rci必须精确命中当前cursor，跨块节点必须有唯一已绑定的5.2新UBA控制，且previous DBA精确匹配旧cursor DBA，才尝试记录旧cursor的完整UBA。不能直接按全局最近vector、DBA最大record、row历史ITL或事后当前页面填前驱。该算法目前未实现/未验收。
+
+下一真实反例fixture应交替更新至少两行并跨块，同时制造保存点撤销；某行历史KTB引用应区别于整个事务上一个undo节点，从而反驳“单行KTB指针就是通用链”的假设。还需混合heap/index、不同完整XID/slot的交错、缺末undo/缺控制/重复控制与整块缺失，证明选定来源输入与全部节点覆盖。seq10只能支撑单行控制观察，不能替代这些验收。
