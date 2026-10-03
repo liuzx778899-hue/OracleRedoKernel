@@ -26,7 +26,7 @@ public final class HeapCompensation {
                 || marker.containerId()!=row.containerId())
             throw new RedoException("COMPENSATION_RECORD_OR_CONTAINER_MISMATCH");
         var c=UndoCompensation.decode(marker);
-        if (c.beginsTransaction()!=(beginXid!=null) || c.opcodeMajor()!=11 || c.opcodeMinor()!=1)
+        if ((c.beginsTransaction() || c.crossesUndoBlock())!=(beginXid!=null) || c.opcodeMajor()!=11 || c.opcodeMinor()!=1)
             throw new RedoException("UNSUPPORTED_HEAP_COMPENSATION_ASSOCIATION");
         var rollback=new HeapRowPatch().decode(row,columns);
         if (rollback.xtype()!=2) throw new RedoException("NOT_HEAP_COMPENSATION_ROW");
@@ -53,6 +53,16 @@ public final class HeapCompensation {
         }
         if (rows!=1) throw new RedoException("AMBIGUOUS_HEAP_COMPENSATION_ROW");
         return match;
+    }
+
+    public static HeapUndoPair matchCross(RedoRecords.Record record,RedoRecords.Vector marker,RedoRecords.Vector row,
+                                         List<HeapUndoPair> history,int columns,TransactionLifecycle state) throws RedoException {
+        try {
+            var xid=state.crossCompensationIdentity(record,marker);
+            var pair=match(record,marker,row,history,columns,xid);
+            state.requireActive(record,pair);
+            return pair;
+        } catch (RedoException e) { state.compensationRefused(); throw e; }
     }
 
     private static boolean sameInverse(HeapRowPatch.Patch a,HeapRowPatch.Patch b) {

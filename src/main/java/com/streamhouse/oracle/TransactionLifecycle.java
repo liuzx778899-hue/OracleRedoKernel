@@ -86,20 +86,28 @@ public final class TransactionLifecycle {
     }
 
     public HeapRowPatch.Xid beginCompensationIdentity(RedoRecords.Record record,RedoRecords.Vector marker) throws RedoException {
+        return segmentCompensationIdentity(record,marker,true);
+    }
+
+    public HeapRowPatch.Xid crossCompensationIdentity(RedoRecords.Record record,RedoRecords.Vector marker) throws RedoException {
+        return segmentCompensationIdentity(record,marker,false);
+    }
+
+    private HeapRowPatch.Xid segmentCompensationIdentity(RedoRecords.Record record,RedoRecords.Vector marker,boolean begin) throws RedoException {
         checkRecord(record);
         try {
             var c=UndoCompensation.decode(marker);
-            if (!c.beginsTransaction() || !record.vectors().contains(marker))
-                refuse("NOT_BEGIN_COMPENSATION_IN_RECORD");
+            if (!(begin ? c.beginsTransaction() : c.crossesUndoBlock()) || !record.vectors().contains(marker))
+                refuse(begin ? "NOT_BEGIN_COMPENSATION_IN_RECORD" : "NOT_CROSS_COMPENSATION_IN_RECORD");
             HeapRowPatch.Xid xid=null;
             for (var entry:pending.entrySet()) {
                 var key=entry.getKey();
                 if (key.uid()!=record.containerUid() || key.container()!=marker.containerId()
                         || key.segment()!=c.dba() || key.slot()!=c.slot()) continue;
-                if (xid!=null) refuse("AMBIGUOUS_BEGIN_COMPENSATION_IDENTITY");
+                if (xid!=null) refuse(begin ? "AMBIGUOUS_BEGIN_COMPENSATION_IDENTITY" : "AMBIGUOUS_CROSS_COMPENSATION_IDENTITY");
                 xid=entry.getValue().identity().xid();
             }
-            if (xid==null) refuse("BEGIN_COMPENSATION_WITHOUT_ACTIVE_IDENTITY");
+            if (xid==null) refuse(begin ? "BEGIN_COMPENSATION_WITHOUT_ACTIVE_IDENTITY" : "CROSS_COMPENSATION_WITHOUT_ACTIVE_IDENTITY");
             return xid;
         } catch (RedoException e) { failed=true; throw e; }
     }

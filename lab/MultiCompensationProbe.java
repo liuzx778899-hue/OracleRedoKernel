@@ -1,0 +1,50 @@
+import com.streamhouse.oracle.*;
+import java.nio.file.Path;
+import java.util.ArrayList;
+import java.util.HashSet;
+
+/** Bounded two-column long-transaction heap matcher; no index effects or accepted cross-block graph. */
+public class MultiCompensationProbe {
+    public static void main(String[] args)throws Exception {
+        Path p=Path.of(args[0]);long object=Long.parseLong(args[1]);String[] x=args[2].split("\\.");
+        var xid=new HeapRowPatch.Xid(Integer.parseInt(x[0]),Integer.parseInt(x[1]),Long.parseLong(x[2]));
+        var header=new ArchivedRedo().scan(p);var state=new TransactionLifecycle();state.archive(header);
+        var history=new ArrayList<HeapUndoPair>();var cancelled=new HashSet<HeapUndoPair>();var output=new ArrayList<String>();
+        int[] ends={0};
+        new RedoRecords().visit(p,header,r->{
+            if(r.containerUid()!=677737149)return;
+            var inverses=new ArrayList<UndoRowPatch>();
+            for(var u:r.vectors())if(HeapMultiProbe.target(u,object) && UndoHeader.decode(u).xid().equals(xid))inverses.add(UndoRowPatch.decode(u,2));
+            for(var v:r.vectors())if(v.containerId()==3 && v.opcodeMajor()==5 && v.opcodeMinor()==2 && v.fields().get(0).length==32) {
+                for(var u:inverses)if(u.identity().beginsTransaction() && UndoAdvanceProbe.word(v.fields().get(0),8)==u.identity().uba().dba()
+                        && UndoAdvanceProbe.half(v.fields().get(0),12)==u.identity().uba().sequence() && (v.fields().get(0)[14]&255)==u.identity().uba().record())state.begin(r,v);
+            }
+            for(var v:r.vectors())if(HeapMultiProbe.target(v,object) && UndoHeader.decode(v).xid().equals(xid))state.undo(r,v);
+            for(var v:r.vectors())if(heap(v) && inverses.stream().anyMatch(u->u.inverse().dba()==v.dba())) {
+                var row=new HeapRowPatch().decode(v,2);if(row.xtype()!=1)continue;
+                var pair=HeapUndoPair.bind(r,v,2);state.requireActive(r,pair);
+                if(!pair.undo().identity().xid().equals(xid))throw new RedoException("MULTI_PAIR_XID_MISMATCH");history.add(pair);
+            }
+            for(var marker:r.vectors())if(marker.containerId()==3 && marker.opcodeMajor()==5 && (marker.opcodeMinor()==6 || marker.opcodeMinor()==11)
+                    && marker.fields().get(0).length>=8 && UndoAdvanceProbe.word(marker.fields().get(0),4)==object) {
+                var rows=new ArrayList<RedoRecords.Vector>();
+                for(var v:r.vectors())if(heap(v) && new HeapRowPatch().decode(v,2).xtype()==2)rows.add(v);
+                if(rows.size()!=1)throw new RedoException("MULTI_XR_ROW_COUNT");
+                var pair=UndoCompensation.decode(marker).crossesUndoBlock()
+                        ? HeapCompensation.matchCross(r,marker,rows.get(0),history,2,state)
+                        : HeapCompensation.match(r,marker,rows.get(0),history,2);state.requireActive(r,pair);
+                int index=history.indexOf(pair);
+                if(index!=history.size()-cancelled.size()-1 || !cancelled.add(pair))throw new RedoException("MULTI_COMPENSATION_SUFFIX_OR_DUPLICATE:rba="+r.block()+":"+r.offset()+":index="+index+":expected="+(history.size()-cancelled.size()-1)+":history="+history.size()+":cancelled="+cancelled.size()+":uba="+UndoCursorProbe.address(pair.undo().identity().uba()));
+                output.add("CANCEL|"+r.block()+"|"+r.offset()+"|"+UndoCursorProbe.address(pair.undo().identity().uba())+"|"+index);
+            }
+            for(var v:r.vectors())if(v.containerId()==3 && v.opcodeMajor()==5 && v.opcodeMinor()==4 && state.knowsEnd(r,v)){state.end(r,v);ends[0]++;}
+        });state.finish();
+        if(history.size()!=120 || cancelled.size()!=60 || ends[0]!=1)throw new RedoException("MULTI_COMPENSATION_COVERAGE_MISMATCH");
+        for(int i=0;i<history.size();i++) {
+            var pair=history.get(i);if(cancelled.contains(pair))continue;
+            output.add("RETAIN|"+UndoCursorProbe.address(pair.undo().identity().uba())+"|"+i+"|"+pair.forward().dba()+"|"+pair.forward().slot()+"|"+HeapUndoPairProbe.cols(pair.forward()));
+        }
+        output.forEach(System.out::println);System.err.println("heap_pairs=120;cancelled_suffix=60;retained_heap_patches=60;cross_block_graph_not_accepted;cdc_events=0");
+    }
+    static boolean heap(RedoRecords.Vector v){return v.containerId()==3 && v.opcodeMajor()==11 && (v.opcodeMinor()==2 || v.opcodeMinor()==3 || v.opcodeMinor()==5);}
+}
