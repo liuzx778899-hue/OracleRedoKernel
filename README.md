@@ -45,3 +45,5 @@ python lab/compare_dump.py <oracle-dump.trc> <records.txt>
 `UndoLink` / `UndoChain`审计包含heap/index节点的同块原始前驱图，九个commit tail读取原生5.4引用，缺节点或分叉等拒绝。原始图含已补偿操作，尚不等于生效集合。11链/32节点及六项派生拒绝见 [原始链反馈](docs/workorders/DELIVERY_W4_UNDO_CHAIN_20261004.md)，跨block规则、index效果和恢复仍待证。
 
 KDOM2目前只支持已观察的单列扩展长度更新，保留XA/XR及缺列状态。[302个长值物理patch证据](docs/workorders/DELIVERY_W3_KDOM2_20261004.md)。`UndoBlockAdvance`与扩展`TransactionEnd`验证显式新UBA和活跃完整身份，前驱链与完整回滚效果另行验收；[15次切换与扩展结束证据](docs/workorders/DELIVERY_W4_UNDO_ADVANCE_20261004.md)。
+
+普通跨块5.11/0x0010补偿由`HeapCompensation.matchCross`绑定活跃完整XID并匹配唯一原undo逆向值；它区别于5.11/0x0c18 begin补偿。三批180补偿含23跨块匹配及多heap block反例见[跨块补偿反馈](docs/workorders/DELIVERY_W4_CROSS_COMPENSATION_20261004.md)。通用跨块原始图、index效果与恢复继续待证，`events`仍拒绝。
