@@ -1,6 +1,6 @@
 # W3物理行变化与W4 undo身份首轮反馈
 
-日期：2026-10-04。执行：本chat Codex。状态：代码交付/有界验证完成，完整DML和事务门禁继续；独立评审待证。
+日期：2026-10-04。执行：本chat Codex。状态：代码交付/有界验证完成，完整DML和事务门禁继续；独立评审待证。源码已推送 `ea709aef7077aefe48be41a3edea45280dc128be`；[同提交树制品与证据清单](evidence/DELIVERY-ea709ae.json)，jar SHA `9e3f3e8b1d96ac1285326a6525c86afd5e0568d13d619f19aff388fd333bb4da`。
 
 ## 新增实现
 
@@ -28,7 +28,7 @@
 
 首轮seq8因KTB L拒绝，研究驱动已经输出前段物理patch，rc1；`patches-8.txt`、stderr及`parity-8.json`保留。驱动输出不可当事件。Oracle dump证明KTB L旧ITL，补齐物理结构后同SHA的`patches-8-r2.txt`与`parity-8-r2.json`零差异。
 
-`lab/out/heap19-20261004/`保存build、patch、undo和parity原文。正式提交/制品/证据hash由后续同提交树交付清单绑定，源码提交与测试日志对应，不把工作树制品默认当正式件。
+`lab/out/heap19-20261004/`保存build、patch、undo和parity原文；`lab/out/release-ea709ae/`是git archive完整树独立重建，同件jar再次运行heap/undo驱动与独立comparator均rc0、零差异。输入SHA已按冻结manifest核对，正式清单绑定各层输出与build SHA。
 
 ## 仍未通过
 

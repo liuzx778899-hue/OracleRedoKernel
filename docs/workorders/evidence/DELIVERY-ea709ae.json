@@ -1,0 +1,88 @@
+{
+  "source_commit": "ea709aef7077aefe48be41a3edea45280dc128be",
+  "branch": "main",
+  "artifact": {
+    "coordinate": "com.streamhouse.oracle:oracle-redo-kernel:0.1.0-SNAPSHOT",
+    "sha256": "9e3f3e8b1d96ac1285326a6525c86afd5e0568d13d619f19aff388fd333bb4da",
+    "path": "lab/out/release-ea709ae/build/target/oracle-redo-kernel-0.1.0-SNAPSHOT.jar",
+    "build_from": "git archive ea709ae complete tracked tree"
+  },
+  "tests": {
+    "executed": 24,
+    "failed": 0,
+    "skipped": 0
+  },
+  "inputs": [
+    {
+      "thread": "1",
+      "sequence": "8",
+      "first_scn": "2146496",
+      "next_scn": "2149085",
+      "oracle_blocks": "31803",
+      "block_size": "512",
+      "source_path": "/opt/oracle/product/19c/dbhome_1/dbs/arch1_8_1245693159.dbf",
+      "path": "archive-1-8.dbf",
+      "bytes": 16283648,
+      "sha256": "e9ec1dafaedb93c65e2a0dbc7bc0a4f8d492a5cbd350fd46c7a994f2f34a4aae"
+    },
+    {
+      "thread": "1",
+      "sequence": "9",
+      "first_scn": "2149085",
+      "next_scn": "2149123",
+      "oracle_blocks": "20",
+      "block_size": "512",
+      "source_path": "/opt/oracle/product/19c/dbhome_1/dbs/arch1_9_1245693159.dbf",
+      "path": "archive-1-9.dbf",
+      "bytes": 10752,
+      "sha256": "99ea74e7cc2e1f8d89c329179ed16dad2d3633beceb5ac76beb7a91c722a0ba2"
+    }
+  ],
+  "verified_reports": [
+    {
+      "patches_compared": 19,
+      "present_columns_compared": 40,
+      "mismatches": 0,
+      "errors": [],
+      "scope": "raw physical patches; absent columns, rollback and commit remain separate gates"
+    },
+    {
+      "patches_compared": 2,
+      "present_columns_compared": 5,
+      "mismatches": 0,
+      "errors": [],
+      "scope": "raw physical patches; absent columns, rollback and commit remain separate gates"
+    },
+    {
+      "undo_headers_compared": 15,
+      "mismatches": 0,
+      "errors": [],
+      "scope": "5.1 identity, not committed transaction acceptance"
+    },
+    {
+      "undo_headers_compared": 3,
+      "mismatches": 0,
+      "errors": [],
+      "scope": "5.1 identity, not committed transaction acceptance"
+    }
+  ],
+  "decode_and_comparator_rc": 0,
+  "scope": "bounded raw heap patch and undo identity; not committed CDC acceptance",
+  "cdc_events": 0,
+  "deployment": "none; offline same frozen input",
+  "evidence_sha256": {
+    "lab/out/release-ea709ae/build.txt": "a7dfe3e3429538f1cbd030151c6aa893385068c684eed1a18619425097062317",
+    "lab/out/release-ea709ae/heap-8.stderr.txt": "914d424b93afb6d58972cb18b9e78a04d73cba94a3e27ff97eb4d7ef243ee903",
+    "lab/out/release-ea709ae/heap-8.txt": "4b1d2485b6028677eec956e9bced8c02fbc48313127efe1606fb902f3671a448",
+    "lab/out/release-ea709ae/heap-9.stderr.txt": "914d424b93afb6d58972cb18b9e78a04d73cba94a3e27ff97eb4d7ef243ee903",
+    "lab/out/release-ea709ae/heap-9.txt": "8f3a9d53a8597f8789412b81facb11a4969a04f4ef92c4f3af376cd964c6324e",
+    "lab/out/release-ea709ae/heap-parity-8.json": "4fbb46d7a94d2f708bdc47677a4ad386ce0e44dffbf9a262ff5daa7b80ba2074",
+    "lab/out/release-ea709ae/heap-parity-9.json": "4c98405fc9604d3e1acc5a65612dc546dbee3ff05aa977dbab6d6993da21214f",
+    "lab/out/release-ea709ae/undo-8.stderr.txt": "50897d1f7f99f14acb2e445a1fec778a2c130a9a04f6b58036ee7385e4a012e0",
+    "lab/out/release-ea709ae/undo-8.txt": "e6ce5ee97c50cc1b5e435f4285db2665f9b6ecf0c61928435eb33d7d10579249",
+    "lab/out/release-ea709ae/undo-9.stderr.txt": "50897d1f7f99f14acb2e445a1fec778a2c130a9a04f6b58036ee7385e4a012e0",
+    "lab/out/release-ea709ae/undo-9.txt": "55a9b7189df2d986a831a2664bcd95dc45cbf7840901756db81f98ff8eaeb9ce",
+    "lab/out/release-ea709ae/undo-parity-8.json": "8dea7bcbd479bc0d0aa7c43ba9d52718e1aaaf5ffcc227841b72a5aa880621bd",
+    "lab/out/release-ea709ae/undo-parity-9.json": "870630b48696125771a234d8b2a7d41b096b80c6a546a988caad4c6ccc71b73c"
+  }
+}
