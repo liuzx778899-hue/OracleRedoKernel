@@ -1,0 +1,94 @@
+{
+  "source_commit": "3418fb921da1b602f22ec3f62dff78df7556bc6e",
+  "branch": "main",
+  "artifact": {
+    "coordinate": "com.streamhouse.oracle:oracle-redo-kernel:0.1.0-SNAPSHOT",
+    "path": "lab/out/release-undo-row/build/target/oracle-redo-kernel-0.1.0-SNAPSHOT.jar",
+    "sha256": "0edd6586347f196f68b0ff9b96467237648e041a3b0b96eb30a52a41089d7f45",
+    "build_from": "git archive 3418fb9 complete tracked tree"
+  },
+  "tests": {
+    "skipped": 0,
+    "failed": 0,
+    "executed": 51
+  },
+  "inputs": [
+    {
+      "thread": "1",
+      "sequence": "8",
+      "first_scn": "2146496",
+      "next_scn": "2149085",
+      "oracle_blocks": "31803",
+      "block_size": "512",
+      "source_path": "/opt/oracle/product/19c/dbhome_1/dbs/arch1_8_1245693159.dbf",
+      "path": "archive-1-8.dbf",
+      "bytes": 16283648,
+      "sha256": "e9ec1dafaedb93c65e2a0dbc7bc0a4f8d492a5cbd350fd46c7a994f2f34a4aae"
+    },
+    {
+      "thread": "1",
+      "sequence": "9",
+      "first_scn": "2149085",
+      "next_scn": "2149123",
+      "oracle_blocks": "20",
+      "block_size": "512",
+      "source_path": "/opt/oracle/product/19c/dbhome_1/dbs/arch1_9_1245693159.dbf",
+      "path": "archive-1-9.dbf",
+      "bytes": 10752,
+      "sha256": "99ea74e7cc2e1f8d89c329179ed16dad2d3633beceb5ac76beb7a91c722a0ba2"
+    }
+  ],
+  "independent_dump_sha256": {
+    "lab/out/oracle19-nosupp-20261004/dump-8.trc": "babfc5a1cc6bdfd4c71ee1083fe7e13bd3036d90bec045c9ef21b830abab140a",
+    "lab/out/oracle19-nosupp-20261004/dump-9.trc": "95ca77b8d60e9ae8549a967345d65abd8cf55282acedfd90ead0e17191dcdd57"
+  },
+  "verified_reports": [
+    {
+      "inverse_patches_compared": 15,
+      "present_columns_compared": 9,
+      "mismatches": 0,
+      "errors": [],
+      "scope": "5.1 physical inverse patches, not complete before rows or event cancellation"
+    },
+    {
+      "inverse_patches_compared": 3,
+      "present_columns_compared": 1,
+      "mismatches": 0,
+      "errors": [],
+      "scope": "5.1 physical inverse patches, not complete before rows or event cancellation"
+    },
+    {
+      "patches_compared": 19,
+      "present_columns_compared": 40,
+      "mismatches": 0,
+      "errors": [],
+      "scope": "raw physical patches; absent columns, rollback and commit remain separate gates"
+    },
+    {
+      "patches_compared": 2,
+      "present_columns_compared": 5,
+      "mismatches": 0,
+      "errors": [],
+      "scope": "raw physical patches; absent columns, rollback and commit remain separate gates"
+    }
+  ],
+  "decode_and_comparator_rc": 0,
+  "scope": "5.1 selected object inverse patches plus existing DBA-specific heap regression; no full before rows or compensation association",
+  "cdc_events": 0,
+  "deployment": "none; offline same frozen inputs",
+  "evidence_sha256": {
+    "lab/out/release-undo-row/build.txt": "568d5a75f512bb514bddeab14cf8821632637aa974835c3ecfa2ef5016f67e86",
+    "lab/out/release-undo-row/heap-8.stderr.txt": "914d424b93afb6d58972cb18b9e78a04d73cba94a3e27ff97eb4d7ef243ee903",
+    "lab/out/release-undo-row/heap-8.txt": "4b1d2485b6028677eec956e9bced8c02fbc48313127efe1606fb902f3671a448",
+    "lab/out/release-undo-row/heap-9.stderr.txt": "914d424b93afb6d58972cb18b9e78a04d73cba94a3e27ff97eb4d7ef243ee903",
+    "lab/out/release-undo-row/heap-9.txt": "8f3a9d53a8597f8789412b81facb11a4969a04f4ef92c4f3af376cd964c6324e",
+    "lab/out/release-undo-row/heap-parity-8.json": "4fbb46d7a94d2f708bdc47677a4ad386ce0e44dffbf9a262ff5daa7b80ba2074",
+    "lab/out/release-undo-row/heap-parity-9.json": "4c98405fc9604d3e1acc5a65612dc546dbee3ff05aa977dbab6d6993da21214f",
+    "lab/out/release-undo-row/undo-parity-8.json": "9f21dbd8743eca17f7a0b850796dcdb3ca25c1e0f1f285c2dda681444338bc7c",
+    "lab/out/release-undo-row/undo-parity-9.json": "09ebc62158c503faef2503a6dfd76a53f6c25afb3e4e11e068328003a9dd4584",
+    "lab/out/release-undo-row/undo-rows-8.stderr.txt": "48fe61a2af7e4aa67826345fd21f1f42765439f896ee5512ab3c114c9b161cb4",
+    "lab/out/release-undo-row/undo-rows-8.txt": "ff2b5169489e31c05189e3af6506aea91ae48853f3b164a82c80282224dd30f3",
+    "lab/out/release-undo-row/undo-rows-9.stderr.txt": "48fe61a2af7e4aa67826345fd21f1f42765439f896ee5512ab3c114c9b161cb4",
+    "lab/out/release-undo-row/undo-rows-9.txt": "a743e9424d23e312b989f525ede746a66de8687a874de73a181ffccdf0043125"
+  }
+}

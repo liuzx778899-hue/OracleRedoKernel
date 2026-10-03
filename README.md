@@ -35,3 +35,5 @@ python lab/compare_dump.py <oracle-dump.trc> <records.txt>
 `TransactionStart.bindBegin(record)`按CON_ID和精确UBA绑定同record唯一5.1 begin，再核对slot/sequence读取完整XID。缺失、多义、容器或身份错配拒绝；11个目标表真实起点对账见 [起点反馈](docs/workorders/DELIVERY_W4_BEGIN_20261004.md)。仍没有完整事务事件出口。
 
 `TransactionLifecycle`维护来源、归档连续性和目标事务身份闭合，拒绝后锁定实例。`ClosedIdentity`仅含身份及begin/end record SCN，不授权行事件或savepoint撤销。11个真实身份闭合与3个缺失/重复归档拒绝见 [生命周期反馈](docs/workorders/DELIVERY_W4_LIFECYCLE_20261004.md)。
+
+`UndoRowPatch`支持有界5.1 heap逆向KDO；真实XID来自undo header，历史KTB不作当前身份。UPDATE旧值只限改列，缺列保留ABSENT；尚不等于完整before行或已撤销事件。[18个真实逆向片段及正向回归证据](docs/workorders/DELIVERY_W3_UNDO_ROW_20261004.md)。
