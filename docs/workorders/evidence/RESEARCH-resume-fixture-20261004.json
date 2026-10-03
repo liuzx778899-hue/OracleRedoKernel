@@ -1,0 +1,409 @@
+{
+  "source_commit": "e322007198e666909ad5048f4f6a16bad09153b2",
+  "source_actions_rc": 0,
+  "container": "oraredo-19c-lab-20261004",
+  "supplemental_logging": "OFF",
+  "fixture": "60 keep updates, savepoint, 60 discarded updates, rollback to savepoint, 10 resumed updates, commit; dedicated table only",
+  "source_transaction": "10.2.1163",
+  "baseline_transaction": "10.17.1164",
+  "data_object_id": 73049,
+  "index_object_id": 73050,
+  "heap_blocks": {
+    "1": {
+      "relative_file": 12,
+      "block": 197,
+      "slot": 0
+    },
+    "20": {
+      "relative_file": 12,
+      "block": 199,
+      "slot": 5
+    }
+  },
+  "manifest": {
+    "source_id": "oraredo-19c-lab-20261004",
+    "start_scn": 2165398,
+    "end_scn": 2165454,
+    "supplemental_logging": "OFF",
+    "files": [
+      {
+        "thread": 1,
+        "sequence": 13,
+        "first_scn": 2161538,
+        "next_scn": 2165458,
+        "oracle_blocks": 11198,
+        "block_size": 512,
+        "source_path": "/opt/oracle/product/19c/dbhome_1/dbs/arch1_13_1245693159.dbf",
+        "path": "archive-1-13.dbf",
+        "bytes": 5733888,
+        "sha256": "0b005d2ca6c63811564ca73d35e22ea611ce19ff14feaee4ae93f2da49dd05b3"
+      }
+    ]
+  },
+  "analysis": {
+    "inventory_parity": {
+      "native_nodes": 130,
+      "parser_nodes": 130,
+      "mismatches": 0,
+      "errors": [],
+      "scope": "selected 5.1 full raw input location/UBA/reference coverage; no full cross-block predecessor or transaction acceptance"
+    },
+    "heap_compensation": {
+      "original_heap_pairs": 130,
+      "cancelled_heap_patches": 60,
+      "cross_block_compensations": 8,
+      "retained_heap_patches": 70,
+      "mismatches": 0,
+      "errors": [],
+      "final_sql_rows_compared": 2,
+      "scope": "bounded metadata and exact restored/retained column bytes; full cross-block predecessor graph, index and recovery unaccepted"
+    },
+    "old_regressions": [
+      {
+        "original_heap_pairs": 120,
+        "cancelled_heap_patches": 60,
+        "cross_block_compensations": 8,
+        "retained_heap_patches": 60,
+        "mismatches": 0,
+        "errors": [],
+        "final_sql_rows_compared": 0,
+        "scope": "bounded metadata and exact restored/retained column bytes; full cross-block predecessor graph, index and recovery unaccepted"
+      },
+      {
+        "original_heap_pairs": 120,
+        "cancelled_heap_patches": 60,
+        "cross_block_compensations": 8,
+        "retained_heap_patches": 60,
+        "mismatches": 0,
+        "errors": [],
+        "final_sql_rows_compared": 0,
+        "scope": "bounded metadata and exact restored/retained column bytes; full cross-block predecessor graph, index and recovery unaccepted"
+      },
+      {
+        "original_heap_pairs": 120,
+        "cancelled_heap_patches": 60,
+        "cross_block_compensations": 7,
+        "retained_heap_patches": 60,
+        "mismatches": 0,
+        "errors": [],
+        "final_sql_rows_compared": 0,
+        "scope": "bounded metadata and exact restored/retained column bytes; full cross-block predecessor graph, index and recovery unaccepted"
+      }
+    ],
+    "first_resumed_original": [
+      "NODE",
+      "13",
+      "11153",
+      "352",
+      "2",
+      "37760278:242:3",
+      "37760270",
+      "0",
+      "11.1"
+    ],
+    "initial_kept_tail": "37760270:242:6",
+    "last_original_before_rollback": "37760278:242:2",
+    "distinct_original_uba": 130,
+    "native_resume_controls": [
+      {
+        "header": "CHANGE #1 CON_ID:3 TYP:0 CLS:35 AFN:11 DBA:0x02400110 OBJ:4294967295 SCN:0x0000000000210ac6 SEQ:24 OP:5.2 ENC:0 RBL:0 FLG:0x0000",
+        "description": "ktudh redo: slt: 0x0002 sqn: 0x00000000 flg: 0x0002 siz: 988 fbi: 83\n            uba: 0x02402d16.00f2.03    pxid:  0x0000.000.00000000"
+      }
+    ],
+    "old_cursor": {
+      "rc": 1,
+      "stdout_bytes": 0,
+      "reason": "CURSOR_CROSS_BLOCK_DBA_MISMATCH"
+    },
+    "old_compensation": {
+      "rc": 1,
+      "stdout_bytes": 0,
+      "reason": "MULTI_COMPENSATION_COVERAGE_MISMATCH"
+    },
+    "events": {
+      "rc": 1,
+      "stdout_bytes": 0
+    },
+    "acceptance": "bounded physical heap compensation/native+SQL parity only; complete graph and new flg=2 control decoding not accepted"
+  },
+  "files": [
+    {
+      "path": "lab/out/oracle19-resume-undo-20261004/archive-1-13.dbf",
+      "bytes": 5733888,
+      "sha256": "0b005d2ca6c63811564ca73d35e22ea611ce19ff14feaee4ae93f2da49dd05b3"
+    },
+    {
+      "path": "lab/out/oracle19-resume-undo-20261004/binding.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle19-resume-undo-20261004/binding.stdout.txt",
+      "bytes": 85,
+      "sha256": "a5de9b75537e24a07023fdd281893ab2558ba0adb73f1a4fce9103e77ccfe5ee"
+    },
+    {
+      "path": "lab/out/oracle19-resume-undo-20261004/capture-13.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle19-resume-undo-20261004/capture-13.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle19-resume-undo-20261004/checkpoint-before-analysis.json",
+      "bytes": 5952,
+      "sha256": "4e97ffeff031901bf98065d7e31ea82f0ba72d26b24b753b9f27389913d14ef2"
+    },
+    {
+      "path": "lab/out/oracle19-resume-undo-20261004/commands.jsonl",
+      "bytes": 3760,
+      "sha256": "72602141f0fbcd17dbe95a79b8f06943037be0b1526f4168ab2af16af639c4ff"
+    },
+    {
+      "path": "lab/out/oracle19-resume-undo-20261004/copy-script.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle19-resume-undo-20261004/copy-script.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle19-resume-undo-20261004/dump-13.trc",
+      "bytes": 23744541,
+      "sha256": "e50aca3aa7f6edce6ab460cf6fd3d87e9afd23feb92edb5f160d466a7e777ce0"
+    },
+    {
+      "path": "lab/out/oracle19-resume-undo-20261004/dump-copy.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle19-resume-undo-20261004/dump-copy.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle19-resume-undo-20261004/dump-trace-copy.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle19-resume-undo-20261004/dump-trace-copy.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle19-resume-undo-20261004/dump.sql",
+      "bytes": 344,
+      "sha256": "cdf602ea39af68cab88271d9e92dbb884dd7a05828f5e258bc388011bb7d8cda"
+    },
+    {
+      "path": "lab/out/oracle19-resume-undo-20261004/dump.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle19-resume-undo-20261004/dump.stdout.txt",
+      "bytes": 142,
+      "sha256": "2255d6eddd6b11a1e244eeaa943bf890c791cd86592ebc0007a934e5b1d17f14"
+    },
+    {
+      "path": "lab/out/oracle19-resume-undo-20261004/executed-fixture.sql",
+      "bytes": 4251,
+      "sha256": "8063ce6d6b6d0c22fe7934dbfbe08439dc5fd95ae62962389158481dbbbdd7eb"
+    },
+    {
+      "path": "lab/out/oracle19-resume-undo-20261004/executed-script.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle19-resume-undo-20261004/executed-script.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle19-resume-undo-20261004/fixture.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle19-resume-undo-20261004/fixture.stdout.txt",
+      "bytes": 74608,
+      "sha256": "2f98df62d7f3f7097f5739c6082342f02f35da141e14f5e2801d3d5e8b49425a"
+    },
+    {
+      "path": "lab/out/oracle19-resume-undo-20261004/inventory-parity.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle19-resume-undo-20261004/inventory-parity.stdout.txt",
+      "bytes": 224,
+      "sha256": "82b4d87974647b4ab03986492f44a998c86cfa1a60c3da2e3e731dd5ec63be94"
+    },
+    {
+      "path": "lab/out/oracle19-resume-undo-20261004/inventory.stderr.txt",
+      "bytes": 138,
+      "sha256": "3989231104a61ab75df685b36becb2a3d7d5ea64c0be6cff5ff88243302e3bcf"
+    },
+    {
+      "path": "lab/out/oracle19-resume-undo-20261004/inventory.stdout.txt",
+      "bytes": 5962,
+      "sha256": "a09605f48e59cf669c68d8101ec3f65710c2cebaef9d7b788a952d126a8c09ee"
+    },
+    {
+      "path": "lab/out/oracle19-resume-undo-20261004/manifest.json",
+      "bytes": 550,
+      "sha256": "f0840a6a22b9de821d926c0c667e5cb273a1f1c06e26f39451715b44afac53ae"
+    },
+    {
+      "path": "lab/out/oracle19-resume-undo-20261004/old-compensation.stderr.txt",
+      "bytes": 168,
+      "sha256": "f63910b73a92461b25ed4083f9acd91aef894358c2c554b54e4412458e684a68"
+    },
+    {
+      "path": "lab/out/oracle19-resume-undo-20261004/old-compensation.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle19-resume-undo-20261004/old-cursor.stderr.txt",
+      "bytes": 276,
+      "sha256": "966f2bb54dce3959bc820b5b8a0be586bf73b84d631d94b90139f9435c526c2a"
+    },
+    {
+      "path": "lab/out/oracle19-resume-undo-20261004/old-cursor.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle19-resume-undo-20261004/truth.json",
+      "bytes": 74400,
+      "sha256": "d1cd1db212b177f59bebcfac274ee29b90fd9b58b5a9d6ab22776618d2e0a83e"
+    },
+    {
+      "path": "lab/out/research-resume-undo-20261004/10-compensation.stderr.txt",
+      "bytes": 105,
+      "sha256": "1473a233d5fbda6eed4260516a8ee47867bd8a9afaeb1221fa5add4aa7d8d22c"
+    },
+    {
+      "path": "lab/out/research-resume-undo-20261004/10-compensation.stdout.txt",
+      "bytes": 113281,
+      "sha256": "e1c9fffe05f7c3930743affaa6a9001300ef4e92e7f64caf7a08dbbffec770ef"
+    },
+    {
+      "path": "lab/out/research-resume-undo-20261004/10-native-parity.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/research-resume-undo-20261004/10-native-parity.stdout.txt",
+      "bytes": 346,
+      "sha256": "8d34de8ff82a33b88df2e30817ac87974d191acf8f1a9e6aa5cea10987d41107"
+    },
+    {
+      "path": "lab/out/research-resume-undo-20261004/11-compensation.stderr.txt",
+      "bytes": 105,
+      "sha256": "1473a233d5fbda6eed4260516a8ee47867bd8a9afaeb1221fa5add4aa7d8d22c"
+    },
+    {
+      "path": "lab/out/research-resume-undo-20261004/11-compensation.stdout.txt",
+      "bytes": 113223,
+      "sha256": "a22fb9616d83273d1acf42a5595d52a609de5e0570d6aa726ff433da25fd5fd8"
+    },
+    {
+      "path": "lab/out/research-resume-undo-20261004/11-native-parity.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/research-resume-undo-20261004/11-native-parity.stdout.txt",
+      "bytes": 346,
+      "sha256": "8d34de8ff82a33b88df2e30817ac87974d191acf8f1a9e6aa5cea10987d41107"
+    },
+    {
+      "path": "lab/out/research-resume-undo-20261004/12-compensation.stderr.txt",
+      "bytes": 105,
+      "sha256": "1473a233d5fbda6eed4260516a8ee47867bd8a9afaeb1221fa5add4aa7d8d22c"
+    },
+    {
+      "path": "lab/out/research-resume-undo-20261004/12-compensation.stdout.txt",
+      "bytes": 113160,
+      "sha256": "1b7d6e4e72983198d200944d6a3bb757df5cc8b920bfaddfc8d126747901dcf2"
+    },
+    {
+      "path": "lab/out/research-resume-undo-20261004/12-native-parity.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/research-resume-undo-20261004/12-native-parity.stdout.txt",
+      "bytes": 346,
+      "sha256": "0e318e5a43cb691bd4d049bec7a766696c3afdc1c064e29486a840ae3bf119c1"
+    },
+    {
+      "path": "lab/out/research-resume-undo-20261004/commands.json",
+      "bytes": 6132,
+      "sha256": "5305169e5c9aa0b65dd2776f6170cdda3dee445369d173b93ccd2cb4aa5183f6"
+    },
+    {
+      "path": "lab/out/research-resume-undo-20261004/compile.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/research-resume-undo-20261004/compile.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/research-resume-undo-20261004/events.stderr.txt",
+      "bytes": 349,
+      "sha256": "4fb7ac21472dca381bbb6b722dba13649510eb1710ee4f7b8786c61cc4791ce7"
+    },
+    {
+      "path": "lab/out/research-resume-undo-20261004/events.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/research-resume-undo-20261004/resume-compensation.stderr.txt",
+      "bytes": 105,
+      "sha256": "61fcf20eb37aeb45af09d2466608f3f08cd3e49f5e09c94a17e840e0ff5a6146"
+    },
+    {
+      "path": "lab/out/research-resume-undo-20261004/resume-compensation.stdout.txt",
+      "bytes": 131813,
+      "sha256": "a247de7abf7aaa1b0747579ef01564e509b5e98ffd66c1ea0fb6e293ce97074a"
+    },
+    {
+      "path": "lab/out/research-resume-undo-20261004/resume-native-parity.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/research-resume-undo-20261004/resume-native-parity.stdout.txt",
+      "bytes": 346,
+      "sha256": "c4115b28a32bf8af791ab06f0ad4924f9da703ab867a431ddf9f718096d02731"
+    },
+    {
+      "path": "lab/out/research-resume-undo-20261004/source/compare_multi_compensation.py",
+      "bytes": 6332,
+      "sha256": "755eaf8ae30bebbabb360662e00b6e215fd6cdef590eaf085a720dd326a5712c"
+    },
+    {
+      "path": "lab/out/research-resume-undo-20261004/source/MultiCompensationProbe.java",
+      "bytes": 4652,
+      "sha256": "9d49f95b139ddf325f8174d7c73365076ca6e0bfc10ca8d8d55da6c78c7035b6"
+    }
+  ],
+  "research_source_commit": "ea0e0d8a7a5b110c9067d1e98367652a90f3d742",
+  "production_source_commit": "9ffc19b42bdd8e88c7e44887eecaf844b3ff359a",
+  "jar_sha256": "501b19f7a47ef45f3007d0ca4d2c7764725d18a0441c08fb7cbb0e9c7cc47125"
+}

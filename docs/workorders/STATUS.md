@@ -32,6 +32,8 @@
 
 ## 接续与限制
 
+最新研究：[rollback后继续写入](RESEARCH_W4_RESUMED_WRITE_20261004.md)，fixture e322007、研究driver ea0e0d8。[清单](evidence/RESEARCH-resume-fixture-20261004.json)封存seq13/XID10.2.1163。130原始节点、60补偿含8跨块、70保留patch与native零差异，最终两行SQL字节通过；旧三批补偿回归零差异。首次resume使用5.2/0x0002及原分配块record3，prev DBA指向保留head，旧cursor保守拒绝。生产内核未改，完整图/index/新控制/恢复继续待证，CDC零发布。
+
 最新：[原始undo选择覆盖反馈](DELIVERY_W4_UNDO_INVENTORY_20261004.md)，源码9ffc19b，[封存清单](evidence/DELIVERY-9ffc19b.json)。98项测试全通过；内核自己遍历归档生成360个目标5.1节点清单，与native零差异；三个真实漏项选择均rc1、stdout空，三个完整选择通过。同件jar180补偿及旧18pair/4补偿回归通过。覆盖仅限给定输入中的目标5.1，不证明事务图/所有相关opcode/块generation或恢复；CDC继续拒绝。
 
 最新研究：[独立前驱页CNT佐证](RESEARCH_W4_CURSOR_SNAPSHOT_20261004.md)，源码140711e。既有seq10的15个跨块前驱页sequence/CNT与完整cursor零差异，缺节点cursor的首条边被独立页值拒绝。第16页不被跨块previous DBA引用且身份不同，明确保留而不认证。无新数据库动作；事后页面时间一致性/通用raw块覆盖仍待证，生产制品与CDC拒绝门禁不变。
