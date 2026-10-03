@@ -34,6 +34,8 @@
 
 最新：[KDOM2与跨块样本反馈](DELIVERY_W3_KDOM2_20261004.md)，源码6985d9c，[封存清单](evidence/DELIVERY-6985d9c.json)。82项测试0失败0跳过；302个长值正向/逆向物理patch与native dump零差异，末XR与SQL keep-060值一致；6项真实派生反例+15真实跨块入口拒绝。长事务1.1.604跨16块，跨块链接/完整保留集合尚未验收。原seq8/9的18pair同件jar回归通过。此前11原始同块链/32节点与四heap补偿证据继续有效。W5及集成仍待证，CDC零发布。
 
+补充：[事后undo快照拒绝研究](RESEARCH_W4_UNDO_SNAPSHOT_20261004.md)。只读16块dump中，0x02400089完整XID与归档长事务不符；0x02400088 sequence也已变化。native研究审计rc1、stdout空。不能用事后undo当前页补历史前驱，正式制品不变，继续从raw归档论证跨块链。
+
 最新：[5.11 begin补偿反馈](DELIVERY_W4_BEGIN_COMPENSATION_20261004.md)，源码d3f07b3，[封存清单](evidence/DELIVERY-d3f07b3.json)。72项测试0失败0跳过；四次5.6/5.11补偿原操作与dump零差异，保留row7四列与SQL字节一致，缺归档反例stdout空。index/完整undo链、恢复及W5仍待证，CDC零发布。
 
 最新：[5.6补偿关联反馈](DELIVERY_W4_COMPENSATION_20261004.md)，源码0c5ff4c，[封存清单](evidence/DELIVERY-0c5ff4c.json)。66项测试0失败0跳过；T007撤销原undo36 INSERT8/35 UPDATE，保留undo33 INSERT7，与dump及SQL row7四列字节零差异。两个缺archive反例均rc1且stdout空。5.11、index/完整undo链、恢复及W5仍待证，CDC零发布。

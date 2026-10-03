@@ -1,0 +1,53 @@
+{
+  "parser_source_commit": "6985d9c19a17cf9c9cf281f28dcf336cc56c7df4",
+  "files": [
+    {
+      "path": "lab/out/oracle19-cross-undo-20261004-r2/dump-undo-blocks.sql",
+      "sha256": "a61cf157cb81639aa150dab3e1c4011d0b2a5d70f44af7e448d7f020206c6d02",
+      "bytes": 396
+    },
+    {
+      "path": "lab/out/oracle19-cross-undo-20261004-r2/dump-undo-blocks.stdout.txt",
+      "sha256": "a25401ca507818c2c8da509a5f00341b2f79d2bb0358ce8acae0ab9c00e9d810",
+      "bytes": 137
+    },
+    {
+      "path": "lab/out/oracle19-cross-undo-20261004-r2/dump-undo-blocks.stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": "lab/out/oracle19-cross-undo-20261004-r2/undo-blocks.trc",
+      "sha256": "ee1af94001eabc95beca66f1049c1090c123df9832605709560655a3ccd71325",
+      "bytes": 1152865
+    },
+    {
+      "path": "lab/out/oracle19-cross-undo-20261004-r2/undo-block-snapshot-audit.json",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": "lab/out/oracle19-cross-undo-20261004-r2/undo-block-snapshot-audit.stderr.txt",
+      "sha256": "36a3a792ff2663135358daa868b69a7b36ad10fc53ad1a61cb9074a6f6d18e2d",
+      "bytes": 341
+    },
+    {
+      "path": "lab/out/oracle19-cross-undo-20261004-r2/undo-block-snapshot-audit-r2.json",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": "lab/out/oracle19-cross-undo-20261004-r2/undo-block-snapshot-audit-r2.stderr.txt",
+      "sha256": "61cf083f371929d3c7cecb943ec4fd1874a9d42cc0c932af9fcad101bcd5dc0d",
+      "bytes": 366
+    }
+  ],
+  "reason": "selected snapshot full XID changed: DBA=0x02400089 expected=0x0001.001.0000025c actual=0x0001.020.0000025b",
+  "stdout_bytes": 0,
+  "audit_rc": 1,
+  "sql_rc": 0,
+  "cdc_events": 0,
+  "source_id": "oraredo-19c-lab-20261004",
+  "research_source_commit": "4b833d78317c17ef4d25fd22309848b445f25b43",
+  "actions": "diagnostic datafile block dump only; no DDL/DML"
+}
