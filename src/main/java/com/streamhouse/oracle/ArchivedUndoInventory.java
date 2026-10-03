@@ -1,0 +1,66 @@
+package com.streamhouse.oracle;
+
+import java.io.IOException;
+import java.nio.file.Path;
+import java.util.ArrayList;
+import java.util.List;
+import static com.streamhouse.oracle.RedoBytes.*;
+
+/** Complete selected 5.1 inventory from frozen archives. Not a transaction graph or event authorization. */
+public final class ArchivedUndoInventory {
+    public record Position(long archiveSequence,long block,int offset,int vector) {}
+    public record Entry(Position position,UndoHeader identity,int opcodeMajor,int opcodeMinor,long previousDba,int rci) {}
+    private final List<ArchivedRedo.Header> sources;
+    private final List<Entry> entries;
+
+    private ArchivedUndoInventory(List<ArchivedRedo.Header> sources,List<Entry> entries) {
+        this.sources=List.copyOf(sources);this.entries=List.copyOf(entries);
+    }
+
+    /** Owns the complete record traversal; callers cannot certify a supplied vector subset. */
+    public static ArchivedUndoInventory read(List<Path> archives,long containerUid,long containerId,HeapRowPatch.Xid xid) throws IOException {
+        if (archives.isEmpty()) throw new RedoException("NO_ARCHIVE_INPUT");
+        var scanner=new ArchivedRedo();var continuity=new TransactionLifecycle();
+        var sources=new ArrayList<ArchivedRedo.Header>();var entries=new ArrayList<Entry>();
+        for (var path:archives) {
+            var header=scanner.scan(path);continuity.archive(header);
+            new RedoRecords().visit(path,header,record->{
+                if (record.containerUid()!=containerUid) return;
+                for (int index=0;index<record.vectors().size();index++) {
+                    var vector=record.vectors().get(index);
+                    if (vector.containerId()!=containerId || vector.opcodeMajor()!=5 || vector.opcodeMinor()!=1) continue;
+                    // An unreadable identity in the requested container cannot safely be excluded.
+                    if (vector.fields().isEmpty() || vector.fields().get(0).length!=20)
+                        throw new RedoException("UNREADABLE_UNDO_INVENTORY_IDENTITY");
+                    byte[] b=vector.fields().get(0);
+                    var identity=new HeapRowPatch.Xid(u16(b,8),u16(b,10),u32(b,12));
+                    if (!identity.equals(xid)) continue;
+                    if (record.scn()<header.firstScn() || record.scn()>=header.nextScn())
+                        throw new RedoException("UNDO_INVENTORY_RECORD_OUTSIDE_ARCHIVE_SCN");
+                    var undo=UndoHeader.decode(vector);byte[] metadata=vector.fields().get(1);
+                    if (undo.uba().record()==0 || (metadata[18]&255)!=xid.slot())
+                        throw new RedoException("UNDO_INVENTORY_ADDRESS_OR_SLOT_MISMATCH");
+                    long previous=u32(metadata,12);int rci=metadata[19]&255;
+                    if (undo.beginsTransaction() ? previous!=0 || rci!=0 || u16(metadata,22)!=1
+                            : u16(metadata,22)!=(xid.sequence()&0xffff) || (previous==0 ? rci==0 : rci!=0))
+                        throw new RedoException("UNDO_INVENTORY_METADATA_LINK_MISMATCH");
+                    entries.add(new Entry(new Position(header.sequence(),record.block(),record.offset(),index+1),undo,
+                            metadata[16]&255,metadata[17]&255,previous,rci));
+                }
+            });
+            if (!header.equals(scanner.scan(path))) throw new RedoException("UNDO_INVENTORY_INPUT_CHANGED");
+            sources.add(header);
+        }
+        if (entries.isEmpty()) throw new RedoException("TARGET_UNDO_NOT_FOUND");
+        return new ArchivedUndoInventory(sources,entries);
+    }
+
+    public List<ArchivedRedo.Header> sources() { return sources; }
+    public List<Entry> entries() { return entries; }
+
+    /** Exact position/order coverage only; a pass does not prove links, commit, or surviving effects. */
+    public void requireCompleteSelection(List<Position> selected) throws RedoException {
+        if (!entries.stream().map(Entry::position).toList().equals(selected))
+            throw new RedoException("UNDO_INVENTORY_SELECTION_INCOMPLETE_OR_REORDERED");
+    }
+}
