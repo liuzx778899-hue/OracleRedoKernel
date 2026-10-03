@@ -1,0 +1,92 @@
+{
+  "source_commit": "3e1b5bc5bf562455c9e5540aa3ad0e9663be079d",
+  "branch": "main",
+  "artifact": {
+    "coordinate": "com.streamhouse.oracle:oracle-redo-kernel:0.1.0-SNAPSHOT",
+    "sha256": "baad88ceb363af04ea62488b339c3860dd9a1f87047b0a69293a46e5d9368fcc",
+    "build_from": "git archive 3e1b5bc complete tracked tree",
+    "path": "lab/out/release-pair/build/target/oracle-redo-kernel-0.1.0-SNAPSHOT.jar"
+  },
+  "tests": {
+    "failed": 0,
+    "skipped": 0,
+    "executed": 57
+  },
+  "inputs": [
+    {
+      "thread": "1",
+      "sequence": "8",
+      "first_scn": "2146496",
+      "next_scn": "2149085",
+      "oracle_blocks": "31803",
+      "block_size": "512",
+      "source_path": "/opt/oracle/product/19c/dbhome_1/dbs/arch1_8_1245693159.dbf",
+      "path": "archive-1-8.dbf",
+      "bytes": 16283648,
+      "sha256": "e9ec1dafaedb93c65e2a0dbc7bc0a4f8d492a5cbd350fd46c7a994f2f34a4aae"
+    },
+    {
+      "thread": "1",
+      "sequence": "9",
+      "first_scn": "2149085",
+      "next_scn": "2149123",
+      "oracle_blocks": "20",
+      "block_size": "512",
+      "source_path": "/opt/oracle/product/19c/dbhome_1/dbs/arch1_9_1245693159.dbf",
+      "path": "archive-1-9.dbf",
+      "bytes": 10752,
+      "sha256": "99ea74e7cc2e1f8d89c329179ed16dad2d3633beceb5ac76beb7a91c722a0ba2"
+    }
+  ],
+  "independent_dump_sha256": {
+    "lab/out/oracle19-nosupp-20261004/dump-8.trc": "babfc5a1cc6bdfd4c71ee1083fe7e13bd3036d90bec045c9ef21b830abab140a",
+    "lab/out/oracle19-nosupp-20261004/dump-9.trc": "95ca77b8d60e9ae8549a967345d65abd8cf55282acedfd90ead0e17191dcdd57"
+  },
+  "verified_reports": [
+    {
+      "pairs_compared": 15,
+      "forward_present_columns": 39,
+      "inverse_present_columns": 9,
+      "mismatches": 0,
+      "errors": [],
+      "scope": "selected same-record forward/inverse pairs; no complete rows or compensation cancellation"
+    },
+    {
+      "pairs_compared": 3,
+      "forward_present_columns": 9,
+      "inverse_present_columns": 1,
+      "mismatches": 0,
+      "errors": [],
+      "scope": "selected same-record forward/inverse pairs; no complete rows or compensation cancellation"
+    }
+  ],
+  "decode_and_comparator_rc": 0,
+  "derived_negative_report": {
+    "harness_rc": 0,
+    "seed": "archive8 record30679/360",
+    "cases": [
+      "missing_undo|REFUSED|MISSING_ROW_UNDO_UBA",
+      "duplicate_undo|REFUSED|AMBIGUOUS_ROW_UNDO_UBA",
+      "duplicate_row|REFUSED|AMBIGUOUS_FORWARD_ROW_UBA",
+      "inverse_slot_poison|REFUSED|ROW_UNDO_OPERATION_POSITION_OR_XID_MISMATCH",
+      "forward_xid_poison|REFUSED|ROW_UNDO_OPERATION_POSITION_OR_XID_MISMATCH",
+      "restored_xr_pointer|REFUSED|NOT_FORWARD_ROW_UNDO_REFERENCE"
+    ],
+    "scope": "in-memory real-record derivatives, not new Oracle-executed cases or file integrity tests",
+    "passed": 6
+  },
+  "scope": "same-record selected forward/inverse patch association; no complete row reconstruction, active-state integration or compensation cancellation",
+  "cdc_events": 0,
+  "deployment": "none; offline same frozen inputs",
+  "evidence_sha256": {
+    "lab/out/release-pair/build.txt": "3cfe15db444609b8516a3630cc53c6f46a815527cd2d423bca458530afaceb39",
+    "lab/out/release-pair/negative.stderr.txt": "c6bd7e1c301378263e54c70a987fe6863ae4b1ab9c3eb9eb660dd78c4e628a52",
+    "lab/out/release-pair/negative.txt": "6c3d459a0565b9dc172e4968f6cf13ecbe64fc88aaeec5e382ef39760ded1460",
+    "lab/out/release-pair/pairs-8.stderr.txt": "0e3c1ac9fa447b3b795653a8b1d5f756e3d343c92afae8e875c7b336427d493d",
+    "lab/out/release-pair/pairs-8.txt": "b530a50340158cc32f4d12a3d0ccec0b966116e1af6064a74cb67df66cdb489b",
+    "lab/out/release-pair/pairs-9.stderr.txt": "0e3c1ac9fa447b3b795653a8b1d5f756e3d343c92afae8e875c7b336427d493d",
+    "lab/out/release-pair/pairs-9.txt": "e478c41c9e9194b0ba4f905e40ec6e40aa9a7d9b8b2a2f517cfa20c6df54d6a9",
+    "lab/out/release-pair/parity-8.json": "026d8dd7209d6d83a39ded07dd4109b906d92f6898731a50983de0f89d04a37b",
+    "lab/out/release-pair/parity-9.json": "d1b122e01500d0e63e55073d439c788b59885612c175d57ec05cee47ec444cda"
+  }
+}
