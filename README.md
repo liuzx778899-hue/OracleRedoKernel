@@ -2,7 +2,7 @@
 
 Oracle Direct Redo 独立解析内核。目标：源库零配置改动，解析与采集分离，证据不足拒绝发布。
 
-**当前只是文件/块/record/vector 结构解析，DML/事务/字典尚未验收。** `events` 命令明确失败且零事件，不能用于生产同步。进度看 [STATUS](docs/workorders/STATUS.md)，方案看 [执行方案](docs/Oracle_Direct_Redo_技术方案_v0.1_20261004.md)。
+**当前支持文件/块/record/vector结构及有限单行heap物理patch、undo header，完整DML/事务/字典尚未验收。** `events` 命令明确失败且零事件，不能用于生产同步。进度看 [STATUS](docs/workorders/STATUS.md)，方案看 [执行方案](docs/Oracle_Direct_Redo_技术方案_v0.1_20261004.md)。
 
 使用 JDK17（Windows默认Java8需覆盖）：
 
@@ -25,3 +25,7 @@ python lab/compare_dump.py <oracle-dump.trc> <records.txt>
 ```
 
 0条比较直接失败。AGPL参考代码未复制；当前二进制布局来自独立Oracle字节/dump观察。
+
+`HeapRowPatch.decode(vector, dictionaryColumns)` 只解释已观察的IRP/URP/DRP单行形态：列保持VALUE/NULL/ABSENT三态，DELETE不猜before值，未改列不变成NULL。字典列数必须有来源/SCN证据，不能自行填默认值。KTB C缺XID、KTB L旧ITL不当当前事务；UBA是物理引用，rollback会恢复旧引用，不能直接把命中UBA当当前操作的事务归属。`UndoHeader.decode(vector)` 从5.1读取XID、undo地址和对象身份，提交/补偿关联仍需事务引擎。
+
+研究驱动 `lab/HeapProbe.java` / `lab/UndoProbe.java` 只读取原始归档，独立comparator在Python中读取dump对账；源码不消费验证真值。报告见 [W3首轮反馈](docs/workorders/DELIVERY_W3_PATCH_20261004.md)。

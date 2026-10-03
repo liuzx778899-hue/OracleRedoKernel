@@ -9,8 +9,8 @@
 | W0 环境/样本/真值 | 通过：首批fa61476，矩阵继续 | 通过：环境/冻结归档；矩阵待证 | 待证 | 不适用：实验脚本 | 待证 | 未开始 |
 | W1 文件/块 scanner | 通过：首批fa61476 | 通过：19c/21c有界样本/5个真实派生反例 | 待证：真实capture | 未开始 | 待证 | 未开始 |
 | W2 record/vector | 通过：首批fa61476 | 通过：19c seq8/9完整dump、21c选定范围 | 待证：事务/字典 | 未开始 | 待证 | 未开始 |
-| W3 基础行/类型 | 进行中：scalar codec | 通过：codec单元；行待证 | 未开始 | 未开始 | 待证 | 未开始 |
-| W4 事务/回滚 | 未开始 | 待证 | 未开始 | 未开始 | 待证 | 未开始 |
+| W3 基础行/类型 | 进行中：scalar + raw heap patch | 通过：21物理patch/45出现列；完整行/键待证 | 未开始 | 未开始 | 待证 | 未开始 |
+| W4 事务/回滚 | 进行中：undo header | 通过：18 header身份；提交/补偿链待证 | 未开始 | 未开始 | 待证 | 未开始 |
 | W5 SCN字典/基线 | 未开始 | 待证 | 未开始 | 未开始 | 待证 | 未开始 |
 | W6 StreamHouse接入 | 未开始 | 待证 | 未开始 | 未开始 | 待证 | 未开始 |
 | W7 online采集 | 未开始 | 待证 | 未开始 | 未开始 | 待证 | 未开始 |
@@ -31,6 +31,8 @@
 - 首轮PDB切日志ORA-65040、CDB VLD9/13/marker结构缺口、SQLPlus中文显示与LogMiner status3均保留原文；两会话交叉事务/跨switch动作已执行。细节见[首批反馈](DELIVERY_W0_W2_20261004.md)。
 
 ## 接续与限制
+
+最新进展：[W3首轮反馈](DELIVERY_W3_PATCH_20261004.md)。24项测试0失败0跳过；同19c seq8/9的21个物理patch/45个出现列、18个undo header与dump零差异。KTB L为旧ITL、XR补偿可恢复旧UBA，不能据此猜当前事务。完整CDC仍零发布，W4/W5继续。
 
 1. 先读19c fixture stdout/stderr/commands/manifest，失败不得重跑已提交DML；修复只读export或用新fixture。
 2. 冻结同一输入做19c scan/record/vector + dump独立对账，保留失败目录。
