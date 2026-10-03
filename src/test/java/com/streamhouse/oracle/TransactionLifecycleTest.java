@@ -94,4 +94,25 @@ class TransactionLifecycleTest {
         var h=state.end(record(140,nextEnd),nextEnd); state.finish();
         assertEquals(1137,h.xid().sequence());
     }
+    @Test void compensationPairMustHaveActiveFullIdentity() throws Exception {
+        var header=UndoHeader.decode(undo());
+        var patch=new HeapRowPatch.Patch(HeapRowPatch.Kind.DELETE,0x03000083,0,1,null,null,List.of());
+        var pair=new HeapUndoPair(677737149,3,patch,new UndoRowPatch(header,patch,0,0,1));
+        var state=begun(); state.requireActive(record(120),pair);
+        state.end(record(130,end(2)),end(2));
+        assertThrows(RedoException.class,()->state.requireActive(record(140),pair));
+        var mixed=begun(); var other=new HeapUndoPair(1,3,pair.forward(),pair.undo());
+        assertThrows(RedoException.class,()->mixed.requireActive(record(120),other));
+        var sequenceState=begun();
+        var xid=new HeapRowPatch.Xid(header.xid().usn(),header.xid().slot(),header.xid().sequence()+65536);
+        var collision=new UndoHeader(xid,header.uba(),header.objectId(),header.dataObjectId(),header.tablespace(),header.beginsTransaction());
+        var wrongSequence=new HeapUndoPair(677737149,3,patch,new UndoRowPatch(collision,patch,0,0,1));
+        assertThrows(RedoException.class,()->sequenceState.requireActive(record(120),wrongSequence));
+    }
+    @Test void doesNotTreatSlotReuseWithMissingEndAsConcurrentIdentity() throws Exception {
+        var state=begun(); var nextStart=start(); nextStart.fields().get(0)[4]=0x71;
+        var nextUndo=undo(); nextUndo.fields().get(0)[12]=0x71;
+        assertThrows(RedoException.class,()->state.begin(record(130,nextStart,nextUndo),nextStart));
+        assertThrows(RedoException.class,()->state.end(record(140,end(2)),end(2)));
+    }
 }

@@ -39,6 +39,11 @@ public final class TransactionLifecycle {
             var identity=new Identity(record.containerUid(),vector.containerId(),xid);
             if (pending.containsKey(key) || closed.contains(key) || identities.containsKey(identity))
                 refuse("DUPLICATE_TRANSACTION_BEGIN_IDENTITY");
+            for (var active:pending.keySet()) {
+                if (active.uid()==key.uid() && active.container()==key.container()
+                        && active.segment()==key.segment() && active.slot()==key.slot())
+                    refuse("TRANSACTION_SLOT_REASSIGNED_WHILE_ACTIVE");
+            }
             pending.put(key,new Begin(identity,record.scn())); identities.put(identity,key);
         } catch (RedoException e) { failed=true; throw e; }
     }
@@ -50,6 +55,13 @@ public final class TransactionLifecycle {
             var identity=new Identity(record.containerUid(),vector.containerId(),undo.xid());
             if (!identities.containsKey(identity)) refuse("UNDO_WITHOUT_VERIFIED_TRANSACTION_BEGIN");
         } catch (RedoException e) { failed=true; throw e; }
+    }
+
+    public void requireActive(RedoRecords.Record record,HeapUndoPair pair) throws RedoException {
+        checkRecord(record);
+        if (record.containerUid()!=pair.containerUid()
+                || !identities.containsKey(new Identity(pair.containerUid(),pair.containerId(),pair.undo().identity().xid())))
+            refuse("PAIR_WITHOUT_ACTIVE_TRANSACTION_IDENTITY");
     }
 
     public boolean knowsEnd(RedoRecords.Record record,RedoRecords.Vector vector) throws RedoException {
