@@ -85,6 +85,26 @@ public final class TransactionLifecycle {
         } catch (RedoException e) { failed=true; throw e; }
     }
 
+    public UndoHeader headUpdate(RedoRecords.Record record,RedoRecords.Vector vector) throws RedoException {
+        checkRecord(record);
+        try {
+            if (!record.vectors().contains(vector)) refuse("UNDO_HEAD_UPDATE_NOT_IN_RECORD");
+            var update=UndoHeadUpdate.decode(vector);var h=update.bindUndo(record);
+            int controls=0;
+            for (var candidate:record.vectors()) {
+                if (candidate.containerId()!=vector.containerId() || candidate.opcodeMajor()!=5 || candidate.opcodeMinor()!=2
+                        || candidate.dba()!=vector.dba() || candidate.fields().size()!=1 || candidate.fields().get(0).length!=32
+                        || u16(candidate.fields().get(0),16)!=2) continue;
+                if (UndoHeadUpdate.decode(candidate).uba().equals(update.uba())) controls++;
+            }
+            if (controls!=1) refuse("AMBIGUOUS_UNDO_HEAD_UPDATE_CONTROL_UBA");
+            var key=identities.get(new Identity(record.containerUid(),vector.containerId(),h.xid()));
+            if (key==null || key.segment()!=update.segmentDba() || key.slot()!=update.slot())
+                refuse("UNDO_HEAD_UPDATE_WITHOUT_ACTIVE_SEGMENT_IDENTITY");
+            return h;
+        } catch (RedoException e) { failed=true; throw e; }
+    }
+
     public HeapRowPatch.Xid beginCompensationIdentity(RedoRecords.Record record,RedoRecords.Vector marker) throws RedoException {
         return segmentCompensationIdentity(record,marker,true);
     }
