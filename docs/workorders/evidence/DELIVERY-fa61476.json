@@ -1,0 +1,132 @@
+{
+  "source_commit": "fa61476f17ab18c50446e878b8bb2d84840eaff3",
+  "branch": "main",
+  "artifact": {
+    "coordinate": "com.streamhouse.oracle:oracle-redo-kernel:0.1.0-SNAPSHOT",
+    "path": "lab/out/release-fa61476/build/target/oracle-redo-kernel-0.1.0-SNAPSHOT.jar",
+    "sha256": "3c7e87e590afded83d468cb677e4403d5a978f9dfa555577fefd2f682f835421",
+    "build_from": "git archive fa61476, complete tracked tree"
+  },
+  "tests": {
+    "executed": 14,
+    "failed": 0,
+    "skipped": 0
+  },
+  "sources": {
+    "source_id": "oraredo-19c-lab-20261004",
+    "supplemental_logging": "OFF",
+    "files": [
+      {
+        "thread": "1",
+        "sequence": "7",
+        "first_scn": "2132825",
+        "next_scn": "2146496",
+        "oracle_blocks": "168205",
+        "block_size": "512",
+        "source_path": "/opt/oracle/product/19c/dbhome_1/dbs/arch1_7_1245693159.dbf",
+        "path": "archive-1-7.dbf",
+        "bytes": 86121472,
+        "sha256": "d53b6ee83612f1c6a520380c29f06c3c4757ffdfc927549f302e5bec0ad7ff7c"
+      },
+      {
+        "thread": "1",
+        "sequence": "8",
+        "first_scn": "2146496",
+        "next_scn": "2149085",
+        "oracle_blocks": "31803",
+        "block_size": "512",
+        "source_path": "/opt/oracle/product/19c/dbhome_1/dbs/arch1_8_1245693159.dbf",
+        "path": "archive-1-8.dbf",
+        "bytes": 16283648,
+        "sha256": "e9ec1dafaedb93c65e2a0dbc7bc0a4f8d492a5cbd350fd46c7a994f2f34a4aae"
+      },
+      {
+        "thread": "1",
+        "sequence": "9",
+        "first_scn": "2149085",
+        "next_scn": "2149123",
+        "oracle_blocks": "20",
+        "block_size": "512",
+        "source_path": "/opt/oracle/product/19c/dbhome_1/dbs/arch1_9_1245693159.dbf",
+        "path": "archive-1-9.dbf",
+        "bytes": 10752,
+        "sha256": "99ea74e7cc2e1f8d89c329179ed16dad2d3633beceb5ac76beb7a91c722a0ba2"
+      }
+    ]
+  },
+  "parity": [
+    {
+      "records_compared": 53078,
+      "vectors_compared": 104545,
+      "mismatches": 0,
+      "scope": "dump-selected records, not full archive semantic acceptance"
+    },
+    {
+      "records_compared": 14,
+      "vectors_compared": 28,
+      "mismatches": 0,
+      "scope": "dump-selected records, not full archive semantic acceptance"
+    }
+  ],
+  "negative_archives": {
+    "source_sha256": "99ea74e7cc2e1f8d89c329179ed16dad2d3633beceb5ac76beb7a91c722a0ba2",
+    "jar_sha256": "3c7e87e590afded83d468cb677e4403d5a978f9dfa555577fefd2f682f835421",
+    "cases": [
+      {
+        "case": "truncate-byte",
+        "input_sha256": "f44fa7bcd2c0336bcc7cd26887dabde59bcd9bc2d7889fda15f38a7894ccbe26",
+        "rc": 1,
+        "stdout": "",
+        "stderr": "REFUSED:TRUNCATED_OR_UNALIGNED_FILE;cdc_events=0\n",
+        "pass": true
+      },
+      {
+        "case": "missing-final-block",
+        "input_sha256": "1509e408faf05ce7b91604451e455dbe0d2e577cc4acd94cc163b00b4189aaab",
+        "rc": 1,
+        "stdout": "",
+        "stderr": "REFUSED:ARCHIVE_FILE_LENGTH_MISMATCH;cdc_events=0\n",
+        "pass": true
+      },
+      {
+        "case": "missing-middle-block",
+        "input_sha256": "d5eecd7faa605b4b810dda42d1761973879fa786151cec81b1d111dd0291ea9f",
+        "rc": 1,
+        "stdout": "",
+        "stderr": "REFUSED:ARCHIVE_FILE_LENGTH_MISMATCH;cdc_events=0\n",
+        "pass": true
+      },
+      {
+        "case": "checksum-poison",
+        "input_sha256": "eca648d4d7e1cee9ded4f7f1eefb69db720822e9a3fd458e1129f45ff5abdbb2",
+        "rc": 1,
+        "stdout": "",
+        "stderr": "REFUSED:BLOCK_CHECKSUM_MISMATCH:block=2;cdc_events=0\n",
+        "pass": true
+      },
+      {
+        "case": "resealed-sequence-poison",
+        "input_sha256": "38671e6c3a79def4b917c6383b9e4ecd735046ff21eca44f856d27c0f4a87a32",
+        "rc": 1,
+        "stdout": "",
+        "stderr": "REFUSED:BLOCK_IDENTITY_MISMATCH:block=2;cdc_events=0\n",
+        "pass": true
+      }
+    ],
+    "scope": "derived real archived redo structural refusal, not missing-sequence transaction acceptance"
+  },
+  "cdc_events": 0,
+  "event_gate": "DML_TRANSACTION_DICTIONARY_GATES_NOT_ACCEPTED",
+  "deployment": "dedicated lab only; no product deployment",
+  "evidence_sha256": {
+    "lab/out/release-fa61476/build.txt": "61f19f93c51d8cc340bf6cc6e222e98fec9d2e119124ed6239e8ecf6a9c52744",
+    "lab/out/oracle19-nosupp-20261004/build-delivery.txt": "566e1f53b28b730c238b8e4f84a84db550b87aae92634944b4d22bbc847d5edf",
+    "lab/out/oracle19-nosupp-20261004/dump-parity-8-r3.json": "70b98dc57150230cf9b24229eedf077d0b4d3b8bcbe9d1829c5cd9beda1ffa8c",
+    "lab/out/oracle19-nosupp-20261004/dump-parity-9-r3.json": "929c6efbf2ec9adea9c19936d50839489549c2bfbd490d50a5ed74179d151ccd",
+    "lab/out/oracle19-nosupp-20261004/fixture.stdout.txt": "647ffb58d80efa75e35b1f9b518840cd32b9e0e23aba053344c7fa39affa1302",
+    "lab/out/oracle19-nosupp-20261004/commands.jsonl": "15ff5146e186fc9696e1018aff4ab9b05d81c338e39290eba18c9415cc9b4cc5",
+    "lab/out/oracle19-nosupp-20261004/truth-utf8.txt": "c4e9e09fd4deca303f208c0a7a21c2207ed80d75e593d37e4f259b0f552b970d",
+    "lab/out/oracle19-nosupp-20261004/logminer.txt": "37f62c3bbf13676766df0e73a15d032b4fe2bc7e9ce87822e2872fbc645854ce",
+    "lab/out/oracle19-negative-20261004/verdict.json": "b56182de01264751c041fd430520402be22e8613738f87fcf006be80e99b7ade"
+  }
+}
