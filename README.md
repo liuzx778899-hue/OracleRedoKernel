@@ -39,3 +39,5 @@ python lab/compare_dump.py <oracle-dump.trc> <records.txt>
 `UndoRowPatch`支持有界5.1 heap逆向KDO；真实XID来自undo header，历史KTB不作当前身份。UPDATE旧值只限改列，缺列保留ABSENT；尚不等于完整before行或已撤销事件。[18个真实逆向片段及正向回归证据](docs/workorders/DELIVERY_W3_UNDO_ROW_20261004.md)。
 
 `HeapUndoPair`按同record/CON_ID唯一精确UBA匹配正向与逆向片段，并校验位置、逆操作、XID和UPDATE出现列集合；拒绝XR恢复后引用。18对跨两个目标物理块的独立对账见 [配对反馈](docs/workorders/DELIVERY_W3_PAIR_20261004.md)。仍须通过活跃事务、补偿链和完整行/字典门禁。
+
+`HeapCompensation`联合5.6 header与原undo逆向行片段匹配唯一原pair，必须另经完整活跃XID校验；低wrap不替代完整sequence。T007两补偿与保留row7的dump/SQL字节对账见 [补偿反馈](docs/workorders/DELIVERY_W4_COMPENSATION_20261004.md)。5.11/index/完整undo链仍未接受，matcher不发布或取消CDC事件。

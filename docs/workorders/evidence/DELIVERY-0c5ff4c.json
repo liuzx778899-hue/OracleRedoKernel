@@ -1,0 +1,86 @@
+{
+  "source_commit": "0c5ff4c600680812298d82df623ffb14702018e1",
+  "branch": "main",
+  "artifact": {
+    "sha256": "1c0dce2bed4614431d50f24306f9bdfae0deef87a4c2166e2cb6cc870da9415b",
+    "path": "lab/out/release-compensation/build/target/oracle-redo-kernel-0.1.0-SNAPSHOT.jar",
+    "build_from": "git archive 0c5ff4c complete tracked tree",
+    "coordinate": "com.streamhouse.oracle:oracle-redo-kernel:0.1.0-SNAPSHOT"
+  },
+  "tests": {
+    "skipped": 0,
+    "executed": 66,
+    "failed": 0
+  },
+  "inputs": [
+    {
+      "thread": "1",
+      "sequence": "8",
+      "first_scn": "2146496",
+      "next_scn": "2149085",
+      "oracle_blocks": "31803",
+      "block_size": "512",
+      "source_path": "/opt/oracle/product/19c/dbhome_1/dbs/arch1_8_1245693159.dbf",
+      "path": "archive-1-8.dbf",
+      "bytes": 16283648,
+      "sha256": "e9ec1dafaedb93c65e2a0dbc7bc0a4f8d492a5cbd350fd46c7a994f2f34a4aae"
+    },
+    {
+      "thread": "1",
+      "sequence": "9",
+      "first_scn": "2149085",
+      "next_scn": "2149123",
+      "oracle_blocks": "20",
+      "block_size": "512",
+      "source_path": "/opt/oracle/product/19c/dbhome_1/dbs/arch1_9_1245693159.dbf",
+      "path": "archive-1-9.dbf",
+      "bytes": 10752,
+      "sha256": "99ea74e7cc2e1f8d89c329179ed16dad2d3633beceb5ac76beb7a91c722a0ba2"
+    }
+  ],
+  "independent_dump_sha256": {
+    "lab/out/oracle19-nosupp-20261004/dump-8.trc": "babfc5a1cc6bdfd4c71ee1083fe7e13bd3036d90bec045c9ef21b830abab140a",
+    "lab/out/oracle19-nosupp-20261004/dump-9.trc": "95ca77b8d60e9ae8549a967345d65abd8cf55282acedfd90ead0e17191dcdd57"
+  },
+  "independent_sql_truth": {
+    "path": "lab/out/oracle19-nosupp-20261004/truth-utf8.txt",
+    "sha256": "c4e9e09fd4deca303f208c0a7a21c2207ed80d75e593d37e4f259b0f552b970d"
+  },
+  "verified_report": {
+    "original_pairs": 18,
+    "compensations_compared": 2,
+    "retained_savepoint_pairs": 1,
+    "sql_row7_columns_compared": 4,
+    "mismatches": 0,
+    "errors": [],
+    "scope": "T007 5.6 original association and retained row7 truth; 5.11/index/full chain/dictionary pending"
+  },
+  "positive_decode_and_comparator_rc": 0,
+  "negative_report": [
+    {
+      "case": "only_archive_8",
+      "reason": "INCOMPLETE_TRANSACTION_IDENTITIES",
+      "stdout_bytes": 0,
+      "rc": 1
+    },
+    {
+      "case": "only_archive_9",
+      "reason": "UNDO_WITHOUT_VERIFIED_TRANSACTION_BEGIN",
+      "stdout_bytes": 0,
+      "rc": 1
+    }
+  ],
+  "scope": "T007 two 5.6 heap compensation original associations and retained row7 four-column truth; no 5.11, index/full-chain, schema/baseline acceptance",
+  "cdc_events": 0,
+  "deployment": "none; offline existing frozen inputs",
+  "evidence_sha256": {
+    "lab/out/release-compensation/build.txt": "b2eef685db5c283e959e80561415dd3519fad3513527aecbd91cdfddbe2c45be",
+    "lab/out/release-compensation/compensation.stderr.txt": "eaf48a8eafb19d8426f9a46bcaa7e104ef4bb89643c1fa0e3fb44e37f3e11eeb",
+    "lab/out/release-compensation/compensation.txt": "2ed5baf1cc09fcf81146b79d5b3c5bfa22690c54f978d95d284568556ddf791f",
+    "lab/out/release-compensation/missing-other-8.stderr.txt": "421cd55ad9579af8ff6ec52a632365c07c651adf6913f27992b12e1901c69ca0",
+    "lab/out/release-compensation/missing-other-8.stdout.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "lab/out/release-compensation/missing-other-9.stderr.txt": "98577d54be2b1b9d937ce8738875e5a7ec6500215b3ccbd4f351582b6a47de85",
+    "lab/out/release-compensation/missing-other-9.stdout.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "lab/out/release-compensation/parity.json": "cf4524f8954bd1d1a4fc5fd78963e0af3f8b93fc107c3f350fddea1b29d67967"
+  }
+}
