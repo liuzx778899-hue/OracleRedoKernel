@@ -1,0 +1,76 @@
+{
+  "source_commit": "b18870951ba1dedb5454565056d1d928b16e0da8",
+  "branch": "main",
+  "artifact": {
+    "path": "lab/out/release-b188709/build/target/oracle-redo-kernel-0.1.0-SNAPSHOT.jar",
+    "build_from": "git archive b188709 complete tracked tree",
+    "sha256": "3872eb58217b516e6ba868e384c358ce4f4c43e5faa88efdf8292a7a5533e4fe",
+    "coordinate": "com.streamhouse.oracle:oracle-redo-kernel:0.1.0-SNAPSHOT"
+  },
+  "tests": {
+    "skipped": 0,
+    "executed": 30,
+    "failed": 0
+  },
+  "inputs": [
+    {
+      "thread": "1",
+      "sequence": "8",
+      "first_scn": "2146496",
+      "next_scn": "2149085",
+      "oracle_blocks": "31803",
+      "block_size": "512",
+      "source_path": "/opt/oracle/product/19c/dbhome_1/dbs/arch1_8_1245693159.dbf",
+      "path": "archive-1-8.dbf",
+      "bytes": 16283648,
+      "sha256": "e9ec1dafaedb93c65e2a0dbc7bc0a4f8d492a5cbd350fd46c7a994f2f34a4aae"
+    },
+    {
+      "thread": "1",
+      "sequence": "9",
+      "first_scn": "2149085",
+      "next_scn": "2149123",
+      "oracle_blocks": "20",
+      "block_size": "512",
+      "source_path": "/opt/oracle/product/19c/dbhome_1/dbs/arch1_9_1245693159.dbf",
+      "path": "archive-1-9.dbf",
+      "bytes": 10752,
+      "sha256": "99ea74e7cc2e1f8d89c329179ed16dad2d3633beceb5ac76beb7a91c722a0ba2"
+    }
+  ],
+  "verified_reports": [
+    {
+      "markers_compared": {
+        "4": 82,
+        "6": 5,
+        "11": 2
+      },
+      "mismatches": 0,
+      "errors": [],
+      "scope": "bounded 19.3 PDB marker fields; no segment binding or event cancellation acceptance"
+    },
+    {
+      "markers_compared": {
+        "4": 4,
+        "6": 0,
+        "11": 0
+      },
+      "mismatches": 0,
+      "errors": [],
+      "scope": "bounded 19.3 PDB marker fields; no segment binding or event cancellation acceptance"
+    }
+  ],
+  "decode_and_comparator_rc": 0,
+  "scope": "bounded 19.3 transaction-end and compensation marker fields; transaction association not accepted",
+  "cdc_events": 0,
+  "deployment": "none; offline same frozen input",
+  "evidence_sha256": {
+    "lab/out/release-b188709/build.txt": "efb4c21583818caabd7f73ba8938a8372342449ed3b026d497ced342fc9d7310",
+    "lab/out/release-b188709/markers-8.stderr.txt": "8b3012cb6dc2437b816a630ee94ad3911be364bd0515fa6099642d40b5e1493e",
+    "lab/out/release-b188709/markers-8.txt": "2d2c74767a894de6d11ede2beae013fcdd551ee2dc08418d0bf660b6e545231a",
+    "lab/out/release-b188709/markers-9.stderr.txt": "8b3012cb6dc2437b816a630ee94ad3911be364bd0515fa6099642d40b5e1493e",
+    "lab/out/release-b188709/markers-9.txt": "80cd3f95b037118f3f3039e311f79e8934dcdb990162c007f535e44f22ebc60d",
+    "lab/out/release-b188709/parity-8.json": "5d5f54a6cdcac007277e33184dffca2e4ee72b0afa3868ad456932725d5122ae",
+    "lab/out/release-b188709/parity-9.json": "c4b246b005cca0c9b6eda2f6f2fd622837fa79d4c686d2a57419238b5e409d3f"
+  }
+}

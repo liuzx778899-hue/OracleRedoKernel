@@ -29,3 +29,5 @@ python lab/compare_dump.py <oracle-dump.trc> <records.txt>
 `HeapRowPatch.decode(vector, dictionaryColumns)` 只解释已观察的IRP/URP/DRP单行形态：列保持VALUE/NULL/ABSENT三态，DELETE不猜before值，未改列不变成NULL。字典列数必须有来源/SCN证据，不能自行填默认值。KTB C缺XID、KTB L旧ITL不当当前事务；UBA是物理引用，rollback会恢复旧引用，不能直接把命中UBA当当前操作的事务归属。`UndoHeader.decode(vector)` 从5.1读取XID、undo地址和对象身份，提交/补偿关联仍需事务引擎。
 
 研究驱动 `lab/HeapProbe.java` / `lab/UndoProbe.java` 只读取原始归档，独立comparator在Python中读取dump对账；源码不消费验证真值。报告见 [W3首轮反馈](docs/workorders/DELIVERY_W3_PATCH_20261004.md)。
+
+`TransactionEnd` / `UndoCompensation`支持有界19.3的5.4结束、5.6/5.11补偿字段。segment DBA不猜USN；begin补偿wrap1不当原事务sequence；marker不直接触发事件发布或撤销。93个真实marker字段独立对账见 [W4反馈](docs/workorders/DELIVERY_W4_MARKERS_20261004.md)，事务绑定与undo链仍待证。
