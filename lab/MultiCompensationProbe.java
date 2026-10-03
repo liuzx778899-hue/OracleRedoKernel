@@ -7,6 +7,7 @@ import java.util.HashSet;
 public class MultiCompensationProbe {
     public static void main(String[] args)throws Exception {
         Path p=Path.of(args[0]);long object=Long.parseLong(args[1]);String[] x=args[2].split("\\.");
+        int expectedOriginals=args.length==4 ? Integer.parseInt(args[3]) : 120;
         var xid=new HeapRowPatch.Xid(Integer.parseInt(x[0]),Integer.parseInt(x[1]),Long.parseLong(x[2]));
         var header=new ArchivedRedo().scan(p);var state=new TransactionLifecycle();state.archive(header);
         var history=new ArrayList<HeapUndoPair>();var cancelled=new HashSet<HeapUndoPair>();var output=new ArrayList<String>();
@@ -34,17 +35,19 @@ public class MultiCompensationProbe {
                         ? HeapCompensation.matchCross(r,marker,rows.get(0),history,2,state)
                         : HeapCompensation.match(r,marker,rows.get(0),history,2);state.requireActive(r,pair);
                 int index=history.indexOf(pair);
-                if(index!=history.size()-cancelled.size()-1 || !cancelled.add(pair))throw new RedoException("MULTI_COMPENSATION_SUFFIX_OR_DUPLICATE:rba="+r.block()+":"+r.offset()+":index="+index+":expected="+(history.size()-cancelled.size()-1)+":history="+history.size()+":cancelled="+cancelled.size()+":uba="+UndoCursorProbe.address(pair.undo().identity().uba()));
+                int active=history.size()-1;
+                while(active>=0 && cancelled.contains(history.get(active)))active--;
+                if(index!=active || !cancelled.add(pair))throw new RedoException("MULTI_COMPENSATION_SUFFIX_OR_DUPLICATE:rba="+r.block()+":"+r.offset()+":index="+index+":expected="+active+":history="+history.size()+":cancelled="+cancelled.size()+":uba="+UndoCursorProbe.address(pair.undo().identity().uba()));
                 output.add("CANCEL|"+r.block()+"|"+r.offset()+"|"+UndoCursorProbe.address(pair.undo().identity().uba())+"|"+index);
             }
             for(var v:r.vectors())if(v.containerId()==3 && v.opcodeMajor()==5 && v.opcodeMinor()==4 && state.knowsEnd(r,v)){state.end(r,v);ends[0]++;}
         });state.finish();
-        if(history.size()!=120 || cancelled.size()!=60 || ends[0]!=1)throw new RedoException("MULTI_COMPENSATION_COVERAGE_MISMATCH");
+        if(history.size()!=expectedOriginals || cancelled.size()!=60 || ends[0]!=1)throw new RedoException("MULTI_COMPENSATION_COVERAGE_MISMATCH");
         for(int i=0;i<history.size();i++) {
             var pair=history.get(i);if(cancelled.contains(pair))continue;
             output.add("RETAIN|"+UndoCursorProbe.address(pair.undo().identity().uba())+"|"+i+"|"+pair.forward().dba()+"|"+pair.forward().slot()+"|"+HeapUndoPairProbe.cols(pair.forward()));
         }
-        output.forEach(System.out::println);System.err.println("heap_pairs=120;cancelled_suffix=60;retained_heap_patches=60;cross_block_graph_not_accepted;cdc_events=0");
+        output.forEach(System.out::println);System.err.println("heap_pairs="+history.size()+";cancelled_suffix=60;retained_heap_patches="+(history.size()-cancelled.size())+";cross_block_graph_not_accepted;cdc_events=0");
     }
     static boolean heap(RedoRecords.Vector v){return v.containerId()==3 && v.opcodeMajor()==11 && (v.opcodeMinor()==2 || v.opcodeMinor()==3 || v.opcodeMinor()==5);}
 }

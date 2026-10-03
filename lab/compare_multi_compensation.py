@@ -4,6 +4,7 @@ from pathlib import Path
 records=re.split(r'(?=REDO RECORD - Thread:)',Path(sys.argv[1]).read_text(encoding='utf-8'))
 actual=[s.split('|') for s in Path(sys.argv[2]).read_text(encoding='utf-8-sig').splitlines()]
 object_id=int(sys.argv[3]);x=tuple(map(int,sys.argv[4].split('.')))
+expected_originals=int(sys.argv[5]) if len(sys.argv)>5 else 120
 originals={};forward={};segment=None
 def value(change):
     lines=change.splitlines()
@@ -31,6 +32,7 @@ for record in records:
         if not h or not xid or tuple(int(xid[i],16) for i in (1,2,3))!=x:continue
         b=re.search(r'ktudb redo:[^\n]*seq: 0x([0-9a-f]+) rec: 0x([0-9a-f]+)',change)
         uba=tuple([int(h[1],16),int(b[1],16),int(b[2],16)])
+        if uba in originals:raise RuntimeError('native original UBA repeated; temporal identity unsupported')
         originals[uba]=(metadata(change),position(change),value(change),'Begin trans' in change)
         if 'Begin trans' in change:
             starts=[int(m[1],16) for c in changes if (m:=re.search(r'CHANGE #\d+ CON_ID:3 [^\n]*DBA:0x([0-9a-f]+)[^\n]*OP:5\.2\b',c)) and re.search(r'ktudh redo: slt: 0x'+format(x[1],'04x')+r' sqn: 0x'+format(x[2],'08x'),c)]
@@ -68,8 +70,22 @@ for row in actual:
     if row[0]!='RETAIN':continue
     seen.add(row[1]);expected_patch=retained.get(row[1]);actual_patch=((int(row[3]),int(row[4])),row[5].split(',')[1].split(':')[1])
     if actual_patch!=expected_patch:errors.append({'reason':'RETAINED_PHYSICAL_PATCH_DIFF','uba':row[1]})
-if len(originals)!=120 or len(forward)!=120 or len(cancelled)!=60 or len(retained)!=60 or seen!=set(retained) or len(actual)!=120:errors.append({'reason':'COVERAGE_DIFF'})
+if len(originals)!=expected_originals or len(forward)!=expected_originals or len(cancelled)!=60 or len(retained)!=expected_originals-60 or seen!=set(retained) or len(actual)!=expected_originals:errors.append({'reason':'COVERAGE_DIFF'})
+sql_compared=0
+if len(sys.argv)>6:
+    truth_path=Path(sys.argv[6]);truth={r['id']:r for r in json.loads(truth_path.read_text(encoding='utf-8')) if 'id' in r}
+    locations={}
+    for line in (truth_path.parent/'fixture.stdout.txt').read_text(encoding='utf-8').splitlines():
+        p=line.split('|')
+        if p[0]=='HEAP_BLOCK':locations[int(p[1])]=((int(p[2])<<22)+int(p[3]),int(p[4]))
+    latest={}
+    for row in actual:
+        if row[0]=='RETAIN':latest[(int(row[3]),int(row[4]))]=row[5].split(',')[1].split(':')[1]
+    for row_id,pos in locations.items():
+        if latest.get(pos)!=truth[row_id]['txt'].encode('utf-8').hex():errors.append({'reason':'FINAL_SQL_ROW_DIFF','id':row_id})
+        sql_compared+=1
 print(json.dumps({'original_heap_pairs':len(originals),'cancelled_heap_patches':len(cancelled),'cross_block_compensations':cross,
                   'retained_heap_patches':len(retained),'mismatches':len(errors),'errors':errors,
+                  'final_sql_rows_compared':sql_compared,
                   'scope':'bounded metadata and exact restored/retained column bytes; full cross-block predecessor graph, index and recovery unaccepted'},indent=2))
 sys.exit(bool(errors))
