@@ -7,14 +7,18 @@ public class UndoCursorProbe {
     public static void main(String[] args)throws Exception {
         Path p=Path.of(args[0]);String[] parts=args[1].split("\\.");
         var xid=new HeapRowPatch.Xid(Integer.parseInt(parts[0]),Integer.parseInt(parts[1]),Long.parseLong(parts[2]));
+        if(args.length>2 && (args.length!=3 || !args[2].equals("--omit-cross-predecessor")))throw new IllegalArgumentException("unknown research mode");
         var header=new ArchivedRedo().scan(p);var state=new TransactionLifecycle();state.archive(header);
+        var omitted=args.length==3 ? firstCrossPredecessor(p,header,xid) : null;
+        if(omitted!=null)System.err.println("intentional_research_omission="+address(omitted)+";archive_bytes_unchanged");
         var output=new ArrayList<String>();HeapRowPatch.Uba[] cursor={null};int[] nodes={0},cross={0},ends={0};
         new RedoRecords().visit(p,header,r->{
             if(r.containerUid()!=677737149)return;
             var selected=new ArrayList<RedoRecords.Vector>();
             for(var v:r.vectors())if(v.containerId()==3 && v.opcodeMajor()==5 && v.opcodeMinor()==1 && v.fields().get(0).length==20) {
                 byte[] b=v.fields().get(0);
-                if(half(b,8)==xid.usn() && half(b,10)==xid.slot() && word(b,12)==xid.sequence())selected.add(v);
+                if(half(b,8)==xid.usn() && half(b,10)==xid.slot() && word(b,12)==xid.sequence()
+                        && !UndoHeader.decode(v).uba().equals(omitted))selected.add(v);
             }
             for(var u:selected) if(UndoHeader.decode(u).beginsTransaction()) {
                 int matches=0;
@@ -55,8 +59,27 @@ public class UndoCursorProbe {
                 state.end(r,v);ends[0]++;output.add("END|"+r.block()+"|"+r.offset()+"|"+address(tail));
             }
         });state.finish();
-        if(nodes[0]!=120 || cross[0]<1 || ends[0]!=1)throw new RedoException("CURSOR_FIXTURE_COVERAGE_MISMATCH");
+        if(nodes[0]!=(omitted==null ? 120 : 119) || cross[0]<1 || ends[0]!=1)throw new RedoException("CURSOR_FIXTURE_COVERAGE_MISMATCH");
         output.forEach(System.out::println);System.err.println("nodes="+nodes[0]+";cross_controls="+cross[0]+";experimental_cursor_hypothesis_only;cdc_events=0");
+    }
+    /** Counterexample to local cursor constraints when an upstream selector silently loses a node. */
+    static HeapRowPatch.Uba firstCrossPredecessor(Path p,ArchivedRedo.Header header,HeapRowPatch.Xid xid)throws Exception {
+        HeapRowPatch.Uba[] previous={null},omitted={null};
+        new RedoRecords().visit(p,header,r->{
+            if(r.containerUid()!=677737149 || omitted[0]!=null)return;
+            for(var v:r.vectors())if(v.containerId()==3 && v.opcodeMajor()==5 && v.opcodeMinor()==1 && v.fields().get(0).length==20) {
+                byte[] b=v.fields().get(0);
+                if(half(b,8)!=xid.usn() || half(b,10)!=xid.slot() || word(b,12)!=xid.sequence())continue;
+                var h=UndoHeader.decode(v);
+                if(word(v.fields().get(1),12)!=0) {
+                    if(previous[0]==null || previous[0].dba()!=word(v.fields().get(1),12))throw new RedoException("HOLE_EXPERIMENT_PRECONDITION_FAILED");
+                    omitted[0]=previous[0];break;
+                }
+                previous[0]=h.uba();
+            }
+        });
+        if(omitted[0]==null)throw new RedoException("HOLE_EXPERIMENT_NO_CROSS_BOUNDARY");
+        return omitted[0];
     }
     static String address(HeapRowPatch.Uba u){return u==null ? "NONE" : u.dba()+":"+u.sequence()+":"+u.record();}
     static int half(byte[] b,int o){return (b[o]&255)|((b[o+1]&255)<<8);}
