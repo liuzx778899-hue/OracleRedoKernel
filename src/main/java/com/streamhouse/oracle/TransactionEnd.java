@@ -6,6 +6,13 @@ import static com.streamhouse.oracle.RedoBytes.*;
 public record TransactionEnd(long segmentDba, int slot, long sequence, int flags) {
     public boolean rolledBack() { return flags == 4; }
 
+    public static HeapRowPatch.Uba undoTail(RedoRecords.Vector vector) throws RedoException {
+        decode(vector);
+        if (vector.fields().size()!=3) throw new RedoException("TRANSACTION_END_HAS_NO_UNDO_TAIL_REFERENCE");
+        byte[] b=vector.fields().get(1);
+        return new HeapRowPatch.Uba(u32(b,0),u16(b,4),b[6]&255);
+    }
+
     public static TransactionEnd decode(RedoRecords.Vector vector) throws RedoException {
         var fields=vector.fields();
         if (vector.opcodeMajor()!=5 || vector.opcodeMinor()!=4)
