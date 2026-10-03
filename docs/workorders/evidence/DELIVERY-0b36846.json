@@ -1,0 +1,69 @@
+{
+  "source_commit": "0b36846cd1a6b5f1a305a9180381d9eed01ab29d",
+  "branch": "main",
+  "artifact": {
+    "path": "lab/out/release-begin/build/target/oracle-redo-kernel-0.1.0-SNAPSHOT.jar",
+    "sha256": "261c934c4cf424fa36b931d4243a03cb820f25655132e465132254bd2977a377",
+    "coordinate": "com.streamhouse.oracle:oracle-redo-kernel:0.1.0-SNAPSHOT",
+    "build_from": "git archive 0b36846 complete tracked tree"
+  },
+  "tests": {
+    "skipped": 0,
+    "failed": 0,
+    "executed": 36
+  },
+  "inputs": [
+    {
+      "thread": "1",
+      "sequence": "8",
+      "first_scn": "2146496",
+      "next_scn": "2149085",
+      "oracle_blocks": "31803",
+      "block_size": "512",
+      "source_path": "/opt/oracle/product/19c/dbhome_1/dbs/arch1_8_1245693159.dbf",
+      "path": "archive-1-8.dbf",
+      "bytes": 16283648,
+      "sha256": "e9ec1dafaedb93c65e2a0dbc7bc0a4f8d492a5cbd350fd46c7a994f2f34a4aae"
+    },
+    {
+      "thread": "1",
+      "sequence": "9",
+      "first_scn": "2149085",
+      "next_scn": "2149123",
+      "oracle_blocks": "20",
+      "block_size": "512",
+      "source_path": "/opt/oracle/product/19c/dbhome_1/dbs/arch1_9_1245693159.dbf",
+      "path": "archive-1-9.dbf",
+      "bytes": 10752,
+      "sha256": "99ea74e7cc2e1f8d89c329179ed16dad2d3633beceb5ac76beb7a91c722a0ba2"
+    }
+  ],
+  "verified_reports": [
+    {
+      "begins_compared": 9,
+      "mismatches": 0,
+      "errors": [],
+      "scope": "selected 73024 5.2 exact UBA / same-record 5.1 begin; no end or compensation chain acceptance"
+    },
+    {
+      "begins_compared": 2,
+      "mismatches": 0,
+      "errors": [],
+      "scope": "selected 73024 5.2 exact UBA / same-record 5.1 begin; no end or compensation chain acceptance"
+    }
+  ],
+  "decode_and_comparator_rc": 0,
+  "scope": "selected object 73024 same-record 5.2 exact begin UBA and 5.1 XID binding; not transaction end/rollback acceptance",
+  "cdc_events": 0,
+  "deployment": "none; offline existing frozen input",
+  "retained_failure": "lab/out/transactions19-20261004/begins-8.stderr.txt: overly strict fbi-zero validation, followed by selected-object bounded probe",
+  "evidence_sha256": {
+    "lab/out/release-begin/begins-8.stderr.txt": "4f8350cf30513772b93d456ba57a67b45527afd902d693a3fb8c2bd9e1fdb834",
+    "lab/out/release-begin/begins-8.txt": "280c2d976cd64c6514fac2240808a7572c8adc3c2ae1bf1687c86d9f1225495b",
+    "lab/out/release-begin/begins-9.stderr.txt": "4f8350cf30513772b93d456ba57a67b45527afd902d693a3fb8c2bd9e1fdb834",
+    "lab/out/release-begin/begins-9.txt": "3ac284bc74da100084db1729bb859169de022c9d18e77db5bda3442997763751",
+    "lab/out/release-begin/build.txt": "ffba35bee00c922362900243ecc4c520dacfbe225c74e41f0385a08f179ceb05",
+    "lab/out/release-begin/parity-8.json": "c707ac2b89b92dec416488f0136d3a7150356b03189dadfb202e3ca6ae52696a",
+    "lab/out/release-begin/parity-9.json": "7c1ed79d2363db8b6aa6f54395d14f231f1b1a6e8d31a0d3eb282b28d7037081"
+  }
+}
