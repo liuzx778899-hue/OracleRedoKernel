@@ -1,7 +1,7 @@
 """One-shot concurrent owned row transactions from a pre-acquired baseline; preserve source actions."""
 import hashlib,json,queue,re,subprocess,sys,threading,time
 from pathlib import Path
-ROOT=Path(__file__).resolve().parent.parent;CONTAINER='oraredo-19c-lab-20261004';OUT=ROOT/'lab/out/oracle19-blocking-rows-20261005'
+ROOT=Path(__file__).resolve().parent.parent;CONTAINER='oraredo-19c-lab-20261004';OUT=ROOT/'lab/out/oracle19-blocking-rows-r2-20261005'
 if sys.argv[1:]!=['--execute']:raise RuntimeError('explicit one-shot --execute required')
 OUT.mkdir(parents=True,exist_ok=False)
 def run(name,args):
@@ -67,7 +67,7 @@ select 'READY|'||dbms_transaction.local_transaction_id from dual;
   try:
    bresult['truth']=sql('b-commit',"""alter session set container=ORKPDB;
 exec dbms_application_info.set_module('ORK_BLOCK_B','waiting');
-declare prior varchar2(100);begin select TXT into prior from ORKLAB.T_BASELINE_20261004 where ID=11 and NOTE='new-note' for update;if prior!='blocking-a-final' then raise_application_error(-20007,'B locked before value mismatch');end if;update ORKLAB.T_BASELINE_20261004 set TXT='blocking-closed' where ID=11 and TXT='blocking-a-final' and NOTE='new-note';if sql%rowcount!=1 then raise_application_error(-20008,'B CAS mismatch');end if;end;
+declare locked_txt varchar2(100);begin select TXT into locked_txt from ORKLAB.T_BASELINE_20261004 where ID=11 and NOTE='new-note' for update;if locked_txt!='blocking-a-final' then raise_application_error(-20007,'B locked before value mismatch');end if;update ORKLAB.T_BASELINE_20261004 set TXT='blocking-closed' where ID=11 and TXT='blocking-a-final' and NOTE='new-note';if sql%rowcount!=1 then raise_application_error(-20008,'B CAS mismatch');end if;end;
 /
 select 'B_TX|'||dbms_transaction.local_transaction_id from dual;
 commit;
