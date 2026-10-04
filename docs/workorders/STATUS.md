@@ -32,6 +32,8 @@
 
 ## 接续与限制
 
+最新：[有界并发分发/B物理回滚图交付](DELIVERY_W4_CONCURRENT_ROUTING_20261004.md)，完整研究树40a0fda，main/test/pom与582fec6差异为空，[清单](evidence/DELIVERY-concurrent-routing-20261004.json)。同件184测试jar，双上下文消费者完整消费A窗口四项关联，把B送到B生命周期/物理match/head，B图2/2/0与native零差异；七项分发派生反例rc1/stdout0。full路径先真关闭B，再以A中间PURGE拒绝，越过此前缺B原始节点门禁，仍不认证A图。foreign-only明确只验证B图及A关联；events继续拒绝。无数据库动作，下一步扩大PURGE较小/较大/多次及普通DELETE实际矩阵，生产分发/字典/持续capture/发布待证。
+
 最新：[同源完整XID补偿头关联交付](DELIVERY_W4_COMPENSATION_ASSOCIATIONS_20261004.md)，实现12910d5、完整封存树582fec6，[清单](evidence/DELIVERY-compensation-associations-20261004.json)543文件双次SHA一致。184测试通过；内核自主遍历完整归档，绑定唯一先前原始头与同源完整事务窗口，seq19—21共10项/其中2外国marker与native全字段零差异；8真实查询拒绝和3比较器反例。仅认证header关联，不认证物理行/当前head或取消，cross-block和同record原始关联仍未支持。A旧图、PURGE位置及events继续拒绝，没有补填通过计数。无数据库动作，旧解析类未变且不重复已通过回归；接续消费者须完整分类并独立核B物理/head/取消图，再补PURGE矩阵。
 
 最新：[短Z PURGE/XR DELETE交付](DELIVERY_W4_Z_ROLLBACK_20261004.md)，运行时a6818ea、完整封存树919e6ee，[清单](evidence/DELIVERY-z-rollback-20261004.json)974文件双次SHA一致。175测试通过；真实index Z固定前缀PURGE与heap短Z XR DRP物理输出native零差异，不补造XID/UBA/列值；11项真实vector派生拒绝。seq21 A/B完整同叶清单4/2项native零差异，B图2/2/0通过；A现在分别到达中间PURGE位置拒绝与B marker缺原始节点拒绝，仍未验收。同件jar九笔旧图34/23/11、六批heap756/430/326回归零差异；events继续拒绝。本轮无数据库动作，接续先攻并发marker完整归属，再补PURGE位置及更多实际布局。
