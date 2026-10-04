@@ -19,10 +19,23 @@ public final class RedoRecords {
     @FunctionalInterface public interface Visitor { void accept(Record record) throws IOException; }
 
     public long visit(Path path, ArchivedRedo.Header header, Visitor visitor) throws IOException {
-        long count=0;
         try (FileChannel channel=FileChannel.open(path, StandardOpenOption.READ)) {
-            Cursor cursor=new Cursor(channel,header.blocks());
-            while (cursor.block < header.blocks()) {
+            return visit(index -> ArchivedRedo.readBlock(channel,index),header.blocks(),visitor);
+        }
+    }
+
+    /** Buffered publication: a late invalid record never returns a partial capture batch. */
+    public List<Record> readCaptured(CaptureJournal.Verified capture) throws IOException {
+        List<Record> result=new ArrayList<>();
+        visit(capture::block,capture.source().blocks(),result::add);
+        return List.copyOf(result);
+    }
+
+    @FunctionalInterface private interface BlockReader { byte[] read(long index) throws IOException; }
+    private long visit(BlockReader reader,long blocks,Visitor visitor) throws IOException {
+        long count=0;
+            Cursor cursor=new Cursor(reader,blocks);
+            while (cursor.block < blocks) {
                 if (512-cursor.offset < 24) { cursor.nextBlock(); continue; }
                 long block=cursor.block;
                 int offset=cursor.offset;
@@ -66,22 +79,21 @@ public final class RedoRecords {
                         u32(bytes,16),List.copyOf(vectors)));
                 count++;
             }
-        }
         return count;
     }
 
     private static final class Cursor {
-        final FileChannel channel;
+        final BlockReader reader;
         final long blocks;
         long block=2;
         int offset=16;
         byte[] bytes;
-        Cursor(FileChannel channel,long blocks) throws IOException {
-            this.channel=channel; this.blocks=blocks; bytes=ArchivedRedo.readBlock(channel,block);
+        Cursor(BlockReader reader,long blocks) throws IOException {
+            this.reader=reader; this.blocks=blocks; bytes=reader.read(block);
         }
         void nextBlock() throws IOException {
             block++; offset=16;
-            if (block < blocks) bytes=ArchivedRedo.readBlock(channel,block);
+            if (block < blocks) bytes=reader.read(block);
         }
         byte[] read(int length) throws IOException {
             byte[] result=new byte[length];
