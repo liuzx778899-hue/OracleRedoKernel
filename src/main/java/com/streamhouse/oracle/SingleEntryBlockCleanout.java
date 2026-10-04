@@ -12,9 +12,9 @@ final class SingleEntryBlockCleanout {
                 || (vector.dba()>>>22)!=vector.file() || vector.scn()>record.scn() || vector.fields().size()!=1)
             throw new RedoException("UNSUPPORTED_SINGLE_ENTRY_BLOCK_CLEANOUT");
         byte[] b=vector.fields().get(0);
-        if (b.length!=24 || ((b[0]&255)!=1 && (b[0]&255)!=2) || (b[1]&255)!=1 || u16(b,2)!=0x000d
+        if (b.length!=26 || ((b[0]&255)!=1 && (b[0]&255)!=2) || (b[1]&255)!=1 || u16(b,2)!=0x000d
                 || u16(b,8)!=0x8000 || u16(b,10)!=0 || scn(b,4)!=record.scn()
-                || u16(b,12)!=0x0602 || u16(b,14)!=0x8000 || u32(b,16)>vector.scn() || u32(b,20)!=0)
+                || u16(b,12)!=0x0602 || u16(b,14)!=0x8000 || u32(b,16)>vector.scn() || u16(b,20)!=0 || u32(b,22)!=0)
             throw new RedoException("UNSUPPORTED_SINGLE_ENTRY_BLOCK_CLEANOUT");
     }
 }

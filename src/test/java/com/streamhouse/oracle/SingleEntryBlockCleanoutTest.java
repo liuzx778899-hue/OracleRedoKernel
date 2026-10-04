@@ -20,6 +20,6 @@ class SingleEntryBlockCleanoutTest {
             assertThrows(RedoException.class,()->SingleEntryBlockCleanout.require(record(2349205),vector(b,0x0300019b,2348270)));
         }
         assertThrows(RedoException.class,()->SingleEntryBlockCleanout.require(record(2349205),vector(original,0x0300019b,2348269)));
-        assertThrows(RedoException.class,()->SingleEntryBlockCleanout.require(record(2349205),vector(java.util.Arrays.copyOf(original,25),0x0300019b,2348270)));
+        assertThrows(RedoException.class,()->SingleEntryBlockCleanout.require(record(2349205),vector(java.util.Arrays.copyOf(original,27),0x0300019b,2348270)));
     }
 }
