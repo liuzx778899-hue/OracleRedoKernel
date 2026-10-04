@@ -11,12 +11,14 @@
 | W2 record/vector | 通过：首批fa61476 | 通过：19c seq8/9完整dump、21c选定范围 | 待证：事务/字典 | 未开始 | 待证 | 未开始 |
 | W3 基础行/类型 | 进行中：scalar + pair + KDOM2单列扩展值 | 通过：18pair/302长值patch；完整行待证 | 进行中：物理配对；字典/基线待证 | 未开始 | 待证 | 未开始 |
 | W4 事务/回滚 | 进行中：有序history/覆盖/heap+index补偿、同源完整XID归属及有源位置重放 | 通过：203测试；seq21—24自主发现基线/A/B共12物理图；自主对象头关联；seq19—24六位置、seq21—24有限双上下文完整图与拒绝证据；九笔旧图及六批长heap证据保留 | 进行中：有界自主物理入口已交付；完整控制/页维护/跨块关联/恢复待证；不当通用生产能力 | 未开始 | 待证 | 未开始 |
-| W5 SCN字典/基线 | 进行中：extent/完整行、ASOF/回执/typed世代，有限cleanout、闭合图live选择及commit SCN重放 | 通过：229测试制品；seq36实际基线后rollback-only零变化/三SQL/native2/2/0零差异；seq33—35闭合旧批次零变化；seq33/34并发、seq30/31/32完整行证据保留；生产可信交接/历史字典待证 | 进行中：有限不同行并发、全/部分回滚、闭合旧批次及真实rollback-only空结果通过；真实同一行阻塞/相同commit SCN支持/无目标静默/多savepoint/跨块/初始恢复/历史schema待证 | 未开始 | 待证 | 未开始 |
+| W5 SCN字典/基线 | 进行中：extent/完整行、ASOF/回执/typed世代，有限cleanout、闭合图live选择、commit SCN重放及LKR独立LOCK节点 | 通过：233测试制品；seq37—39真实锁等待三完整行/native/四SQL零差异；seq36 rollback-only及seq33—35旧批次空结果，既有并发/行证据保留；生产可信交接/历史字典待证 | 进行中：有限不同行并发、全/部分回滚、空批次、真实锁等待但redo事务窗口串行通过；活跃同key重叠/相同commit SCN支持/无目标静默/多savepoint/跨块/初始恢复/历史schema待证 | 未开始 | 待证 | 未开始 |
 | W6 StreamHouse接入 | 未开始 | 待证 | 未开始 | 未开始 | 待证 | 未开始 |
-| W7 online采集 | 进行中：固定member有界观察journal实验 | 通过：429归档数据块字节覆盖、6派生拒绝；完整持续捕获/续接/Windows/ASM待证 | 未开始：journal到解析/ACK | 未开始 | 待证 | 未开始 |
+| W7 online采集 | 进行中：固定member有界观察journal、前缀回执审计与同代际持久续接实验 | 通过：seq40实际4096帧续接/完整尾帧回执恢复/13拒绝/独占writer；旧429归档块覆盖保留；跨组持续捕获/断电/Windows/ASM待证 | 未开始：完整record/journal到解析/消费ACK | 未开始 | 待证 | 未开始 |
 | W8-W11 扩展类型/LOB/RAC/ASM/TDE | 未开始 | 待证 | 未开始 | 未开始 | 待证 | 未开始 |
 
 ## 当前证据
+
+最新：[固定member观察journal续接](DELIVERY_W7_OBSERVATION_RESUME_20261005.md)，源码00358ce，[清单](evidence/DELIVERY-observation-resume-20261005.json)。专属只读CURRENT seq40前4096块，首次及重启4096帧/3508026 bytes/SHAd4690904…，原前缀保留；合法落后回执后完整尾帧重审续接通过，13反例rc1/stdout0及独占writer/释放后恢复通过。实验副本root属主PermissionError原文保留，仅修副本并续跑未执行项；无源DML/配置/切换，Java233已通过轮次不重跑。仅同member同代际有界观察，不认证LGWR完成/record边界/断电/跨组/ACK；capture_complete=false/事件0。接续多member跨组代际跟踪及缺口拒绝，再完整record恢复/W6；目标继续进行中。
 
 最新：[真实锁等待完整行与LKR节点](DELIVERY_W5_LKR_ROWS_20261005.md)，运行时592c817、独立lab6b9fe9d，[清单](evidence/DELIVERY-lkr-rows-20261005.json)。233测试通过；连续seq37/38/39含旧失败回滚，完整三图5/1/4 native零差异，LKR独立LOCK kind/明确to1与inverse0/列ABSENT、保留在图但不产出UPDATE；A两UPDATE/B一UPDATE三完整行与native/四SQL时点零差异。native证明A end早于B begin，真实等待不等于已活跃同key窗口交叠支持。六重封raw scan0而physical或晚before rows拒绝/stdout0，五比较器反例检出。旧INSERT/DELETE/全及部分回滚/不同行并发native回归、rollback-only空批次与边界拒绝通过；events拒绝，重复events输出名driver防覆盖assert未执行。无源动作重放，最终11/blocking-closed/new-note。主线接续W7持续capture/组切换/record续接/ACK，再W6；一般锁/类型/历史字典/信任/恢复/现场/发布仍待证。
 

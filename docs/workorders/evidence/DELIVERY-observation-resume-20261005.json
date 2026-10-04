@@ -1,0 +1,1690 @@
+{
+  "source_commit": "00358ced908d0b18564001d0560a7713cfa0b5b9",
+  "sha256_checked_twice": true,
+  "scope": "Linux fixed member same generation bounded observation resume only",
+  "proof": {
+    "source_sequence": 40,
+    "initial_frames": 4096,
+    "frames_verified": 4096,
+    "initial_bytes": 3508026,
+    "resumed_bytes": 3508026,
+    "original_prefix_preserved": true,
+    "negative_cases": 9,
+    "capture_complete": false,
+    "group_follow": false,
+    "consumer_ack": false,
+    "cdc_events": 0,
+    "source_actions": "read-only; no DML/config/log-switch"
+  },
+  "refusals_including_preserved_copy_permission_failure": [
+    {
+      "name": "bad-count",
+      "rc": 1,
+      "last_error": "RuntimeError: CAPTURE_RECEIPT_COUNT_MISMATCH",
+      "stdout_bytes": 0
+    },
+    {
+      "name": "bad-envelope",
+      "rc": 1,
+      "last_error": "RuntimeError: CAPTURE_DURABLE_PREFIX_MISMATCH",
+      "stdout_bytes": 0
+    },
+    {
+      "name": "complete-tail",
+      "rc": 1,
+      "last_error": "PermissionError: [Errno 13] Permission denied: '/tmp/ork-resume-proof-complete-tail/writer.lock'",
+      "stdout_bytes": 0
+    },
+    {
+      "name": "duplicate-frame",
+      "rc": 1,
+      "last_error": "RuntimeError: CAPTURE_DUPLICATE_OBSERVATION",
+      "stdout_bytes": 0
+    },
+    {
+      "name": "lost-complete-frame",
+      "rc": 1,
+      "last_error": "RuntimeError: CAPTURE_DURABLE_PREFIX_MISMATCH",
+      "stdout_bytes": 0
+    },
+    {
+      "name": "receipt-inside-frame",
+      "rc": 1,
+      "last_error": "RuntimeError: CAPTURE_RECEIPT_NOT_FRAME_BOUNDARY",
+      "stdout_bytes": 0
+    },
+    {
+      "name": "torn-tail",
+      "rc": 1,
+      "last_error": "RuntimeError: CAPTURE_TRUNCATED_OR_INVALID_HEADER",
+      "stdout_bytes": 0
+    },
+    {
+      "name": "truncated-byte",
+      "rc": 1,
+      "last_error": "RuntimeError: CAPTURE_DURABLE_PREFIX_MISMATCH",
+      "stdout_bytes": 0
+    },
+    {
+      "name": "wrong-generation",
+      "rc": 1,
+      "last_error": "RuntimeError: CAPTURE_SOURCE_GENERATION_MISMATCH",
+      "stdout_bytes": 0
+    },
+    {
+      "name": "wrong-inode",
+      "rc": 1,
+      "last_error": "RuntimeError: CAPTURE_RESUME_SOURCE_BINDING_MISMATCH",
+      "stdout_bytes": 0
+    },
+    {
+      "name": "exclusive-writer",
+      "rc": 1,
+      "last_error": "BlockingIOError: [Errno 11] Resource temporarily unavailable",
+      "stdout_bytes": 0
+    },
+    {
+      "name": "missing-receipt",
+      "rc": 1,
+      "last_error": "FileNotFoundError: [Errno 2] No such file or directory: '/tmp/ork-resume-faults-missing-receipt/receipt.json'",
+      "stdout_bytes": 0
+    },
+    {
+      "name": "resealed-checksum",
+      "rc": 1,
+      "last_error": "RuntimeError: CAPTURE_STABLE_BLOCK_CHECKSUM_MISMATCH",
+      "stdout_bytes": 0
+    },
+    {
+      "name": "resealed-negative-block",
+      "rc": 1,
+      "last_error": "RuntimeError: CAPTURE_INVALID_OBSERVATION_METADATA",
+      "stdout_bytes": 0
+    }
+  ],
+  "capture_complete": false,
+  "consumer_ack": false,
+  "cdc_events": 0,
+  "files": [
+    {
+      "path": "lab/out/online-resume-20261005/bad-count/observations.oracap",
+      "bytes": 3508026,
+      "sha256": "d46909048c6814b1e0cc76b93ea4b3daeb252862af702d59586f515e7121b48b"
+    },
+    {
+      "path": "lab/out/online-resume-20261005/bad-count/receipt.json",
+      "bytes": 118,
+      "sha256": "9aafa783acde22b35a9d2bae4c4aee5af537882a3ad0489ad015e41330ed58fb"
+    },
+    {
+      "path": "lab/out/online-resume-20261005/bad-count/source.json",
+      "bytes": 272,
+      "sha256": "7effe793468ecf9f90255bd1569be0a424ce89b523bc362a2c79508ec2f2f9d1"
+    },
+    {
+      "path": "lab/out/online-resume-20261005/bad-count/writer.lock",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/online-resume-20261005/bad-count-copy-owner.command.json",
+      "bytes": 133,
+      "sha256": "da2520e626c55e02acacb410a9a94c76bbe9422b39399ec78a224689ceddb392"
+    },
+    {
+      "path": "lab/out/online-resume-20261005/bad-count-copy-owner.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/online-resume-20261005/bad-count-copy-owner.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/online-resume-20261005/bad-count-copy-owner.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/online-resume-20261005/bad-count-copy.command.json",
+      "bytes": 161,
+      "sha256": "cd03067356dcb7834b1a350f4ffb773702ed49f0bda246705697234507e38523"
+    },
+    {
+      "path": "lab/out/online-resume-20261005/bad-count-copy.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/online-resume-20261005/bad-count-copy.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/online-resume-20261005/bad-count-copy.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/online-resume-20261005/bad-count.command.json",
+      "bytes": 138,
+      "sha256": "95e843088c170d4f063bc1ebf80d9a604ac12aefaa5c1d99715bf49aa87b84bb"
+    },
+    {
+      "path": "lab/out/online-resume-20261005/bad-count.rc.txt",
+      "bytes": 1,
+      "sha256": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b"
+    },
+    {
+      "path": "lab/out/online-resume-20261005/bad-count.stderr.txt",
+      "bytes": 354,
+      "sha256": "3bc0880e29611292c4b2f6b61fa30d2884e2d4b812d909c7f05113a0d751d658"
+    },
+    {
+      "path": "lab/out/online-resume-20261005/bad-count.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/online-resume-20261005/bad-envelope/observations.oracap",
+      "bytes": 3508026,
+      "sha256": "02a8c9287b70bcde6c2f810f3d73da04e37dddb5cd9ab2a0e2987553c958d64a"
+    },
+    {
+      "path": "lab/out/online-resume-20261005/bad-envelope/receipt.json",
+      "bytes": 118,
+      "sha256": "ff72210ee1bacb86a659cc6c1343a632d7cd4441fa5118c029e253689016ac1f"
+    },
+    {
+      "path": "lab/out/online-resume-20261005/bad-envelope/source.json",
+      "bytes": 272,
+      "sha256": "7effe793468ecf9f90255bd1569be0a424ce89b523bc362a2c79508ec2f2f9d1"
+    },
+    {
+      "path": "lab/out/online-resume-20261005/bad-envelope/writer.lock",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/online-resume-20261005/bad-envelope-copy-owner.command.json",
+      "bytes": 136,
+      "sha256": "f3b9416195a3e84801618c6f5e86a2a88440e238d7561913f36a4eaf3eee3369"
+    },
+    {
+      "path": "lab/out/online-resume-20261005/bad-envelope-copy-owner.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/online-resume-20261005/bad-envelope-copy-owner.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/online-resume-20261005/bad-envelope-copy-owner.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/online-resume-20261005/bad-envelope-copy.command.json",
+      "bytes": 167,
+      "sha256": "333ed74f1c294c8a4018e58f85c27413e3bad4eec972ef522eb09cf2fbb13ca8"
+    },
+    {
+      "path": "lab/out/online-resume-20261005/bad-envelope-copy.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/online-resume-20261005/bad-envelope-copy.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/online-resume-20261005/bad-envelope-copy.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/online-resume-20261005/bad-envelope.command.json",
+      "bytes": 141,
+      "sha256": "6b20797327b21dbcc8c15b92e32a6e763e2eb7d3a6581df47076855aaffa470c"
+    },
+    {
+      "path": "lab/out/online-resume-20261005/bad-envelope.rc.txt",
+      "bytes": 1,
+      "sha256": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b"
+    },
+    {
+      "path": "lab/out/online-resume-20261005/bad-envelope.stderr.txt",
+      "bytes": 322,
+      "sha256": "d48b4b69dcb9331e889f283f83231e99cb06758b667483d0d7254134b31aee22"
+    },
+    {
+      "path": "lab/out/online-resume-20261005/bad-envelope.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/online-resume-20261005/binding-continuation.command.json",
+      "bytes": 125,
+      "sha256": "92b11ce209b6f209002bbfe2fca241e2b4505dae9b02fa31abf42af2cce92a19"
+    },
+    {
+      "path": "lab/out/online-resume-20261005/binding-continuation.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/online-resume-20261005/binding-continuation.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/online-resume-20261005/binding-continuation.stdout.txt",
+      "bytes": 84,
+      "sha256": "663213c6ddff7be1e55f48031ca6e99d821fac874d4aa01eb41eb0ef08ee52b2"
+    },
+    {
+      "path": "lab/out/online-resume-20261005/binding.command.json",
+      "bytes": 125,
+      "sha256": "92b11ce209b6f209002bbfe2fca241e2b4505dae9b02fa31abf42af2cce92a19"
+    },
+    {
+      "path": "lab/out/online-resume-20261005/binding.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/online-resume-20261005/binding.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/online-resume-20261005/binding.stdout.txt",
+      "bytes": 84,
+      "sha256": "663213c6ddff7be1e55f48031ca6e99d821fac874d4aa01eb41eb0ef08ee52b2"
+    },
+    {
+      "path": "lab/out/online-resume-20261005/complete-tail/observations.oracap",
+      "bytes": 3508026,
+      "sha256": "d46909048c6814b1e0cc76b93ea4b3daeb252862af702d59586f515e7121b48b"
+    },
+    {
+      "path": "lab/out/online-resume-20261005/complete-tail/receipt.json",
+      "bytes": 109,
+      "sha256": "426507c43ea93609c68bb97b6cbe4458eec5e36d961f5a3902a55b64b93975e4"
+    },
+    {
+      "path": "lab/out/online-resume-20261005/complete-tail/source.json",
+      "bytes": 272,
+      "sha256": "7effe793468ecf9f90255bd1569be0a424ce89b523bc362a2c79508ec2f2f9d1"
+    },
+    {
+      "path": "lab/out/online-resume-20261005/complete-tail/writer.lock",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/online-resume-20261005/complete-tail-copy.command.json",
+      "bytes": 169,
+      "sha256": "efac287f50851e17dd084a8dc497e42bd388226af6a0b3da708e09878635876b"
+    },
+    {
+      "path": "lab/out/online-resume-20261005/complete-tail-copy.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/online-resume-20261005/complete-tail-copy.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/online-resume-20261005/complete-tail-copy.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/online-resume-20261005/complete-tail-export.command.json",
+      "bytes": 182,
+      "sha256": "d2902ee12a26cfe950554db48572d6a6c5a3ed2e9deda349d8b0de073e9c83d9"
+    },
+    {
+      "path": "lab/out/online-resume-20261005/complete-tail-export.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/online-resume-20261005/complete-tail-export.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/online-resume-20261005/complete-tail-export.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/online-resume-20261005/complete-tail-r2/observations.oracap",
+      "bytes": 3508026,
+      "sha256": "d46909048c6814b1e0cc76b93ea4b3daeb252862af702d59586f515e7121b48b"
+    },
+    {
+      "path": "lab/out/online-resume-20261005/complete-tail-r2/receipt.json",
+      "bytes": 109,
+      "sha256": "426507c43ea93609c68bb97b6cbe4458eec5e36d961f5a3902a55b64b93975e4"
+    },
+    {
+      "path": "lab/out/online-resume-20261005/complete-tail-r2/source.json",
+      "bytes": 272,
+      "sha256": "7effe793468ecf9f90255bd1569be0a424ce89b523bc362a2c79508ec2f2f9d1"
+    },
+    {
+      "path": "lab/out/online-resume-20261005/complete-tail-r2/writer.lock",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/online-resume-20261005/complete-tail-r2-copy-owner.command.json",
+      "bytes": 140,
+      "sha256": "9feef0d1a1b40fabe91362bed19df55f5c87b2bc689c97a8a6956a531a526ddf"
+    },
+    {
+      "path": "lab/out/online-resume-20261005/complete-tail-r2-copy-owner.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/online-resume-20261005/complete-tail-r2-copy-owner.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/online-resume-20261005/complete-tail-r2-copy-owner.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/online-resume-20261005/complete-tail-r2-copy.command.json",
+      "bytes": 175,
+      "sha256": "eb41e50822ae6c63388acef659c507d1f1c7296bb7b81ab05a6d2ef6be2c16eb"
+    },
+    {
+      "path": "lab/out/online-resume-20261005/complete-tail-r2-copy.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/online-resume-20261005/complete-tail-r2-copy.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/online-resume-20261005/complete-tail-r2-copy.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/online-resume-20261005/complete-tail-r2.command.json",
+      "bytes": 203,
+      "sha256": "4125ebd5a3e24badd97274f8cf31f5ba6c080f7fc2fe2ba400ea5e356bbac2d4"
+    },
+    {
+      "path": "lab/out/online-resume-20261005/complete-tail-r2.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/online-resume-20261005/complete-tail-r2.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/online-resume-20261005/complete-tail-r2.stdout.txt",
+      "bytes": 149,
+      "sha256": "d07917bef1d43a98adb0af396a1cd9e8de351f631df48cc09fe363697199f80c"
+    },
+    {
+      "path": "lab/out/online-resume-20261005/complete-tail-recovered/observations.oracap",
+      "bytes": 3508026,
+      "sha256": "d46909048c6814b1e0cc76b93ea4b3daeb252862af702d59586f515e7121b48b"
+    },
+    {
+      "path": "lab/out/online-resume-20261005/complete-tail-recovered/receipt.json",
+      "bytes": 118,
+      "sha256": "ff72210ee1bacb86a659cc6c1343a632d7cd4441fa5118c029e253689016ac1f"
+    },
+    {
+      "path": "lab/out/online-resume-20261005/complete-tail-recovered/source.json",
+      "bytes": 272,
+      "sha256": "7effe793468ecf9f90255bd1569be0a424ce89b523bc362a2c79508ec2f2f9d1"
+    },
+    {
+      "path": "lab/out/online-resume-20261005/complete-tail-recovered/writer.lock",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/online-resume-20261005/complete-tail.command.json",
+      "bytes": 200,
+      "sha256": "c967c66db72ed49eb4a7afb3661c40e4d34705b87ddd7f20f7c6fc1a8e48f850"
+    },
+    {
+      "path": "lab/out/online-resume-20261005/complete-tail.rc.txt",
+      "bytes": 1,
+      "sha256": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b"
+    },
+    {
+      "path": "lab/out/online-resume-20261005/complete-tail.stderr.txt",
+      "bytes": 439,
+      "sha256": "4afc52c4ed58f9b53b65000a47a08fcb7ea2f4345755c52385173bff1cdc2190"
+    },
+    {
+      "path": "lab/out/online-resume-20261005/complete-tail.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/online-resume-20261005/duplicate-frame/observations.oracap",
+      "bytes": 3508880,
+      "sha256": "1897686a14170ae4e71214ee29f8e7114117e1d95e2a5537dfb9730844815c2f"
+    },
+    {
+      "path": "lab/out/online-resume-20261005/duplicate-frame/receipt.json",
+      "bytes": 118,
+      "sha256": "ff72210ee1bacb86a659cc6c1343a632d7cd4441fa5118c029e253689016ac1f"
+    },
+    {
+      "path": "lab/out/online-resume-20261005/duplicate-frame/source.json",
+      "bytes": 272,
+      "sha256": "7effe793468ecf9f90255bd1569be0a424ce89b523bc362a2c79508ec2f2f9d1"
+    },
+    {
+      "path": "lab/out/online-resume-20261005/duplicate-frame/writer.lock",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/online-resume-20261005/duplicate-frame-copy-owner.command.json",
+      "bytes": 139,
+      "sha256": "ffa4d15c4e2833e9ecf3e24c58ce23aac5f7071c67dd25b9996c9bd720c9b141"
+    },
+    {
+      "path": "lab/out/online-resume-20261005/duplicate-frame-copy-owner.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/online-resume-20261005/duplicate-frame-copy-owner.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/online-resume-20261005/duplicate-frame-copy-owner.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/online-resume-20261005/duplicate-frame-copy.command.json",
+      "bytes": 173,
+      "sha256": "050a10611c923b1a2b04d6f238e1b138f8b7fcae9dbbb24149fc3f3f546e729f"
+    },
+    {
+      "path": "lab/out/online-resume-20261005/duplicate-frame-copy.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/online-resume-20261005/duplicate-frame-copy.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/online-resume-20261005/duplicate-frame-copy.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/online-resume-20261005/duplicate-frame.command.json",
+      "bytes": 144,
+      "sha256": "63437e742db7f7beaff57c8c6762dd727ce14f29f3c3b3b458514f4d120bac41"
+    },
+    {
+      "path": "lab/out/online-resume-20261005/duplicate-frame.rc.txt",
+      "bytes": 1,
+      "sha256": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b"
+    },
+    {
+      "path": "lab/out/online-resume-20261005/duplicate-frame.stderr.txt",
+      "bytes": 333,
+      "sha256": "800a68034c955ec9618da6cdfdef693025614757de6c6e84764bcec7c8fdbaff"
+    },
+    {
+      "path": "lab/out/online-resume-20261005/duplicate-frame.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/online-resume-20261005/export-first.command.json",
+      "bytes": 157,
+      "sha256": "edcf48eace202bb558bf5e616769a86ff8304cb0656e5a587570f9ac183846f1"
+    },
+    {
+      "path": "lab/out/online-resume-20261005/export-first.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/online-resume-20261005/export-first.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/online-resume-20261005/export-first.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/online-resume-20261005/export-resume.command.json",
+      "bytes": 159,
+      "sha256": "1f7a3ca73f6f955db5d53ede3407d8a95dc657c6d72b7408dbbc77da637bf680"
+    },
+    {
+      "path": "lab/out/online-resume-20261005/export-resume.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/online-resume-20261005/export-resume.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/online-resume-20261005/export-resume.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/online-resume-20261005/first/observations.oracap",
+      "bytes": 3508026,
+      "sha256": "d46909048c6814b1e0cc76b93ea4b3daeb252862af702d59586f515e7121b48b"
+    },
+    {
+      "path": "lab/out/online-resume-20261005/first/receipt.json",
+      "bytes": 118,
+      "sha256": "ff72210ee1bacb86a659cc6c1343a632d7cd4441fa5118c029e253689016ac1f"
+    },
+    {
+      "path": "lab/out/online-resume-20261005/first/source.json",
+      "bytes": 272,
+      "sha256": "7effe793468ecf9f90255bd1569be0a424ce89b523bc362a2c79508ec2f2f9d1"
+    },
+    {
+      "path": "lab/out/online-resume-20261005/first/writer.lock",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/online-resume-20261005/first.command.json",
+      "bytes": 186,
+      "sha256": "fbabf49dffb89265e3e2633564be2ecf90d46572d466dacbd6b93cdcef418c6a"
+    },
+    {
+      "path": "lab/out/online-resume-20261005/first.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/online-resume-20261005/first.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/online-resume-20261005/first.stdout.txt",
+      "bytes": 288,
+      "sha256": "fee01f233247f23d381ac3f55d893980f40ccda882b3c76873c187efa3ad7e83"
+    },
+    {
+      "path": "lab/out/online-resume-20261005/inventory.command.json",
+      "bytes": 90,
+      "sha256": "6095ca5a9605c02acb9b77ba5ea4d19487ab938e2e51045704dedb495bc394d5"
+    },
+    {
+      "path": "lab/out/online-resume-20261005/inventory.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/online-resume-20261005/inventory.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/online-resume-20261005/inventory.stdout.txt",
+      "bytes": 48,
+      "sha256": "9473d62a1fe3528289ace40a021a1de4860322b1bc1f8c8f59f5c56306bf7c46"
+    },
+    {
+      "path": "lab/out/online-resume-20261005/lost-complete-frame/observations.oracap",
+      "bytes": 3507170,
+      "sha256": "823d16557df34ebb0d66753f8fde3f0bd1452c4940b023dec4edb90231417473"
+    },
+    {
+      "path": "lab/out/online-resume-20261005/lost-complete-frame/receipt.json",
+      "bytes": 118,
+      "sha256": "ff72210ee1bacb86a659cc6c1343a632d7cd4441fa5118c029e253689016ac1f"
+    },
+    {
+      "path": "lab/out/online-resume-20261005/lost-complete-frame/source.json",
+      "bytes": 272,
+      "sha256": "7effe793468ecf9f90255bd1569be0a424ce89b523bc362a2c79508ec2f2f9d1"
+    },
+    {
+      "path": "lab/out/online-resume-20261005/lost-complete-frame/writer.lock",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/online-resume-20261005/lost-complete-frame-copy-owner.command.json",
+      "bytes": 143,
+      "sha256": "87208a34f52bcd7908fcc635face56a9568d954ed2f2dfb01eb66aae4d6c0da3"
+    },
+    {
+      "path": "lab/out/online-resume-20261005/lost-complete-frame-copy-owner.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/online-resume-20261005/lost-complete-frame-copy-owner.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/online-resume-20261005/lost-complete-frame-copy-owner.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/online-resume-20261005/lost-complete-frame-copy.command.json",
+      "bytes": 181,
+      "sha256": "3dfa501f633cd858e7bb9f88cf6e367c353a9398e59f85ffad94b821eeac804e"
+    },
+    {
+      "path": "lab/out/online-resume-20261005/lost-complete-frame-copy.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/online-resume-20261005/lost-complete-frame-copy.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/online-resume-20261005/lost-complete-frame-copy.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/online-resume-20261005/lost-complete-frame.command.json",
+      "bytes": 148,
+      "sha256": "409a2a53bb9336f6d437654d3969d40bf459699cdcb626c19b5da42c8d72c53a"
+    },
+    {
+      "path": "lab/out/online-resume-20261005/lost-complete-frame.rc.txt",
+      "bytes": 1,
+      "sha256": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b"
+    },
+    {
+      "path": "lab/out/online-resume-20261005/lost-complete-frame.stderr.txt",
+      "bytes": 322,
+      "sha256": "d48b4b69dcb9331e889f283f83231e99cb06758b667483d0d7254134b31aee22"
+    },
+    {
+      "path": "lab/out/online-resume-20261005/lost-complete-frame.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/online-resume-20261005/proof.json",
+      "bytes": 366,
+      "sha256": "b5e9edfd77c0395f1654ca3f91bc198d45d74ac4ff66257fe66a66fbdd8959f2"
+    },
+    {
+      "path": "lab/out/online-resume-20261005/receipt-inside-frame/observations.oracap",
+      "bytes": 3508026,
+      "sha256": "d46909048c6814b1e0cc76b93ea4b3daeb252862af702d59586f515e7121b48b"
+    },
+    {
+      "path": "lab/out/online-resume-20261005/receipt-inside-frame/receipt.json",
+      "bytes": 114,
+      "sha256": "668999f8780061a1f9a3505c2dec8da8e78d160e65c4981a04acdbd96fa7a46b"
+    },
+    {
+      "path": "lab/out/online-resume-20261005/receipt-inside-frame/source.json",
+      "bytes": 272,
+      "sha256": "7effe793468ecf9f90255bd1569be0a424ce89b523bc362a2c79508ec2f2f9d1"
+    },
+    {
+      "path": "lab/out/online-resume-20261005/receipt-inside-frame/writer.lock",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/online-resume-20261005/receipt-inside-frame-copy-owner.command.json",
+      "bytes": 144,
+      "sha256": "dbe6573debe193ddfd40527a2ec313ac18170448dc9c1e90497d9fdcbee176ac"
+    },
+    {
+      "path": "lab/out/online-resume-20261005/receipt-inside-frame-copy-owner.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/online-resume-20261005/receipt-inside-frame-copy-owner.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/online-resume-20261005/receipt-inside-frame-copy-owner.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/online-resume-20261005/receipt-inside-frame-copy.command.json",
+      "bytes": 183,
+      "sha256": "ef7c918d95d0c0dfad21bbbe31761dd8cc748f6c01057896abb1549fecde5856"
+    },
+    {
+      "path": "lab/out/online-resume-20261005/receipt-inside-frame-copy.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/online-resume-20261005/receipt-inside-frame-copy.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/online-resume-20261005/receipt-inside-frame-copy.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/online-resume-20261005/receipt-inside-frame.command.json",
+      "bytes": 149,
+      "sha256": "ee6062490f12573780508afc56a2e68e66bd19891ea0a3949cee7c36c78d0765"
+    },
+    {
+      "path": "lab/out/online-resume-20261005/receipt-inside-frame.rc.txt",
+      "bytes": 1,
+      "sha256": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b"
+    },
+    {
+      "path": "lab/out/online-resume-20261005/receipt-inside-frame.stderr.txt",
+      "bytes": 349,
+      "sha256": "5d3c1c8db3f4563f74b23b1f0d93f0f96172309377a41021e8dbd6bf21f45b5e"
+    },
+    {
+      "path": "lab/out/online-resume-20261005/receipt-inside-frame.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/online-resume-20261005/resume.command.json",
+      "bytes": 198,
+      "sha256": "6eaac62a8d48b49151fa3666b32d825ddeea375891e02395f6a29c498f9bf377"
+    },
+    {
+      "path": "lab/out/online-resume-20261005/resume.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/online-resume-20261005/resume.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/online-resume-20261005/resume.stdout.txt",
+      "bytes": 298,
+      "sha256": "32db8df063e7a2d59ee190fb40421be407b1b96e6c62a0fb7a129fb8f3728600"
+    },
+    {
+      "path": "lab/out/online-resume-20261005/resumed/observations.oracap",
+      "bytes": 3508026,
+      "sha256": "d46909048c6814b1e0cc76b93ea4b3daeb252862af702d59586f515e7121b48b"
+    },
+    {
+      "path": "lab/out/online-resume-20261005/resumed/receipt.json",
+      "bytes": 118,
+      "sha256": "ff72210ee1bacb86a659cc6c1343a632d7cd4441fa5118c029e253689016ac1f"
+    },
+    {
+      "path": "lab/out/online-resume-20261005/resumed/source.json",
+      "bytes": 272,
+      "sha256": "7effe793468ecf9f90255bd1569be0a424ce89b523bc362a2c79508ec2f2f9d1"
+    },
+    {
+      "path": "lab/out/online-resume-20261005/resumed/writer.lock",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/online-resume-20261005/script-copy.command.json",
+      "bytes": 150,
+      "sha256": "35b086eb66bac035132ebc9744fe0a4f5bcf765248de2b2e542ada7d48edcb00"
+    },
+    {
+      "path": "lab/out/online-resume-20261005/script-copy.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/online-resume-20261005/script-copy.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/online-resume-20261005/script-copy.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/online-resume-20261005/torn-tail/observations.oracap",
+      "bytes": 3508034,
+      "sha256": "816987090494788809166740e43d522d5599572fe289ea16ece5f4dd58fdca72"
+    },
+    {
+      "path": "lab/out/online-resume-20261005/torn-tail/receipt.json",
+      "bytes": 118,
+      "sha256": "ff72210ee1bacb86a659cc6c1343a632d7cd4441fa5118c029e253689016ac1f"
+    },
+    {
+      "path": "lab/out/online-resume-20261005/torn-tail/source.json",
+      "bytes": 272,
+      "sha256": "7effe793468ecf9f90255bd1569be0a424ce89b523bc362a2c79508ec2f2f9d1"
+    },
+    {
+      "path": "lab/out/online-resume-20261005/torn-tail/writer.lock",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/online-resume-20261005/torn-tail-copy-owner.command.json",
+      "bytes": 133,
+      "sha256": "408e61e7e8e90cadb490ed93a6b49a7303f0b43701f8a690e565394b0df1a363"
+    },
+    {
+      "path": "lab/out/online-resume-20261005/torn-tail-copy-owner.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/online-resume-20261005/torn-tail-copy-owner.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/online-resume-20261005/torn-tail-copy-owner.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/online-resume-20261005/torn-tail-copy.command.json",
+      "bytes": 161,
+      "sha256": "f485693d4247be9d1d1ce8e448515416884972d9c8fe241139c22b2142f2004a"
+    },
+    {
+      "path": "lab/out/online-resume-20261005/torn-tail-copy.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/online-resume-20261005/torn-tail-copy.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/online-resume-20261005/torn-tail-copy.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/online-resume-20261005/torn-tail.command.json",
+      "bytes": 138,
+      "sha256": "28a2e575e5032298b8b23e73016fd40925f951e9bd8ae5a5c625f5e0d2ce1a06"
+    },
+    {
+      "path": "lab/out/online-resume-20261005/torn-tail.rc.txt",
+      "bytes": 1,
+      "sha256": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b"
+    },
+    {
+      "path": "lab/out/online-resume-20261005/torn-tail.stderr.txt",
+      "bytes": 391,
+      "sha256": "dc186689391bdea43d1776ef1293bcba56776386be502bcc5c2f1f146a9e2261"
+    },
+    {
+      "path": "lab/out/online-resume-20261005/torn-tail.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/online-resume-20261005/truncated-byte/observations.oracap",
+      "bytes": 3508025,
+      "sha256": "c4dce0565fc6cf269cdc370c1c8dc65348dd826148b76df916a41d8859727783"
+    },
+    {
+      "path": "lab/out/online-resume-20261005/truncated-byte/receipt.json",
+      "bytes": 118,
+      "sha256": "ff72210ee1bacb86a659cc6c1343a632d7cd4441fa5118c029e253689016ac1f"
+    },
+    {
+      "path": "lab/out/online-resume-20261005/truncated-byte/source.json",
+      "bytes": 272,
+      "sha256": "7effe793468ecf9f90255bd1569be0a424ce89b523bc362a2c79508ec2f2f9d1"
+    },
+    {
+      "path": "lab/out/online-resume-20261005/truncated-byte/writer.lock",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/online-resume-20261005/truncated-byte-copy-owner.command.json",
+      "bytes": 138,
+      "sha256": "c5e20dc6ffb98e10794433ff3c99dc7bbd828d11a02e3129fe5bb40a837a648e"
+    },
+    {
+      "path": "lab/out/online-resume-20261005/truncated-byte-copy-owner.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/online-resume-20261005/truncated-byte-copy-owner.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/online-resume-20261005/truncated-byte-copy-owner.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/online-resume-20261005/truncated-byte-copy.command.json",
+      "bytes": 171,
+      "sha256": "407365b8587e1b29c531ae0afeb85542e4c14c6b505df2e9c092e90fd793f8ce"
+    },
+    {
+      "path": "lab/out/online-resume-20261005/truncated-byte-copy.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/online-resume-20261005/truncated-byte-copy.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/online-resume-20261005/truncated-byte-copy.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/online-resume-20261005/truncated-byte.command.json",
+      "bytes": 143,
+      "sha256": "94f126b7dcec8a07e60faebe81a9fcbd41cf14892a8edad8c1062c5377888d0e"
+    },
+    {
+      "path": "lab/out/online-resume-20261005/truncated-byte.rc.txt",
+      "bytes": 1,
+      "sha256": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b"
+    },
+    {
+      "path": "lab/out/online-resume-20261005/truncated-byte.stderr.txt",
+      "bytes": 322,
+      "sha256": "d48b4b69dcb9331e889f283f83231e99cb06758b667483d0d7254134b31aee22"
+    },
+    {
+      "path": "lab/out/online-resume-20261005/truncated-byte.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/online-resume-20261005/verify.command.json",
+      "bytes": 138,
+      "sha256": "fdc71ce4fe53b8ef92f22a98050bb96346e4c9f571b0f09d99d2c6a50c0dc84b"
+    },
+    {
+      "path": "lab/out/online-resume-20261005/verify.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/online-resume-20261005/verify.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/online-resume-20261005/verify.stdout.txt",
+      "bytes": 233,
+      "sha256": "763cb308523a5a6d4c475ce05b02e9b360a350b2bb23a0f103533bc71c6ee9ae"
+    },
+    {
+      "path": "lab/out/online-resume-20261005/wrong-generation/observations.oracap",
+      "bytes": 3508026,
+      "sha256": "d46909048c6814b1e0cc76b93ea4b3daeb252862af702d59586f515e7121b48b"
+    },
+    {
+      "path": "lab/out/online-resume-20261005/wrong-generation/receipt.json",
+      "bytes": 118,
+      "sha256": "ff72210ee1bacb86a659cc6c1343a632d7cd4441fa5118c029e253689016ac1f"
+    },
+    {
+      "path": "lab/out/online-resume-20261005/wrong-generation/source.json",
+      "bytes": 272,
+      "sha256": "9342183003b3e4a0e52866edabd1a97b2ed0e5e8b152171dcc6505ee7aa51efe"
+    },
+    {
+      "path": "lab/out/online-resume-20261005/wrong-generation/writer.lock",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/online-resume-20261005/wrong-generation-copy-owner.command.json",
+      "bytes": 140,
+      "sha256": "0803bbb85fc67a4d092192402b8f67a7e1984fd599f1802d964dce1f102886e3"
+    },
+    {
+      "path": "lab/out/online-resume-20261005/wrong-generation-copy-owner.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/online-resume-20261005/wrong-generation-copy-owner.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/online-resume-20261005/wrong-generation-copy-owner.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/online-resume-20261005/wrong-generation-copy.command.json",
+      "bytes": 175,
+      "sha256": "d8b3d565aa7388383f3fe5a82153b43a74090ba9a0e1e5188e3312a53cdc6be2"
+    },
+    {
+      "path": "lab/out/online-resume-20261005/wrong-generation-copy.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/online-resume-20261005/wrong-generation-copy.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/online-resume-20261005/wrong-generation-copy.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/online-resume-20261005/wrong-generation.command.json",
+      "bytes": 203,
+      "sha256": "387276572e7e9282d2843972275f2ba3b1b08d5c7ce3073267ef19784b3d0c78"
+    },
+    {
+      "path": "lab/out/online-resume-20261005/wrong-generation.rc.txt",
+      "bytes": 1,
+      "sha256": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b"
+    },
+    {
+      "path": "lab/out/online-resume-20261005/wrong-generation.stderr.txt",
+      "bytes": 546,
+      "sha256": "dc7b3eb4f7fba43e57810dc967aa2f728020bf17efe03aabfa4b6c6ca8cd3a2b"
+    },
+    {
+      "path": "lab/out/online-resume-20261005/wrong-generation.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/online-resume-20261005/wrong-inode/observations.oracap",
+      "bytes": 3508026,
+      "sha256": "d46909048c6814b1e0cc76b93ea4b3daeb252862af702d59586f515e7121b48b"
+    },
+    {
+      "path": "lab/out/online-resume-20261005/wrong-inode/receipt.json",
+      "bytes": 118,
+      "sha256": "ff72210ee1bacb86a659cc6c1343a632d7cd4441fa5118c029e253689016ac1f"
+    },
+    {
+      "path": "lab/out/online-resume-20261005/wrong-inode/source.json",
+      "bytes": 272,
+      "sha256": "2bdf73742de4fc41068de29778f22672e2c660eef2094021b23af7beb3d5988e"
+    },
+    {
+      "path": "lab/out/online-resume-20261005/wrong-inode/writer.lock",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/online-resume-20261005/wrong-inode-copy-owner.command.json",
+      "bytes": 135,
+      "sha256": "84c2a17e559f7f7157a700c577ec420c430bba4e63b72080e892903260645377"
+    },
+    {
+      "path": "lab/out/online-resume-20261005/wrong-inode-copy-owner.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/online-resume-20261005/wrong-inode-copy-owner.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/online-resume-20261005/wrong-inode-copy-owner.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/online-resume-20261005/wrong-inode-copy.command.json",
+      "bytes": 165,
+      "sha256": "8a7ddb1da39d95b8555267d8e88122a462d1dc84273f0f5ff5c155ec604df25c"
+    },
+    {
+      "path": "lab/out/online-resume-20261005/wrong-inode-copy.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/online-resume-20261005/wrong-inode-copy.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/online-resume-20261005/wrong-inode-copy.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/online-resume-20261005/wrong-inode.command.json",
+      "bytes": 198,
+      "sha256": "88d06a645b98587a6dcab21b62d8af9b68eeb11b1358bc2771a945559cbcf362"
+    },
+    {
+      "path": "lab/out/online-resume-20261005/wrong-inode.rc.txt",
+      "bytes": 1,
+      "sha256": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b"
+    },
+    {
+      "path": "lab/out/online-resume-20261005/wrong-inode.stderr.txt",
+      "bytes": 415,
+      "sha256": "dab90b181109342e9880bc1391dc05449c17fe0684150f1ead7bfa8fde29f7e0"
+    },
+    {
+      "path": "lab/out/online-resume-20261005/wrong-inode.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/online-resume-faults-20261005/after-lock-release.command.json",
+      "bytes": 210,
+      "sha256": "c8c1424481a012dc5a429f72778130f905909cac3800b3d64aabdff095eff5d0"
+    },
+    {
+      "path": "lab/out/online-resume-faults-20261005/after-lock-release.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/online-resume-faults-20261005/after-lock-release.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/online-resume-faults-20261005/after-lock-release.stdout.txt",
+      "bytes": 149,
+      "sha256": "d07917bef1d43a98adb0af396a1cd9e8de351f631df48cc09fe363697199f80c"
+    },
+    {
+      "path": "lab/out/online-resume-faults-20261005/after-release/observations.oracap",
+      "bytes": 3508026,
+      "sha256": "d46909048c6814b1e0cc76b93ea4b3daeb252862af702d59586f515e7121b48b"
+    },
+    {
+      "path": "lab/out/online-resume-faults-20261005/after-release/receipt.json",
+      "bytes": 118,
+      "sha256": "ff72210ee1bacb86a659cc6c1343a632d7cd4441fa5118c029e253689016ac1f"
+    },
+    {
+      "path": "lab/out/online-resume-faults-20261005/after-release/source.json",
+      "bytes": 272,
+      "sha256": "7effe793468ecf9f90255bd1569be0a424ce89b523bc362a2c79508ec2f2f9d1"
+    },
+    {
+      "path": "lab/out/online-resume-faults-20261005/after-release/writer.lock",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/online-resume-faults-20261005/copy-script.command.json",
+      "bytes": 156,
+      "sha256": "81b1b90632f551b9f7df98e234da0c574a451c691102f5dd5b46c22d1dce3a3b"
+    },
+    {
+      "path": "lab/out/online-resume-faults-20261005/copy-script.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/online-resume-faults-20261005/copy-script.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/online-resume-faults-20261005/copy-script.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/online-resume-faults-20261005/exclusive-writer/observations.oracap",
+      "bytes": 3508026,
+      "sha256": "d46909048c6814b1e0cc76b93ea4b3daeb252862af702d59586f515e7121b48b"
+    },
+    {
+      "path": "lab/out/online-resume-faults-20261005/exclusive-writer/receipt.json",
+      "bytes": 118,
+      "sha256": "ff72210ee1bacb86a659cc6c1343a632d7cd4441fa5118c029e253689016ac1f"
+    },
+    {
+      "path": "lab/out/online-resume-faults-20261005/exclusive-writer/source.json",
+      "bytes": 272,
+      "sha256": "7effe793468ecf9f90255bd1569be0a424ce89b523bc362a2c79508ec2f2f9d1"
+    },
+    {
+      "path": "lab/out/online-resume-faults-20261005/exclusive-writer/writer.lock",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/online-resume-faults-20261005/exclusive-writer-copy.command.json",
+      "bytes": 183,
+      "sha256": "674dfe507ac040774b8cdfe53e91b7af18b24b2bef29bc35cf280bcf984c63d0"
+    },
+    {
+      "path": "lab/out/online-resume-faults-20261005/exclusive-writer-copy.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/online-resume-faults-20261005/exclusive-writer-copy.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/online-resume-faults-20261005/exclusive-writer-copy.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/online-resume-faults-20261005/exclusive-writer-owner.command.json",
+      "bytes": 141,
+      "sha256": "597b127600357bbcebcf42701484c832528aff991cfa0b35f1a363fad9b994cb"
+    },
+    {
+      "path": "lab/out/online-resume-faults-20261005/exclusive-writer-owner.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/online-resume-faults-20261005/exclusive-writer-owner.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/online-resume-faults-20261005/exclusive-writer-owner.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/online-resume-faults-20261005/exclusive-writer.command.json",
+      "bytes": 210,
+      "sha256": "c8c1424481a012dc5a429f72778130f905909cac3800b3d64aabdff095eff5d0"
+    },
+    {
+      "path": "lab/out/online-resume-faults-20261005/exclusive-writer.rc.txt",
+      "bytes": 1,
+      "sha256": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b"
+    },
+    {
+      "path": "lab/out/online-resume-faults-20261005/exclusive-writer.stderr.txt",
+      "bytes": 408,
+      "sha256": "a97eb3b6f3b011ef4657f0576cb6af71b0647326a4dc03ee465999890addd8bb"
+    },
+    {
+      "path": "lab/out/online-resume-faults-20261005/exclusive-writer.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/online-resume-faults-20261005/export-after-release.command.json",
+      "bytes": 180,
+      "sha256": "9ea23531550a7cd0eb5011a90d93d70ade9b1a6ead392008f1919f59732d05f3"
+    },
+    {
+      "path": "lab/out/online-resume-faults-20261005/export-after-release.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/online-resume-faults-20261005/export-after-release.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/online-resume-faults-20261005/export-after-release.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/online-resume-faults-20261005/final-verify.command.json",
+      "bytes": 152,
+      "sha256": "a613b8b0042190c8198bd2b34bbdc5da40d55bbb9cc8743d0df5e9e4a901ef01"
+    },
+    {
+      "path": "lab/out/online-resume-faults-20261005/final-verify.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/online-resume-faults-20261005/final-verify.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/online-resume-faults-20261005/final-verify.stdout.txt",
+      "bytes": 233,
+      "sha256": "763cb308523a5a6d4c475ce05b02e9b360a350b2bb23a0f103533bc71c6ee9ae"
+    },
+    {
+      "path": "lab/out/online-resume-faults-20261005/holder-ready.stdout.txt",
+      "bytes": 7,
+      "sha256": "41059c2af1e77017830a915f5588da7fef8c10781316773e6366fc75c8cc6d45"
+    },
+    {
+      "path": "lab/out/online-resume-faults-20261005/holder.command.json",
+      "bytes": 254,
+      "sha256": "61e946526dbb6be35410d4b1ec1cd722c4561c0b5a3c687f7de0bc21f43d0579"
+    },
+    {
+      "path": "lab/out/online-resume-faults-20261005/holder.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/online-resume-faults-20261005/holder.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/online-resume-faults-20261005/holder.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/online-resume-faults-20261005/missing-receipt/observations.oracap",
+      "bytes": 3508026,
+      "sha256": "d46909048c6814b1e0cc76b93ea4b3daeb252862af702d59586f515e7121b48b"
+    },
+    {
+      "path": "lab/out/online-resume-faults-20261005/missing-receipt/source.json",
+      "bytes": 272,
+      "sha256": "7effe793468ecf9f90255bd1569be0a424ce89b523bc362a2c79508ec2f2f9d1"
+    },
+    {
+      "path": "lab/out/online-resume-faults-20261005/missing-receipt/writer.lock",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/online-resume-faults-20261005/missing-receipt-copy.command.json",
+      "bytes": 181,
+      "sha256": "1e90ac4f76321812a64ba6e1013baf5a36d873004bf31e1ed5381df333b4c18b"
+    },
+    {
+      "path": "lab/out/online-resume-faults-20261005/missing-receipt-copy.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/online-resume-faults-20261005/missing-receipt-copy.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/online-resume-faults-20261005/missing-receipt-copy.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/online-resume-faults-20261005/missing-receipt-owner.command.json",
+      "bytes": 140,
+      "sha256": "a586e1f01a48f44026defb7f7f938ab119eaa3312dc9ed9e349a33fa040e6c3b"
+    },
+    {
+      "path": "lab/out/online-resume-faults-20261005/missing-receipt-owner.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/online-resume-faults-20261005/missing-receipt-owner.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/online-resume-faults-20261005/missing-receipt-owner.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/online-resume-faults-20261005/missing-receipt.command.json",
+      "bytes": 151,
+      "sha256": "68b8ba4e08ad7f250284479808c09586b90cde530b9c238900f3528e7ceec362"
+    },
+    {
+      "path": "lab/out/online-resume-faults-20261005/missing-receipt.rc.txt",
+      "bytes": 1,
+      "sha256": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b"
+    },
+    {
+      "path": "lab/out/online-resume-faults-20261005/missing-receipt.stderr.txt",
+      "bytes": 430,
+      "sha256": "a415297832b6b9f14bd3c063650690ba35d3dd5869c419edb3582d017c08a6ab"
+    },
+    {
+      "path": "lab/out/online-resume-faults-20261005/missing-receipt.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/online-resume-faults-20261005/resealed-checksum/observations.oracap",
+      "bytes": 3508026,
+      "sha256": "b123dc89f67800eae5ccaafea27497e29d0490879be533aef772f0255e9aa1eb"
+    },
+    {
+      "path": "lab/out/online-resume-faults-20261005/resealed-checksum/receipt.json",
+      "bytes": 118,
+      "sha256": "81ca6c2b709446dde8ae465167e1ce4b52ea70b7edcce02148c0582953f20962"
+    },
+    {
+      "path": "lab/out/online-resume-faults-20261005/resealed-checksum/source.json",
+      "bytes": 272,
+      "sha256": "7effe793468ecf9f90255bd1569be0a424ce89b523bc362a2c79508ec2f2f9d1"
+    },
+    {
+      "path": "lab/out/online-resume-faults-20261005/resealed-checksum/writer.lock",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/online-resume-faults-20261005/resealed-checksum-copy.command.json",
+      "bytes": 185,
+      "sha256": "fc821ac472d18d27cee1f8df3b338180c484d81a9237a4d225d240f1d0a1ca10"
+    },
+    {
+      "path": "lab/out/online-resume-faults-20261005/resealed-checksum-copy.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/online-resume-faults-20261005/resealed-checksum-copy.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/online-resume-faults-20261005/resealed-checksum-copy.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/online-resume-faults-20261005/resealed-checksum-owner.command.json",
+      "bytes": 142,
+      "sha256": "e9fecbce2da178bc5745dcbebf7374b2fdc8b5420c2f25d99db64062b54a244f"
+    },
+    {
+      "path": "lab/out/online-resume-faults-20261005/resealed-checksum-owner.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/online-resume-faults-20261005/resealed-checksum-owner.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/online-resume-faults-20261005/resealed-checksum-owner.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/online-resume-faults-20261005/resealed-checksum.command.json",
+      "bytes": 153,
+      "sha256": "99dc5d8029b8e8ce2156d969f8d4eddadce038552d5dae7c14f231a27aca031d"
+    },
+    {
+      "path": "lab/out/online-resume-faults-20261005/resealed-checksum.rc.txt",
+      "bytes": 1,
+      "sha256": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b"
+    },
+    {
+      "path": "lab/out/online-resume-faults-20261005/resealed-checksum.stderr.txt",
+      "bytes": 371,
+      "sha256": "45ee35b1ae4a70d840c029c2c0fff4ffd47956cd4f814d4739e5751d51eb1264"
+    },
+    {
+      "path": "lab/out/online-resume-faults-20261005/resealed-checksum.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/online-resume-faults-20261005/resealed-negative-block/observations.oracap",
+      "bytes": 3508027,
+      "sha256": "2f878ae9d52dbf9532c2e4a60701a628f29c8479279dc58f764c84c18d02b111"
+    },
+    {
+      "path": "lab/out/online-resume-faults-20261005/resealed-negative-block/receipt.json",
+      "bytes": 118,
+      "sha256": "1ced74f81b1f56c82d0147374ca660a2d805fcc733d650460065fa74e8ea4e58"
+    },
+    {
+      "path": "lab/out/online-resume-faults-20261005/resealed-negative-block/source.json",
+      "bytes": 272,
+      "sha256": "7effe793468ecf9f90255bd1569be0a424ce89b523bc362a2c79508ec2f2f9d1"
+    },
+    {
+      "path": "lab/out/online-resume-faults-20261005/resealed-negative-block/writer.lock",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/online-resume-faults-20261005/resealed-negative-block-copy.command.json",
+      "bytes": 197,
+      "sha256": "636fd7f5e8e118ab02729c5a4e6078a1db5b3a71fa1ee23781f021f42fe20b61"
+    },
+    {
+      "path": "lab/out/online-resume-faults-20261005/resealed-negative-block-copy.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/online-resume-faults-20261005/resealed-negative-block-copy.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/online-resume-faults-20261005/resealed-negative-block-copy.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/online-resume-faults-20261005/resealed-negative-block-owner.command.json",
+      "bytes": 148,
+      "sha256": "be16422995af16dabacbab394d29f0dabbb7b2b77f9ef85ce9b670050063c310"
+    },
+    {
+      "path": "lab/out/online-resume-faults-20261005/resealed-negative-block-owner.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/online-resume-faults-20261005/resealed-negative-block-owner.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/online-resume-faults-20261005/resealed-negative-block-owner.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/online-resume-faults-20261005/resealed-negative-block.command.json",
+      "bytes": 159,
+      "sha256": "d72e1861f7e579f040d8e9749c211b1e137e2d7533ebf1f5d2d46530bcba07b3"
+    },
+    {
+      "path": "lab/out/online-resume-faults-20261005/resealed-negative-block.rc.txt",
+      "bytes": 1,
+      "sha256": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b"
+    },
+    {
+      "path": "lab/out/online-resume-faults-20261005/resealed-negative-block.stderr.txt",
+      "bytes": 344,
+      "sha256": "6161592b67c11a15d09a21745066d2ffd440b56fe523a3e03884f80ea668c22f"
+    },
+    {
+      "path": "lab/out/online-resume-faults-20261005/resealed-negative-block.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/resume_online_observation.py",
+      "bytes": 8802,
+      "sha256": "fc0155f98ce9651c9f08a581ba28ccf8e8c98b4302d347b04570e005a8602f4b"
+    },
+    {
+      "path": "lab/verify_observation_resume19.py",
+      "bytes": 5696,
+      "sha256": "f87f4dbdc19f8be46a5f007d16fd843ceaea7c69333f5f475af94f0192d45e26"
+    },
+    {
+      "path": "lab/verify_observation_resume_faults19.py",
+      "bytes": 4751,
+      "sha256": "b210b96f64820ef0983ba9a4b844dcea4f8446ee35c78abedae91f048a7f4a21"
+    }
+  ]
+}
