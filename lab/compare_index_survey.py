@@ -1,4 +1,5 @@
-"""Frozen 73025 index research: native position coverage and observed direct fields only."""
+"""Frozen index research: native position coverage and observed direct fields only."""
+import argparse
 import json
 import re
 import sys
@@ -16,7 +17,13 @@ def u32(b, o):
 
 actual = {}
 errors = []
-for line in Path(sys.argv[1]).read_text(encoding='utf-8-sig').splitlines():
+parser = argparse.ArgumentParser()
+parser.add_argument('--object-id', type=int, default=73025)
+parser.add_argument('--block', type=lambda s: int(s, 0), default=0x0300008b)
+parser.add_argument('fields')
+parser.add_argument('dumps', nargs='+')
+args = parser.parse_args()
+for line in Path(args.fields).read_text(encoding='utf-8-sig').splitlines():
     parts = line.split('|')
     position = tuple(map(int, parts[:4]))
     if position in actual:
@@ -27,7 +34,7 @@ for line in Path(sys.argv[1]).read_text(encoding='utf-8-sig').splitlines():
 expected = {}
 counts = Counter()
 checks = Counter()
-for filename in sys.argv[2:]:
+for filename in args.dumps:
     text = Path(filename).read_text(encoding='utf-8')
     for record in re.split(r'(?=REDO RECORD - Thread:)', text):
         if not record.startswith('REDO RECORD - Thread:'):
@@ -42,8 +49,8 @@ for filename in sys.argv[2:]:
                 continue
             opcode = h[4]
             metadata = re.search(r'(?:ktubu|ktubl) redo: slt: (\d+) wrp: (\d+) flg: 0x([0-9a-f]+) prev dba:\s*0x([0-9a-f]+) rci: (\d+) opc: (\d+)\.(\d+) \[objn: (\d+) objd: (\d+) tsn: (\d+)\]', change)
-            selected = (opcode.startswith('10.') and int(h[2], 16) == 0x0300008b)
-            selected |= opcode in ('5.1', '5.6', '5.11') and metadata is not None and int(metadata[9]) == 73025
+            selected = (opcode.startswith('10.') and int(h[2], 16) == args.block)
+            selected |= opcode in ('5.1', '5.6', '5.11') and metadata is not None and int(metadata[9]) == args.object_id
             if not selected:
                 continue
             position = tuple(int(rba[i], 16) for i in (1, 2, 3)) + (int(h[1]),)
@@ -89,12 +96,12 @@ for filename in sys.argv[2:]:
                 extra = re.search(r'ktuxvoff: 0x([0-9a-f]+)\s+ktuxvflg: 0x([0-9a-f]+)', change)
                 check('COMPENSATION_EXTRA', len(fields) == 2 and len(fields[0]) == 28 and len(fields[1]) == 8 and
                       [u32(fields[1], 0), u32(fields[1], 4)] == [int(extra[i], 16) for i in (1, 2)])
-            elif opcode in ('10.2', '10.3', '10.4'):
+            elif opcode in ('10.2', '10.3', '10.4', '10.5'):
                 leaf = fields[1]
                 direct = re.search(r'itl: (\d+), sno: (\d+), row size (\d+)', change)
                 check('FORWARD_LEAF_DIRECT', len(leaf) == 6 and [leaf[0], u16(leaf, 2), u16(leaf, 4)] ==
                       [int(direct[i]) for i in (1, 2, 3)])
-                check('FORWARD_MODE', leaf[1] == (1 if opcode == '10.3' else 0))
+                check('FORWARD_MODE', leaf[1] == (1 if opcode in ('10.3', '10.5') else 0))
                 if opcode == '10.2':
                     key = re.search(r'insert key:\s*\((\d+)\):\s*((?:[0-9a-f]{2}\s*)+)', change)
                     keydata = re.search(r'keydata:\s*\((\d+)\):\s*((?:[0-9a-f]{2}\s*)+)', change)
