@@ -80,6 +80,13 @@ public final class TransactionLifecycle {
             refuse("PAIR_WITHOUT_ACTIVE_TRANSACTION_IDENTITY");
     }
 
+    public void requireActive(RedoRecords.Record record,IndexUndoPair pair) throws RedoException {
+        checkRecord(record);
+        if (record.containerUid()!=pair.containerUid()
+                || !identities.containsKey(new Identity(pair.containerUid(),pair.containerId(),pair.undo().identity().xid())))
+            refuse("INDEX_PAIR_WITHOUT_ACTIVE_TRANSACTION_IDENTITY");
+    }
+
     public UndoHeader advance(RedoRecords.Record record,RedoRecords.Vector vector) throws RedoException {
         checkRecord(record);
         try {
