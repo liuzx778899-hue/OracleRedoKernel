@@ -9,6 +9,7 @@ public class MultiCompensationProbe {
     public static void main(String[] args)throws Exception {
         Path p=Path.of(args[0]);long object=Long.parseLong(args[1]);String[] x=args[2].split("\\.");
         int expectedOriginals=args.length>=4 ? Integer.parseInt(args[3]) : 120;
+        int expectedCompensations=args.length>=6 ? Integer.parseInt(args[5]) : 60;
         var xid=new HeapRowPatch.Xid(Integer.parseInt(x[0]),Integer.parseInt(x[1]),Long.parseLong(x[2]));
         var header=new ArchivedRedo().scan(p);var state=new TransactionLifecycle();state.archive(header);
         var compensationInventory=ArchivedCompensationInventory.read(List.of(p),677737149,3,xid);
@@ -69,15 +70,15 @@ public class MultiCompensationProbe {
                 var tail=TransactionEnd.undoTail(v);closed[0]=graph.close(tail);edges.add("END|"+r.block()+"|"+r.offset()+"|"+UndoCursorProbe.address(tail));state.end(r,v);ends[0]++;
             }
         });state.finish();
-        if(history.size()!=expectedOriginals || cancelled.size()!=60 || ends[0]!=1)throw new RedoException("MULTI_COMPENSATION_COVERAGE_MISMATCH");
+        if(history.size()!=expectedOriginals || cancelled.size()!=expectedCompensations || ends[0]!=1)throw new RedoException("MULTI_COMPENSATION_COVERAGE_MISMATCH");
         var live=new HashSet<HeapRowPatch.Uba>();for(var e:closed[0].live())live.add(e.identity().uba());
         if(live.size()!=history.size()-cancelled.size())throw new RedoException("HISTORY_LIVE_SET_COUNT_MISMATCH");
         for(int i=0;i<history.size();i++) {
             var pair=history.get(i);if(!live.contains(pair.undo().identity().uba()))continue;
             output.add("RETAIN|"+UndoCursorProbe.address(pair.undo().identity().uba())+"|"+i+"|"+pair.forward().dba()+"|"+pair.forward().slot()+"|"+HeapUndoPairProbe.cols(pair.forward()));
         }
-        if(args.length==5)java.nio.file.Files.write(Path.of(args[4]),edges);
-        output.forEach(System.out::println);System.err.println("heap_pairs="+history.size()+";cancelled_suffix=60;retained_heap_patches="+live.size()+";ordered_5_1_history_only;all_transaction_opcodes_index_recovery_not_accepted;cdc_events=0");
+        if(args.length>=5)java.nio.file.Files.write(Path.of(args[4]),edges);
+        output.forEach(System.out::println);System.err.println("heap_pairs="+history.size()+";cancelled_heap_patches="+cancelled.size()+";retained_heap_patches="+live.size()+";ordered_5_1_history_only;all_transaction_opcodes_index_recovery_not_accepted;cdc_events=0");
     }
     static boolean heap(RedoRecords.Vector v){return v.containerId()==3 && v.opcodeMajor()==11 && (v.opcodeMinor()==2 || v.opcodeMinor()==3 || v.opcodeMinor()==5);}
 }

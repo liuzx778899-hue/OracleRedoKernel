@@ -5,7 +5,8 @@ records=re.split(r'(?=REDO RECORD - Thread:)',Path(sys.argv[1]).read_text(encodi
 actual=[s.split('|') for s in Path(sys.argv[2]).read_text(encoding='utf-8-sig').splitlines()]
 object_id=int(sys.argv[3]);x=tuple(map(int,sys.argv[4].split('.')))
 expected_originals=int(sys.argv[5]) if len(sys.argv)>5 else 120
-originals={};forward={};segment=None
+expected_compensations=int(sys.argv[7]) if len(sys.argv)>7 else 60
+originals={};forward={};segment=None;allocated_at={}
 def value(change):
     lines=change.splitlines()
     for i,line in enumerate(lines):
@@ -34,6 +35,8 @@ for record in records:
         uba=tuple([int(h[1],16),int(b[1],16),int(b[2],16)])
         if uba in originals:raise RuntimeError('native original UBA repeated; temporal identity unsupported')
         originals[uba]=(metadata(change),position(change),value(change),'Begin trans' in change)
+        allocation=re.search(r'RBA: 0x[0-9a-f]+\.([0-9a-f]+)\.([0-9a-f]+)',record)
+        allocated_at[uba]=(int(allocation[1],16),int(allocation[2],16))
         if 'Begin trans' in change:
             starts=[int(m[1],16) for c in changes if (m:=re.search(r'CHANGE #\d+ CON_ID:3 [^\n]*DBA:0x([0-9a-f]+)[^\n]*OP:5\.2\b',c)) and re.search(r'ktudh redo: slt: 0x'+format(x[1],'04x')+r' sqn: 0x'+format(x[2],'08x'),c)]
             if len(starts)!=1 or segment is not None:raise RuntimeError('native active segment ambiguity')
@@ -45,7 +48,7 @@ for record in records:
         if u:
             uba=tuple(int(u[i],16) for i in (1,2,3))
             if uba in originals:forward[uba]=(position(change),value(change))
-expected=[];cancelled=set();cross=0
+expected=[];cancelled=set();cross=0;future_candidates_excluded=0
 for record in records:
     rba=re.search(r'RBA: 0x[0-9a-f]+\.([0-9a-f]+)\.([0-9a-f]+)',record)
     if not rba:continue
@@ -56,7 +59,10 @@ for record in records:
         meta=metadata(change);rows=[c for c in changes if re.search(r'CHANGE #\d+ CON_ID:3 [^\n]*OP:11\.5\b',c) and re.search(r'xtype: XR',c)]
         if len(rows)!=1:raise RuntimeError('native XR count')
         candidates=[u for u,(m,pos,before,begin) in originals.items() if not begin and m==meta and pos==position(rows[0]) and before==value(rows[0]) and (int(h[1],16)==segment if h[2]=='11' else int(h[1],16)==u[0])]
-        if len(candidates)!=1:raise RuntimeError('native compensation candidate count')
+        marker_position=(int(rba[1],16),int(rba[2],16))
+        future_candidates_excluded+=sum(allocated_at[u]>marker_position for u in candidates)
+        candidates=[u for u in candidates if allocated_at[u]<=marker_position]
+        if len(candidates)!=1:raise RuntimeError('native compensation candidate count: rba='+str((int(rba[1],16),int(rba[2],16)))+' candidates='+str([(u,allocated_at[u]) for u in candidates])+' metadata='+str(meta))
         uba=candidates[0]
         if uba in cancelled:raise RuntimeError('native duplicate cancellation')
         cancelled.add(uba);cross+=h[2]=='11'
@@ -70,7 +76,7 @@ for row in actual:
     if row[0]!='RETAIN':continue
     seen.add(row[1]);expected_patch=retained.get(row[1]);actual_patch=((int(row[3]),int(row[4])),row[5].split(',')[1].split(':')[1])
     if actual_patch!=expected_patch:errors.append({'reason':'RETAINED_PHYSICAL_PATCH_DIFF','uba':row[1]})
-if len(originals)!=expected_originals or len(forward)!=expected_originals or len(cancelled)!=60 or len(retained)!=expected_originals-60 or seen!=set(retained) or len(actual)!=expected_originals:errors.append({'reason':'COVERAGE_DIFF'})
+if len(originals)!=expected_originals or len(forward)!=expected_originals or len(cancelled)!=expected_compensations or len(retained)!=expected_originals-expected_compensations or seen!=set(retained) or len(actual)!=expected_originals:errors.append({'reason':'COVERAGE_DIFF'})
 sql_compared=0
 if len(sys.argv)>6:
     truth_path=Path(sys.argv[6]);truth={r['id']:r for r in json.loads(truth_path.read_text(encoding='utf-8')) if 'id' in r}
@@ -86,6 +92,7 @@ if len(sys.argv)>6:
         sql_compared+=1
 print(json.dumps({'original_heap_pairs':len(originals),'cancelled_heap_patches':len(cancelled),'cross_block_compensations':cross,
                   'retained_heap_patches':len(retained),'mismatches':len(errors),'errors':errors,
+                  'future_native_candidates_excluded':future_candidates_excluded,
                   'final_sql_rows_compared':sql_compared,
                   'scope':'bounded metadata and exact restored/retained column bytes; full cross-block predecessor graph, index and recovery unaccepted'},indent=2))
 sys.exit(bool(errors))
