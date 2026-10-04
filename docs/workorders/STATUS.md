@@ -11,12 +11,14 @@
 | W2 record/vector | 通过：首批fa61476 | 通过：19c seq8/9完整dump、21c选定范围 | 待证：事务/字典 | 未开始 | 待证 | 未开始 |
 | W3 基础行/类型 | 进行中：scalar + pair + KDOM2单列扩展值 | 通过：18pair/302长值patch；完整行待证 | 进行中：物理配对；字典/基线待证 | 未开始 | 待证 | 未开始 |
 | W4 事务/回滚 | 进行中：有序history/覆盖/heap+index补偿、同源完整XID归属及有源位置重放 | 通过：203测试；seq21—24自主发现基线/A/B共12物理图；自主对象头关联；seq19—24六位置、seq21—24有限双上下文完整图与拒绝证据；九笔旧图及六批长heap证据保留 | 进行中：有界自主物理入口已交付；完整控制/页维护/跨块关联/恢复待证；不当通用生产能力 | 未开始 | 待证 | 未开始 |
-| W5 SCN字典/基线 | 进行中：有限物理extent与尾列缩短配对；固定SCN完整行/世代待实现 | 通过：209测试；seq25 typed 8patch/4pair/2物理图native零差异、8真实派生拒绝；完整行/历史字典待证 | 进行中：3→2尾列物理配对通过；完整行/基线/世代接口待证 | 未开始 | 待证 | 未开始 |
+| W5 SCN字典/基线 | 进行中：extent/尾列配对及固定基线完整行重建；来源/世代待实现 | 通过：213测试；seq25三次完整before/after及两SQL快照零差异、10基线反例/8 raw反例/1顺序反例拒绝；未改键伪基线仍接受，来源验收RETURN_FOR_FIX | 进行中：有限固定schema重建通过；基线来源、历史字典、世代接口待证 | 未开始 | 待证 | 未开始 |
 | W6 StreamHouse接入 | 未开始 | 待证 | 未开始 | 未开始 | 待证 | 未开始 |
 | W7 online采集 | 进行中：固定member有界观察journal实验 | 通过：429归档数据块字节覆盖、6派生拒绝；完整持续捕获/续接/Windows/ASM待证 | 未开始：journal到解析/ACK | 未开始 | 待证 | 未开始 |
 | W8-W11 扩展类型/LOB/RAC/ASM/TDE | 未开始 | 待证 | 未开始 | 未开始 | 待证 | 未开始 |
 
 ## 当前证据
+
+最新：[W5固定基线完整行与来源反例](DELIVERY_W5_ROW_IMAGES_20261004.md)，最终完整树8b222c8，[清单](evidence/DELIVERY-heap-baseline-20261004.json)。213测试通过；真实seq25三次完整before/after、旧ASOF与最终SQL两快照独立零差异。10基线反例、8原始归档派生及新增forward/undo顺序冲突均整批拒绝，events继续拒绝。顺序派生在旧b8cae3c仍rc0，新jar严格拒绝；两轮原件保全。**未改主键伪基线仍rc0、独立比较3处差异，基线来源验收RETURN_FOR_FIX**；真实固定SCN样本通过不认证调用者声明。无源端动作，接续[基线来源/快照边界派单](DISPATCH_W5_BASELINE_PROVENANCE_20261004.md)。INSERT/DELETE分支无本轮新真实证据，rollback/并发/DDL/世代/完整CDC/capture/接入/现场/发布继续待证。
 
 最新：[W5物理尾列缩短交付](DELIVERY_W5_ROW_EXTENT_20261004.md)，运行时/实验完整源码9b3f738，[清单](evidence/DELIVERY-tail-extent-20261004.json)。209测试通过；seq25两物理图5/0/5、8typed patch、4完整UBA pair含1尾列3→2与native零差异。8重封checksum真实派生均scan通过、完整物理入口及typed pair rc1/stdout0；比较器漏变化/伪NULL/错extent均检出。同件jar seq24三图10/4/6与seq15长值120/120/0回归通过，events seq25/26拒绝。第二轮测试复制丢失extent失败保全，仅修测试适配；没有数据库动作。保留ABSENT、packed delta未知，有限尾列标记不是SQL NULL；接续固定SCN完整行/逆向值核对、来源/世代门禁，历史字典/完整CDC/capture/接入/现场/发布仍待证。
 
