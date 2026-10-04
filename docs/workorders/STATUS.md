@@ -12,11 +12,13 @@
 | W3 基础行/类型 | 进行中：scalar + pair + KDOM2单列扩展值 | 通过：18pair/302长值patch；完整行待证 | 进行中：物理配对；字典/基线待证 | 未开始 | 待证 | 未开始 |
 | W4 事务/回滚 | 进行中：有序history/覆盖/heap+index补偿、同源完整XID归属及有源位置重放 | 通过：203测试；seq21—24自主发现基线/A/B共12物理图；自主对象头关联；seq19—24六位置、seq21—24有限双上下文完整图与拒绝证据；九笔旧图及六批长heap证据保留 | 进行中：有界自主物理入口已交付；完整控制/页维护/跨块关联/恢复待证；不当通用生产能力 | 未开始 | 待证 | 未开始 |
 | W5 SCN字典/基线 | 进行中：extent/完整行、ASOF/回执/typed世代，有限cleanout、闭合图live选择、commit SCN重放及LKR独立LOCK节点 | 通过：233测试制品；seq37—39真实锁等待三完整行/native/四SQL零差异；seq36 rollback-only及seq33—35旧批次空结果，既有并发/行证据保留；生产可信交接/历史字典待证 | 进行中：有限不同行并发、全/部分回滚、空批次、真实锁等待但redo事务窗口串行通过；活跃同key重叠/相同commit SCN支持/无目标静默/多savepoint/跨块/初始恢复/历史schema待证 | 未开始 | 待证 | 未开始 |
-| W6 StreamHouse接入 | 未开始 | 待证 | 未开始 | 未开始 | 待证 | 未开始 |
+| W6 StreamHouse接入 | 进行中：公开SPI只读核对/接入执行包；产品adapter未交付 | 通过有限实验目标commit/ACK协议；生产方言/可信交接待证 | 未开始：SQLite实验不当产品链通过 | 未开始 | 待证 | 未开始 |
 | W7 online采集 | 进行中：关闭代际多member跟踪/回执审计/独占重启续接；共用capture输入接完整图/行 | 通过：原40—42重启追加43/9161归档数据块零差异；两真实collector SIGKILL/完整尾恢复与半帧保全拒绝/11反例；既有240测试及图/行保留；实时/高压复用/断电/Windows/ASM待证 | 通过有限关闭批次与collector重启：journal→record/vector→typed事务→可信baseline完整UPDATE；跨批活跃状态/生产字典/消费checkpoint/目标ACK待证，有关闭延迟 | 未开始 | 待证 | 未开始 |
 | W8-W11 扩展类型/LOB/RAC/ASM/TDE | 未开始 | 待证 | 未开始 | 未开始 | 待证 | 未开始 |
 
 ## 当前证据
+
+最新：[消费目标提交/ACK恢复](DELIVERY_W7_CONSUMER_COMMIT_20261005.md)，lab源码7cd63da，[清单](evidence/DELIVERY-consumer-commit-20261005.json)。冻结40—42 raw journal经同件240测试Java再生成三完整UPDATE，独占本机SQLite目标实际同事务写三DML/应用身份/commit凭证后才ACK。三真实Windows消费者强杀rc1：提交前两写回滚，提交后ACK前从目标凭证恢复0新增，ACK后恢复0新增；正常路径/四重复均零额外应用。八拒绝含双进程锁、迟到before全回滚、ACK无commit、输入/目标/应用凭证冲突；三恢复目标与三原源提交SQL完整中间像及最终行零差异，四独立比较器反例检出。原始Git archive CRLF封存失败保留，仅补LF封存；无Oracle动作，未重建内核/重跑接受轮次。只认证有界实验target，非StreamHouse支持方言/部署/现场/发布，公共events拒绝。下一步[W6接入执行包](DISPATCH_W6_ORACLE_COMMIT_20261005.md)：Oracle envelope/目标同事务receipt及三位置隔离，不把append ACK当target ACK。
 
 最新：[多member重启与真实collector崩溃](DELIVERY_W7_CLOSED_RESUME_20261005.md)，初版084cf37、最终c689b7a，[清单](evidence/DELIVERY-closed-resume-20261005.json)。实际原40—42重启next43，一次专属实验关闭43（无DML/config），保存9163块/9161归档数据块零差异，next44，原journal未变；完整journal+逐代receipt之后/总receipt之前真实自杀SIGKILL rc137，旧总receipt下完整尾恢复不改字节；第一帧100 bytes真实SIGKILL后续接拒绝/stdout0、文件保留。11 ledger/frame/source/双writer反例READY前拒绝，锁释放后最终代码只读40—43续接通过；Oracle LGWR独立存活。只证明进程崩溃，不证明断电；半帧不自动修复。Java240制品不重建。下一步消费checkpoint/目标commit及ACK恢复/W6；消费ACK/实时/现场/发布未通过。
 

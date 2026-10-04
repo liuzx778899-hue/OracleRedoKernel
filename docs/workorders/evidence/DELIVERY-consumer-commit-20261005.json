@@ -1,0 +1,1066 @@
+{
+  "lab_source_commit": "7cd63dacbe82c05dc0160ece0789901c4255a0fe",
+  "production_runtime_commit": "b712d567022bc14cd9eeac4dff9994b4787f8c37",
+  "sha256_checked_twice": true,
+  "real_target": "owned local Windows SQLite WAL/FULL; raw hex cells only",
+  "actual_consumer_process_kills": 3,
+  "consumer_refusals": 8,
+  "independent_target_comparisons": 3,
+  "independent_comparator_refusals": 4,
+  "source_actions": 0,
+  "streamhouse_site_accepted": false,
+  "power_loss_accepted": false,
+  "proof": {
+    "actual_process_kills": 3,
+    "cases": [
+      {
+        "applications": 3,
+        "case": "normal",
+        "commits": 1,
+        "repeat_new_applications": 0
+      },
+      {
+        "applications": 3,
+        "case": "before-commit",
+        "commits": 1,
+        "repeat_new_applications": 0
+      },
+      {
+        "applications": 3,
+        "case": "after-commit",
+        "commits": 1,
+        "repeat_new_applications": 0
+      },
+      {
+        "applications": 3,
+        "case": "after-ack",
+        "commits": 1,
+        "repeat_new_applications": 0
+      }
+    ],
+    "consumer_refusals": 8,
+    "driver_sha256": "e6c5046d88e7c6beaf59f1c2a16f53b5df7e0a6b6891a8e9cf099aa710139058",
+    "kernel_rebuilt": false,
+    "power_loss_accepted": false,
+    "public_events_enabled": false,
+    "real_target": "owned local Windows SQLite WAL/FULL; cells preserve Oracle raw hex",
+    "source_actions": 0,
+    "streamhouse_integration_accepted": false,
+    "worker_sha256": "46c7127dab933a1cc39944f29e708f15982403a9d81487ae4af3c2208cefb6d2"
+  },
+  "independent_sql_proof": {
+    "independent_real_target_comparisons": 3,
+    "original_source_commit_snapshots": 3,
+    "independent_comparator_counterexamples": 4,
+    "source_actions": 0,
+    "accepted_crash_cases_rerun": false,
+    "streamhouse_site_accepted": false
+  },
+  "source_seal": {
+    "lab_source_commit": "7cd63dacbe82c05dc0160ece0789901c4255a0fe",
+    "initial_archive_CRLF_conversion_failure_preserved": true,
+    "lf_archive_executed_source_bytes_equal": true,
+    "target_process_kill_rcs": {
+      "before-commit": 1,
+      "after-commit": 1,
+      "after-ack": 1
+    }
+  },
+  "files": [
+    {
+      "path": "lab/compare_consumer_sql19.py",
+      "bytes": 2683,
+      "sha256": "c44de9bb90900f99ecaa440ed00220bf96808e0b79d86e36a67d1750a10a23b1"
+    },
+    {
+      "path": "lab/consume_captured_rows.py",
+      "bytes": 6126,
+      "sha256": "46c7127dab933a1cc39944f29e708f15982403a9d81487ae4af3c2208cefb6d2"
+    },
+    {
+      "path": "lab/out/capture-rows-r2-20261005/kernel.jar",
+      "bytes": 179187,
+      "sha256": "7d4345f1f79c7b6eeb75a9dc1702308a0162f72faa4d4cbf6c3987d77b65d1fc"
+    },
+    {
+      "path": "lab/out/closed-follow-20261005/baseline/receipt.json",
+      "bytes": 642,
+      "sha256": "151d86e438c16a586a3dc3aa6f302895f727b4112080043c87ddd5b5dc8cba54"
+    },
+    {
+      "path": "lab/out/closed-follow-20261005/baseline/snapshot.stdout.txt",
+      "bytes": 754,
+      "sha256": "646ed950ea5d54be77ea3ba83f3af31eb181a26ab52dc0dbc01ec2d9ab3048bf"
+    },
+    {
+      "path": "lab/out/closed-follow-20261005/capture/sequence-40.oracap",
+      "bytes": 12639678,
+      "sha256": "97ffa0ece0e233092bdfad4fb5c0c896bd591648b0295cc42b485d71754359fe"
+    },
+    {
+      "path": "lab/out/closed-follow-20261005/capture/sequence-41.oracap",
+      "bytes": 5981,
+      "sha256": "36732c64aa8b20280d14d0ae4fab6dcaa795029746cf6d7ef65446ed71d23f8f"
+    },
+    {
+      "path": "lab/out/closed-follow-20261005/capture/sequence-42.oracap",
+      "bytes": 7694,
+      "sha256": "bb9ce199f50ad1fc07ed5b6e802215b3c561cd38d948ea8bcf37e0f86fb49116"
+    },
+    {
+      "path": "lab/out/closed-follow-20261005/step-40.stdout.txt",
+      "bytes": 110,
+      "sha256": "68bf5066431e5e5cb352b61f78268c92bd16757420b6a65697d176c7e7d44885"
+    },
+    {
+      "path": "lab/out/closed-follow-20261005/step-41.stdout.txt",
+      "bytes": 110,
+      "sha256": "80257c410d48809757b4daf94058f0fb276245e7d2298ac00ff4e7ca2479e473"
+    },
+    {
+      "path": "lab/out/closed-follow-20261005/step-42.stdout.txt",
+      "bytes": 109,
+      "sha256": "a19c4351cdc154cdf23a804a657c924c185e28dbba5e6532e3eaf9fc2b3e0780"
+    },
+    {
+      "path": "lab/out/consumer-commit-20261005/ack-conflict.command.json",
+      "bytes": 521,
+      "sha256": "8c32a0ea1d5a29d81665ffbe8f74f7db8b82bca1828c166dfc220194213f0b3d"
+    },
+    {
+      "path": "lab/out/consumer-commit-20261005/ack-conflict.rc.txt",
+      "bytes": 1,
+      "sha256": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b"
+    },
+    {
+      "path": "lab/out/consumer-commit-20261005/ack-conflict.retained.json",
+      "bytes": 641,
+      "sha256": "6090a0366c1bc55e90bd98f864150da18bdbf06bed57ce9432c4c1b696552f96"
+    },
+    {
+      "path": "lab/out/consumer-commit-20261005/ack-conflict.stderr.txt",
+      "bytes": 23,
+      "sha256": "f44c741f2bda2e12f263762700fa14d1239b16043b385397cfd571770280f7e2"
+    },
+    {
+      "path": "lab/out/consumer-commit-20261005/ack-conflict.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/consumer-commit-20261005/ack-without-commit-final.state.json",
+      "bytes": 194,
+      "sha256": "e018cf2f1987b432bed3388946f041f1893da73e9513f524d8d47776cc11120f"
+    },
+    {
+      "path": "lab/out/consumer-commit-20261005/ack-without-commit.ack.json",
+      "bytes": 641,
+      "sha256": "2a4de0345324db707466de7f43ed3cbe9328d85df9f49550416e68bfe28f5f69"
+    },
+    {
+      "path": "lab/out/consumer-commit-20261005/ack-without-commit.command.json",
+      "bytes": 557,
+      "sha256": "eada6dd55fc8d543d9649c465331c2d4edce6fab3a956f399d2b64eb322fe2cb"
+    },
+    {
+      "path": "lab/out/consumer-commit-20261005/ack-without-commit.rc.txt",
+      "bytes": 1,
+      "sha256": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b"
+    },
+    {
+      "path": "lab/out/consumer-commit-20261005/ack-without-commit.spec.json",
+      "bytes": 1464,
+      "sha256": "5fa793240621429edb99544b9fc31ac2cddfdf4df30a672d57600b3402d3ad81"
+    },
+    {
+      "path": "lab/out/consumer-commit-20261005/ack-without-commit.sqlite",
+      "bytes": 36864,
+      "sha256": "624c782d5c03f8e120ca9780dac700ab2989ec2c59a92cf239b7d601d24f13be"
+    },
+    {
+      "path": "lab/out/consumer-commit-20261005/ack-without-commit.sqlite.consumer.lock",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/consumer-commit-20261005/ack-without-commit.stderr.txt",
+      "bytes": 36,
+      "sha256": "87164cea63b8a2f960f984c851167fb1f1f7870c3d46bb475400f90344012366"
+    },
+    {
+      "path": "lab/out/consumer-commit-20261005/ack-without-commit.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/consumer-commit-20261005/after-ack-final.state.json",
+      "bytes": 2292,
+      "sha256": "1e713ca13acd95cdfb884db434679a806e823289cc5fc96a8cbc8624e0f237fb"
+    },
+    {
+      "path": "lab/out/consumer-commit-20261005/after-ack-interrupted.state.json",
+      "bytes": 2292,
+      "sha256": "1e713ca13acd95cdfb884db434679a806e823289cc5fc96a8cbc8624e0f237fb"
+    },
+    {
+      "path": "lab/out/consumer-commit-20261005/after-ack-kill.command.json",
+      "bytes": 639,
+      "sha256": "2efbdcd36e79de74aa47d2d8265bff9cd8bd634b57cf3cdfb79b19f1f9950c53"
+    },
+    {
+      "path": "lab/out/consumer-commit-20261005/after-ack-kill.rc.txt",
+      "bytes": 1,
+      "sha256": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b"
+    },
+    {
+      "path": "lab/out/consumer-commit-20261005/after-ack-kill.ready",
+      "bytes": 9,
+      "sha256": "e50e98c1377fbb3d1e25fa95bf2e1b288c2639aa942a06bd6b3c41339df04b1e"
+    },
+    {
+      "path": "lab/out/consumer-commit-20261005/after-ack-kill.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/consumer-commit-20261005/after-ack-kill.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/consumer-commit-20261005/after-ack-repeat.command.json",
+      "bytes": 530,
+      "sha256": "ce150e9eca7ce165ad9c15f059f010f9249e0114a7a6880668232ba1f2399173"
+    },
+    {
+      "path": "lab/out/consumer-commit-20261005/after-ack-repeat.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/consumer-commit-20261005/after-ack-repeat.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/consumer-commit-20261005/after-ack-repeat.stdout.txt",
+      "bytes": 190,
+      "sha256": "e744f7eaba03340ac7e6ef77495369fe0d9eb6b9bbf1e4f13f23ca3daadcee1a"
+    },
+    {
+      "path": "lab/out/consumer-commit-20261005/after-ack-resume.command.json",
+      "bytes": 530,
+      "sha256": "ce150e9eca7ce165ad9c15f059f010f9249e0114a7a6880668232ba1f2399173"
+    },
+    {
+      "path": "lab/out/consumer-commit-20261005/after-ack-resume.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/consumer-commit-20261005/after-ack-resume.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/consumer-commit-20261005/after-ack-resume.stdout.txt",
+      "bytes": 190,
+      "sha256": "e744f7eaba03340ac7e6ef77495369fe0d9eb6b9bbf1e4f13f23ca3daadcee1a"
+    },
+    {
+      "path": "lab/out/consumer-commit-20261005/after-ack.ack.json",
+      "bytes": 644,
+      "sha256": "b50994912d614d50aa45927485504c48c85824dd445ddec66240e0c6d1d121ed"
+    },
+    {
+      "path": "lab/out/consumer-commit-20261005/after-ack.spec.json",
+      "bytes": 1467,
+      "sha256": "552823a1bf59083bd0ce6cf2e9adbc83f0783eb28c13d553d6a9788ebb8cef19"
+    },
+    {
+      "path": "lab/out/consumer-commit-20261005/after-ack.sqlite",
+      "bytes": 36864,
+      "sha256": "1e8d7eb7a4e8e466816777e10d1f5b4a1ba4cd2d4ead2a944f9dbc5012104699"
+    },
+    {
+      "path": "lab/out/consumer-commit-20261005/after-ack.sqlite-shm",
+      "bytes": 32768,
+      "sha256": "fd4c9fda9cd3f9ae7c962b0ddf37232294d55580e1aa165aa06129b8549389eb"
+    },
+    {
+      "path": "lab/out/consumer-commit-20261005/after-ack.sqlite-wal",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/consumer-commit-20261005/after-ack.sqlite.consumer.lock",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/consumer-commit-20261005/after-commit-final.state.json",
+      "bytes": 2295,
+      "sha256": "fb3345fd1cc6e3b8b8cc4f37a69876cbe7bf7060409a992a09c516618d010406"
+    },
+    {
+      "path": "lab/out/consumer-commit-20261005/after-commit-interrupted.state.json",
+      "bytes": 2296,
+      "sha256": "e13416c716ef94db2eaf44632901bb5ae1a55f0b3d05bddbad0a95aa3a48f7dc"
+    },
+    {
+      "path": "lab/out/consumer-commit-20261005/after-commit-kill.command.json",
+      "bytes": 654,
+      "sha256": "a0b5b3f3fafde1080f859e5b7eda15b8fc2f95f0e72c9e411d734e7ecf2c7ed2"
+    },
+    {
+      "path": "lab/out/consumer-commit-20261005/after-commit-kill.rc.txt",
+      "bytes": 1,
+      "sha256": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b"
+    },
+    {
+      "path": "lab/out/consumer-commit-20261005/after-commit-kill.ready",
+      "bytes": 12,
+      "sha256": "07b906e1e66dbfea07d5fd1e2fac5760e9c2ca171d99b9ffe9e0088fbcc1d033"
+    },
+    {
+      "path": "lab/out/consumer-commit-20261005/after-commit-kill.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/consumer-commit-20261005/after-commit-kill.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/consumer-commit-20261005/after-commit-repeat.command.json",
+      "bytes": 539,
+      "sha256": "d8ad375967c9645bcf3aecb035e6ac44ae1da8e2e981abedb3a1db7891b86792"
+    },
+    {
+      "path": "lab/out/consumer-commit-20261005/after-commit-repeat.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/consumer-commit-20261005/after-commit-repeat.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/consumer-commit-20261005/after-commit-repeat.stdout.txt",
+      "bytes": 190,
+      "sha256": "16ddb32261a9ea4f6742b2d284831dab427eaf360cc5395b61d71bd58c748f6d"
+    },
+    {
+      "path": "lab/out/consumer-commit-20261005/after-commit-resume.command.json",
+      "bytes": 539,
+      "sha256": "d8ad375967c9645bcf3aecb035e6ac44ae1da8e2e981abedb3a1db7891b86792"
+    },
+    {
+      "path": "lab/out/consumer-commit-20261005/after-commit-resume.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/consumer-commit-20261005/after-commit-resume.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/consumer-commit-20261005/after-commit-resume.stdout.txt",
+      "bytes": 190,
+      "sha256": "16ddb32261a9ea4f6742b2d284831dab427eaf360cc5395b61d71bd58c748f6d"
+    },
+    {
+      "path": "lab/out/consumer-commit-20261005/after-commit.ack.json",
+      "bytes": 647,
+      "sha256": "95ef1bb37f88037b1657046be79ccc10aa96b7be7120dcb2663d9e151550a8c9"
+    },
+    {
+      "path": "lab/out/consumer-commit-20261005/after-commit.spec.json",
+      "bytes": 1470,
+      "sha256": "a9c66366801a17b1de392a31c42873dfa8e570e9394a534a7034c897357f0f1f"
+    },
+    {
+      "path": "lab/out/consumer-commit-20261005/after-commit.sqlite",
+      "bytes": 36864,
+      "sha256": "7c07d00f3a5eaa262024d90de7e95312c471159fb4fe32589f13d47d404991cc"
+    },
+    {
+      "path": "lab/out/consumer-commit-20261005/after-commit.sqlite-shm",
+      "bytes": 32768,
+      "sha256": "fd4c9fda9cd3f9ae7c962b0ddf37232294d55580e1aa165aa06129b8549389eb"
+    },
+    {
+      "path": "lab/out/consumer-commit-20261005/after-commit.sqlite-wal",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/consumer-commit-20261005/after-commit.sqlite.consumer.lock",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/consumer-commit-20261005/before-commit-final.state.json",
+      "bytes": 2296,
+      "sha256": "7fdc1a14b8e9b1f2ba1728962ce4527198d40458e20c71cc9fe7309c5e77730f"
+    },
+    {
+      "path": "lab/out/consumer-commit-20261005/before-commit-interrupted.state.json",
+      "bytes": 195,
+      "sha256": "5a102dcdd6e6d1b6e43ea2cbcf6cc8b91cdaf14e5a79627c7ec2f3f56d2e6e57"
+    },
+    {
+      "path": "lab/out/consumer-commit-20261005/before-commit-kill-second-consumer.command.json",
+      "bytes": 542,
+      "sha256": "f35ceb81bcee0a2cf388b8a4962f80c4c4751563a68a4319fbd21167909c5f15"
+    },
+    {
+      "path": "lab/out/consumer-commit-20261005/before-commit-kill-second-consumer.rc.txt",
+      "bytes": 1,
+      "sha256": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b"
+    },
+    {
+      "path": "lab/out/consumer-commit-20261005/before-commit-kill-second-consumer.stderr.txt",
+      "bytes": 26,
+      "sha256": "ecedfc7dc0371564ccf569fddd28a4055b23b45cdf8c0916344a8872829ab7cd"
+    },
+    {
+      "path": "lab/out/consumer-commit-20261005/before-commit-kill-second-consumer.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/consumer-commit-20261005/before-commit-kill.command.json",
+      "bytes": 659,
+      "sha256": "2bbba88f0eaf8b371b9c11aab753891ea70c0fd6545eda1301fd0cf8d5ba8b52"
+    },
+    {
+      "path": "lab/out/consumer-commit-20261005/before-commit-kill.rc.txt",
+      "bytes": 1,
+      "sha256": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b"
+    },
+    {
+      "path": "lab/out/consumer-commit-20261005/before-commit-kill.ready",
+      "bytes": 13,
+      "sha256": "d452ab66dbab0c17c56e2a8e6d7ef36e0fbc04086ac2f0bf50ec9145b40b8fb7"
+    },
+    {
+      "path": "lab/out/consumer-commit-20261005/before-commit-kill.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/consumer-commit-20261005/before-commit-kill.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/consumer-commit-20261005/before-commit-repeat.command.json",
+      "bytes": 542,
+      "sha256": "f35ceb81bcee0a2cf388b8a4962f80c4c4751563a68a4319fbd21167909c5f15"
+    },
+    {
+      "path": "lab/out/consumer-commit-20261005/before-commit-repeat.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/consumer-commit-20261005/before-commit-repeat.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/consumer-commit-20261005/before-commit-repeat.stdout.txt",
+      "bytes": 190,
+      "sha256": "f57c7e71a46f9c3254d4f58b0726e1d38a5d0fe98519510f070e05550789ad24"
+    },
+    {
+      "path": "lab/out/consumer-commit-20261005/before-commit-resume.command.json",
+      "bytes": 542,
+      "sha256": "f35ceb81bcee0a2cf388b8a4962f80c4c4751563a68a4319fbd21167909c5f15"
+    },
+    {
+      "path": "lab/out/consumer-commit-20261005/before-commit-resume.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/consumer-commit-20261005/before-commit-resume.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/consumer-commit-20261005/before-commit-resume.stdout.txt",
+      "bytes": 190,
+      "sha256": "e9cdf4d15fc69b395fedb294a2d75ae587997c4ba1b608daea7118f8b1967ae1"
+    },
+    {
+      "path": "lab/out/consumer-commit-20261005/before-commit.ack.json",
+      "bytes": 648,
+      "sha256": "a25db435abfc9ac559171724b4326a4cf577cd8c7574e0285469633f2d98a3ae"
+    },
+    {
+      "path": "lab/out/consumer-commit-20261005/before-commit.spec.json",
+      "bytes": 1471,
+      "sha256": "19a2a1e2c4663926b731c8aca3c3291d4cb4f1be9805bd376747a39368bcf587"
+    },
+    {
+      "path": "lab/out/consumer-commit-20261005/before-commit.sqlite",
+      "bytes": 36864,
+      "sha256": "5ee50eec919054c9e935c2ff07cf42de6cbe4c9a0137dcc33367da84d09680ae"
+    },
+    {
+      "path": "lab/out/consumer-commit-20261005/before-commit.sqlite-shm",
+      "bytes": 32768,
+      "sha256": "fd4c9fda9cd3f9ae7c962b0ddf37232294d55580e1aa165aa06129b8549389eb"
+    },
+    {
+      "path": "lab/out/consumer-commit-20261005/before-commit.sqlite-wal",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/consumer-commit-20261005/before-commit.sqlite.consumer.lock",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/consumer-commit-20261005/executed-source/compare_consumer_sql19.py",
+      "bytes": 2683,
+      "sha256": "c44de9bb90900f99ecaa440ed00220bf96808e0b79d86e36a67d1750a10a23b1"
+    },
+    {
+      "path": "lab/out/consumer-commit-20261005/executed-source/consume_captured_rows.py",
+      "bytes": 6126,
+      "sha256": "46c7127dab933a1cc39944f29e708f15982403a9d81487ae4af3c2208cefb6d2"
+    },
+    {
+      "path": "lab/out/consumer-commit-20261005/executed-source/verify_consumer_commit19.py",
+      "bytes": 11146,
+      "sha256": "e6c5046d88e7c6beaf59f1c2a16f53b5df7e0a6b6891a8e9cf099aa710139058"
+    },
+    {
+      "path": "lab/out/consumer-commit-20261005/executed-source/verify_consumer_sql19.py",
+      "bytes": 2678,
+      "sha256": "8c70d8688c22305ff66a71fa8c46c9a54c4b2362f76ce9a3d8f4a8fb02702d33"
+    },
+    {
+      "path": "lab/out/consumer-commit-20261005/initial-seal.rc.txt",
+      "bytes": 1,
+      "sha256": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b"
+    },
+    {
+      "path": "lab/out/consumer-commit-20261005/initial-seal.stderr.txt",
+      "bytes": 92,
+      "sha256": "177e6456d82f66fba3c1ab4d54afa9bb8c23aebee07255b69db2288864a8a5ce"
+    },
+    {
+      "path": "lab/out/consumer-commit-20261005/late-before-final.state.json",
+      "bytes": 195,
+      "sha256": "5a102dcdd6e6d1b6e43ea2cbcf6cc8b91cdaf14e5a79627c7ec2f3f56d2e6e57"
+    },
+    {
+      "path": "lab/out/consumer-commit-20261005/late-before.command.json",
+      "bytes": 536,
+      "sha256": "8cc52669a6fb2100451ab90e5591f6ce9afb8439554f6ab2e05de1ca03714cce"
+    },
+    {
+      "path": "lab/out/consumer-commit-20261005/late-before.rc.txt",
+      "bytes": 1,
+      "sha256": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b"
+    },
+    {
+      "path": "lab/out/consumer-commit-20261005/late-before.rows.txt",
+      "bytes": 630,
+      "sha256": "f8b58b2289c84f68678e04daff235c31ce6f3fab43e82cbe2c0c1b4a740f903b"
+    },
+    {
+      "path": "lab/out/consumer-commit-20261005/late-before.spec.json",
+      "bytes": 1437,
+      "sha256": "0585d25f2c1ebf3251a846cc966c5ee186d0b4c2f98d1f58fec41a268a4bed0d"
+    },
+    {
+      "path": "lab/out/consumer-commit-20261005/late-before.sqlite",
+      "bytes": 36864,
+      "sha256": "2797587918d9925a62411a1cf3fd34c169e10b2c674f155314515013f79f1145"
+    },
+    {
+      "path": "lab/out/consumer-commit-20261005/late-before.sqlite.consumer.lock",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/consumer-commit-20261005/late-before.stderr.txt",
+      "bytes": 33,
+      "sha256": "4f6e9b6691272853e7bc4f5b85d6a60620e558423835d1957a84753fd456ffef"
+    },
+    {
+      "path": "lab/out/consumer-commit-20261005/late-before.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/consumer-commit-20261005/normal-final.state.json",
+      "bytes": 2289,
+      "sha256": "9bfdcd450a1b60007c620d08e3fff375b41441ac341f32792782fae3a408a13e"
+    },
+    {
+      "path": "lab/out/consumer-commit-20261005/normal-repeat.command.json",
+      "bytes": 521,
+      "sha256": "8c32a0ea1d5a29d81665ffbe8f74f7db8b82bca1828c166dfc220194213f0b3d"
+    },
+    {
+      "path": "lab/out/consumer-commit-20261005/normal-repeat.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/consumer-commit-20261005/normal-repeat.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/consumer-commit-20261005/normal-repeat.stdout.txt",
+      "bytes": 190,
+      "sha256": "f872f7a6f95977b5399c18305f4b0ff09fa4e77a4239239511ea722c08654638"
+    },
+    {
+      "path": "lab/out/consumer-commit-20261005/normal.ack.json",
+      "bytes": 641,
+      "sha256": "2a4de0345324db707466de7f43ed3cbe9328d85df9f49550416e68bfe28f5f69"
+    },
+    {
+      "path": "lab/out/consumer-commit-20261005/normal.command.json",
+      "bytes": 521,
+      "sha256": "8c32a0ea1d5a29d81665ffbe8f74f7db8b82bca1828c166dfc220194213f0b3d"
+    },
+    {
+      "path": "lab/out/consumer-commit-20261005/normal.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/consumer-commit-20261005/normal.spec.json",
+      "bytes": 1464,
+      "sha256": "5fa793240621429edb99544b9fc31ac2cddfdf4df30a672d57600b3402d3ad81"
+    },
+    {
+      "path": "lab/out/consumer-commit-20261005/normal.sqlite",
+      "bytes": 36864,
+      "sha256": "5b77e6113615f548c2cc8c218fbbe89be270653e74b8b3a3d8ab4b8eb0c518d8"
+    },
+    {
+      "path": "lab/out/consumer-commit-20261005/normal.sqlite-shm",
+      "bytes": 32768,
+      "sha256": "fd4c9fda9cd3f9ae7c962b0ddf37232294d55580e1aa165aa06129b8549389eb"
+    },
+    {
+      "path": "lab/out/consumer-commit-20261005/normal.sqlite-wal",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/consumer-commit-20261005/normal.sqlite.consumer.lock",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/consumer-commit-20261005/normal.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/consumer-commit-20261005/normal.stdout.txt",
+      "bytes": 190,
+      "sha256": "56ddd46e91ee967871eab727e3268a58d64f016387e146f7a6dae7d03748ac07"
+    },
+    {
+      "path": "lab/out/consumer-commit-20261005/proof.json",
+      "bytes": 764,
+      "sha256": "a52bbb7d4b874e86ce456f00db73b946660238f216f8f31f1b904b4baa7de973"
+    },
+    {
+      "path": "lab/out/consumer-commit-20261005/raw-capture-buffered-rows.command.json",
+      "bytes": 933,
+      "sha256": "ab15dc146d5ba709133d77b7a940fc373caf5f99e3d36be98790c3c4003e0e6a"
+    },
+    {
+      "path": "lab/out/consumer-commit-20261005/raw-capture-buffered-rows.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/consumer-commit-20261005/raw-capture-buffered-rows.stderr.txt",
+      "bytes": 916,
+      "sha256": "bd306e83118afd9712b4e008115bf7d0b4a4ec00769446e221de61bfddfaee28"
+    },
+    {
+      "path": "lab/out/consumer-commit-20261005/raw-capture-buffered-rows.stdout.txt",
+      "bytes": 660,
+      "sha256": "c44063576032a389b34b65c3b48eeef13eeb9240a7fee18e71d4bfc3585a63c9"
+    },
+    {
+      "path": "lab/out/consumer-commit-20261005/seal-failure.txt",
+      "bytes": 134,
+      "sha256": "b3bfaaca44422be0ee78f1c46fba5840be519ef81caee90295109a47ed4b2799"
+    },
+    {
+      "path": "lab/out/consumer-commit-20261005/source-seal.json",
+      "bytes": 291,
+      "sha256": "8a5f7f7c1831036eecdb3015a7c33d1b03a66df6d5fd32dbb5eab5b0a8a6af73"
+    },
+    {
+      "path": "lab/out/consumer-commit-20261005/source-tree-lf.zip",
+      "bytes": 2398251,
+      "sha256": "063cf63bc0228cf3bee7bed69c4f8808662fb0c469a0fd7c03030890a36a0bd9"
+    },
+    {
+      "path": "lab/out/consumer-commit-20261005/source-tree.zip",
+      "bytes": 2404405,
+      "sha256": "c6d2cd8acd76540ea1ac7966b62867b8c3eba135042ee21639abd26d7fdc7a55"
+    },
+    {
+      "path": "lab/out/consumer-commit-20261005/target-proof-conflict-final.state.json",
+      "bytes": 1982,
+      "sha256": "04a428db51d5e1fc027bbe90530d3ed8104b213abc9dd44dcd8e183da583420b"
+    },
+    {
+      "path": "lab/out/consumer-commit-20261005/target-proof-conflict.command.json",
+      "bytes": 521,
+      "sha256": "8c32a0ea1d5a29d81665ffbe8f74f7db8b82bca1828c166dfc220194213f0b3d"
+    },
+    {
+      "path": "lab/out/consumer-commit-20261005/target-proof-conflict.rc.txt",
+      "bytes": 1,
+      "sha256": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b"
+    },
+    {
+      "path": "lab/out/consumer-commit-20261005/target-proof-conflict.stderr.txt",
+      "bytes": 44,
+      "sha256": "3b89a28e1c619c3cb71dffb073bad96ab1a3960ec3b0385d0a2e07d1d0fffe11"
+    },
+    {
+      "path": "lab/out/consumer-commit-20261005/target-proof-conflict.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/consumer-commit-20261005/wrong-input-sha-final.state.json",
+      "bytes": 195,
+      "sha256": "5a102dcdd6e6d1b6e43ea2cbcf6cc8b91cdaf14e5a79627c7ec2f3f56d2e6e57"
+    },
+    {
+      "path": "lab/out/consumer-commit-20261005/wrong-input-sha.command.json",
+      "bytes": 548,
+      "sha256": "ec350cfb96f4abd9a421687d4a95156803297464db1a3dfe97e06d9e03c363c9"
+    },
+    {
+      "path": "lab/out/consumer-commit-20261005/wrong-input-sha.rc.txt",
+      "bytes": 1,
+      "sha256": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b"
+    },
+    {
+      "path": "lab/out/consumer-commit-20261005/wrong-input-sha.spec.json",
+      "bytes": 1473,
+      "sha256": "e9eb46f101c63801123d98fb2e1eea5a0de7ece9dddfd3c513c23c7141ca17d9"
+    },
+    {
+      "path": "lab/out/consumer-commit-20261005/wrong-input-sha.sqlite",
+      "bytes": 36864,
+      "sha256": "2ab9c4530fe73d204200ea18a24ab865cf0773fee9d118ac150e7e4dc8427e84"
+    },
+    {
+      "path": "lab/out/consumer-commit-20261005/wrong-input-sha.sqlite.consumer.lock",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/consumer-commit-20261005/wrong-input-sha.stderr.txt",
+      "bytes": 32,
+      "sha256": "3d10a48fe6a14d12d15407c5ce4411099d3ab604ac5ee6b6f67b17e00dd99b93"
+    },
+    {
+      "path": "lab/out/consumer-commit-20261005/wrong-input-sha.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/consumer-commit-20261005/wrong-spec-sha-final.state.json",
+      "bytes": 195,
+      "sha256": "5a102dcdd6e6d1b6e43ea2cbcf6cc8b91cdaf14e5a79627c7ec2f3f56d2e6e57"
+    },
+    {
+      "path": "lab/out/consumer-commit-20261005/wrong-spec-sha.command.json",
+      "bytes": 545,
+      "sha256": "c89eea972d363e31231ec9f227906c509d90fa3e7c0c6178e235d0923c58946b"
+    },
+    {
+      "path": "lab/out/consumer-commit-20261005/wrong-spec-sha.rc.txt",
+      "bytes": 1,
+      "sha256": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b"
+    },
+    {
+      "path": "lab/out/consumer-commit-20261005/wrong-spec-sha.spec.json",
+      "bytes": 1472,
+      "sha256": "317c327a12c9d6ef09edc02e414d08955957f8511d602826dca06bfd8f9e3208"
+    },
+    {
+      "path": "lab/out/consumer-commit-20261005/wrong-spec-sha.sqlite",
+      "bytes": 36864,
+      "sha256": "cdef907866c17c08c16dcdefc1cf4f8e1c143f67d65db5b2ca65e6b6bee62051"
+    },
+    {
+      "path": "lab/out/consumer-commit-20261005/wrong-spec-sha.sqlite.consumer.lock",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/consumer-commit-20261005/wrong-spec-sha.stderr.txt",
+      "bytes": 31,
+      "sha256": "685e4aa0271f62415acbdf50443be67803d14e984140dc50acc62f33f70067ff"
+    },
+    {
+      "path": "lab/out/consumer-commit-20261005/wrong-spec-sha.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/consumer-commit-20261005/wrong-target-final.state.json",
+      "bytes": 195,
+      "sha256": "5a102dcdd6e6d1b6e43ea2cbcf6cc8b91cdaf14e5a79627c7ec2f3f56d2e6e57"
+    },
+    {
+      "path": "lab/out/consumer-commit-20261005/wrong-target.command.json",
+      "bytes": 539,
+      "sha256": "c16e5a8b2f9e1505a723ee0ac43ed172cfc754c39d121de9b2a08992eaa8e186"
+    },
+    {
+      "path": "lab/out/consumer-commit-20261005/wrong-target.rc.txt",
+      "bytes": 1,
+      "sha256": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b"
+    },
+    {
+      "path": "lab/out/consumer-commit-20261005/wrong-target.spec.json",
+      "bytes": 1478,
+      "sha256": "e8e09fea5e5e23250a1874e0c49dbc107843a0f4fe718ee9d4e9783c49e63367"
+    },
+    {
+      "path": "lab/out/consumer-commit-20261005/wrong-target.sqlite",
+      "bytes": 36864,
+      "sha256": "a4f8e25573c7585be70099dff2acb4de76a919ee608e6830afd042d95654e40e"
+    },
+    {
+      "path": "lab/out/consumer-commit-20261005/wrong-target.sqlite.consumer.lock",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/consumer-commit-20261005/wrong-target.stderr.txt",
+      "bytes": 35,
+      "sha256": "562ba99aa5675e19680c75464a53ee390e6f91ef7e0eb669e1f385871e274a09"
+    },
+    {
+      "path": "lab/out/consumer-commit-20261005/wrong-target.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/consumer-commit-sql-20261005/actual-corrupted-target.command.json",
+      "bytes": 544,
+      "sha256": "c6a26ffd0603fa6b30f3154c4c009203d0a75795d85a95f9a9201c0b0877b800"
+    },
+    {
+      "path": "lab/out/consumer-commit-sql-20261005/actual-corrupted-target.rc.txt",
+      "bytes": 1,
+      "sha256": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b"
+    },
+    {
+      "path": "lab/out/consumer-commit-sql-20261005/actual-corrupted-target.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/consumer-commit-sql-20261005/actual-corrupted-target.stdout.txt",
+      "bytes": 265,
+      "sha256": "e44d311823a164eeabc6ee6e7ef3947c79cc06b518d7f673222bbd19bbd6f48b"
+    },
+    {
+      "path": "lab/out/consumer-commit-sql-20261005/after-ack.command.json",
+      "bytes": 550,
+      "sha256": "720d497677833aa47432b9d8efabcbb06484a96a780176811d50ff4d78d8bf61"
+    },
+    {
+      "path": "lab/out/consumer-commit-sql-20261005/after-ack.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/consumer-commit-sql-20261005/after-ack.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/consumer-commit-sql-20261005/after-ack.stdout.txt",
+      "bytes": 202,
+      "sha256": "e9d3fc3c3f148e62fceb9a7b73f050edac06e788fbd2d2e504192b7ca8b7e3e7"
+    },
+    {
+      "path": "lab/out/consumer-commit-sql-20261005/after-commit.command.json",
+      "bytes": 556,
+      "sha256": "e2ddeec4a4e5eacb43fa61db5245c188bf95b54eef4d4f2a910e4a7a0c4b4fec"
+    },
+    {
+      "path": "lab/out/consumer-commit-sql-20261005/after-commit.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/consumer-commit-sql-20261005/after-commit.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/consumer-commit-sql-20261005/after-commit.stdout.txt",
+      "bytes": 202,
+      "sha256": "e9d3fc3c3f148e62fceb9a7b73f050edac06e788fbd2d2e504192b7ca8b7e3e7"
+    },
+    {
+      "path": "lab/out/consumer-commit-sql-20261005/before-commit.command.json",
+      "bytes": 558,
+      "sha256": "eef08eb456ea067f6f2044868b474e1c9eb0836a72fe38f63219c4d698ba9e78"
+    },
+    {
+      "path": "lab/out/consumer-commit-sql-20261005/before-commit.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/consumer-commit-sql-20261005/before-commit.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/consumer-commit-sql-20261005/before-commit.stdout.txt",
+      "bytes": 202,
+      "sha256": "e9d3fc3c3f148e62fceb9a7b73f050edac06e788fbd2d2e504192b7ca8b7e3e7"
+    },
+    {
+      "path": "lab/out/consumer-commit-sql-20261005/missing-application.ack.json",
+      "bytes": 647,
+      "sha256": "95ef1bb37f88037b1657046be79ccc10aa96b7be7120dcb2663d9e151550a8c9"
+    },
+    {
+      "path": "lab/out/consumer-commit-sql-20261005/missing-application.command.json",
+      "bytes": 578,
+      "sha256": "e2e93f73e05634335fe16688f104757e5ffdc3892448910dddba0bf64b8d1723"
+    },
+    {
+      "path": "lab/out/consumer-commit-sql-20261005/missing-application.rc.txt",
+      "bytes": 1,
+      "sha256": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b"
+    },
+    {
+      "path": "lab/out/consumer-commit-sql-20261005/missing-application.sqlite",
+      "bytes": 36864,
+      "sha256": "a18134ce29401bff28c80854f12e56b124e751860b70c023c8ebcd7c481d334c"
+    },
+    {
+      "path": "lab/out/consumer-commit-sql-20261005/missing-application.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/consumer-commit-sql-20261005/missing-application.stdout.txt",
+      "bytes": 239,
+      "sha256": "0a114bf2de823d4dabea9dac28ee9e406be9047651458fae57b1b3dc83d3993a"
+    },
+    {
+      "path": "lab/out/consumer-commit-sql-20261005/proof.json",
+      "bytes": 241,
+      "sha256": "09c86fcc423ff2862012319fd1081edcef3698a3b0c5e22f98ba19e8d7ae0018"
+    },
+    {
+      "path": "lab/out/consumer-commit-sql-20261005/wrong-ack.ack.json",
+      "bytes": 663,
+      "sha256": "66691d4a428e7a04e622737afa36f24a0e22a51ca1f3050472925e279ce0d6b9"
+    },
+    {
+      "path": "lab/out/consumer-commit-sql-20261005/wrong-ack.command.json",
+      "bytes": 558,
+      "sha256": "c765c21abb5a5f24cfc9c933f4b4f46baa87488cfbf49e40ec478998da8b9a45"
+    },
+    {
+      "path": "lab/out/consumer-commit-sql-20261005/wrong-ack.rc.txt",
+      "bytes": 1,
+      "sha256": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b"
+    },
+    {
+      "path": "lab/out/consumer-commit-sql-20261005/wrong-ack.sqlite",
+      "bytes": 36864,
+      "sha256": "f3442a30980a5fa68858ed304c25802d185e7f7e9ca5f2abc87d88f0da50fe84"
+    },
+    {
+      "path": "lab/out/consumer-commit-sql-20261005/wrong-ack.sqlite-shm",
+      "bytes": 32768,
+      "sha256": "fd4c9fda9cd3f9ae7c962b0ddf37232294d55580e1aa165aa06129b8549389eb"
+    },
+    {
+      "path": "lab/out/consumer-commit-sql-20261005/wrong-ack.sqlite-wal",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/consumer-commit-sql-20261005/wrong-ack.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/consumer-commit-sql-20261005/wrong-ack.stdout.txt",
+      "bytes": 233,
+      "sha256": "668a326a5aba701a2c677c19b208af925bd2e29d7de0621e2cdaec91cd2da9c3"
+    },
+    {
+      "path": "lab/out/consumer-commit-sql-20261005/wrong-after.ack.json",
+      "bytes": 647,
+      "sha256": "95ef1bb37f88037b1657046be79ccc10aa96b7be7120dcb2663d9e151550a8c9"
+    },
+    {
+      "path": "lab/out/consumer-commit-sql-20261005/wrong-after.command.json",
+      "bytes": 562,
+      "sha256": "91e24b3b9a893c14dbb3ebcff4cd2461f57d72d4313b427d83813b19ba9f5feb"
+    },
+    {
+      "path": "lab/out/consumer-commit-sql-20261005/wrong-after.rc.txt",
+      "bytes": 1,
+      "sha256": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b"
+    },
+    {
+      "path": "lab/out/consumer-commit-sql-20261005/wrong-after.sqlite",
+      "bytes": 36864,
+      "sha256": "6f92e88304676fb9b58a849d853f35f5efc082e95f8448acf96ebf69e0b3bff9"
+    },
+    {
+      "path": "lab/out/consumer-commit-sql-20261005/wrong-after.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/consumer-commit-sql-20261005/wrong-after.stdout.txt",
+      "bytes": 232,
+      "sha256": "497fa5fe8c26eeea70c1fa8d7982a6fc403eb8a98b229025c934226fb27ec904"
+    },
+    {
+      "path": "lab/verify_consumer_commit19.py",
+      "bytes": 11146,
+      "sha256": "e6c5046d88e7c6beaf59f1c2a16f53b5df7e0a6b6891a8e9cf099aa710139058"
+    },
+    {
+      "path": "lab/verify_consumer_sql19.py",
+      "bytes": 2678,
+      "sha256": "8c70d8688c22305ff66a71fa8c46c9a54c4b2362f76ce9a3d8f4a8fb02702d33"
+    }
+  ]
+}
