@@ -10,7 +10,7 @@
 | W1 文件/块 scanner | 通过：首批fa61476 | 通过：19c/21c有界样本/5个真实派生反例 | 待证：真实capture | 未开始 | 待证 | 未开始 |
 | W2 record/vector | 通过：首批fa61476 | 通过：19c seq8/9完整dump、21c选定范围 | 待证：事务/字典 | 未开始 | 待证 | 未开始 |
 | W3 基础行/类型 | 进行中：scalar + pair + KDOM2单列扩展值 | 通过：18pair/302长值patch；完整行待证 | 进行中：物理配对；字典/基线待证 | 未开始 | 待证 | 未开始 |
-| W4 事务/回滚 | 进行中：有序history/覆盖/slot排除/heap rollback/index普通purge+restore补偿 | 通过：六批heap756/430/326；五笔混合图22/19/3；并发真实slot1→2触发现有安全拒绝，功能缺口未验收 | 进行中：并发归属/其他控制/index扩展取消图/slot迁移/恢复待证 | 未开始 | 待证 | 未开始 |
+| W4 事务/回滚 | 进行中：有序history/覆盖/slot排除/heap rollback/index补偿与owned同叶清单；slot重放未实现 | 通过：六批heap756/430/326；五笔混合图22/19/3；154测试及真实A/B同叶3/1项；slot1→2仍安全拒绝，功能缺口未验收 | 进行中：并发归属/其他控制/index扩展取消图/slot迁移/恢复待证 | 未开始 | 待证 | 未开始 |
 | W5 SCN字典/基线 | 未开始 | 待证 | 未开始 | 未开始 | 待证 | 未开始 |
 | W6 StreamHouse接入 | 未开始 | 待证 | 未开始 | 未开始 | 待证 | 未开始 |
 | W7 online采集 | 进行中：固定member有界观察journal实验 | 通过：429归档数据块字节覆盖、6派生拒绝；完整持续捕获/续接/Windows/ASM待证 | 未开始：journal到解析/ACK | 未开始 | 待证 | 未开始 |
@@ -31,6 +31,8 @@
 - 首轮PDB切日志ORA-65040、CDB VLD9/13/marker结构缺口、SQLPlus中文显示与LogMiner status3均保留原文；两会话交叉事务/跨switch动作已执行。细节见[首批反馈](DELIVERY_W0_W2_20261004.md)。
 
 ## 接续与限制
+
+最新：[同叶完整操作清单交付](DELIVERY_W4_INDEX_LEAF_INVENTORY_20261004.md)，最终完整树13a87c0，[清单](evidence/DELIVERY-leaf-inventory-20261004.json)。154测试通过；内核绑定完整归档，在verified record窗口收录同叶其他XID操作，真实A窗口3项含B插入、B窗口1项与native窗口/字段零差异。4选择反例拒绝；3重封raw反例结构scan rc0而清单拒绝未知10.31/4.1/缺B undo；3比较器反例检出。同件jar五笔混合图22/19/3回归通过、slot迁移matcher和events继续拒绝，1000文件SHA重算。没有数据库动作；位置重放尚未实现，block/object字典映射/完整并发图/页维护/持续capture/发布未验收。
 
 最新：[并发索引slot迁移反例](RESEARCH_W4_INDEX_SLOT_SHIFT_20261004.md)，研究完整树b19e5a2，[清单](evidence/RESEARCH-index-slot-shift-20261004.json)。专属无supplemental新表一次性A DELETE键3、B INSERT键2提交、A rollback；seq19 SHA497d09a5…冻结，同一叶原DELETE slot1而RESTORE slot2，11index vector/native零差异、3比较器篡改反例检出。既有5002f18内核matcher rc1/stdout0、MISSING_INDEX_COMPENSATION_ORIGINAL；是真实功能缺口，不算并发DML支持。569文件SHA重算，首轮PLSQL保留字及封存Java8误选失败保留；生产内核不变、147测试不重跑，events拒绝。下一步按W4-SLOT完整同叶操作流跟踪位置并保持错误slot/缺操作拒绝，不能删slot条件。
 
