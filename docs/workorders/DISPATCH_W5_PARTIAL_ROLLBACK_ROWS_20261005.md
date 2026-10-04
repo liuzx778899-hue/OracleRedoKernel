@@ -1,6 +1,6 @@
 # W5 真实SAVEPOINT部分回滚与存活完整行
 
-状态：待执行。完整回滚3/3/0抑制和后续commit完整行已有限通过；当前对commit图中有补偿的partial事务明确拒绝。
+状态：一次真实有限SAVEPOINT链路已完成，见[部分回滚交付](DELIVERY_W5_PARTIAL_ROWS_20261005.md)。以下已提交动作不重复执行；接续[并发完整行](DISPATCH_W5_CONCURRENT_ROWS_20261005.md)。通用多savepoint/跨块/并发/初始恢复仍待证。
 
 1. 专属现有表先核单行ID11/rollback-proof/new-note、两角色generation/source及无supplemental；新的实际只读固定SCN基线和获取SHA。新输出目录、脚本先提交，不重放seq31。
 2. 受控同一事务INSERT新ID13/partial-open/partial-base，SAVEPOINT后UPDATE新行TXT partial-cancel，再ROLLBACK TO该savepoint；独立记录仍在同事务的完整XID/自身行状态。随后UPDATE新行NOTE partial-note并commit，保存两行已提交SQL真值。另一事务CAS DELETE这条新行ID13/partial-open/partial-note并commit，保存最终原行不变。源动作仅一次，无DDL/config变更。

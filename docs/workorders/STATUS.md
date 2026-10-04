@@ -11,12 +11,14 @@
 | W2 record/vector | 通过：首批fa61476 | 通过：19c seq8/9完整dump、21c选定范围 | 待证：事务/字典 | 未开始 | 待证 | 未开始 |
 | W3 基础行/类型 | 进行中：scalar + pair + KDOM2单列扩展值 | 通过：18pair/302长值patch；完整行待证 | 进行中：物理配对；字典/基线待证 | 未开始 | 待证 | 未开始 |
 | W4 事务/回滚 | 进行中：有序history/覆盖/heap+index补偿、同源完整XID归属及有源位置重放 | 通过：203测试；seq21—24自主发现基线/A/B共12物理图；自主对象头关联；seq19—24六位置、seq21—24有限双上下文完整图与拒绝证据；九笔旧图及六批长heap证据保留 | 进行中：有界自主物理入口已交付；完整控制/页维护/跨块关联/恢复待证；不当通用生产能力 | 未开始 | 待证 | 未开始 |
-| W5 SCN字典/基线 | 进行中：extent/完整行、实际ASOF获取/回执/typed世代，有限空heap cleanout及已闭合全回滚抑制 | 通过：225测试新冻结树；seq27 TXT/PK、seq30 INSERT/DELETE；seq31完整rollback3/3/0抑制/后续提交1完整行及三SQL快照native零差异、4 raw拒绝；seq28/29真实初始跨snapshot整批拒绝；生产可信交接/历史字典待证 | 进行中：有限获取→DML/全回滚抑制及初始跨snapshot拒绝通过；partial/并发/空结果/通用初始恢复/历史schema待证 | 未开始 | 待证 | 未开始 |
+| W5 SCN字典/基线 | 进行中：extent/完整行、实际ASOF/回执/typed世代，有限cleanout及闭合图live原始位置选择 | 通过：227测试新冻结树；seq27 TXT/PK、seq30 INSERT/DELETE、seq31全回滚抑制；seq32真实SAVEPOINT三存活完整行/三SQL快照/6/1/5图native零差异、7 raw拒绝；seq28/29真实初始跨snapshot拒绝；生产可信交接/历史字典待证 | 进行中：有限串行DML/全及部分回滚存活完整行通过；并发/多savepoint/跨块/空结果/通用初始恢复/历史schema待证 | 未开始 | 待证 | 未开始 |
 | W6 StreamHouse接入 | 未开始 | 待证 | 未开始 | 未开始 | 待证 | 未开始 |
 | W7 online采集 | 进行中：固定member有界观察journal实验 | 通过：429归档数据块字节覆盖、6派生拒绝；完整持续捕获/续接/Windows/ASM待证 | 未开始：journal到解析/ACK | 未开始 | 待证 | 未开始 |
 | W8-W11 扩展类型/LOB/RAC/ASM/TDE | 未开始 | 待证 | 未开始 | 未开始 | 待证 | 未开始 |
 
 ## 当前证据
+
+最新：[真实SAVEPOINT存活完整行](DELIVERY_W5_PARTIAL_ROWS_20261005.md)，源脚本9d4ff98、布局0e502ec、运行时1bfa736、lab验证dfcc2ad，[清单](evidence/DELIVERY-partial-rows-20261005.json)。两新树各227测试通过；实际snapshot2348260后新ID13 INSERT→SAVEPOINT→TXT UPDATE取消→NOTE UPDATE commit，再CAS DELETE新行commit，XID10.6.1643/10.26.1642冻结seq32 SHA357ee00b…。完整物理图4/1/3与2/0/2共6/1/5 native零差异，仅live原始heap位置产出INSERT/NOTE UPDATE/DELETE三完整行，与旧ASOF/中间commit/最终三SQL快照零差异，partial-cancel不产出。新column2/control0x10/XA短值首轮拒绝与r2已闭合物理后的partial拒绝保全，没重放源动作；7重封raw scan通过、物理或最后DELETE before失配整批rc1/stdout0，五比较器与语义/原回执反例检出。同件seq31全回滚、seq30完整行和seq28/29真实边界回归通过，events拒绝。最终原有单行11/rollback-proof/new-note未改。接续[并发完整行/commit顺序](DISPATCH_W5_CONCURRENT_ROWS_20261005.md)；多savepoint/跨块/空结果/初始恢复/历史字典/CDC/capture/接入/现场/发布仍待证。
 
 最新：[已闭合完整回滚抑制及后续提交完整行](DELIVERY_W5_ROLLBACK_ROWS_20261005.md)，源脚本0340edf、运行时1930b16、lab验证80135e2，[清单](evidence/DELIVERY-rollback-rows-20261005.json)。225测试新冻结树通过；实际snapshot2346786后专属新ID13 INSERT/UPDATE完整ROLLBACK，再提交既有ID11 TXT rollback-proof，XID10.15.1641/10.9.1639冻结seq31 SHAf5538660…。整件自主物理图3/3/0与1/0/1共4/3/1 native零差异；只输出后续commit的一次完整UPDATE，旧ASOF/回滚后/最终三SQL快照零差异。旧行入口UNSUPPORTED_ROW_REPLAY_ROLLBACK保全；只有完整闭合、全取消/零live图可抑制，不按flag跳过未知事务。4重封raw scan通过、物理或晚before门禁整批rc1/stdout0；语义/原回执before拒绝、五比较器反例检出，同件seq30完整行、已合法INSERT后DELETE晚失配及seq28/29真实边界回归通过，events拒绝。源动作未重放，最终专属单行11/rollback-proof/new-note。接续[SAVEPOINT部分回滚](DISPATCH_W5_PARTIAL_ROLLBACK_ROWS_20261005.md)；partial/并发/无提交变化空结果、初始恢复/历史字典/CDC/capture/接入/现场/发布仍待证。
 
