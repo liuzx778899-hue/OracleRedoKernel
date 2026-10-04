@@ -84,7 +84,7 @@ public final class ArchivedHeapRows {
                     if (owner==null) continue;
                     var undo=UndoHeader.decode(r.vectors().get(v));HeapUndoPair found=null;int forwardIndex=-1;
                     for (var f:r.vectors()) if (f.containerId()==source.containerId() && f.opcodeMajor()==11
-                            && (f.opcodeMinor()==2 || f.opcodeMinor()==3 || f.opcodeMinor()==5)) {
+                            && (f.opcodeMinor()==2 || f.opcodeMinor()==3 || f.opcodeMinor()==4 || f.opcodeMinor()==5)) {
                         var patch=new HeapRowPatch().decode(f,baseline.columns());
                         if (patch.xtype()!=1 || !undo.uba().equals(patch.uba())) continue;
                         if (found!=null) throw new RedoException("ROW_REPLAY_PAIR_AMBIGUOUS");
@@ -111,6 +111,7 @@ public final class ArchivedHeapRows {
         }
         for (var t:transactions) for (var p:pending.getOrDefault(t.identity().xid(),List.of())) {
             var before=rows.get(p.key());var after=apply(p.pair(),before,baseline.columns());
+            if (p.pair().forward().kind()==Kind.LOCK) continue;
             changes.add(new Change(p.position(),p.xid(),p.key(),p.pair().forward().kind(),before==null ? List.of() : before,after));
             if (after.isEmpty()) rows.remove(p.key());else rows.put(p.key(),after);
         }
@@ -121,6 +122,14 @@ public final class ArchivedHeapRows {
 
     static List<Cell> apply(HeapUndoPair pair,List<Cell> current,int columns) throws RedoException {
         var forward=pair.forward();var inverse=pair.undo().inverse();
+        if (forward.kind()==Kind.LOCK) {
+            if (current==null || current.size()!=columns || inverse.kind()!=Kind.LOCK
+                    || !Integer.valueOf(1).equals(forward.lockTo()) || !Integer.valueOf(0).equals(inverse.lockTo())
+                    || forward.columns().stream().anyMatch(c->c.state()!=State.ABSENT)
+                    || inverse.columns().stream().anyMatch(c->c.state()!=State.ABSENT))
+                throw new RedoException("ROW_REPLAY_UNVERIFIED_LOCK");
+            return List.copyOf(current);
+        }
         if (forward.columns().size()!=columns || inverse.columns().size()!=columns || (forward.kind()!=Kind.DELETE && forward.extent()==null))
             throw new RedoException("ROW_REPLAY_COLUMN_OR_EXTENT_MISSING");
         if (forward.kind()==Kind.INSERT) {

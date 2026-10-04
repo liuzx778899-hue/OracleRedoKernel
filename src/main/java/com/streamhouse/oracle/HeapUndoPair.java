@@ -13,7 +13,7 @@ public record HeapUndoPair(long containerUid,long containerId,Patch forward,Undo
         int rowMatches=0;
         for (var v:record.vectors()) {
             if (v.containerId()!=row.containerId()) continue;
-            if (v.opcodeMajor()==11 && (v.opcodeMinor()==2 || v.opcodeMinor()==3 || v.opcodeMinor()==5)
+            if (v.opcodeMajor()==11 && (v.opcodeMinor()==2 || v.opcodeMinor()==3 || v.opcodeMinor()==4 || v.opcodeMinor()==5)
                     && v.dba()==row.dba()) {
                 var other=new HeapRowPatch().decode(v,columns);
                 if (other.xtype()==1 && p.uba().equals(other.uba())) rowMatches++;
@@ -29,10 +29,12 @@ public record HeapUndoPair(long containerUid,long containerId,Patch forward,Undo
         if (rowMatches!=1) throw new RedoException("AMBIGUOUS_FORWARD_ROW_UBA");
         if (match==null) throw new RedoException("MISSING_ROW_UNDO_UBA");
         var before=match.inverse();
-        Kind inverse=p.kind()==Kind.INSERT ? Kind.DELETE : p.kind()==Kind.DELETE ? Kind.INSERT : Kind.UPDATE;
+        Kind inverse=p.kind()==Kind.INSERT ? Kind.DELETE : p.kind()==Kind.DELETE ? Kind.INSERT : p.kind();
         if (before.kind()!=inverse || before.dba()!=p.dba() || before.slot()!=p.slot()
                 || (p.xid()!=null && !p.xid().equals(match.identity().xid())))
             throw new RedoException("ROW_UNDO_OPERATION_POSITION_OR_XID_MISMATCH");
+        if (p.kind()==Kind.LOCK && (!Integer.valueOf(1).equals(p.lockTo()) || !Integer.valueOf(0).equals(before.lockTo())))
+            throw new RedoException("UNSUPPORTED_HEAP_LOCK_TRANSITION");
         if (p.kind()==Kind.UPDATE) {
             var extent=p.extent();var prior=before.extent();boolean tail=extent.removedColumn()>=0;
             if (tail) {

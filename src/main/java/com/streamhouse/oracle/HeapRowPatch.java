@@ -6,7 +6,7 @@ import static com.streamhouse.oracle.RedoBytes.*;
 
 /** Single-piece heap changes observed on 19.3. Patches include rollback redo, not CDC events. */
 public final class HeapRowPatch {
-    public enum Kind { INSERT, UPDATE, DELETE }
+    public enum Kind { INSERT, UPDATE, DELETE, LOCK }
     public enum State { VALUE, NULL, ABSENT }
     public record Column(State state, byte[] bytes) {}
     public record Xid(int usn, int slot, long sequence) {}
@@ -15,7 +15,10 @@ public final class HeapRowPatch {
     public record RowExtent(int storedColumns,int changedColumns,int removedColumn,Integer sizeDelta) {}
     /** uba is a physical row ITL reference; XR rollback can restore an earlier undo pointer. */
     public record Patch(Kind kind, long dba, int slot, int xtype, Xid xid, Uba uba,
-                        List<Column> columns,RowExtent extent) {
+                        List<Column> columns,RowExtent extent,Integer lockTo) {
+        public Patch(Kind kind,long dba,int slot,int xtype,Xid xid,Uba uba,List<Column> columns,RowExtent extent) {
+            this(kind,dba,slot,xtype,xid,uba,columns,extent,null);
+        }
         public Patch(Kind kind,long dba,int slot,int xtype,Xid xid,Uba uba,List<Column> columns) {
             this(kind,dba,slot,xtype,xid,uba,columns,null);
         }
@@ -23,7 +26,7 @@ public final class HeapRowPatch {
 
     public Patch decode(RedoRecords.Vector vector, int dictionaryColumns) throws RedoException {
         if (vector.opcodeMajor() != 11 || (vector.opcodeMinor() != 2
-                && vector.opcodeMinor() != 3 && vector.opcodeMinor() != 5))
+                && vector.opcodeMinor() != 3 && vector.opcodeMinor() != 4 && vector.opcodeMinor() != 5))
             throw new RedoException("UNSUPPORTED_HEAP_OPCODE");
         if (dictionaryColumns < 1 || dictionaryColumns > 255)
             throw new RedoException("UNSUPPORTED_HEAP_COLUMN_COUNT");
@@ -59,25 +62,31 @@ public final class HeapRowPatch {
         else throw new RedoException("UNSUPPORTED_KTB_OPERATION");
         Uba uba=ubaOffset < 0 ? null : new Uba(u32(ktb,ubaOffset),u16(ktb,ubaOffset+4),ktb[ubaOffset+6]&255);
         var row=decodeKdo(fields,vector.opcodeMinor(),vector.dba(),dictionaryColumns);
-        return new Patch(row.kind(),row.dba(),row.slot(),row.xtype(),xid,uba,row.columns(),row.extent());
+        return new Patch(row.kind(),row.dba(),row.slot(),row.xtype(),xid,uba,row.columns(),row.extent(),row.lockTo());
     }
 
     /** Shared physical KDO decoding. Undo KTB does not describe the current transaction identity. */
     static Patch decodeKdo(List<byte[]> fields,int op,long dba,int dictionaryColumns) throws RedoException {
         if (dictionaryColumns < 1 || dictionaryColumns > 255)
             throw new RedoException("UNSUPPORTED_HEAP_COLUMN_COUNT");
-        if (fields.size()<2 || (op!=2 && op!=3 && op!=5))
+        if (fields.size()<2 || (op!=2 && op!=3 && op!=4 && op!=5))
             throw new RedoException("UNSUPPORTED_HEAP_OPCODE_OR_FIELDS");
         byte[] kdo=fields.get(1);
         boolean packed=op==5 && kdo.length==28 && ((kdo[11]&255)==0x81 || (kdo[11]&255)==0x82);
         boolean tail=op==5 && kdo.length==28 && (kdo[11]&255)==1 && (kdo[23]&255)==0;
-        int expectedKdo=op == 2 ? 49 : op == 3 ? 20 : packed || tail ? 28 : 29;
+        int expectedKdo=op == 2 ? 49 : op == 3 || op == 4 ? 20 : packed || tail ? 28 : 29;
         if (kdo.length != expectedKdo || (kdo[10]&255) != op || u32(kdo,0) != dba)
             throw new RedoException("UNSUPPORTED_KDO_LAYOUT_OR_BLOCK");
         int xtype=(kdo[11]&255)&(packed ? 0x7f : 0xff);
         if (xtype != 1 && xtype != 2) throw new RedoException("UNSUPPORTED_KDO_XTYPE");
         List<Column> columns=new ArrayList<>();
         for (int i=0;i<dictionaryColumns;i++) columns.add(new Column(State.ABSENT,new byte[0]));
+        if (op==4) {
+            if (fields.size()!=2 || xtype!=1 || kdo[12]!=1 || kdo[13]!=0 || u16(kdo,14)!=1
+                    || kdo[18]!=0 || (kdo[19]&255)>1)
+                throw new RedoException("UNSUPPORTED_HEAP_LOCK_LAYOUT");
+            return new Patch(Kind.LOCK,dba,u16(kdo,16),xtype,null,null,List.copyOf(columns),null,kdo[19]&255);
+        }
         int slot;
         Kind kind;
         RowExtent extent=null;

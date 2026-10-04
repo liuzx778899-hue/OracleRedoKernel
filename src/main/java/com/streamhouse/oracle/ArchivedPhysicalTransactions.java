@@ -169,7 +169,7 @@ public final class ArchivedPhysicalTransactions {
         for (int i=0;i<paths.size();i++) requireSource(found,i,scanner.scan(paths.get(i)));
         return new Result(found.sources(),contexts.stream().map(c->c.result).toList());
     }
-    private static boolean heap(RedoRecords.Vector v) {return v.opcodeMajor()==11 && (v.opcodeMinor()==2 || v.opcodeMinor()==3 || v.opcodeMinor()==5);}
+    private static boolean heap(RedoRecords.Vector v) {return v.opcodeMajor()==11 && (v.opcodeMinor()==2 || v.opcodeMinor()==3 || v.opcodeMinor()==4 || v.opcodeMinor()==5);}
     private static ArchivedUndoInventory.Position position(ArchivedRedo.Header h,RedoRecords.Record r,int i) {return new ArchivedUndoInventory.Position(h.sequence(),r.block(),r.offset(),i+1);}
     private static void requireSource(ArchivedObjectTransactions found,int i,ArchivedRedo.Header h) throws RedoException {
         if (!found.sources().get(i).equals(h)) throw new RedoException("PHYSICAL_TRANSACTION_SOURCE_CHANGED");
