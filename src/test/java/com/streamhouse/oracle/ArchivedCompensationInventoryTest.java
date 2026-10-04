@@ -31,7 +31,8 @@ class ArchivedCompensationInventoryTest {
         return bytes;
     }
     void record(byte[] bytes,int block,long scn,List<RedoRecords.Vector> vs) {
-        int base=block*512;put(bytes,base,0x2201,2);put(bytes,base+4,block,4);put(bytes,base+8,7,4);
+        int base=block*512;Arrays.fill(bytes,base,base+512,(byte)0);
+        put(bytes,base,0x2201,2);put(bytes,base+4,block,4);put(bytes,base+8,7,4);
         int start=base+16,pos=start+24;put(bytes,start+4,1,1);put(bytes,start+8,scn,4);put(bytes,start+16,677737149,4);
         for (var v:vs) {
             put(bytes,pos,v.opcodeMajor(),1);put(bytes,pos+1,v.opcodeMinor(),1);put(bytes,pos+8,v.dba(),4);put(bytes,pos+24,v.containerId(),4);
@@ -69,5 +70,19 @@ class ArchivedCompensationInventoryTest {
     @Test void missingBeginControlRefuses() {
         byte[] b=fixture(true,false);put(b,1112,2,4);seal(b,1024);
         assertEquals("COMPENSATION_INVENTORY_BEGIN_CONTROL_COUNT",assertThrows(RedoException.class,()->read(b)).getMessage());
+    }
+    @Test void activeSlotReassignmentCannotBeHiddenByTargetXidSelection() {
+        byte[] b=fixture(true,false);var control=vectors.start();
+        put(control.fields().get(0),4,xid.sequence()+65536,4);
+        record(b,3,120,List.of(control,marker(999,3)));seal(b,1536);
+        assertEquals("TRANSACTION_SLOT_REASSIGNED_WHILE_ACTIVE",
+                assertThrows(RedoException.class,()->read(b)).getMessage());
+    }
+    @Test void unrelatedSegmentAndContainerControlsDoNotReassignTargetSlot() throws Exception {
+        byte[] b=fixture(true,false);var control=vectors.start();put(control.fields().get(0),4,xid.sequence()+1,4);
+        var otherSegment=new RedoRecords.Vector(5,2,35,11,0x02400120,120,1,3,control.fields());
+        var otherContainer=new RedoRecords.Vector(5,2,35,11,control.dba(),120,1,4,control.fields());
+        record(b,3,120,List.of(otherSegment,otherContainer,marker(999,3)));seal(b,1536);
+        assertEquals(1,read(b).entries().size());
     }
 }

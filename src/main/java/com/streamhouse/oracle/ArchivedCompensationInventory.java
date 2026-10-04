@@ -53,6 +53,10 @@ public final class ArchivedCompensationInventory {
                     begins[0]++;active[0]=true;
                 }
                 for (var original:originals) state.undo(record,original);
+                if (active[0]) for (var control:record.vectors()) {
+                    if (control.containerId()==container && control.opcodeMajor()==5 && control.opcodeMinor()==2)
+                        state.observeSlotControl(record,control);
+                }
                 // Record phases deliberately ignore vector ordering, as begin/end may precede undo vectors.
                 if (active[0]) for (int i=0;i<record.vectors().size();i++) {
                     var v=record.vectors().get(i);

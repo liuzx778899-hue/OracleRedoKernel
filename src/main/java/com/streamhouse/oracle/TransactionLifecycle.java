@@ -57,6 +57,22 @@ public final class TransactionLifecycle {
         } catch (RedoException e) { failed=true; throw e; }
     }
 
+    /** Identity exclusion guard only; zero sequence controls still need advance/head-update decoding. */
+    public void observeSlotControl(RedoRecords.Record record,RedoRecords.Vector vector) throws RedoException {
+        checkRecord(record);
+        if (vector.opcodeMajor()!=5 || vector.opcodeMinor()!=2 || !record.vectors().contains(vector))
+            refuse("NOT_SLOT_CONTROL_IN_RECORD");
+        for (var key:pending.keySet()) {
+            if (key.uid()!=record.containerUid() || key.container()!=vector.containerId() || key.segment()!=vector.dba()) continue;
+            if (vector.fields().isEmpty() || vector.fields().get(0).length<8)
+                refuse("UNREADABLE_ACTIVE_SEGMENT_SLOT_CONTROL");
+            byte[] b=vector.fields().get(0);
+            if (u16(b,0)!=key.slot()) continue;
+            long sequence=u32(b,4);
+            if (sequence!=0 && sequence!=key.sequence()) refuse("TRANSACTION_SLOT_REASSIGNED_WHILE_ACTIVE");
+        }
+    }
+
     public void requireActive(RedoRecords.Record record,HeapUndoPair pair) throws RedoException {
         checkRecord(record);
         if (record.containerUid()!=pair.containerUid()

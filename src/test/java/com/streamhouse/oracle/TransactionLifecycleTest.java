@@ -30,6 +30,21 @@ class TransactionLifecycleTest {
         var state=new TransactionLifecycle(); state.archive(archive(8,100,200,42));
         state.begin(record(110,start(),undo()),start()); return state;
     }
+    @Test void observesFullSlotSequenceAndLatchesHiddenReassignment() throws Exception {
+        var same=start();var state=begun();state.observeSlotControl(record(120,same),same);
+        var zero=start();java.util.Arrays.fill(zero.fields().get(0),4,8,(byte)0);
+        state.observeSlotControl(record(120,zero),zero);
+        var collision=start();ArchivedRedoTest.put(collision.fields().get(0),4,1136+65536,4);
+        assertEquals("TRANSACTION_SLOT_REASSIGNED_WHILE_ACTIVE",
+                assertThrows(RedoException.class,()->state.observeSlotControl(record(120,collision),collision)).getMessage());
+        assertEquals("TRANSACTION_LIFECYCLE_ALREADY_REFUSED",assertThrows(RedoException.class,state::finish).getMessage());
+    }
+    @Test void unreadableActiveSegmentControlRefusesAndLocks() throws Exception {
+        var state=begun();var v=new RedoRecords.Vector(5,2,35,11,start().dba(),120,1,3,List.of(new byte[4]));
+        assertEquals("UNREADABLE_ACTIVE_SEGMENT_SLOT_CONTROL",
+                assertThrows(RedoException.class,()->state.observeSlotControl(record(120,v),v)).getMessage());
+        assertThrows(RedoException.class,state::finish);
+    }
     @Test void keepsIdentityAcrossContiguousArchiveSwitch() throws Exception {
         var state=begun(); state.archive(archive(9,200,300,42));
         state.undo(record(210,undo()),undo());
