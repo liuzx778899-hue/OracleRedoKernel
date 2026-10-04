@@ -32,6 +32,8 @@
 
 ## 接续与限制
 
+最新研究：[中间PURGE/其他XID回滚](RESEARCH_W4_INTERVENING_PURGE_20261004.md)，源脚本0017daa、完整研究树cea54f9，[清单](evidence/RESEARCH-intervening-purge-20261004.json)。专属源一次新实验冻结seq21（f01a212c…），A删除50、B插入20后rollback、A再rollback；native/raw四叶操作slot1/1/1/1零差异，前三record SCN相同，须按RBA/vector排序。真实B index PURGE为短KTB Z，owned清单/位置与A/B图均rc1/stdout0拒绝；B heap短Z XR DELETE直接拒绝。旧静态A单补偿rc0不当完整图通过。无内核变化，五项是不支持入口证据而非安全派生反例。接续先补两个真实短Z布局与反例，再验证清单、PURGE位置及并发marker完整归属；events继续拒绝。
+
 最新：[多次INSERT并发图交付](DELIVERY_W4_INDEX_MULTI_GRAPH_20261004.md)，完整研究树e3552af，main/test/pom与aa44b0d差异为空，[清单](evidence/DELIVERY-index-multi-graph-20261004.json)。冻结seq20同件jar两笔图8原始/2取消/6保留与native零差异；七项调用者选择/模型派生反例rc1/stdout0，三项比较器反例检出。首次wrong-live派生未改变的封存失败保留，只补跑正确反例及未执行events，events继续拒绝。无数据库动作，本批有限位置和选定图验证完成；中间PURGE/普通DELETE、完整控制/字典/持续capture/发布仍待证。
 
 最新研究：[多次并发INSERT位置](RESEARCH_W4_INDEX_MULTI_INSERT_20261004.md)，源脚本d3fd77b、完整研究树c469cd3，[清单](evidence/RESEARCH-index-multi-position-20261004.json)。专属源一次受控实验冻结seq20（620c6361…），A删除50，B按20/70/30插入后提交，A回滚；native slot1/1/3/2/3及三键raw字节零差异。已交付同件jar精确关联A原slot1→RESTORE slot3，旧静态matcher继续拒绝；无内核变化。新批完整A/B heap+index图、反例覆盖、其他中间操作仍待证，不补填旧批图计数或开放CDC。接续优先补本冻结批图和漏vector反例，再研究前方PURGE。
