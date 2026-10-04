@@ -3,19 +3,27 @@ package com.streamhouse.oracle;
 import java.util.List;
 import static com.streamhouse.oracle.RedoBytes.*;
 
-/** Observed regular index purge compensation only. Caller still owns complete ordered history coverage. */
+/** Observed regular index purge/restore compensation. Caller still owns complete ordered history coverage. */
 public final class IndexCompensation {
     public record Purge(long block,int itl,int slot,int rowSize) {}
+    public record LeafRollback(IndexUndoPair.Kind kind,long block,int itl,int slot,int rowSize) {}
     public static Purge decodePurge(RedoRecords.Vector vector) throws RedoException {
-        if (vector.opcodeMajor()!=10 || vector.opcodeMinor()!=3 || vector.fields().size()!=2
-                || vector.fields().get(1).length!=6)
+        if (vector.opcodeMajor()!=10 || vector.opcodeMinor()!=3)
             throw new RedoException("UNSUPPORTED_INDEX_PURGE_LAYOUT");
+        var leaf=decodeRollback(vector);
+        return new Purge(leaf.block(),leaf.itl(),leaf.slot(),leaf.rowSize());
+    }
+    public static LeafRollback decodeRollback(RedoRecords.Vector vector) throws RedoException {
+        if (vector.opcodeMajor()!=10 || (vector.opcodeMinor()!=3 && vector.opcodeMinor()!=5) || vector.fields().size()!=2
+                || vector.fields().get(1).length!=6)
+            throw new RedoException("UNSUPPORTED_INDEX_ROLLBACK_LAYOUT");
         byte[] ktb=vector.fields().get(0),leaf=vector.fields().get(1);
         if (ktb.length<2 || (ktb[1]&255)!=0x0d
                 || !((ktb[0]==4 && ktb.length==32) || (ktb[0]==2 && ktb.length==16))
                 || leaf[0]==0 || leaf[1]!=1 || u16(leaf,4)<4)
-            throw new RedoException("UNSUPPORTED_INDEX_PURGE_MODE_OR_KTB");
-        return new Purge(vector.dba(),leaf[0]&255,u16(leaf,2),u16(leaf,4));
+            throw new RedoException("UNSUPPORTED_INDEX_ROLLBACK_MODE_OR_KTB");
+        return new LeafRollback(vector.opcodeMinor()==3 ? IndexUndoPair.Kind.PURGE : IndexUndoPair.Kind.RESTORE,
+                vector.dba(),leaf[0]&255,u16(leaf,2),u16(leaf,4));
     }
 
     public static IndexUndoPair match(RedoRecords.Record record,RedoRecords.Vector marker,RedoRecords.Vector row,
@@ -28,7 +36,7 @@ public final class IndexCompensation {
             if (marker.opcodeMinor()!=6 || c.beginsTransaction() || c.crossesUndoBlock()
                     || c.opcodeMajor()!=10 || c.opcodeMinor()!=22)
                 throw new RedoException("UNSUPPORTED_INDEX_COMPENSATION_ASSOCIATION");
-            var purge=decodePurge(row);
+            var rollback=decodeRollback(row);
             IndexUndoPair match=null;
             for (var pair:history) {
                 var u=pair.undo();var h=u.identity();var f=pair.forward();
@@ -37,17 +45,17 @@ public final class IndexCompensation {
                         || u.wrap()!=c.wrap() || h.uba().dba()!=c.dba() || h.objectId()!=c.objectId()
                         || h.dataObjectId()!=c.dataObjectId() || h.tablespace()!=c.tablespace()
                         || u.previousDba()!=c.previousDba() || u.predecessorRecord()!=c.predecessorRecord()
-                        || u.kind()!=IndexUndoPair.Kind.PURGE || f.kind()!=IndexUndoPair.Kind.INSERT
-                        || u.block()!=purge.block() || f.itl()!=purge.itl() || f.slot()!=purge.slot()
-                        || f.rowSize()!=purge.rowSize()) continue;
+                        || u.kind()!=rollback.kind() || f.kind()!=(rollback.kind()==IndexUndoPair.Kind.PURGE ? IndexUndoPair.Kind.INSERT : IndexUndoPair.Kind.DELETE)
+                        || u.block()!=rollback.block() || f.itl()!=rollback.itl() || f.slot()!=rollback.slot()
+                        || f.rowSize()!=rollback.rowSize()) continue;
                 if (match!=null) throw new RedoException("AMBIGUOUS_INDEX_COMPENSATION_ORIGINAL");
                 match=pair;
             }
             if (match==null) throw new RedoException("MISSING_INDEX_COMPENSATION_ORIGINAL");
             int rows=0;
             for (var v:record.vectors()) if (v.containerId()==row.containerId() && v.dba()==row.dba()
-                    && v.opcodeMajor()==10 && v.opcodeMinor()==3 && decodePurge(v).equals(purge)) rows++;
-            if (rows!=1) throw new RedoException("AMBIGUOUS_INDEX_COMPENSATION_PURGE");
+                    && v.opcodeMajor()==10 && (v.opcodeMinor()==3 || v.opcodeMinor()==5) && decodeRollback(v).equals(rollback)) rows++;
+            if (rows!=1) throw new RedoException("AMBIGUOUS_INDEX_COMPENSATION_LEAF");
             state.requireActive(record,match);
             return match;
         } catch (RedoException e) { state.compensationRefused(); throw e; }

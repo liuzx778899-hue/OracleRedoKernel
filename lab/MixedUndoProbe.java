@@ -6,10 +6,13 @@ import java.util.List;
 /** Bounded original heap+index fixture graph; complete selected 5.1/compensation inventory, not all redo semantics. */
 public class MixedUndoProbe {
     public static void main(String[] args) throws Exception {
-        String[] x=args[0].split("\\.");var xid=new HeapRowPatch.Xid(Integer.parseInt(x[0]),Integer.parseInt(x[1]),Long.parseLong(x[2]));
-        var paths=List.of(Path.of(args[1]),Path.of(args[2]));
+        boolean restoreFixture=args[0].equals("--restore-fixture");int base=restoreFixture ? 1 : 0;
+        String[] x=args[base].split("\\.");var xid=new HeapRowPatch.Xid(Integer.parseInt(x[0]),Integer.parseInt(x[1]),Long.parseLong(x[2]));
+        var paths=restoreFixture ? List.of(Path.of(args[2])) : List.of(Path.of(args[1]),Path.of(args[2]));
+        long heapObject=restoreFixture ? 73059 : 73024,indexObject=restoreFixture ? 73060 : 73025;
+        int columns=restoreFixture ? 2 : 4;
         String mode=args.length>3 ? args[3] : "positive";
-        if (!List.of("positive","omit_index_node","wrong_index_purge_slot").contains(mode)) throw new IllegalArgumentException("UNKNOWN_RESEARCH_MODE");
+        if (!List.of("positive","omit_index_node","wrong_index_purge_slot","wrong_index_leaf_slot","wrong_index_leaf_mode","repeat_index_compensation").contains(mode)) throw new IllegalArgumentException("UNKNOWN_RESEARCH_MODE");
         var inventory=ArchivedCompensationInventory.read(paths,677737149,3,xid);
         var graph=new UndoHistory(inventory.undo());var state=new TransactionLifecycle();
         var heaps=new ArrayList<HeapUndoPair>();var indexes=new ArrayList<IndexUndoPair>();
@@ -41,14 +44,14 @@ public class MixedUndoProbe {
                     var entry=inventory.undo().entries().get(next[0]++);
                     var position=new ArchivedUndoInventory.Position(header.sequence(),r.block(),r.offset(),r.vectors().indexOf(u)+1);
                     if (!entry.position().equals(position) || !entry.identity().equals(h)) throw new RedoException("MIXED_ORIGINAL_POSITION_OR_IDENTITY_MISMATCH");
-                    if (!(mode.equals("omit_index_node") && h.dataObjectId()==73025)) graph.append(entry);
+                    if (!(mode.equals("omit_index_node") && h.dataObjectId()==indexObject)) graph.append(entry);
                     int pairs=0;
                     for (var v:r.vectors()) {
                         if (v.containerId()!=3) continue;
-                        if (h.dataObjectId()==73024 && HeapCompensationProbe.heap(v)) {
-                            var f=new HeapRowPatch().decode(v,4);
-                            if (f.xtype()==1 && h.uba().equals(f.uba())) {var pair=HeapUndoPair.bind(r,v,4);state.requireActive(r,pair);heaps.add(pair);pairs++;}
-                        } else if (h.dataObjectId()==73025 && v.opcodeMajor()==10 && (v.opcodeMinor()==2 || v.opcodeMinor()==4)) {
+                        if (h.dataObjectId()==heapObject && HeapCompensationProbe.heap(v)) {
+                            var f=new HeapRowPatch().decode(v,columns);
+                            if (f.xtype()==1 && h.uba().equals(f.uba())) {var pair=HeapUndoPair.bind(r,v,columns);state.requireActive(r,pair);heaps.add(pair);pairs++;}
+                        } else if (h.dataObjectId()==indexObject && v.opcodeMajor()==10 && (v.opcodeMinor()==2 || v.opcodeMinor()==4)) {
                             var f=IndexUndoPair.decodeForward(v);
                             if (h.uba().equals(f.uba())) {var pair=IndexUndoPair.bind(r,v);state.requireActive(r,pair);indexes.add(pair);pairs++;}
                         }
@@ -62,21 +65,23 @@ public class MixedUndoProbe {
                     var c=UndoCompensation.decode(marker);var rows=new ArrayList<RedoRecords.Vector>();UndoHeader original;
                     for (var v:r.vectors()) {
                         if (v.containerId()!=3) continue;
-                        if (c.dataObjectId()==73025 && v.opcodeMajor()==10 && v.opcodeMinor()==3) rows.add(v);
-                        if (c.dataObjectId()==73024 && HeapCompensationProbe.heap(v) && new HeapRowPatch().decode(v,4).xtype()==2) rows.add(v);
+                        if (c.dataObjectId()==indexObject && v.opcodeMajor()==10 && (v.opcodeMinor()==3 || v.opcodeMinor()==5)) rows.add(v);
+                        if (c.dataObjectId()==heapObject && HeapCompensationProbe.heap(v) && new HeapRowPatch().decode(v,columns).xtype()==2) rows.add(v);
                     }
                     if (rows.size()!=1) throw new RedoException("MIXED_COMPENSATION_ROW_COUNT");
-                    if (c.dataObjectId()==73025) {
-                        if (mode.equals("wrong_index_purge_slot")) rows.get(0).fields().get(1)[2]^=1;
+                    if (c.dataObjectId()==indexObject) {
+                        if (mode.equals("wrong_index_purge_slot") || mode.equals("wrong_index_leaf_slot")) rows.get(0).fields().get(1)[2]^=1;
+                        if (mode.equals("wrong_index_leaf_mode")) rows.get(0).fields().get(1)[1]=0;
                         original=IndexCompensation.match(r,marker,rows.get(0),indexes,state).undo().identity();
                     }
-                    else if (c.dataObjectId()==73024) {
-                        var pair=c.beginsTransaction() ? HeapCompensation.matchBegin(r,marker,rows.get(0),heaps,4,state)
-                                : c.crossesUndoBlock() ? HeapCompensation.matchCross(r,marker,rows.get(0),heaps,4,state)
-                                : HeapCompensation.match(r,marker,rows.get(0),heaps,4);
+                    else if (c.dataObjectId()==heapObject) {
+                        var pair=c.beginsTransaction() ? HeapCompensation.matchBegin(r,marker,rows.get(0),heaps,columns,state)
+                                : c.crossesUndoBlock() ? HeapCompensation.matchCross(r,marker,rows.get(0),heaps,columns,state)
+                                : HeapCompensation.match(r,marker,rows.get(0),heaps,columns);
                         state.requireActive(r,pair);original=pair.undo().identity();
                     } else throw new RedoException("UNSUPPORTED_MIXED_COMPENSATION_OBJECT");
                     graph.compensate(original);
+                    if (mode.equals("repeat_index_compensation") && c.dataObjectId()==indexObject) graph.compensate(original);
                     var position=new ArchivedUndoInventory.Position(header.sequence(),r.block(),r.offset(),r.vectors().indexOf(marker)+1);
                     markers.add(position);
                     output.add("CANCEL|"+position.archiveSequence()+"|"+position.block()+"|"+position.offset()+"|"+position.vector()+"|"+address(original.uba())+"|"+original.dataObjectId());

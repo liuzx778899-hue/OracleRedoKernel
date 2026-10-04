@@ -1,11 +1,17 @@
 """Independent native KTB/ktudb identity and forward/inverse column comparison."""
+import argparse
 import json
 import re
 import sys
 from pathlib import Path
 
-dump=Path(sys.argv[1]).read_text(encoding='utf-8')
-rows=[line.split('|') for line in Path(sys.argv[2]).read_text(encoding='utf-8-sig').splitlines()]
+parser=argparse.ArgumentParser()
+parser.add_argument('--object-id',type=int,default=73024)
+parser.add_argument('--columns',type=int,default=4)
+parser.add_argument('dump');parser.add_argument('pairs')
+args=parser.parse_args()
+dump=Path(args.dump).read_text(encoding='utf-8')
+rows=[line.split('|') for line in Path(args.pairs).read_text(encoding='utf-8-sig').splitlines()]
 actual={tuple(map(int,r[:3])):r for r in rows}
 errors=[]
 compared=0
@@ -13,7 +19,7 @@ after_columns=before_columns=0
 def cols(change):
     values={int(m[1]):('VALUE',''.join(m[3].split()).lower()) for m in re.finditer(r'col\s+(\d+):\s*\[\s*(\d+)\]\s*([0-9a-fA-F ]+)',change)}
     for m in re.finditer(r'col\s+(\d+):\s*\*NULL\*',change): values[int(m[1])]=('NULL','')
-    return [values.get(i,('ABSENT','')) for i in range(4)],len(values)
+    return [values.get(i,('ABSENT','')) for i in range(args.columns)],len(values)
 for record in re.split(r'(?=REDO RECORD - Thread:)',dump):
     rba=re.search(r'RBA: 0x[0-9a-f]+\.([0-9a-f]+)\.([0-9a-f]+)',record)
     if not rba:
@@ -22,7 +28,7 @@ for record in re.split(r'(?=REDO RECORD - Thread:)',dump):
     undos={}
     for change in changes:
         header=re.search(r'CHANGE #\d+ CON_ID:3 [^\n]*DBA:0x([0-9a-f]+)[^\n]*OP:5\.1\b',change)
-        if not header or not re.search(r'objd:\s*73024\b',change): continue
+        if not header or not re.search(r'objd:\s*'+str(args.object_id)+r'\b',change): continue
         h=re.search(r'ktudb redo:[^\n]*seq: 0x([0-9a-f]+) rec: 0x([0-9a-f]+)',change)
         if not h: raise RuntimeError('missing native undo UBA')
         uba=(int(header[1],16),int(h[1],16),int(h[2],16))

@@ -1,11 +1,14 @@
 """Native selected full-XID heap/index allocation and compensation history, without Java input."""
 import json,re,sys
 from pathlib import Path
-xid=tuple(map(int,sys.argv[1].split('.')));expected=[];history=[];nodes=[];active=False;ends=0;segment=None
+args=sys.argv[1:];restore_fixture=args[0]=='--restore-fixture'
+if restore_fixture:args=args[1:]
+objects=(73059,73060) if restore_fixture else (73024,73025)
+xid=tuple(map(int,args[0].split('.')));expected=[];history=[];nodes=[];active=False;ends=0;segment=None
 def metadata(change):
     m=re.search(r'(?:ktubu|ktubl) redo: slt: (\d+) wrp: (\d+) flg: 0x([0-9a-f]+) prev dba:\s*0x([0-9a-f]+) rci: (\d+) opc: (\d+)\.(\d+) \[objn: (\d+) objd: (\d+) tsn: (\d+)\]',change)
     return [int(m[i],16 if i in (3,4) else 10) for i in range(1,11)] if m else None
-for filename in sys.argv[3:]:
+for filename in args[2:]:
     text=Path(filename).read_text(encoding='utf-8')
     for record in re.split(r'(?=REDO RECORD - Thread:)',text):
         if not record.startswith('REDO RECORD - Thread:') or 'CON_UID: 677737149' not in record.splitlines()[0]:continue
@@ -38,7 +41,7 @@ for filename in sys.argv[3:]:
             for h,change in changes:
                 if h[3] not in ('5.6','5.11'):continue
                 m=metadata(change)
-                if not m or m[8] not in (73024,73025):raise RuntimeError('UNSUPPORTED_NATIVE_WINDOW_COMPENSATION')
+                if not m or m[8] not in objects:raise RuntimeError('UNSUPPORTED_NATIVE_WINDOW_COMPENSATION')
                 candidates=[n for n in nodes if n['meta'][0]==m[0] and n['meta'][3:]==m[3:] and
                             (n['begin'] and m[2]==0x0c18 or not n['begin'] and n['meta'][1]==m[1] and n['uba'][0]==int(h[2],16))]
                 if len(candidates)!=1 or not history or candidates[0]!=history[-1]:raise RuntimeError('NATIVE_COMPENSATION_HEAD_OR_IDENTITY_MISMATCH')
@@ -52,12 +55,12 @@ for filename in sys.argv[3:]:
 if active or ends!=1:raise RuntimeError('NATIVE_END_COVERAGE_MISMATCH')
 for n in reversed(history):expected.append(['LIVE',':'.join(map(str,n['uba'])),n['meta'][8]])
 expected=[list(map(str,row)) for row in expected]
-actual=[line.split('|') for line in Path(sys.argv[2]).read_text(encoding='utf-8-sig').splitlines()]
+actual=[line.split('|') for line in Path(args[1]).read_text(encoding='utf-8-sig').splitlines()]
 errors=[]
 for i in range(max(len(expected),len(actual))):
     a=actual[i] if i<len(actual) else None;e=expected[i] if i<len(expected) else None
     if a!=e:errors.append({'row':i,'actual':a,'expected':e})
-print(json.dumps({'xid':sys.argv[1],'original_nodes':len(nodes),'compensations':sum(r[0]=='CANCEL' for r in expected),
+print(json.dumps({'xid':args[0],'original_nodes':len(nodes),'compensations':sum(r[0]=='CANCEL' for r in expected),
                   'live_nodes':len(history),'mismatches':len(errors),'errors':errors,
                   'scope':'native selected full-XID heap+index allocation/cancel order; not all redo semantics or logical DML','cdc_events':0},indent=2))
 sys.exit(bool(errors))

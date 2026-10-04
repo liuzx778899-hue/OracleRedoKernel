@@ -38,6 +38,11 @@ public final class HeapRowPatch {
             xid=new Xid(u16(ktb,8),u16(ktb,10),u32(ktb,12));
             ubaOffset=16;
         } else if ((ktb[0]&255) == 2) ubaOffset=8;
+        else if ((ktb[0]&255)==18 && ktb.length==70 && (ktb[1]&255)==0x0d
+                && vector.opcodeMinor()==3 && fields.get(1).length==20 && (fields.get(1)[11]&255)==1) {
+            // Observed cleanout-C DELETE: current UBA is in the C prefix; cleanout tail remains opaque.
+            ubaOffset=8;
+        }
         else if ((ktb[0]&255) == 4) {
             // KTB L on rollback references an older row ITL, not the current rollback XID/undo.
             if (ktb.length < 24) throw new RedoException("TRUNCATED_KTB_ITL");
