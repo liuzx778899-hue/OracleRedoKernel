@@ -33,6 +33,7 @@ public final class ArchivedHeapRows {
     }
     public record Change(ArchivedUndoInventory.Position position,Xid xid,RowKey key,Kind kind,List<Cell> before,List<Cell> after) {}
     public record Result(List<ArchivedRedo.Header> sources,List<Change> changes,Map<RowKey,List<Cell>> rows) {}
+    private record Pending(ArchivedUndoInventory.Position position,Xid xid,RowKey key,HeapUndoPair pair) {}
 
     public static Result read(List<Path> paths,Baseline baseline,long indexObject,long leaf) throws IOException {
         if (baseline==null || baseline.source()==null) throw new RedoException("MISSING_COMPLETE_BASELINE");
@@ -55,23 +56,24 @@ public final class ArchivedHeapRows {
         if (baseline.scn()<physical.sources().get(0).firstScn() || baseline.scn()>=physical.sources().get(physical.sources().size()-1).nextScn())
             throw new RedoException("BASELINE_SCN_OUTSIDE_INPUT_COVERAGE");
         var transactions=physical.transactions().stream().filter(t->t.identity().endRecordScn()>baseline.scn())
-                .sorted(Comparator.comparingLong(t->t.identity().beginRecordScn())).toList();
-        var selected=new HashMap<ArchivedUndoInventory.Position,ArchivedPhysicalTransactions.Transaction>();long previousEnd=baseline.scn();
+                .sorted(Comparator.comparingLong(t->t.identity().endRecordScn())).toList();
+        var selected=new HashMap<ArchivedUndoInventory.Position,ArchivedPhysicalTransactions.Transaction>();long previousCommit=baseline.scn();
         for (var t:transactions) {
             if (t.identity().beginRecordScn()<=baseline.scn()) throw new RedoException("BASELINE_CROSSES_TRANSACTION_BOUNDARY");
-            if (t.identity().beginRecordScn()<=previousEnd) throw new RedoException("UNSUPPORTED_ROW_REPLAY_CONCURRENT_TRANSACTIONS");
-            previousEnd=t.identity().endRecordScn();
             if (t.identity().rolledBack()) {
                 if (!t.graph().live().isEmpty() || t.graph().original().isEmpty()
                         || t.graph().compensated().size()!=t.graph().original().size())
                     throw new RedoException("ROW_REPLAY_INCOMPLETE_ROLLBACK_GRAPH");
                 continue;
             }
+            if (t.identity().endRecordScn()<=previousCommit) throw new RedoException("AMBIGUOUS_ROW_REPLAY_COMMIT_SCN");
+            previousCommit=t.identity().endRecordScn();
             // All original and compensation records already passed the complete physical gate.
             for (var entry:t.graph().live()) if (entry.identity().dataObjectId()==scope.heap().dataObject()) selected.put(entry.position(),t);
         }
         if (selected.isEmpty()) throw new RedoException("NO_ROW_CHANGES_AFTER_BASELINE");
         var rows=new HashMap<>(baseline.rows());var changes=new ArrayList<Change>();var seen=new java.util.HashSet<ArchivedUndoInventory.Position>();
+        var pending=new HashMap<Xid,List<Pending>>();
         for (int i=0;i<paths.size();i++) {
             var path=paths.get(i);var h=physical.sources().get(i);
             new RedoRecords().visit(path,h,r->{
@@ -92,14 +94,25 @@ public final class ArchivedHeapRows {
                     if (forwardIndex<=previousForward) throw new RedoException("ROW_REPLAY_FORWARD_AND_UNDO_ORDER_DISAGREE");
                     previousForward=forwardIndex;
                     var p=found.forward();var key=new RowKey(undo.dataObjectId(),p.dba(),p.slot());
-                    var before=rows.get(key);var after=apply(found,before,baseline.columns());
-                    changes.add(new Change(at,undo.xid(),key,p.kind(),before==null ? List.of() : before,after));
-                    if (after.isEmpty()) rows.remove(key);else rows.put(key,after);
+                    pending.computeIfAbsent(undo.xid(),ignored->new ArrayList<>()).add(new Pending(at,undo.xid(),key,found));
                 }
             });
             if (!h.equals(new ArchivedRedo().scan(path))) throw new RedoException("ROW_REPLAY_SOURCE_CHANGED");
         }
         if (seen.size()!=selected.size()) throw new RedoException("ROW_REPLAY_INCOMPLETE_SELECTED_INPUT");
+        for (int i=0;i<transactions.size();i++) for (int j=i+1;j<transactions.size();j++) {
+            var a=transactions.get(i).identity();var b=transactions.get(j).identity();
+            if (a.rolledBack() || b.rolledBack() || a.endRecordScn()<b.beginRecordScn() || b.endRecordScn()<a.beginRecordScn()) continue;
+            var keys=new java.util.HashSet<RowKey>();
+            for (var p:pending.getOrDefault(a.xid(),List.of())) keys.add(p.key());
+            if (pending.getOrDefault(b.xid(),List.of()).stream().anyMatch(p->keys.contains(p.key())))
+                throw new RedoException("UNSUPPORTED_ROW_REPLAY_OVERLAPPING_ROW_KEY");
+        }
+        for (var t:transactions) for (var p:pending.getOrDefault(t.identity().xid(),List.of())) {
+            var before=rows.get(p.key());var after=apply(p.pair(),before,baseline.columns());
+            changes.add(new Change(p.position(),p.xid(),p.key(),p.pair().forward().kind(),before==null ? List.of() : before,after));
+            if (after.isEmpty()) rows.remove(p.key());else rows.put(p.key(),after);
+        }
         for (int i=0;i<paths.size();i++) if (!physical.sources().get(i).equals(new ArchivedRedo().scan(paths.get(i))))
             throw new RedoException("ROW_REPLAY_SOURCE_CHANGED");
         return new Result(physical.sources(),List.copyOf(changes),Map.copyOf(rows));
