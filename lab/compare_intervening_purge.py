@@ -40,4 +40,18 @@ sa=(d/'session-a.stdout.txt').read_text();sb=(d/'session-b.stdout.txt').read_tex
 if not scns[0]<scns[1]<scns[2] or not json.loads((d/'b-finished-a-live.json').read_text())['a_live'] or 'B_AFTER_TX|NONE' not in sb or 'A_AFTER_TX|NONE' not in sa:errors.append('SOURCE_COORDINATION')
 truth=[l.split('|')[1:3] for l in (d/'truth-capture.stdout.txt').read_text().splitlines() if l.startswith('FINAL_TRUTH|')]
 if truth!=[['10','ten'],['50','fifty'],['90','ninety']]:errors.append('FINAL_TRUTH')
+if len(sys.argv)>2:
+    decoded=Path(sys.argv[2]);purge=native[2]
+    expected='INDEX|PURGE|'+str(0x0300015b)+'|'+str(purge['itl'])+'|'+str(purge['slot'])+'|'+str(purge['size'])
+    if (decoded/'index.stdout.txt').read_text(encoding='utf-8-sig').splitlines()!=[expected]:errors.append('DECODED_PURGE_NATIVE_DIFFERENCE')
+    heap=[]
+    for r in re.split(r'(?=REDO RECORD - Thread:)',(d/'dump.trc').read_text()):
+        if not r.startswith('REDO RECORD - Thread:') or 'RBA: 0x000015.00000507.0064' not in r.splitlines()[0]:continue
+        for c in re.split(r'(?=CHANGE #\d+)',r)[1:]:
+            if not re.search(r'CHANGE #1 CON_ID:3 [^\n]*DBA:0x03000155[^\n]*OP:11\.3\b',c):continue
+            slot=re.search(r'tabn: 0 slot: (\d+)',c)
+            if 'KDO Op code: DRP' not in c or 'xtype: XR' not in c or 'op: Z' not in c:raise RuntimeError('NATIVE_HEAP_Z_DELETE_PROFILE')
+            heap.append('HEAP|DELETE|'+str(0x03000155)+'|'+slot[1]+'|2|NULL|NULL|ABSENT,ABSENT')
+    if len(heap)!=1:raise RuntimeError('NATIVE_HEAP_DELETE_COUNT')
+    if (decoded/'heap.stdout.txt').read_text(encoding='utf-8-sig').splitlines()!=heap:errors.append('DECODED_HEAP_NATIVE_DIFFERENCE')
 print(json.dumps({'native':native,'source_scns':scns,'mismatches':len(errors),'errors':errors,'observed_net_slot_change':0,'foreign_marker_native_identity':'B slot22/wrap584; A slot19/wrap1233','scope':'real index short-Z PURGE/heap XR DELETE profiles and positions; no general PURGE movement or complete mixed graph acceptance','cdc_events':0},indent=2));sys.exit(bool(errors))
