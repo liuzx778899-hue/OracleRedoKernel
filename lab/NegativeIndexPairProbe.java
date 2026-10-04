@@ -22,7 +22,7 @@ public class NegativeIndexPairProbe {
                 case "duplicate_forward" -> vectors.add(row);
                 case "container" -> vectors.set(0,copy(undo,4));
                 case "uba_sequence" -> undo.fields().get(0)[16]^=1;
-                case "xid" -> undo.fields().get(0)[12]^=1;
+                case "xid" -> row.fields().get(0)[12]^=1;
                 case "key" -> undo.fields().get(4)[2]^=1;
                 case "block" -> undo.fields().get(3)[8]^=1;
                 case "itl" -> undo.fields().get(3)[1]^=1;
