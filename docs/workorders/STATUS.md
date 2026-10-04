@@ -10,7 +10,7 @@
 | W1 文件/块 scanner | 通过：首批fa61476 | 通过：19c/21c有界样本/5个真实派生反例 | 待证：真实capture | 未开始 | 待证 | 未开始 |
 | W2 record/vector | 通过：首批fa61476 | 通过：19c seq8/9完整dump、21c选定范围 | 待证：事务/字典 | 未开始 | 待证 | 未开始 |
 | W3 基础行/类型 | 进行中：scalar + pair + KDOM2单列扩展值 | 通过：18pair/302长值patch；完整行待证 | 进行中：物理配对；字典/基线待证 | 未开始 | 待证 | 未开始 |
-| W4 事务/回滚 | 进行中：有序history/自主补偿覆盖/slot身份排除 | 通过：四批490节点/240候选/240补偿/250 live；20选择及12slot冲突拒绝；完整事务待证 | 进行中：并发归属/其他控制/index/恢复待证 | 未开始 | 待证 | 未开始 |
+| W4 事务/回滚 | 进行中：有序history/自主补偿覆盖/slot身份排除 | 通过：五批636节点/310补偿/326 live含真实二次回滚；20选择及12slot冲突拒绝；完整事务待证 | 进行中：并发归属/其他控制/index/恢复待证 | 未开始 | 待证 | 未开始 |
 | W5 SCN字典/基线 | 未开始 | 待证 | 未开始 | 未开始 | 待证 | 未开始 |
 | W6 StreamHouse接入 | 未开始 | 待证 | 未开始 | 未开始 | 待证 | 未开始 |
 | W7 online采集 | 未开始 | 待证 | 未开始 | 未开始 | 待证 | 未开始 |
@@ -31,6 +31,8 @@
 - 首轮PDB切日志ORA-65040、CDB VLD9/13/marker结构缺口、SQLPlus中文显示与LogMiner status3均保留原文；两会话交叉事务/跨switch动作已执行。细节见[首批反馈](DELIVERY_W0_W2_20261004.md)。
 
 ## 接续与限制
+
+最新：[真实第二次savepoint回滚研究](RESEARCH_W4_SECOND_ROLLBACK_20261004.md)，研究脚本/驱动cfdcdc0，[清单](evidence/RESEARCH-second-rollback-20261004.json)。专属无supplemental新表一次性执行并冻结seq14/XID3.11.671，146原始/70补偿含9跨块/76保留与native零差异，最终两行SQL通过；真实记录阶段120节点→60补偿→20节点→10补偿→6节点。五批合计636/310/326同件既有jar回归通过，生产内核9a2344b不变。首次研究编译依赖漏项和native未来候选误纳失败均保全，验证器按native RBA修正。整个rollback/index/恢复/W5待证，CDC继续拒绝。
 
 最新：[活动窗口slot冲突拒绝反馈](DELIVERY_W4_WINDOW_SLOT_20261004.md)，完整封存树9a2344b，[清单](evidence/DELIVERY-9a2344b.json)。117项测试通过；四批各3份原始归档副本改写完整sequence并重封checksum，12个结构scan均rc0，旧覆盖读取器均rc0，新读取器均`TRANSACTION_SLOT_REASSIGNED_WHILE_ACTIVE`、rc1/stdout0。活动窗口现在审计同segment/slot的完整sequence冲突，合成测试验证失败锁定；不是实际slot复用支持。四批原始240候选/490节点/240补偿/250 live及SQL同件jar回归通过。未做数据库动作；并发归属/其他控制/index/恢复/W5仍待证，CDC拒绝。
 

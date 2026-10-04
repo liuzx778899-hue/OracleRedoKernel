@@ -1,0 +1,814 @@
+{
+  "research_source_commit": "cfdcdc0a2c9fafc0a45ce8f0f3999c2b60c74ec4",
+  "core_source_commit": "9a2344b45afc1c9293b309f49fc57ccabf8e1dd1",
+  "core_src_tree_unchanged": "16a756d8da17801585ddfce40ae74159306f7482",
+  "artifact_sha256": "388a0533936cd31dd73b98437c155215760fe11c11384feae711fc79a632575b",
+  "new_core_build_or_tests": false,
+  "prior_sealed_core_tests": 117,
+  "input": {
+    "source_id": "oraredo-19c-lab-20261004",
+    "start_scn": 2200616,
+    "end_scn": 2200675,
+    "supplemental_logging": "OFF",
+    "files": [
+      {
+        "thread": 1,
+        "sequence": 14,
+        "first_scn": 2165458,
+        "next_scn": 2200679,
+        "oracle_blocks": 97353,
+        "block_size": 512,
+        "source_path": "/opt/oracle/product/19c/dbhome_1/dbs/arch1_14_1245693159.dbf",
+        "path": "archive-1-14.dbf",
+        "bytes": 49845248,
+        "sha256": "609cd5d52ab1682a20954475cb0d3717bd37faa153157fed1f26d87e8c635598"
+      }
+    ]
+  },
+  "phases": [
+    [
+      "NODE",
+      120
+    ],
+    [
+      "CANCEL",
+      60
+    ],
+    [
+      "NODE",
+      20
+    ],
+    [
+      "CANCEL",
+      10
+    ],
+    [
+      "NODE",
+      6
+    ]
+  ],
+  "samples": [
+    {
+      "sequence": 10,
+      "compensation": {
+        "original_heap_pairs": 120,
+        "cancelled_heap_patches": 60,
+        "cross_block_compensations": 8,
+        "retained_heap_patches": 60,
+        "mismatches": 0,
+        "errors": [],
+        "future_native_candidates_excluded": 0,
+        "final_sql_rows_compared": 0,
+        "scope": "bounded metadata and exact restored/retained column bytes; full cross-block predecessor graph, index and recovery unaccepted"
+      },
+      "history": {
+        "nodes_direct_fields_compared": 120,
+        "undo_block_generations": 16,
+        "cross_dba_references": 15,
+        "historical_ktb_vs_candidate_transaction_predecessor_differences": 0,
+        "native_end_tail_matches": true,
+        "mismatches": 0,
+        "errors": [],
+        "scope": "cross DBA and control identity observed; full cross predecessor sequence/record inferred by experimental cursor, not independently certified"
+      }
+    },
+    {
+      "sequence": 11,
+      "compensation": {
+        "original_heap_pairs": 120,
+        "cancelled_heap_patches": 60,
+        "cross_block_compensations": 8,
+        "retained_heap_patches": 60,
+        "mismatches": 0,
+        "errors": [],
+        "future_native_candidates_excluded": 0,
+        "final_sql_rows_compared": 0,
+        "scope": "bounded metadata and exact restored/retained column bytes; full cross-block predecessor graph, index and recovery unaccepted"
+      },
+      "history": {
+        "nodes_direct_fields_compared": 120,
+        "undo_block_generations": 16,
+        "cross_dba_references": 15,
+        "historical_ktb_vs_candidate_transaction_predecessor_differences": 0,
+        "native_end_tail_matches": true,
+        "mismatches": 0,
+        "errors": [],
+        "scope": "cross DBA and control identity observed; full cross predecessor sequence/record inferred by experimental cursor, not independently certified"
+      }
+    },
+    {
+      "sequence": 12,
+      "compensation": {
+        "original_heap_pairs": 120,
+        "cancelled_heap_patches": 60,
+        "cross_block_compensations": 7,
+        "retained_heap_patches": 60,
+        "mismatches": 0,
+        "errors": [],
+        "future_native_candidates_excluded": 0,
+        "final_sql_rows_compared": 2,
+        "scope": "bounded metadata and exact restored/retained column bytes; full cross-block predecessor graph, index and recovery unaccepted"
+      },
+      "history": {
+        "nodes_direct_fields_compared": 120,
+        "undo_block_generations": 16,
+        "cross_dba_references": 15,
+        "historical_ktb_vs_candidate_transaction_predecessor_differences": 118,
+        "native_end_tail_matches": true,
+        "mismatches": 0,
+        "errors": [],
+        "scope": "cross DBA and control identity observed; full cross predecessor sequence/record inferred by experimental cursor, not independently certified"
+      }
+    },
+    {
+      "sequence": 13,
+      "compensation": {
+        "original_heap_pairs": 130,
+        "cancelled_heap_patches": 60,
+        "cross_block_compensations": 8,
+        "retained_heap_patches": 70,
+        "mismatches": 0,
+        "errors": [],
+        "future_native_candidates_excluded": 0,
+        "final_sql_rows_compared": 2,
+        "scope": "bounded metadata and exact restored/retained column bytes; full cross-block predecessor graph, index and recovery unaccepted"
+      },
+      "history": {
+        "nodes_direct_fields_compared": 130,
+        "undo_block_generations": 17,
+        "cross_dba_references": 17,
+        "historical_ktb_vs_candidate_transaction_predecessor_differences": 128,
+        "native_end_tail_matches": true,
+        "mismatches": 0,
+        "errors": [],
+        "scope": "cross DBA and control identity observed; full cross predecessor sequence/record inferred by experimental cursor, not independently certified"
+      }
+    },
+    {
+      "sequence": 14,
+      "compensation": {
+        "original_heap_pairs": 146,
+        "cancelled_heap_patches": 70,
+        "cross_block_compensations": 9,
+        "retained_heap_patches": 76,
+        "mismatches": 0,
+        "errors": [],
+        "future_native_candidates_excluded": 1,
+        "final_sql_rows_compared": 2,
+        "scope": "bounded metadata and exact restored/retained column bytes; full cross-block predecessor graph, index and recovery unaccepted"
+      },
+      "history": {
+        "nodes_direct_fields_compared": 146,
+        "undo_block_generations": 19,
+        "cross_dba_references": 19,
+        "historical_ktb_vs_candidate_transaction_predecessor_differences": 144,
+        "native_end_tail_matches": true,
+        "mismatches": 0,
+        "errors": [],
+        "scope": "cross DBA and control identity observed; full cross predecessor sequence/record inferred by experimental cursor, not independently certified"
+      }
+    }
+  ],
+  "inventory": {
+    "native_nodes": 146,
+    "parser_nodes": 146,
+    "mismatches": 0,
+    "errors": [],
+    "scope": "selected 5.1 full raw input location/UBA/reference coverage; no full cross-block predecessor or transaction acceptance"
+  },
+  "markers": {
+    "native_window_markers": 70,
+    "parser_window_markers": 70,
+    "mismatches": 0,
+    "errors": [],
+    "scope": "all same-PDB 5.6/5.11 in verified target record window; ownership and other opcodes not certified"
+  },
+  "events": {
+    "rc": 1,
+    "stdout_bytes": 0
+  },
+  "limitations": [
+    "Known two-column heap fixture only; index/recovery/dictionary/full DML not accepted",
+    "Bounded native SCN dump is validation only, never Java input",
+    "Cross full predecessors use ordered state; no new independent archive-time snapshot certification",
+    "SQL actions executed once; first compile and comparator failures retained"
+  ],
+  "evidence_files": [
+    {
+      "path": "lab/out/finalize-second-research.py",
+      "bytes": 1024,
+      "sha256": "307ef49e9a29861c0d21a7c10bdf4dbfbde578ba8652603a8bb34d3396e77ec2"
+    },
+    {
+      "path": "lab/out/oracle19-second-undo-20261004/archive-1-14.dbf",
+      "bytes": 49845248,
+      "sha256": "609cd5d52ab1682a20954475cb0d3717bd37faa153157fed1f26d87e8c635598"
+    },
+    {
+      "path": "lab/out/oracle19-second-undo-20261004/binding.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle19-second-undo-20261004/binding.stdout.txt",
+      "bytes": 85,
+      "sha256": "a5de9b75537e24a07023fdd281893ab2558ba0adb73f1a4fce9103e77ccfe5ee"
+    },
+    {
+      "path": "lab/out/oracle19-second-undo-20261004/capture-14.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle19-second-undo-20261004/capture-14.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle19-second-undo-20261004/commands.jsonl",
+      "bytes": 1163,
+      "sha256": "58f4880907b6ef7b6c7c4a58d8560e607eefd4933dd98f899f2681896da4e210"
+    },
+    {
+      "path": "lab/out/oracle19-second-undo-20261004/compensation-diagnosis-r2.stderr.txt",
+      "bytes": 762,
+      "sha256": "b2583ab73b143a6698b4e843a2d28639ea95f519409eb0652b9cf480c07078f7"
+    },
+    {
+      "path": "lab/out/oracle19-second-undo-20261004/compensation-diagnosis-r2.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle19-second-undo-20261004/compensation-diagnosis.stderr.txt",
+      "bytes": 670,
+      "sha256": "8ed05a07277b636cfba1da086d6ff4ab7e7c10829bf4af77d26870a94c1e68df"
+    },
+    {
+      "path": "lab/out/oracle19-second-undo-20261004/compensation-diagnosis.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle19-second-undo-20261004/compensation-parity-r3.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle19-second-undo-20261004/compensation-parity-r3.stdout.txt",
+      "bytes": 389,
+      "sha256": "a740b1aa59c5ad16fab231408b0fce9ab7d04b76fdd2d666ac04c747ba13b5f8"
+    },
+    {
+      "path": "lab/out/oracle19-second-undo-20261004/compensation-parity.stderr.txt",
+      "bytes": 357,
+      "sha256": "42c326626d36c2f0d4394b4905215966c77dac2e25df1c789d10db5ec3bdff97"
+    },
+    {
+      "path": "lab/out/oracle19-second-undo-20261004/compensation-parity.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle19-second-undo-20261004/compile-r2.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle19-second-undo-20261004/compile-r2.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle19-second-undo-20261004/compile.stderr.txt",
+      "bytes": 292,
+      "sha256": "79fe2078e529f7528b9ae6e7d555fa9346ed3c8f533449ff4c751e37ef152875"
+    },
+    {
+      "path": "lab/out/oracle19-second-undo-20261004/compile.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle19-second-undo-20261004/copy-script.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle19-second-undo-20261004/copy-script.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle19-second-undo-20261004/dump-14.trc",
+      "bytes": 1594397,
+      "sha256": "162f0819d8ee83d24725202c3044b039369a381a36a401fa7182e6250c2a2a13"
+    },
+    {
+      "path": "lab/out/oracle19-second-undo-20261004/dump-binding.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle19-second-undo-20261004/dump-binding.stdout.txt",
+      "bytes": 84,
+      "sha256": "663213c6ddff7be1e55f48031ca6e99d821fac874d4aa01eb41eb0ef08ee52b2"
+    },
+    {
+      "path": "lab/out/oracle19-second-undo-20261004/dump-copy.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle19-second-undo-20261004/dump-copy.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle19-second-undo-20261004/dump-export.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle19-second-undo-20261004/dump-export.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle19-second-undo-20261004/dump.sql",
+      "bytes": 376,
+      "sha256": "f3f901aeab9be6f8a321d9aa9477241a712f06705b80c7adcc4d4ddf49f3c8ba"
+    },
+    {
+      "path": "lab/out/oracle19-second-undo-20261004/dump.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle19-second-undo-20261004/dump.stdout.txt",
+      "bytes": 132,
+      "sha256": "28387e6d9547322570988a0b9aae6360b9328d80d940c300af50d9b4ee605b99"
+    },
+    {
+      "path": "lab/out/oracle19-second-undo-20261004/executed-fixture.sql",
+      "bytes": 5092,
+      "sha256": "a7eaa9a5fd6e8dc1be5bf78423dea623075badc025e4dafc616643dfbb14642a"
+    },
+    {
+      "path": "lab/out/oracle19-second-undo-20261004/executed-script.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle19-second-undo-20261004/executed-script.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle19-second-undo-20261004/fixture.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle19-second-undo-20261004/fixture.stdout.txt",
+      "bytes": 74914,
+      "sha256": "c02d8fd344520ece46296ec1917ce4de4163cca4dc309362b502a78d941c0d2f"
+    },
+    {
+      "path": "lab/out/oracle19-second-undo-20261004/history-edges.txt",
+      "bytes": 11514,
+      "sha256": "52e6d8e940db20020b9bbbb6337cae1a416df938b11918d9cc5d74bdf6de7c3d"
+    },
+    {
+      "path": "lab/out/oracle19-second-undo-20261004/history-parity-r3.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle19-second-undo-20261004/history-parity-r3.stdout.txt",
+      "bytes": 413,
+      "sha256": "eb6e2f79da19b5f855b108d8497f164a65af347c7da0b0dcaac20c25825bd10a"
+    },
+    {
+      "path": "lab/out/oracle19-second-undo-20261004/history.stderr.txt",
+      "bytes": 157,
+      "sha256": "6f22a3a31aaddf147637fa173c4c8a6eac97301c3035ee4e0c46fc10c0262261"
+    },
+    {
+      "path": "lab/out/oracle19-second-undo-20261004/history.stdout.txt",
+      "bytes": 143297,
+      "sha256": "25444e5fe843cdd0c0f653620e5231a3d8b4332a42dba182600f0c95a07c9788"
+    },
+    {
+      "path": "lab/out/oracle19-second-undo-20261004/inventory-parity.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle19-second-undo-20261004/inventory-parity.stdout.txt",
+      "bytes": 224,
+      "sha256": "664778c06c4f7bdeb18e1dcdbb1129c0a0576dd8ce502a2e4ce58f8963e4a601"
+    },
+    {
+      "path": "lab/out/oracle19-second-undo-20261004/inventory.stderr.txt",
+      "bytes": 138,
+      "sha256": "097e62689aeb0159e2b36814099c81395b856e551032b95d49bee47be3f4f47b"
+    },
+    {
+      "path": "lab/out/oracle19-second-undo-20261004/inventory.stdout.txt",
+      "bytes": 6688,
+      "sha256": "19d5396442b925a66a92adba4d3ef8e59854f9d309652bf7bc221e3ee67440bc"
+    },
+    {
+      "path": "lab/out/oracle19-second-undo-20261004/manifest.json",
+      "bytes": 551,
+      "sha256": "8691aea1e4c7c4b6d2ba6530876c6460563ebfc029afa6157316a357f248daea"
+    },
+    {
+      "path": "lab/out/oracle19-second-undo-20261004/marker-parity.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle19-second-undo-20261004/marker-parity.stdout.txt",
+      "bytes": 219,
+      "sha256": "46127acd3bbeeafaab3f692e9b14a2564acc58271f795648ea870202b38fccd1"
+    },
+    {
+      "path": "lab/out/oracle19-second-undo-20261004/markers.stderr.txt",
+      "bytes": 60,
+      "sha256": "db1e346215fd07acd6319618e362c60dd087c9cda117441d5eeba059bf5e9380"
+    },
+    {
+      "path": "lab/out/oracle19-second-undo-20261004/markers.stdout.txt",
+      "bytes": 4108,
+      "sha256": "d7593d332bd408b5a96da6c4c628ce699fd2252064a93cf1c4554422da0db316"
+    },
+    {
+      "path": "lab/out/oracle19-second-undo-20261004/scan.stderr.txt",
+      "bytes": 282,
+      "sha256": "852ec16940962d7da6af4ff1069949d2170080b17349f376d5dce1094be56a88"
+    },
+    {
+      "path": "lab/out/oracle19-second-undo-20261004/scan.stdout.txt",
+      "bytes": 22,
+      "sha256": "43b4733169d6e007aeb99a8ddd34a5c1c256dd2d71bd958ddcc72f09a9cae4e9"
+    },
+    {
+      "path": "lab/out/oracle19-second-undo-20261004/truth.json",
+      "bytes": 74400,
+      "sha256": "90e5938b11ab8c1c5c098a5db18a36abe17aa175f38f1ef45c94bcec244ce551"
+    },
+    {
+      "path": "lab/out/oracle19-second-undo-20261004/validation-commands.jsonl",
+      "bytes": 6301,
+      "sha256": "838d8bf73dd964ede0fc2f8cba05c7a59e8fed551fbf13185fb24dc47ec77b25"
+    },
+    {
+      "path": "lab/out/oracle19-second-undo-20261004/verify-r2.rc.txt",
+      "bytes": 3,
+      "sha256": "f1b2f662800122bed0ff255693df89c4487fbdcf453d3524a42d4ec20c3d9c04"
+    },
+    {
+      "path": "lab/out/oracle19-second-undo-20261004/verify-r2.stderr.txt",
+      "bytes": 734,
+      "sha256": "2b564875662368b85b85753b5aacbb359d052d22118a80c7cf4f705e0a44473c"
+    },
+    {
+      "path": "lab/out/oracle19-second-undo-20261004/verify-r2.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle19-second-undo-20261004/verify.rc.txt",
+      "bytes": 3,
+      "sha256": "f1b2f662800122bed0ff255693df89c4487fbdcf453d3524a42d4ec20c3d9c04"
+    },
+    {
+      "path": "lab/out/oracle19-second-undo-20261004/verify.stderr.txt",
+      "bytes": 671,
+      "sha256": "de4c0b23334ee3655630aaefe8ad590a01b3fc1eeb7acd7a9e2d6590ab240a6a"
+    },
+    {
+      "path": "lab/out/oracle19-second-undo-20261004/verify.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/research-second-sealed.py",
+      "bytes": 5688,
+      "sha256": "3753d16846fbe816ed678ef41dced1e6edab25731c753c454af716428bb520f1"
+    },
+    {
+      "path": "lab/out/research-second-undo-seal/10-compensation-parity.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/research-second-undo-seal/10-compensation-parity.stdout.txt",
+      "bytes": 389,
+      "sha256": "def83a512d4c865eb9dd3991930d42a9546b60255d20e171408e3496a3836189"
+    },
+    {
+      "path": "lab/out/research-second-undo-seal/10-edges.txt",
+      "bytes": 9474,
+      "sha256": "83b2709a54b73e4eb0a13280e7f57e20a68bd7da8b0541e08f8eec3f980c161c"
+    },
+    {
+      "path": "lab/out/research-second-undo-seal/10-history-parity.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/research-second-undo-seal/10-history-parity.stdout.txt",
+      "bytes": 411,
+      "sha256": "f8a4009942fe43d6d7fa12bd6351a77f77eee74b1ad2b142947868e568f2ba01"
+    },
+    {
+      "path": "lab/out/research-second-undo-seal/10-history.stderr.txt",
+      "bytes": 157,
+      "sha256": "0cabda926360edff680eeb9c00c385dac63c601c0c11fc5e31333c5b51a79725"
+    },
+    {
+      "path": "lab/out/research-second-undo-seal/10-history.stdout.txt",
+      "bytes": 113281,
+      "sha256": "e1c9fffe05f7c3930743affaa6a9001300ef4e92e7f64caf7a08dbbffec770ef"
+    },
+    {
+      "path": "lab/out/research-second-undo-seal/11-compensation-parity.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/research-second-undo-seal/11-compensation-parity.stdout.txt",
+      "bytes": 389,
+      "sha256": "def83a512d4c865eb9dd3991930d42a9546b60255d20e171408e3496a3836189"
+    },
+    {
+      "path": "lab/out/research-second-undo-seal/11-edges.txt",
+      "bytes": 9361,
+      "sha256": "6f0651d5024741d0af4522008e645619fd3147ecdb26a88bd8f99ebe93e90d4d"
+    },
+    {
+      "path": "lab/out/research-second-undo-seal/11-history-parity.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/research-second-undo-seal/11-history-parity.stdout.txt",
+      "bytes": 411,
+      "sha256": "f8a4009942fe43d6d7fa12bd6351a77f77eee74b1ad2b142947868e568f2ba01"
+    },
+    {
+      "path": "lab/out/research-second-undo-seal/11-history.stderr.txt",
+      "bytes": 157,
+      "sha256": "0cabda926360edff680eeb9c00c385dac63c601c0c11fc5e31333c5b51a79725"
+    },
+    {
+      "path": "lab/out/research-second-undo-seal/11-history.stdout.txt",
+      "bytes": 113223,
+      "sha256": "a22fb9616d83273d1acf42a5595d52a609de5e0570d6aa726ff433da25fd5fd8"
+    },
+    {
+      "path": "lab/out/research-second-undo-seal/12-compensation-parity.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/research-second-undo-seal/12-compensation-parity.stdout.txt",
+      "bytes": 389,
+      "sha256": "63b8176b74ddfcc134ab58af46fadaa1456bc978fc4de1ffa3b767eea0631ed5"
+    },
+    {
+      "path": "lab/out/research-second-undo-seal/12-edges.txt",
+      "bytes": 9218,
+      "sha256": "f5855aab05d89542c3971785a2ab178fb0c111a6a77420c4d636f10566dcfdd2"
+    },
+    {
+      "path": "lab/out/research-second-undo-seal/12-history-parity.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/research-second-undo-seal/12-history-parity.stdout.txt",
+      "bytes": 413,
+      "sha256": "0e85bc53de96169e1ac9ab3380e5e3c6c3bc0fbc768a0258e556a167dec5f418"
+    },
+    {
+      "path": "lab/out/research-second-undo-seal/12-history.stderr.txt",
+      "bytes": 157,
+      "sha256": "0cabda926360edff680eeb9c00c385dac63c601c0c11fc5e31333c5b51a79725"
+    },
+    {
+      "path": "lab/out/research-second-undo-seal/12-history.stdout.txt",
+      "bytes": 113160,
+      "sha256": "1b7d6e4e72983198d200944d6a3bb757df5cc8b920bfaddfc8d126747901dcf2"
+    },
+    {
+      "path": "lab/out/research-second-undo-seal/13-compensation-parity.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/research-second-undo-seal/13-compensation-parity.stdout.txt",
+      "bytes": 389,
+      "sha256": "8d867d0815538d7de44ec2d6fda524eaf50481c15b7bd5a7e838276b13bbdee1"
+    },
+    {
+      "path": "lab/out/research-second-undo-seal/13-edges.txt",
+      "bytes": 10264,
+      "sha256": "ba839a5e76a50e3de41bb0de09c2dd30516afa9894fbf2b30f59ef8fbf894150"
+    },
+    {
+      "path": "lab/out/research-second-undo-seal/13-history-parity.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/research-second-undo-seal/13-history-parity.stdout.txt",
+      "bytes": 413,
+      "sha256": "f006136c0addb57645aafc508dd403b0a5389e8ab8e48d223320d1f285e5f862"
+    },
+    {
+      "path": "lab/out/research-second-undo-seal/13-history.stderr.txt",
+      "bytes": 157,
+      "sha256": "278fd0b9f3ea8af004b4d2ac30fa7a2a0fbf59d3ea5155e69fcd228e3a8047c0"
+    },
+    {
+      "path": "lab/out/research-second-undo-seal/13-history.stdout.txt",
+      "bytes": 131813,
+      "sha256": "a247de7abf7aaa1b0747579ef01564e509b5e98ffd66c1ea0fb6e293ce97074a"
+    },
+    {
+      "path": "lab/out/research-second-undo-seal/14-compensation-parity.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/research-second-undo-seal/14-compensation-parity.stdout.txt",
+      "bytes": 389,
+      "sha256": "a740b1aa59c5ad16fab231408b0fce9ab7d04b76fdd2d666ac04c747ba13b5f8"
+    },
+    {
+      "path": "lab/out/research-second-undo-seal/14-edges.txt",
+      "bytes": 11514,
+      "sha256": "52e6d8e940db20020b9bbbb6337cae1a416df938b11918d9cc5d74bdf6de7c3d"
+    },
+    {
+      "path": "lab/out/research-second-undo-seal/14-events.stderr.txt",
+      "bytes": 350,
+      "sha256": "3875901088ccd6fa97e3e6aa6450cc68f3360115df8b63d87e1385f8b709f8ac"
+    },
+    {
+      "path": "lab/out/research-second-undo-seal/14-events.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/research-second-undo-seal/14-history-parity.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/research-second-undo-seal/14-history-parity.stdout.txt",
+      "bytes": 413,
+      "sha256": "eb6e2f79da19b5f855b108d8497f164a65af347c7da0b0dcaac20c25825bd10a"
+    },
+    {
+      "path": "lab/out/research-second-undo-seal/14-history.stderr.txt",
+      "bytes": 157,
+      "sha256": "6f22a3a31aaddf147637fa173c4c8a6eac97301c3035ee4e0c46fc10c0262261"
+    },
+    {
+      "path": "lab/out/research-second-undo-seal/14-history.stdout.txt",
+      "bytes": 143297,
+      "sha256": "25444e5fe843cdd0c0f653620e5231a3d8b4332a42dba182600f0c95a07c9788"
+    },
+    {
+      "path": "lab/out/research-second-undo-seal/14-inventory-parity.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/research-second-undo-seal/14-inventory-parity.stdout.txt",
+      "bytes": 224,
+      "sha256": "664778c06c4f7bdeb18e1dcdbb1129c0a0576dd8ce502a2e4ce58f8963e4a601"
+    },
+    {
+      "path": "lab/out/research-second-undo-seal/14-inventory.stderr.txt",
+      "bytes": 138,
+      "sha256": "097e62689aeb0159e2b36814099c81395b856e551032b95d49bee47be3f4f47b"
+    },
+    {
+      "path": "lab/out/research-second-undo-seal/14-inventory.stdout.txt",
+      "bytes": 6688,
+      "sha256": "19d5396442b925a66a92adba4d3ef8e59854f9d309652bf7bc221e3ee67440bc"
+    },
+    {
+      "path": "lab/out/research-second-undo-seal/14-marker-parity.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/research-second-undo-seal/14-marker-parity.stdout.txt",
+      "bytes": 219,
+      "sha256": "46127acd3bbeeafaab3f692e9b14a2564acc58271f795648ea870202b38fccd1"
+    },
+    {
+      "path": "lab/out/research-second-undo-seal/14-markers.stderr.txt",
+      "bytes": 60,
+      "sha256": "db1e346215fd07acd6319618e362c60dd087c9cda117441d5eeba059bf5e9380"
+    },
+    {
+      "path": "lab/out/research-second-undo-seal/14-markers.stdout.txt",
+      "bytes": 4108,
+      "sha256": "d7593d332bd408b5a96da6c4c628ce699fd2252064a93cf1c4554422da0db316"
+    },
+    {
+      "path": "lab/out/research-second-undo-seal/commands.json",
+      "bytes": 13857,
+      "sha256": "4292cb4cb44ef101871f8676740e55d600f737854667eeb0283066ba877e85f6"
+    },
+    {
+      "path": "lab/out/research-second-undo-seal/CompensationInventoryProbe.class",
+      "bytes": 4543,
+      "sha256": "a94f2a19d65d2597190893988940eb4ea45e0f720fa5acc1b93557f013244f16"
+    },
+    {
+      "path": "lab/out/research-second-undo-seal/compile.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/research-second-undo-seal/compile.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/research-second-undo-seal/HeapMultiProbe.class",
+      "bytes": 5212,
+      "sha256": "4e16465eded1b89220ca970db30782020b02fc092326832b59e4265aaf99bece"
+    },
+    {
+      "path": "lab/out/research-second-undo-seal/HeapUndoPairProbe.class",
+      "bytes": 6908,
+      "sha256": "8e8a0e53c6aa71ef9e3a80bdeb5ef85b71b34360d353b20b04a6195c3e5eec23"
+    },
+    {
+      "path": "lab/out/research-second-undo-seal/MultiCompensationProbe.class",
+      "bytes": 13763,
+      "sha256": "587ff7b1055d4b21d77117a1a067f523d9e9103acc06d48b1eaf591c973cadf2"
+    },
+    {
+      "path": "lab/out/research-second-undo-seal/phases.json",
+      "bytes": 74,
+      "sha256": "6e8bf92640c47621cfd57af65ca13aa95587cf3f25caa048d51b650b02a04df7"
+    },
+    {
+      "path": "lab/out/research-second-undo-seal/source-tree.tar",
+      "bytes": 1177600,
+      "sha256": "7496566dc1ea8c2e21a509101856c1c1bb663793918bf0bb0e775e4f23f3fee0"
+    },
+    {
+      "path": "lab/out/research-second-undo-seal/TransactionLifecycleProbe.class",
+      "bytes": 5543,
+      "sha256": "bfe422617ea08700e1aeb83ccc5294065f5aab1545736c6a2baeee96475ade73"
+    },
+    {
+      "path": "lab/out/research-second-undo-seal/UndoAdvanceProbe.class",
+      "bytes": 6533,
+      "sha256": "23d16366350cfe8663b848a56c5d91abddf07999aee73fb7e2c04b4152e9156c"
+    },
+    {
+      "path": "lab/out/research-second-undo-seal/UndoCursorProbe.class",
+      "bytes": 10283,
+      "sha256": "3fea8972f978983d63cb5e6257394a5e73e333b8e76f53f2bdbd94b0a7816fe3"
+    },
+    {
+      "path": "lab/out/research-second-undo-seal/UndoInventoryProbe.class",
+      "bytes": 3756,
+      "sha256": "03bac9297b8ea6f66306934de617601d7a58916e4120cabb8cf2ac4fa694a686"
+    },
+    {
+      "path": "lab/out/research-second-undo-seal/verify.rc.txt",
+      "bytes": 3,
+      "sha256": "13bf7b3039c63bf5a50491fa3cfd8eb4e699d1ba1436315aef9cbe5711530354"
+    },
+    {
+      "path": "lab/out/research-second-undo-seal/verify.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/research-second-undo-seal/verify.stdout.txt",
+      "bytes": 179,
+      "sha256": "e5b6db7278d37e7b4e32566f9552b312fd1ef3738f9aec3923e387c11768fca8"
+    },
+    {
+      "path": "lab/out/verify-second-rollback.py",
+      "bytes": 3737,
+      "sha256": "349f51ce7c319d0eecbd8576b8bf97c05728c3449c8d193c9adf50cff101dfd1"
+    }
+  ],
+  "validation_rc": 0
+}
