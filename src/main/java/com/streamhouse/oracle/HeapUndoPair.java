@@ -34,7 +34,17 @@ public record HeapUndoPair(long containerUid,long containerId,Patch forward,Undo
                 || (p.xid()!=null && !p.xid().equals(match.identity().xid())))
             throw new RedoException("ROW_UNDO_OPERATION_POSITION_OR_XID_MISMATCH");
         if (p.kind()==Kind.UPDATE) {
+            var extent=p.extent();var prior=before.extent();boolean tail=extent.removedColumn()>=0;
+            if (tail) {
+                int removed=extent.removedColumn();var value=before.columns().get(removed);
+                if (prior==null || prior.removedColumn()!=-1 || prior.storedColumns()!=extent.storedColumns()+1
+                        || prior.changedColumns()!=1 || value.state()!=State.VALUE || value.bytes().length>250
+                        || extent.sizeDelta()!=-(value.bytes().length+1))
+                    throw new RedoException("ROW_UNDO_TAIL_EXTENT_MISMATCH");
+            } else if (prior==null || extent.storedColumns()!=prior.storedColumns())
+                throw new RedoException("UNSUPPORTED_ROW_UNDO_EXTENT_TRANSITION");
             for (int i=0;i<columns;i++) {
+                if (tail && i==extent.removedColumn()) continue;
                 if ((p.columns().get(i).state()==State.ABSENT)!=(before.columns().get(i).state()==State.ABSENT))
                     throw new RedoException("ROW_UNDO_CHANGED_COLUMN_SET_MISMATCH");
             }

@@ -67,6 +67,8 @@ public final class HeapCompensation {
 
     private static boolean sameInverse(HeapRowPatch.Patch a,HeapRowPatch.Patch b) {
         if (a.kind()!=b.kind() || a.dba()!=b.dba() || a.slot()!=b.slot() || a.columns().size()!=b.columns().size()) return false;
+        if (a.extent()!=null && b.extent()!=null && (a.extent().storedColumns()!=b.extent().storedColumns()
+                || a.extent().changedColumns()!=b.extent().changedColumns() || a.extent().removedColumn()!=b.extent().removedColumn())) return false;
         for (int i=0;i<a.columns().size();i++) {
             var x=a.columns().get(i); var y=b.columns().get(i);
             if (x.state()!=y.state() || !Arrays.equals(x.bytes(),y.bytes())) return false;

@@ -11,9 +11,15 @@ public final class HeapRowPatch {
     public record Column(State state, byte[] bytes) {}
     public record Xid(int usn, int slot, long sequence) {}
     public record Uba(long dba, int sequence, int record) {}
+    /** Raw physical extent. removedColumn is an observed tail marker, not an inferred SQL NULL. */
+    public record RowExtent(int storedColumns,int changedColumns,int removedColumn,int sizeDelta) {}
     /** uba is a physical row ITL reference; XR rollback can restore an earlier undo pointer. */
     public record Patch(Kind kind, long dba, int slot, int xtype, Xid xid, Uba uba,
-                        List<Column> columns) {}
+                        List<Column> columns,RowExtent extent) {
+        public Patch(Kind kind,long dba,int slot,int xtype,Xid xid,Uba uba,List<Column> columns) {
+            this(kind,dba,slot,xtype,xid,uba,columns,null);
+        }
+    }
 
     public Patch decode(RedoRecords.Vector vector, int dictionaryColumns) throws RedoException {
         if (vector.opcodeMajor() != 11 || (vector.opcodeMinor() != 2
@@ -53,7 +59,7 @@ public final class HeapRowPatch {
         else throw new RedoException("UNSUPPORTED_KTB_OPERATION");
         Uba uba=ubaOffset < 0 ? null : new Uba(u32(ktb,ubaOffset),u16(ktb,ubaOffset+4),ktb[ubaOffset+6]&255);
         var row=decodeKdo(fields,vector.opcodeMinor(),vector.dba(),dictionaryColumns);
-        return new Patch(row.kind(),row.dba(),row.slot(),row.xtype(),xid,uba,row.columns());
+        return new Patch(row.kind(),row.dba(),row.slot(),row.xtype(),xid,uba,row.columns(),row.extent());
     }
 
     /** Shared physical KDO decoding. Undo KTB does not describe the current transaction identity. */
@@ -64,7 +70,8 @@ public final class HeapRowPatch {
             throw new RedoException("UNSUPPORTED_HEAP_OPCODE_OR_FIELDS");
         byte[] kdo=fields.get(1);
         boolean packed=op==5 && kdo.length==28 && ((kdo[11]&255)==0x81 || (kdo[11]&255)==0x82);
-        int expectedKdo=op == 2 ? 49 : op == 3 ? 20 : packed ? 28 : 29;
+        boolean tail=op==5 && kdo.length==28 && (kdo[11]&255)==1 && (kdo[23]&255)==0;
+        int expectedKdo=op == 2 ? 49 : op == 3 ? 20 : packed || tail ? 28 : 29;
         if (kdo.length != expectedKdo || (kdo[10]&255) != op || u32(kdo,0) != dba)
             throw new RedoException("UNSUPPORTED_KDO_LAYOUT_OR_BLOCK");
         int xtype=(kdo[11]&255)&(packed ? 0x7f : 0xff);
@@ -73,6 +80,7 @@ public final class HeapRowPatch {
         for (int i=0;i<dictionaryColumns;i++) columns.add(new Column(State.ABSENT,new byte[0]));
         int slot;
         Kind kind;
+        RowExtent extent=null;
         if (op == 2) {
             kind=Kind.INSERT; slot=u16(kdo,42);
             int count=kdo[18]&255;
@@ -80,18 +88,29 @@ public final class HeapRowPatch {
                     || fields.size() != count+2)
                 throw new RedoException("UNSUPPORTED_INSERT_ROWPIECE");
             for (int i=0;i<count;i++) columns.set(i,value(fields.get(i+2)));
+            extent=new RowExtent(count,count,-1,0);
             // Trailing omitted columns remain ABSENT until schema/row completeness is proven.
         } else if (op == 5) {
             kind=Kind.UPDATE; slot=u16(kdo,20);
             int count=kdo[23]&255;
+            int stored=kdo[22]&255;int delta=(short)u16(kdo,24);
             if (packed && (count!=1 || u16(kdo,24)!=0 || u16(kdo,26)!=3))
                 throw new RedoException("UNSUPPORTED_KDOM2_UPDATE_LAYOUT");
-            if ((kdo[16]&255) != 0x2c || (kdo[22]&255) != dictionaryColumns
-                    || fields.size() != count+3 || fields.get(2).length != count*2)
+            if ((kdo[16]&255) != 0x2c || stored<1 || stored>dictionaryColumns)
                 throw new RedoException("UNSUPPORTED_UPDATE_ROWPIECE");
+            if (tail) {
+                if (stored>=dictionaryColumns || fields.size()!=4 || fields.get(2).length!=2
+                        || u16(fields.get(2),0)!=stored || fields.get(3).length!=0 || u16(kdo,26)!=1 || delta>=0)
+                    throw new RedoException("UNSUPPORTED_UPDATE_TAIL_MARKER");
+                extent=new RowExtent(stored,0,stored,delta);
+            } else {
+                if (fields.size()!=count+3 || fields.get(2).length!=count*2)
+                    throw new RedoException("UNSUPPORTED_UPDATE_ROWPIECE");
+                extent=new RowExtent(stored,count,-1,delta);
+            }
             for (int i=0;i<count;i++) {
                 int index=u16(fields.get(2),i*2);
-                if (index >= dictionaryColumns || columns.get(index).state() != State.ABSENT)
+                if (index >= stored || columns.get(index).state() != State.ABSENT)
                     throw new RedoException("INVALID_UPDATE_COLUMN_MAP");
                 columns.set(index,value(packed ? extendedPackedValue(fields.get(i+3)) : fields.get(i+3)));
             }
@@ -99,7 +118,7 @@ public final class HeapRowPatch {
             kind=Kind.DELETE; slot=u16(kdo,16);
             if (fields.size() != 2) throw new RedoException("UNSUPPORTED_DELETE_ROWPIECE");
         }
-        return new Patch(kind,dba,slot,xtype,null,null,List.copyOf(columns));
+        return new Patch(kind,dba,slot,xtype,null,null,List.copyOf(columns),extent);
     }
 
     private static Column value(byte[] bytes) {
