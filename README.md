@@ -49,3 +49,5 @@ KDOM2目前只支持已观察的单列扩展长度更新，保留XA/XR及缺列�
 普通跨块5.11/0x0010补偿由`HeapCompensation.matchCross`绑定活跃完整XID并匹配唯一原undo逆向值；它区别于5.11/0x0c18 begin补偿。三批180补偿含23跨块匹配及多heap block反例见[跨块补偿反馈](docs/workorders/DELIVERY_W4_CROSS_COMPENSATION_20261004.md)。通用跨块原始图、index效果与恢复继续待证，`events`仍拒绝。
 
 `ArchivedUndoInventory.read`从完整归档访问路径收集指定容器/完整XID的5.1位置、UBA与元数据引用；`requireCompleteSelection`拒绝下游漏项、重复或重排。三批360节点native零差异和三个真实漏项拒绝见[选择覆盖反馈](docs/workorders/DELIVERY_W4_UNDO_INVENTORY_20261004.md)。这仅认证给定输入中的选择覆盖，不授权事务图、跨块边或CDC发布。
+
+`UndoHeadUpdate` / `TransactionLifecycle.headUpdate`支持已观察的5.2/0x0002已分配块新UBA控制，并绑定唯一同record原始undo和完整活跃身份。[真实控制、10项拒绝与回归](docs/workorders/DELIVERY_W4_HEAD_UPDATE_20261004.md)。不推断完整旧前驱，不打开事件发布。
