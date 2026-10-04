@@ -36,11 +36,20 @@ public final class ArchivedHeapRows {
 
     public static Result read(List<Path> paths,Baseline baseline,long indexObject,long leaf) throws IOException {
         if (baseline==null || baseline.source()==null) throw new RedoException("MISSING_COMPLETE_BASELINE");
+        return read(paths,baseline,HeapIndexScope.equal(baseline.heapObject(),indexObject),leaf);
+    }
+    public static Result readVerified(List<Path> paths,Path snapshotPath,String trustedAcquisitionSha256,long leaf) throws IOException {
+        var snapshot=FrozenHeapBaseline.read(snapshotPath,trustedAcquisitionSha256);
+        var scope=new HeapIndexScope(new HeapIndexScope.Generation(snapshot.heap().logicalObject(),snapshot.heap().dataObject()),
+                new HeapIndexScope.Generation(snapshot.index().logicalObject(),snapshot.index().dataObject()));
+        return read(paths,new Baseline(snapshot.source(),snapshot.scn(),snapshot.heap().logicalObject(),snapshot.columns().size(),snapshot.rows()),scope,leaf);
+    }
+    private static Result read(List<Path> paths,Baseline baseline,HeapIndexScope scope,long leaf) throws IOException {
         if (baseline.columns()<1 || baseline.columns()>255 || baseline.rows().entrySet().stream().anyMatch(e->
-                e.getKey().dataObjectId()!=baseline.heapObject() || e.getKey().dba()<=0 || e.getKey().slot()<0 || e.getValue().size()!=baseline.columns()))
+                e.getKey().dataObjectId()!=scope.heap().dataObject() || e.getKey().dba()<=0 || e.getKey().slot()<0 || e.getValue().size()!=baseline.columns()))
             throw new RedoException("BASELINE_ROW_SCOPE_OR_COLUMNS_MISMATCH");
         paths=List.copyOf(paths);var source=baseline.source();
-        var physical=ArchivedPhysicalTransactions.read(paths,source.containerUid(),source.containerId(),baseline.heapObject(),indexObject,leaf,baseline.columns());
+        var physical=ArchivedPhysicalTransactions.read(paths,source.containerUid(),source.containerId(),scope,leaf,baseline.columns());
         for (var h:physical.sources()) if (!source.equals(Source.of(h,source.containerUid(),source.containerId())))
             throw new RedoException("BASELINE_SOURCE_IDENTITY_MISMATCH");
         if (baseline.scn()<physical.sources().get(0).firstScn() || baseline.scn()>=physical.sources().get(physical.sources().size()-1).nextScn())
@@ -53,7 +62,7 @@ public final class ArchivedHeapRows {
             if (t.identity().beginRecordScn()<=previousEnd) throw new RedoException("UNSUPPORTED_ROW_REPLAY_CONCURRENT_TRANSACTIONS");
             if (t.identity().rolledBack() || !t.graph().compensated().isEmpty()) throw new RedoException("UNSUPPORTED_ROW_REPLAY_ROLLBACK");
             previousEnd=t.identity().endRecordScn();
-            for (var op:t.operations()) if (op.original().dataObjectId()==baseline.heapObject()) selected.put(op.position(),t);
+            for (var op:t.operations()) if (op.original().dataObjectId()==scope.heap().dataObject()) selected.put(op.position(),t);
         }
         if (selected.isEmpty()) throw new RedoException("NO_ROW_CHANGES_AFTER_BASELINE");
         var rows=new HashMap<>(baseline.rows());var changes=new ArrayList<Change>();var seen=new java.util.HashSet<ArchivedUndoInventory.Position>();

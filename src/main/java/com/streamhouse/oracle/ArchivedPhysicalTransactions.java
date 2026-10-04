@@ -6,7 +6,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 import static com.streamhouse.oracle.RedoBytes.*;
 
 /** Source-owned bounded physical graphs. Declared object/leaf/column scope is not a historical dictionary. */
@@ -34,8 +33,13 @@ public final class ArchivedPhysicalTransactions {
     }
     public static Result read(List<Path> paths,long uid,long container,long heapObject,long indexObject,long leaf,int columns) throws IOException {
         if (heapObject==indexObject || columns<=0) throw new RedoException("INVALID_PHYSICAL_TRANSACTION_SCOPE");
+        return read(paths,uid,container,HeapIndexScope.equal(heapObject,indexObject),leaf,columns);
+    }
+    public static Result read(List<Path> paths,long uid,long container,HeapIndexScope scope,long leaf,int columns) throws IOException {
+        if (columns<=0) throw new RedoException("INVALID_PHYSICAL_TRANSACTION_SCOPE");
+        long heapObject=scope.heap().dataObject(),indexObject=scope.index().dataObject();
         paths=List.copyOf(paths);
-        var found=ArchivedObjectTransactions.read(paths,uid,container,Set.of(heapObject,indexObject));
+        var found=ArchivedObjectTransactions.read(paths,uid,container,scope);
         if (found.transactions().isEmpty()) throw new RedoException("NO_PHYSICAL_OBJECT_TRANSACTIONS");
         var contexts=new ArrayList<Context>();var owners=new HashMap<HeapRowPatch.Xid,Context>();
         var originals=new HashMap<ArchivedUndoInventory.Position,Context>();
@@ -43,7 +47,7 @@ public final class ArchivedPhysicalTransactions {
         for (var t:found.transactions()) {
             var entries=t.associations().window().undo().entries();
             boolean hasIndex=entries.stream().anyMatch(e->e.identity().dataObjectId()==indexObject);
-            var c=new Context(t,hasIndex ? IndexLeafPositions.read(paths,uid,container,t.xid(),indexObject,leaf) : null);
+            var c=new Context(t,hasIndex ? IndexLeafPositions.read(paths,uid,container,t.xid(),scope.index().logicalObject(),indexObject,leaf) : null);
             contexts.add(c);owners.put(t.xid(),c);
             for (var e:entries) if (originals.putIfAbsent(e.position(),c)!=null) throw new RedoException("PHYSICAL_ORIGINAL_OWNER_AMBIGUOUS");
             for (var e:t.associations().entries()) {

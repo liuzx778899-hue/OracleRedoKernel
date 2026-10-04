@@ -16,9 +16,15 @@ public final class ArchivedObjectTransactions {
         this.sources=List.copyOf(sources);this.transactions=List.copyOf(transactions);
     }
     public static ArchivedObjectTransactions read(List<Path> paths,long uid,long container,Set<Long> objects) throws IOException {
-        paths=List.copyOf(paths);objects=Set.copyOf(objects);
-        if (paths.isEmpty() || objects.isEmpty()) throw new RedoException("EMPTY_OBJECT_TRANSACTION_SCOPE_OR_INPUT");
-        final Set<Long> scope=objects;var xids=new LinkedHashSet<HeapRowPatch.Xid>();
+        return read(paths,uid,container,objects.stream().collect(java.util.stream.Collectors.toUnmodifiableMap(o->o,o->o)));
+    }
+    public static ArchivedObjectTransactions read(List<Path> paths,long uid,long container,HeapIndexScope roles) throws IOException {
+        return read(paths,uid,container,roles.generations());
+    }
+    private static ArchivedObjectTransactions read(List<Path> paths,long uid,long container,java.util.Map<Long,Long> generations) throws IOException {
+        paths=List.copyOf(paths);
+        if (paths.isEmpty() || generations.isEmpty()) throw new RedoException("EMPTY_OBJECT_TRANSACTION_SCOPE_OR_INPUT");
+        var scope=new java.util.HashSet<Long>(generations.keySet());scope.addAll(generations.values());var xids=new LinkedHashSet<HeapRowPatch.Xid>();
         var relevantMarkers=new ArrayList<ArchivedUndoInventory.Position>();var sources=new ArrayList<ArchivedRedo.Header>();
         var continuity=new TransactionLifecycle();var scanner=new ArchivedRedo();
         for (var path:paths) {
@@ -38,7 +44,7 @@ public final class ArchivedObjectTransactions {
                         if (scope.contains(object) || scope.contains(data))
                             relevantMarkers.add(new ArchivedUndoInventory.Position(header.sequence(),r.block(),r.offset(),i+1));
                     } else continue;
-                    if ((scope.contains(object) || scope.contains(data)) && (!scope.contains(object) || !scope.contains(data)))
+                    if ((scope.contains(object) || scope.contains(data)) && !Long.valueOf(data).equals(generations.get(object)))
                         throw new RedoException("OBJECT_TRANSACTION_MAPPING_MISMATCH");
                 }
             });
@@ -49,7 +55,7 @@ public final class ArchivedObjectTransactions {
             var associations=ArchivedCompensationAssociations.read(paths,uid,container,xid);
             if (!sources.equals(associations.window().undo().sources())) throw new RedoException("OBJECT_TRANSACTION_INPUT_CHANGED");
             for (var original:associations.window().undo().entries())
-                if (!scope.contains(original.identity().objectId()) || !scope.contains(original.identity().dataObjectId()))
+                if (!Long.valueOf(original.identity().dataObjectId()).equals(generations.get(original.identity().objectId())))
                     throw new RedoException("OBJECT_TRANSACTION_UNDO_OUTSIDE_SCOPE");
             for (var a:associations.entries()) {
                 var previous=routed.putIfAbsent(a.position(),a);

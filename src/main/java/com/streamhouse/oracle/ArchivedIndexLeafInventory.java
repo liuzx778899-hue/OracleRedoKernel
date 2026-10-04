@@ -22,6 +22,10 @@ public final class ArchivedIndexLeafInventory {
     /** Owns traversal and pair decoding. Block/object mapping still requires a separate dictionary gate. */
     public static ArchivedIndexLeafInventory read(List<Path> archives,long uid,long container,HeapRowPatch.Xid xid,
                                                  long indexObject,long leafDba) throws IOException {
+        return read(archives,uid,container,xid,indexObject,indexObject,leafDba);
+    }
+    public static ArchivedIndexLeafInventory read(List<Path> archives,long uid,long container,HeapRowPatch.Xid xid,
+                                                 long indexObject,long indexDataObject,long leafDba) throws IOException {
         var window=ArchivedCompensationInventory.read(archives,uid,container,xid);
         var entries=new ArrayList<Entry>();var scanner=new ArchivedRedo();
         for (int source=0;source<archives.size();source++) {
@@ -39,7 +43,7 @@ public final class ArchivedIndexLeafInventory {
                     var position=new ArchivedUndoInventory.Position(header.sequence(),r.block(),r.offset(),i+1);
                     if (v.opcodeMajor()==10 && (v.opcodeMinor()==2 || v.opcodeMinor()==4)) {
                         var pair=IndexUndoPair.bind(r,v);var f=pair.forward();var u=pair.undo();
-                        if (u.identity().objectId()!=indexObject || u.identity().dataObjectId()!=indexObject)
+                        if (u.identity().objectId()!=indexObject || u.identity().dataObjectId()!=indexDataObject)
                             throw new RedoException("INDEX_LEAF_INVENTORY_OBJECT_MISMATCH");
                         byte[] data=f.kind()==IndexUndoPair.Kind.INSERT ? f.keydata() : u.keydata();
                         entries.add(new Entry(position,r.scn(),f.kind(),f.block(),f.itl(),f.slot(),f.rowSize(),u.identity(),null,
@@ -53,7 +57,7 @@ public final class ArchivedIndexLeafInventory {
                             if (c.containerId()!=container || c.opcodeMajor()!=5 || (c.opcodeMinor()!=6 && c.opcodeMinor()!=11)) continue;
                             var candidate=UndoCompensation.decode(c);
                             if (candidate.opcodeMajor()!=10 || candidate.opcodeMinor()!=22 || candidate.objectId()!=indexObject
-                                    || candidate.dataObjectId()!=indexObject) continue;
+                                    || candidate.dataObjectId()!=indexDataObject) continue;
                             if (marker!=null) throw new RedoException("AMBIGUOUS_INDEX_LEAF_INVENTORY_MARKER");
                             marker=candidate;markerSignature=vectorSignature(c);
                         }

@@ -13,7 +13,11 @@ public final class IndexLeafPositions {
     /** Owns both physical leaf coverage and full-XID original-header association traversal. */
     public static IndexLeafPositions read(java.util.List<java.nio.file.Path> paths,long uid,long container,HeapRowPatch.Xid xid,
                                           long indexObject,long leafDba) throws java.io.IOException {
-        var leaf=ArchivedIndexLeafInventory.read(paths,uid,container,xid,indexObject,leafDba);
+        return read(paths,uid,container,xid,indexObject,indexObject,leafDba);
+    }
+    public static IndexLeafPositions read(java.util.List<java.nio.file.Path> paths,long uid,long container,HeapRowPatch.Xid xid,
+                                          long indexObject,long indexDataObject,long leafDba) throws java.io.IOException {
+        var leaf=ArchivedIndexLeafInventory.read(paths,uid,container,xid,indexObject,indexDataObject,leafDba);
         var associations=ArchivedCompensationAssociations.read(paths,uid,container,xid);
         if (!leaf.window().undo().sources().equals(associations.window().undo().sources())
                 || !leaf.window().entries().equals(associations.window().entries()))
