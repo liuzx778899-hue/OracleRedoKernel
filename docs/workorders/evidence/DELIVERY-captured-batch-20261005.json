@@ -1,0 +1,959 @@
+{
+  "production_runtime_commit": "e7200134585e48959118272df2ddf1d0cb6309de",
+  "lab_source_commit": "f7303ac4cbbc25328dcbfe8217222f71516f56bb",
+  "main_test_pom_unchanged_after_runtime_commit": true,
+  "frozen_sources_equal_archive_bytes": true,
+  "sha256_checked_twice": true,
+  "build": {
+    "runtime_commit": "e7200134585e48959118272df2ddf1d0cb6309de",
+    "tests": {
+      "tests": 245,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "jar_sha256": "15b07ddf4da3f9537b5df8cd996add69e61e6a94b5e92d4e9c7a9c1ed780053f"
+  },
+  "integration": {
+    "runtime_commit": "e7200134585e48959118272df2ddf1d0cb6309de",
+    "jar_sha256": "15b07ddf4da3f9537b5df8cd996add69e61e6a94b5e92d4e9c7a9c1ed780053f",
+    "new_api_events": 3,
+    "kernel_tests": 245,
+    "repeated_new_api_bytes_equal": true,
+    "new_api_refusals": 6,
+    "independent_metadata_refusals": 2,
+    "source_actions": 0,
+    "public_events_authorized": false,
+    "streamhouse_site_accepted": false
+  },
+  "native_metadata": {
+    "native_transactions": 3,
+    "native_undo_positions": 3,
+    "native_begin_end_record_scns": 6,
+    "mismatches": 0,
+    "errors": [],
+    "scope": "bounded native record SCNs, not commit wall time or historical dictionary"
+  },
+  "native_rows": {
+    "native_complete_updates": 3,
+    "post_commit_sql_comparisons": 3,
+    "complete_final_rows": 1,
+    "mismatches": 0,
+    "errors": [],
+    "scope": "owned ID11 three-column three-URP fixture only; general capture DML and ACK unaccepted"
+  },
+  "public_events_rc": 1,
+  "public_events_stdout_bytes": 0,
+  "files": [
+    {
+      "path": "lab/CapturedBatchProbe.java",
+      "bytes": 1655,
+      "sha256": "b10f0f47fae44ec6d4f64b2221244fa582c0692c4d512bf75b34fc23e6850259"
+    },
+    {
+      "path": "lab/compare_capture_rows.py",
+      "bytes": 5467,
+      "sha256": "c74b9108f8ef60b9af32dc93acde38156da173dab0ab1f8522acb3005c57ba33"
+    },
+    {
+      "path": "lab/compare_captured_batch19.py",
+      "bytes": 3482,
+      "sha256": "790506caa0b9cca4f9934fb36852ee2c9a19f2604cbb42ff45b21b8bb38fe65e"
+    },
+    {
+      "path": "lab/out/capture-records-20261005/dump-40.trc",
+      "bytes": 33656118,
+      "sha256": "4e479de4d120931049fe61ace3a2509ab287a33bedea8e26e4fb373ccb6592f8"
+    },
+    {
+      "path": "lab/out/capture-records-20261005/dump-41.trc",
+      "bytes": 10671,
+      "sha256": "344cdb67b3829ad1e211a020a2b1aa8c7dfbf69e15bf01bd9c216b0479768bbf"
+    },
+    {
+      "path": "lab/out/capture-records-20261005/dump-42.trc",
+      "bytes": 16470,
+      "sha256": "3e687b34599bdb053073d5b0d7c7bf7c98222b603f6d9e12b4e420f744af5852"
+    },
+    {
+      "path": "lab/out/capture-row-faults-20261005/late-before.oracap",
+      "bytes": 7694,
+      "sha256": "377b212ed43162dee9f492068f16ba48400287af9c3abd1110637a5e127c08b2"
+    },
+    {
+      "path": "lab/out/capture-row-faults-20261005/missing-begin-control.oracap",
+      "bytes": 7694,
+      "sha256": "8dc8f61728d7e38258b479c77db749f956ea9b6d50ff3eb69850e0840cf4cc73"
+    },
+    {
+      "path": "lab/out/capture-rows-r2-20261005/capture-rows.stdout.txt",
+      "bytes": 660,
+      "sha256": "c44063576032a389b34b65c3b48eeef13eeb9240a7fee18e71d4bfc3585a63c9"
+    },
+    {
+      "path": "lab/out/capture-rows-r2-20261005/capture-state.stdout.txt",
+      "bytes": 95,
+      "sha256": "c786aa68bc9cf651f3cd5ae9ea77c7ae3924753a650d74513d80b66feb5d41a3"
+    },
+    {
+      "path": "lab/out/captured-batch-20261005/actual.command.json",
+      "bytes": 937,
+      "sha256": "47b697ac368cf9f8414f4aed9fb5f9055e9e38b9bc7f234364e1c896ff13f25d"
+    },
+    {
+      "path": "lab/out/captured-batch-20261005/actual.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/captured-batch-20261005/actual.stderr.txt",
+      "bytes": 92,
+      "sha256": "6533aac2d8b7e5c04cab91a8b3b2a79346fedbe8129383fddb9d6cf67d9cc37e"
+    },
+    {
+      "path": "lab/out/captured-batch-20261005/actual.stdout.txt",
+      "bytes": 1929,
+      "sha256": "e78a54688cf849fdf94061a7d2cdce2e4c5f84afd319b3cd21cda6987735eabd"
+    },
+    {
+      "path": "lab/out/captured-batch-20261005/classes/CapturedBatchProbe.class",
+      "bytes": 4968,
+      "sha256": "097a5fb37790bb4aede16026339e2199c1f2f83c73afe75a6dc1311f903e3d40"
+    },
+    {
+      "path": "lab/out/captured-batch-20261005/classes/VerifiedHeapRowsProbe.class",
+      "bytes": 4536,
+      "sha256": "08b822e0c969770b7df6180b95e50d80c0e1362a174d109bea15a67b8719c387"
+    },
+    {
+      "path": "lab/out/captured-batch-20261005/compile-probes.command.json",
+      "bytes": 368,
+      "sha256": "05bdc57df552ff768e5c5b0a2eddecfd80611f01d77c664a79b0b3b0cf27f369"
+    },
+    {
+      "path": "lab/out/captured-batch-20261005/compile-probes.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/captured-batch-20261005/compile-probes.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/captured-batch-20261005/compile-probes.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/captured-batch-20261005/duplicate-sequence.command.json",
+      "bytes": 1108,
+      "sha256": "1c78f0096d088d032683cdb90dbac2907b623c1cbd644eff6acda572aa7cfd81"
+    },
+    {
+      "path": "lab/out/captured-batch-20261005/duplicate-sequence.rc.txt",
+      "bytes": 1,
+      "sha256": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b"
+    },
+    {
+      "path": "lab/out/captured-batch-20261005/duplicate-sequence.stderr.txt",
+      "bytes": 803,
+      "sha256": "2c4dc5a9bd021d4e41d2fc8bafdae21cf821098b9e3fb9276e9d3b20bcb38ba9"
+    },
+    {
+      "path": "lab/out/captured-batch-20261005/duplicate-sequence.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/captured-batch-20261005/executed-source/CapturedBatchProbe.java",
+      "bytes": 1655,
+      "sha256": "b10f0f47fae44ec6d4f64b2221244fa582c0692c4d512bf75b34fc23e6850259"
+    },
+    {
+      "path": "lab/out/captured-batch-20261005/executed-source/compare_capture_rows.py",
+      "bytes": 5467,
+      "sha256": "c74b9108f8ef60b9af32dc93acde38156da173dab0ab1f8522acb3005c57ba33"
+    },
+    {
+      "path": "lab/out/captured-batch-20261005/executed-source/compare_captured_batch19.py",
+      "bytes": 3482,
+      "sha256": "790506caa0b9cca4f9934fb36852ee2c9a19f2604cbb42ff45b21b8bb38fe65e"
+    },
+    {
+      "path": "lab/out/captured-batch-20261005/executed-source/VerifiedHeapRowsProbe.java",
+      "bytes": 1194,
+      "sha256": "a1f9b8ab4b10905eb1a6e4b311a8df7a949816462adf579e884406482b002925"
+    },
+    {
+      "path": "lab/out/captured-batch-20261005/executed-source/verify_captured_batch19.py",
+      "bytes": 4380,
+      "sha256": "07bf6d67b722b44d4c7dc2798bd2a0e497b8b24aed6f9f4b288cc0690544398d"
+    },
+    {
+      "path": "lab/out/captured-batch-20261005/kernel.jar",
+      "bytes": 188787,
+      "sha256": "15b07ddf4da3f9537b5df8cd996add69e61e6a94b5e92d4e9c7a9c1ed780053f"
+    },
+    {
+      "path": "lab/out/captured-batch-20261005/lab-source-tree.zip",
+      "bytes": 2419910,
+      "sha256": "f4c0a30975ed42b4b402b9d6c8291532a770d0cdb483aea5ee0976a2a6784915"
+    },
+    {
+      "path": "lab/out/captured-batch-20261005/late-before-rows.command.json",
+      "bytes": 933,
+      "sha256": "7fbf8e5c6d492dec2243b373bfc080206d5403384bce230f39b0aaaccf9ea2f6"
+    },
+    {
+      "path": "lab/out/captured-batch-20261005/late-before-rows.rc.txt",
+      "bytes": 1,
+      "sha256": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b"
+    },
+    {
+      "path": "lab/out/captured-batch-20261005/late-before-rows.stderr.txt",
+      "bytes": 473,
+      "sha256": "b3f61737c62fd56547796bca030db290bb0f40011f0125ec5e35133276d1b17a"
+    },
+    {
+      "path": "lab/out/captured-batch-20261005/late-before-rows.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/captured-batch-20261005/missing-begin-control.command.json",
+      "bytes": 943,
+      "sha256": "567e92bccfb5f41a3fdb78c66b2b9bc64414908f7b4d61aad452316e9c09b37b"
+    },
+    {
+      "path": "lab/out/captured-batch-20261005/missing-begin-control.rc.txt",
+      "bytes": 1,
+      "sha256": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b"
+    },
+    {
+      "path": "lab/out/captured-batch-20261005/missing-begin-control.stderr.txt",
+      "bytes": 1034,
+      "sha256": "f560afe7c48cc68f34f657f49ad4985362163f8910dc809c6f200d9d1c54f721"
+    },
+    {
+      "path": "lab/out/captured-batch-20261005/missing-begin-control.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/captured-batch-20261005/missing-event.command.json",
+      "bytes": 544,
+      "sha256": "98cb235d9f791a9556c11128e022364ed2c611acb474d567d9caeb10851ed500"
+    },
+    {
+      "path": "lab/out/captured-batch-20261005/missing-event.rc.txt",
+      "bytes": 1,
+      "sha256": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b"
+    },
+    {
+      "path": "lab/out/captured-batch-20261005/missing-event.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/captured-batch-20261005/missing-event.stdout.txt",
+      "bytes": 247,
+      "sha256": "0e0edb74283db9fc1aad474bc96d71202dc290dd566414f882f483f35089225e"
+    },
+    {
+      "path": "lab/out/captured-batch-20261005/missing-event.txt",
+      "bytes": 1727,
+      "sha256": "751cfe89df44e9d64b0ff180b15c8b4cb0102a72a22459dbb6303e3b98d2945b"
+    },
+    {
+      "path": "lab/out/captured-batch-20261005/missing-sequence.command.json",
+      "bytes": 766,
+      "sha256": "9d5475be522c8e181cb0575a49ba99890667323a2ecaa36c4095198bc927e570"
+    },
+    {
+      "path": "lab/out/captured-batch-20261005/missing-sequence.rc.txt",
+      "bytes": 1,
+      "sha256": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b"
+    },
+    {
+      "path": "lab/out/captured-batch-20261005/missing-sequence.stderr.txt",
+      "bytes": 803,
+      "sha256": "2c4dc5a9bd021d4e41d2fc8bafdae21cf821098b9e3fb9276e9d3b20bcb38ba9"
+    },
+    {
+      "path": "lab/out/captured-batch-20261005/missing-sequence.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/captured-batch-20261005/native-complete-rows.command.json",
+      "bytes": 812,
+      "sha256": "fb0eebd64dc8a591d52f467302cc766a81390d904658b7ff649a6a57a556f259"
+    },
+    {
+      "path": "lab/out/captured-batch-20261005/native-complete-rows.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/captured-batch-20261005/native-complete-rows.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/captured-batch-20261005/native-complete-rows.stdout.txt",
+      "bytes": 243,
+      "sha256": "1866d31bcd156b5c528dba6f1af4bcd9aeb3cca3b773cd90f34584b22fb3361a"
+    },
+    {
+      "path": "lab/out/captured-batch-20261005/native-record-metadata.command.json",
+      "bytes": 544,
+      "sha256": "dd20b265b3b797d2e3353d625ea0cd36408b2b15ad08f3734bccf061e944953f"
+    },
+    {
+      "path": "lab/out/captured-batch-20261005/native-record-metadata.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/captured-batch-20261005/native-record-metadata.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/captured-batch-20261005/native-record-metadata.stdout.txt",
+      "bytes": 208,
+      "sha256": "9989b9d648f8f33020db36193865bda3f0038e3de11bbfe97fc6445d73e3ab28"
+    },
+    {
+      "path": "lab/out/captured-batch-20261005/proof.json",
+      "bytes": 408,
+      "sha256": "431028064c4ad9444ca916d48ad965831ae1c4d9ea1604f2353d18986e20a28a"
+    },
+    {
+      "path": "lab/out/captured-batch-20261005/public-events.command.json",
+      "bytes": 235,
+      "sha256": "fe31c73ae92ae4497a5254fd29d8053ba3f6181cc7c5f91f613260a875a25afa"
+    },
+    {
+      "path": "lab/out/captured-batch-20261005/public-events.rc.txt",
+      "bytes": 1,
+      "sha256": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b"
+    },
+    {
+      "path": "lab/out/captured-batch-20261005/public-events.stderr.txt",
+      "bytes": 342,
+      "sha256": "36b57d6b6fe27deb0e7f8ae92f5b4908d7bcbb8e57feeb3d1507f7aa871776a3"
+    },
+    {
+      "path": "lab/out/captured-batch-20261005/public-events.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/captured-batch-20261005/reordered-sequences.command.json",
+      "bytes": 937,
+      "sha256": "dfda5b513b8bc9215f2b7d34132d38ba2c192aa64437ca8f794130be1b5ca0ed"
+    },
+    {
+      "path": "lab/out/captured-batch-20261005/reordered-sequences.rc.txt",
+      "bytes": 1,
+      "sha256": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b"
+    },
+    {
+      "path": "lab/out/captured-batch-20261005/reordered-sequences.stderr.txt",
+      "bytes": 803,
+      "sha256": "2c4dc5a9bd021d4e41d2fc8bafdae21cf821098b9e3fb9276e9d3b20bcb38ba9"
+    },
+    {
+      "path": "lab/out/captured-batch-20261005/reordered-sequences.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/captured-batch-20261005/repeat-new-api.command.json",
+      "bytes": 937,
+      "sha256": "47b697ac368cf9f8414f4aed9fb5f9055e9e38b9bc7f234364e1c896ff13f25d"
+    },
+    {
+      "path": "lab/out/captured-batch-20261005/repeat-new-api.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/captured-batch-20261005/repeat-new-api.stderr.txt",
+      "bytes": 92,
+      "sha256": "6533aac2d8b7e5c04cab91a8b3b2a79346fedbe8129383fddb9d6cf67d9cc37e"
+    },
+    {
+      "path": "lab/out/captured-batch-20261005/repeat-new-api.stdout.txt",
+      "bytes": 1929,
+      "sha256": "e78a54688cf849fdf94061a7d2cdce2e4c5f84afd319b3cd21cda6987735eabd"
+    },
+    {
+      "path": "lab/out/captured-batch-20261005/rows.txt",
+      "bytes": 660,
+      "sha256": "c44063576032a389b34b65c3b48eeef13eeb9240a7fee18e71d4bfc3585a63c9"
+    },
+    {
+      "path": "lab/out/captured-batch-20261005/wrong-baseline-digest.command.json",
+      "bytes": 937,
+      "sha256": "62a2a65726ecb31f5ec6f377c04377a31ec8013fdf4787362d6477b7c876bdb8"
+    },
+    {
+      "path": "lab/out/captured-batch-20261005/wrong-baseline-digest.rc.txt",
+      "bytes": 1,
+      "sha256": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b"
+    },
+    {
+      "path": "lab/out/captured-batch-20261005/wrong-baseline-digest.stderr.txt",
+      "bytes": 318,
+      "sha256": "5f709e8e87e2f28195cf45d51d4508257ad29236c23a6ca664fb389feadfa381"
+    },
+    {
+      "path": "lab/out/captured-batch-20261005/wrong-baseline-digest.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/captured-batch-20261005/wrong-end-scn.command.json",
+      "bytes": 544,
+      "sha256": "eb5df6cc4c2a853a35fdefc6ae1e4f929bf50bc4bdda1498edd61a4cd50d8502"
+    },
+    {
+      "path": "lab/out/captured-batch-20261005/wrong-end-scn.rc.txt",
+      "bytes": 1,
+      "sha256": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b"
+    },
+    {
+      "path": "lab/out/captured-batch-20261005/wrong-end-scn.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/captured-batch-20261005/wrong-end-scn.stdout.txt",
+      "bytes": 329,
+      "sha256": "f6ae1bffa2275fcf6f3b2df56b1017e72f76f080dc482326118d68dec62528c8"
+    },
+    {
+      "path": "lab/out/captured-batch-20261005/wrong-end-scn.txt",
+      "bytes": 1929,
+      "sha256": "28c9de62cfdaa04f135232c9f46572dd880de141c7f58b831f878a20acb060fc"
+    },
+    {
+      "path": "lab/out/closed-follow-20261005/archive-41.dbf",
+      "bytes": 3584,
+      "sha256": "e41800760b27fafeb0cb7bcbbc793960a23ee6a38fd1431db927206cc54f875f"
+    },
+    {
+      "path": "lab/out/closed-follow-20261005/baseline/receipt.json",
+      "bytes": 642,
+      "sha256": "151d86e438c16a586a3dc3aa6f302895f727b4112080043c87ddd5b5dc8cba54"
+    },
+    {
+      "path": "lab/out/closed-follow-20261005/baseline/snapshot.stdout.txt",
+      "bytes": 754,
+      "sha256": "646ed950ea5d54be77ea3ba83f3af31eb181a26ab52dc0dbc01ec2d9ab3048bf"
+    },
+    {
+      "path": "lab/out/closed-follow-20261005/capture/sequence-40.oracap",
+      "bytes": 12639678,
+      "sha256": "97ffa0ece0e233092bdfad4fb5c0c896bd591648b0295cc42b485d71754359fe"
+    },
+    {
+      "path": "lab/out/closed-follow-20261005/capture/sequence-41.oracap",
+      "bytes": 5981,
+      "sha256": "36732c64aa8b20280d14d0ae4fab6dcaa795029746cf6d7ef65446ed71d23f8f"
+    },
+    {
+      "path": "lab/out/closed-follow-20261005/capture/sequence-42.oracap",
+      "bytes": 7694,
+      "sha256": "bb9ce199f50ad1fc07ed5b6e802215b3c561cd38d948ea8bcf37e0f86fb49116"
+    },
+    {
+      "path": "lab/out/closed-follow-20261005/step-40.stdout.txt",
+      "bytes": 110,
+      "sha256": "68bf5066431e5e5cb352b61f78268c92bd16757420b6a65697d176c7e7d44885"
+    },
+    {
+      "path": "lab/out/closed-follow-20261005/step-41.stdout.txt",
+      "bytes": 110,
+      "sha256": "80257c410d48809757b4daf94058f0fb276245e7d2298ac00ff4e7ca2479e473"
+    },
+    {
+      "path": "lab/out/closed-follow-20261005/step-42.stdout.txt",
+      "bytes": 109,
+      "sha256": "a19c4351cdc154cdf23a804a657c924c185e28dbba5e6532e3eaf9fc2b3e0780"
+    },
+    {
+      "path": "lab/out/release-captured-batch-20261005/build.command.json",
+      "bytes": 102,
+      "sha256": "fe6a03aa0a64fe1a58dfb5f207d264b39c65c732984847549c6539d7129969ef"
+    },
+    {
+      "path": "lab/out/release-captured-batch-20261005/build.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/release-captured-batch-20261005/build.stderr.txt",
+      "bytes": 301,
+      "sha256": "a73235e74b7212a667f3c9a6209ea0afe89e0cb01c372b4298f0f1a5e284ba49"
+    },
+    {
+      "path": "lab/out/release-captured-batch-20261005/build.stdout.txt",
+      "bytes": 10082,
+      "sha256": "380eb347dd50433e8578636337fa5193e49ede9fc4ddaa712faf562047e60bea"
+    },
+    {
+      "path": "lab/out/release-captured-batch-20261005/kernel.jar",
+      "bytes": 188787,
+      "sha256": "15b07ddf4da3f9537b5df8cd996add69e61e6a94b5e92d4e9c7a9c1ed780053f"
+    },
+    {
+      "path": "lab/out/release-captured-batch-20261005/proof.json",
+      "bytes": 248,
+      "sha256": "011248bb841a4020617c3781db0617e7956d0ebc9ed3c8c64aa6707d9d468a42"
+    },
+    {
+      "path": "lab/out/release-captured-batch-20261005/source-tree.zip",
+      "bytes": 2415586,
+      "sha256": "9a973e58d97dd833ba138d8b6158e27bb1f23271d2097d6b8f402d319fbdd8a2"
+    },
+    {
+      "path": "lab/out/release-captured-batch-20261005/surefire-reports/2026-10-05T03-56-28_709.dumpstream",
+      "bytes": 259,
+      "sha256": "2e7436630c0d91ebc9164e87be6574982780eda7d6005c35216ae85de3626d37"
+    },
+    {
+      "path": "lab/out/release-captured-batch-20261005/surefire-reports/com.streamhouse.oracle.ArchivedCompensationAssociationsTest.txt",
+      "bytes": 372,
+      "sha256": "2a038b7a98a8fb14a16aecbe0f27e991353dde7c96909aa33f602e2342cb5b5b"
+    },
+    {
+      "path": "lab/out/release-captured-batch-20261005/surefire-reports/com.streamhouse.oracle.ArchivedCompensationInventoryTest.txt",
+      "bytes": 366,
+      "sha256": "734191e2f60e51a8985d121d4e28aee597fa179dca8c5c7f1745fba697d4029f"
+    },
+    {
+      "path": "lab/out/release-captured-batch-20261005/surefire-reports/com.streamhouse.oracle.ArchivedHeapRowsTest.txt",
+      "bytes": 340,
+      "sha256": "cc938da76696e2422fb9c16fc99f88f417b2f0c6cb7a3cb5a90e82c861aecd4a"
+    },
+    {
+      "path": "lab/out/release-captured-batch-20261005/surefire-reports/com.streamhouse.oracle.ArchivedIndexLeafInventoryTest.txt",
+      "bytes": 360,
+      "sha256": "966fdd1d407c562b2e38629a24083f6c231e0155f6568374058db3120513e497"
+    },
+    {
+      "path": "lab/out/release-captured-batch-20261005/surefire-reports/com.streamhouse.oracle.ArchivedObjectTransactionsTest.txt",
+      "bytes": 360,
+      "sha256": "b977071e97866a5af753270df09c338038339f5e1e4496c11271abeabed1e47e"
+    },
+    {
+      "path": "lab/out/release-captured-batch-20261005/surefire-reports/com.streamhouse.oracle.ArchivedPhysicalTransactionsTest.txt",
+      "bytes": 364,
+      "sha256": "a0d225b98e0f4af0d996edef28399a08968e24692e09cf041ac519454eda8790"
+    },
+    {
+      "path": "lab/out/release-captured-batch-20261005/surefire-reports/com.streamhouse.oracle.ArchivedRedoTest.txt",
+      "bytes": 332,
+      "sha256": "2c91204bc55aa194b2f7acf7f0ef93a3240b2965a8014fa72caf89e0c38c207b"
+    },
+    {
+      "path": "lab/out/release-captured-batch-20261005/surefire-reports/com.streamhouse.oracle.ArchivedUndoInventoryTest.txt",
+      "bytes": 350,
+      "sha256": "7c983b32ad91f951474dbe1b54be7b6f2e62e68571706e639d4877a58d73b33d"
+    },
+    {
+      "path": "lab/out/release-captured-batch-20261005/surefire-reports/com.streamhouse.oracle.BeginCompensationTest.txt",
+      "bytes": 342,
+      "sha256": "04c5c8159ba402b2b64407ee4678d5d075dd2d4542ef24fdf9353e1bee762651"
+    },
+    {
+      "path": "lab/out/release-captured-batch-20261005/surefire-reports/com.streamhouse.oracle.CapturedHeapBatchTest.txt",
+      "bytes": 342,
+      "sha256": "2a3de36835c87cace072e666698d3060984b46ff174ffdd111006a5eb73cd0d4"
+    },
+    {
+      "path": "lab/out/release-captured-batch-20261005/surefire-reports/com.streamhouse.oracle.CaptureJournalTest.txt",
+      "bytes": 336,
+      "sha256": "ffb516b21a1d78008f73a6011c1a4a88a169eceef24fef44cd68d7f06c4eecf1"
+    },
+    {
+      "path": "lab/out/release-captured-batch-20261005/surefire-reports/com.streamhouse.oracle.CrossCompensationTest.txt",
+      "bytes": 342,
+      "sha256": "ed89e8064edc93db9e6d9dc9e54f55dce91b56e46c8482193cdf6d4b82178adb"
+    },
+    {
+      "path": "lab/out/release-captured-batch-20261005/surefire-reports/com.streamhouse.oracle.EmptyHeapCleanoutTest.txt",
+      "bytes": 342,
+      "sha256": "9c8f67bdaa6c756fba3621d2b5e3f193b0091095fa9930f6d4cb6c3a044e72d7"
+    },
+    {
+      "path": "lab/out/release-captured-batch-20261005/surefire-reports/com.streamhouse.oracle.FrozenHeapBaselineTest.txt",
+      "bytes": 344,
+      "sha256": "ad24aa25d69dcedf023b74ee15113d86ed6adc9cecc563cc4d639587172138c3"
+    },
+    {
+      "path": "lab/out/release-captured-batch-20261005/surefire-reports/com.streamhouse.oracle.HeapCleanoutCTest.txt",
+      "bytes": 334,
+      "sha256": "287113dc970d213cabf8c5de30e2751ecabfee2abd8b992cf024aea3407701dd"
+    },
+    {
+      "path": "lab/out/release-captured-batch-20261005/surefire-reports/com.streamhouse.oracle.HeapCompensationTest.txt",
+      "bytes": 340,
+      "sha256": "12844904cf8909f624044a1aa69178ea2e40eb54d5e54b601f313ae41d5ef19e"
+    },
+    {
+      "path": "lab/out/release-captured-batch-20261005/surefire-reports/com.streamhouse.oracle.HeapIndexScopeTest.txt",
+      "bytes": 336,
+      "sha256": "928580ab898463b601cfaa545e152b2c00842a9d00d206e71c7f67434b4da697"
+    },
+    {
+      "path": "lab/out/release-captured-batch-20261005/surefire-reports/com.streamhouse.oracle.HeapLockTest.txt",
+      "bytes": 324,
+      "sha256": "c32a07729a11298d95b6a0802a1a636612b3125c824d1550926e5f15d5941506"
+    },
+    {
+      "path": "lab/out/release-captured-batch-20261005/surefire-reports/com.streamhouse.oracle.HeapRowPatchTest.txt",
+      "bytes": 332,
+      "sha256": "70bb08f9c9a1c34f1fc3e57e1d8b90ea32cf81601cd181073d256cc14517ba4e"
+    },
+    {
+      "path": "lab/out/release-captured-batch-20261005/surefire-reports/com.streamhouse.oracle.HeapTailExtentTest.txt",
+      "bytes": 336,
+      "sha256": "8e477b2532796f0cc9aa409a80965abe57c8cb50580745ebab5207a78a7b8718"
+    },
+    {
+      "path": "lab/out/release-captured-batch-20261005/surefire-reports/com.streamhouse.oracle.HeapUndoPairTest.txt",
+      "bytes": 332,
+      "sha256": "e7a19cdaa063afb94577d172bd5bbb1abbce3a2af872c84a6e8664ccd2452e05"
+    },
+    {
+      "path": "lab/out/release-captured-batch-20261005/surefire-reports/com.streamhouse.oracle.IndexCompensationTest.txt",
+      "bytes": 342,
+      "sha256": "c4d843d3d5797cd21109803184afefd91fd2b1befe965dc49dc47cda487f4b15"
+    },
+    {
+      "path": "lab/out/release-captured-batch-20261005/surefire-reports/com.streamhouse.oracle.IndexLeafPositionsTest.txt",
+      "bytes": 345,
+      "sha256": "780f63291c58ed7d6aff55699b89bc5341be6c87a16e50a3e7ee136e937fe4db"
+    },
+    {
+      "path": "lab/out/release-captured-batch-20261005/surefire-reports/com.streamhouse.oracle.IndexPositionReplayTest.txt",
+      "bytes": 346,
+      "sha256": "33e90d846f4259a717c0acfe0150bdf4e345e6c4c47c625158c37ace0fbd44dc"
+    },
+    {
+      "path": "lab/out/release-captured-batch-20261005/surefire-reports/com.streamhouse.oracle.IndexRestoreCompensationTest.txt",
+      "bytes": 356,
+      "sha256": "6adfd469488a48e142472b33120dd587e831fdef456aceb42d20d5a09c33e3ea"
+    },
+    {
+      "path": "lab/out/release-captured-batch-20261005/surefire-reports/com.streamhouse.oracle.IndexUndoPairTest.txt",
+      "bytes": 334,
+      "sha256": "24dbcb2c89bf89d3043bce1e66b4de5e03c1eb4255db069aefcf5d2963cbca1d"
+    },
+    {
+      "path": "lab/out/release-captured-batch-20261005/surefire-reports/com.streamhouse.oracle.Kdom2MarkerThreeTest.txt",
+      "bytes": 340,
+      "sha256": "7c0d13cfeb6ac2bb4932063b09396d09a2eef5acf08d111466910b041402e1af"
+    },
+    {
+      "path": "lab/out/release-captured-batch-20261005/surefire-reports/com.streamhouse.oracle.Kdom2UpdateTest.txt",
+      "bytes": 331,
+      "sha256": "854099578dae6014d1dd9cbbdf967e2a76bf6eabe7e9bcb43cdfc00d75ff06f8"
+    },
+    {
+      "path": "lab/out/release-captured-batch-20261005/surefire-reports/com.streamhouse.oracle.KtbZInsertTest.txt",
+      "bytes": 328,
+      "sha256": "fc81df374c3218597423b5af951e4543699b93a9cd59b37fd9b9cf7996e7391c"
+    },
+    {
+      "path": "lab/out/release-captured-batch-20261005/surefire-reports/com.streamhouse.oracle.KtbZRollbackTest.txt",
+      "bytes": 333,
+      "sha256": "4f423472a212a7d18390345b0435d3434d7a7c055de7b0141b8da0ef9b975b26"
+    },
+    {
+      "path": "lab/out/release-captured-batch-20261005/surefire-reports/com.streamhouse.oracle.OracleScalarsTest.txt",
+      "bytes": 334,
+      "sha256": "9d15057991da824a94511192e2e55ab5ed4d92f14a6b7447e6190c09e25d053c"
+    },
+    {
+      "path": "lab/out/release-captured-batch-20261005/surefire-reports/com.streamhouse.oracle.SingleEntryBlockCleanoutTest.txt",
+      "bytes": 356,
+      "sha256": "2e4a2b5dd17d05f3b0188bba8a487b1485fbe27d04ddc32d42bfff3de654debf"
+    },
+    {
+      "path": "lab/out/release-captured-batch-20261005/surefire-reports/com.streamhouse.oracle.TransactionLifecycleTest.txt",
+      "bytes": 349,
+      "sha256": "5b6409f9d46045029a142a9d70ceb574c98358b8f5aba78cda1fae26644a9bc7"
+    },
+    {
+      "path": "lab/out/release-captured-batch-20261005/surefire-reports/com.streamhouse.oracle.TransactionMarkersTest.txt",
+      "bytes": 344,
+      "sha256": "8e2ef547c522f027c838d0c855e9d14793e8e7830a81d7aa5fa4a510bf610494"
+    },
+    {
+      "path": "lab/out/release-captured-batch-20261005/surefire-reports/com.streamhouse.oracle.TransactionStartTest.txt",
+      "bytes": 340,
+      "sha256": "93c71e92bc17fbeb6e70c69adfb848ebdf17e60fe94bc9e55efdd2ac7338ae7c"
+    },
+    {
+      "path": "lab/out/release-captured-batch-20261005/surefire-reports/com.streamhouse.oracle.UndoBlockAdvanceTest.txt",
+      "bytes": 340,
+      "sha256": "cc23caddd7e4c8e674829dcfef1ceacacf975659566a2700555cd7e225173b88"
+    },
+    {
+      "path": "lab/out/release-captured-batch-20261005/surefire-reports/com.streamhouse.oracle.UndoChainTest.txt",
+      "bytes": 326,
+      "sha256": "404d4f1d3d551aa51ef4c68b8e67a28ac3e8235b29068b7f90f05a1e3dcfc6bb"
+    },
+    {
+      "path": "lab/out/release-captured-batch-20261005/surefire-reports/com.streamhouse.oracle.UndoHeaderTest.txt",
+      "bytes": 328,
+      "sha256": "afe73872006ee13026c30b7489b4d93a5506a0ee1e34de60120dad30b8236c5b"
+    },
+    {
+      "path": "lab/out/release-captured-batch-20261005/surefire-reports/com.streamhouse.oracle.UndoHeadUpdateTest.txt",
+      "bytes": 336,
+      "sha256": "16bbd72f229676f552eb8c190666e3a1dc295e7077a53fd273e0428747fb0e91"
+    },
+    {
+      "path": "lab/out/release-captured-batch-20261005/surefire-reports/com.streamhouse.oracle.UndoHistoryTest.txt",
+      "bytes": 330,
+      "sha256": "01c6897427815e4751a3c6000cbca4127f247fbb127db257499f2524bd37eb47"
+    },
+    {
+      "path": "lab/out/release-captured-batch-20261005/surefire-reports/com.streamhouse.oracle.UndoRowPatchTest.txt",
+      "bytes": 332,
+      "sha256": "ed4aab181f46f24d3395a848141bd11c782638e99506876b9086cf24cec9cd34"
+    },
+    {
+      "path": "lab/out/release-captured-batch-20261005/surefire-reports/TEST-com.streamhouse.oracle.ArchivedCompensationAssociationsTest.xml",
+      "bytes": 11099,
+      "sha256": "4589a8f9cad38c215f01f7ace75c4d1a73ee6fc7d3bb1142f75ec9c104ba53c5"
+    },
+    {
+      "path": "lab/out/release-captured-batch-20261005/surefire-reports/TEST-com.streamhouse.oracle.ArchivedCompensationInventoryTest.xml",
+      "bytes": 10721,
+      "sha256": "fba790d81158561c62303e62da92bac9636c67adaa043f4488ba2fca48df6d4e"
+    },
+    {
+      "path": "lab/out/release-captured-batch-20261005/surefire-reports/TEST-com.streamhouse.oracle.ArchivedHeapRowsTest.xml",
+      "bytes": 10356,
+      "sha256": "a00dced1c847ad6675cbc182885488ba15186bfad75584e21a8327a30e99ceda"
+    },
+    {
+      "path": "lab/out/release-captured-batch-20261005/surefire-reports/TEST-com.streamhouse.oracle.ArchivedIndexLeafInventoryTest.xml",
+      "bytes": 10859,
+      "sha256": "9a3506c1e311265023804d9f1ed123a4c3ad5c3e90981e2cf18527604fd6c623"
+    },
+    {
+      "path": "lab/out/release-captured-batch-20261005/surefire-reports/TEST-com.streamhouse.oracle.ArchivedObjectTransactionsTest.xml",
+      "bytes": 10700,
+      "sha256": "e69a58a4d46d9d8fa44182de7772ebca2b5211e40d620f41dedaa792f63e3d70"
+    },
+    {
+      "path": "lab/out/release-captured-batch-20261005/surefire-reports/TEST-com.streamhouse.oracle.ArchivedPhysicalTransactionsTest.xml",
+      "bytes": 10541,
+      "sha256": "fa6987909301e8d918f62a8107e3364cdc5af8cf84e0bc3b3fca704a569b88be"
+    },
+    {
+      "path": "lab/out/release-captured-batch-20261005/surefire-reports/TEST-com.streamhouse.oracle.ArchivedRedoTest.xml",
+      "bytes": 11193,
+      "sha256": "641c2fe2747cc74389b102f3e8695605cb92bb611c7868dc93727a2e438a9c9a"
+    },
+    {
+      "path": "lab/out/release-captured-batch-20261005/surefire-reports/TEST-com.streamhouse.oracle.ArchivedUndoInventoryTest.xml",
+      "bytes": 10506,
+      "sha256": "6e335c10dd13967dedfcb99b1b9f1561ee1f468cede38bfd1cba76eba5449d9b"
+    },
+    {
+      "path": "lab/out/release-captured-batch-20261005/surefire-reports/TEST-com.streamhouse.oracle.BeginCompensationTest.xml",
+      "bytes": 10611,
+      "sha256": "ccd133259c4c46b7cd0f1e3f62bed6efc9924f3c4958b008e008ab5abf31d493"
+    },
+    {
+      "path": "lab/out/release-captured-batch-20261005/surefire-reports/TEST-com.streamhouse.oracle.CapturedHeapBatchTest.xml",
+      "bytes": 10540,
+      "sha256": "2281db3078f3244c5b00636a9e01d2a8bde31a3187210025384d5b87a4bedc44"
+    },
+    {
+      "path": "lab/out/release-captured-batch-20261005/surefire-reports/TEST-com.streamhouse.oracle.CaptureJournalTest.xml",
+      "bytes": 10455,
+      "sha256": "ec99dc6ffc75c45d282404f1c3674eade2c7056b66d44e5e5f5d64b5cf5ca69e"
+    },
+    {
+      "path": "lab/out/release-captured-batch-20261005/surefire-reports/TEST-com.streamhouse.oracle.CrossCompensationTest.xml",
+      "bytes": 10609,
+      "sha256": "e0b9f1bb2f23a2a30135db4508f8be824a4b70130b2e5dfab52f4723948c3937"
+    },
+    {
+      "path": "lab/out/release-captured-batch-20261005/surefire-reports/TEST-com.streamhouse.oracle.EmptyHeapCleanoutTest.xml",
+      "bytes": 10084,
+      "sha256": "178fc35ce3466de87e3c2703b81c7aa9a3e445e5985a2bf20fc7b7cbf1f7f4a1"
+    },
+    {
+      "path": "lab/out/release-captured-batch-20261005/surefire-reports/TEST-com.streamhouse.oracle.FrozenHeapBaselineTest.xml",
+      "bytes": 10390,
+      "sha256": "673d19be80c27173658cec55e7158c50c7a7f67571a390e845d5e7fbb9e2fcc9"
+    },
+    {
+      "path": "lab/out/release-captured-batch-20261005/surefire-reports/TEST-com.streamhouse.oracle.HeapCleanoutCTest.xml",
+      "bytes": 10179,
+      "sha256": "d2c26981e8d7387af37dd5b8abde790a326f7dc588f358392ce6c152d283e602"
+    },
+    {
+      "path": "lab/out/release-captured-batch-20261005/surefire-reports/TEST-com.streamhouse.oracle.HeapCompensationTest.xml",
+      "bytes": 10875,
+      "sha256": "3145cd35cdf967508fa674b7a87dc72dd25db25a332e8419c9028a6338ed8397"
+    },
+    {
+      "path": "lab/out/release-captured-batch-20261005/surefire-reports/TEST-com.streamhouse.oracle.HeapIndexScopeTest.xml",
+      "bytes": 10376,
+      "sha256": "3662095f2a67082d74790375a280e45d4b6197f5566b3cacc12f043f69cd2cc3"
+    },
+    {
+      "path": "lab/out/release-captured-batch-20261005/surefire-reports/TEST-com.streamhouse.oracle.HeapLockTest.xml",
+      "bytes": 10044,
+      "sha256": "f6c03ab1e29f76d0170c95575b7061b66e2561b794823d72e2071683a0858846"
+    },
+    {
+      "path": "lab/out/release-captured-batch-20261005/surefire-reports/TEST-com.streamhouse.oracle.HeapRowPatchTest.xml",
+      "bytes": 10652,
+      "sha256": "7426688035ee5cf00caeb3536bd327fd6c104ae5ac7c35906cdf8ac32e259e5c"
+    },
+    {
+      "path": "lab/out/release-captured-batch-20261005/surefire-reports/TEST-com.streamhouse.oracle.HeapTailExtentTest.xml",
+      "bytes": 10470,
+      "sha256": "e674a037225de0f2751b8c10d3576cc0b4a8f3d07d302e8fa4b58599bf4712c8"
+    },
+    {
+      "path": "lab/out/release-captured-batch-20261005/surefire-reports/TEST-com.streamhouse.oracle.HeapUndoPairTest.xml",
+      "bytes": 10568,
+      "sha256": "9830c1aeee0a889abe2548ad84a811c0b5a96ce68493aea264697b65bd1a4340"
+    },
+    {
+      "path": "lab/out/release-captured-batch-20261005/surefire-reports/TEST-com.streamhouse.oracle.IndexCompensationTest.xml",
+      "bytes": 10495,
+      "sha256": "f37ee4b0c4040489f2bd097f83ba1682e928654ebab15d5ee86e36cef7523cd1"
+    },
+    {
+      "path": "lab/out/release-captured-batch-20261005/surefire-reports/TEST-com.streamhouse.oracle.IndexLeafPositionsTest.xml",
+      "bytes": 11186,
+      "sha256": "559d41b61b710af0e8cc404834d19c380252c7ce5f620f9f9ab65e0b5262c43c"
+    },
+    {
+      "path": "lab/out/release-captured-batch-20261005/surefire-reports/TEST-com.streamhouse.oracle.IndexPositionReplayTest.xml",
+      "bytes": 10436,
+      "sha256": "bf11a78aed2dc3cb297319ff794ab9777fc5dba8d342c924c91f3259a834d89a"
+    },
+    {
+      "path": "lab/out/release-captured-batch-20261005/surefire-reports/TEST-com.streamhouse.oracle.IndexRestoreCompensationTest.xml",
+      "bytes": 10659,
+      "sha256": "94fd1a9f49ea5c89ff0e60d225bba4c16a4b520595b596e2bd8c43cea850e414"
+    },
+    {
+      "path": "lab/out/release-captured-batch-20261005/surefire-reports/TEST-com.streamhouse.oracle.IndexUndoPairTest.xml",
+      "bytes": 10945,
+      "sha256": "9a1c37944d4a08fe63cf4cc43c1dcb455fbe22578487a0c4c038a0ea52d320f9"
+    },
+    {
+      "path": "lab/out/release-captured-batch-20261005/surefire-reports/TEST-com.streamhouse.oracle.Kdom2MarkerThreeTest.xml",
+      "bytes": 10057,
+      "sha256": "6a2164f03b6c309158483320d444d6faca9ca21023adee8ed1b08952d7e06b08"
+    },
+    {
+      "path": "lab/out/release-captured-batch-20261005/surefire-reports/TEST-com.streamhouse.oracle.Kdom2UpdateTest.xml",
+      "bytes": 11102,
+      "sha256": "fabbacb136ae943506a2bd35bd6e008f3c46488c6d2cbcd1230df0b1c1872e0b"
+    },
+    {
+      "path": "lab/out/release-captured-batch-20261005/surefire-reports/TEST-com.streamhouse.oracle.KtbZInsertTest.xml",
+      "bytes": 10181,
+      "sha256": "16ee545667d43da97e36a3c530bc53fae28aee39d7ac25acf0355dbbb5778a05"
+    },
+    {
+      "path": "lab/out/release-captured-batch-20261005/surefire-reports/TEST-com.streamhouse.oracle.KtbZRollbackTest.xml",
+      "bytes": 11237,
+      "sha256": "062d1d6fa1e474fbc3ddb16e9f1820b25b2aa7e2a2b74ee05b70fc7109abf254"
+    },
+    {
+      "path": "lab/out/release-captured-batch-20261005/surefire-reports/TEST-com.streamhouse.oracle.OracleScalarsTest.xml",
+      "bytes": 10397,
+      "sha256": "8e66ed59508f023f2996ef03c0842530cbf8e5c94fba1d8255a55a9c329af36a"
+    },
+    {
+      "path": "lab/out/release-captured-batch-20261005/surefire-reports/TEST-com.streamhouse.oracle.SingleEntryBlockCleanoutTest.xml",
+      "bytes": 10095,
+      "sha256": "4db2d1d16a16194067b9507d21685e119b551eb7d92e963df8cdf6a38a39d104"
+    },
+    {
+      "path": "lab/out/release-captured-batch-20261005/surefire-reports/TEST-com.streamhouse.oracle.TransactionLifecycleTest.xml",
+      "bytes": 11707,
+      "sha256": "817f974b9de6596c2d9e3811102b338b4c504739d07eb188e550adcf2373dd52"
+    },
+    {
+      "path": "lab/out/release-captured-batch-20261005/surefire-reports/TEST-com.streamhouse.oracle.TransactionMarkersTest.xml",
+      "bytes": 10884,
+      "sha256": "6e2dc31884e12be73b8eac7ef71fd561992fd672654574adc1406ba875e23317"
+    },
+    {
+      "path": "lab/out/release-captured-batch-20261005/surefire-reports/TEST-com.streamhouse.oracle.TransactionStartTest.xml",
+      "bytes": 10845,
+      "sha256": "6373aa223ff89a0406773772619a99568aa69943dc42dcf972b6a5007d9a7804"
+    },
+    {
+      "path": "lab/out/release-captured-batch-20261005/surefire-reports/TEST-com.streamhouse.oracle.UndoBlockAdvanceTest.xml",
+      "bytes": 10463,
+      "sha256": "e8b3a0f1a3ffda9d96b96a89be5fdd84de32901fc0de7fb7e822e49308bf4f46"
+    },
+    {
+      "path": "lab/out/release-captured-batch-20261005/surefire-reports/TEST-com.streamhouse.oracle.UndoChainTest.xml",
+      "bytes": 10572,
+      "sha256": "6401cef7c8300ec605fc256b482ec555fff5e6ce10469a3e446d476398795f75"
+    },
+    {
+      "path": "lab/out/release-captured-batch-20261005/surefire-reports/TEST-com.streamhouse.oracle.UndoHeaderTest.xml",
+      "bytes": 10145,
+      "sha256": "e6cbdf049f05bc89410d4fffec3776d80c20a097f0b0601d5753bfb083f407aa"
+    },
+    {
+      "path": "lab/out/release-captured-batch-20261005/surefire-reports/TEST-com.streamhouse.oracle.UndoHeadUpdateTest.xml",
+      "bytes": 10619,
+      "sha256": "b1b9bbf7ec6e19df2078f370a3f8e0bf49ea3f86a6b475b6c0254942c62e700c"
+    },
+    {
+      "path": "lab/out/release-captured-batch-20261005/surefire-reports/TEST-com.streamhouse.oracle.UndoHistoryTest.xml",
+      "bytes": 10889,
+      "sha256": "dabbf3605c9d9b2fb9dcb93a02aaff765146e57e27fe0d8d7a2d0c161add6920"
+    },
+    {
+      "path": "lab/out/release-captured-batch-20261005/surefire-reports/TEST-com.streamhouse.oracle.UndoRowPatchTest.xml",
+      "bytes": 10429,
+      "sha256": "39b7da60e79ff576d384acfa31d3fbde7952b7b48fd0eb3b0fea86abfe46855f"
+    },
+    {
+      "path": "lab/VerifiedHeapRowsProbe.java",
+      "bytes": 1194,
+      "sha256": "a1f9b8ab4b10905eb1a6e4b311a8df7a949816462adf579e884406482b002925"
+    },
+    {
+      "path": "lab/verify_captured_batch19.py",
+      "bytes": 4380,
+      "sha256": "07bf6d67b722b44d4c7dc2798bd2a0e497b8b24aed6f9f4b288cc0690544398d"
+    },
+    {
+      "path": "src/main/java/com/streamhouse/oracle/CapturedHeapBatch.java",
+      "bytes": 7634,
+      "sha256": "55dd2653500e58547aa03077656d0f79cf8402d073fe4a2bf36c4a266bb07882"
+    },
+    {
+      "path": "src/test/java/com/streamhouse/oracle/CapturedHeapBatchTest.java",
+      "bytes": 5184,
+      "sha256": "d96e9820de7126f27a6c33dc80b5c936561fca383386804c24b5869911763a3c"
+    }
+  ]
+}
