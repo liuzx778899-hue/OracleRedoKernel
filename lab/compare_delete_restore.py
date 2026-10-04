@@ -22,7 +22,8 @@ for r in re.split(r'(?=REDO RECORD - Thread:)',(d/'dump.trc').read_text()):
         if b[1]!=(1 if role in ('B_RESTORE','A_RESTORE') else 0):errors.append('LEAF_MODE')
         if role=='B_RESTORE':
             n['native_description']=re.search(r'index redo[^\n]+',c)[0]
-            if f[0].hex()!='030d000000000000' or 'op: Z' not in c:errors.append('RESTORE_SHORT_Z_PROFILE')
+            n['raw_ktb']=f[0].hex()
+            if f[0].hex()!='030db87100000000' or 'op: Z' not in c:errors.append('RESTORE_SHORT_Z_PROFILE')
 if [n['role'] for n in native]!=['A_DELETE','B_DELETE','B_RESTORE','A_RESTORE']:raise RuntimeError('NATIVE_ROLES_NOT_UNIQUE')
 if [n['slot'] for n in native]!=[1,0,0,1] or any(native[i]['position']>=native[i+1]['position'] for i in range(3)):errors.append('EXPECTED_POSITIONS_NOT_OBSERVED')
 sa=(d/'session-a.stdout.txt').read_text();sb=(d/'session-b.stdout.txt').read_text();scns=[int(re.search(label+r'\|(\d+)',t)[1]) for label,t in [('A_DELETED_SCN',sa),('B_ROLLEDBACK_SCN',sb),('A_BEFORE_ROLLBACK_SCN',sa)]]
