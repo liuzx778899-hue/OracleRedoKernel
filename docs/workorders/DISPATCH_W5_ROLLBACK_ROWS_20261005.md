@@ -1,6 +1,6 @@
 # W5 真实完整行回滚门禁
 
-状态：待执行。INSERT/DELETE有界完整行已通过，当前`ArchivedHeapRows`明确UNSUPPORTED_ROW_REPLAY_ROLLBACK，不能让物理rollback通过冒充完整行通过。
+状态：一次真实有限完整回滚链路已完成，见[回滚交付](DELIVERY_W5_ROLLBACK_ROWS_20261005.md)。以下已提交动作不重复执行；接续[SAVEPOINT部分回滚](DISPATCH_W5_PARTIAL_ROLLBACK_ROWS_20261005.md)。INSERT/DELETE有界完整行已通过，partial rollback仍明确拒绝，不能让物理rollback通过冒充通用完整行通过。
 
 1. 专属现有项目表先核source/角色generation/无supplemental和单行ID11/boundary-closed/new-note；新目录，脚本先提交。实际获取新的固定SCN基线及控制进程交付SHA，不手填、不重放seq30。
 2. 一次受控事务INSERT新ID13/rollback-open/rollback-note，再更新这条新行TXT至rollback-changed，记录完整XID，完整ROLLBACK；独立SQL确认新行不存在、原行不变。另一事务CAS UPDATE既有ID11 TXT boundary-closed→rollback-proof并提交，保存完整XID/旧ASOF/最终真值。固定schema、无源配置改变。
