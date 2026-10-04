@@ -60,19 +60,22 @@ public final class ArchivedHeapRows {
         for (int i=0;i<paths.size();i++) {
             var path=paths.get(i);var h=physical.sources().get(i);
             new RedoRecords().visit(path,h,r->{
+                int previousForward=-1;
                 for (int v=0;v<r.vectors().size();v++) {
                     var at=new ArchivedUndoInventory.Position(h.sequence(),r.block(),r.offset(),v+1);var owner=selected.get(at);
                     if (owner==null) continue;
-                    var undo=UndoHeader.decode(r.vectors().get(v));HeapUndoPair found=null;
+                    var undo=UndoHeader.decode(r.vectors().get(v));HeapUndoPair found=null;int forwardIndex=-1;
                     for (var f:r.vectors()) if (f.containerId()==source.containerId() && f.opcodeMajor()==11
                             && (f.opcodeMinor()==2 || f.opcodeMinor()==3 || f.opcodeMinor()==5)) {
                         var patch=new HeapRowPatch().decode(f,baseline.columns());
                         if (patch.xtype()!=1 || !undo.uba().equals(patch.uba())) continue;
                         if (found!=null) throw new RedoException("ROW_REPLAY_PAIR_AMBIGUOUS");
-                        found=HeapUndoPair.bind(r,f,baseline.columns());
+                        found=HeapUndoPair.bind(r,f,baseline.columns());forwardIndex=r.vectors().indexOf(f);
                     }
                     if (found==null || !undo.equals(found.undo().identity()) || !owner.identity().xid().equals(undo.xid()) || !seen.add(at))
                         throw new RedoException("ROW_REPLAY_PAIR_OWNER_OR_COVERAGE_MISMATCH");
+                    if (forwardIndex<=previousForward) throw new RedoException("ROW_REPLAY_FORWARD_AND_UNDO_ORDER_DISAGREE");
+                    previousForward=forwardIndex;
                     var p=found.forward();var key=new RowKey(undo.dataObjectId(),p.dba(),p.slot());
                     var before=rows.get(key);var after=apply(found,before,baseline.columns());
                     changes.add(new Change(at,undo.xid(),key,p.kind(),before==null ? List.of() : before,after));
