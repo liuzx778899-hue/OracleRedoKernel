@@ -137,8 +137,11 @@ public final class ArchivedPhysicalTransactions {
                 boolean inWindow=contexts.stream().anyMatch(c->c.inWindow(recordAt));
                 for (int i=0;i<r.vectors().size();i++) {
                     var v=r.vectors().get(i);if (v.containerId()!=container) continue;
-                    if (inWindow && (v.dba()==leaf || heapBlocks.contains(v.dba())) && !paired.contains(i))
-                        throw new RedoException("UNBOUND_PHYSICAL_WINDOW_OPERATION:"+v.opcodeMajor()+"."+v.opcodeMinor());
+                    if (inWindow && (v.dba()==leaf || heapBlocks.contains(v.dba())) && !paired.contains(i)) {
+                        if (heapBlocks.contains(v.dba()) && v.opcodeMajor()==4 && v.opcodeMinor()==1)
+                            EmptyHeapCleanout.require(r,v);
+                        else throw new RedoException("UNBOUND_PHYSICAL_WINDOW_OPERATION:"+v.opcodeMajor()+"."+v.opcodeMinor());
+                    }
                     boolean control=contexts.stream().anyMatch(c->c.segment==v.dba() && c.inWindow(recordAt));
                     if (!control && !(inWindow && undoBlocks.contains(v.dba()))) continue;
                     if (v.opcodeMajor()!=5) throw new RedoException("UNSUPPORTED_PHYSICAL_CONTROL_OPCODE");

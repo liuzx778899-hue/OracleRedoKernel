@@ -1,6 +1,7 @@
 import com.streamhouse.oracle.*;
 import java.nio.file.Path;
 import java.util.ArrayList;
+import java.util.List;
 
 /** Full bounded row replay takes a real frozen snapshot and its acquisition handoff digest; no inline row values. */
 public class VerifiedHeapRowsProbe {
