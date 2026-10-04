@@ -5,7 +5,7 @@ args=sys.argv[1:];concurrent_fixture=args[0] in ('--concurrent-fixture','--concu
 if args[0]=='--concurrent':args=args[1:]
 declared_objects=None
 if args[0]=='--objects':declared_objects=tuple(map(int,args[1].split(',')));args=args[2:]
-restore_fixture=args[0]=='--restore-fixture';slot_fixture=args[0]=='--slot-fixture';multi_fixture=args[0]=='--multi-fixture';purge_fixture=args[0]=='--purge-fixture' or concurrent_fixture;higher_fixture=args[0]=='--higher-fixture';delete_restore_fixture=args[0]=='--delete-restore-fixture';double_purge_fixture=args[0]=='--double-purge-fixture'
+restore_fixture=args[0]=='--restore-fixture';slot_fixture=args[0]=='--slot-fixture';multi_fixture=args[0]=='--multi-fixture';purge_fixture=args[0]=='--purge-fixture' or (concurrent_fixture and declared_objects is None);higher_fixture=args[0]=='--higher-fixture';delete_restore_fixture=args[0]=='--delete-restore-fixture';double_purge_fixture=args[0]=='--double-purge-fixture'
 if restore_fixture or slot_fixture or multi_fixture or purge_fixture or higher_fixture or delete_restore_fixture or double_purge_fixture:args=args[1:]
 objects=(73069,73070) if double_purge_fixture else (73071,73072) if delete_restore_fixture else (73067,73068) if higher_fixture else (73065,73066) if purge_fixture else (73063,73064) if multi_fixture else (73061,73062) if slot_fixture else (73059,73060) if restore_fixture else (73024,73025)
 if declared_objects is not None:objects=declared_objects
