@@ -5,7 +5,7 @@ object_id=int(sys.argv[3]);columns=int(sys.argv[4]);expected=[]
 def image(c):
     op=re.search(r'KDO Op code: (IRP|URP|DRP)',c)[1];slot=int(re.search(r'tabn:\s*0 slot:\s*(\d+)',c)[1])
     ncol=-1;nnew=0;delta=0
-    if op=='IRP':ncol=int(re.search(r'cc:\s*(\d+)',c)[1]);nnew=ncol
+    if op=='IRP':ncol=int(re.search(r'cc:\s*(\d+)',c)[1]);nnew=ncol;delta=int(re.search(r'size/delt: (\d+)',c)[1])
     if op=='URP':ncol,nnew,delta=map(int,re.search(r'ncol: (\d+) nnew: (\d+) size: (-?\d+)',c).groups())
     values=['ABSENT:']*columns
     for line in c.splitlines():
@@ -34,6 +34,7 @@ for record in re.split(r'(?=REDO RECORD - Thread:)',Path(sys.argv[1]).read_text(
         matches=[u for u in undo if u[0]==uba]
         if len(matches)!=1:raise RuntimeError('NATIVE_PAIR_NOT_UNIQUE')
         _,xid,before=matches[0]
+        if before['op']!={'IRP':'DRP','URP':'URP','DRP':'IRP'}[forward['op']]:raise RuntimeError('NATIVE_PAIR_INVERSE_OPERATION_MISMATCH')
         if before['slot']!=forward['slot']:raise RuntimeError('NATIVE_PAIR_SLOT_MISMATCH')
         removed=-1
         if forward['op']=='URP' and before['ncol']!=forward['ncol']:

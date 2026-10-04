@@ -12,7 +12,7 @@ public final class HeapRowPatch {
     public record Xid(int usn, int slot, long sequence) {}
     public record Uba(long dba, int sequence, int record) {}
     /** Raw physical extent. removedColumn is an observed tail marker, not an inferred SQL NULL. */
-    public record RowExtent(int storedColumns,int changedColumns,int removedColumn,int sizeDelta) {}
+    public record RowExtent(int storedColumns,int changedColumns,int removedColumn,Integer sizeDelta) {}
     /** uba is a physical row ITL reference; XR rollback can restore an earlier undo pointer. */
     public record Patch(Kind kind, long dba, int slot, int xtype, Xid xid, Uba uba,
                         List<Column> columns,RowExtent extent) {
@@ -88,7 +88,7 @@ public final class HeapRowPatch {
                     || fields.size() != count+2)
                 throw new RedoException("UNSUPPORTED_INSERT_ROWPIECE");
             for (int i=0;i<count;i++) columns.set(i,value(fields.get(i+2)));
-            extent=new RowExtent(count,count,-1,0);
+            extent=new RowExtent(count,count,-1,u16(kdo,40));
             // Trailing omitted columns remain ABSENT until schema/row completeness is proven.
         } else if (op == 5) {
             kind=Kind.UPDATE; slot=u16(kdo,20);
@@ -106,7 +106,7 @@ public final class HeapRowPatch {
             } else {
                 if (fields.size()!=count+3 || fields.get(2).length!=count*2)
                     throw new RedoException("UNSUPPORTED_UPDATE_ROWPIECE");
-                extent=new RowExtent(stored,count,-1,delta);
+                extent=new RowExtent(stored,count,-1,packed ? null : delta);
             }
             for (int i=0;i<count;i++) {
                 int index=u16(fields.get(2),i*2);

@@ -29,6 +29,13 @@ class HeapCompensationTest {
         assertEquals(35,HeapCompensation.match(record(row,c),c,row,List.of(pair),4).undo().identity().uba().record());
         assertEquals(33,new HeapRowPatch().decode(row,4).uba().record());
     }
+    @Test void missingPhysicalExtentCannotCertifyKnownRollbackExtent() throws Exception {
+        var pair=pair();var u=pair.undo();var p=u.inverse();
+        var unknown=new HeapRowPatch.Patch(p.kind(),p.dba(),p.slot(),p.xtype(),p.xid(),p.uba(),p.columns());
+        var history=new HeapUndoPair(pair.containerUid(),pair.containerId(),pair.forward(),new UndoRowPatch(u.identity(),unknown,u.previousDba(),u.predecessorRecord(),u.wrap()));
+        var marker=marker();var row=row();
+        assertEquals("MISSING_HEAP_COMPENSATION_ORIGINAL",assertThrows(RedoException.class,()->HeapCompensation.match(record(marker,row),marker,row,List.of(history),4)).getMessage());
+    }
     @Test void refusesMissingAndMultipleOriginalCandidates() throws Exception {
         var c=marker(); var row=row(); var pair=pair();
         assertThrows(RedoException.class,()->HeapCompensation.match(record(c,row),c,row,List.of(),4));

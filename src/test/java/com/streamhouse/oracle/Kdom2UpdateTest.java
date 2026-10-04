@@ -18,6 +18,7 @@ class Kdom2UpdateTest {
     @Test void unwraps900ByteValueWithoutPublishingOrInventingKey() throws Exception {
         var p=new HeapRowPatch().decode(vector(kdo(),hex("0100"),value()),2);
         assertEquals(1,p.xtype()); assertNull(p.xid());
+        assertNull(p.extent().sizeDelta());
         assertEquals(HeapRowPatch.State.ABSENT,p.columns().get(0).state());
         assertEquals(900,p.columns().get(1).bytes().length);
         assertTrue(Arrays.equals(Arrays.copyOfRange(value(),3,903),p.columns().get(1).bytes()));
