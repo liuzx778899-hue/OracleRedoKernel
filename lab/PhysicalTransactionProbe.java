@@ -6,7 +6,14 @@ import java.util.Arrays;
 public class PhysicalTransactionProbe {
     public static void main(String[] args) throws Exception {
         var paths=Arrays.stream(args).skip(4).map(Path::of).toList();
-        var result=ArchivedPhysicalTransactions.read(paths,677737149,3,Long.parseLong(args[0]),Long.parseLong(args[1]),Long.decode(args[2]),Integer.parseInt(args[3]));
+        ArchivedPhysicalTransactions.Result result;
+        if (args[0].equals("--snapshot")) {
+            var snapshot=FrozenHeapBaseline.read(Path.of(args[1]),args[2]);var source=snapshot.source();
+            var scope=new HeapIndexScope(new HeapIndexScope.Generation(snapshot.heap().logicalObject(),snapshot.heap().dataObject()),
+                    new HeapIndexScope.Generation(snapshot.index().logicalObject(),snapshot.index().dataObject()));
+            result=ArchivedPhysicalTransactions.read(paths,source.containerUid(),source.containerId(),scope,Long.decode(args[3]),snapshot.columns().size());
+            for (var h:result.sources())snapshot.requireSource(h);
+        } else result=ArchivedPhysicalTransactions.read(paths,677737149,3,Long.parseLong(args[0]),Long.parseLong(args[1]),Long.decode(args[2]),Integer.parseInt(args[3]));
         for (var t:result.transactions()) {
             var x=t.identity().xid();var g=t.graph();
             System.out.println("TX|"+x.usn()+"."+x.slot()+"."+x.sequence()+"|"+g.original().size()+"|"+g.compensated().size()+"|"+g.live().size()+"|"+t.identity().rolledBack());
