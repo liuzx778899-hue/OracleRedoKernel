@@ -32,6 +32,8 @@
 
 ## 接续与限制
 
+最新研究：[较大键INSERT/PURGE位置](RESEARCH_W4_HIGHER_PURGE_20261004.md)，源脚本f332264、完整研究树3d05413，[清单](evidence/RESEARCH-higher-purge-20261004.json)390文件双次SHA一致。专属一次实验冻结seq22（b1fcd87a…），A删除50、B插入70后回滚、A再回滚；四叶slot1/2/2/1与raw/native零差异，A/B完整清单4/2、补偿头关联4/2含A的2外国marker、B图2/2/0均零差异。三项B图派生反例rc1/stdout0；A位置仍拒绝PURGE，A单上下文图仍缺B原始节点，旧静态单match不当A完整图通过。main/test/pom与184测试内核582fec6差异为空，不重复已通过测试；events拒绝。两笔单键净零PURGE实例不能推导通用规则，接续多PURGE/普通DELETE实际矩阵及有源归属位置模型，W5/持续capture/接入/发布仍待证。
+
 最新：[有界并发分发/B物理回滚图交付](DELIVERY_W4_CONCURRENT_ROUTING_20261004.md)，完整研究树40a0fda，main/test/pom与582fec6差异为空，[清单](evidence/DELIVERY-concurrent-routing-20261004.json)。同件184测试jar，双上下文消费者完整消费A窗口四项关联，把B送到B生命周期/物理match/head，B图2/2/0与native零差异；七项分发派生反例rc1/stdout0。full路径先真关闭B，再以A中间PURGE拒绝，越过此前缺B原始节点门禁，仍不认证A图。foreign-only明确只验证B图及A关联；events继续拒绝。无数据库动作，下一步扩大PURGE较小/较大/多次及普通DELETE实际矩阵，生产分发/字典/持续capture/发布待证。
 
 最新：[同源完整XID补偿头关联交付](DELIVERY_W4_COMPENSATION_ASSOCIATIONS_20261004.md)，实现12910d5、完整封存树582fec6，[清单](evidence/DELIVERY-compensation-associations-20261004.json)543文件双次SHA一致。184测试通过；内核自主遍历完整归档，绑定唯一先前原始头与同源完整事务窗口，seq19—21共10项/其中2外国marker与native全字段零差异；8真实查询拒绝和3比较器反例。仅认证header关联，不认证物理行/当前head或取消，cross-block和同record原始关联仍未支持。A旧图、PURGE位置及events继续拒绝，没有补填通过计数。无数据库动作，旧解析类未变且不重复已通过回归；接续消费者须完整分类并独立核B物理/head/取消图，再补PURGE矩阵。
