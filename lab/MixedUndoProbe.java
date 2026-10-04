@@ -6,15 +6,15 @@ import java.util.List;
 /** Bounded original heap+index fixture graph; complete selected 5.1/compensation inventory, not all redo semantics. */
 public class MixedUndoProbe {
     public static void main(String[] args) throws Exception {
-        boolean restoreFixture=args[0].equals("--restore-fixture"),slotFixture=args[0].equals("--slot-fixture"),multiFixture=args[0].equals("--multi-fixture");int base=restoreFixture || slotFixture || multiFixture ? 1 : 0;
+        boolean restoreFixture=args[0].equals("--restore-fixture"),slotFixture=args[0].equals("--slot-fixture"),multiFixture=args[0].equals("--multi-fixture"),purgeFixture=args[0].equals("--purge-fixture");int base=restoreFixture || slotFixture || multiFixture || purgeFixture ? 1 : 0;
         String[] x=args[base].split("\\.");var xid=new HeapRowPatch.Xid(Integer.parseInt(x[0]),Integer.parseInt(x[1]),Long.parseLong(x[2]));
-        var paths=restoreFixture || slotFixture || multiFixture ? List.of(Path.of(args[2])) : List.of(Path.of(args[1]),Path.of(args[2]));
-        long heapObject=multiFixture ? 73063 : slotFixture ? 73061 : restoreFixture ? 73059 : 73024,indexObject=multiFixture ? 73064 : slotFixture ? 73062 : restoreFixture ? 73060 : 73025;
-        int columns=restoreFixture || slotFixture || multiFixture ? 2 : 4;
+        var paths=restoreFixture || slotFixture || multiFixture || purgeFixture ? List.of(Path.of(args[2])) : List.of(Path.of(args[1]),Path.of(args[2]));
+        long heapObject=purgeFixture ? 73065 : multiFixture ? 73063 : slotFixture ? 73061 : restoreFixture ? 73059 : 73024,indexObject=purgeFixture ? 73066 : multiFixture ? 73064 : slotFixture ? 73062 : restoreFixture ? 73060 : 73025;
+        int columns=restoreFixture || slotFixture || multiFixture || purgeFixture ? 2 : 4;
         String mode=args.length>3 ? args[3] : "positive";
         if (!List.of("positive","omit_index_node","wrong_index_purge_slot","wrong_index_leaf_slot","wrong_index_leaf_mode","repeat_index_compensation","omit_middle_leaf_vector").contains(mode)) throw new IllegalArgumentException("UNKNOWN_RESEARCH_MODE");
         var inventory=ArchivedCompensationInventory.read(paths,677737149,3,xid);
-        var leafInventory=slotFixture || multiFixture ? ArchivedIndexLeafInventory.read(paths,677737149,3,xid,indexObject,multiFixture ? 0x0300014bL : 0x0300013bL) : null;
+        var leafInventory=slotFixture || multiFixture || purgeFixture ? ArchivedIndexLeafInventory.read(paths,677737149,3,xid,indexObject,purgeFixture ? 0x0300015bL : multiFixture ? 0x0300014bL : 0x0300013bL) : null;
         if (mode.equals("omit_middle_leaf_vector")) {
             if (!multiFixture) throw new IllegalArgumentException("MULTI_FIXTURE_REQUIRED");
             leafInventory.requireCompleteSelection(leafInventory.entries().stream().filter(e->e.position().vector()!=5).map(ArchivedIndexLeafInventory.Entry::position).toList());
