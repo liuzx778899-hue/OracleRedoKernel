@@ -71,6 +71,8 @@ public final class ArchivedHeapRows {
             // All original and compensation records already passed the complete physical gate.
             for (var entry:t.graph().live()) if (entry.identity().dataObjectId()==scope.heap().dataObject()) selected.put(entry.position(),t);
         }
+        if (selected.isEmpty() && transactions.stream().anyMatch(t->!t.graph().live().isEmpty()))
+            throw new RedoException("NO_ROW_CHANGES_AFTER_BASELINE");
         var rows=new HashMap<>(baseline.rows());var changes=new ArrayList<Change>();var seen=new java.util.HashSet<ArchivedUndoInventory.Position>();
         var pending=new HashMap<Xid,List<Pending>>();
         for (int i=0;i<paths.size();i++) {
