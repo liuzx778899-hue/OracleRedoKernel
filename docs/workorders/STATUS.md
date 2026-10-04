@@ -10,7 +10,7 @@
 | W1 文件/块 scanner | 通过：首批fa61476 | 通过：19c/21c有界样本/5个真实派生反例 | 待证：真实capture | 未开始 | 待证 | 未开始 |
 | W2 record/vector | 通过：首批fa61476 | 通过：19c seq8/9完整dump、21c选定范围 | 待证：事务/字典 | 未开始 | 待证 | 未开始 |
 | W3 基础行/类型 | 进行中：scalar + pair + KDOM2单列扩展值 | 通过：18pair/302长值patch；完整行待证 | 进行中：物理配对；字典/基线待证 | 未开始 | 待证 | 未开始 |
-| W4 事务/回滚 | 进行中：有序history/覆盖/heap rollback/index补偿、owned同叶清单、INSERT位置及有限short-Z、同源完整XID补偿头关联 | 通过：184测试；seq19—21共10头关联/2外国项、8查询拒绝；此前九笔图34/23/11、六批heap756/430/326及seq21 B图2/2/0证据保留 | 进行中：seq21 A并发分发/物理match/head/PURGE位置、其他控制/页维护/恢复待证 | 未开始 | 待证 | 未开始 |
+| W4 事务/回滚 | 进行中：有序history/覆盖/heap+index补偿、同源完整XID归属及有源位置重放 | 通过：192测试；seq19—24六位置、seq21—24有限双上下文完整图与拒绝证据；九笔旧图及六批长heap证据保留 | 进行中：通用内核分发、完整输入/其它控制/页维护/恢复待证；有限消费者不当生产能力 | 未开始 | 待证 | 未开始 |
 | W5 SCN字典/基线 | 未开始 | 待证 | 未开始 | 未开始 | 待证 | 未开始 |
 | W6 StreamHouse接入 | 未开始 | 待证 | 未开始 | 未开始 | 待证 | 未开始 |
 | W7 online采集 | 进行中：固定member有界观察journal实验 | 通过：429归档数据块字节覆盖、6派生拒绝；完整持续捕获/续接/Windows/ASM待证 | 未开始：journal到解析/ACK | 未开始 | 待证 | 未开始 |
@@ -31,6 +31,8 @@
 - 首轮PDB切日志ORA-65040、CDB VLD9/13/marker结构缺口、SQLPlus中文显示与LogMiner status3均保留原文；两会话交叉事务/跨switch动作已执行。细节见[首批反馈](DELIVERY_W0_W2_20261004.md)。
 
 ## 接续与限制
+
+最新：[三批双上下文完整图](DELIVERY_W4_PAIRED_MATRIX_20261004.md)，lab完整树d907834，main/test/pom与192测试内核21cd368差异为空，[清单](evidence/DELIVERY-paired-matrix-20261004.json)1023文件双次SHA一致。同件jar完整路由seq22—24三批A/B，共六图14原始/14取消/0保留；关联14项/8外国项及各图native零差异。seq23七B+三A派生rc1/stdout0；A失败即使B已关闭也不泄漏输出。错fixture来源拒绝，三比较器反例检出3/2/1差异，events拒绝；无数据库动作，不重复seq21/192测试已通过轮次。接续[内核自主发现/分发派单](DISPATCH_W4_ARCHIVED_ROUTER_20261004.md)，尚未实现/验收；通用控制/完整源覆盖/字典/持续capture/集成/现场/发布待证。
 
 最新：[有源归属位置重放/双事务完整图](DELIVERY_W4_OWNED_POSITIONS_20261004.md)，内核/消费者完整树21cd368，native比较器修正树ce23211且main/test/pom差异为空，[清单](evidence/DELIVERY-owned-positions-20261004.json)1328文件主封存/追加失败原文均双次SHA核对。192测试通过；自主绑定完整同叶流及唯一原始头，验证PURGE/RESTORE物理位置后重放INSERT/PURGE槽位、DELETE/RESTORE保留槽位，未知/缺原始/重复取消等拒绝。seq19—24六A位置native零差异；seq23 B图4/4/0、seq24 B2/2/0、seq21 full A/B各2/2/0独立native有序图零差异，seq18旧两图回归通过。7分发+7位置查询+3重封raw拒绝；3比较器反例检出。旧native误把B补偿归A及补充汇总空stdout失败保全，仅补失败/未执行检查。无数据库动作，events拒绝；seq22—24双事务完整分发图、生产分发/其它控制/页维护/字典/持续capture/接入/现场/发布待证。
 
