@@ -11,12 +11,14 @@
 | W2 record/vector | 通过：首批fa61476 | 通过：19c seq8/9完整dump、21c选定范围 | 待证：事务/字典 | 未开始 | 待证 | 未开始 |
 | W3 基础行/类型 | 进行中：scalar + pair + KDOM2单列扩展值 | 通过：18pair/302长值patch；完整行待证 | 进行中：物理配对；字典/基线待证 | 未开始 | 待证 | 未开始 |
 | W4 事务/回滚 | 进行中：有序history/覆盖/heap+index补偿、同源完整XID归属及有源位置重放 | 通过：203测试；seq21—24自主发现基线/A/B共12物理图；自主对象头关联；seq19—24六位置、seq21—24有限双上下文完整图与拒绝证据；九笔旧图及六批长heap证据保留 | 进行中：有界自主物理入口已交付；完整控制/页维护/跨块关联/恢复待证；不当通用生产能力 | 未开始 | 待证 | 未开始 |
-| W5 SCN字典/基线 | 进行中：extent/完整行、ASOF/回执/typed世代，有限cleanout、闭合图live选择及commit SCN重放 | 通过：229测试新冻结树；seq33/34真实不同行并发四完整行/四SQL快照/6/0/6图native零差异、8 raw拒绝；seq30/31/32同件完整行回归；seq28/29初始跨snapshot拒绝；生产可信交接/历史字典待证 | 进行中：有限不同行并发及全/部分回滚完整行通过；真实同一行阻塞/相同commit SCN/多savepoint/跨块/空结果/初始恢复/历史schema待证 | 未开始 | 待证 | 未开始 |
+| W5 SCN字典/基线 | 进行中：extent/完整行、ASOF/回执/typed世代，有限cleanout、闭合图live选择及commit SCN重放 | 通过：229测试新冻结树；seq33—35/实际snapshot2360835完整闭合旧事务零变化/完整状态/两SQL及native零差异；seq33/34不同行并发、seq30/31/32同件完整行回归；生产可信交接/历史字典待证 | 进行中：有限不同行并发、全/部分回滚及闭合旧批次空结果通过；真实同一行阻塞/相同commit SCN支持/rollback-only空批次/无目标静默/多savepoint/跨块/初始恢复/历史schema待证 | 未开始 | 待证 | 未开始 |
 | W6 StreamHouse接入 | 未开始 | 待证 | 未开始 | 未开始 | 待证 | 未开始 |
 | W7 online采集 | 进行中：固定member有界观察journal实验 | 通过：429归档数据块字节覆盖、6派生拒绝；完整持续捕获/续接/Windows/ASM待证 | 未开始：journal到解析/ACK | 未开始 | 待证 | 未开始 |
 | W8-W11 扩展类型/LOB/RAC/ASM/TDE | 未开始 | 待证 | 未开始 | 未开始 | 待证 | 未开始 |
 
 ## 当前证据
+
+最新：[完整闭合旧批次零变化](DELIVERY_W5_CLOSED_EMPTY_20261005.md)，实际只读获取/初版761e2e0、最终条件及比较器55c331a、状态probe06e07ee，[清单](evidence/DELIVERY-closed-empty-20261005.json)。新实际snapshot2360835及获取SHA5bbba96a…，连续seq33—35，新35 SHA779f0445…；无DML/DDL/config动作。三笔完整物理图6/0/6结束均在基线之前，行rc0/变化0/完整一行与native/实际基线/两SQL零差异；最终制品再次执行physical/rows/state与初版字节等价复用独立对照，两树229测试通过。无目标、缺begin/end、覆盖不足、未知cleanout、错误receipt拒绝；错误state/凭空事件比较器检出。同件seq30/31/32/并发完整行native零差异、初始跨snapshot/晚before/同key/SCNtie拒绝、events拒绝。补回index-only live缺heap证据的保守拒绝，指定分支实际反例未验收；真实rollback-only空批次和完全无目标静默仍待证，不当持续capture/ACK验收。源fixture仍一行11/concurrent-closed/new-note。
 
 最新：[相同结束record SCN拒绝及空结果约束](DELIVERY_W5_COMMIT_TIE_20261005.md)，派生脚本180d640，复用5bfde64/229测试制品、不重复构建与源动作，[清单](evidence/DELIVERY-commit-tie-20261005.json)。native定位A结束34:8:436/2349213、B结束34:2:148/2349206，两方向只改record SCN并重封校验和，均scan及三物理图6/0/6 rc0，rows指定AMBIGUOUS_ROW_REPLAY_COMMIT_SCN rc1/stdout0。只证明派生歧义拒绝，不证明真实相同SCN支持。下一步完整闭合物理事务零变化的空结果；完全无目标事务的静默需补范围覆盖，未收到end不能算静默成功。空结果/同一行阻塞/持续capture及接入等仍待证。
 
