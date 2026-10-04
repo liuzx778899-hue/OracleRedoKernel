@@ -29,8 +29,10 @@ public final class ArchivedObjectTransactions {
                     var v=r.vectors().get(i);if (v.containerId()!=container || v.opcodeMajor()!=5) continue;
                     long object,data;
                     if (v.opcodeMinor()==1) {
-                        var h=UndoHeader.decode(v);object=h.objectId();data=h.dataObjectId();
-                        if (scope.contains(object) || scope.contains(data)) xids.add(h.xid());
+                        if (v.fields().size()<2 || v.fields().get(0).length!=20 || v.fields().get(1).length<24)
+                            throw new RedoException("UNREADABLE_OBJECT_TRANSACTION_ORIGINAL");
+                        object=RedoBytes.u32(v.fields().get(1),0);data=RedoBytes.u32(v.fields().get(1),4);
+                        if (scope.contains(object) || scope.contains(data)) xids.add(UndoHeader.decode(v).xid());
                     } else if (v.opcodeMinor()==6 || v.opcodeMinor()==11) {
                         var c=UndoCompensation.decode(v);object=c.objectId();data=c.dataObjectId();
                         if (scope.contains(object) || scope.contains(data))

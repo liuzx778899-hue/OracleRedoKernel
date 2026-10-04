@@ -37,4 +37,10 @@ class ArchivedObjectTransactionsTest {
         assertThrows(RedoException.class,()->read(f.fixture(),Set.of()));
         assertThrows(RedoException.class,()->ArchivedObjectTransactions.read(List.of(),677737149,3,Set.of(42L)));
     }
+    @Test void readableOutsideObjectCanBeExcludedWithoutClaimingItsOpaqueFlagsSupported() throws Exception {
+        var raw=f.fixture();var u=f.undo(f.b,0x02402ccc,43);put(u.fields().get(1),0,43,4);put(u.fields().get(1),4,43,4);put(u.fields().get(1),20,0x0c09,2);
+        f.records.record(raw,3,120,List.of(f.start(f.b,0x02400120,0x02402ccc,43),u));
+        f.records.record(raw,4,130,List.of(f.end(f.b,0x02400120)));seal(raw,1536);seal(raw,2048);
+        assertEquals(List.of(f.a),read(raw,Set.of(42L)).transactions().stream().map(ArchivedObjectTransactions.Transaction::xid).toList());
+    }
 }
