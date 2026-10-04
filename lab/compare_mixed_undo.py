@@ -1,9 +1,9 @@
 """Native selected full-XID heap/index allocation and compensation history, without Java input."""
 import json,re,sys
 from pathlib import Path
-args=sys.argv[1:];restore_fixture=args[0]=='--restore-fixture';slot_fixture=args[0]=='--slot-fixture';multi_fixture=args[0]=='--multi-fixture';purge_fixture=args[0]=='--purge-fixture'
-if restore_fixture or slot_fixture or multi_fixture or purge_fixture:args=args[1:]
-objects=(73065,73066) if purge_fixture else (73063,73064) if multi_fixture else (73061,73062) if slot_fixture else (73059,73060) if restore_fixture else (73024,73025)
+args=sys.argv[1:];restore_fixture=args[0]=='--restore-fixture';slot_fixture=args[0]=='--slot-fixture';multi_fixture=args[0]=='--multi-fixture';purge_fixture=args[0]=='--purge-fixture';higher_fixture=args[0]=='--higher-fixture'
+if restore_fixture or slot_fixture or multi_fixture or purge_fixture or higher_fixture:args=args[1:]
+objects=(73067,73068) if higher_fixture else (73065,73066) if purge_fixture else (73063,73064) if multi_fixture else (73061,73062) if slot_fixture else (73059,73060) if restore_fixture else (73024,73025)
 xid=tuple(map(int,args[0].split('.')));expected=[];history=[];nodes=[];active=False;ends=0;segment=None
 def metadata(change):
     m=re.search(r'(?:ktubu|ktubl) redo: slt: (\d+) wrp: (\d+) flg: 0x([0-9a-f]+) prev dba:\s*0x([0-9a-f]+) rci: (\d+) opc: (\d+)\.(\d+) \[objn: (\d+) objd: (\d+) tsn: (\d+)\]',change)
