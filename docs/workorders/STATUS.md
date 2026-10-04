@@ -10,7 +10,7 @@
 | W1 文件/块 scanner | 通过：首批fa61476 | 通过：19c/21c有界样本/5个真实派生反例 | 待证：真实capture | 未开始 | 待证 | 未开始 |
 | W2 record/vector | 通过：首批fa61476 | 通过：19c seq8/9完整dump、21c选定范围 | 待证：事务/字典 | 未开始 | 待证 | 未开始 |
 | W3 基础行/类型 | 进行中：scalar + pair + KDOM2单列扩展值 | 通过：18pair/302长值patch；完整行待证 | 进行中：物理配对；字典/基线待证 | 未开始 | 待证 | 未开始 |
-| W4 事务/回滚 | 进行中：有序history/覆盖/slot排除/heap rollback/index普通purge补偿 | 通过：六批heap756/430/326；14index pair；三笔混合图9/7/2及6派生拒绝；完整事务待证 | 进行中：并发归属/其他控制/index restore及扩展取消图/恢复待证 | 未开始 | 待证 | 未开始 |
+| W4 事务/回滚 | 进行中：有序history/覆盖/slot排除/heap rollback/index普通purge+restore补偿 | 通过：六批heap756/430/326；五笔混合图22/19/3含主键更新回滚；8新派生拒绝；完整事务待证 | 进行中：并发归属/其他控制/index扩展取消图/slot迁移/恢复待证 | 未开始 | 待证 | 未开始 |
 | W5 SCN字典/基线 | 未开始 | 待证 | 未开始 | 未开始 | 待证 | 未开始 |
 | W6 StreamHouse接入 | 未开始 | 待证 | 未开始 | 未开始 | 待证 | 未开始 |
 | W7 online采集 | 进行中：固定member有界观察journal实验 | 通过：429归档数据块字节覆盖、6派生拒绝；完整持续捕获/续接/Windows/ASM待证 | 未开始：journal到解析/ACK | 未开始 | 待证 | 未开始 |
@@ -31,6 +31,8 @@
 - 首轮PDB切日志ORA-65040、CDB VLD9/13/marker结构缺口、SQLPlus中文显示与LogMiner status3均保留原文；两会话交叉事务/跨switch动作已执行。细节见[首批反馈](DELIVERY_W0_W2_20261004.md)。
 
 ## 接续与限制
+
+最新：[index RESTORE与主键回滚图交付](DELIVERY_W4_INDEX_RESTORE_20261004.md)，完整封存树5002f18，[清单](evidence/DELIVERY-index-restore-20261004.json)。147项测试通过；seq18两笔新混合图13/12/1与native零差异，索引取消4 RESTORE+3 PURGE；9新heap pair逐列字节零差异，8新派生rc1/stdout0。旧三笔混合图/index及六批756/430/326同件jar回归通过，events拒绝。首次full图遇heap0x12 C-cleanout拒绝及研发jar/diff保全，补真实70字节XA DELETE入口后重新封存。无源端动作；slot迁移/页维护/并发/恢复/其他控制/W5及持续capture仍待证。
 
 最新：[真实主键更新及index RESTORE研究](RESEARCH_W4_INDEX_RESTORE_20261004.md)，fixture418cd0c、研究完整树d957a34，[清单](evidence/RESEARCH-index-restore-20261004.json)。专属新表一次性主键UPDATE/DELETE/savepoint及full rollback，seq18 SHA5d5203bc…冻结；35index相关vector/native直接字段零差异，出现4条10.5 RESTORE，现有matcher均拒绝UNSUPPORTED_INDEX_PURGE_LAYOUT。SQL两阶段最终3行通过，研究比较器7项反例检出。生产内核9e80b0f不变，138测试不重跑；下一步RESTORE匹配与7索引取消/混合图，不能以SQL最终相等或结构scan代替DML支持。
 
