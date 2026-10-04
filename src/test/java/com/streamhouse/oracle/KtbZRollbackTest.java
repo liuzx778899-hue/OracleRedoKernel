@@ -16,6 +16,28 @@ class KtbZRollbackTest {
     @Test void observedPurgeDecodesOnlyPhysicalLeafFields() throws Exception {
         assertEquals(new IndexCompensation.LeafRollback(IndexUndoPair.Kind.PURGE,50331995,3,1,13),IndexCompensation.decodeRollback(purge()));
     }
+    RedoRecords.Vector restore() {
+        return new RedoRecords.Vector(10,5,1,12,50332043,2278002,2,3,List.of(hex("030db87100000000"),hex("030100000d00")));
+    }
+    @Test void observedShortZRestoreDecodesOnlyPhysicalLeafFields() throws Exception {
+        assertEquals(new IndexCompensation.LeafRollback(IndexUndoPair.Kind.RESTORE,50332043,3,0,13),IndexCompensation.decodeRollback(restore()));
+    }
+    @Test void shortZRestoreDoesNotAuthorizeOtherOpaqueBytesOrOpcode() {
+        for (int i=0;i<8;i++) {
+            var changed=restore();changed.fields().get(0)[i]^=1;
+            assertThrows(RedoException.class,()->IndexCompensation.decodeRollback(changed));
+        }
+        var r=restore();var wrong=new RedoRecords.Vector(10,3,1,12,r.dba(),r.scn(),2,3,r.fields());
+        assertThrows(RedoException.class,()->IndexCompensation.decodeRollback(wrong));
+    }
+    @Test void shortZRestoreStillRequiresUndoModeItlAndExactFields() {
+        for (int i=0;i<2;i++) {
+            var r=restore();r.fields().get(1)[i]=0;
+            assertThrows(RedoException.class,()->IndexCompensation.decodeRollback(r));
+        }
+        var r=restore();var extra=new RedoRecords.Vector(10,5,1,12,r.dba(),r.scn(),2,3,List.of(r.fields().get(0),r.fields().get(1),new byte[0]));
+        assertThrows(RedoException.class,()->IndexCompensation.decodeRollback(extra));
+    }
     @Test void zRestoreAndUnobservedKtbTailStayRefused() {
         var p=purge();var restore=new RedoRecords.Vector(10,5,1,12,p.dba(),p.scn(),2,3,p.fields());
         assertThrows(RedoException.class,()->IndexCompensation.decodeRollback(restore));

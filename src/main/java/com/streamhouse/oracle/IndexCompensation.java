@@ -19,8 +19,10 @@ public final class IndexCompensation {
             throw new RedoException("UNSUPPORTED_INDEX_ROLLBACK_LAYOUT");
         byte[] ktb=vector.fields().get(0),leaf=vector.fields().get(1);
         boolean shortZPurge=vector.opcodeMinor()==3 && java.util.Arrays.equals(ktb,new byte[]{3,13,0,0,0,0,0,0});
+        // Observed RESTORE short-Z bytes remain opaque; unobserved variants stay refused.
+        boolean shortZRestore=vector.opcodeMinor()==5 && java.util.Arrays.equals(ktb,new byte[]{3,13,(byte)0xb8,0x71,0,0,0,0});
         if (ktb.length<2 || (ktb[1]&255)!=0x0d
-                || !((ktb[0]==4 && ktb.length==32) || (ktb[0]==2 && ktb.length==16) || shortZPurge)
+                || !((ktb[0]==4 && ktb.length==32) || (ktb[0]==2 && ktb.length==16) || shortZPurge || shortZRestore)
                 || leaf[0]==0 || leaf[1]!=1 || u16(leaf,4)<4)
             throw new RedoException("UNSUPPORTED_INDEX_ROLLBACK_MODE_OR_KTB");
         return new LeafRollback(vector.opcodeMinor()==3 ? IndexUndoPair.Kind.PURGE : IndexUndoPair.Kind.RESTORE,
