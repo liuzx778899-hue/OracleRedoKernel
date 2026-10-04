@@ -13,7 +13,7 @@ class CrossCompensationTest {
     }
     HeapUndoPair pair() throws Exception {
         var p=new HeapCompensationTest().pair();var row=new HeapRowPatch().decode(new HeapCompensationTest().row(),4);
-        var inverse=new HeapRowPatch.Patch(row.kind(),row.dba(),row.slot(),1,null,null,row.columns());
+        var inverse=new HeapRowPatch.Patch(row.kind(),row.dba(),row.slot(),1,null,null,row.columns(),row.extent());
         var h=new UndoHeader(new HeapRowPatch.Xid(3,4,669),new HeapRowPatch.Uba(0x0240203d,399,1),73047,73047,5,false);
         return new HeapUndoPair(677737149,3,p.forward(),new UndoRowPatch(h,inverse,0x0240203c,0,669));
     }
