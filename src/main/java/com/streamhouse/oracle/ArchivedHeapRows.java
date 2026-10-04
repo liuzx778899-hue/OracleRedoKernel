@@ -67,8 +67,8 @@ public final class ArchivedHeapRows {
                     throw new RedoException("ROW_REPLAY_INCOMPLETE_ROLLBACK_GRAPH");
                 continue;
             }
-            if (!t.graph().compensated().isEmpty()) throw new RedoException("UNSUPPORTED_ROW_REPLAY_PARTIAL_ROLLBACK");
-            for (var op:t.operations()) if (op.original().dataObjectId()==scope.heap().dataObject()) selected.put(op.position(),t);
+            // All original and compensation records already passed the complete physical gate.
+            for (var entry:t.graph().live()) if (entry.identity().dataObjectId()==scope.heap().dataObject()) selected.put(entry.position(),t);
         }
         if (selected.isEmpty()) throw new RedoException("NO_ROW_CHANGES_AFTER_BASELINE");
         var rows=new HashMap<>(baseline.rows());var changes=new ArrayList<Change>();var seen=new java.util.HashSet<ArchivedUndoInventory.Position>();
