@@ -1,0 +1,810 @@
+{
+  "adapter_build": {
+    "adapter_runtime_commit": "91e675afc3fb21f35323c523b42ac5e0ad9efd9b",
+    "product_spi_commit": "67bfb7751d032dc8e47f7599ccb9919a1cff7d58",
+    "kernel_runtime_commit": "e7200134585e48959118272df2ddf1d0cb6309de",
+    "kernel_sha256": "15b07ddf4da3f9537b5df8cd996add69e61e6a94b5e92d4e9c7a9c1ed780053f",
+    "spi_contract_jar_sha256": "93e451fe6c16c665cbdc5b5471a9879cd0a01ec7699a5d9666068dc14c2f8523",
+    "adapter_jar_sha256": "79bbd5cfb171ef9d70c29b2307ed8043433568733545bfb4f54f89150f4e5795",
+    "tests": {
+      "tests": 5,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "private_maven_repository": true,
+    "product_shared_checkout_edited": false,
+    "product_full_reactor_verified": false,
+    "kernel_tests_rerun": false
+  },
+  "lab_source_commit": "3c12a7b72e48d7fd3087f01719a52ab48dcf89f3",
+  "module_main_test_pom_unchanged_after_runtime_commit": true,
+  "executed_lab_source_bytes_equal_full_archive": true,
+  "sha256_checked_twice": true,
+  "initial_spi_compile_rc": 1,
+  "utf8_spi_compile_rc": 0,
+  "binary_integration": {
+    "bounded_projected_events": 3,
+    "repeat_bytes_equal": true,
+    "adapter_tests": 5,
+    "public_decoder_rc": 2,
+    "public_decoder_events": 0,
+    "raw_kernel_refusals_at_adapter_boundary": 4,
+    "late_utf8_raw_kernel_events": 3,
+    "late_utf8_projection_stdout_bytes": 0,
+    "independent_comparator_refusals": 2,
+    "source_actions": 0,
+    "target_actions": 0,
+    "legacy_lsn_and_unknown_source_fields": "null",
+    "oracle_positions": "typed sidecar; not SQL Server LSN",
+    "product_deployed": false,
+    "site_accepted": false
+  },
+  "independent_sql": {
+    "original_source_commits": 3,
+    "complete_typed_images": 6,
+    "hidden_column_retained": true,
+    "number_type_verified": "exact NUMBER 11 only; scalar unit tests separate",
+    "mismatches": 0,
+    "errors": [],
+    "site_accepted": false
+  },
+  "late_utf8_kernel_stdout": "RAW_BATCH|3|806c6f636b696e672d636c6f736564",
+  "files": [
+    {
+      "path": "integration/streamhouse-engine-oracle/pom.xml",
+      "bytes": 1481,
+      "sha256": "d48a835b8b0cead47beca0b7814f0d99ad51771447bf4bfa1c3ab9f1ebb36efd"
+    },
+    {
+      "path": "integration/streamhouse-engine-oracle/src/main/java/com/streamhouse/engines/oracle/OracleBatchProjection.java",
+      "bytes": 4453,
+      "sha256": "f34368e235eb3f4e6210e13b799b985ddfa403b88ee473585233ee753f9b2f11"
+    },
+    {
+      "path": "integration/streamhouse-engine-oracle/src/main/java/com/streamhouse/engines/oracle/OracleConnector.java",
+      "bytes": 941,
+      "sha256": "0411e0cd421c8eb5bd18cfab5e3c39933b8a79228aa00cd33cb533ea42d95b00"
+    },
+    {
+      "path": "integration/streamhouse-engine-oracle/src/main/resources/META-INF/services/com.streamhouse.spi.EngineConnector",
+      "bytes": 47,
+      "sha256": "26dd96032c529716e00d788b24770ed741f736e91b9a35c3de32f01e444924b2"
+    },
+    {
+      "path": "integration/streamhouse-engine-oracle/src/test/java/com/streamhouse/engines/oracle/OracleBatchProjectionTest.java",
+      "bytes": 3288,
+      "sha256": "2ddbdde9a1894f52e62bcee8715f4d734eeebbf4e5be25745afc0564979341a5"
+    },
+    {
+      "path": "lab/build_oracle_projection.py",
+      "bytes": 4824,
+      "sha256": "3992a374a7bb52ec6f1651c17c62dc4a8f52849f8aa9f62af75c15b90d670122"
+    },
+    {
+      "path": "lab/compare_oracle_projection19.py",
+      "bytes": 2462,
+      "sha256": "932d18407ace28bcbf331a03df756c531c1a147c19899648af15ab8f898ce7b3"
+    },
+    {
+      "path": "lab/OracleProjectionProbe.java",
+      "bytes": 3904,
+      "sha256": "c0b7af5040485b57e8cfa32fa7dd9fc07ed97fecb1c31f543c3d71464bf6f04f"
+    },
+    {
+      "path": "lab/out/capture-row-faults-20261005/late-before.oracap",
+      "bytes": 7694,
+      "sha256": "377b212ed43162dee9f492068f16ba48400287af9c3abd1110637a5e127c08b2"
+    },
+    {
+      "path": "lab/out/capture-row-faults-20261005/missing-begin-control.oracap",
+      "bytes": 7694,
+      "sha256": "8dc8f61728d7e38258b479c77db749f956ea9b6d50ff3eb69850e0840cf4cc73"
+    },
+    {
+      "path": "lab/out/captured-batch-20261005/actual.stdout.txt",
+      "bytes": 1929,
+      "sha256": "e78a54688cf849fdf94061a7d2cdce2e4c5f84afd319b3cd21cda6987735eabd"
+    },
+    {
+      "path": "lab/out/captured-batch-20261005/kernel.jar",
+      "bytes": 188787,
+      "sha256": "15b07ddf4da3f9537b5df8cd996add69e61e6a94b5e92d4e9c7a9c1ed780053f"
+    },
+    {
+      "path": "lab/out/closed-follow-20261005/baseline/receipt.json",
+      "bytes": 642,
+      "sha256": "151d86e438c16a586a3dc3aa6f302895f727b4112080043c87ddd5b5dc8cba54"
+    },
+    {
+      "path": "lab/out/closed-follow-20261005/baseline/snapshot.stdout.txt",
+      "bytes": 754,
+      "sha256": "646ed950ea5d54be77ea3ba83f3af31eb181a26ab52dc0dbc01ec2d9ab3048bf"
+    },
+    {
+      "path": "lab/out/closed-follow-20261005/capture/sequence-40.oracap",
+      "bytes": 12639678,
+      "sha256": "97ffa0ece0e233092bdfad4fb5c0c896bd591648b0295cc42b485d71754359fe"
+    },
+    {
+      "path": "lab/out/closed-follow-20261005/capture/sequence-41.oracap",
+      "bytes": 5981,
+      "sha256": "36732c64aa8b20280d14d0ae4fab6dcaa795029746cf6d7ef65446ed71d23f8f"
+    },
+    {
+      "path": "lab/out/closed-follow-20261005/capture/sequence-42.oracap",
+      "bytes": 7694,
+      "sha256": "bb9ce199f50ad1fc07ed5b6e802215b3c561cd38d948ea8bcf37e0f86fb49116"
+    },
+    {
+      "path": "lab/out/closed-follow-20261005/step-40.stdout.txt",
+      "bytes": 110,
+      "sha256": "68bf5066431e5e5cb352b61f78268c92bd16757420b6a65697d176c7e7d44885"
+    },
+    {
+      "path": "lab/out/closed-follow-20261005/step-41.stdout.txt",
+      "bytes": 110,
+      "sha256": "80257c410d48809757b4daf94058f0fb276245e7d2298ac00ff4e7ca2479e473"
+    },
+    {
+      "path": "lab/out/closed-follow-20261005/step-42.stdout.txt",
+      "bytes": 109,
+      "sha256": "a19c4351cdc154cdf23a804a657c924c185e28dbba5e6532e3eaf9fc2b3e0780"
+    },
+    {
+      "path": "lab/out/oracle-projection-20261005/actual.command.json",
+      "bytes": 1189,
+      "sha256": "eecf1be74b693ab4fbbae88c812003a9c58ceec0fe26280975a5d098c719d82a"
+    },
+    {
+      "path": "lab/out/oracle-projection-20261005/actual.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/oracle-projection-20261005/actual.stderr.txt",
+      "bytes": 105,
+      "sha256": "17bdc8052d88998038f88fd543539a87ca4b436701c6b8fb605833a9e58f10d9"
+    },
+    {
+      "path": "lab/out/oracle-projection-20261005/actual.stdout.txt",
+      "bytes": 1485,
+      "sha256": "7691accd5f6ea27f9c9b8f504ba60bf1216034febb0071cdd69cfdd7204805ee"
+    },
+    {
+      "path": "lab/out/oracle-projection-20261005/classes/OracleProjectionProbe.class",
+      "bytes": 9685,
+      "sha256": "e610d4cc2f385e048eaa2a8a655eb1cdd94c284c06b2d43a29ab5c6e4723c39f"
+    },
+    {
+      "path": "lab/out/oracle-projection-20261005/compile-probe.command.json",
+      "bytes": 558,
+      "sha256": "be3fc34e523aa0cf2abe54f49672167338c0d8af9eaa955f73dd8709a8fe5a3c"
+    },
+    {
+      "path": "lab/out/oracle-projection-20261005/compile-probe.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/oracle-projection-20261005/compile-probe.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle-projection-20261005/compile-probe.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle-projection-20261005/executed-source/build_oracle_projection.py",
+      "bytes": 4824,
+      "sha256": "3992a374a7bb52ec6f1651c17c62dc4a8f52849f8aa9f62af75c15b90d670122"
+    },
+    {
+      "path": "lab/out/oracle-projection-20261005/executed-source/compare_oracle_projection19.py",
+      "bytes": 2462,
+      "sha256": "932d18407ace28bcbf331a03df756c531c1a147c19899648af15ab8f898ce7b3"
+    },
+    {
+      "path": "lab/out/oracle-projection-20261005/executed-source/OracleProjectionProbe.java",
+      "bytes": 3904,
+      "sha256": "c0b7af5040485b57e8cfa32fa7dd9fc07ed97fecb1c31f543c3d71464bf6f04f"
+    },
+    {
+      "path": "lab/out/oracle-projection-20261005/executed-source/verify_oracle_projection19.py",
+      "bytes": 5835,
+      "sha256": "12ec0a0b8621a977b374ba25ed9695486eb23b009a50991b1ce7646b81a91159"
+    },
+    {
+      "path": "lab/out/oracle-projection-20261005/independent-sql-values.command.json",
+      "bytes": 451,
+      "sha256": "0da4df0084b1db16fcc06f180b07632e219be1155646218e4babf779b14db41b"
+    },
+    {
+      "path": "lab/out/oracle-projection-20261005/independent-sql-values.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/oracle-projection-20261005/independent-sql-values.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle-projection-20261005/independent-sql-values.stdout.txt",
+      "bytes": 223,
+      "sha256": "00c27bcead6762a70975da41a5f99cfc8fb171d382a7c507fc0220cd413dd87f"
+    },
+    {
+      "path": "lab/out/oracle-projection-20261005/kernel.jar",
+      "bytes": 188787,
+      "sha256": "15b07ddf4da3f9537b5df8cd996add69e61e6a94b5e92d4e9c7a9c1ed780053f"
+    },
+    {
+      "path": "lab/out/oracle-projection-20261005/lab-source-tree.zip",
+      "bytes": 2451673,
+      "sha256": "3f7c1e7196bac8d3f0b11ae73ecb3c65a0564ceacdeeb92ec27bc60078fc32cf"
+    },
+    {
+      "path": "lab/out/oracle-projection-20261005/last-value-invalid-utf8.oracap",
+      "bytes": 7694,
+      "sha256": "828c407470381dbda898720e9bce4b02e6974e937d8a36eb70b601a0b391d116"
+    },
+    {
+      "path": "lab/out/oracle-projection-20261005/last-value-kernel-passes.command.json",
+      "bytes": 1200,
+      "sha256": "dbcde6d139037dbc03fbfdee3386b255670aae398bd90ef208a6371ce5e4d978"
+    },
+    {
+      "path": "lab/out/oracle-projection-20261005/last-value-kernel-passes.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/oracle-projection-20261005/last-value-kernel-passes.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle-projection-20261005/last-value-kernel-passes.stdout.txt",
+      "bytes": 44,
+      "sha256": "ebfc77241be076690ee7b74b58058291c106fc1c70ccfe43752b3f4e2b71c8a4"
+    },
+    {
+      "path": "lab/out/oracle-projection-20261005/last-value-projection-refuses.command.json",
+      "bytes": 1196,
+      "sha256": "5f7ac7ccbf386eb0fe7a1e9f4ee3efa11d1030deb3efc471f8d3a9497494cde9"
+    },
+    {
+      "path": "lab/out/oracle-projection-20261005/last-value-projection-refuses.rc.txt",
+      "bytes": 1,
+      "sha256": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b"
+    },
+    {
+      "path": "lab/out/oracle-projection-20261005/last-value-projection-refuses.stderr.txt",
+      "bytes": 421,
+      "sha256": "54dd3b26b83542a4daf2964ffcde0990a4fe7208e7f6deba639be39aeb0039bc"
+    },
+    {
+      "path": "lab/out/oracle-projection-20261005/last-value-projection-refuses.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle-projection-20261005/late-before-rows.command.json",
+      "bytes": 1185,
+      "sha256": "0ddacbea1c645352b5a132c5436bbeacf688b7486675c95817c70aa611d03eb4"
+    },
+    {
+      "path": "lab/out/oracle-projection-20261005/late-before-rows.rc.txt",
+      "bytes": 1,
+      "sha256": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b"
+    },
+    {
+      "path": "lab/out/oracle-projection-20261005/late-before-rows.stderr.txt",
+      "bytes": 479,
+      "sha256": "4450a0fb144d38b74e3815124beb294b5d74c7d015ca016b3f73763adf4d4606"
+    },
+    {
+      "path": "lab/out/oracle-projection-20261005/late-before-rows.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle-projection-20261005/missing-begin-control.command.json",
+      "bytes": 1195,
+      "sha256": "93c5794d88c17afc9c82cbcc5ac659a36a8b75994c74691680c3d97273236e37"
+    },
+    {
+      "path": "lab/out/oracle-projection-20261005/missing-begin-control.rc.txt",
+      "bytes": 1,
+      "sha256": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b"
+    },
+    {
+      "path": "lab/out/oracle-projection-20261005/missing-begin-control.stderr.txt",
+      "bytes": 1040,
+      "sha256": "fff64cc6ef9d97323cc429ce184b3aed9e1318f60cc4037bacb86f7fece399ea"
+    },
+    {
+      "path": "lab/out/oracle-projection-20261005/missing-begin-control.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle-projection-20261005/missing-event.command.json",
+      "bytes": 451,
+      "sha256": "e78172c753d8832c6317e6059e35c5e73b8e8e92f162ecd901bf35f3afd4716f"
+    },
+    {
+      "path": "lab/out/oracle-projection-20261005/missing-event.rc.txt",
+      "bytes": 1,
+      "sha256": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b"
+    },
+    {
+      "path": "lab/out/oracle-projection-20261005/missing-event.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle-projection-20261005/missing-event.stdout.txt",
+      "bytes": 376,
+      "sha256": "73f7e4d1a7a15ed6b5285b825d071800b6772fc65c50aa4b01112435a20ca0b7"
+    },
+    {
+      "path": "lab/out/oracle-projection-20261005/missing-event.txt",
+      "bytes": 1090,
+      "sha256": "69ce9282d76ab478501141ff323553760cb13a26e2becf80ed8d1a0b834d861b"
+    },
+    {
+      "path": "lab/out/oracle-projection-20261005/missing-sequence.command.json",
+      "bytes": 1018,
+      "sha256": "f912f4a6a471beda6fb4f83594e58be708464d49efd16dd60392574d100e78c3"
+    },
+    {
+      "path": "lab/out/oracle-projection-20261005/missing-sequence.rc.txt",
+      "bytes": 1,
+      "sha256": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b"
+    },
+    {
+      "path": "lab/out/oracle-projection-20261005/missing-sequence.stderr.txt",
+      "bytes": 809,
+      "sha256": "9404f2400b94c511cd23b0829a429cefa83377b7175729db3362058bf8232b7f"
+    },
+    {
+      "path": "lab/out/oracle-projection-20261005/missing-sequence.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle-projection-20261005/proof.json",
+      "bytes": 535,
+      "sha256": "d2f8be07e12f35bf750cd924fae293a1a7c88fdc3677a4910fcc6496556a28ed"
+    },
+    {
+      "path": "lab/out/oracle-projection-20261005/public-gate.command.json",
+      "bytes": 591,
+      "sha256": "7170c1eae7ab994bf9f47cb26bf1e8de9fc0c7aa8afc94127b00da96a50a3f5a"
+    },
+    {
+      "path": "lab/out/oracle-projection-20261005/public-gate.rc.txt",
+      "bytes": 1,
+      "sha256": "d4735e3a265e16eee03f59718b9b5d03019c07d8b6c51f90da3a666eec13ab35"
+    },
+    {
+      "path": "lab/out/oracle-projection-20261005/public-gate.stderr.txt",
+      "bytes": 50,
+      "sha256": "cdc7ccd0786e30b5d25d7cb467af748353c2ebd23cd1ff9b3858eb4d44a602c6"
+    },
+    {
+      "path": "lab/out/oracle-projection-20261005/public-gate.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle-projection-20261005/repeat-adapter.command.json",
+      "bytes": 1189,
+      "sha256": "eecf1be74b693ab4fbbae88c812003a9c58ceec0fe26280975a5d098c719d82a"
+    },
+    {
+      "path": "lab/out/oracle-projection-20261005/repeat-adapter.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/oracle-projection-20261005/repeat-adapter.stderr.txt",
+      "bytes": 105,
+      "sha256": "17bdc8052d88998038f88fd543539a87ca4b436701c6b8fb605833a9e58f10d9"
+    },
+    {
+      "path": "lab/out/oracle-projection-20261005/repeat-adapter.stdout.txt",
+      "bytes": 1485,
+      "sha256": "7691accd5f6ea27f9c9b8f504ba60bf1216034febb0071cdd69cfdd7204805ee"
+    },
+    {
+      "path": "lab/out/oracle-projection-20261005/streamhouse-engine-oracle-0.1.0-SNAPSHOT.jar",
+      "bytes": 11037,
+      "sha256": "79bbd5cfb171ef9d70c29b2307ed8043433568733545bfb4f54f89150f4e5795"
+    },
+    {
+      "path": "lab/out/oracle-projection-20261005/streamhouse-spi-0.1.0-SNAPSHOT.jar",
+      "bytes": 13901,
+      "sha256": "93e451fe6c16c665cbdc5b5471a9879cd0a01ec7699a5d9666068dc14c2f8523"
+    },
+    {
+      "path": "lab/out/oracle-projection-20261005/untrusted-baseline.command.json",
+      "bytes": 1189,
+      "sha256": "74d5a02965c0133586b6e279fc0e5416d5baee3d3308899c013c0f7261905263"
+    },
+    {
+      "path": "lab/out/oracle-projection-20261005/untrusted-baseline.rc.txt",
+      "bytes": 1,
+      "sha256": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b"
+    },
+    {
+      "path": "lab/out/oracle-projection-20261005/untrusted-baseline.stderr.txt",
+      "bytes": 324,
+      "sha256": "5b2a2bb32a23590acdbbe9a001e8d28ff39363231667076ff2541b95184170bd"
+    },
+    {
+      "path": "lab/out/oracle-projection-20261005/untrusted-baseline.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle-projection-20261005/wrong-after.command.json",
+      "bytes": 449,
+      "sha256": "657bca1068ce7972daaddb33399bb45657b836ad72affe24bda00d1f11393b28"
+    },
+    {
+      "path": "lab/out/oracle-projection-20261005/wrong-after.rc.txt",
+      "bytes": 1,
+      "sha256": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b"
+    },
+    {
+      "path": "lab/out/oracle-projection-20261005/wrong-after.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle-projection-20261005/wrong-after.stdout.txt",
+      "bytes": 259,
+      "sha256": "d36a19f11fb67ac49a9c3f4e1eab75409951d414b447d412715987e0a7a9cebb"
+    },
+    {
+      "path": "lab/out/oracle-projection-20261005/wrong-after.txt",
+      "bytes": 1465,
+      "sha256": "ba365baf15365e2df418c291cde6c035ce32d9cf78960ebe33b5156411a457d2"
+    },
+    {
+      "path": "lab/out/release-oracle-projection-20261005/adapter-dependencies.command.json",
+      "bytes": 352,
+      "sha256": "a16d6a03a842ddfa06390ae99446ee770a30b85eec3318837f3728c0438d01fc"
+    },
+    {
+      "path": "lab/out/release-oracle-projection-20261005/adapter-dependencies.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/release-oracle-projection-20261005/adapter-dependencies.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/release-oracle-projection-20261005/adapter-dependencies.stdout.txt",
+      "bytes": 112771,
+      "sha256": "339925b45d8adb66f11e3001c764d7d4ddc341f31ec46ac863935bf5b1b224f8"
+    },
+    {
+      "path": "lab/out/release-oracle-projection-20261005/adapter-source-tree.zip",
+      "bytes": 2443907,
+      "sha256": "af766274a8ed0294bfb807f1bf5592e404862b0d0384921a55936ec159ee06a3"
+    },
+    {
+      "path": "lab/out/release-oracle-projection-20261005/adapter-verify.command.json",
+      "bytes": 308,
+      "sha256": "2a516786dce0483c995ea62b47237600cf13ce450b74612891fb1be68df6d9a1"
+    },
+    {
+      "path": "lab/out/release-oracle-projection-20261005/adapter-verify.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/release-oracle-projection-20261005/adapter-verify.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/release-oracle-projection-20261005/adapter-verify.stdout.txt",
+      "bytes": 105724,
+      "sha256": "7b50908330bb4af711aa1f8a53f8084ab9a926db90c7a05f34a6cf6e29cf266b"
+    },
+    {
+      "path": "lab/out/release-oracle-projection-20261005/compile-spi-contract-utf8.command.json",
+      "bytes": 1598,
+      "sha256": "d5cee05838ee7f7325d1f044ed7d24cdc4a7e4408db70c9231322c8f6b9b6541"
+    },
+    {
+      "path": "lab/out/release-oracle-projection-20261005/compile-spi-contract-utf8.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/release-oracle-projection-20261005/compile-spi-contract-utf8.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/release-oracle-projection-20261005/compile-spi-contract-utf8.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/release-oracle-projection-20261005/compile-spi-contract.command.json",
+      "bytes": 1576,
+      "sha256": "8e91fa109d6772fd5db916f75da2a7528350d81d16406365f379b91a51f796cb"
+    },
+    {
+      "path": "lab/out/release-oracle-projection-20261005/compile-spi-contract.rc.txt",
+      "bytes": 1,
+      "sha256": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b"
+    },
+    {
+      "path": "lab/out/release-oracle-projection-20261005/compile-spi-contract.stderr.txt",
+      "bytes": 19781,
+      "sha256": "09f2281a720a12c821a2442444af42cabbcbdf0590141f7c4404a159024704ec"
+    },
+    {
+      "path": "lab/out/release-oracle-projection-20261005/compile-spi-contract.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/release-oracle-projection-20261005/freeze-adapter-tree.command.json",
+      "bytes": 284,
+      "sha256": "5215c749366c3926c5693df541ab59401cc0f5ceddf513e9ceabea1c030623b1"
+    },
+    {
+      "path": "lab/out/release-oracle-projection-20261005/freeze-adapter-tree.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/release-oracle-projection-20261005/freeze-adapter-tree.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/release-oracle-projection-20261005/freeze-adapter-tree.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/release-oracle-projection-20261005/freeze-product-spi.command.json",
+      "bytes": 318,
+      "sha256": "140e49fb63cda4803ef94ed7abf766702308d71343e347fb93c8e330c65ff388"
+    },
+    {
+      "path": "lab/out/release-oracle-projection-20261005/freeze-product-spi.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/release-oracle-projection-20261005/freeze-product-spi.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/release-oracle-projection-20261005/freeze-product-spi.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/release-oracle-projection-20261005/install-kernel.command.json",
+      "bytes": 559,
+      "sha256": "fdfdc6aaeab70443cd65bae9590c9e52837a7a04f9916cf536a7df693e1f6ab5"
+    },
+    {
+      "path": "lab/out/release-oracle-projection-20261005/install-kernel.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/release-oracle-projection-20261005/install-kernel.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/release-oracle-projection-20261005/install-kernel.stdout.txt",
+      "bytes": 1256,
+      "sha256": "2a1a89a7924edb91f045d4df67347093b741c87ab973e9efb9f5d37e6b708d4d"
+    },
+    {
+      "path": "lab/out/release-oracle-projection-20261005/install-spi.command.json",
+      "bytes": 576,
+      "sha256": "d93a89b4176ecee9d14bbd0e91740ed37f8e0ec9e81072fa366ad5a7ef548392"
+    },
+    {
+      "path": "lab/out/release-oracle-projection-20261005/install-spi.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/release-oracle-projection-20261005/install-spi.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/release-oracle-projection-20261005/install-spi.stdout.txt",
+      "bytes": 10643,
+      "sha256": "9a6741be5a6a85f5fdf50899a3157fe2792df6e9974b1dd850a0c7144d178fac"
+    },
+    {
+      "path": "lab/out/release-oracle-projection-20261005/package-spi-contract.command.json",
+      "bytes": 355,
+      "sha256": "2daece0d8024301167145434056955438f62d2da5d10264688ec49d2d7a7f4e8"
+    },
+    {
+      "path": "lab/out/release-oracle-projection-20261005/package-spi-contract.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/release-oracle-projection-20261005/package-spi-contract.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/release-oracle-projection-20261005/package-spi-contract.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/release-oracle-projection-20261005/product-spi-source/server/streamhouse-spi/src/main/java/com/streamhouse/spi/CapDecoder.java",
+      "bytes": 1901,
+      "sha256": "55f095f9eefd1537d1458a407e0b37d3de6b6a696c48722809ea416049d04784"
+    },
+    {
+      "path": "lab/out/release-oracle-projection-20261005/product-spi-source/server/streamhouse-spi/src/main/java/com/streamhouse/spi/ConnectorDescriptor.java",
+      "bytes": 269,
+      "sha256": "dbef91ec0f3f365969cf9849b661e38206c8c61d234eebf7a4b1f1d52a328842"
+    },
+    {
+      "path": "lab/out/release-oracle-projection-20261005/product-spi-source/server/streamhouse-spi/src/main/java/com/streamhouse/spi/ConnectorRegistry.java",
+      "bytes": 1739,
+      "sha256": "8da10744d9682ca2bef5a47886081ad1c8889697344c2530c46e1345c8d9bf9f"
+    },
+    {
+      "path": "lab/out/release-oracle-projection-20261005/product-spi-source/server/streamhouse-spi/src/main/java/com/streamhouse/spi/EngineConnector.java",
+      "bytes": 754,
+      "sha256": "751570c67c6a760c91af22e8494175f89aef0f2406b8e6ae818f048df15ed4d8"
+    },
+    {
+      "path": "lab/out/release-oracle-projection-20261005/product-spi-source/server/streamhouse-spi/src/main/java/com/streamhouse/spi/EventEnvelope.java",
+      "bytes": 1462,
+      "sha256": "34c3951377aaa882e3b07bd914abe113d099ad766a97a63f1e9b5e4576b7e384"
+    },
+    {
+      "path": "lab/out/release-oracle-projection-20261005/product-spi-source/server/streamhouse-spi/src/main/java/com/streamhouse/spi/WindowDescriptor.java",
+      "bytes": 559,
+      "sha256": "c9f8b4195f2b59f4f6ee1501e5f957e8f6ef95821cb8cb11a038487e83efa9c2"
+    },
+    {
+      "path": "lab/out/release-oracle-projection-20261005/product-spi-source/server/streamhouse-spi/src/main/java/com/streamhouse/spi/WindowScanner.java",
+      "bytes": 316,
+      "sha256": "160f83060a55d1e7ebdf50d1c551245180e123b5284831243c1093ced8e8f677"
+    },
+    {
+      "path": "lab/out/release-oracle-projection-20261005/product-spi-source.zip",
+      "bytes": 6976,
+      "sha256": "4263f83351b654c5af52ba73916bfd68e8e8f7d95933d0a28c9ee013daab6350"
+    },
+    {
+      "path": "lab/out/release-oracle-projection-20261005/proof.json",
+      "bytes": 745,
+      "sha256": "87dc44418491f708d9343549f93b19ca235db613e9389ce88c405af20fc3d25d"
+    },
+    {
+      "path": "lab/out/release-oracle-projection-20261005/spi-classes/com/streamhouse/spi/CapDecoder$DecodeContext.class",
+      "bytes": 2056,
+      "sha256": "e8700b936810d0a029c480cd19a3cabf2cd19d368bd769f4393d45e1ef92b8d1"
+    },
+    {
+      "path": "lab/out/release-oracle-projection-20261005/spi-classes/com/streamhouse/spi/CapDecoder$DecodeResult.class",
+      "bytes": 2880,
+      "sha256": "79c56abd4f43efbb779a64d8731e663ffb274c49d4e1528e5c9635b26d4702cb"
+    },
+    {
+      "path": "lab/out/release-oracle-projection-20261005/spi-classes/com/streamhouse/spi/CapDecoder.class",
+      "bytes": 497,
+      "sha256": "d34d539caf401b76498b1fceb9f3d97e0813b862c4d18392df702015430a539e"
+    },
+    {
+      "path": "lab/out/release-oracle-projection-20261005/spi-classes/com/streamhouse/spi/ConnectorDescriptor.class",
+      "bytes": 1653,
+      "sha256": "8c867ce5bcf5df945109b72fdcf4c026437986fa814b296b5c559c5c9a6c7557"
+    },
+    {
+      "path": "lab/out/release-oracle-projection-20261005/spi-classes/com/streamhouse/spi/ConnectorRegistry.class",
+      "bytes": 3168,
+      "sha256": "203dd044737b6708ec0c0a5b88429db9a5b04f8ac5cdd927cd3ccf3286130d27"
+    },
+    {
+      "path": "lab/out/release-oracle-projection-20261005/spi-classes/com/streamhouse/spi/EngineConnector.class",
+      "bytes": 455,
+      "sha256": "4e40c596d15c70d46d55d054edea1e23069ec1a24eb6677768120ee5339f82f5"
+    },
+    {
+      "path": "lab/out/release-oracle-projection-20261005/spi-classes/com/streamhouse/spi/EventEnvelope$Metadata.class",
+      "bytes": 1710,
+      "sha256": "12bc6509642848411c65956f25e30438878d29e5f40f2eb1c1f95f3ec17cfff9"
+    },
+    {
+      "path": "lab/out/release-oracle-projection-20261005/spi-classes/com/streamhouse/spi/EventEnvelope$Operation.class",
+      "bytes": 1194,
+      "sha256": "67a03c2a9020477edaa3bdfdf2aaa397bc67f090743faf783fc39a8a1506556e"
+    },
+    {
+      "path": "lab/out/release-oracle-projection-20261005/spi-classes/com/streamhouse/spi/EventEnvelope$Source.class",
+      "bytes": 1696,
+      "sha256": "da67cf71053601eb4ff5786b95567dd6276ff79a373a7934b4b0fbe6b40ff41e"
+    },
+    {
+      "path": "lab/out/release-oracle-projection-20261005/spi-classes/com/streamhouse/spi/EventEnvelope$TableRef.class",
+      "bytes": 1441,
+      "sha256": "79686c425edfbc416a25254710723514711d76d851eba80b1c358c9c41f7b5a2"
+    },
+    {
+      "path": "lab/out/release-oracle-projection-20261005/spi-classes/com/streamhouse/spi/EventEnvelope$TransactionRef.class",
+      "bytes": 1852,
+      "sha256": "01789f5dea9799b9dff6f18da9b9df587da9e8943b4e89c063252ec551cb5452"
+    },
+    {
+      "path": "lab/out/release-oracle-projection-20261005/spi-classes/com/streamhouse/spi/EventEnvelope.class",
+      "bytes": 4123,
+      "sha256": "217e60ab1a2ed9253b2a02464d8047cdf45ff0473bd8dfe02226af816e511e72"
+    },
+    {
+      "path": "lab/out/release-oracle-projection-20261005/spi-classes/com/streamhouse/spi/WindowDescriptor.class",
+      "bytes": 2785,
+      "sha256": "628e8a6c114a49a39ce59e007a2308bace77bf93e15bc07ccf874a0950954e13"
+    },
+    {
+      "path": "lab/out/release-oracle-projection-20261005/spi-classes/com/streamhouse/spi/WindowScanner.class",
+      "bytes": 345,
+      "sha256": "34d8924162843408bc731b5b566aa7f043052ac11f467042bfe468e61389adfe"
+    },
+    {
+      "path": "lab/out/release-oracle-projection-20261005/streamhouse-engine-oracle-0.1.0-SNAPSHOT.jar",
+      "bytes": 11037,
+      "sha256": "79bbd5cfb171ef9d70c29b2307ed8043433568733545bfb4f54f89150f4e5795"
+    },
+    {
+      "path": "lab/out/release-oracle-projection-20261005/streamhouse-spi-0.1.0-SNAPSHOT.jar",
+      "bytes": 13901,
+      "sha256": "93e451fe6c16c665cbdc5b5471a9879cd0a01ec7699a5d9666068dc14c2f8523"
+    },
+    {
+      "path": "lab/out/release-oracle-projection-20261005/surefire-reports/2026-10-05T04-14-52_112.dumpstream",
+      "bytes": 359,
+      "sha256": "bcb0b78bb8b7b47c63d6243cced2b3f11e981dfbf7556173eab54cbb920d1a98"
+    },
+    {
+      "path": "lab/out/release-oracle-projection-20261005/surefire-reports/com.streamhouse.engines.oracle.OracleBatchProjectionTest.txt",
+      "bytes": 366,
+      "sha256": "80c1a4d212f70364117a27e1e02d78487e01f0c2b48f856856702368a19b4c9c"
+    },
+    {
+      "path": "lab/out/release-oracle-projection-20261005/surefire-reports/TEST-com.streamhouse.engines.oracle.OracleBatchProjectionTest.xml",
+      "bytes": 12282,
+      "sha256": "a38ac461d9156dd6110f6a4637cbf741820a040d9b99eb98f796aceac68c10a2"
+    },
+    {
+      "path": "lab/verify_oracle_projection19.py",
+      "bytes": 5835,
+      "sha256": "12ec0a0b8621a977b374ba25ed9695486eb23b009a50991b1ce7646b81a91159"
+    }
+  ]
+}

@@ -12,11 +12,13 @@
 | W3 基础行/类型 | 进行中：scalar + pair + KDOM2单列扩展值 | 通过：18pair/302长值patch；完整行待证 | 进行中：物理配对；字典/基线待证 | 未开始 | 待证 | 未开始 |
 | W4 事务/回滚 | 进行中：有序history/覆盖/heap+index补偿、同源完整XID归属及有源位置重放 | 通过：203测试；seq21—24自主发现基线/A/B共12物理图；自主对象头关联；seq19—24六位置、seq21—24有限双上下文完整图与拒绝证据；九笔旧图及六批长heap证据保留 | 进行中：有界自主物理入口已交付；完整控制/页维护/跨块关联/恢复待证；不当通用生产能力 | 未开始 | 待证 | 未开始 |
 | W5 SCN字典/基线 | 进行中：extent/完整行、ASOF/回执/typed世代，有限cleanout、闭合图live选择、commit SCN重放及LKR独立LOCK节点 | 通过：233测试制品；seq37—39真实锁等待三完整行/native/四SQL零差异；seq36 rollback-only及seq33—35旧批次空结果，既有并发/行证据保留；生产可信交接/历史字典待证 | 进行中：有限不同行并发、全/部分回滚、空批次、真实锁等待但redo事务窗口串行通过；活跃同key重叠/相同commit SCN支持/无目标静默/多savepoint/跨块/初始恢复/历史schema待证 | 未开始 | 待证 | 未开始 |
-| W6 StreamHouse接入 | 进行中：内核类型化完整capture batch/API契约及接入执行包；产品adapter未交付 | 通过：245测试、真实三UPDATE新API/native六起止SCN/完整行/六拒绝；有界SQLite目标commit/ACK；生产方言/可信交接待证 | 未开始：内核API及SQLite实验不当产品链通过 | 未开始 | 待证 | 未开始 |
+| W6 StreamHouse接入 | 进行中：独立Oracle adapter/SPI发现、严格整批projection与类型化sidecar；公开decoder门禁未解除 | 通过：内核245保留、adapter5测试、真实三UPDATE/六typed像/晚UTF8零输出；窗口/可信schema/真实支持方言target receipt待证 | 通过有限SPI binary转换；完整产品pipeline未验证，SQLite实验不当产品链通过 | 未开始 | 待证 | 未开始 |
 | W7 online采集 | 进行中：关闭代际多member跟踪/回执审计/独占重启续接；共用capture输入接完整图/行 | 通过：原40—42重启追加43/9161归档数据块零差异；两真实collector SIGKILL/完整尾恢复与半帧保全拒绝/11反例；既有240测试及图/行保留；实时/高压复用/断电/Windows/ASM待证 | 通过有限关闭批次与collector重启：journal→record/vector→typed事务→可信baseline完整UPDATE；跨批活跃状态/生产字典/消费checkpoint/目标ACK待证，有关闭延迟 | 未开始 | 待证 | 未开始 |
 | W8-W11 扩展类型/LOB/RAC/ASM/TDE | 未开始 | 待证 | 未开始 | 未开始 | 待证 | 未开始 |
 
 ## 当前证据
+
+最新：[Oracle独立SPI转换模块](DELIVERY_W6_ORACLE_PROJECTION_20261005.md)，模块91e675a、内核e720013不变，[清单](evidence/DELIVERY-oracle-projection-20261005.json)。adapter79bbd5cf…、产品完整67bfb77公开SPI contract jar93e451fe…，私有Maven不替换全局制品；5模块测试通过/245内核轮次不重跑。冻结raw三UPDATE投影实际SPI、NUMBER/VARCHAR2/隐藏列六完整像与原SQL零差异；四输入拒绝/晚UTF8 raw内核3事件而转换整批stdout0、两typed比较反例。Oracle身份命名空间及类型化SCN/undo sidecar，不伪造LSN/GUID/commitAt，公开decoder rc2/0事件且无授权配置绕过。GBK首编失败保留，仅UTF8续接。无源/目标/产品部署动作，下一步真实Oracle专属target DML/commit凭证及ACK；窗口/可信schema/完整产品pipeline/现场/发布未通过。
 
 最新：[W6完整capture batch接口](DELIVERY_W6_CAPTURED_BATCH_20261005.md)，生产e720013、独立lab f7303ac，[清单](evidence/DELIVERY-captured-batch-20261005.json)。新jar15b07ddf…/245测试，通过新不可变API缓冲完整scope、绑定source/schema/完整XID/undo位置/实际起止record SCN，eventId与payload/batch摘要分离。冻结40—42三UPDATE输出与旧完整行逐字节一致，新API重复身份/内容稳定；native三undo位置/六起止SCN、三完整行/原SQL零差异，六整批stdout0拒绝、两metadata比较反例检出。没有源动作或既有解析类变化，公共events仍拒绝。下一步独立产品Oracle adapter/严格整批scalar解值和Oracle位置映射，再真实支持方言target receipt；产品部署/现场/发布待证。
 
