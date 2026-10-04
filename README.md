@@ -6,6 +6,8 @@ Oracle Direct Redo 独立解析内核。目标：源库零配置改动，解析�
 
 活动窗口的5.2控制另经`TransactionLifecycle.observeSlotControl`检查同segment/slot的完整sequence冲突与不可读身份，拒绝后锁定；sqn0仍需advance/head-update独立绑定。[12项派生冲突前后证据](docs/workorders/DELIVERY_W4_WINDOW_SLOT_20261004.md)。
 
+真实跨块整事务heap rollback新增有限0x14结束、短KTB Z packed XR和空head关闭路径，仍要求完整候选覆盖及来源绑定身份；index/恢复/完整生产组装待证。[交付](docs/workorders/DELIVERY_W4_FULL_ROLLBACK_20261004.md)。归档copy不等于在线capture，CURRENT只读打开也不算捕获完成；[W7执行包](docs/workorders/DISPATCH_W7_ONLINE_CAPTURE_20261004.md)。
+
 **当前支持文件/块/record/vector结构及有限单行heap物理patch、undo header，完整DML/事务/字典尚未验收。** `events` 命令明确失败且零事件，不能用于生产同步。进度看 [STATUS](docs/workorders/STATUS.md)，方案看 [执行方案](docs/Oracle_Direct_Redo_技术方案_v0.1_20261004.md)。
 
 使用 JDK17（Windows默认Java8需覆盖）：

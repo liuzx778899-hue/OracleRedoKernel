@@ -10,10 +10,10 @@
 | W1 文件/块 scanner | 通过：首批fa61476 | 通过：19c/21c有界样本/5个真实派生反例 | 待证：真实capture | 未开始 | 待证 | 未开始 |
 | W2 record/vector | 通过：首批fa61476 | 通过：19c seq8/9完整dump、21c选定范围 | 待证：事务/字典 | 未开始 | 待证 | 未开始 |
 | W3 基础行/类型 | 进行中：scalar + pair + KDOM2单列扩展值 | 通过：18pair/302长值patch；完整行待证 | 进行中：物理配对；字典/基线待证 | 未开始 | 待证 | 未开始 |
-| W4 事务/回滚 | 进行中：有序history/自主补偿覆盖/slot身份排除 | 通过：五批636节点/310补偿/326 live含真实二次回滚；20选择及12slot冲突拒绝；完整事务待证 | 进行中：并发归属/其他控制/index/恢复待证 | 未开始 | 待证 | 未开始 |
+| W4 事务/回滚 | 进行中：有序history/覆盖/slot排除/完整heap rollback | 通过：六批756节点/430补偿/326 live含二次及整事务回滚；18新真实派生拒绝；完整事务待证 | 进行中：并发归属/其他控制/index/恢复待证 | 未开始 | 待证 | 未开始 |
 | W5 SCN字典/基线 | 未开始 | 待证 | 未开始 | 未开始 | 待证 | 未开始 |
 | W6 StreamHouse接入 | 未开始 | 待证 | 未开始 | 未开始 | 待证 | 未开始 |
-| W7 online采集 | 未开始 | 待证 | 未开始 | 未开始 | 待证 | 未开始 |
+| W7 online采集 | 未开始：捕获持久化待实现 | 通过：专属Linux CURRENT文件只读打开；持续捕获/Windows/ASM待证 | 未开始 | 未开始 | 待证 | 未开始 |
 | W8-W11 扩展类型/LOB/RAC/ASM/TDE | 未开始 | 待证 | 未开始 | 未开始 | 待证 | 未开始 |
 
 ## 当前证据
@@ -31,6 +31,10 @@
 - 首轮PDB切日志ORA-65040、CDB VLD9/13/marker结构缺口、SQLPlus中文显示与LogMiner status3均保留原文；两会话交叉事务/跨switch动作已执行。细节见[首批反馈](DELIVERY_W0_W2_20261004.md)。
 
 ## 接续与限制
+
+最新：[整事务rollback交付](DELIVERY_W4_FULL_ROLLBACK_20261004.md)，封存源码076865c，[清单](evidence/DELIVERY-076865c.json)。124项测试通过；新seq15/XID2.13.581的120原始/120补偿/0 live与native零差异，20行恢复基线，有限0x14结束与两条短KTB Z完成；10真实结束反例及锁定、8真实Z反例拒绝。同件jar六批长事务756/430/326回归通过，首轮字段索引错误及实际KTB拒绝保留。并发/index/恢复/W5继续待证，CDC拒绝。
+
+捕获问题：[W7执行包](DISPATCH_W7_ONLINE_CAPTURE_20261004.md)，[CURRENT只读探测](evidence/READ-online-open-20261004.json)。专属Linux Oracle运行中、LGWR存在、seq16 CURRENT只读1024字节rc0且读取前后未切换。只证明该次访问，不证明并发写一致性/持续流/Windows共享或ASM；当前归档copy不是ldfcap，W7捕获持久化未实现。
 
 最新：[真实第二次savepoint回滚研究](RESEARCH_W4_SECOND_ROLLBACK_20261004.md)，研究脚本/驱动cfdcdc0，[清单](evidence/RESEARCH-second-rollback-20261004.json)。专属无supplemental新表一次性执行并冻结seq14/XID3.11.671，146原始/70补偿含9跨块/76保留与native零差异，最终两行SQL通过；真实记录阶段120节点→60补偿→20节点→10补偿→6节点。五批合计636/310/326同件既有jar回归通过，生产内核9a2344b不变。首次研究编译依赖漏项和native未来候选误纳失败均保全，验证器按native RBA修正。整个rollback/index/恢复/W5待证，CDC继续拒绝。
 

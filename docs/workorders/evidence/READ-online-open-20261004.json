@@ -1,0 +1,102 @@
+{
+  "source": "dedicated Linux Oracle19.3 container, ARCHIVELOG",
+  "current_before": [
+    [
+      "CURRENT",
+      "1",
+      "16",
+      "1",
+      "CURRENT",
+      "/opt/oracle/oradata/ORK19/redo01.log"
+    ]
+  ],
+  "current_after": [
+    "SOURCE|ORK19|1276726821|ARCHIVELOG",
+    "CURRENT|1|16|1|CURRENT|/opt/oracle/oradata/ORK19/redo01.log"
+  ],
+  "bytes_read": 1024,
+  "rc": 0,
+  "limitations": [
+    "Read-open only, no writes or forced log switch",
+    "Does not prove LGWR wrote concurrently with dd",
+    "No stream, durable journal, gap/reuse handling or ACK",
+    "Does not prove Windows sharing flags or ASM access"
+  ],
+  "evidence_files": [
+    {
+      "path": "lab/out/online-read-probe-20261004/after.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/online-read-probe-20261004/after.stdout.txt",
+      "bytes": 95,
+      "sha256": "f939a11c9b034b0e01ac10616b6ed8e24a46dec64143ec63d93945957fb77f89"
+    },
+    {
+      "path": "lab/out/online-read-probe-20261004/binding.stdout.txt",
+      "bytes": 84,
+      "sha256": "663213c6ddff7be1e55f48031ca6e99d821fac874d4aa01eb41eb0ef08ee52b2"
+    },
+    {
+      "path": "lab/out/online-read-probe-20261004/commands.json",
+      "bytes": 851,
+      "sha256": "cdc45ddef8cb10253b532b95ce79a7e5db708ddf3771f2894cad22fb9791e065"
+    },
+    {
+      "path": "lab/out/online-read-probe-20261004/current.rc.txt",
+      "bytes": 3,
+      "sha256": "13bf7b3039c63bf5a50491fa3cfd8eb4e699d1ba1436315aef9cbe5711530354"
+    },
+    {
+      "path": "lab/out/online-read-probe-20261004/current.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/online-read-probe-20261004/current.stdout.txt",
+      "bytes": 95,
+      "sha256": "f939a11c9b034b0e01ac10616b6ed8e24a46dec64143ec63d93945957fb77f89"
+    },
+    {
+      "path": "lab/out/online-read-probe-20261004/identity.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/online-read-probe-20261004/identity.stdout.txt",
+      "bytes": 141,
+      "sha256": "83f064fc30b8db71abad4ba00e9ef925287ece9b7e9257aca013a2a21509bd5b"
+    },
+    {
+      "path": "lab/out/online-read-probe-20261004/processes.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/online-read-probe-20261004/processes.stdout.txt",
+      "bytes": 3557,
+      "sha256": "87f0f23711a42de5c0f26448aff1c9cc077c7c3db50839c25e81e370f0f8cc61"
+    },
+    {
+      "path": "lab/out/online-read-probe-20261004/read.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/online-read-probe-20261004/read.stdout.bin",
+      "bytes": 1024,
+      "sha256": "94fdc8a19d4dc90c51d252ded7b880b820a310a9f534568416f11f78239bb348"
+    },
+    {
+      "path": "lab/out/online-read-probe.py",
+      "bytes": 2162,
+      "sha256": "6cbafea09fc595c4a7f1529dbf3a070b2a41927fa601e970e9d8e84803187023"
+    },
+    {
+      "path": "lab/out/probe-current-redo.sql",
+      "bytes": 376,
+      "sha256": "6afdb04658ceba437e40204a9519eac07279fa9e552eb8023221adcb2ed24631"
+    }
+  ]
+}
