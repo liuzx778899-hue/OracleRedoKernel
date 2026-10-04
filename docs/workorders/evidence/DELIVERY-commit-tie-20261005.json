@@ -1,0 +1,235 @@
+{
+  "runtime_source": "5bfde6407e357fe522421d22091a7b29b2fc637c",
+  "derived_inputs": 2,
+  "physical_original_cancelled_live": [
+    6,
+    0,
+    6
+  ],
+  "specific_commit_scn_ambiguity_rejection_verified": true,
+  "real_equal_commit_scn_support_accepted": false,
+  "empty_result_accepted": false,
+  "continuous_capture_accepted": false,
+  "streamhouse_integration_accepted": false,
+  "site_accepted": false,
+  "release_accepted": false,
+  "cdc_events": 0,
+  "sha256_passes": 2,
+  "files": [
+    {
+      "path": "docs/workorders/DELIVERY_W5_COMMIT_TIE_20261005.md",
+      "bytes": 3150,
+      "sha256": "08200d4f9c7f8d7f77aa4a9976e7d76ca7a1514bf211fc12bec0577693460bff"
+    },
+    {
+      "path": "docs/workorders/DISPATCH_W5_ROW_ORDER_BOUNDARIES_20261005.md",
+      "bytes": 2277,
+      "sha256": "3883d1d64b28d16f2709afea35ecc0edda2a058f52f613518e0aaf2fb5f464a2"
+    },
+    {
+      "path": "docs/workorders/evidence/DELIVERY-concurrent-rows-20261005.json",
+      "bytes": 533400,
+      "sha256": "30a3bceb8750315130ed33f003a02d5d39771c917f90f9f04fba16646777361b"
+    },
+    {
+      "path": "lab/compare_compensation_associations.py",
+      "bytes": 4688,
+      "sha256": "3fbafb87a642c2762c0f6a84b56916a54c26234f43ebe469d2c8d22dd74015c8"
+    },
+    {
+      "path": "lab/out/commit-order-boundaries-20261005/a_end_to_b-physical-command.json",
+      "bytes": 714,
+      "sha256": "318442c3f9aa6999db0306c52a3a4f0b3991459a76821d8ce46c37e07b769ce5"
+    },
+    {
+      "path": "lab/out/commit-order-boundaries-20261005/a_end_to_b-physical.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/commit-order-boundaries-20261005/a_end_to_b-physical.stderr.txt",
+      "bytes": 96,
+      "sha256": "e6e038ba89ab61563c93045279162e5066908908b9c9dd27c23450aa5f06a761"
+    },
+    {
+      "path": "lab/out/commit-order-boundaries-20261005/a_end_to_b-physical.stdout.txt",
+      "bytes": 483,
+      "sha256": "3da96e251b54d62fd80a08bd11bb06062a42cc74e814ec7f71e74158358a52ae"
+    },
+    {
+      "path": "lab/out/commit-order-boundaries-20261005/a_end_to_b-rows-command.json",
+      "bytes": 697,
+      "sha256": "74f77c7eda51d96be3aba47323ab87ae5e976e942a7ca5741a36a5b9fccba27f"
+    },
+    {
+      "path": "lab/out/commit-order-boundaries-20261005/a_end_to_b-rows.rc.txt",
+      "bytes": 1,
+      "sha256": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b"
+    },
+    {
+      "path": "lab/out/commit-order-boundaries-20261005/a_end_to_b-rows.stderr.txt",
+      "bytes": 321,
+      "sha256": "451106bac505764526e8126f997a723beb3c9674e8019c6bda273dd17289be72"
+    },
+    {
+      "path": "lab/out/commit-order-boundaries-20261005/a_end_to_b-rows.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/commit-order-boundaries-20261005/a_end_to_b-scan-command.json",
+      "bytes": 296,
+      "sha256": "e2d692ddd26c1ce18fff2a379599058d38553ac9e5b2d6d3390b6325c9b36a44"
+    },
+    {
+      "path": "lab/out/commit-order-boundaries-20261005/a_end_to_b-scan.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/commit-order-boundaries-20261005/a_end_to_b-scan.stderr.txt",
+      "bytes": 275,
+      "sha256": "84aa6c289724f75fc86a4d4bca1f0c4cccc08b36526db791ed91ca2254ea3a78"
+    },
+    {
+      "path": "lab/out/commit-order-boundaries-20261005/a_end_to_b-scan.stdout.txt",
+      "bytes": 22,
+      "sha256": "43b4733169d6e007aeb99a8ddd34a5c1c256dd2d71bd958ddcc72f09a9cae4e9"
+    },
+    {
+      "path": "lab/out/commit-order-boundaries-20261005/b_end_to_a-physical-command.json",
+      "bytes": 714,
+      "sha256": "07342abba8b79a0fad26337fc5e28fde50ef9ac7ca2589e2d1cac202babcc0af"
+    },
+    {
+      "path": "lab/out/commit-order-boundaries-20261005/b_end_to_a-physical.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/commit-order-boundaries-20261005/b_end_to_a-physical.stderr.txt",
+      "bytes": 96,
+      "sha256": "e6e038ba89ab61563c93045279162e5066908908b9c9dd27c23450aa5f06a761"
+    },
+    {
+      "path": "lab/out/commit-order-boundaries-20261005/b_end_to_a-physical.stdout.txt",
+      "bytes": 483,
+      "sha256": "3da96e251b54d62fd80a08bd11bb06062a42cc74e814ec7f71e74158358a52ae"
+    },
+    {
+      "path": "lab/out/commit-order-boundaries-20261005/b_end_to_a-rows-command.json",
+      "bytes": 697,
+      "sha256": "916357c8650b8d3b8273eb1fdd424677bd445678228a649216f4b850322fd7ee"
+    },
+    {
+      "path": "lab/out/commit-order-boundaries-20261005/b_end_to_a-rows.rc.txt",
+      "bytes": 1,
+      "sha256": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b"
+    },
+    {
+      "path": "lab/out/commit-order-boundaries-20261005/b_end_to_a-rows.stderr.txt",
+      "bytes": 321,
+      "sha256": "451106bac505764526e8126f997a723beb3c9674e8019c6bda273dd17289be72"
+    },
+    {
+      "path": "lab/out/commit-order-boundaries-20261005/b_end_to_a-rows.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/commit-order-boundaries-20261005/b_end_to_a-scan-command.json",
+      "bytes": 296,
+      "sha256": "f9a98620b376c68065ce2c10de0121e9d884f881cb2f1b5621db015e51a0a54c"
+    },
+    {
+      "path": "lab/out/commit-order-boundaries-20261005/b_end_to_a-scan.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/commit-order-boundaries-20261005/b_end_to_a-scan.stderr.txt",
+      "bytes": 275,
+      "sha256": "c0804515dd3918b5b04516a16a56195eeb207bd2f70c9f2c8728922bd3a709cb"
+    },
+    {
+      "path": "lab/out/commit-order-boundaries-20261005/b_end_to_a-scan.stdout.txt",
+      "bytes": 22,
+      "sha256": "43b4733169d6e007aeb99a8ddd34a5c1c256dd2d71bd958ddcc72f09a9cae4e9"
+    },
+    {
+      "path": "lab/out/commit-order-boundaries-20261005/derived/a_end_to_b.dbf",
+      "bytes": 7680,
+      "sha256": "3e8e25e8b453c38f610635e9a0e9a934ecc7ffab3cf6e0e0323c6452bdfe2455"
+    },
+    {
+      "path": "lab/out/commit-order-boundaries-20261005/derived/b_end_to_a.dbf",
+      "bytes": 7680,
+      "sha256": "cbc0e33bb0838e107b32c3514338d9b6fd33d96a942fc7a35a819a6fd234e6a3"
+    },
+    {
+      "path": "lab/out/commit-order-boundaries-20261005/derived/summary.json",
+      "bytes": 796,
+      "sha256": "9998e8fc350b4dfbae136a57d55ebb9ea7bf057a3fcf91d6674a918c5a5d9180"
+    },
+    {
+      "path": "lab/out/oracle19-concurrent-rows-20261005/archive-1-33.dbf",
+      "bytes": 227840,
+      "sha256": "05b33d3ffa665f9101c031d861856148bd6264841f75c679e76d08b2af9890a4"
+    },
+    {
+      "path": "lab/out/oracle19-concurrent-rows-20261005/archive-1-34.dbf",
+      "bytes": 7680,
+      "sha256": "a9a34a12d666aa62a5ed9d92e6be62b9b4018677ecad8fcf19f46dc968c5fc75"
+    },
+    {
+      "path": "lab/out/oracle19-concurrent-rows-20261005/baseline/receipt.json",
+      "bytes": 642,
+      "sha256": "1b90f1e777e8279ae67144120c3994be44619e0d3b5ea046eef233e983823d85"
+    },
+    {
+      "path": "lab/out/oracle19-concurrent-rows-20261005/baseline/snapshot.stdout.txt",
+      "bytes": 752,
+      "sha256": "3a1f3371c798d85bb414eb279059e13507d35d7ef21b99f06058dbf587c201a8"
+    },
+    {
+      "path": "lab/out/oracle19-concurrent-rows-20261005/dump.trc",
+      "bytes": 30733,
+      "sha256": "8b83b2491595d8d78093f6111fd4f151ce66f4d3c5b5aed60adcd699f06c09b6"
+    },
+    {
+      "path": "lab/out/oracle19-concurrent-rows-20261005/manifest.json",
+      "bytes": 986,
+      "sha256": "b054c1160a502d286cc362a0f880b763b1e4c3162c6efbe3d3c4db7094199d0d"
+    },
+    {
+      "path": "lab/out/release-concurrent-rows-r4/physical.stdout.txt",
+      "bytes": 483,
+      "sha256": "3da96e251b54d62fd80a08bd11bb06062a42cc74e814ec7f71e74158358a52ae"
+    },
+    {
+      "path": "lab/out/release-concurrent-rows-r4/source.txt",
+      "bytes": 40,
+      "sha256": "50fa8da7807753a2f3d3e4ddd44831285e4411e3e229a6f1a0f7de0947d235be"
+    },
+    {
+      "path": "lab/out/release-concurrent-rows-r4/tree/target/oracle-redo-kernel-0.1.0-SNAPSHOT.jar",
+      "bytes": 167884,
+      "sha256": "6a34071efd47fa10d6c6cfec655432d2d3ba433e55d73002afedb4f291fef175"
+    },
+    {
+      "path": "lab/out/seal-commit-tie.py",
+      "bytes": 2573,
+      "sha256": "c8dba6fe17908dd1e199f98d9094da8ea4877297e587eefbe912e7d75b0e7cf5"
+    },
+    {
+      "path": "lab/out/verify-commit-order-boundaries.py",
+      "bytes": 715,
+      "sha256": "d123a9b5ddc87aa6febfeed71e13f5cb0ee5abb265d6da3143652305d6d754ba"
+    },
+    {
+      "path": "lab/poison_commit_tie.py",
+      "bytes": 2190,
+      "sha256": "423568fe053388b03250c8b560bc96796656bb87c37dca9667127b13d6961635"
+    }
+  ]
+}
