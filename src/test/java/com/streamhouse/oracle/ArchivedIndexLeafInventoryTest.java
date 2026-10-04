@@ -79,4 +79,10 @@ class ArchivedIndexLeafInventoryTest {
         records.record(bytes,4,125,List.of(other,otherUndo,maintenance));seal(bytes,2048);
         assertEquals(2,read(bytes).entries().size());
     }
+    @Test void oneMarkerCannotCertifyTwoRollbackLeafVectors() {
+        byte[] bytes=fixture();var p=new IndexCompensationTest().purge();
+        var marker=records.marker(object,3);put(marker.fields().get(0),16,10,1);put(marker.fields().get(0),17,22,1);
+        records.record(bytes,5,130,List.of(p,p,marker,records.vectors.end(2)));seal(bytes,2560);
+        assertEquals("AMBIGUOUS_INDEX_LEAF_INVENTORY_ROLLBACK",assertThrows(RedoException.class,()->read(bytes)).getMessage());
+    }
 }

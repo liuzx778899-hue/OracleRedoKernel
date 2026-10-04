@@ -46,6 +46,9 @@ public final class ArchivedIndexLeafInventory {
                                 HexFormat.of().formatHex(u.key()),HexFormat.of().formatHex(data)));
                     } else if (v.opcodeMajor()==10 && (v.opcodeMinor()==3 || v.opcodeMinor()==5)) {
                         var leaf=IndexCompensation.decodeRollback(v);UndoCompensation marker=null;
+                        long rows=r.vectors().stream().filter(other -> other.containerId()==container && other.dba()==leafDba
+                                && other.opcodeMajor()==10 && (other.opcodeMinor()==3 || other.opcodeMinor()==5)).count();
+                        if (rows!=1) throw new RedoException("AMBIGUOUS_INDEX_LEAF_INVENTORY_ROLLBACK");
                         for (var c:r.vectors()) {
                             if (c.containerId()!=container || c.opcodeMajor()!=5 || (c.opcodeMinor()!=6 && c.opcodeMinor()!=11)) continue;
                             var candidate=UndoCompensation.decode(c);
