@@ -7,14 +7,14 @@ import java.util.List;
 /** Frozen concurrent fixture: raw fields or existing matcher refusal, never CDC events. */
 public class IndexSlotShiftProbe {
     public static void main(String[] args) throws Exception {
-        boolean multi=args[0].equals("--multi-fixture"),purge=args[0].equals("--purge-fixture"),higher=args[0].equals("--higher-fixture");int arg=multi || purge || higher ? 1 : 0;
+        boolean multi=args[0].equals("--multi-fixture"),purge=args[0].equals("--purge-fixture"),higher=args[0].equals("--higher-fixture"),doublePurge=args[0].equals("--double-purge-fixture");int arg=multi || purge || higher || doublePurge ? 1 : 0;
         String mode=args[arg];boolean positioned=!mode.equals("fields") && !mode.equals("match");
         if (!List.of("fields","match","position","wrong-position-slot","wrong-position-marker","wrong-position-pair-key",
                 "repeat-position","duplicate-position-original","omit-foreign-position","foreign-position-source").contains(mode)) throw new IllegalArgumentException("UNKNOWN_MODE");
         boolean match=!mode.equals("fields");
         Path path=Path.of(args[arg+1]);var header=new ArchivedRedo().scan(path);
-        var xid=higher ? new HeapRowPatch.Xid(10,3,1236) : purge ? new HeapRowPatch.Xid(10,19,1233) : multi ? new HeapRowPatch.Xid(10,29,1230) : new HeapRowPatch.Xid(10,23,1220);
-        long object=higher ? 73068 : purge ? 73066 : multi ? 73064 : 73062,leaf=higher ? 0x0300016bL : purge ? 0x0300015bL : multi ? 0x0300014bL : 0x0300013bL;
+        var xid=doublePurge ? new HeapRowPatch.Xid(10,20,1240) : higher ? new HeapRowPatch.Xid(10,3,1236) : purge ? new HeapRowPatch.Xid(10,19,1233) : multi ? new HeapRowPatch.Xid(10,29,1230) : new HeapRowPatch.Xid(10,23,1220);
+        long object=doublePurge ? 73070 : higher ? 73068 : purge ? 73066 : multi ? 73064 : 73062,leaf=doublePurge ? 0x0300017bL : higher ? 0x0300016bL : purge ? 0x0300015bL : multi ? 0x0300014bL : 0x0300013bL;
         var owned=positioned ? ArchivedIndexLeafInventory.read(List.of(path),677737149,3,xid,object,leaf) : null;
         var positions=positioned ? new IndexLeafPositions(owned) : null;
         if (positioned && !header.equals(owned.window().undo().sources().get(0))) throw new RedoException("SHIFT_POSITION_INPUT_CHANGED");
