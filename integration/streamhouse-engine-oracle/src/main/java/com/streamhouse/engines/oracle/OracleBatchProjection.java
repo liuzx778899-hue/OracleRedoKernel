@@ -23,9 +23,18 @@ public final class OracleBatchProjection {
     public record Entry(EventEnvelope envelope,String payloadSha256,
                         ArchivedUndoInventory.Position pairedUndoPosition,
                         TransactionLifecycle.ClosedIdentity transaction) {}
-    public record Batch(String inputBatchSha256,ArchivedHeapRows.Source source,
-                        CapturedHeapBatch.Schema schema,List<Entry> entries) {
-        public Batch { entries=List.copyOf(entries); }
+    public static final class Batch {
+        private final String inputBatchSha256;
+        private final ArchivedHeapRows.Source source;
+        private final CapturedHeapBatch.Schema schema;
+        private final List<Entry> entries;
+        private Batch(String inputBatchSha256,ArchivedHeapRows.Source source,CapturedHeapBatch.Schema schema,List<Entry> entries) {
+            this.inputBatchSha256=inputBatchSha256;this.source=source;this.schema=schema;this.entries=List.copyOf(entries);
+        }
+        public String inputBatchSha256() {return inputBatchSha256;}
+        public ArchivedHeapRows.Source source() {return source;}
+        public CapturedHeapBatch.Schema schema() {return schema;}
+        public List<Entry> entries() {return entries;}
     }
     public static Batch project(CapturedHeapBatch input) throws RedoException {
         var entries=new ArrayList<Entry>();var ordinals=new HashMap<HeapRowPatch.Xid,Long>();
