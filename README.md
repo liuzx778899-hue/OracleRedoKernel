@@ -51,3 +51,5 @@ KDOM2目前只支持已观察的单列扩展长度更新，保留XA/XR及缺列�
 `ArchivedUndoInventory.read`从完整归档访问路径收集指定容器/完整XID的5.1位置、UBA与元数据引用；`requireCompleteSelection`拒绝下游漏项、重复或重排。三批360节点native零差异和三个真实漏项拒绝见[选择覆盖反馈](docs/workorders/DELIVERY_W4_UNDO_INVENTORY_20261004.md)。这仅认证给定输入中的选择覆盖，不授权事务图、跨块边或CDC发布。
 
 `UndoHeadUpdate` / `TransactionLifecycle.headUpdate`支持已观察的5.2/0x0002已分配块新UBA控制，并绑定唯一同record原始undo和完整活跃身份。[真实控制、10项拒绝与回归](docs/workorders/DELIVERY_W4_HEAD_UPDATE_20261004.md)。不推断完整旧前驱，不打开事件发布。
+
+`UndoHistory`按完整目标5.1 inventory接收原始节点，将最后分配UBA与补偿后的生效head分开；已绑定的物理补偿只能弹出当前head，追加写入引用恢复后的head。[四批490节点/250 live与9项真实拒绝](docs/workorders/DELIVERY_W4_ORDERED_HISTORY_20261004.md)。调用者还须证明相关补偿输入完整，返回值不是可发布事务凭证。
