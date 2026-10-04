@@ -1,0 +1,1167 @@
+{
+  "runtime_source": "55c331a1d7ffeaf9e1b78a76e52222668a73d792",
+  "actual_snapshot_scn": 2362439,
+  "actual_row_lock_wait_verified": true,
+  "a_xid": "10.17.1678",
+  "b_xid": "10.22.1675",
+  "actual_source_sessions_committed": true,
+  "physical_graph_accepted": false,
+  "complete_logical_rows_accepted": false,
+  "observed_start_flags": "0x004a",
+  "refusal": "UNSUPPORTED_TRANSACTION_START_FLAGS_OR_PARENT",
+  "continuous_capture_accepted": false,
+  "streamhouse_integration_accepted": false,
+  "site_accepted": false,
+  "release_accepted": false,
+  "cdc_events": 0,
+  "sha256_passes": 2,
+  "commands": [
+    {
+      "command": "lab/out/oracle19-blocking-rows-r2-20261005/acquire-baseline-command.json",
+      "rc": 0
+    },
+    {
+      "command": "lab/out/oracle19-blocking-rows-r2-20261005/b-commit-command.json",
+      "rc": 0
+    },
+    {
+      "command": "lab/out/oracle19-blocking-rows-r2-20261005/binding-command.json",
+      "rc": 0
+    },
+    {
+      "command": "lab/out/oracle19-blocking-rows-r2-20261005/capture-38-command.json",
+      "rc": 0
+    },
+    {
+      "command": "lab/out/oracle19-blocking-rows-r2-20261005/capture-39-command.json",
+      "rc": 0
+    },
+    {
+      "command": "lab/out/oracle19-blocking-rows-r2-20261005/copy-b-commit-command.json",
+      "rc": 0
+    },
+    {
+      "command": "lab/out/oracle19-blocking-rows-r2-20261005/copy-dump-command.json",
+      "rc": 0
+    },
+    {
+      "command": "lab/out/oracle19-blocking-rows-r2-20261005/copy-final-command.json",
+      "rc": 0
+    },
+    {
+      "command": "lab/out/oracle19-blocking-rows-r2-20261005/copy-first-archive-command.json",
+      "rc": 0
+    },
+    {
+      "command": "lab/out/oracle19-blocking-rows-r2-20261005/copy-preflight-command.json",
+      "rc": 0
+    },
+    {
+      "command": "lab/out/oracle19-blocking-rows-r2-20261005/copy-trace-command.json",
+      "rc": 0
+    },
+    {
+      "command": "lab/out/oracle19-blocking-rows-r2-20261005/copy-wait-0-command.json",
+      "rc": 0
+    },
+    {
+      "command": "lab/out/oracle19-blocking-rows-r2-20261005/dump-command.json",
+      "rc": 0
+    },
+    {
+      "command": "lab/out/oracle19-blocking-rows-r2-20261005/final-command.json",
+      "rc": 0
+    },
+    {
+      "command": "lab/out/oracle19-blocking-rows-r2-20261005/first-archive-command.json",
+      "rc": 0
+    },
+    {
+      "command": "lab/out/oracle19-blocking-rows-r2-20261005/held-command.json",
+      "rc": 0
+    },
+    {
+      "command": "lab/out/oracle19-blocking-rows-r2-20261005/preflight-command.json",
+      "rc": 0
+    },
+    {
+      "command": "lab/out/oracle19-blocking-rows-r2-20261005/wait-0-command.json",
+      "rc": 0
+    },
+    {
+      "command": "lab/out/oracle19-blocking-rows-r2-20261005/baseline/binding-command.json",
+      "rc": 0
+    },
+    {
+      "command": "lab/out/oracle19-blocking-rows-r2-20261005/baseline/copy-query-command.json",
+      "rc": 0
+    },
+    {
+      "command": "lab/out/oracle19-blocking-rows-r2-20261005/baseline/snapshot-command.json",
+      "rc": 0
+    },
+    {
+      "command": "lab/out/verify-blocking-rows/compile-command.json",
+      "rc": 0
+    },
+    {
+      "command": "lab/out/verify-blocking-rows/physical-command.json",
+      "rc": 1
+    },
+    {
+      "command": "lab/out/verify-blocking-rows/rows-command.json",
+      "rc": 1
+    },
+    {
+      "command": "lab/out/oracle19-blocking-rows-20261005/acquire-baseline-command.json",
+      "rc": 0
+    },
+    {
+      "command": "lab/out/oracle19-blocking-rows-20261005/b-commit-command.json",
+      "rc": 1
+    },
+    {
+      "command": "lab/out/oracle19-blocking-rows-20261005/binding-command.json",
+      "rc": 0
+    },
+    {
+      "command": "lab/out/oracle19-blocking-rows-20261005/copy-b-commit-command.json",
+      "rc": 0
+    },
+    {
+      "command": "lab/out/oracle19-blocking-rows-20261005/copy-first-archive-command.json",
+      "rc": 0
+    },
+    {
+      "command": "lab/out/oracle19-blocking-rows-20261005/copy-preflight-command.json",
+      "rc": 0
+    },
+    {
+      "command": "lab/out/oracle19-blocking-rows-20261005/copy-wait-0-command.json",
+      "rc": 0
+    },
+    {
+      "command": "lab/out/oracle19-blocking-rows-20261005/copy-wait-1-command.json",
+      "rc": 0
+    },
+    {
+      "command": "lab/out/oracle19-blocking-rows-20261005/first-archive-command.json",
+      "rc": 0
+    },
+    {
+      "command": "lab/out/oracle19-blocking-rows-20261005/held-command.json",
+      "rc": 1
+    },
+    {
+      "command": "lab/out/oracle19-blocking-rows-20261005/preflight-command.json",
+      "rc": 0
+    },
+    {
+      "command": "lab/out/oracle19-blocking-rows-20261005/wait-0-command.json",
+      "rc": 0
+    },
+    {
+      "command": "lab/out/oracle19-blocking-rows-20261005/wait-1-command.json",
+      "rc": 0
+    },
+    {
+      "command": "lab/out/oracle19-blocking-rows-20261005/baseline/binding-command.json",
+      "rc": 0
+    },
+    {
+      "command": "lab/out/oracle19-blocking-rows-20261005/baseline/copy-query-command.json",
+      "rc": 0
+    },
+    {
+      "command": "lab/out/oracle19-blocking-rows-20261005/baseline/snapshot-command.json",
+      "rc": 0
+    }
+  ],
+  "files": [
+    {
+      "path": "docs/workorders/RESEARCH_W5_BLOCKING_ROWS_20261005.md",
+      "bytes": 2887,
+      "sha256": "cc9007e3b9e48bbf964a4c7ea48bca0cb52f9e0e7e1a270d7c8dfe36798a7b33"
+    },
+    {
+      "path": "lab/blocking_rows19.py",
+      "bytes": 10245,
+      "sha256": "9734758ee01ad5bff8a8bc4b69ce9676b2208795ae994607651b8ebe2d92cf44"
+    },
+    {
+      "path": "lab/capture_heap_baseline19.py",
+      "bytes": 4959,
+      "sha256": "6b7fbfb7249f5bdec0991893e20ffda9c90dc23eb43c6c44dc2fc56c584840e5"
+    },
+    {
+      "path": "lab/out/oracle19-blocking-rows-20261005/acquire-baseline-command.json",
+      "bytes": 288,
+      "sha256": "6e668da87bf497af49e0a7ce54e1aceef3b8829f2f368a298e619bbd55b3d560"
+    },
+    {
+      "path": "lab/out/oracle19-blocking-rows-20261005/acquire-baseline.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/oracle19-blocking-rows-20261005/acquire-baseline.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle19-blocking-rows-20261005/acquire-baseline.stdout.txt",
+      "bytes": 1389,
+      "sha256": "62a3d6a4dce0fa466a083b85b81c773285c2499ad64b3a0f4415794c2ecf7f72"
+    },
+    {
+      "path": "lab/out/oracle19-blocking-rows-20261005/b-commit-command.json",
+      "bytes": 152,
+      "sha256": "faf1e98f51cddf8e00e412e01d329ba62cb032cf305689ef525f9a00cc2e40d7"
+    },
+    {
+      "path": "lab/out/oracle19-blocking-rows-20261005/b-commit.rc.txt",
+      "bytes": 1,
+      "sha256": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b"
+    },
+    {
+      "path": "lab/out/oracle19-blocking-rows-20261005/b-commit.sql",
+      "bytes": 1231,
+      "sha256": "9ee68f2b47bf6912b9b39000e16d7243a64a1bda4a8319f1f4fdaede7a93db0d"
+    },
+    {
+      "path": "lab/out/oracle19-blocking-rows-20261005/b-commit.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle19-blocking-rows-20261005/b-commit.stdout.txt",
+      "bytes": 1146,
+      "sha256": "5f7a56aab45c91e3d3888fe9ee375a52ec670fce47cac81ef760e94c1d67dbf3"
+    },
+    {
+      "path": "lab/out/oracle19-blocking-rows-20261005/baseline/binding-command.json",
+      "bytes": 125,
+      "sha256": "92b11ce209b6f209002bbfe2fca241e2b4505dae9b02fa31abf42af2cce92a19"
+    },
+    {
+      "path": "lab/out/oracle19-blocking-rows-20261005/baseline/binding.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/oracle19-blocking-rows-20261005/baseline/binding.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle19-blocking-rows-20261005/baseline/binding.stdout.txt",
+      "bytes": 84,
+      "sha256": "663213c6ddff7be1e55f48031ca6e99d821fac874d4aa01eb41eb0ef08ee52b2"
+    },
+    {
+      "path": "lab/out/oracle19-blocking-rows-20261005/baseline/copy-query-command.json",
+      "bytes": 192,
+      "sha256": "e21197be0b8acc5d27595415c21980388e35a487a171257bf29c451270ef0d36"
+    },
+    {
+      "path": "lab/out/oracle19-blocking-rows-20261005/baseline/copy-query.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/oracle19-blocking-rows-20261005/baseline/copy-query.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle19-blocking-rows-20261005/baseline/copy-query.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle19-blocking-rows-20261005/baseline/receipt.json",
+      "bytes": 642,
+      "sha256": "9ec3a16e164996644f21766470397b5ef047367c02e55f0388f1070f52713af6"
+    },
+    {
+      "path": "lab/out/oracle19-blocking-rows-20261005/baseline/snapshot-command.json",
+      "bytes": 157,
+      "sha256": "6824f8fa3937965748ceef987e67ee9a2c679f566ea7aad5c4649235e19e5098"
+    },
+    {
+      "path": "lab/out/oracle19-blocking-rows-20261005/baseline/snapshot.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/oracle19-blocking-rows-20261005/baseline/snapshot.sql",
+      "bytes": 3379,
+      "sha256": "916f8ed0de320ba1614e331efac48debe858bb6fefb956a6805bccb1dbecd720"
+    },
+    {
+      "path": "lab/out/oracle19-blocking-rows-20261005/baseline/snapshot.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle19-blocking-rows-20261005/baseline/snapshot.stdout.txt",
+      "bytes": 758,
+      "sha256": "169748960f0e4a2ececd9de13d453fe779f3eb802e60af7ecb23f3a4cdfa49b4"
+    },
+    {
+      "path": "lab/out/oracle19-blocking-rows-20261005/binding-command.json",
+      "bytes": 125,
+      "sha256": "92b11ce209b6f209002bbfe2fca241e2b4505dae9b02fa31abf42af2cce92a19"
+    },
+    {
+      "path": "lab/out/oracle19-blocking-rows-20261005/binding.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/oracle19-blocking-rows-20261005/binding.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle19-blocking-rows-20261005/binding.stdout.txt",
+      "bytes": 84,
+      "sha256": "663213c6ddff7be1e55f48031ca6e99d821fac874d4aa01eb41eb0ef08ee52b2"
+    },
+    {
+      "path": "lab/out/oracle19-blocking-rows-20261005/copy-b-commit-command.json",
+      "bytes": 177,
+      "sha256": "25f2a99b0cbec57d02d4376037ddaeb016fd4a15f1e08c99fff3d527a2a3805d"
+    },
+    {
+      "path": "lab/out/oracle19-blocking-rows-20261005/copy-b-commit.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/oracle19-blocking-rows-20261005/copy-b-commit.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle19-blocking-rows-20261005/copy-b-commit.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle19-blocking-rows-20261005/copy-first-archive-command.json",
+      "bytes": 187,
+      "sha256": "39c3b90faef595ddfa71a21c5ea8eff5e83bdcca39b2d0b9f2e69cb89a48a635"
+    },
+    {
+      "path": "lab/out/oracle19-blocking-rows-20261005/copy-first-archive.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/oracle19-blocking-rows-20261005/copy-first-archive.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle19-blocking-rows-20261005/copy-first-archive.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle19-blocking-rows-20261005/copy-preflight-command.json",
+      "bytes": 179,
+      "sha256": "a4871ac73644799d7ca05a682cbc1d78a67d4d7abbd3d61f80d0361eece9f875"
+    },
+    {
+      "path": "lab/out/oracle19-blocking-rows-20261005/copy-preflight.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/oracle19-blocking-rows-20261005/copy-preflight.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle19-blocking-rows-20261005/copy-preflight.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle19-blocking-rows-20261005/copy-wait-0-command.json",
+      "bytes": 173,
+      "sha256": "30393f231dbd819fbf4120349c7026e06d32dfadbd32ee2329b21b6e6728c8eb"
+    },
+    {
+      "path": "lab/out/oracle19-blocking-rows-20261005/copy-wait-0.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/oracle19-blocking-rows-20261005/copy-wait-0.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle19-blocking-rows-20261005/copy-wait-0.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle19-blocking-rows-20261005/copy-wait-1-command.json",
+      "bytes": 173,
+      "sha256": "9eacdb0c56a6a67c8446a9d94ecacfb2d7904c6e5cfd562a6a378616a16b5ae6"
+    },
+    {
+      "path": "lab/out/oracle19-blocking-rows-20261005/copy-wait-1.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/oracle19-blocking-rows-20261005/copy-wait-1.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle19-blocking-rows-20261005/copy-wait-1.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle19-blocking-rows-20261005/first-archive-command.json",
+      "bytes": 157,
+      "sha256": "1bd034ed316350cc2cae4930da120639cdea1ab60f6b17add24bead8bd260491"
+    },
+    {
+      "path": "lab/out/oracle19-blocking-rows-20261005/first-archive.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/oracle19-blocking-rows-20261005/first-archive.sql",
+      "bytes": 193,
+      "sha256": "700c57e26af9bde1f67747d2b0e2906293537d9b68a52cf620f4097ca792c0fa"
+    },
+    {
+      "path": "lab/out/oracle19-blocking-rows-20261005/first-archive.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle19-blocking-rows-20261005/first-archive.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle19-blocking-rows-20261005/first.sql",
+      "bytes": 527,
+      "sha256": "d4b623302b266808b1de92538ec73a85d1a0fb9c394de6a2493289815b5dcaaf"
+    },
+    {
+      "path": "lab/out/oracle19-blocking-rows-20261005/held-command.json",
+      "bytes": 118,
+      "sha256": "354e843403095ddda6c699ab0b8e18d46186186c7a0f5f6a659f075ab4fa4fd4"
+    },
+    {
+      "path": "lab/out/oracle19-blocking-rows-20261005/held.rc.txt",
+      "bytes": 1,
+      "sha256": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b"
+    },
+    {
+      "path": "lab/out/oracle19-blocking-rows-20261005/held.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle19-blocking-rows-20261005/held.stdout.txt",
+      "bytes": 16,
+      "sha256": "a486028bfd3cc45e9cb0e2ff9705e4852df9ab8eb3523cb8f32fb32b7b24b721"
+    },
+    {
+      "path": "lab/out/oracle19-blocking-rows-20261005/preflight-command.json",
+      "bytes": 153,
+      "sha256": "8d61385ac0b63e436b360713bcbd0ad20e77c23df75c5a709c08825c05039152"
+    },
+    {
+      "path": "lab/out/oracle19-blocking-rows-20261005/preflight.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/oracle19-blocking-rows-20261005/preflight.sql",
+      "bytes": 1229,
+      "sha256": "15de3a23ea4698496490446c1d84122011b09a7a06b7b95567dca10852362812"
+    },
+    {
+      "path": "lab/out/oracle19-blocking-rows-20261005/preflight.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle19-blocking-rows-20261005/preflight.stdout.txt",
+      "bytes": 18,
+      "sha256": "e0e4ed8f570974d7ad1011fe888c26c098cec76136eb2dbf6db5f6d21dc24e36"
+    },
+    {
+      "path": "lab/out/oracle19-blocking-rows-20261005/ready.json",
+      "bytes": 44,
+      "sha256": "c4797b6a56eae3602b80ee244920910a22d166c9421d0b210a0020b3ef3107da"
+    },
+    {
+      "path": "lab/out/oracle19-blocking-rows-20261005/wait-0-command.json",
+      "bytes": 150,
+      "sha256": "bd3c96f907577e482f5772fea2755c84cce0682607b580260260440f6e194cf2"
+    },
+    {
+      "path": "lab/out/oracle19-blocking-rows-20261005/wait-0.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/oracle19-blocking-rows-20261005/wait-0.sql",
+      "bytes": 934,
+      "sha256": "c6fe9978395dad1ffd4c46b7f7fdd46ef1da161d328b2ac024758c837f8ae03c"
+    },
+    {
+      "path": "lab/out/oracle19-blocking-rows-20261005/wait-0.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle19-blocking-rows-20261005/wait-0.stdout.txt",
+      "bytes": 86,
+      "sha256": "2af55398ce90e3b2594e1e4377b6da456b8b06358b41fda9a563b39331cdd9ad"
+    },
+    {
+      "path": "lab/out/oracle19-blocking-rows-20261005/wait-1-command.json",
+      "bytes": 150,
+      "sha256": "9a6fadd9122541a9fc369dd7ca821804c3ab10d793874068462d0d0802e760e5"
+    },
+    {
+      "path": "lab/out/oracle19-blocking-rows-20261005/wait-1.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/oracle19-blocking-rows-20261005/wait-1.sql",
+      "bytes": 934,
+      "sha256": "c6fe9978395dad1ffd4c46b7f7fdd46ef1da161d328b2ac024758c837f8ae03c"
+    },
+    {
+      "path": "lab/out/oracle19-blocking-rows-20261005/wait-1.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle19-blocking-rows-20261005/wait-1.stdout.txt",
+      "bytes": 86,
+      "sha256": "2af55398ce90e3b2594e1e4377b6da456b8b06358b41fda9a563b39331cdd9ad"
+    },
+    {
+      "path": "lab/out/oracle19-blocking-rows-r2-20261005/acquire-baseline-command.json",
+      "bytes": 291,
+      "sha256": "e1f4357feebd1d971ec7baf04ca2526ce85869a709ec1279fa3aa3c49f8a8c23"
+    },
+    {
+      "path": "lab/out/oracle19-blocking-rows-r2-20261005/acquire-baseline.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/oracle19-blocking-rows-r2-20261005/acquire-baseline.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle19-blocking-rows-r2-20261005/acquire-baseline.stdout.txt",
+      "bytes": 1389,
+      "sha256": "7eb61b3c54778ae3212ffaa755c6bb3f8df40a62df4c392cc4a73d6b41719891"
+    },
+    {
+      "path": "lab/out/oracle19-blocking-rows-r2-20261005/archive-1-38.dbf",
+      "bytes": 7680,
+      "sha256": "390cb38eac4844f009f72eca1d0b3ca7d2b08c206dd67163b7ea25323aae3bce"
+    },
+    {
+      "path": "lab/out/oracle19-blocking-rows-r2-20261005/archive-1-39.dbf",
+      "bytes": 6144,
+      "sha256": "337db6af29d6798df632f55d0f54da01501a36657387d3a9760eb2260ff3fe89"
+    },
+    {
+      "path": "lab/out/oracle19-blocking-rows-r2-20261005/b-commit-command.json",
+      "bytes": 152,
+      "sha256": "faf1e98f51cddf8e00e412e01d329ba62cb032cf305689ef525f9a00cc2e40d7"
+    },
+    {
+      "path": "lab/out/oracle19-blocking-rows-r2-20261005/b-commit.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/oracle19-blocking-rows-r2-20261005/b-commit.sql",
+      "bytes": 1246,
+      "sha256": "1e1709817c3e7c0e88765e9fa43c48a64a1da0f99aab77aed68e53f9b12059e0"
+    },
+    {
+      "path": "lab/out/oracle19-blocking-rows-r2-20261005/b-commit.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle19-blocking-rows-r2-20261005/b-commit.stdout.txt",
+      "bytes": 99,
+      "sha256": "55f6efc578fd2cbda1efe60fe5af2f58fe73cd7b4e4193e437deca36804cc95f"
+    },
+    {
+      "path": "lab/out/oracle19-blocking-rows-r2-20261005/baseline/binding-command.json",
+      "bytes": 125,
+      "sha256": "92b11ce209b6f209002bbfe2fca241e2b4505dae9b02fa31abf42af2cce92a19"
+    },
+    {
+      "path": "lab/out/oracle19-blocking-rows-r2-20261005/baseline/binding.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/oracle19-blocking-rows-r2-20261005/baseline/binding.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle19-blocking-rows-r2-20261005/baseline/binding.stdout.txt",
+      "bytes": 84,
+      "sha256": "663213c6ddff7be1e55f48031ca6e99d821fac874d4aa01eb41eb0ef08ee52b2"
+    },
+    {
+      "path": "lab/out/oracle19-blocking-rows-r2-20261005/baseline/copy-query-command.json",
+      "bytes": 195,
+      "sha256": "fe7eb78b9584d8faf5bd30295f664be93836bb146a2c4497df7da29b8d907497"
+    },
+    {
+      "path": "lab/out/oracle19-blocking-rows-r2-20261005/baseline/copy-query.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/oracle19-blocking-rows-r2-20261005/baseline/copy-query.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle19-blocking-rows-r2-20261005/baseline/copy-query.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle19-blocking-rows-r2-20261005/baseline/receipt.json",
+      "bytes": 642,
+      "sha256": "cec56ff33a6ec4510eaafa0ad40a6fee78aa2a2f160190a1a2f9cd20c7f00972"
+    },
+    {
+      "path": "lab/out/oracle19-blocking-rows-r2-20261005/baseline/snapshot-command.json",
+      "bytes": 157,
+      "sha256": "6824f8fa3937965748ceef987e67ee9a2c679f566ea7aad5c4649235e19e5098"
+    },
+    {
+      "path": "lab/out/oracle19-blocking-rows-r2-20261005/baseline/snapshot.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/oracle19-blocking-rows-r2-20261005/baseline/snapshot.sql",
+      "bytes": 3379,
+      "sha256": "916f8ed0de320ba1614e331efac48debe858bb6fefb956a6805bccb1dbecd720"
+    },
+    {
+      "path": "lab/out/oracle19-blocking-rows-r2-20261005/baseline/snapshot.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle19-blocking-rows-r2-20261005/baseline/snapshot.stdout.txt",
+      "bytes": 758,
+      "sha256": "a5403aeda0ff9765979ef6dabc76876c56089802c4ea5642ca630754d494d30a"
+    },
+    {
+      "path": "lab/out/oracle19-blocking-rows-r2-20261005/binding-command.json",
+      "bytes": 125,
+      "sha256": "92b11ce209b6f209002bbfe2fca241e2b4505dae9b02fa31abf42af2cce92a19"
+    },
+    {
+      "path": "lab/out/oracle19-blocking-rows-r2-20261005/binding.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/oracle19-blocking-rows-r2-20261005/binding.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle19-blocking-rows-r2-20261005/binding.stdout.txt",
+      "bytes": 84,
+      "sha256": "663213c6ddff7be1e55f48031ca6e99d821fac874d4aa01eb41eb0ef08ee52b2"
+    },
+    {
+      "path": "lab/out/oracle19-blocking-rows-r2-20261005/capture-38-command.json",
+      "bytes": 209,
+      "sha256": "d0e79b32344931597745d95c5cecfc062c688ca9accb2945922450af5b0f7823"
+    },
+    {
+      "path": "lab/out/oracle19-blocking-rows-r2-20261005/capture-38.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/oracle19-blocking-rows-r2-20261005/capture-38.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle19-blocking-rows-r2-20261005/capture-38.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle19-blocking-rows-r2-20261005/capture-39-command.json",
+      "bytes": 209,
+      "sha256": "e7613e94924b008a3ce2e59329b8615d0693a6381e67b6396d68e3eb64923f03"
+    },
+    {
+      "path": "lab/out/oracle19-blocking-rows-r2-20261005/capture-39.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/oracle19-blocking-rows-r2-20261005/capture-39.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle19-blocking-rows-r2-20261005/capture-39.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle19-blocking-rows-r2-20261005/copy-b-commit-command.json",
+      "bytes": 180,
+      "sha256": "6198c602a1560ba7f95c03e060cd4de0c14195a2b96b18cad667aba60ce6f35f"
+    },
+    {
+      "path": "lab/out/oracle19-blocking-rows-r2-20261005/copy-b-commit.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/oracle19-blocking-rows-r2-20261005/copy-b-commit.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle19-blocking-rows-r2-20261005/copy-b-commit.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle19-blocking-rows-r2-20261005/copy-dump-command.json",
+      "bytes": 172,
+      "sha256": "e4222312b2a46afb32abf1e8312c7619ea919150c3dbd7e47711631e138fde5c"
+    },
+    {
+      "path": "lab/out/oracle19-blocking-rows-r2-20261005/copy-dump.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/oracle19-blocking-rows-r2-20261005/copy-dump.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle19-blocking-rows-r2-20261005/copy-dump.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle19-blocking-rows-r2-20261005/copy-final-command.json",
+      "bytes": 174,
+      "sha256": "812f6a4d0578a3be12b19fb7f487b176ec1a5ae1e9287b11e6daf37d5c235212"
+    },
+    {
+      "path": "lab/out/oracle19-blocking-rows-r2-20261005/copy-final.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/oracle19-blocking-rows-r2-20261005/copy-final.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle19-blocking-rows-r2-20261005/copy-final.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle19-blocking-rows-r2-20261005/copy-first-archive-command.json",
+      "bytes": 190,
+      "sha256": "92f61c0913ba641ef17bfc5e1536174d96643b7871b595e73941ab50463edb83"
+    },
+    {
+      "path": "lab/out/oracle19-blocking-rows-r2-20261005/copy-first-archive.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/oracle19-blocking-rows-r2-20261005/copy-first-archive.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle19-blocking-rows-r2-20261005/copy-first-archive.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle19-blocking-rows-r2-20261005/copy-preflight-command.json",
+      "bytes": 182,
+      "sha256": "45e4e9038ced9951c45dc5fb80e34f9926c1fbdf8a10d6eec66a3b2d2e086332"
+    },
+    {
+      "path": "lab/out/oracle19-blocking-rows-r2-20261005/copy-preflight.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/oracle19-blocking-rows-r2-20261005/copy-preflight.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle19-blocking-rows-r2-20261005/copy-preflight.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle19-blocking-rows-r2-20261005/copy-trace-command.json",
+      "bytes": 219,
+      "sha256": "d32f3fc8b29771534c8cd52201c899f4e697dfeded00f370398b260b6ccd6830"
+    },
+    {
+      "path": "lab/out/oracle19-blocking-rows-r2-20261005/copy-trace.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/oracle19-blocking-rows-r2-20261005/copy-trace.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle19-blocking-rows-r2-20261005/copy-trace.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle19-blocking-rows-r2-20261005/copy-wait-0-command.json",
+      "bytes": 176,
+      "sha256": "57086e5dd2d0c1e2c5c9bd13fcdeb141d6a12932218a5b754b1dc39657fffca2"
+    },
+    {
+      "path": "lab/out/oracle19-blocking-rows-r2-20261005/copy-wait-0.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/oracle19-blocking-rows-r2-20261005/copy-wait-0.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle19-blocking-rows-r2-20261005/copy-wait-0.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle19-blocking-rows-r2-20261005/dump-command.json",
+      "bytes": 148,
+      "sha256": "59affa8868567c2f6b1c86f1d489a3e31b7706a97bf18155356385d62eac43a0"
+    },
+    {
+      "path": "lab/out/oracle19-blocking-rows-r2-20261005/dump.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/oracle19-blocking-rows-r2-20261005/dump.sql",
+      "bytes": 529,
+      "sha256": "30b365e38d161327a736e0afe09cf7250ec9f4bd979a0050b36718bfc5d4175d"
+    },
+    {
+      "path": "lab/out/oracle19-blocking-rows-r2-20261005/dump.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle19-blocking-rows-r2-20261005/dump.stdout.txt",
+      "bytes": 79,
+      "sha256": "061cbd24aa215a995c8dfd29eab03a12709854958a5376c65eed81e0d00ff4e4"
+    },
+    {
+      "path": "lab/out/oracle19-blocking-rows-r2-20261005/dump.trc",
+      "bytes": 24426,
+      "sha256": "e7b8566888b218e5dde22563121a3852de80a85eb387ae77639c4274db7ca19b"
+    },
+    {
+      "path": "lab/out/oracle19-blocking-rows-r2-20261005/final-command.json",
+      "bytes": 149,
+      "sha256": "6fc9c31d0137fb852ac4b53f8a8f6e742641531d90c81d406d2bef6c2dd4e809"
+    },
+    {
+      "path": "lab/out/oracle19-blocking-rows-r2-20261005/final.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/oracle19-blocking-rows-r2-20261005/final.sql",
+      "bytes": 1377,
+      "sha256": "6cdd46339ef7f2e4ea504b91a2f53cb8e8e974d0577321c90ae80ef71b5f25e8"
+    },
+    {
+      "path": "lab/out/oracle19-blocking-rows-r2-20261005/final.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle19-blocking-rows-r2-20261005/final.stdout.txt",
+      "bytes": 3139,
+      "sha256": "57f4ba838843f221b40a9e6eb1aa17203acdc3e5963ead4498b113ea202474ed"
+    },
+    {
+      "path": "lab/out/oracle19-blocking-rows-r2-20261005/first-archive-command.json",
+      "bytes": 157,
+      "sha256": "1bd034ed316350cc2cae4930da120639cdea1ab60f6b17add24bead8bd260491"
+    },
+    {
+      "path": "lab/out/oracle19-blocking-rows-r2-20261005/first-archive.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/oracle19-blocking-rows-r2-20261005/first-archive.sql",
+      "bytes": 193,
+      "sha256": "700c57e26af9bde1f67747d2b0e2906293537d9b68a52cf620f4097ca792c0fa"
+    },
+    {
+      "path": "lab/out/oracle19-blocking-rows-r2-20261005/first-archive.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle19-blocking-rows-r2-20261005/first-archive.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle19-blocking-rows-r2-20261005/first.sql",
+      "bytes": 527,
+      "sha256": "d4b623302b266808b1de92538ec73a85d1a0fb9c394de6a2493289815b5dcaaf"
+    },
+    {
+      "path": "lab/out/oracle19-blocking-rows-r2-20261005/held-command.json",
+      "bytes": 118,
+      "sha256": "354e843403095ddda6c699ab0b8e18d46186186c7a0f5f6a659f075ab4fa4fd4"
+    },
+    {
+      "path": "lab/out/oracle19-blocking-rows-r2-20261005/held.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/oracle19-blocking-rows-r2-20261005/held.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle19-blocking-rows-r2-20261005/held.stdout.txt",
+      "bytes": 27,
+      "sha256": "6a4ca9d5f3be3c97444b946d62950ffac067ecd9ce9cb8b9e2ff1f8a5bf87cd3"
+    },
+    {
+      "path": "lab/out/oracle19-blocking-rows-r2-20261005/manifest.json",
+      "bytes": 950,
+      "sha256": "64cbf3fdbcd9423f2fd0c92b35edd1d7699c862a1ef12bcf448f9cce0dc209f0"
+    },
+    {
+      "path": "lab/out/oracle19-blocking-rows-r2-20261005/preflight-command.json",
+      "bytes": 153,
+      "sha256": "8d61385ac0b63e436b360713bcbd0ad20e77c23df75c5a709c08825c05039152"
+    },
+    {
+      "path": "lab/out/oracle19-blocking-rows-r2-20261005/preflight.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/oracle19-blocking-rows-r2-20261005/preflight.sql",
+      "bytes": 1229,
+      "sha256": "15de3a23ea4698496490446c1d84122011b09a7a06b7b95567dca10852362812"
+    },
+    {
+      "path": "lab/out/oracle19-blocking-rows-r2-20261005/preflight.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle19-blocking-rows-r2-20261005/preflight.stdout.txt",
+      "bytes": 18,
+      "sha256": "a1ece9ebd2de463c353b46ddcfdfff81d3e93196089c26a0dfe2fa6b592340ca"
+    },
+    {
+      "path": "lab/out/oracle19-blocking-rows-r2-20261005/ready.json",
+      "bytes": 45,
+      "sha256": "070a0fd928d14167f9e7f25d8561555b2a73e7b6bc7c5d249ee70bf4707619ed"
+    },
+    {
+      "path": "lab/out/oracle19-blocking-rows-r2-20261005/second.sql",
+      "bytes": 258,
+      "sha256": "7f96224e4b11ca3b7285d6920903cc2c5418ce318c3398238ec68f5e3e7a5adf"
+    },
+    {
+      "path": "lab/out/oracle19-blocking-rows-r2-20261005/wait-0-command.json",
+      "bytes": 150,
+      "sha256": "bd3c96f907577e482f5772fea2755c84cce0682607b580260260440f6e194cf2"
+    },
+    {
+      "path": "lab/out/oracle19-blocking-rows-r2-20261005/wait-0.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/oracle19-blocking-rows-r2-20261005/wait-0.sql",
+      "bytes": 934,
+      "sha256": "c6fe9978395dad1ffd4c46b7f7fdd46ef1da161d328b2ac024758c837f8ae03c"
+    },
+    {
+      "path": "lab/out/oracle19-blocking-rows-r2-20261005/wait-0.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle19-blocking-rows-r2-20261005/wait-0.stdout.txt",
+      "bytes": 147,
+      "sha256": "fba0f7bfab226714479c5ecbf00d21c013011736e50baf6bbaec72fd00d96d90"
+    },
+    {
+      "path": "lab/out/prepare-blocking-rows.py",
+      "bytes": 2989,
+      "sha256": "6a07a95672885a42742b6e16506280a6e1f582bc6f597da25b16ec6ea63c9519"
+    },
+    {
+      "path": "lab/out/prepare-blocking-verifier.py",
+      "bytes": 409,
+      "sha256": "190db3be9ddfc4fe1f68223d9f2046ab6eecf1af077fb5201d420b1c58646d0a"
+    },
+    {
+      "path": "lab/out/release-closed-batch-r2/source.txt",
+      "bytes": 40,
+      "sha256": "1abca188c86f08a0b2feff40e5793ff3a59fe95fa3aa67c4564d411e40878bbd"
+    },
+    {
+      "path": "lab/out/release-closed-batch-r2/tree/target/oracle-redo-kernel-0.1.0-SNAPSHOT.jar",
+      "bytes": 167935,
+      "sha256": "cf339689693b34acd252652dc16dd39c3545844eaba092f95ffc2d2c8ecf1021"
+    },
+    {
+      "path": "lab/out/seal-blocking-research.py",
+      "bytes": 2473,
+      "sha256": "cd7da225ad91b47b3b87960255ee939517cd1f1c33c8f6e408301a18a6a9691f"
+    },
+    {
+      "path": "lab/out/verify-blocking-rows/classes/PhysicalTransactionProbe.class",
+      "bytes": 6883,
+      "sha256": "b3f934cd32fc90e5058cb41ac487dc1237177a5547ecbbcaadbd135e553d1a9a"
+    },
+    {
+      "path": "lab/out/verify-blocking-rows/classes/VerifiedHeapRowsProbe.class",
+      "bytes": 4536,
+      "sha256": "08b822e0c969770b7df6180b95e50d80c0e1362a174d109bea15a67b8719c387"
+    },
+    {
+      "path": "lab/out/verify-blocking-rows/compile-command.json",
+      "bytes": 434,
+      "sha256": "5a7837a966c9330a6bceea4e27baab7263a5c3acc45610d7c51e1b9ea1dc499b"
+    },
+    {
+      "path": "lab/out/verify-blocking-rows/compile.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/verify-blocking-rows/compile.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/verify-blocking-rows/compile.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/verify-blocking-rows/physical-command.json",
+      "bytes": 702,
+      "sha256": "5bd73d2ce4d839990724f0640dbc431187df1659e20ff6beabdf512f0922ddee"
+    },
+    {
+      "path": "lab/out/verify-blocking-rows/physical.rc.txt",
+      "bytes": 1,
+      "sha256": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b"
+    },
+    {
+      "path": "lab/out/verify-blocking-rows/physical.stderr.txt",
+      "bytes": 1024,
+      "sha256": "eb187fa79391cdc3244a0a7d4f36d644ea0e8e195825bbade1f593dec9176096"
+    },
+    {
+      "path": "lab/out/verify-blocking-rows/physical.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/verify-blocking-rows/rows-command.json",
+      "bytes": 685,
+      "sha256": "ae770d45f8b0b4033552e2697eb9a032c580bffe067783e7962e7a5d0843d3ca"
+    },
+    {
+      "path": "lab/out/verify-blocking-rows/rows.rc.txt",
+      "bytes": 1,
+      "sha256": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b"
+    },
+    {
+      "path": "lab/out/verify-blocking-rows/rows.stderr.txt",
+      "bytes": 1178,
+      "sha256": "d7526665e52e92ea10b8c56d91fe56359adf01a54b5e12317643b32dfc26f01e"
+    },
+    {
+      "path": "lab/out/verify-blocking-rows/rows.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/verify-blocking-rows.py",
+      "bytes": 1385,
+      "sha256": "402efc9b27251118513b2680481d73799754e5b2a5d60a00d6182f5361f36203"
+    },
+    {
+      "path": "lab/PhysicalTransactionProbe.java",
+      "bytes": 2184,
+      "sha256": "10cf04dd6079227bdf65fd78dd3402b3975a86751aea19ee11c4d1c72298c474"
+    },
+    {
+      "path": "lab/VerifiedHeapRowsProbe.java",
+      "bytes": 1194,
+      "sha256": "a1f9b8ab4b10905eb1a6e4b311a8df7a949816462adf579e884406482b002925"
+    }
+  ]
+}

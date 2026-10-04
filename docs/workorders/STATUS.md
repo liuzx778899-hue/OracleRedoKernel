@@ -18,6 +18,8 @@
 
 ## 当前证据
 
+最新：[真实同一行锁等待样本及解析拒绝](RESEARCH_W5_BLOCKING_ROWS_20261005.md)，源57bb80f→b7a49ac，复用55c331a，生产代码未改，[清单](evidence/RESEARCH-blocking-rows-20261005.json)。新r2实际snapshot2362439后A两更新、B先SELECT FOR UPDATE，独立v$session证明TX row lock WAITING及A阻塞者绑定，等待时旧值可见；A/B完整XID10.17.1678/10.22.1675均提交rc0，seq38/39冻结，最终一行11/blocking-closed/new-note。physical/rows均UNSUPPORTED_TRANSACTION_START_FLAGS_OR_PARENT rc1/stdout0，native A begin38:14:16 flags0x4a未支持，不能算同key逻辑行通过。首次PRIOR变量导致B语法失败、A回滚，未提交，原目录保留；仅新目录提交实验一次，不重放。下一步只读修真实0x4a开始控制/UBA/parent门禁及完整物理图，再完整三行native/SQL对账；capture/接入/现场/发布仍待证。
+
 最新：[基线之后真实rollback-only空批次](DELIVERY_W5_ROLLBACK_ONLY_20261005.md)，源8da2f77、独立lab d9baca0，复用55c331a/229测试制品不重复构建，[清单](evidence/DELIVERY-rollback-only-20261005.json)。实际snapshot2361733 SHA5f42117b…之后自有XID10.21.1675对ID11两次CAS UPDATE后完整ROLLBACK，无commit；seq36 SHAd7c65405…冻结。物理2/2/0与native完整位置/UBA/取消图零差异，真实begin/end均在基线后，行变化0/完整一行与旧ASOF/回滚后/最终三SQL快照零差异。五重封raw scan通过而physical/rows rc1/stdout0，缺取消、错恢复值、缺end不能按rollback flag跳过；三个比较器反例检出，events拒绝。源码生成器语法失败在源执行前保全；唯一源动作未重放，原行恢复concurrent-closed/new-note。下一步真实同一行阻塞、无目标静默覆盖与index-only指定分支；持续capture/ACK/接入/现场/发布仍待证。
 
 最新：[完整闭合旧批次零变化](DELIVERY_W5_CLOSED_EMPTY_20261005.md)，实际只读获取/初版761e2e0、最终条件及比较器55c331a、状态probe06e07ee，[清单](evidence/DELIVERY-closed-empty-20261005.json)。新实际snapshot2360835及获取SHA5bbba96a…，连续seq33—35，新35 SHA779f0445…；无DML/DDL/config动作。三笔完整物理图6/0/6结束均在基线之前，行rc0/变化0/完整一行与native/实际基线/两SQL零差异；最终制品再次执行physical/rows/state与初版字节等价复用独立对照，两树229测试通过。无目标、缺begin/end、覆盖不足、未知cleanout、错误receipt拒绝；错误state/凭空事件比较器检出。同件seq30/31/32/并发完整行native零差异、初始跨snapshot/晚before/同key/SCNtie拒绝、events拒绝。补回index-only live缺heap证据的保守拒绝，指定分支实际反例未验收；真实rollback-only空批次和完全无目标静默仍待证，不当持续capture/ACK验收。源fixture仍一行11/concurrent-closed/new-note。
