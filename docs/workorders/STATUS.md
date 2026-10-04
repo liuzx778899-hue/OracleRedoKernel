@@ -13,10 +13,12 @@
 | W4 事务/回滚 | 进行中：有序history/覆盖/heap+index补偿、同源完整XID归属及有源位置重放 | 通过：203测试；seq21—24自主发现基线/A/B共12物理图；自主对象头关联；seq19—24六位置、seq21—24有限双上下文完整图与拒绝证据；九笔旧图及六批长heap证据保留 | 进行中：有界自主物理入口已交付；完整控制/页维护/跨块关联/恢复待证；不当通用生产能力 | 未开始 | 待证 | 未开始 |
 | W5 SCN字典/基线 | 进行中：extent/完整行、ASOF/回执/typed世代，有限cleanout、闭合图live选择、commit SCN重放及LKR独立LOCK节点 | 通过：233测试制品；seq37—39真实锁等待三完整行/native/四SQL零差异；seq36 rollback-only及seq33—35旧批次空结果，既有并发/行证据保留；生产可信交接/历史字典待证 | 进行中：有限不同行并发、全/部分回滚、空批次、真实锁等待但redo事务窗口串行通过；活跃同key重叠/相同commit SCN支持/无目标静默/多savepoint/跨块/初始恢复/历史schema待证 | 未开始 | 待证 | 未开始 |
 | W6 StreamHouse接入 | 未开始 | 待证 | 未开始 | 未开始 | 待证 | 未开始 |
-| W7 online采集 | 进行中：固定member续接/关闭代际多member跟踪；Java原始journal验证及record缓冲入口 | 通过：237测试，seq40—42 capture19516 records/36124 vectors完整native零差异，8拒绝/4比较器反例；原捕获/续接证据保留；实时/任意速率/跨组重启/断电/Windows/ASM待证 | 通过有限结构集成：原始头journal→record/vector；事务/字典/完整行/消费ACK待证；关闭代际有切换延迟 | 未开始 | 待证 | 未开始 |
+| W7 online采集 | 进行中：固定member续接/关闭代际跟踪；共用capture输入接原物理图/可信baseline完整行 | 通过：240测试，seq40—42 capture三图3/0/3、三完整UPDATE/native/三SQL零差异，6语义拒绝/4比较器反例；旧结构/捕获/续接保留；实时/跨组重启/断电/Windows/ASM待证 | 通过有限关闭批次：journal→record/vector→typed事务→可信获取baseline完整UPDATE；生产字典/跨批持久状态/消费ACK待证，有切换延迟 | 未开始 | 待证 | 未开始 |
 | W8-W11 扩展类型/LOB/RAC/ASM/TDE | 未开始 | 待证 | 未开始 | 未开始 | 待证 | 未开始 |
 
 ## 当前证据
+
+最新：[capture完整事务与行](DELIVERY_W7_CAPTURE_ROWS_20261005.md)，输入8cc8e21、最终生产b712d56、独立lab b3490b8，[清单](evidence/DELIVERY-capture-rows-20261005.json)。最终240测试/jar SHA7d4345f1…，复用已有baseline2366727及seq40—42，完整三图3/0/3、三UPDATE/native/三提交后SQL零差异，最终11/blocking-closed/new-note；capture/归档graph/rows/state一致。初版真实marker3短值拒绝保留，仅新增已证XA/column1/ncol3/16byte profile，不泛化XR/未知长度。六capture语义/连续性反例整批stdout0，晚before physical通过而rows拒绝，四比较器反例检出；旧LKR/全回滚及indexed partial归档输出回归一致，events拒绝。driver拒绝原因断言错误保留，续跑跳过已执行项；无源动作重放。下一步capture/解析/目标ACK独立持久位置及恢复/W6，实时/现场/发布仍未通过。
 
 最新：[journal直接record/vector解析](DELIVERY_W7_CAPTURE_RECORDS_20261005.md)，生产cba8bbc、独立lab da24a3c，[清单](evidence/DELIVERY-capture-records-20261005.json)。237测试通过，jar SHA cf8f4898…；三原始关闭journal不造归档，19516 records/36124 vectors完整native位置/结构/opcode零差异，包含9023跨块record。与独立archive及旧已验收jar全部vector字段byte一致；八capture反例含晚record重封破坏整批stdout0，四比较器反例检出；events继续拒绝。本轮只读/diagnostic dump无源DML/config/switch。结构集成不替代事务/DML/字典/实时/恢复/ACK/现场/发布；接续复用三UPDATE真实baseline把capture接入完整物理事务/行，再W6与三位置持久协议。
 
