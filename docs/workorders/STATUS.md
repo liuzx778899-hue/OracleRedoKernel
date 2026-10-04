@@ -32,6 +32,8 @@
 
 ## 接续与限制
 
+最新研究：[多次并发INSERT位置](RESEARCH_W4_INDEX_MULTI_INSERT_20261004.md)，源脚本d3fd77b、完整研究树c469cd3，[清单](evidence/RESEARCH-index-multi-position-20261004.json)。专属源一次受控实验冻结seq20（620c6361…），A删除50，B按20/70/30插入后提交，A回滚；native slot1/1/3/2/3及三键raw字节零差异。已交付同件jar精确关联A原slot1→RESTORE slot3，旧静态matcher继续拒绝；无内核变化。新批完整A/B heap+index图、反例覆盖、其他中间操作仍待证，不补填旧批图计数或开放CDC。接续优先补本冻结批图和漏vector反例，再研究前方PURGE。
+
 最新：[同叶INSERT位置重放与短Z回滚交付](DELIVERY_W4_INDEX_POSITION_20261004.md)，完整内核树aa44b0d，补充lab驱动b934d99且main/test/pom差异为空，[清单](evidence/DELIVERY-index-position-20261004.json)封存1030文件双次SHA核对。167测试通过；真实A原slot1经B插入变slot2成功关联，native零差异；A/B heap+index图4原始/2取消/2 live、4新heap pair零差异。同件jar旧五笔混合图22/19/3与六批heap756/430/326回归通过；7位置+4图+7短Z真实vector派生反例rc1/stdout0。中间DELETE/PURGE/RESTORE仍拒绝；不将有限图当完整DML/字典认证。首次合成marker错误及真实短Z拒绝原文已保全，无新数据库动作，events继续拒绝，目标保持active。
 
 最新：[同叶完整操作清单交付](DELIVERY_W4_INDEX_LEAF_INVENTORY_20261004.md)，最终完整树13a87c0，[清单](evidence/DELIVERY-leaf-inventory-20261004.json)。154测试通过；内核绑定完整归档，在verified record窗口收录同叶其他XID操作，真实A窗口3项含B插入、B窗口1项与native窗口/字段零差异。4选择反例拒绝；3重封raw反例结构scan rc0而清单拒绝未知10.31/4.1/缺B undo；3比较器反例检出。同件jar五笔混合图22/19/3回归通过、slot迁移matcher和events继续拒绝，1000文件SHA重算。没有数据库动作；位置重放尚未实现，block/object字典映射/完整并发图/页维护/持续capture/发布未验收。
