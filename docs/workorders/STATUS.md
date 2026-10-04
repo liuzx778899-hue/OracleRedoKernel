@@ -10,7 +10,7 @@
 | W1 文件/块 scanner | 通过：首批fa61476 | 通过：19c/21c有界样本/5个真实派生反例 | 待证：真实capture | 未开始 | 待证 | 未开始 |
 | W2 record/vector | 通过：首批fa61476 | 通过：19c seq8/9完整dump、21c选定范围 | 待证：事务/字典 | 未开始 | 待证 | 未开始 |
 | W3 基础行/类型 | 进行中：scalar + pair + KDOM2单列扩展值 | 通过：18pair/302长值patch；完整行待证 | 进行中：物理配对；字典/基线待证 | 未开始 | 待证 | 未开始 |
-| W4 事务/回滚 | 进行中：有序history/覆盖/slot排除/完整heap rollback/同record index配对 | 通过：六批756节点/430补偿/326 live含二次及整事务回滚；14index pair/12记录派生拒绝；完整事务待证 | 进行中：并发归属/其他控制/index取消图/恢复待证 | 未开始 | 待证 | 未开始 |
+| W4 事务/回滚 | 进行中：有序history/覆盖/slot排除/heap rollback/index普通purge补偿 | 通过：六批heap756/430/326；14index pair；三笔混合图9/7/2及6派生拒绝；完整事务待证 | 进行中：并发归属/其他控制/index restore及扩展取消图/恢复待证 | 未开始 | 待证 | 未开始 |
 | W5 SCN字典/基线 | 未开始 | 待证 | 未开始 | 未开始 | 待证 | 未开始 |
 | W6 StreamHouse接入 | 未开始 | 待证 | 未开始 | 未开始 | 待证 | 未开始 |
 | W7 online采集 | 进行中：固定member有界观察journal实验 | 通过：429归档数据块字节覆盖、6派生拒绝；完整持续捕获/续接/Windows/ASM待证 | 未开始：journal到解析/ACK | 未开始 | 待证 | 未开始 |
@@ -31,6 +31,8 @@
 - 首轮PDB切日志ORA-65040、CDB VLD9/13/marker结构缺口、SQLPlus中文显示与LogMiner status3均保留原文；两会话交叉事务/跨switch动作已执行。细节见[首批反馈](DELIVERY_W0_W2_20261004.md)。
 
 ## 接续与限制
+
+最新：[索引补偿与混合undo图交付](DELIVERY_W4_MIXED_UNDO_20261004.md)，最终完整封存树9e80b0f，[清单](evidence/DELIVERY-mixed-undo-20261004.json)。138项测试通过；三笔完整XID的heap+index原始9/取消7/保留2与native有序重建零差异（index取消3、heap取消4）；6项漏index节点/错误purge slot派生输入rc1/stdout0。同件jar14index pair/12拒绝及既有heap补偿回归，events拒绝。无数据库动作；下一步index RESTORE及主键更新回滚专属fixture，其他控制/并发/恢复/W5/持续capture仍待证。
 
 最新：[索引undo配对交付](DELIVERY_W4_INDEX_PAIR_20261004.md)，完整封存树b0771f7，[清单](evidence/DELIVERY-index-pair-20261004.json)。133项测试通过；seq8/9真实14index pair按同record唯一完整UBA与native零差异，12记录派生拒绝；同件jar既有18heap pair及4补偿/1保留回归，events rc1/stdout0。首次lambda编译失败保全；最终XID反例直接篡改forward当前身份。无数据库动作；下一步3条索引补偿归属及heap+index取消图，SCN字典/逻辑DML/发布未通过。
 
