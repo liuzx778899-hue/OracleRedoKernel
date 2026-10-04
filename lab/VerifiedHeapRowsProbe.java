@@ -1,11 +1,13 @@
 import com.streamhouse.oracle.*;
 import java.nio.file.Path;
-import java.util.List;
+import java.util.ArrayList;
 
 /** Full bounded row replay takes a real frozen snapshot and its acquisition handoff digest; no inline row values. */
 public class VerifiedHeapRowsProbe {
     public static void main(String[] args) throws Exception {
-        var result=ArchivedHeapRows.readVerified(List.of(Path.of(args[0])),Path.of(args[1]),args[2],Long.decode(args[3]));
+        var paths=new ArrayList<Path>();paths.add(Path.of(args[0]));
+        for (int i=4;i<args.length;i++) paths.add(Path.of(args[i]));
+        var result=ArchivedHeapRows.readVerified(paths,Path.of(args[1]),args[2],Long.decode(args[3]));
         for (var c:result.changes()) {
             var p=c.position();System.out.println("ROW|"+p.archiveSequence()+":"+p.block()+":"+p.offset()+":"+p.vector()+"|"+c.xid()+"|"+c.key().dataObjectId()+"|"+c.key().dba()+"|"+c.key().slot()+"|"+c.kind()+"|"+values(c.before())+"|"+values(c.after()));
         }
