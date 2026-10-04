@@ -1,0 +1,2300 @@
+{
+  "initial_resume_runtime_commit": "084cf37",
+  "final_collector_and_lab_commit": "c689b7a6667cdc44aac532a316b45ad3de5a92eb",
+  "sha256_checked_twice": true,
+  "initial_next_sequence": 43,
+  "final_next_sequence": 44,
+  "original_40_41_42_journals_unchanged": true,
+  "normal_append_43_archive_coverage": {
+    "sequence": 43,
+    "observations_verified": 9163,
+    "archive_data_blocks": 9161,
+    "missing_blocks": [],
+    "different_blocks": [],
+    "header_equality_claimed": false,
+    "capture_complete": false,
+    "scope": "finite archived data-block byte coverage only; source online headers retained, not normalized"
+  },
+  "actual_process_crash_proof": {
+    "actual_self_sigkills": 2,
+    "aggregate_lag_recovered_without_rewriting_journal": true,
+    "partial_frame_refused_and_retained": true,
+    "oracle_process_killed": false,
+    "source_dml": false,
+    "source_closures": 0,
+    "consumer_ack": false,
+    "capture_complete": false
+  },
+  "expected_self_sigkills": [
+    {
+      "folder": "closed-resume-crash-20261005",
+      "name": "kill-aggregate",
+      "rc": 137,
+      "stdout_bytes": 146,
+      "reason": "KILL_POINT_BEFORE_AGGREGATE"
+    },
+    {
+      "folder": "closed-resume-crash-20261005",
+      "name": "kill-partial",
+      "rc": 137,
+      "stdout_bytes": 143,
+      "reason": "KILL_POINT_PARTIAL_FRAME"
+    }
+  ],
+  "resume_refusals": [
+    {
+      "folder": "closed-resume-crash-20261005",
+      "name": "refuse-partial",
+      "rc": 1,
+      "stdout_bytes": 0,
+      "reason": "RuntimeError: CAPTURE_UNCOMMITTED_GENERATION"
+    },
+    {
+      "folder": "closed-resume-faults-20261005",
+      "name": "advanced-next",
+      "rc": 1,
+      "stdout_bytes": 0,
+      "reason": "RuntimeError: CAPTURE_RESUME_LEDGER_INVALID"
+    },
+    {
+      "folder": "closed-resume-faults-20261005",
+      "name": "boolean-source",
+      "rc": 1,
+      "stdout_bytes": 0,
+      "reason": "RuntimeError: CAPTURE_RESUME_FRAME_METADATA_INVALID"
+    },
+    {
+      "folder": "closed-resume-faults-20261005",
+      "name": "dual-writer",
+      "rc": 1,
+      "stdout_bytes": 0,
+      "reason": "BlockingIOError: [Errno 11] Resource temporarily unavailable"
+    },
+    {
+      "folder": "closed-resume-faults-20261005",
+      "name": "orphan-gap",
+      "rc": 1,
+      "stdout_bytes": 0,
+      "reason": "RuntimeError: CAPTURE_RESUME_ORPHAN_GENERATION_GAP"
+    },
+    {
+      "folder": "closed-resume-faults-20261005",
+      "name": "rehashed-raw-checksum",
+      "rc": 1,
+      "stdout_bytes": 0,
+      "reason": "RuntimeError: CAPTURE_RESUME_RAW_DIGEST_OR_CHECKSUM_MISMATCH"
+    },
+    {
+      "folder": "closed-resume-faults-20261005",
+      "name": "sidecar-disagreement",
+      "rc": 1,
+      "stdout_bytes": 0,
+      "reason": "RuntimeError: CAPTURE_RESUME_SIDECAR_DISAGREEMENT"
+    },
+    {
+      "folder": "closed-resume-faults-20261005",
+      "name": "sidecar-without-journal",
+      "rc": 1,
+      "stdout_bytes": 0,
+      "reason": "RuntimeError: CAPTURE_RESUME_SIDECAR_WITHOUT_JOURNAL"
+    },
+    {
+      "folder": "closed-resume-faults-20261005",
+      "name": "truncated-journal",
+      "rc": 1,
+      "stdout_bytes": 0,
+      "reason": "RuntimeError: CAPTURE_RESUME_JOURNAL_DIGEST_MISMATCH"
+    },
+    {
+      "folder": "closed-resume-faults-20261005",
+      "name": "wrong-inode",
+      "rc": 1,
+      "stdout_bytes": 0,
+      "reason": "RuntimeError: CAPTURE_RESUME_SOURCE_BINDING_MISMATCH"
+    },
+    {
+      "folder": "closed-resume-faults-20261005",
+      "name": "wrong-receipt-sha",
+      "rc": 1,
+      "stdout_bytes": 0,
+      "reason": "RuntimeError: CAPTURE_RESUME_RECEIPT_DIGEST_MISMATCH"
+    },
+    {
+      "folder": "closed-resume-faults-20261005",
+      "name": "wrong-scn",
+      "rc": 1,
+      "stdout_bytes": 0,
+      "reason": "RuntimeError: CAPTURE_RESUME_CLOSED_HEADER_MISMATCH"
+    }
+  ],
+  "journal_preservation_after_exclusive_writer_test": [
+    {
+      "sequence": 40,
+      "sha256": "97ffa0ece0e233092bdfad4fb5c0c896bd591648b0295cc42b485d71754359fe",
+      "unchanged": true
+    },
+    {
+      "sequence": 41,
+      "sha256": "36732c64aa8b20280d14d0ae4fab6dcaa795029746cf6d7ef65446ed71d23f8f",
+      "unchanged": true
+    },
+    {
+      "sequence": 42,
+      "sha256": "bb9ce199f50ad1fc07ed5b6e802215b3c561cd38d948ea8bcf37e0f86fb49116",
+      "unchanged": true
+    },
+    {
+      "sequence": 43,
+      "sha256": "ccaef2d9369bfb9542ee42ca1159c2442391ade2f3caa981037d50156c25930b",
+      "unchanged": true
+    }
+  ],
+  "lgwr_after_collector_crashes": {
+    "lgwr_processes": [
+      {
+        "pid": 5601,
+        "comm": "ora_lgwr_ork19"
+      }
+    ]
+  },
+  "business_source_dml": false,
+  "controlled_source_closures": 1,
+  "java_kernel_changed": false,
+  "existing_java_test_count": 240,
+  "power_loss_verified": false,
+  "capture_complete": false,
+  "consumer_ack": false,
+  "cdc_events": 0,
+  "files": [
+    {
+      "path": "lab/compare_observation_archive.py",
+      "bytes": 2889,
+      "sha256": "289043b4b4698bfe935beb22803211c3bb6a9c7c8e51be7467a8662586dbb818"
+    },
+    {
+      "path": "lab/follow_closed_members.py",
+      "bytes": 13579,
+      "sha256": "e2bace7d9309e06692270f2992e8b275a0cca2e71e4b5ddb281421943f5d15f5"
+    },
+    {
+      "path": "lab/out/closed-resume-20261005/after/receipt.json",
+      "bytes": 1635,
+      "sha256": "2a63f930aa4edbd576fa52cf98337928f2b0a3403daf665076f1c3ee70602087"
+    },
+    {
+      "path": "lab/out/closed-resume-20261005/after/sequence-40.oracap",
+      "bytes": 12639678,
+      "sha256": "97ffa0ece0e233092bdfad4fb5c0c896bd591648b0295cc42b485d71754359fe"
+    },
+    {
+      "path": "lab/out/closed-resume-20261005/after/sequence-40.receipt.json",
+      "bytes": 388,
+      "sha256": "a7169fe1c74bc70193e70fb42560e5f200e9db49c2825c4205dbf3e3697f95a7"
+    },
+    {
+      "path": "lab/out/closed-resume-20261005/after/sequence-41.oracap",
+      "bytes": 5981,
+      "sha256": "36732c64aa8b20280d14d0ae4fab6dcaa795029746cf6d7ef65446ed71d23f8f"
+    },
+    {
+      "path": "lab/out/closed-resume-20261005/after/sequence-41.receipt.json",
+      "bytes": 384,
+      "sha256": "55b50720e1fe2ea5ed0043b94dcfd0178adba1e08bc9c38e796786adc198dddd"
+    },
+    {
+      "path": "lab/out/closed-resume-20261005/after/sequence-42.oracap",
+      "bytes": 7694,
+      "sha256": "bb9ce199f50ad1fc07ed5b6e802215b3c561cd38d948ea8bcf37e0f86fb49116"
+    },
+    {
+      "path": "lab/out/closed-resume-20261005/after/sequence-42.receipt.json",
+      "bytes": 384,
+      "sha256": "3c86e5d893d96b913c2a19851187c0fcc5cc708b32e7f77cade0ca86883fc912"
+    },
+    {
+      "path": "lab/out/closed-resume-20261005/after/sequence-43.oracap",
+      "bytes": 7849246,
+      "sha256": "ccaef2d9369bfb9542ee42ca1159c2442391ade2f3caa981037d50156c25930b"
+    },
+    {
+      "path": "lab/out/closed-resume-20261005/after/sequence-43.receipt.json",
+      "bytes": 387,
+      "sha256": "3a182fd21c3a5e1d8d5ffcd8060c07da49e893853ba28d72a5d60f2b9c23ccab"
+    },
+    {
+      "path": "lab/out/closed-resume-20261005/after/source.json",
+      "bytes": 477,
+      "sha256": "ec92697eaccd12ebc599b567cd6cbb882e108b9337fdf2716afe670e13f9c4f3"
+    },
+    {
+      "path": "lab/out/closed-resume-20261005/after/writer.lock",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/closed-resume-20261005/archive-43.dbf",
+      "bytes": 4691456,
+      "sha256": "be5e7e7fe7954698ce022fb6a4bd461510916326d46cfc09262e0271a1683b15"
+    },
+    {
+      "path": "lab/out/closed-resume-20261005/before/receipt.json",
+      "bytes": 1246,
+      "sha256": "c3cae64250393c627003b0db9b5308c3121a7dcac2e56836a348c8b56326ee3d"
+    },
+    {
+      "path": "lab/out/closed-resume-20261005/before/sequence-40.oracap",
+      "bytes": 12639678,
+      "sha256": "97ffa0ece0e233092bdfad4fb5c0c896bd591648b0295cc42b485d71754359fe"
+    },
+    {
+      "path": "lab/out/closed-resume-20261005/before/sequence-41.oracap",
+      "bytes": 5981,
+      "sha256": "36732c64aa8b20280d14d0ae4fab6dcaa795029746cf6d7ef65446ed71d23f8f"
+    },
+    {
+      "path": "lab/out/closed-resume-20261005/before/sequence-42.oracap",
+      "bytes": 7694,
+      "sha256": "bb9ce199f50ad1fc07ed5b6e802215b3c561cd38d948ea8bcf37e0f86fb49116"
+    },
+    {
+      "path": "lab/out/closed-resume-20261005/before/source.json",
+      "bytes": 477,
+      "sha256": "ec92697eaccd12ebc599b567cd6cbb882e108b9337fdf2716afe670e13f9c4f3"
+    },
+    {
+      "path": "lab/out/closed-resume-20261005/binding.command.json",
+      "bytes": 125,
+      "sha256": "92b11ce209b6f209002bbfe2fca241e2b4505dae9b02fa31abf42af2cce92a19"
+    },
+    {
+      "path": "lab/out/closed-resume-20261005/binding.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/closed-resume-20261005/binding.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/closed-resume-20261005/binding.stdout.txt",
+      "bytes": 84,
+      "sha256": "663213c6ddff7be1e55f48031ca6e99d821fac874d4aa01eb41eb0ef08ee52b2"
+    },
+    {
+      "path": "lab/out/closed-resume-20261005/closure.command.json",
+      "bytes": 90,
+      "sha256": "6095ca5a9605c02acb9b77ba5ea4d19487ab938e2e51045704dedb495bc394d5"
+    },
+    {
+      "path": "lab/out/closed-resume-20261005/closure.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/closed-resume-20261005/closure.sql",
+      "bytes": 433,
+      "sha256": "585035ce999b46e15ff2c3462cf6f6f58181c23fa79d83e9bca0df8543c4e8a2"
+    },
+    {
+      "path": "lab/out/closed-resume-20261005/closure.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/closed-resume-20261005/closure.stdout.txt",
+      "bytes": 72,
+      "sha256": "655f7965e215783065cc4ec553437f9115edfa05a5106df1ea078bd3ecb3979b"
+    },
+    {
+      "path": "lab/out/closed-resume-20261005/collector.command.json",
+      "bytes": 346,
+      "sha256": "54bbfb8e2360c712f81b6187065aa23c33780a1062b7e7dd90ed97724c37c176"
+    },
+    {
+      "path": "lab/out/closed-resume-20261005/collector.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/closed-resume-20261005/collector.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/closed-resume-20261005/collector.stdout.txt",
+      "bytes": 341,
+      "sha256": "03b32a5d684a215e79ceb55613a1c8ac4d0b474d5eae5f414b431c38314494aa"
+    },
+    {
+      "path": "lab/out/closed-resume-20261005/copy-follow_closed_members.py.command.json",
+      "bytes": 183,
+      "sha256": "f7496854b19127d7aeeea60b45b5c8452fb8118e0918f1b6aa0eb14f5eb03308"
+    },
+    {
+      "path": "lab/out/closed-resume-20261005/copy-follow_closed_members.py.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/closed-resume-20261005/copy-follow_closed_members.py.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/closed-resume-20261005/copy-follow_closed_members.py.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/closed-resume-20261005/copy-resume_online_observation.py.command.json",
+      "bytes": 191,
+      "sha256": "ee9a8821cebdd0655b843a00480255c34e79fade34ab2ba78d89d636e61434e5"
+    },
+    {
+      "path": "lab/out/closed-resume-20261005/copy-resume_online_observation.py.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/closed-resume-20261005/copy-resume_online_observation.py.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/closed-resume-20261005/copy-resume_online_observation.py.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/closed-resume-20261005/coverage43.command.json",
+      "bytes": 377,
+      "sha256": "ce2f1421510966dc085ed9421426f8135e2aba604998584249aaafa024ebc837"
+    },
+    {
+      "path": "lab/out/closed-resume-20261005/coverage43.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/closed-resume-20261005/coverage43.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/closed-resume-20261005/coverage43.stdout.txt",
+      "bytes": 318,
+      "sha256": "46c0928cf08ac8e39b6e2cf5de5a3d2b744638a2345ac92dfaabb23f1423b8a4"
+    },
+    {
+      "path": "lab/out/closed-resume-20261005/executed-follow_closed_members.py",
+      "bytes": 13448,
+      "sha256": "b8b8dde76254324d231ad6e2df511dca4647053d55114cdb490733a716c050bc"
+    },
+    {
+      "path": "lab/out/closed-resume-20261005/executed-resume_online_observation.py",
+      "bytes": 8802,
+      "sha256": "fc0155f98ce9651c9f08a581ba28ccf8e8c98b4302d347b04570e005a8602f4b"
+    },
+    {
+      "path": "lab/out/closed-resume-20261005/executed-sha-follow_closed_members.py.command.json",
+      "bytes": 92,
+      "sha256": "dbdb9015ba83a64b0a20bf1cb271f63db119562a1ebbd285d9dbdf7fd74dbce9"
+    },
+    {
+      "path": "lab/out/closed-resume-20261005/executed-sha-follow_closed_members.py.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/closed-resume-20261005/executed-sha-follow_closed_members.py.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/closed-resume-20261005/executed-sha-follow_closed_members.py.stdout.txt",
+      "bytes": 96,
+      "sha256": "1a2ee1878d1d6ecf06c501d414dd671ce38a44533c9b649c48387bcdb58d82ec"
+    },
+    {
+      "path": "lab/out/closed-resume-20261005/executed-sha-resume_online_observation.py.command.json",
+      "bytes": 96,
+      "sha256": "ef3bc819083687a32a8d62b6a5586c3242857308b6397466a52d407bf940bc30"
+    },
+    {
+      "path": "lab/out/closed-resume-20261005/executed-sha-resume_online_observation.py.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/closed-resume-20261005/executed-sha-resume_online_observation.py.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/closed-resume-20261005/executed-sha-resume_online_observation.py.stdout.txt",
+      "bytes": 100,
+      "sha256": "9869644bd729ff10aa54cd1c9cdaefe0e4dae9c1d8b21a3443a1d779a05675c0"
+    },
+    {
+      "path": "lab/out/closed-resume-20261005/export-after.command.json",
+      "bytes": 157,
+      "sha256": "a0876bb52a0c9c9799edb13d623d4844c396d67bc062cfd7dd3a2ed9b0aeb7aa"
+    },
+    {
+      "path": "lab/out/closed-resume-20261005/export-after.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/closed-resume-20261005/export-after.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/closed-resume-20261005/export-after.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/closed-resume-20261005/export-archive43.command.json",
+      "bytes": 195,
+      "sha256": "11f5c4182c729ef91a5bd4566990971acaca00497fb9171600f4350c0250888f"
+    },
+    {
+      "path": "lab/out/closed-resume-20261005/export-archive43.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/closed-resume-20261005/export-archive43.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/closed-resume-20261005/export-archive43.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/closed-resume-20261005/export-before.command.json",
+      "bytes": 158,
+      "sha256": "b7887e84d4106fad2c6cb77bb987a54963c66aa2352b1d829e40c8fc6a66fd14"
+    },
+    {
+      "path": "lab/out/closed-resume-20261005/export-before.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/closed-resume-20261005/export-before.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/closed-resume-20261005/export-before.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/closed-resume-20261005/inventory.command.json",
+      "bytes": 90,
+      "sha256": "6095ca5a9605c02acb9b77ba5ea4d19487ab938e2e51045704dedb495bc394d5"
+    },
+    {
+      "path": "lab/out/closed-resume-20261005/inventory.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/closed-resume-20261005/inventory.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/closed-resume-20261005/inventory.stdout.txt",
+      "bytes": 11,
+      "sha256": "e37f495fb21a218455b871421653f1b959b391f547805450d527067d8e8fa363"
+    },
+    {
+      "path": "lab/out/closed-resume-crash-20261005/binding.command.json",
+      "bytes": 125,
+      "sha256": "92b11ce209b6f209002bbfe2fca241e2b4505dae9b02fa31abf42af2cce92a19"
+    },
+    {
+      "path": "lab/out/closed-resume-crash-20261005/binding.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/closed-resume-crash-20261005/binding.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/closed-resume-crash-20261005/binding.stdout.txt",
+      "bytes": 84,
+      "sha256": "663213c6ddff7be1e55f48031ca6e99d821fac874d4aa01eb41eb0ef08ee52b2"
+    },
+    {
+      "path": "lab/out/closed-resume-crash-20261005/copy-follow_closed_members.py.command.json",
+      "bytes": 189,
+      "sha256": "9223e68213df4e65c7ae7ab498e4e9052c560be9ff1c30027395605c5e664e86"
+    },
+    {
+      "path": "lab/out/closed-resume-crash-20261005/copy-follow_closed_members.py.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/closed-resume-crash-20261005/copy-follow_closed_members.py.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/closed-resume-crash-20261005/copy-follow_closed_members.py.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/closed-resume-crash-20261005/copy-kill-aggregate.command.json",
+      "bytes": 177,
+      "sha256": "07e8ebc171f873f4b51b6f77a41b49f8990dea590457f367c00db4d3fdb0e1ad"
+    },
+    {
+      "path": "lab/out/closed-resume-crash-20261005/copy-kill-aggregate.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/closed-resume-crash-20261005/copy-kill-aggregate.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/closed-resume-crash-20261005/copy-kill-aggregate.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/closed-resume-crash-20261005/copy-kill-partial.command.json",
+      "bytes": 172,
+      "sha256": "150ba0d06742ea883d3b50c086b5f209476b8ef543446d0681a0d5ebe27dc102"
+    },
+    {
+      "path": "lab/out/closed-resume-crash-20261005/copy-kill-partial.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/closed-resume-crash-20261005/copy-kill-partial.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/closed-resume-crash-20261005/copy-kill-partial.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/closed-resume-crash-20261005/copy-resume_online_observation.py.command.json",
+      "bytes": 197,
+      "sha256": "855cecd7af77ed7604d17e36814d7d147f0bc825813b5891f6484e9639fe7728"
+    },
+    {
+      "path": "lab/out/closed-resume-crash-20261005/copy-resume_online_observation.py.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/closed-resume-crash-20261005/copy-resume_online_observation.py.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/closed-resume-crash-20261005/copy-resume_online_observation.py.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/closed-resume-crash-20261005/coverage-recovered.command.json",
+      "bytes": 387,
+      "sha256": "ee1e3837b76b9eb01ad6a86ce563ce1f5f37e75b0210ddf7491a131542cfa93e"
+    },
+    {
+      "path": "lab/out/closed-resume-crash-20261005/coverage-recovered.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/closed-resume-crash-20261005/coverage-recovered.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/closed-resume-crash-20261005/coverage-recovered.stdout.txt",
+      "bytes": 318,
+      "sha256": "46c0928cf08ac8e39b6e2cf5de5a3d2b744638a2345ac92dfaabb23f1423b8a4"
+    },
+    {
+      "path": "lab/out/closed-resume-crash-20261005/crashed/receipt.json",
+      "bytes": 86,
+      "sha256": "05fbc2158a8a68301acfd1aa1e5fd68891e458c9c9db4550feb2de7f7d24c071"
+    },
+    {
+      "path": "lab/out/closed-resume-crash-20261005/crashed/sequence-43.oracap",
+      "bytes": 7849156,
+      "sha256": "7b0a5ca3cdda46a1523a3c7f1ecb3061d1145b7ded01f43f3415dd54ef85598f"
+    },
+    {
+      "path": "lab/out/closed-resume-crash-20261005/crashed/sequence-43.receipt.json",
+      "bytes": 387,
+      "sha256": "07385813e46bdd5edc8b7ef992d37f07e398b7eb575aedaefe901036d89b89fb"
+    },
+    {
+      "path": "lab/out/closed-resume-crash-20261005/crashed/source.json",
+      "bytes": 477,
+      "sha256": "0064d12f04a4183a3245d6f78ef9a03be5d27da3dfea157fd3d0cb361f81b235"
+    },
+    {
+      "path": "lab/out/closed-resume-crash-20261005/crashed/writer.lock",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/closed-resume-crash-20261005/executed-follow_closed_members.py",
+      "bytes": 13579,
+      "sha256": "e2bace7d9309e06692270f2992e8b275a0cca2e71e4b5ddb281421943f5d15f5"
+    },
+    {
+      "path": "lab/out/closed-resume-crash-20261005/executed-resume_online_observation.py",
+      "bytes": 8802,
+      "sha256": "fc0155f98ce9651c9f08a581ba28ccf8e8c98b4302d347b04570e005a8602f4b"
+    },
+    {
+      "path": "lab/out/closed-resume-crash-20261005/executed-sha-follow_closed_members.py.command.json",
+      "bytes": 92,
+      "sha256": "dbdb9015ba83a64b0a20bf1cb271f63db119562a1ebbd285d9dbdf7fd74dbce9"
+    },
+    {
+      "path": "lab/out/closed-resume-crash-20261005/executed-sha-follow_closed_members.py.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/closed-resume-crash-20261005/executed-sha-follow_closed_members.py.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/closed-resume-crash-20261005/executed-sha-follow_closed_members.py.stdout.txt",
+      "bytes": 96,
+      "sha256": "53d31d012ec02254e27276febf0cd35763e2bce0c95798306444d5cb885e0b5c"
+    },
+    {
+      "path": "lab/out/closed-resume-crash-20261005/executed-sha-resume_online_observation.py.command.json",
+      "bytes": 96,
+      "sha256": "ef3bc819083687a32a8d62b6a5586c3242857308b6397466a52d407bf940bc30"
+    },
+    {
+      "path": "lab/out/closed-resume-crash-20261005/executed-sha-resume_online_observation.py.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/closed-resume-crash-20261005/executed-sha-resume_online_observation.py.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/closed-resume-crash-20261005/executed-sha-resume_online_observation.py.stdout.txt",
+      "bytes": 100,
+      "sha256": "9869644bd729ff10aa54cd1c9cdaefe0e4dae9c1d8b21a3443a1d779a05675c0"
+    },
+    {
+      "path": "lab/out/closed-resume-crash-20261005/export-crashed.command.json",
+      "bytes": 178,
+      "sha256": "17dd3128ad4579b58a5e86d499fed8e4de5aeb822ed645fc72ba91eb38d2e068"
+    },
+    {
+      "path": "lab/out/closed-resume-crash-20261005/export-crashed.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/closed-resume-crash-20261005/export-crashed.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/closed-resume-crash-20261005/export-crashed.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/closed-resume-crash-20261005/export-partial-after.command.json",
+      "bytes": 182,
+      "sha256": "ccb4f0b26c28f1b6902e15ba4b274c6e2e9c8ea76503d5de255a94611fac1ef8"
+    },
+    {
+      "path": "lab/out/closed-resume-crash-20261005/export-partial-after.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/closed-resume-crash-20261005/export-partial-after.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/closed-resume-crash-20261005/export-partial-after.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/closed-resume-crash-20261005/export-partial.command.json",
+      "bytes": 176,
+      "sha256": "f83db2224bbaed8a1d62d4054d2d892bf60fa100f5464207f9f30eefec6e7e69"
+    },
+    {
+      "path": "lab/out/closed-resume-crash-20261005/export-partial.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/closed-resume-crash-20261005/export-partial.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/closed-resume-crash-20261005/export-partial.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/closed-resume-crash-20261005/export-recovered.command.json",
+      "bytes": 180,
+      "sha256": "cc69a62709eb7504c51a6def20221a8b5768698304d32725febe1fc18eb7d805"
+    },
+    {
+      "path": "lab/out/closed-resume-crash-20261005/export-recovered.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/closed-resume-crash-20261005/export-recovered.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/closed-resume-crash-20261005/export-recovered.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/closed-resume-crash-20261005/kill-aggregate.command.json",
+      "bytes": 265,
+      "sha256": "c7a098a7740086ec71f7b3d160af117d68acf6522e661a95b26597e022793de1"
+    },
+    {
+      "path": "lab/out/closed-resume-crash-20261005/kill-aggregate.rc.txt",
+      "bytes": 3,
+      "sha256": "d80eae6e96d148b3b2abbbc6760077b66c4ea071f847dab573d507a32c4d99a5"
+    },
+    {
+      "path": "lab/out/closed-resume-crash-20261005/kill-aggregate.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/closed-resume-crash-20261005/kill-aggregate.stdout.txt",
+      "bytes": 146,
+      "sha256": "4fd50617f338adb3458df13494be3f5b8f1a099fcfee5ffb34ca78559ba0dbb3"
+    },
+    {
+      "path": "lab/out/closed-resume-crash-20261005/kill-before-aggregate.py",
+      "bytes": 453,
+      "sha256": "223bb3c1e036117861aa20932b97bb26a646722d5018c4a9b880f13353bff19e"
+    },
+    {
+      "path": "lab/out/closed-resume-crash-20261005/kill-partial-frame.py",
+      "bytes": 758,
+      "sha256": "78fb8325bd65fcefe0ce102732a292f5132686d0583f373053d3660b10d4d05c"
+    },
+    {
+      "path": "lab/out/closed-resume-crash-20261005/kill-partial.command.json",
+      "bytes": 261,
+      "sha256": "0c3c647e48a5e52d7ff059f5a707f63d955b664a48ce2cad6f99df814c20aae2"
+    },
+    {
+      "path": "lab/out/closed-resume-crash-20261005/kill-partial.rc.txt",
+      "bytes": 3,
+      "sha256": "d80eae6e96d148b3b2abbbc6760077b66c4ea071f847dab573d507a32c4d99a5"
+    },
+    {
+      "path": "lab/out/closed-resume-crash-20261005/kill-partial.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/closed-resume-crash-20261005/kill-partial.stdout.txt",
+      "bytes": 143,
+      "sha256": "c03afb186d8c3028bc985fd8b98fe1782605ef594f7b18149d07010afb99439c"
+    },
+    {
+      "path": "lab/out/closed-resume-crash-20261005/oracle-live.command.json",
+      "bytes": 383,
+      "sha256": "c7e1962e1818e61887a6531e48146e6d4cc873e2bb2a7b05339f80ec260928be"
+    },
+    {
+      "path": "lab/out/closed-resume-crash-20261005/oracle-live.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/closed-resume-crash-20261005/oracle-live.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/closed-resume-crash-20261005/oracle-live.stdout.txt",
+      "bytes": 62,
+      "sha256": "eae0dca3280c74791d8b5714a47436a872452f5f3635362ddbbcd51879d34b04"
+    },
+    {
+      "path": "lab/out/closed-resume-crash-20261005/partial/receipt.json",
+      "bytes": 86,
+      "sha256": "05fbc2158a8a68301acfd1aa1e5fd68891e458c9c9db4550feb2de7f7d24c071"
+    },
+    {
+      "path": "lab/out/closed-resume-crash-20261005/partial/sequence-43.oracap",
+      "bytes": 100,
+      "sha256": "4348918d8a31351c7344d957ab9300563b1707e241fbef0a013f68d5e5544081"
+    },
+    {
+      "path": "lab/out/closed-resume-crash-20261005/partial/source.json",
+      "bytes": 477,
+      "sha256": "0064d12f04a4183a3245d6f78ef9a03be5d27da3dfea157fd3d0cb361f81b235"
+    },
+    {
+      "path": "lab/out/closed-resume-crash-20261005/partial/writer.lock",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/closed-resume-crash-20261005/partial-after/receipt.json",
+      "bytes": 86,
+      "sha256": "05fbc2158a8a68301acfd1aa1e5fd68891e458c9c9db4550feb2de7f7d24c071"
+    },
+    {
+      "path": "lab/out/closed-resume-crash-20261005/partial-after/sequence-43.oracap",
+      "bytes": 100,
+      "sha256": "4348918d8a31351c7344d957ab9300563b1707e241fbef0a013f68d5e5544081"
+    },
+    {
+      "path": "lab/out/closed-resume-crash-20261005/partial-after/source.json",
+      "bytes": 477,
+      "sha256": "0064d12f04a4183a3245d6f78ef9a03be5d27da3dfea157fd3d0cb361f81b235"
+    },
+    {
+      "path": "lab/out/closed-resume-crash-20261005/partial-after/writer.lock",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/closed-resume-crash-20261005/proof.json",
+      "bytes": 282,
+      "sha256": "c80a209d19a4ee982a607e11576bb842d6bec601b3c652576c7fa9203b0daf5f"
+    },
+    {
+      "path": "lab/out/closed-resume-crash-20261005/recover-aggregate.command.json",
+      "bytes": 354,
+      "sha256": "3727b4b7b898e62a075b8646c6615cb77fb37642a7d0ac3274f9ac622e9484c1"
+    },
+    {
+      "path": "lab/out/closed-resume-crash-20261005/recover-aggregate.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/closed-resume-crash-20261005/recover-aggregate.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/closed-resume-crash-20261005/recover-aggregate.stdout.txt",
+      "bytes": 251,
+      "sha256": "53e657d88b411b34d12bef401096493dc3cc7fcfceaf2779ea2458c966418751"
+    },
+    {
+      "path": "lab/out/closed-resume-crash-20261005/recovered/receipt.json",
+      "bytes": 473,
+      "sha256": "37330685769d0660757626e6725886a53327fbe50cad939bca05c897d4a2ad68"
+    },
+    {
+      "path": "lab/out/closed-resume-crash-20261005/recovered/sequence-43.oracap",
+      "bytes": 7849156,
+      "sha256": "7b0a5ca3cdda46a1523a3c7f1ecb3061d1145b7ded01f43f3415dd54ef85598f"
+    },
+    {
+      "path": "lab/out/closed-resume-crash-20261005/recovered/sequence-43.receipt.json",
+      "bytes": 387,
+      "sha256": "07385813e46bdd5edc8b7ef992d37f07e398b7eb575aedaefe901036d89b89fb"
+    },
+    {
+      "path": "lab/out/closed-resume-crash-20261005/recovered/source.json",
+      "bytes": 477,
+      "sha256": "0064d12f04a4183a3245d6f78ef9a03be5d27da3dfea157fd3d0cb361f81b235"
+    },
+    {
+      "path": "lab/out/closed-resume-crash-20261005/recovered/writer.lock",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/closed-resume-crash-20261005/refuse-partial.command.json",
+      "bytes": 352,
+      "sha256": "dc61ea06f6ec1c6561d020c3b18b5a637c2194ad9af80833297d418fab2ecb30"
+    },
+    {
+      "path": "lab/out/closed-resume-crash-20261005/refuse-partial.rc.txt",
+      "bytes": 1,
+      "sha256": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b"
+    },
+    {
+      "path": "lab/out/closed-resume-crash-20261005/refuse-partial.stderr.txt",
+      "bytes": 734,
+      "sha256": "958db17c5ecc3f6027bb61f315a5bc7954de12636c6ba0bb2d986ba8b7e835ad"
+    },
+    {
+      "path": "lab/out/closed-resume-crash-20261005/refuse-partial.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/closed-resume-faults-20261005/advanced-next/receipt.json",
+      "bytes": 1635,
+      "sha256": "99dcd4215e0e311f2b2a1369b81dd5dd12837fd462e6f0d92cf914f4eeeca40b"
+    },
+    {
+      "path": "lab/out/closed-resume-faults-20261005/advanced-next/sequence-40.oracap",
+      "bytes": 12639678,
+      "sha256": "97ffa0ece0e233092bdfad4fb5c0c896bd591648b0295cc42b485d71754359fe"
+    },
+    {
+      "path": "lab/out/closed-resume-faults-20261005/advanced-next/sequence-40.receipt.json",
+      "bytes": 388,
+      "sha256": "a7169fe1c74bc70193e70fb42560e5f200e9db49c2825c4205dbf3e3697f95a7"
+    },
+    {
+      "path": "lab/out/closed-resume-faults-20261005/advanced-next/sequence-41.oracap",
+      "bytes": 5981,
+      "sha256": "36732c64aa8b20280d14d0ae4fab6dcaa795029746cf6d7ef65446ed71d23f8f"
+    },
+    {
+      "path": "lab/out/closed-resume-faults-20261005/advanced-next/sequence-41.receipt.json",
+      "bytes": 384,
+      "sha256": "55b50720e1fe2ea5ed0043b94dcfd0178adba1e08bc9c38e796786adc198dddd"
+    },
+    {
+      "path": "lab/out/closed-resume-faults-20261005/advanced-next/sequence-42.oracap",
+      "bytes": 7694,
+      "sha256": "bb9ce199f50ad1fc07ed5b6e802215b3c561cd38d948ea8bcf37e0f86fb49116"
+    },
+    {
+      "path": "lab/out/closed-resume-faults-20261005/advanced-next/sequence-42.receipt.json",
+      "bytes": 384,
+      "sha256": "3c86e5d893d96b913c2a19851187c0fcc5cc708b32e7f77cade0ca86883fc912"
+    },
+    {
+      "path": "lab/out/closed-resume-faults-20261005/advanced-next/sequence-43.oracap",
+      "bytes": 7849246,
+      "sha256": "ccaef2d9369bfb9542ee42ca1159c2442391ade2f3caa981037d50156c25930b"
+    },
+    {
+      "path": "lab/out/closed-resume-faults-20261005/advanced-next/sequence-43.receipt.json",
+      "bytes": 387,
+      "sha256": "3a182fd21c3a5e1d8d5ffcd8060c07da49e893853ba28d72a5d60f2b9c23ccab"
+    },
+    {
+      "path": "lab/out/closed-resume-faults-20261005/advanced-next/source.json",
+      "bytes": 477,
+      "sha256": "ec92697eaccd12ebc599b567cd6cbb882e108b9337fdf2716afe670e13f9c4f3"
+    },
+    {
+      "path": "lab/out/closed-resume-faults-20261005/advanced-next/writer.lock",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/closed-resume-faults-20261005/advanced-next-copy.command.json",
+      "bytes": 192,
+      "sha256": "17559cccd60736874cd6c65177fa2be51e87f1a166fb89125e72c6fbc6ac44b4"
+    },
+    {
+      "path": "lab/out/closed-resume-faults-20261005/advanced-next-copy.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/closed-resume-faults-20261005/advanced-next-copy.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/closed-resume-faults-20261005/advanced-next-copy.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/closed-resume-faults-20261005/advanced-next-owner.command.json",
+      "bytes": 153,
+      "sha256": "9af5c68f41fc4f5b69c2a637e0b4685af4587de4bc51759a7802608881f04546"
+    },
+    {
+      "path": "lab/out/closed-resume-faults-20261005/advanced-next-owner.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/closed-resume-faults-20261005/advanced-next-owner.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/closed-resume-faults-20261005/advanced-next-owner.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/closed-resume-faults-20261005/advanced-next.command.json",
+      "bytes": 361,
+      "sha256": "a79a6b99032d4ea364a1be0d17f146631828970e8454b3ba94ca98bed916a39d"
+    },
+    {
+      "path": "lab/out/closed-resume-faults-20261005/advanced-next.rc.txt",
+      "bytes": 1,
+      "sha256": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b"
+    },
+    {
+      "path": "lab/out/closed-resume-faults-20261005/advanced-next.stderr.txt",
+      "bytes": 964,
+      "sha256": "9f4e4663ae27efa2e0f9fd90fa7e3513a365941c075ea8a121721d3ed2da906e"
+    },
+    {
+      "path": "lab/out/closed-resume-faults-20261005/advanced-next.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/closed-resume-faults-20261005/after-release/receipt.json",
+      "bytes": 1635,
+      "sha256": "2a63f930aa4edbd576fa52cf98337928f2b0a3403daf665076f1c3ee70602087"
+    },
+    {
+      "path": "lab/out/closed-resume-faults-20261005/after-release/sequence-40.oracap",
+      "bytes": 12639678,
+      "sha256": "97ffa0ece0e233092bdfad4fb5c0c896bd591648b0295cc42b485d71754359fe"
+    },
+    {
+      "path": "lab/out/closed-resume-faults-20261005/after-release/sequence-40.receipt.json",
+      "bytes": 388,
+      "sha256": "a7169fe1c74bc70193e70fb42560e5f200e9db49c2825c4205dbf3e3697f95a7"
+    },
+    {
+      "path": "lab/out/closed-resume-faults-20261005/after-release/sequence-41.oracap",
+      "bytes": 5981,
+      "sha256": "36732c64aa8b20280d14d0ae4fab6dcaa795029746cf6d7ef65446ed71d23f8f"
+    },
+    {
+      "path": "lab/out/closed-resume-faults-20261005/after-release/sequence-41.receipt.json",
+      "bytes": 384,
+      "sha256": "55b50720e1fe2ea5ed0043b94dcfd0178adba1e08bc9c38e796786adc198dddd"
+    },
+    {
+      "path": "lab/out/closed-resume-faults-20261005/after-release/sequence-42.oracap",
+      "bytes": 7694,
+      "sha256": "bb9ce199f50ad1fc07ed5b6e802215b3c561cd38d948ea8bcf37e0f86fb49116"
+    },
+    {
+      "path": "lab/out/closed-resume-faults-20261005/after-release/sequence-42.receipt.json",
+      "bytes": 384,
+      "sha256": "3c86e5d893d96b913c2a19851187c0fcc5cc708b32e7f77cade0ca86883fc912"
+    },
+    {
+      "path": "lab/out/closed-resume-faults-20261005/after-release/sequence-43.oracap",
+      "bytes": 7849246,
+      "sha256": "ccaef2d9369bfb9542ee42ca1159c2442391ade2f3caa981037d50156c25930b"
+    },
+    {
+      "path": "lab/out/closed-resume-faults-20261005/after-release/sequence-43.receipt.json",
+      "bytes": 387,
+      "sha256": "3a182fd21c3a5e1d8d5ffcd8060c07da49e893853ba28d72a5d60f2b9c23ccab"
+    },
+    {
+      "path": "lab/out/closed-resume-faults-20261005/after-release/source.json",
+      "bytes": 477,
+      "sha256": "ec92697eaccd12ebc599b567cd6cbb882e108b9337fdf2716afe670e13f9c4f3"
+    },
+    {
+      "path": "lab/out/closed-resume-faults-20261005/after-release/writer.lock",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/closed-resume-faults-20261005/after-release-resume.command.json",
+      "bytes": 341,
+      "sha256": "70d6cf2a07236302f8a6b2dc0d033520a1c33181b9080fa981e86893d0d1430d"
+    },
+    {
+      "path": "lab/out/closed-resume-faults-20261005/after-release-resume.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/closed-resume-faults-20261005/after-release-resume.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/closed-resume-faults-20261005/after-release-resume.stdout.txt",
+      "bytes": 251,
+      "sha256": "e856db4ff621fd3cc88a44bec2a4ac0e60e21d5e477475cb0afa3cf217db73c3"
+    },
+    {
+      "path": "lab/out/closed-resume-faults-20261005/boolean-source/receipt.json",
+      "bytes": 1635,
+      "sha256": "b3a1697c029380f82a5902ce61e3be0e05ffcc9a426990264b8f906c9a04c9c4"
+    },
+    {
+      "path": "lab/out/closed-resume-faults-20261005/boolean-source/sequence-40.oracap",
+      "bytes": 12639678,
+      "sha256": "97ffa0ece0e233092bdfad4fb5c0c896bd591648b0295cc42b485d71754359fe"
+    },
+    {
+      "path": "lab/out/closed-resume-faults-20261005/boolean-source/sequence-40.receipt.json",
+      "bytes": 388,
+      "sha256": "a7169fe1c74bc70193e70fb42560e5f200e9db49c2825c4205dbf3e3697f95a7"
+    },
+    {
+      "path": "lab/out/closed-resume-faults-20261005/boolean-source/sequence-41.oracap",
+      "bytes": 5981,
+      "sha256": "36732c64aa8b20280d14d0ae4fab6dcaa795029746cf6d7ef65446ed71d23f8f"
+    },
+    {
+      "path": "lab/out/closed-resume-faults-20261005/boolean-source/sequence-41.receipt.json",
+      "bytes": 384,
+      "sha256": "55b50720e1fe2ea5ed0043b94dcfd0178adba1e08bc9c38e796786adc198dddd"
+    },
+    {
+      "path": "lab/out/closed-resume-faults-20261005/boolean-source/sequence-42.oracap",
+      "bytes": 7694,
+      "sha256": "bb9ce199f50ad1fc07ed5b6e802215b3c561cd38d948ea8bcf37e0f86fb49116"
+    },
+    {
+      "path": "lab/out/closed-resume-faults-20261005/boolean-source/sequence-42.receipt.json",
+      "bytes": 384,
+      "sha256": "3c86e5d893d96b913c2a19851187c0fcc5cc708b32e7f77cade0ca86883fc912"
+    },
+    {
+      "path": "lab/out/closed-resume-faults-20261005/boolean-source/sequence-43.oracap",
+      "bytes": 7849249,
+      "sha256": "4d132f6550c0995ba9ce7835cc709915de22dd977c522ba657c84382f3bd1a1b"
+    },
+    {
+      "path": "lab/out/closed-resume-faults-20261005/boolean-source/sequence-43.receipt.json",
+      "bytes": 387,
+      "sha256": "2782561b4eeab2fc7eba7eabbabc1613310a517801e84a62318a1fb1f23b1491"
+    },
+    {
+      "path": "lab/out/closed-resume-faults-20261005/boolean-source/source.json",
+      "bytes": 477,
+      "sha256": "ec92697eaccd12ebc599b567cd6cbb882e108b9337fdf2716afe670e13f9c4f3"
+    },
+    {
+      "path": "lab/out/closed-resume-faults-20261005/boolean-source/writer.lock",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/closed-resume-faults-20261005/boolean-source-copy.command.json",
+      "bytes": 194,
+      "sha256": "11e4ead37e7b35ed1e2fda52c77a8ad2f76102c768e5aef049700c86ba58d105"
+    },
+    {
+      "path": "lab/out/closed-resume-faults-20261005/boolean-source-copy.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/closed-resume-faults-20261005/boolean-source-copy.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/closed-resume-faults-20261005/boolean-source-copy.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/closed-resume-faults-20261005/boolean-source-owner.command.json",
+      "bytes": 154,
+      "sha256": "1ffc7741a3e1616ffc68afaae54d24fa6c67733e4985181fd3e04d9c4c69f6cf"
+    },
+    {
+      "path": "lab/out/closed-resume-faults-20261005/boolean-source-owner.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/closed-resume-faults-20261005/boolean-source-owner.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/closed-resume-faults-20261005/boolean-source-owner.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/closed-resume-faults-20261005/boolean-source.command.json",
+      "bytes": 362,
+      "sha256": "0c79b7f2d716126d7b67eebce1a2acf5eccb0ecdde71df2f6dd9888a9e33ee49"
+    },
+    {
+      "path": "lab/out/closed-resume-faults-20261005/boolean-source.rc.txt",
+      "bytes": 1,
+      "sha256": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b"
+    },
+    {
+      "path": "lab/out/closed-resume-faults-20261005/boolean-source.stderr.txt",
+      "bytes": 1371,
+      "sha256": "7d9b51f4eda13852a84579803bb2418dcb64be94557feeb3cd1d7ed740e27acb"
+    },
+    {
+      "path": "lab/out/closed-resume-faults-20261005/boolean-source.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/closed-resume-faults-20261005/dual-writer.command.json",
+      "bytes": 341,
+      "sha256": "70d6cf2a07236302f8a6b2dc0d033520a1c33181b9080fa981e86893d0d1430d"
+    },
+    {
+      "path": "lab/out/closed-resume-faults-20261005/dual-writer.rc.txt",
+      "bytes": 1,
+      "sha256": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b"
+    },
+    {
+      "path": "lab/out/closed-resume-faults-20261005/dual-writer.stderr.txt",
+      "bytes": 429,
+      "sha256": "15f45d694c5f546f4bccd3e8ddbc11ec6a2b03743d5e17d9d045f04011c5ce25"
+    },
+    {
+      "path": "lab/out/closed-resume-faults-20261005/dual-writer.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/closed-resume-faults-20261005/export-after-release.command.json",
+      "bytes": 172,
+      "sha256": "f67dbd83778aa6afc317c042177e0e992be6d446b913e09d71ba3b199f290dd6"
+    },
+    {
+      "path": "lab/out/closed-resume-faults-20261005/export-after-release.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/closed-resume-faults-20261005/export-after-release.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/closed-resume-faults-20261005/export-after-release.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/closed-resume-faults-20261005/holder-ready.stdout.txt",
+      "bytes": 7,
+      "sha256": "41059c2af1e77017830a915f5588da7fef8c10781316773e6366fc75c8cc6d45"
+    },
+    {
+      "path": "lab/out/closed-resume-faults-20261005/holder.command.json",
+      "bytes": 246,
+      "sha256": "2613e64acfd7ae308928ccf9ecbfee3d1314c9292b8f74f406a4cba5d6d6e9b0"
+    },
+    {
+      "path": "lab/out/closed-resume-faults-20261005/holder.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/closed-resume-faults-20261005/holder.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/closed-resume-faults-20261005/holder.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/closed-resume-faults-20261005/journal-preservation.json",
+      "bytes": 555,
+      "sha256": "6f96bbae150389c24163e58eecc9b1dfa6a661245051878c69f293de04b788e7"
+    },
+    {
+      "path": "lab/out/closed-resume-faults-20261005/orphan-gap/receipt.json",
+      "bytes": 1635,
+      "sha256": "2a63f930aa4edbd576fa52cf98337928f2b0a3403daf665076f1c3ee70602087"
+    },
+    {
+      "path": "lab/out/closed-resume-faults-20261005/orphan-gap/sequence-40.oracap",
+      "bytes": 12639678,
+      "sha256": "97ffa0ece0e233092bdfad4fb5c0c896bd591648b0295cc42b485d71754359fe"
+    },
+    {
+      "path": "lab/out/closed-resume-faults-20261005/orphan-gap/sequence-40.receipt.json",
+      "bytes": 388,
+      "sha256": "a7169fe1c74bc70193e70fb42560e5f200e9db49c2825c4205dbf3e3697f95a7"
+    },
+    {
+      "path": "lab/out/closed-resume-faults-20261005/orphan-gap/sequence-41.oracap",
+      "bytes": 5981,
+      "sha256": "36732c64aa8b20280d14d0ae4fab6dcaa795029746cf6d7ef65446ed71d23f8f"
+    },
+    {
+      "path": "lab/out/closed-resume-faults-20261005/orphan-gap/sequence-41.receipt.json",
+      "bytes": 384,
+      "sha256": "55b50720e1fe2ea5ed0043b94dcfd0178adba1e08bc9c38e796786adc198dddd"
+    },
+    {
+      "path": "lab/out/closed-resume-faults-20261005/orphan-gap/sequence-42.oracap",
+      "bytes": 7694,
+      "sha256": "bb9ce199f50ad1fc07ed5b6e802215b3c561cd38d948ea8bcf37e0f86fb49116"
+    },
+    {
+      "path": "lab/out/closed-resume-faults-20261005/orphan-gap/sequence-42.receipt.json",
+      "bytes": 384,
+      "sha256": "3c86e5d893d96b913c2a19851187c0fcc5cc708b32e7f77cade0ca86883fc912"
+    },
+    {
+      "path": "lab/out/closed-resume-faults-20261005/orphan-gap/sequence-43.oracap",
+      "bytes": 7849246,
+      "sha256": "ccaef2d9369bfb9542ee42ca1159c2442391ade2f3caa981037d50156c25930b"
+    },
+    {
+      "path": "lab/out/closed-resume-faults-20261005/orphan-gap/sequence-43.receipt.json",
+      "bytes": 387,
+      "sha256": "3a182fd21c3a5e1d8d5ffcd8060c07da49e893853ba28d72a5d60f2b9c23ccab"
+    },
+    {
+      "path": "lab/out/closed-resume-faults-20261005/orphan-gap/sequence-45.oracap",
+      "bytes": 7849246,
+      "sha256": "ccaef2d9369bfb9542ee42ca1159c2442391ade2f3caa981037d50156c25930b"
+    },
+    {
+      "path": "lab/out/closed-resume-faults-20261005/orphan-gap/source.json",
+      "bytes": 477,
+      "sha256": "ec92697eaccd12ebc599b567cd6cbb882e108b9337fdf2716afe670e13f9c4f3"
+    },
+    {
+      "path": "lab/out/closed-resume-faults-20261005/orphan-gap/writer.lock",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/closed-resume-faults-20261005/orphan-gap-copy.command.json",
+      "bytes": 186,
+      "sha256": "562b4411fea5798d880df92149c058877c97a53dabc40a58acbec44afdb08ed0"
+    },
+    {
+      "path": "lab/out/closed-resume-faults-20261005/orphan-gap-copy.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/closed-resume-faults-20261005/orphan-gap-copy.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/closed-resume-faults-20261005/orphan-gap-copy.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/closed-resume-faults-20261005/orphan-gap-owner.command.json",
+      "bytes": 150,
+      "sha256": "ab6b703d33a9e60cc58c42c698e06bc536c78febd636a89bf484924492e15887"
+    },
+    {
+      "path": "lab/out/closed-resume-faults-20261005/orphan-gap-owner.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/closed-resume-faults-20261005/orphan-gap-owner.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/closed-resume-faults-20261005/orphan-gap-owner.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/closed-resume-faults-20261005/orphan-gap.command.json",
+      "bytes": 358,
+      "sha256": "a1b5e3b5950b192313ce6efd6473e456391b7131041743289ab33eea3b2ba39c"
+    },
+    {
+      "path": "lab/out/closed-resume-faults-20261005/orphan-gap.rc.txt",
+      "bytes": 1,
+      "sha256": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b"
+    },
+    {
+      "path": "lab/out/closed-resume-faults-20261005/orphan-gap.stderr.txt",
+      "bytes": 800,
+      "sha256": "a84bced4265e7671d93f41cae2953b9680f106c457190633210af7dfb93d6d3a"
+    },
+    {
+      "path": "lab/out/closed-resume-faults-20261005/orphan-gap.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/closed-resume-faults-20261005/rehashed-raw-checksum/receipt.json",
+      "bytes": 1635,
+      "sha256": "061607730918509da6a3d3c3ef06982f2c6da0ca965514bca02c78a6bd7da59b"
+    },
+    {
+      "path": "lab/out/closed-resume-faults-20261005/rehashed-raw-checksum/sequence-40.oracap",
+      "bytes": 12639678,
+      "sha256": "97ffa0ece0e233092bdfad4fb5c0c896bd591648b0295cc42b485d71754359fe"
+    },
+    {
+      "path": "lab/out/closed-resume-faults-20261005/rehashed-raw-checksum/sequence-40.receipt.json",
+      "bytes": 388,
+      "sha256": "a7169fe1c74bc70193e70fb42560e5f200e9db49c2825c4205dbf3e3697f95a7"
+    },
+    {
+      "path": "lab/out/closed-resume-faults-20261005/rehashed-raw-checksum/sequence-41.oracap",
+      "bytes": 5981,
+      "sha256": "36732c64aa8b20280d14d0ae4fab6dcaa795029746cf6d7ef65446ed71d23f8f"
+    },
+    {
+      "path": "lab/out/closed-resume-faults-20261005/rehashed-raw-checksum/sequence-41.receipt.json",
+      "bytes": 384,
+      "sha256": "55b50720e1fe2ea5ed0043b94dcfd0178adba1e08bc9c38e796786adc198dddd"
+    },
+    {
+      "path": "lab/out/closed-resume-faults-20261005/rehashed-raw-checksum/sequence-42.oracap",
+      "bytes": 7694,
+      "sha256": "bb9ce199f50ad1fc07ed5b6e802215b3c561cd38d948ea8bcf37e0f86fb49116"
+    },
+    {
+      "path": "lab/out/closed-resume-faults-20261005/rehashed-raw-checksum/sequence-42.receipt.json",
+      "bytes": 384,
+      "sha256": "3c86e5d893d96b913c2a19851187c0fcc5cc708b32e7f77cade0ca86883fc912"
+    },
+    {
+      "path": "lab/out/closed-resume-faults-20261005/rehashed-raw-checksum/sequence-43.oracap",
+      "bytes": 7849246,
+      "sha256": "a392b0713d6d29abfdcfaed6fb15f8a255d3b3a2e4916d4a00a099d9b363ccd8"
+    },
+    {
+      "path": "lab/out/closed-resume-faults-20261005/rehashed-raw-checksum/sequence-43.receipt.json",
+      "bytes": 387,
+      "sha256": "2cecbba1120815406fc31e71cb3f9b21df0a0d917164e5c5e892b1dfeabc2975"
+    },
+    {
+      "path": "lab/out/closed-resume-faults-20261005/rehashed-raw-checksum/source.json",
+      "bytes": 477,
+      "sha256": "ec92697eaccd12ebc599b567cd6cbb882e108b9337fdf2716afe670e13f9c4f3"
+    },
+    {
+      "path": "lab/out/closed-resume-faults-20261005/rehashed-raw-checksum/writer.lock",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/closed-resume-faults-20261005/rehashed-raw-checksum-copy.command.json",
+      "bytes": 208,
+      "sha256": "bebe60594276b81eb7c7c3418d969247fd33d1182b6257f75a4885a55d8b192f"
+    },
+    {
+      "path": "lab/out/closed-resume-faults-20261005/rehashed-raw-checksum-copy.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/closed-resume-faults-20261005/rehashed-raw-checksum-copy.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/closed-resume-faults-20261005/rehashed-raw-checksum-copy.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/closed-resume-faults-20261005/rehashed-raw-checksum-owner.command.json",
+      "bytes": 161,
+      "sha256": "9dad30a081a5d66cda7e6bee4c4f4c9f52eca4926e693ab8991c32f4ced5cc02"
+    },
+    {
+      "path": "lab/out/closed-resume-faults-20261005/rehashed-raw-checksum-owner.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/closed-resume-faults-20261005/rehashed-raw-checksum-owner.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/closed-resume-faults-20261005/rehashed-raw-checksum-owner.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/closed-resume-faults-20261005/rehashed-raw-checksum.command.json",
+      "bytes": 369,
+      "sha256": "0873b788ea5546a30ecda03349bfce8e0a972bc726b36a9c1cc0e81382fada17"
+    },
+    {
+      "path": "lab/out/closed-resume-faults-20261005/rehashed-raw-checksum.rc.txt",
+      "bytes": 1,
+      "sha256": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b"
+    },
+    {
+      "path": "lab/out/closed-resume-faults-20261005/rehashed-raw-checksum.stderr.txt",
+      "bytes": 938,
+      "sha256": "15d666953a9f7eb28c5a7321d0ec289fc86aa06667e5b8bd3732d07336eef8ff"
+    },
+    {
+      "path": "lab/out/closed-resume-faults-20261005/rehashed-raw-checksum.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/closed-resume-faults-20261005/sidecar-disagreement/receipt.json",
+      "bytes": 1635,
+      "sha256": "2a63f930aa4edbd576fa52cf98337928f2b0a3403daf665076f1c3ee70602087"
+    },
+    {
+      "path": "lab/out/closed-resume-faults-20261005/sidecar-disagreement/sequence-40.oracap",
+      "bytes": 12639678,
+      "sha256": "97ffa0ece0e233092bdfad4fb5c0c896bd591648b0295cc42b485d71754359fe"
+    },
+    {
+      "path": "lab/out/closed-resume-faults-20261005/sidecar-disagreement/sequence-40.receipt.json",
+      "bytes": 388,
+      "sha256": "a7169fe1c74bc70193e70fb42560e5f200e9db49c2825c4205dbf3e3697f95a7"
+    },
+    {
+      "path": "lab/out/closed-resume-faults-20261005/sidecar-disagreement/sequence-41.oracap",
+      "bytes": 5981,
+      "sha256": "36732c64aa8b20280d14d0ae4fab6dcaa795029746cf6d7ef65446ed71d23f8f"
+    },
+    {
+      "path": "lab/out/closed-resume-faults-20261005/sidecar-disagreement/sequence-41.receipt.json",
+      "bytes": 384,
+      "sha256": "55b50720e1fe2ea5ed0043b94dcfd0178adba1e08bc9c38e796786adc198dddd"
+    },
+    {
+      "path": "lab/out/closed-resume-faults-20261005/sidecar-disagreement/sequence-42.oracap",
+      "bytes": 7694,
+      "sha256": "bb9ce199f50ad1fc07ed5b6e802215b3c561cd38d948ea8bcf37e0f86fb49116"
+    },
+    {
+      "path": "lab/out/closed-resume-faults-20261005/sidecar-disagreement/sequence-42.receipt.json",
+      "bytes": 384,
+      "sha256": "3c86e5d893d96b913c2a19851187c0fcc5cc708b32e7f77cade0ca86883fc912"
+    },
+    {
+      "path": "lab/out/closed-resume-faults-20261005/sidecar-disagreement/sequence-43.oracap",
+      "bytes": 7849246,
+      "sha256": "ccaef2d9369bfb9542ee42ca1159c2442391ade2f3caa981037d50156c25930b"
+    },
+    {
+      "path": "lab/out/closed-resume-faults-20261005/sidecar-disagreement/sequence-43.receipt.json",
+      "bytes": 387,
+      "sha256": "58f5db89ad95baff20c280f3d8dd967128943038b24bd3cef7c6d6f4bacb71fe"
+    },
+    {
+      "path": "lab/out/closed-resume-faults-20261005/sidecar-disagreement/source.json",
+      "bytes": 477,
+      "sha256": "ec92697eaccd12ebc599b567cd6cbb882e108b9337fdf2716afe670e13f9c4f3"
+    },
+    {
+      "path": "lab/out/closed-resume-faults-20261005/sidecar-disagreement/writer.lock",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/closed-resume-faults-20261005/sidecar-disagreement-copy.command.json",
+      "bytes": 206,
+      "sha256": "f924aefb110288fff708c087fa33391839c2ca03f8cb5f88d5b4bd85462d9d1a"
+    },
+    {
+      "path": "lab/out/closed-resume-faults-20261005/sidecar-disagreement-copy.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/closed-resume-faults-20261005/sidecar-disagreement-copy.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/closed-resume-faults-20261005/sidecar-disagreement-copy.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/closed-resume-faults-20261005/sidecar-disagreement-owner.command.json",
+      "bytes": 160,
+      "sha256": "97b7dee53e796c23d19e88a4c3ca189a9e81ae3b98d487b88ccf2c551f803ad2"
+    },
+    {
+      "path": "lab/out/closed-resume-faults-20261005/sidecar-disagreement-owner.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/closed-resume-faults-20261005/sidecar-disagreement-owner.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/closed-resume-faults-20261005/sidecar-disagreement-owner.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/closed-resume-faults-20261005/sidecar-disagreement.command.json",
+      "bytes": 368,
+      "sha256": "a9e142cd87c9e10258eab1f564fb997c015ad98e22b43edd1f3edc58bb6c6812"
+    },
+    {
+      "path": "lab/out/closed-resume-faults-20261005/sidecar-disagreement.rc.txt",
+      "bytes": 1,
+      "sha256": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b"
+    },
+    {
+      "path": "lab/out/closed-resume-faults-20261005/sidecar-disagreement.stderr.txt",
+      "bytes": 728,
+      "sha256": "420bf50c85e443a922192d9b68dc959bea1c2aae3587fd757a1a489379d1542f"
+    },
+    {
+      "path": "lab/out/closed-resume-faults-20261005/sidecar-disagreement.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/closed-resume-faults-20261005/sidecar-without-journal/receipt.json",
+      "bytes": 1635,
+      "sha256": "2a63f930aa4edbd576fa52cf98337928f2b0a3403daf665076f1c3ee70602087"
+    },
+    {
+      "path": "lab/out/closed-resume-faults-20261005/sidecar-without-journal/sequence-40.oracap",
+      "bytes": 12639678,
+      "sha256": "97ffa0ece0e233092bdfad4fb5c0c896bd591648b0295cc42b485d71754359fe"
+    },
+    {
+      "path": "lab/out/closed-resume-faults-20261005/sidecar-without-journal/sequence-40.receipt.json",
+      "bytes": 388,
+      "sha256": "a7169fe1c74bc70193e70fb42560e5f200e9db49c2825c4205dbf3e3697f95a7"
+    },
+    {
+      "path": "lab/out/closed-resume-faults-20261005/sidecar-without-journal/sequence-41.oracap",
+      "bytes": 5981,
+      "sha256": "36732c64aa8b20280d14d0ae4fab6dcaa795029746cf6d7ef65446ed71d23f8f"
+    },
+    {
+      "path": "lab/out/closed-resume-faults-20261005/sidecar-without-journal/sequence-41.receipt.json",
+      "bytes": 384,
+      "sha256": "55b50720e1fe2ea5ed0043b94dcfd0178adba1e08bc9c38e796786adc198dddd"
+    },
+    {
+      "path": "lab/out/closed-resume-faults-20261005/sidecar-without-journal/sequence-42.oracap",
+      "bytes": 7694,
+      "sha256": "bb9ce199f50ad1fc07ed5b6e802215b3c561cd38d948ea8bcf37e0f86fb49116"
+    },
+    {
+      "path": "lab/out/closed-resume-faults-20261005/sidecar-without-journal/sequence-42.receipt.json",
+      "bytes": 384,
+      "sha256": "3c86e5d893d96b913c2a19851187c0fcc5cc708b32e7f77cade0ca86883fc912"
+    },
+    {
+      "path": "lab/out/closed-resume-faults-20261005/sidecar-without-journal/sequence-43.oracap",
+      "bytes": 7849246,
+      "sha256": "ccaef2d9369bfb9542ee42ca1159c2442391ade2f3caa981037d50156c25930b"
+    },
+    {
+      "path": "lab/out/closed-resume-faults-20261005/sidecar-without-journal/sequence-43.receipt.json",
+      "bytes": 387,
+      "sha256": "3a182fd21c3a5e1d8d5ffcd8060c07da49e893853ba28d72a5d60f2b9c23ccab"
+    },
+    {
+      "path": "lab/out/closed-resume-faults-20261005/sidecar-without-journal/sequence-44.receipt.json",
+      "bytes": 387,
+      "sha256": "3a182fd21c3a5e1d8d5ffcd8060c07da49e893853ba28d72a5d60f2b9c23ccab"
+    },
+    {
+      "path": "lab/out/closed-resume-faults-20261005/sidecar-without-journal/source.json",
+      "bytes": 477,
+      "sha256": "ec92697eaccd12ebc599b567cd6cbb882e108b9337fdf2716afe670e13f9c4f3"
+    },
+    {
+      "path": "lab/out/closed-resume-faults-20261005/sidecar-without-journal/writer.lock",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/closed-resume-faults-20261005/sidecar-without-journal-copy.command.json",
+      "bytes": 212,
+      "sha256": "cbd554e6f89c0f096efbb2f4ff24f5d4f07039573fa832cfcdf1b69ae42155af"
+    },
+    {
+      "path": "lab/out/closed-resume-faults-20261005/sidecar-without-journal-copy.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/closed-resume-faults-20261005/sidecar-without-journal-copy.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/closed-resume-faults-20261005/sidecar-without-journal-copy.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/closed-resume-faults-20261005/sidecar-without-journal-owner.command.json",
+      "bytes": 163,
+      "sha256": "793a47869f384515925669c793461927817d1c61efcd28b89c15874570d8261c"
+    },
+    {
+      "path": "lab/out/closed-resume-faults-20261005/sidecar-without-journal-owner.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/closed-resume-faults-20261005/sidecar-without-journal-owner.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/closed-resume-faults-20261005/sidecar-without-journal-owner.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/closed-resume-faults-20261005/sidecar-without-journal.command.json",
+      "bytes": 371,
+      "sha256": "f9447c2dc89cfd567297222e347514d4a2ab7b7dbef75e3e00d021ac2211793d"
+    },
+    {
+      "path": "lab/out/closed-resume-faults-20261005/sidecar-without-journal.rc.txt",
+      "bytes": 1,
+      "sha256": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b"
+    },
+    {
+      "path": "lab/out/closed-resume-faults-20261005/sidecar-without-journal.stderr.txt",
+      "bytes": 758,
+      "sha256": "be0a57eafd42740aee3afa8e19fbdf29ecffb467833508e9743842309cbeba24"
+    },
+    {
+      "path": "lab/out/closed-resume-faults-20261005/sidecar-without-journal.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/closed-resume-faults-20261005/truncated-journal/receipt.json",
+      "bytes": 1635,
+      "sha256": "2a63f930aa4edbd576fa52cf98337928f2b0a3403daf665076f1c3ee70602087"
+    },
+    {
+      "path": "lab/out/closed-resume-faults-20261005/truncated-journal/sequence-40.oracap",
+      "bytes": 12639678,
+      "sha256": "97ffa0ece0e233092bdfad4fb5c0c896bd591648b0295cc42b485d71754359fe"
+    },
+    {
+      "path": "lab/out/closed-resume-faults-20261005/truncated-journal/sequence-40.receipt.json",
+      "bytes": 388,
+      "sha256": "a7169fe1c74bc70193e70fb42560e5f200e9db49c2825c4205dbf3e3697f95a7"
+    },
+    {
+      "path": "lab/out/closed-resume-faults-20261005/truncated-journal/sequence-41.oracap",
+      "bytes": 5981,
+      "sha256": "36732c64aa8b20280d14d0ae4fab6dcaa795029746cf6d7ef65446ed71d23f8f"
+    },
+    {
+      "path": "lab/out/closed-resume-faults-20261005/truncated-journal/sequence-41.receipt.json",
+      "bytes": 384,
+      "sha256": "55b50720e1fe2ea5ed0043b94dcfd0178adba1e08bc9c38e796786adc198dddd"
+    },
+    {
+      "path": "lab/out/closed-resume-faults-20261005/truncated-journal/sequence-42.oracap",
+      "bytes": 7694,
+      "sha256": "bb9ce199f50ad1fc07ed5b6e802215b3c561cd38d948ea8bcf37e0f86fb49116"
+    },
+    {
+      "path": "lab/out/closed-resume-faults-20261005/truncated-journal/sequence-42.receipt.json",
+      "bytes": 384,
+      "sha256": "3c86e5d893d96b913c2a19851187c0fcc5cc708b32e7f77cade0ca86883fc912"
+    },
+    {
+      "path": "lab/out/closed-resume-faults-20261005/truncated-journal/sequence-43.oracap",
+      "bytes": 7849245,
+      "sha256": "24833cc1af7e81c1d044cc11b6ff9e64eca9761156256a930a95d3a506b9db76"
+    },
+    {
+      "path": "lab/out/closed-resume-faults-20261005/truncated-journal/sequence-43.receipt.json",
+      "bytes": 387,
+      "sha256": "3a182fd21c3a5e1d8d5ffcd8060c07da49e893853ba28d72a5d60f2b9c23ccab"
+    },
+    {
+      "path": "lab/out/closed-resume-faults-20261005/truncated-journal/source.json",
+      "bytes": 477,
+      "sha256": "ec92697eaccd12ebc599b567cd6cbb882e108b9337fdf2716afe670e13f9c4f3"
+    },
+    {
+      "path": "lab/out/closed-resume-faults-20261005/truncated-journal/writer.lock",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/closed-resume-faults-20261005/truncated-journal-copy.command.json",
+      "bytes": 200,
+      "sha256": "7a2bb36a2d043c895fe92e1d9e6d89451358305ef2f5d4ceb0c3e5fa2805e818"
+    },
+    {
+      "path": "lab/out/closed-resume-faults-20261005/truncated-journal-copy.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/closed-resume-faults-20261005/truncated-journal-copy.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/closed-resume-faults-20261005/truncated-journal-copy.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/closed-resume-faults-20261005/truncated-journal-owner.command.json",
+      "bytes": 157,
+      "sha256": "eda605a3bb23cee38417e1048e326ae708982b293104a72666fd2010c873dfd7"
+    },
+    {
+      "path": "lab/out/closed-resume-faults-20261005/truncated-journal-owner.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/closed-resume-faults-20261005/truncated-journal-owner.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/closed-resume-faults-20261005/truncated-journal-owner.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/closed-resume-faults-20261005/truncated-journal.command.json",
+      "bytes": 365,
+      "sha256": "3c247c5b7365d9f58dbfaa3f481f3f6e107dc85976fc691750a61869ea54c754"
+    },
+    {
+      "path": "lab/out/closed-resume-faults-20261005/truncated-journal.rc.txt",
+      "bytes": 1,
+      "sha256": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b"
+    },
+    {
+      "path": "lab/out/closed-resume-faults-20261005/truncated-journal.stderr.txt",
+      "bytes": 905,
+      "sha256": "181942d10524725024a411a409f9f0d25a4cb3796d283582df1768778d0ae4e5"
+    },
+    {
+      "path": "lab/out/closed-resume-faults-20261005/truncated-journal.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/closed-resume-faults-20261005/wrong-inode/receipt.json",
+      "bytes": 1635,
+      "sha256": "2a63f930aa4edbd576fa52cf98337928f2b0a3403daf665076f1c3ee70602087"
+    },
+    {
+      "path": "lab/out/closed-resume-faults-20261005/wrong-inode/sequence-40.oracap",
+      "bytes": 12639678,
+      "sha256": "97ffa0ece0e233092bdfad4fb5c0c896bd591648b0295cc42b485d71754359fe"
+    },
+    {
+      "path": "lab/out/closed-resume-faults-20261005/wrong-inode/sequence-40.receipt.json",
+      "bytes": 388,
+      "sha256": "a7169fe1c74bc70193e70fb42560e5f200e9db49c2825c4205dbf3e3697f95a7"
+    },
+    {
+      "path": "lab/out/closed-resume-faults-20261005/wrong-inode/sequence-41.oracap",
+      "bytes": 5981,
+      "sha256": "36732c64aa8b20280d14d0ae4fab6dcaa795029746cf6d7ef65446ed71d23f8f"
+    },
+    {
+      "path": "lab/out/closed-resume-faults-20261005/wrong-inode/sequence-41.receipt.json",
+      "bytes": 384,
+      "sha256": "55b50720e1fe2ea5ed0043b94dcfd0178adba1e08bc9c38e796786adc198dddd"
+    },
+    {
+      "path": "lab/out/closed-resume-faults-20261005/wrong-inode/sequence-42.oracap",
+      "bytes": 7694,
+      "sha256": "bb9ce199f50ad1fc07ed5b6e802215b3c561cd38d948ea8bcf37e0f86fb49116"
+    },
+    {
+      "path": "lab/out/closed-resume-faults-20261005/wrong-inode/sequence-42.receipt.json",
+      "bytes": 384,
+      "sha256": "3c86e5d893d96b913c2a19851187c0fcc5cc708b32e7f77cade0ca86883fc912"
+    },
+    {
+      "path": "lab/out/closed-resume-faults-20261005/wrong-inode/sequence-43.oracap",
+      "bytes": 7849246,
+      "sha256": "ccaef2d9369bfb9542ee42ca1159c2442391ade2f3caa981037d50156c25930b"
+    },
+    {
+      "path": "lab/out/closed-resume-faults-20261005/wrong-inode/sequence-43.receipt.json",
+      "bytes": 387,
+      "sha256": "3a182fd21c3a5e1d8d5ffcd8060c07da49e893853ba28d72a5d60f2b9c23ccab"
+    },
+    {
+      "path": "lab/out/closed-resume-faults-20261005/wrong-inode/source.json",
+      "bytes": 477,
+      "sha256": "c4631ad5ec606c8d9bcb8f62ec93b4fb36b80ceb5abce2f9b0b4b01db62b9de2"
+    },
+    {
+      "path": "lab/out/closed-resume-faults-20261005/wrong-inode/writer.lock",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/closed-resume-faults-20261005/wrong-inode-copy.command.json",
+      "bytes": 188,
+      "sha256": "6f3478f7e6c140ac803cc81a10808ace5fd525082b66e3a4456359e25a350248"
+    },
+    {
+      "path": "lab/out/closed-resume-faults-20261005/wrong-inode-copy.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/closed-resume-faults-20261005/wrong-inode-copy.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/closed-resume-faults-20261005/wrong-inode-copy.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/closed-resume-faults-20261005/wrong-inode-owner.command.json",
+      "bytes": 151,
+      "sha256": "6e5300ce2365423bd1a435a0de91e728efb9f21bf4fdf6672e86121522756be7"
+    },
+    {
+      "path": "lab/out/closed-resume-faults-20261005/wrong-inode-owner.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/closed-resume-faults-20261005/wrong-inode-owner.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/closed-resume-faults-20261005/wrong-inode-owner.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/closed-resume-faults-20261005/wrong-inode.command.json",
+      "bytes": 359,
+      "sha256": "f6f76e963f2ef56dcf792549484c3947561330cd5d60c976b5b0e98d478aafb7"
+    },
+    {
+      "path": "lab/out/closed-resume-faults-20261005/wrong-inode.rc.txt",
+      "bytes": 1,
+      "sha256": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b"
+    },
+    {
+      "path": "lab/out/closed-resume-faults-20261005/wrong-inode.stderr.txt",
+      "bytes": 789,
+      "sha256": "363331588d85059acd4de53a8b3ad84c0fcd47ce92522789dcdb5e4d2db82646"
+    },
+    {
+      "path": "lab/out/closed-resume-faults-20261005/wrong-inode.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/closed-resume-faults-20261005/wrong-receipt-sha/receipt.json",
+      "bytes": 1635,
+      "sha256": "2a63f930aa4edbd576fa52cf98337928f2b0a3403daf665076f1c3ee70602087"
+    },
+    {
+      "path": "lab/out/closed-resume-faults-20261005/wrong-receipt-sha/sequence-40.oracap",
+      "bytes": 12639678,
+      "sha256": "97ffa0ece0e233092bdfad4fb5c0c896bd591648b0295cc42b485d71754359fe"
+    },
+    {
+      "path": "lab/out/closed-resume-faults-20261005/wrong-receipt-sha/sequence-40.receipt.json",
+      "bytes": 388,
+      "sha256": "a7169fe1c74bc70193e70fb42560e5f200e9db49c2825c4205dbf3e3697f95a7"
+    },
+    {
+      "path": "lab/out/closed-resume-faults-20261005/wrong-receipt-sha/sequence-41.oracap",
+      "bytes": 5981,
+      "sha256": "36732c64aa8b20280d14d0ae4fab6dcaa795029746cf6d7ef65446ed71d23f8f"
+    },
+    {
+      "path": "lab/out/closed-resume-faults-20261005/wrong-receipt-sha/sequence-41.receipt.json",
+      "bytes": 384,
+      "sha256": "55b50720e1fe2ea5ed0043b94dcfd0178adba1e08bc9c38e796786adc198dddd"
+    },
+    {
+      "path": "lab/out/closed-resume-faults-20261005/wrong-receipt-sha/sequence-42.oracap",
+      "bytes": 7694,
+      "sha256": "bb9ce199f50ad1fc07ed5b6e802215b3c561cd38d948ea8bcf37e0f86fb49116"
+    },
+    {
+      "path": "lab/out/closed-resume-faults-20261005/wrong-receipt-sha/sequence-42.receipt.json",
+      "bytes": 384,
+      "sha256": "3c86e5d893d96b913c2a19851187c0fcc5cc708b32e7f77cade0ca86883fc912"
+    },
+    {
+      "path": "lab/out/closed-resume-faults-20261005/wrong-receipt-sha/sequence-43.oracap",
+      "bytes": 7849246,
+      "sha256": "ccaef2d9369bfb9542ee42ca1159c2442391ade2f3caa981037d50156c25930b"
+    },
+    {
+      "path": "lab/out/closed-resume-faults-20261005/wrong-receipt-sha/sequence-43.receipt.json",
+      "bytes": 387,
+      "sha256": "3a182fd21c3a5e1d8d5ffcd8060c07da49e893853ba28d72a5d60f2b9c23ccab"
+    },
+    {
+      "path": "lab/out/closed-resume-faults-20261005/wrong-receipt-sha/source.json",
+      "bytes": 477,
+      "sha256": "ec92697eaccd12ebc599b567cd6cbb882e108b9337fdf2716afe670e13f9c4f3"
+    },
+    {
+      "path": "lab/out/closed-resume-faults-20261005/wrong-receipt-sha/writer.lock",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/closed-resume-faults-20261005/wrong-receipt-sha-copy.command.json",
+      "bytes": 200,
+      "sha256": "ce697da34b2255d3ea6b1ec5e6037078e3f9fb5dd769d0f435d78cc530c37d4a"
+    },
+    {
+      "path": "lab/out/closed-resume-faults-20261005/wrong-receipt-sha-copy.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/closed-resume-faults-20261005/wrong-receipt-sha-copy.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/closed-resume-faults-20261005/wrong-receipt-sha-copy.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/closed-resume-faults-20261005/wrong-receipt-sha-owner.command.json",
+      "bytes": 157,
+      "sha256": "e2695d546570b078a2e9110e517ad57ee71f8ad61d02b48b8dda9fc8057e3621"
+    },
+    {
+      "path": "lab/out/closed-resume-faults-20261005/wrong-receipt-sha-owner.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/closed-resume-faults-20261005/wrong-receipt-sha-owner.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/closed-resume-faults-20261005/wrong-receipt-sha-owner.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/closed-resume-faults-20261005/wrong-receipt-sha.command.json",
+      "bytes": 365,
+      "sha256": "851456f7f6541b2e794cb96160777a21f846c6c4f3b2188e5f120eb035a8a5bc"
+    },
+    {
+      "path": "lab/out/closed-resume-faults-20261005/wrong-receipt-sha.rc.txt",
+      "bytes": 1,
+      "sha256": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b"
+    },
+    {
+      "path": "lab/out/closed-resume-faults-20261005/wrong-receipt-sha.stderr.txt",
+      "bytes": 769,
+      "sha256": "560a2c1f251a8466320d1470900c9d4c0a90f270e181bbd09660ce57648c91de"
+    },
+    {
+      "path": "lab/out/closed-resume-faults-20261005/wrong-receipt-sha.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/closed-resume-faults-20261005/wrong-scn/receipt.json",
+      "bytes": 1635,
+      "sha256": "800896e505aab9369f42d7786ffaa13f442a77bf4487f21315095254d335acb7"
+    },
+    {
+      "path": "lab/out/closed-resume-faults-20261005/wrong-scn/sequence-40.oracap",
+      "bytes": 12639678,
+      "sha256": "97ffa0ece0e233092bdfad4fb5c0c896bd591648b0295cc42b485d71754359fe"
+    },
+    {
+      "path": "lab/out/closed-resume-faults-20261005/wrong-scn/sequence-40.receipt.json",
+      "bytes": 388,
+      "sha256": "a7169fe1c74bc70193e70fb42560e5f200e9db49c2825c4205dbf3e3697f95a7"
+    },
+    {
+      "path": "lab/out/closed-resume-faults-20261005/wrong-scn/sequence-41.oracap",
+      "bytes": 5981,
+      "sha256": "36732c64aa8b20280d14d0ae4fab6dcaa795029746cf6d7ef65446ed71d23f8f"
+    },
+    {
+      "path": "lab/out/closed-resume-faults-20261005/wrong-scn/sequence-41.receipt.json",
+      "bytes": 384,
+      "sha256": "55b50720e1fe2ea5ed0043b94dcfd0178adba1e08bc9c38e796786adc198dddd"
+    },
+    {
+      "path": "lab/out/closed-resume-faults-20261005/wrong-scn/sequence-42.oracap",
+      "bytes": 7694,
+      "sha256": "bb9ce199f50ad1fc07ed5b6e802215b3c561cd38d948ea8bcf37e0f86fb49116"
+    },
+    {
+      "path": "lab/out/closed-resume-faults-20261005/wrong-scn/sequence-42.receipt.json",
+      "bytes": 384,
+      "sha256": "3c86e5d893d96b913c2a19851187c0fcc5cc708b32e7f77cade0ca86883fc912"
+    },
+    {
+      "path": "lab/out/closed-resume-faults-20261005/wrong-scn/sequence-43.oracap",
+      "bytes": 7849246,
+      "sha256": "ccaef2d9369bfb9542ee42ca1159c2442391ade2f3caa981037d50156c25930b"
+    },
+    {
+      "path": "lab/out/closed-resume-faults-20261005/wrong-scn/sequence-43.receipt.json",
+      "bytes": 387,
+      "sha256": "3a182fd21c3a5e1d8d5ffcd8060c07da49e893853ba28d72a5d60f2b9c23ccab"
+    },
+    {
+      "path": "lab/out/closed-resume-faults-20261005/wrong-scn/source.json",
+      "bytes": 477,
+      "sha256": "ec92697eaccd12ebc599b567cd6cbb882e108b9337fdf2716afe670e13f9c4f3"
+    },
+    {
+      "path": "lab/out/closed-resume-faults-20261005/wrong-scn/writer.lock",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/closed-resume-faults-20261005/wrong-scn-copy.command.json",
+      "bytes": 184,
+      "sha256": "d94aaabb28c54b4a44d0e6988be44c885a17a3ee6b04785493dbe9af9c57abfe"
+    },
+    {
+      "path": "lab/out/closed-resume-faults-20261005/wrong-scn-copy.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/closed-resume-faults-20261005/wrong-scn-copy.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/closed-resume-faults-20261005/wrong-scn-copy.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/closed-resume-faults-20261005/wrong-scn-owner.command.json",
+      "bytes": 149,
+      "sha256": "5c2365ed58ddec7926ce7ccbbf62a05b06113e6b2f4b16c70751e8ca3ce97370"
+    },
+    {
+      "path": "lab/out/closed-resume-faults-20261005/wrong-scn-owner.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/closed-resume-faults-20261005/wrong-scn-owner.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/closed-resume-faults-20261005/wrong-scn-owner.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/closed-resume-faults-20261005/wrong-scn.command.json",
+      "bytes": 357,
+      "sha256": "57acf847b6dd7274d1ae318c196468f4b0c2b8431f044add48b29129e611d603"
+    },
+    {
+      "path": "lab/out/closed-resume-faults-20261005/wrong-scn.rc.txt",
+      "bytes": 1,
+      "sha256": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b"
+    },
+    {
+      "path": "lab/out/closed-resume-faults-20261005/wrong-scn.stderr.txt",
+      "bytes": 1181,
+      "sha256": "f05586f9afe579fb92400835acc0556c9d435d93123c3437381b9fb10e15a6d4"
+    },
+    {
+      "path": "lab/out/closed-resume-faults-20261005/wrong-scn.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/resume_online_observation.py",
+      "bytes": 8802,
+      "sha256": "fc0155f98ce9651c9f08a581ba28ccf8e8c98b4302d347b04570e005a8602f4b"
+    },
+    {
+      "path": "lab/run_closed_resume19.py",
+      "bytes": 5057,
+      "sha256": "8f6441f77f6c054edb22b38e0f0dcf6e31fef3ae5b91f68a675e39a72569f0e6"
+    },
+    {
+      "path": "lab/verify_closed_resume_crash19.py",
+      "bytes": 5446,
+      "sha256": "1e994a2f4d8543087cf56f82056b2fef7f1b3fc1582595bd3241c21a97d9a819"
+    },
+    {
+      "path": "lab/verify_closed_resume_faults19.py",
+      "bytes": 5791,
+      "sha256": "d1a0c94decf948d7476a9a59ae1ce73ce6fb8b5e7f0c8e9327d5170c64bb33eb"
+    }
+  ]
+}

@@ -13,10 +13,12 @@
 | W4 事务/回滚 | 进行中：有序history/覆盖/heap+index补偿、同源完整XID归属及有源位置重放 | 通过：203测试；seq21—24自主发现基线/A/B共12物理图；自主对象头关联；seq19—24六位置、seq21—24有限双上下文完整图与拒绝证据；九笔旧图及六批长heap证据保留 | 进行中：有界自主物理入口已交付；完整控制/页维护/跨块关联/恢复待证；不当通用生产能力 | 未开始 | 待证 | 未开始 |
 | W5 SCN字典/基线 | 进行中：extent/完整行、ASOF/回执/typed世代，有限cleanout、闭合图live选择、commit SCN重放及LKR独立LOCK节点 | 通过：233测试制品；seq37—39真实锁等待三完整行/native/四SQL零差异；seq36 rollback-only及seq33—35旧批次空结果，既有并发/行证据保留；生产可信交接/历史字典待证 | 进行中：有限不同行并发、全/部分回滚、空批次、真实锁等待但redo事务窗口串行通过；活跃同key重叠/相同commit SCN支持/无目标静默/多savepoint/跨块/初始恢复/历史schema待证 | 未开始 | 待证 | 未开始 |
 | W6 StreamHouse接入 | 未开始 | 待证 | 未开始 | 未开始 | 待证 | 未开始 |
-| W7 online采集 | 进行中：固定member续接/关闭代际跟踪；共用capture输入接原物理图/可信baseline完整行 | 通过：240测试，seq40—42 capture三图3/0/3、三完整UPDATE/native/三SQL零差异，6语义拒绝/4比较器反例；旧结构/捕获/续接保留；实时/跨组重启/断电/Windows/ASM待证 | 通过有限关闭批次：journal→record/vector→typed事务→可信获取baseline完整UPDATE；生产字典/跨批持久状态/消费ACK待证，有切换延迟 | 未开始 | 待证 | 未开始 |
+| W7 online采集 | 进行中：关闭代际多member跟踪/回执审计/独占重启续接；共用capture输入接完整图/行 | 通过：原40—42重启追加43/9161归档数据块零差异；两真实collector SIGKILL/完整尾恢复与半帧保全拒绝/11反例；既有240测试及图/行保留；实时/高压复用/断电/Windows/ASM待证 | 通过有限关闭批次与collector重启：journal→record/vector→typed事务→可信baseline完整UPDATE；跨批活跃状态/生产字典/消费checkpoint/目标ACK待证，有关闭延迟 | 未开始 | 待证 | 未开始 |
 | W8-W11 扩展类型/LOB/RAC/ASM/TDE | 未开始 | 待证 | 未开始 | 未开始 | 待证 | 未开始 |
 
 ## 当前证据
+
+最新：[多member重启与真实collector崩溃](DELIVERY_W7_CLOSED_RESUME_20261005.md)，初版084cf37、最终c689b7a，[清单](evidence/DELIVERY-closed-resume-20261005.json)。实际原40—42重启next43，一次专属实验关闭43（无DML/config），保存9163块/9161归档数据块零差异，next44，原journal未变；完整journal+逐代receipt之后/总receipt之前真实自杀SIGKILL rc137，旧总receipt下完整尾恢复不改字节；第一帧100 bytes真实SIGKILL后续接拒绝/stdout0、文件保留。11 ledger/frame/source/双writer反例READY前拒绝，锁释放后最终代码只读40—43续接通过；Oracle LGWR独立存活。只证明进程崩溃，不证明断电；半帧不自动修复。Java240制品不重建。下一步消费checkpoint/目标commit及ACK恢复/W6；消费ACK/实时/现场/发布未通过。
 
 最新：[capture完整事务与行](DELIVERY_W7_CAPTURE_ROWS_20261005.md)，输入8cc8e21、最终生产b712d56、独立lab b3490b8，[清单](evidence/DELIVERY-capture-rows-20261005.json)。最终240测试/jar SHA7d4345f1…，复用已有baseline2366727及seq40—42，完整三图3/0/3、三UPDATE/native/三提交后SQL零差异，最终11/blocking-closed/new-note；capture/归档graph/rows/state一致。初版真实marker3短值拒绝保留，仅新增已证XA/column1/ncol3/16byte profile，不泛化XR/未知长度。六capture语义/连续性反例整批stdout0，晚before physical通过而rows拒绝，四比较器反例检出；旧LKR/全回滚及indexed partial归档输出回归一致，events拒绝。driver拒绝原因断言错误保留，续跑跳过已执行项；无源动作重放。下一步capture/解析/目标ACK独立持久位置及恢复/W6，实时/现场/发布仍未通过。
 
