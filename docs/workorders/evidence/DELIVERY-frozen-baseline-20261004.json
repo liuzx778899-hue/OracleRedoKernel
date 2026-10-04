@@ -1,0 +1,3752 @@
+{
+  "runtime_source": "b1ff3af50f4a2ac10a91e3a09d41777a30977a13",
+  "comparator_source": "014297a",
+  "jar_sha256": "5967c7e44aeeda4f59c886d4c7983c5336551a66ddd786798314ad309bde05fc",
+  "tests": {
+    "tests": 217,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0
+  },
+  "actual_acquisition_scn": 2341293,
+  "actual_acquisition_receipt": {
+    "kind": "dedicated-read-only-acquisition",
+    "acquired_at_utc": "2026-10-04T14:30:48.442007+00:00",
+    "container": "oraredo-19c-lab-20261004",
+    "query_sha256": "916f8ed0de320ba1614e331efac48debe858bb6fefb956a6805bccb1dbecd720",
+    "snapshot_sha256": "36e3c954dd0844367bbb2bb9bec8c9b1f63f4069b1c1b01aa6239f62792f220d",
+    "binding_sha256": "663213c6ddff7be1e55f48031ca6e99d821fac874d4aa01eb41eb0ef08ee52b2",
+    "query_rc": 0,
+    "trust_boundary": "digest handed off by this actual acquisition process; an editable adjacent manifest is not an authenticity authority",
+    "historical_dictionary_accepted": false,
+    "cdc_events": 0
+  },
+  "actual_import_rows": 1,
+  "physical_columns": 3,
+  "trusted_original_receipt_negative_files": 9,
+  "forged_receipt_authority_accepted": true,
+  "production_receipt_authority_accepted": false,
+  "logical_data_generation_replay_accepted": false,
+  "historical_dictionary_accepted": false,
+  "cdc_events": 0,
+  "sha256_passes": 2,
+  "commands": [
+    {
+      "name": "actual-snapshot",
+      "args": [
+        "D:/work/Java/jdk-17.0.7/bin/java.exe",
+        "-cp",
+        "D:\\work\\vibecode\\OracleRedoKernel\\lab\\out\\release-frozen-baseline\\tree\\target\\oracle-redo-kernel-0.1.0-SNAPSHOT.jar;D:\\work\\vibecode\\OracleRedoKernel\\lab\\out\\release-frozen-baseline\\classes",
+        "FrozenBaselineProbe",
+        "D:\\work\\vibecode\\OracleRedoKernel\\lab\\out\\oracle19-baseline-acquisition-20261004\\snapshot.stdout.txt",
+        "36e3c954dd0844367bbb2bb9bec8c9b1f63f4069b1c1b01aa6239f62792f220d",
+        "D:\\work\\vibecode\\OracleRedoKernel\\lab\\out\\oracle19-baseline-generation-20261004\\archive-1-26.dbf"
+      ],
+      "rc": 0,
+      "stdout_bytes": 330
+    },
+    {
+      "name": "build",
+      "args": [
+        "cmd",
+        "/d",
+        "/c",
+        "D:/work/Java/apache-maven-3.9.11/bin/mvn.cmd clean verify"
+      ],
+      "rc": 0,
+      "stdout_bytes": 8808
+    },
+    {
+      "name": "comparator-missing_row",
+      "args": [
+        "C:/Users/Administrator/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/python.exe",
+        "D:\\work\\vibecode\\OracleRedoKernel\\lab\\compare_frozen_baseline.py",
+        "D:\\work\\vibecode\\OracleRedoKernel\\lab\\out\\oracle19-baseline-acquisition-20261004\\snapshot.stdout.txt",
+        "D:\\work\\vibecode\\OracleRedoKernel\\lab\\out\\oracle19-baseline-generation-20261004\\archive-1-26.dbf",
+        "D:\\work\\vibecode\\OracleRedoKernel\\lab\\out\\release-frozen-baseline\\comparator-missing_row.txt"
+      ],
+      "rc": 1,
+      "stdout_bytes": 586
+    },
+    {
+      "name": "comparator-wrong_column",
+      "args": [
+        "C:/Users/Administrator/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/python.exe",
+        "D:\\work\\vibecode\\OracleRedoKernel\\lab\\compare_frozen_baseline.py",
+        "D:\\work\\vibecode\\OracleRedoKernel\\lab\\out\\oracle19-baseline-acquisition-20261004\\snapshot.stdout.txt",
+        "D:\\work\\vibecode\\OracleRedoKernel\\lab\\out\\oracle19-baseline-generation-20261004\\archive-1-26.dbf",
+        "D:\\work\\vibecode\\OracleRedoKernel\\lab\\out\\release-frozen-baseline\\comparator-wrong_column.txt"
+      ],
+      "rc": 1,
+      "stdout_bytes": 689
+    },
+    {
+      "name": "comparator-wrong_generation",
+      "args": [
+        "C:/Users/Administrator/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/python.exe",
+        "D:\\work\\vibecode\\OracleRedoKernel\\lab\\compare_frozen_baseline.py",
+        "D:\\work\\vibecode\\OracleRedoKernel\\lab\\out\\oracle19-baseline-acquisition-20261004\\snapshot.stdout.txt",
+        "D:\\work\\vibecode\\OracleRedoKernel\\lab\\out\\oracle19-baseline-generation-20261004\\archive-1-26.dbf",
+        "D:\\work\\vibecode\\OracleRedoKernel\\lab\\out\\release-frozen-baseline\\comparator-wrong_generation.txt"
+      ],
+      "rc": 1,
+      "stdout_bytes": 557
+    },
+    {
+      "name": "compile",
+      "args": [
+        "D:/work/Java/jdk-17.0.7/bin/javac.exe",
+        "-encoding",
+        "UTF-8",
+        "-cp",
+        "D:\\work\\vibecode\\OracleRedoKernel\\lab\\out\\release-frozen-baseline\\tree\\target\\oracle-redo-kernel-0.1.0-SNAPSHOT.jar",
+        "-d",
+        "D:\\work\\vibecode\\OracleRedoKernel\\lab\\out\\release-frozen-baseline\\classes",
+        "D:\\work\\vibecode\\OracleRedoKernel\\lab\\FrozenBaselineProbe.java"
+      ],
+      "rc": 0,
+      "stdout_bytes": 0
+    },
+    {
+      "name": "events",
+      "args": [
+        "D:/work/Java/jdk-17.0.7/bin/java.exe",
+        "-jar",
+        "D:\\work\\vibecode\\OracleRedoKernel\\lab\\out\\release-frozen-baseline\\tree\\target\\oracle-redo-kernel-0.1.0-SNAPSHOT.jar",
+        "events",
+        "D:\\work\\vibecode\\OracleRedoKernel\\lab\\out\\oracle19-baseline-generation-20261004\\archive-1-26.dbf"
+      ],
+      "rc": 1,
+      "stdout_bytes": 0
+    },
+    {
+      "name": "forged-authority-accepted",
+      "args": [
+        "D:/work/Java/jdk-17.0.7/bin/java.exe",
+        "-cp",
+        "D:\\work\\vibecode\\OracleRedoKernel\\lab\\out\\release-frozen-baseline\\tree\\target\\oracle-redo-kernel-0.1.0-SNAPSHOT.jar;D:\\work\\vibecode\\OracleRedoKernel\\lab\\out\\release-frozen-baseline\\classes",
+        "FrozenBaselineProbe",
+        "D:\\work\\vibecode\\OracleRedoKernel\\lab\\out\\release-frozen-baseline\\wrong_key.snapshot.txt",
+        "d3065a8027105a10d9d77db4d3d12ad82677412bafee46d58f0df86621adf77b",
+        "D:\\work\\vibecode\\OracleRedoKernel\\lab\\out\\oracle19-baseline-generation-20261004\\archive-1-26.dbf"
+      ],
+      "rc": 0,
+      "stdout_bytes": 330
+    },
+    {
+      "name": "independent-query-projection",
+      "args": [
+        "C:/Users/Administrator/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/python.exe",
+        "D:\\work\\vibecode\\OracleRedoKernel\\lab\\compare_frozen_baseline.py",
+        "D:\\work\\vibecode\\OracleRedoKernel\\lab\\out\\oracle19-baseline-acquisition-20261004\\snapshot.stdout.txt",
+        "D:\\work\\vibecode\\OracleRedoKernel\\lab\\out\\oracle19-baseline-generation-20261004\\archive-1-26.dbf",
+        "D:\\work\\vibecode\\OracleRedoKernel\\lab\\out\\release-frozen-baseline\\actual-snapshot.stdout.txt"
+      ],
+      "rc": 1,
+      "stdout_bytes": 648
+    },
+    {
+      "name": "independent-query-projection-r2",
+      "args": [
+        "C:/Users/Administrator/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/python.exe",
+        "D:\\work\\vibecode\\OracleRedoKernel\\lab\\compare_frozen_baseline.py",
+        "D:\\work\\vibecode\\OracleRedoKernel\\lab\\out\\oracle19-baseline-acquisition-20261004\\snapshot.stdout.txt",
+        "D:\\work\\vibecode\\OracleRedoKernel\\lab\\out\\oracle19-baseline-generation-20261004\\archive-1-26.dbf",
+        "D:\\work\\vibecode\\OracleRedoKernel\\lab\\out\\release-frozen-baseline\\actual-snapshot.stdout.txt",
+        "D:\\work\\vibecode\\OracleRedoKernel\\lab\\out\\oracle19-baseline-generation-20261004\\dump.trc"
+      ],
+      "rc": 0,
+      "stdout_bytes": 359
+    },
+    {
+      "name": "independent-rejects-forged-authority",
+      "args": [
+        "C:/Users/Administrator/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/python.exe",
+        "D:\\work\\vibecode\\OracleRedoKernel\\lab\\compare_frozen_baseline.py",
+        "D:\\work\\vibecode\\OracleRedoKernel\\lab\\out\\oracle19-baseline-acquisition-20261004\\snapshot.stdout.txt",
+        "D:\\work\\vibecode\\OracleRedoKernel\\lab\\out\\oracle19-baseline-generation-20261004\\archive-1-26.dbf",
+        "D:\\work\\vibecode\\OracleRedoKernel\\lab\\out\\release-frozen-baseline\\forged-authority-accepted.stdout.txt"
+      ],
+      "rc": 1,
+      "stdout_bytes": 1174
+    },
+    {
+      "name": "missing_row",
+      "args": [
+        "D:/work/Java/jdk-17.0.7/bin/java.exe",
+        "-cp",
+        "D:\\work\\vibecode\\OracleRedoKernel\\lab\\out\\release-frozen-baseline\\tree\\target\\oracle-redo-kernel-0.1.0-SNAPSHOT.jar;D:\\work\\vibecode\\OracleRedoKernel\\lab\\out\\release-frozen-baseline\\classes",
+        "FrozenBaselineProbe",
+        "D:\\work\\vibecode\\OracleRedoKernel\\lab\\out\\release-frozen-baseline\\missing_row.snapshot.txt",
+        "36e3c954dd0844367bbb2bb9bec8c9b1f63f4069b1c1b01aa6239f62792f220d",
+        "D:\\work\\vibecode\\OracleRedoKernel\\lab\\out\\oracle19-baseline-generation-20261004\\archive-1-26.dbf"
+      ],
+      "rc": 1,
+      "stdout_bytes": 0
+    },
+    {
+      "name": "refuse-equal-object-scope",
+      "args": [
+        "D:/work/Java/jdk-17.0.7/bin/java.exe",
+        "-cp",
+        "D:\\work\\vibecode\\OracleRedoKernel\\lab\\out\\release-frozen-baseline\\tree\\target\\oracle-redo-kernel-0.1.0-SNAPSHOT.jar;D:\\work\\vibecode\\OracleRedoKernel\\lab\\out\\release-frozen-baseline\\classes",
+        "FrozenBaselineProbe",
+        "D:\\work\\vibecode\\OracleRedoKernel\\lab\\out\\oracle19-baseline-acquisition-20261004\\snapshot.stdout.txt",
+        "36e3c954dd0844367bbb2bb9bec8c9b1f63f4069b1c1b01aa6239f62792f220d",
+        "D:\\work\\vibecode\\OracleRedoKernel\\lab\\out\\oracle19-baseline-generation-20261004\\archive-1-26.dbf",
+        "--equal-object-scope"
+      ],
+      "rc": 1,
+      "stdout_bytes": 0
+    },
+    {
+      "name": "truncated",
+      "args": [
+        "D:/work/Java/jdk-17.0.7/bin/java.exe",
+        "-cp",
+        "D:\\work\\vibecode\\OracleRedoKernel\\lab\\out\\release-frozen-baseline\\tree\\target\\oracle-redo-kernel-0.1.0-SNAPSHOT.jar;D:\\work\\vibecode\\OracleRedoKernel\\lab\\out\\release-frozen-baseline\\classes",
+        "FrozenBaselineProbe",
+        "D:\\work\\vibecode\\OracleRedoKernel\\lab\\out\\release-frozen-baseline\\truncated.snapshot.txt",
+        "36e3c954dd0844367bbb2bb9bec8c9b1f63f4069b1c1b01aa6239f62792f220d",
+        "D:\\work\\vibecode\\OracleRedoKernel\\lab\\out\\oracle19-baseline-generation-20261004\\archive-1-26.dbf"
+      ],
+      "rc": 1,
+      "stdout_bytes": 0
+    },
+    {
+      "name": "wrong_generation",
+      "args": [
+        "D:/work/Java/jdk-17.0.7/bin/java.exe",
+        "-cp",
+        "D:\\work\\vibecode\\OracleRedoKernel\\lab\\out\\release-frozen-baseline\\tree\\target\\oracle-redo-kernel-0.1.0-SNAPSHOT.jar;D:\\work\\vibecode\\OracleRedoKernel\\lab\\out\\release-frozen-baseline\\classes",
+        "FrozenBaselineProbe",
+        "D:\\work\\vibecode\\OracleRedoKernel\\lab\\out\\release-frozen-baseline\\wrong_generation.snapshot.txt",
+        "36e3c954dd0844367bbb2bb9bec8c9b1f63f4069b1c1b01aa6239f62792f220d",
+        "D:\\work\\vibecode\\OracleRedoKernel\\lab\\out\\oracle19-baseline-generation-20261004\\archive-1-26.dbf"
+      ],
+      "rc": 1,
+      "stdout_bytes": 0
+    },
+    {
+      "name": "wrong_key",
+      "args": [
+        "D:/work/Java/jdk-17.0.7/bin/java.exe",
+        "-cp",
+        "D:\\work\\vibecode\\OracleRedoKernel\\lab\\out\\release-frozen-baseline\\tree\\target\\oracle-redo-kernel-0.1.0-SNAPSHOT.jar;D:\\work\\vibecode\\OracleRedoKernel\\lab\\out\\release-frozen-baseline\\classes",
+        "FrozenBaselineProbe",
+        "D:\\work\\vibecode\\OracleRedoKernel\\lab\\out\\release-frozen-baseline\\wrong_key.snapshot.txt",
+        "36e3c954dd0844367bbb2bb9bec8c9b1f63f4069b1c1b01aa6239f62792f220d",
+        "D:\\work\\vibecode\\OracleRedoKernel\\lab\\out\\oracle19-baseline-generation-20261004\\archive-1-26.dbf"
+      ],
+      "rc": 1,
+      "stdout_bytes": 0
+    },
+    {
+      "name": "wrong_map",
+      "args": [
+        "D:/work/Java/jdk-17.0.7/bin/java.exe",
+        "-cp",
+        "D:\\work\\vibecode\\OracleRedoKernel\\lab\\out\\release-frozen-baseline\\tree\\target\\oracle-redo-kernel-0.1.0-SNAPSHOT.jar;D:\\work\\vibecode\\OracleRedoKernel\\lab\\out\\release-frozen-baseline\\classes",
+        "FrozenBaselineProbe",
+        "D:\\work\\vibecode\\OracleRedoKernel\\lab\\out\\release-frozen-baseline\\wrong_map.snapshot.txt",
+        "36e3c954dd0844367bbb2bb9bec8c9b1f63f4069b1c1b01aa6239f62792f220d",
+        "D:\\work\\vibecode\\OracleRedoKernel\\lab\\out\\oracle19-baseline-generation-20261004\\archive-1-26.dbf"
+      ],
+      "rc": 1,
+      "stdout_bytes": 0
+    },
+    {
+      "name": "wrong_note",
+      "args": [
+        "D:/work/Java/jdk-17.0.7/bin/java.exe",
+        "-cp",
+        "D:\\work\\vibecode\\OracleRedoKernel\\lab\\out\\release-frozen-baseline\\tree\\target\\oracle-redo-kernel-0.1.0-SNAPSHOT.jar;D:\\work\\vibecode\\OracleRedoKernel\\lab\\out\\release-frozen-baseline\\classes",
+        "FrozenBaselineProbe",
+        "D:\\work\\vibecode\\OracleRedoKernel\\lab\\out\\release-frozen-baseline\\wrong_note.snapshot.txt",
+        "36e3c954dd0844367bbb2bb9bec8c9b1f63f4069b1c1b01aa6239f62792f220d",
+        "D:\\work\\vibecode\\OracleRedoKernel\\lab\\out\\oracle19-baseline-generation-20261004\\archive-1-26.dbf"
+      ],
+      "rc": 1,
+      "stdout_bytes": 0
+    },
+    {
+      "name": "wrong_pdb",
+      "args": [
+        "D:/work/Java/jdk-17.0.7/bin/java.exe",
+        "-cp",
+        "D:\\work\\vibecode\\OracleRedoKernel\\lab\\out\\release-frozen-baseline\\tree\\target\\oracle-redo-kernel-0.1.0-SNAPSHOT.jar;D:\\work\\vibecode\\OracleRedoKernel\\lab\\out\\release-frozen-baseline\\classes",
+        "FrozenBaselineProbe",
+        "D:\\work\\vibecode\\OracleRedoKernel\\lab\\out\\release-frozen-baseline\\wrong_pdb.snapshot.txt",
+        "36e3c954dd0844367bbb2bb9bec8c9b1f63f4069b1c1b01aa6239f62792f220d",
+        "D:\\work\\vibecode\\OracleRedoKernel\\lab\\out\\oracle19-baseline-generation-20261004\\archive-1-26.dbf"
+      ],
+      "rc": 1,
+      "stdout_bytes": 0
+    },
+    {
+      "name": "wrong_scn",
+      "args": [
+        "D:/work/Java/jdk-17.0.7/bin/java.exe",
+        "-cp",
+        "D:\\work\\vibecode\\OracleRedoKernel\\lab\\out\\release-frozen-baseline\\tree\\target\\oracle-redo-kernel-0.1.0-SNAPSHOT.jar;D:\\work\\vibecode\\OracleRedoKernel\\lab\\out\\release-frozen-baseline\\classes",
+        "FrozenBaselineProbe",
+        "D:\\work\\vibecode\\OracleRedoKernel\\lab\\out\\release-frozen-baseline\\wrong_scn.snapshot.txt",
+        "36e3c954dd0844367bbb2bb9bec8c9b1f63f4069b1c1b01aa6239f62792f220d",
+        "D:\\work\\vibecode\\OracleRedoKernel\\lab\\out\\oracle19-baseline-generation-20261004\\archive-1-26.dbf"
+      ],
+      "rc": 1,
+      "stdout_bytes": 0
+    },
+    {
+      "name": "wrong_source",
+      "args": [
+        "D:/work/Java/jdk-17.0.7/bin/java.exe",
+        "-cp",
+        "D:\\work\\vibecode\\OracleRedoKernel\\lab\\out\\release-frozen-baseline\\tree\\target\\oracle-redo-kernel-0.1.0-SNAPSHOT.jar;D:\\work\\vibecode\\OracleRedoKernel\\lab\\out\\release-frozen-baseline\\classes",
+        "FrozenBaselineProbe",
+        "D:\\work\\vibecode\\OracleRedoKernel\\lab\\out\\release-frozen-baseline\\wrong_source.snapshot.txt",
+        "36e3c954dd0844367bbb2bb9bec8c9b1f63f4069b1c1b01aa6239f62792f220d",
+        "D:\\work\\vibecode\\OracleRedoKernel\\lab\\out\\oracle19-baseline-generation-20261004\\archive-1-26.dbf"
+      ],
+      "rc": 1,
+      "stdout_bytes": 0
+    }
+  ],
+  "files": [
+    {
+      "path": "docs/workorders/DELIVERY_W5_FROZEN_BASELINE_20261004.md",
+      "bytes": 4670,
+      "sha256": "ff6e563002986e9d638bd76645c71bfc8945cadb2f169e2b7d5fd30f0e40831c"
+    },
+    {
+      "path": "docs/workorders/DISPATCH_W5_TYPED_OBJECT_SCOPE_20261004.md",
+      "bytes": 2109,
+      "sha256": "d7c7db2c0818b398a2c14a9cd4de5a4a04da95e01c347da86449963a96f3df9e"
+    },
+    {
+      "path": "lab/capture_heap_baseline19.py",
+      "bytes": 4959,
+      "sha256": "6b7fbfb7249f5bdec0991893e20ffda9c90dc23eb43c6c44dc2fc56c584840e5"
+    },
+    {
+      "path": "lab/compare_frozen_baseline.py",
+      "bytes": 2658,
+      "sha256": "fd537057a47120cd24ef885ae5e2bd7e71aec293df19d3c0b137b270f8355d16"
+    },
+    {
+      "path": "lab/FrozenBaselineProbe.java",
+      "bytes": 1519,
+      "sha256": "02507da99552888aa2aa0c7b02e3a9db154f863d15d880cccc2aa024167716ce"
+    },
+    {
+      "path": "lab/out/build-frozen-baseline.py",
+      "bytes": 943,
+      "sha256": "d48a9e3558dc61740166eddd7d574f074245e3b1411d04f306e59d6057d7e3eb"
+    },
+    {
+      "path": "lab/out/oracle19-baseline-acquisition-20261004/binding-command.json",
+      "bytes": 125,
+      "sha256": "92b11ce209b6f209002bbfe2fca241e2b4505dae9b02fa31abf42af2cce92a19"
+    },
+    {
+      "path": "lab/out/oracle19-baseline-acquisition-20261004/binding.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/oracle19-baseline-acquisition-20261004/binding.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle19-baseline-acquisition-20261004/binding.stdout.txt",
+      "bytes": 84,
+      "sha256": "663213c6ddff7be1e55f48031ca6e99d821fac874d4aa01eb41eb0ef08ee52b2"
+    },
+    {
+      "path": "lab/out/oracle19-baseline-acquisition-20261004/copy-query-command.json",
+      "bytes": 181,
+      "sha256": "59369fb7be27df7d4acab3260e59e41741388fc1780d7abfec8ab9aecc795ec5"
+    },
+    {
+      "path": "lab/out/oracle19-baseline-acquisition-20261004/copy-query.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/oracle19-baseline-acquisition-20261004/copy-query.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle19-baseline-acquisition-20261004/copy-query.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle19-baseline-acquisition-20261004/receipt.json",
+      "bytes": 642,
+      "sha256": "7c141bac9c3a88dc0c6f50a847ffaf27c8b0f2405eccbd1a3e8adf3746b0a82d"
+    },
+    {
+      "path": "lab/out/oracle19-baseline-acquisition-20261004/snapshot-command.json",
+      "bytes": 187,
+      "sha256": "7e823238cd59b6a464b9301b74fb526d298a45003e14005e42de61a5ee6171ef"
+    },
+    {
+      "path": "lab/out/oracle19-baseline-acquisition-20261004/snapshot.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/oracle19-baseline-acquisition-20261004/snapshot.sql",
+      "bytes": 3379,
+      "sha256": "916f8ed0de320ba1614e331efac48debe858bb6fefb956a6805bccb1dbecd720"
+    },
+    {
+      "path": "lab/out/oracle19-baseline-acquisition-20261004/snapshot.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle19-baseline-acquisition-20261004/snapshot.stdout.txt",
+      "bytes": 742,
+      "sha256": "36e3c954dd0844367bbb2bb9bec8c9b1f63f4069b1c1b01aa6239f62792f220d"
+    },
+    {
+      "path": "lab/out/oracle19-baseline-generation-20261004/archive-1-26.dbf",
+      "bytes": 131072,
+      "sha256": "1674e2f73893fd6d1ab13b08e799a7d6ba6898a0e10a4babb6aa847bce61afae"
+    },
+    {
+      "path": "lab/out/oracle19-baseline-generation-20261004/before-command.json",
+      "bytes": 156,
+      "sha256": "d94446e369bb4c1bd2746be1851094728b978dc8d43bc1a83be4c4732e0964c2"
+    },
+    {
+      "path": "lab/out/oracle19-baseline-generation-20261004/before.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/oracle19-baseline-generation-20261004/before.sql",
+      "bytes": 1192,
+      "sha256": "17a67c94c867654358319a6e518fc78da36d56cfa5bfd61ff9e7fcf9ba3db8be"
+    },
+    {
+      "path": "lab/out/oracle19-baseline-generation-20261004/before.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle19-baseline-generation-20261004/before.stdout.txt",
+      "bytes": 97,
+      "sha256": "55c6fbe33df07986c1b83150c67ea79d6e4735504fb493c33e4549f93c4ad4e6"
+    },
+    {
+      "path": "lab/out/oracle19-baseline-generation-20261004/binding-command.json",
+      "bytes": 125,
+      "sha256": "92b11ce209b6f209002bbfe2fca241e2b4505dae9b02fa31abf42af2cce92a19"
+    },
+    {
+      "path": "lab/out/oracle19-baseline-generation-20261004/binding.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/oracle19-baseline-generation-20261004/binding.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle19-baseline-generation-20261004/binding.stdout.txt",
+      "bytes": 84,
+      "sha256": "663213c6ddff7be1e55f48031ca6e99d821fac874d4aa01eb41eb0ef08ee52b2"
+    },
+    {
+      "path": "lab/out/oracle19-baseline-generation-20261004/capture-26-command.json",
+      "bytes": 212,
+      "sha256": "db7e8aaf6d4d0be01dfdd01f0ad514ecc70776dc68169be6ee83be4c5c58afae"
+    },
+    {
+      "path": "lab/out/oracle19-baseline-generation-20261004/capture-26.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/oracle19-baseline-generation-20261004/capture-26.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle19-baseline-generation-20261004/capture-26.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle19-baseline-generation-20261004/change-command.json",
+      "bytes": 156,
+      "sha256": "bfceb8c5d39dd50a24aabae94b78685550010bea22a159e7582c0972a5d18546"
+    },
+    {
+      "path": "lab/out/oracle19-baseline-generation-20261004/change.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/oracle19-baseline-generation-20261004/change.sql",
+      "bytes": 1121,
+      "sha256": "5651c88b7a0a01e57767ebdda595888bae472f5e2c29833319add219e9c18381"
+    },
+    {
+      "path": "lab/out/oracle19-baseline-generation-20261004/change.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle19-baseline-generation-20261004/change.stdout.txt",
+      "bytes": 1951,
+      "sha256": "e0ac0ede7b1454f2798ef89cdf500bb868aeb2edf43de565157450c9941f30eb"
+    },
+    {
+      "path": "lab/out/oracle19-baseline-generation-20261004/copy-before-command.json",
+      "bytes": 185,
+      "sha256": "17976610cddb237d85aafacf160408e76b8ac84a3b129641c60dc0f1ddcc5793"
+    },
+    {
+      "path": "lab/out/oracle19-baseline-generation-20261004/copy-before.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/oracle19-baseline-generation-20261004/copy-before.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle19-baseline-generation-20261004/copy-before.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle19-baseline-generation-20261004/copy-change-command.json",
+      "bytes": 185,
+      "sha256": "de85ecb8c8815199f0d427e9f1fd08a3ded87ea96df56cb87d11b6808d2f5ce0"
+    },
+    {
+      "path": "lab/out/oracle19-baseline-generation-20261004/copy-change.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/oracle19-baseline-generation-20261004/copy-change.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle19-baseline-generation-20261004/copy-change.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle19-baseline-generation-20261004/copy-dump-command.json",
+      "bytes": 181,
+      "sha256": "22f0394f7dadbfca3d605e0c934da351fac3e3297e54d1e1c31ded1011b278a2"
+    },
+    {
+      "path": "lab/out/oracle19-baseline-generation-20261004/copy-dump.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/oracle19-baseline-generation-20261004/copy-dump.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle19-baseline-generation-20261004/copy-dump.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle19-baseline-generation-20261004/copy-old-baseline-after-ddl-command.json",
+      "bytes": 217,
+      "sha256": "3d2e98b8e2081ab0dfba8bf8f0d57b9947617c7cab36e7badf07b81ac63e8e64"
+    },
+    {
+      "path": "lab/out/oracle19-baseline-generation-20261004/copy-old-baseline-after-ddl.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/oracle19-baseline-generation-20261004/copy-old-baseline-after-ddl.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle19-baseline-generation-20261004/copy-old-baseline-after-ddl.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle19-baseline-generation-20261004/copy-trace-command.json",
+      "bytes": 228,
+      "sha256": "1be01cf4284b1e34df51f33f576ee25c67f393617c222bd37ad305b4c057d425"
+    },
+    {
+      "path": "lab/out/oracle19-baseline-generation-20261004/copy-trace.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/oracle19-baseline-generation-20261004/copy-trace.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle19-baseline-generation-20261004/copy-trace.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle19-baseline-generation-20261004/dump-command.json",
+      "bytes": 154,
+      "sha256": "54f074488229cae4ddd560592505a9e69b26f87f0ec6f99f66e1427f51ba0aee"
+    },
+    {
+      "path": "lab/out/oracle19-baseline-generation-20261004/dump.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/oracle19-baseline-generation-20261004/dump.sql",
+      "bytes": 411,
+      "sha256": "5399896dec8dbb3e8b77dd31f08c032755e2c609e550efc0f960fdfd670cbe3d"
+    },
+    {
+      "path": "lab/out/oracle19-baseline-generation-20261004/dump.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle19-baseline-generation-20261004/dump.stdout.txt",
+      "bytes": 85,
+      "sha256": "0224606a00e7e0f8c9df3099e8b95da57893d36be687481f657462b4987cbab1"
+    },
+    {
+      "path": "lab/out/oracle19-baseline-generation-20261004/dump.trc",
+      "bytes": 71571,
+      "sha256": "5678fc49a3559f35478458405545a5ed2c66accd8effd856e9823b2c57b13914"
+    },
+    {
+      "path": "lab/out/oracle19-baseline-generation-20261004/manifest.json",
+      "bytes": 539,
+      "sha256": "bbf2817b2b33a4100472992ebc18ebd583e4b007dd95ea7239150d64fdcb507a"
+    },
+    {
+      "path": "lab/out/oracle19-baseline-generation-20261004/old-baseline-after-ddl-command.json",
+      "bytes": 172,
+      "sha256": "898ced2020ad5c5deffd2065971b7599d8459075edcc9bad3b665c5105b41eae"
+    },
+    {
+      "path": "lab/out/oracle19-baseline-generation-20261004/old-baseline-after-ddl.rc.txt",
+      "bytes": 1,
+      "sha256": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b"
+    },
+    {
+      "path": "lab/out/oracle19-baseline-generation-20261004/old-baseline-after-ddl.sql",
+      "bytes": 265,
+      "sha256": "d8d3a6398a204bf045f44f498bd778e94ca273246579932e53b8329c46e58646"
+    },
+    {
+      "path": "lab/out/oracle19-baseline-generation-20261004/old-baseline-after-ddl.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle19-baseline-generation-20261004/old-baseline-after-ddl.stdout.txt",
+      "bytes": 183,
+      "sha256": "c7a3567c0b194bac3ea3a19116e699fcc19700cf4a60d4504f130d61087636e0"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/actual-snapshot-command.json",
+      "bytes": 565,
+      "sha256": "7cf04bbe3ff0ed5162a816188119ff075da84afe8bd991ecf92d988002c6a78e"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/actual-snapshot.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/actual-snapshot.stderr.txt",
+      "bytes": 121,
+      "sha256": "5bd78f5a4d38298557fc65522e67897aad23a85c9ae57078218717d676fa3f1f"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/actual-snapshot.stdout.txt",
+      "bytes": 330,
+      "sha256": "a286b4e2f20155dbf5da59eb720b79d1c572f29d21b65c5797cb574305f5ab42"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/build-command.json",
+      "bytes": 80,
+      "sha256": "86dedba6eb5d14bf946eaeef5b18e86e5770ffb9b5a898feefab0bad3b49180d"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/build.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/build.stderr.txt",
+      "bytes": 301,
+      "sha256": "a73235e74b7212a667f3c9a6209ea0afe89e0cb01c372b4298f0f1a5e284ba49"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/build.stdout.txt",
+      "bytes": 8808,
+      "sha256": "35064bdaaf197b1193d8e22b1dd7609c6643b653b36ee406c160b76c8db73777"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/classes/FrozenBaselineProbe.class",
+      "bytes": 5752,
+      "sha256": "e0bf4594ca39a008255bb9dffa37bfd2bf26485a62720c0bef00f0ab76a16a88"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/comparator-missing_row-command.json",
+      "bytes": 495,
+      "sha256": "b2a828b26ec7156787c5c04e93b66a859dc6bcd6b447bcb06f8a0c229a30499d"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/comparator-missing_row.rc.txt",
+      "bytes": 1,
+      "sha256": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/comparator-missing_row.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/comparator-missing_row.stdout.txt",
+      "bytes": 586,
+      "sha256": "d9804b30b5e8650eda7bab533373c207376b13a2f7a99f52486e6a3d7e427046"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/comparator-missing_row.txt",
+      "bytes": 249,
+      "sha256": "bcd8b449986fd2091ba08e373e0291e9ba9add9065b9372e1c59092d0c37f663"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/comparator-wrong_column-command.json",
+      "bytes": 496,
+      "sha256": "0fa26d62e3890c97b7fc5004e9fe7d75dfdba9395ca58201dbe1e6c213d859df"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/comparator-wrong_column.rc.txt",
+      "bytes": 1,
+      "sha256": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/comparator-wrong_column.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/comparator-wrong_column.stdout.txt",
+      "bytes": 689,
+      "sha256": "4df8aba6db28479293bcf87f59080d8190aee3f10df5719878a7b77a35e78f1d"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/comparator-wrong_column.txt",
+      "bytes": 330,
+      "sha256": "33d707446d4c0ee6fc7a56e76a76bec2f416cc6dde735695fb5e7e3b467a8ed1"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/comparator-wrong_generation-command.json",
+      "bytes": 500,
+      "sha256": "9455aefaae48c07c72201e676cd12cc292a910862c601094186022b881491e92"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/comparator-wrong_generation.rc.txt",
+      "bytes": 1,
+      "sha256": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/comparator-wrong_generation.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/comparator-wrong_generation.stdout.txt",
+      "bytes": 557,
+      "sha256": "f6c84b2546943cd24098e66faa20e33e0df56d6c16702d3b53d8237881a76fa1"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/comparator-wrong_generation.txt",
+      "bytes": 330,
+      "sha256": "64c0d8c793e1cd381fbd3a70fede7d6dab90db9b8e1abb829050a443564af2d0"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/compile-command.json",
+      "bytes": 359,
+      "sha256": "16c9bcfc221feaae21d9cdaacab72e7c58d16b9b9c0b2671c78aa5a211c4822c"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/compile.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/compile.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/compile.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/delivery-report-draft.md",
+      "bytes": 4637,
+      "sha256": "15b0ad439da597d411c11f27e7e6e237b3678553b6342edf2bb13d005c6cbf88"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/events-command.json",
+      "bytes": 293,
+      "sha256": "307e25a8ede2d9488b2ad2ac65e1f2c31b585fd0ae746e0446d49f31419d6b14"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/events.rc.txt",
+      "bytes": 1,
+      "sha256": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/events.stderr.txt",
+      "bytes": 346,
+      "sha256": "b949f0dedec9391aed9d90c2f1e136720a3b1e124f1accb618356a4a59dd3087"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/events.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/forged-authority-accepted-command.json",
+      "bytes": 553,
+      "sha256": "1012e146d3c7a99bc876080f906ba3c5a122541f36045667f6f1b9d7069293ff"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/forged-authority-accepted.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/forged-authority-accepted.stderr.txt",
+      "bytes": 121,
+      "sha256": "5bd78f5a4d38298557fc65522e67897aad23a85c9ae57078218717d676fa3f1f"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/forged-authority-accepted.stdout.txt",
+      "bytes": 330,
+      "sha256": "02c359e21d75a8ae268a00dd278e069c43c444b6c654f687ddff4cc29860f0c6"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/independent-query-projection-command.json",
+      "bytes": 495,
+      "sha256": "0f03dec5949a18967e6e33ed1bdda241ee42a2744fb2d0b611e1c6583c18d89d"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/independent-query-projection-r2-command.json",
+      "bytes": 594,
+      "sha256": "5d48e982cea0b063467628fb856ee63e98d21032f4223f1ed5791f710291bbdf"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/independent-query-projection-r2.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/independent-query-projection-r2.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/independent-query-projection-r2.stdout.txt",
+      "bytes": 359,
+      "sha256": "28822653aef715898da7abab9bb4868b105bb42372456ed6d1a4773062250dbd"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/independent-query-projection.rc.txt",
+      "bytes": 1,
+      "sha256": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/independent-query-projection.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/independent-query-projection.stdout.txt",
+      "bytes": 648,
+      "sha256": "acb5a027cce288ad56d8833f104636d23fdb0d26496d2667f74cc952f5cd40ed"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/independent-rejects-forged-authority-command.json",
+      "bytes": 505,
+      "sha256": "949adf2b48a70e33ca406cfde6ead60a34c279ca07b6fa4e4dc1b315dec1eec6"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/independent-rejects-forged-authority.rc.txt",
+      "bytes": 1,
+      "sha256": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/independent-rejects-forged-authority.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/independent-rejects-forged-authority.stdout.txt",
+      "bytes": 1174,
+      "sha256": "7847a311f38d7f4fab91e330e5e3a9f295af0f2090f68239b844b808dcab9aee"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/manifest-draft-before-difference-count-fix.json",
+      "bytes": 167510,
+      "sha256": "8843b7025cba26571c608e37f21910ba3cf4a2d0cecd89256a43bfc5724aa6de"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/missing_row-command.json",
+      "bytes": 555,
+      "sha256": "81285ab98019c2d9f6c8b159f316902f9eb7ac84140f6cf91008aeb5a38df3a2"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/missing_row.rc.txt",
+      "bytes": 1,
+      "sha256": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/missing_row.self-reported-sha.txt",
+      "bytes": 64,
+      "sha256": "db7c7d3178b38f82a7ad95997fada92136b5cb990b5640f10ae3de3e5928273f"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/missing_row.snapshot.txt",
+      "bytes": 699,
+      "sha256": "0d7dc98810a802cd9caa8bc5c448daf107681a4bdcbeaeb9cf1c3deefe3b6e05"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/missing_row.stderr.txt",
+      "bytes": 241,
+      "sha256": "ae2e795e1e13802fe7c57f65f2bf4932b2b47069a2afbb59178f4e9164ce78cb"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/missing_row.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/refuse-equal-object-scope-command.json",
+      "bytes": 589,
+      "sha256": "337e71c37b944bcc61a425e727ad7fc2ac50ca9b198b9cae63016cd29ac4605e"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/refuse-equal-object-scope.rc.txt",
+      "bytes": 1,
+      "sha256": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/refuse-equal-object-scope.stderr.txt",
+      "bytes": 285,
+      "sha256": "5659daadcff5d16ebe496fcf4e7e99cb6b0f22ca8d6b4eab55a30cf20b740ad1"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/refuse-equal-object-scope.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/source.tar",
+      "bytes": 6184960,
+      "sha256": "6b2c4d2ba1f13c12b785db9cfbe468b3d5cb57d1df76a2eb17f9c5273d767219"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/source.txt",
+      "bytes": 40,
+      "sha256": "23fd200a5fb36dfe95d37a59ff5403503813fc14c6c27b85844172f54e598da5"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/.gitignore",
+      "bytes": 56,
+      "sha256": "703ad957b3fa9bf984b6acc8804f6d8a2377e18e20ca8ffbcb30908e913fe665"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/AGENTS.md",
+      "bytes": 1581,
+      "sha256": "efbd83dafaedf07cb6d536cac75f853c70f65847a4cc7b8b8aa6b675628d7416"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/docs/Oracle_Direct_Redo_技术方案_v0.1_20261004.md",
+      "bytes": 14786,
+      "sha256": "dcd966e77894d9cb67b585ad897eddab6f40727faf0e9432976be20faf0dbe3d"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/docs/workorders/DELIVERY_W0_W2_20261004.md",
+      "bytes": 3779,
+      "sha256": "ca44ddb7654adf502d61843787f4e2741262254df85f5ad0cb3ed1f49801641c"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/docs/workorders/DELIVERY_W3_KDOM2_20261004.md",
+      "bytes": 3874,
+      "sha256": "af1d78ac4050371a3fa5a0b6766c374be068480649f57e003fca0ef455f01970"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/docs/workorders/DELIVERY_W3_PAIR_20261004.md",
+      "bytes": 2718,
+      "sha256": "f695c69d85b4bfcb97824658d1a52f1692ebf617985a42fba8a275045bbdf325"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/docs/workorders/DELIVERY_W3_PATCH_20261004.md",
+      "bytes": 3444,
+      "sha256": "46ee78f4836af46b46a43f07e9fb3d5015d5db85ffc62ec807ffa3bc449c95e8"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/docs/workorders/DELIVERY_W3_UNDO_ROW_20261004.md",
+      "bytes": 2110,
+      "sha256": "fc78e4659c3aaca71c3825ef5ac58ba44d1bdd1fda0607a939bd8c3d59903a81"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/docs/workorders/DELIVERY_W4_BEGIN_20261004.md",
+      "bytes": 1943,
+      "sha256": "3df25f441aa92169c205a0e02683797114284743514766f1841e015c6607bc9b"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/docs/workorders/DELIVERY_W4_BEGIN_COMPENSATION_20261004.md",
+      "bytes": 2952,
+      "sha256": "df38634404c3719a0d3a79b2a37fcc4cbcb5c6c34e4eb0dc5d37a3b91499e0fd"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/docs/workorders/DELIVERY_W4_COMPENSATION_20261004.md",
+      "bytes": 3099,
+      "sha256": "b1abd9c794c498562c5925ba782e9ca70300d30bbc3d7d4481c184ec53c26f2f"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/docs/workorders/DELIVERY_W4_COMPENSATION_ASSOCIATIONS_20261004.md",
+      "bytes": 5832,
+      "sha256": "44358008d1f584fe4bd9b80efb875f10cc65c58f7b32b5906ae4a2e1bd91f3cb"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/docs/workorders/DELIVERY_W4_COMPENSATION_INVENTORY_20261004.md",
+      "bytes": 3679,
+      "sha256": "3fc1833ce5b7a927cb659f3cb39006df71ac978e69b5936b8aca9bdf8bc52fe7"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/docs/workorders/DELIVERY_W4_CONCURRENT_ROUTING_20261004.md",
+      "bytes": 4494,
+      "sha256": "982ff35c7c5170b963e7ee63475d6acca1a2c24566dd241f3fbe364b52c52c29"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/docs/workorders/DELIVERY_W4_CROSS_COMPENSATION_20261004.md",
+      "bytes": 5988,
+      "sha256": "0492a1ec8614837453b6fd60501faee74467a53a4dba7d9e6c789a404bcab265"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/docs/workorders/DELIVERY_W4_FULL_ROLLBACK_20261004.md",
+      "bytes": 4447,
+      "sha256": "7d1ae69740f9fc3fe427ea996c3fc776b94b1764f916b95a0b36738aa19c4fa1"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/docs/workorders/DELIVERY_W4_HEAD_UPDATE_20261004.md",
+      "bytes": 3079,
+      "sha256": "5fad18c5f65d28962a0d7e455ee60fcbc16c673efd89cd2e7cbe3a7f44477617"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/docs/workorders/DELIVERY_W4_INDEX_LEAF_INVENTORY_20261004.md",
+      "bytes": 5708,
+      "sha256": "83af07a67fb6eab6e99b94b9a9fb80fefed5753a69ccac45614c1411ff90db78"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/docs/workorders/DELIVERY_W4_INDEX_MULTI_GRAPH_20261004.md",
+      "bytes": 3865,
+      "sha256": "383dd13bf0103fd8f62120e3bec686e910f7907add6e71b6af2f7b3d31ae37db"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/docs/workorders/DELIVERY_W4_INDEX_PAIR_20261004.md",
+      "bytes": 3791,
+      "sha256": "0b1e583d2125eb06f381848b4e2e347602cf796c33dc868850834730c25d950d"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/docs/workorders/DELIVERY_W4_INDEX_POSITION_20261004.md",
+      "bytes": 6342,
+      "sha256": "d660a79af6a913e0a70deef1e239be0330b888956cbd8a8b9adef7bf69acc992"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/docs/workorders/DELIVERY_W4_INDEX_RESTORE_20261004.md",
+      "bytes": 5128,
+      "sha256": "395f6b490344a7391f5877a3067e913be4634695880ce1b9fc6104f1094cc4f7"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/docs/workorders/DELIVERY_W4_LIFECYCLE_20261004.md",
+      "bytes": 3129,
+      "sha256": "806c283174b65cdb9628edad4a9f6c6a7717cac670328ddc9869130928322e20"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/docs/workorders/DELIVERY_W4_MARKERS_20261004.md",
+      "bytes": 2530,
+      "sha256": "85fc1728adee88a7e6a40c2d9771682a02f76f8cbbea2d7ed532aa471d679524"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/docs/workorders/DELIVERY_W4_MIXED_UNDO_20261004.md",
+      "bytes": 4186,
+      "sha256": "591cfaea7548ffdf5d22fedcc042ac86bfe144b3ea49f77c1b33d496d143a0e7"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/docs/workorders/DELIVERY_W4_OBJECT_DISCOVERY_20261004.md",
+      "bytes": 4298,
+      "sha256": "f8a2caff928c645b3ec4de7041f3aba20c7d8bbac449940099389c4182718082"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/docs/workorders/DELIVERY_W4_ORDERED_HISTORY_20261004.md",
+      "bytes": 3767,
+      "sha256": "08dc654bdf22018b93f0de91bdf5d7eb51f9bd5aa2a8994e24472358f2c01481"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/docs/workorders/DELIVERY_W4_OWNED_POSITIONS_20261004.md",
+      "bytes": 5341,
+      "sha256": "2be0518f4dcc14b22a28d32450b05a77d76ca42073765f78c3164296806c89bd"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/docs/workorders/DELIVERY_W4_PAIRED_MATRIX_20261004.md",
+      "bytes": 4044,
+      "sha256": "aed804e6dbc62dbf8d09bb70e22e3a021c750f962e8e5f67bff3946c708d6da4"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/docs/workorders/DELIVERY_W4_PHYSICAL_TRANSACTIONS_20261004.md",
+      "bytes": 6253,
+      "sha256": "5ea3b0dbb807369157f4f2ea6cd7f4f40eafbb461336c8de40f7ae5ee7f7e4c7"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/docs/workorders/DELIVERY_W4_UNDO_ADVANCE_20261004.md",
+      "bytes": 5017,
+      "sha256": "6f8cea47d089a4c85b5f4c57ee03e163791afa1c4d08096576e0d2de94125a97"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/docs/workorders/DELIVERY_W4_UNDO_CHAIN_20261004.md",
+      "bytes": 3150,
+      "sha256": "57ca6b62cc86c39c1667d3d8152ab0789e1cce05a87cd06405de144adeea35d7"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/docs/workorders/DELIVERY_W4_UNDO_INVENTORY_20261004.md",
+      "bytes": 3670,
+      "sha256": "1e6f3298c02ccd5ac3385837e975773f4150a45988a8aae403c139c04d64968a"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/docs/workorders/DELIVERY_W4_WINDOW_SLOT_20261004.md",
+      "bytes": 3563,
+      "sha256": "b38062beeee062ae64c4dec2deabff8d474734d63c3c8861f6ee0d50d55bbf2a"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/docs/workorders/DELIVERY_W4_Z_RESTORE_20261004.md",
+      "bytes": 3639,
+      "sha256": "442ed2f072b6fa98a425e735c0efa58353e56a8ede3fd708ae0863ceccd7d3fd"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/docs/workorders/DELIVERY_W4_Z_ROLLBACK_20261004.md",
+      "bytes": 5313,
+      "sha256": "ebbd3969340b5b99e88d246c7e691ccb5e570c1e6d484f739193524dcc719de2"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/docs/workorders/DELIVERY_W5_ROW_EXTENT_20261004.md",
+      "bytes": 4136,
+      "sha256": "42dc9bd8adbd7c021a2695c969b7f201744180e2cc42aeb8356998f11e1659e3"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/docs/workorders/DELIVERY_W5_ROW_IMAGES_20261004.md",
+      "bytes": 4209,
+      "sha256": "66cdc051e5d0864be266a4f0da0a49f39ac4cee48d456cd07d1904ad43281b7b"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/docs/workorders/DELIVERY_W7_OBSERVATION_20261004.md",
+      "bytes": 4568,
+      "sha256": "ef925ae55ec4244921e5025b1ba1abfc9b5611b5b9897348bde7bae8f971aad6"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/docs/workorders/DISPATCH_W3_W5_NOSUPP_20261004.md",
+      "bytes": 3823,
+      "sha256": "da47c3f47d49078519b9c6aeea20d7a127d79bd6ac8ec5c3f19b709b0169d222"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/docs/workorders/DISPATCH_W4_ARCHIVED_ROUTER_20261004.md",
+      "bytes": 4058,
+      "sha256": "1cc7c6bb8cfea58eaf15b9b8bd450a02fd791723175ef46e4f4f49bb7f7c911f"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/docs/workorders/DISPATCH_W5_BASELINE_PROVENANCE_20261004.md",
+      "bytes": 2937,
+      "sha256": "8239bac818f6b35ac54ce7e9c5f591c3f236440b0bb4800d5f3b052fe0cf719c"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/docs/workorders/DISPATCH_W5_ROW_EXTENT_EPOCH_20261004.md",
+      "bytes": 3349,
+      "sha256": "4643ae52aebfde7d6ba0278d411428a74062854b69de9cab99e30398a0899c89"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/docs/workorders/DISPATCH_W7_ONLINE_CAPTURE_20261004.md",
+      "bytes": 3630,
+      "sha256": "a2ba790abf59c8ee7401ddc5073ae1b4a257aa5d24c7ff565596593f25b110e3"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/docs/workorders/evidence/DELIVERY-0445b43.json",
+      "bytes": 46637,
+      "sha256": "0cf7ddc1ffb0ee65c8a3ee83df5b2a86c2b2c655b43cf5261b0d0ab03fe60e16"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/docs/workorders/evidence/DELIVERY-076865c.json",
+      "bytes": 149744,
+      "sha256": "ec666636f8d002f9c4b380dc241057fe11a42661db6ee9dc1131a05e7f6e48be"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/docs/workorders/evidence/DELIVERY-0b36846.json",
+      "bytes": 2989,
+      "sha256": "66de34f41292408b2f4881ab33956f7698e983d2ed454cb55d75f793ac8a5662"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/docs/workorders/evidence/DELIVERY-0c5ff4c.json",
+      "bytes": 3765,
+      "sha256": "985dbb50e54eb8931d80231d2976a158a1c81da86b07d28dfd8071b293e6490e"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/docs/workorders/evidence/DELIVERY-254e5e7.json",
+      "bytes": 3525,
+      "sha256": "15ae4368ec59cebc8a0e0b0d3d1cb2111c52e3968b231a434a11c0f67cdb7536"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/docs/workorders/evidence/DELIVERY-3418fb9.json",
+      "bytes": 4383,
+      "sha256": "9574b1755d9e881a546e5f660bba04080f9df8f6084a110fe2b7935214f9f667"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/docs/workorders/evidence/DELIVERY-3e1b5bc.json",
+      "bytes": 4134,
+      "sha256": "1eed0a2d52bd01ff37e865a06cf7ee2b41275e9da75a6c4a479cf10bccee08cd"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/docs/workorders/evidence/DELIVERY-6985d9c.json",
+      "bytes": 15045,
+      "sha256": "993868c61014b10e89ccb92e3584822ec1b9e944c015dd8a4fef2203c180cab9"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/docs/workorders/evidence/DELIVERY-6d30626.json",
+      "bytes": 62394,
+      "sha256": "d47b39fe1d55e0e9b131eeac12091baded1cca18f4e07824965e46e9cd2cc81d"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/docs/workorders/evidence/DELIVERY-8859c7d.json",
+      "bytes": 4598,
+      "sha256": "228b86da854d03e479ceecbb2ea66254a11fb9bbbe4bd68da9fedbd5e5f4ea63"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/docs/workorders/evidence/DELIVERY-8a18e3d.json",
+      "bytes": 70869,
+      "sha256": "cc40a69d541019931081193543a2ef315f368d125c0763153dec11d1c30d622b"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/docs/workorders/evidence/DELIVERY-952e65d.json",
+      "bytes": 86359,
+      "sha256": "c31f9b2144731ee659165f9503397d43a4096a2335435de3cfb786c6cf88459e"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/docs/workorders/evidence/DELIVERY-9a2344b.json",
+      "bytes": 114319,
+      "sha256": "586304f1397b22b6646fd4d950392fcd0ddfb1524cd09960af395d9bd5384566"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/docs/workorders/evidence/DELIVERY-9ffc19b.json",
+      "bytes": 53848,
+      "sha256": "44bf9f4bd3f621c48f52590fdd5bbca561d3d9750e2d91399c9b4a045eca2cff"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/docs/workorders/evidence/DELIVERY-b188709.json",
+      "bytes": 2935,
+      "sha256": "222462e5807f3d12d7bc854d5508555b61d847ea3383c237b3fd9598e4c18e4c"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/docs/workorders/evidence/DELIVERY-b99828e.json",
+      "bytes": 21545,
+      "sha256": "555ce312f8b272a07c603db52bbe08b001fc60e6e9a921d949ebf5f2462a8154"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/docs/workorders/evidence/DELIVERY-compensation-associations-20261004.json",
+      "bytes": 126131,
+      "sha256": "efc57f44dd22c7616a17ebf6bcf257172cd59a2694679dfc166d950ef19b1199"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/docs/workorders/evidence/DELIVERY-concurrent-routing-20261004.json",
+      "bytes": 89107,
+      "sha256": "6173606c277102933fe5130eae161f51327f39bde172f56455019ca0a72b7e09"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/docs/workorders/evidence/DELIVERY-d3f07b3.json",
+      "bytes": 4116,
+      "sha256": "ac892189fd4ca28a25a385f90ae95a80926b2b25d5f897798e802ea42b33d5d6"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/docs/workorders/evidence/DELIVERY-ea709ae.json",
+      "bytes": 3878,
+      "sha256": "b46d573e4530365dca2c73ecedab1c2ff28338b700cbbf0edc6b9a0b6975abfa"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/docs/workorders/evidence/DELIVERY-fa61476.json",
+      "bytes": 5403,
+      "sha256": "040eefe334f88d89890c58aeec52bd5558dba0f38f865c5f0bfc004254763632"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/docs/workorders/evidence/DELIVERY-heap-baseline-20261004.json",
+      "bytes": 319909,
+      "sha256": "9f8f51a1099940210bd1c283811540da875391623c741c174fb0b6fdf4ef5d99"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/docs/workorders/evidence/DELIVERY-index-multi-graph-20261004.json",
+      "bytes": 87220,
+      "sha256": "f4f95f3193d39b1af42184285aceefef7c62c3b6ea022d22a0fa33a62be50067"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/docs/workorders/evidence/DELIVERY-index-pair-20261004.json",
+      "bytes": 91160,
+      "sha256": "d3892c6880870a36fcbfbb64ae8bda3205cbf38dcf17d4b425421e16079242b5"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/docs/workorders/evidence/DELIVERY-index-position-20261004.json",
+      "bytes": 224732,
+      "sha256": "ce49b44bb7143a519cf024bbc31c1e69c300b2617c8f71666c71b7ee4b1fa2e3"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/docs/workorders/evidence/DELIVERY-index-restore-20261004.json",
+      "bytes": 138227,
+      "sha256": "d50ebb3aded07063a3b5503afd87b64e26399cbd5f2994e9535a018991e0d542"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/docs/workorders/evidence/DELIVERY-leaf-inventory-20261004.json",
+      "bytes": 220240,
+      "sha256": "c5f045cc4ec73319860de280160e5737da52232bd9ca1474fcc1e679303e6a93"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/docs/workorders/evidence/DELIVERY-mixed-undo-20261004.json",
+      "bytes": 110873,
+      "sha256": "4aff292a94cdbb83285a1fadebabb719861e5f114c247c373baa323743b671f2"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/docs/workorders/evidence/DELIVERY-object-discovery-20261004.json",
+      "bytes": 251982,
+      "sha256": "e1c794673f436fb70a2c76044d5f6bb8137016f5834e7a7cdfacff23d12409c1"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/docs/workorders/evidence/DELIVERY-observation-20261004.json",
+      "bytes": 20366,
+      "sha256": "f90d5f4f02e3395d0d4c0659f84ed84a677623e8918da14c11f74ea86354b381"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/docs/workorders/evidence/DELIVERY-owned-positions-20261004.json",
+      "bytes": 297216,
+      "sha256": "95076cdd42831d5b4af19192ad74c2e37b416cad0c690222c769d5f3ad9dd83b"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/docs/workorders/evidence/DELIVERY-paired-matrix-20261004.json",
+      "bytes": 232185,
+      "sha256": "08685632b9476332d57d5c198317c70041d55c7b3778f1f1794365a87babab77"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/docs/workorders/evidence/DELIVERY-physical-transactions-20261004.json",
+      "bytes": 299676,
+      "sha256": "61bbc5d52ee58264eb864bc69ed642468dc04471d5f9243fa31cb8f784f7bbfe"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/docs/workorders/evidence/DELIVERY-tail-extent-20261004.json",
+      "bytes": 444871,
+      "sha256": "811c69ad194d8099c058fa1b2e8507f289e0aaf7f18e3dac1bc4fdf16c77a262"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/docs/workorders/evidence/DELIVERY-z-restore-20261004.json",
+      "bytes": 231095,
+      "sha256": "b6bb0aad9543d3b35e6028df17d2f09cd79b3bc7d754c4c39460654b9394267b"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/docs/workorders/evidence/DELIVERY-z-rollback-20261004.json",
+      "bytes": 206932,
+      "sha256": "3ff6f21c51ee248cc9d01846d553e7f2c50d7ab6fafe4aa61419534e3efcb4b4"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/docs/workorders/evidence/READ-online-open-20261004.json",
+      "bytes": 3494,
+      "sha256": "4ced65662a840ae36c1ac842f2557b4bae358c2ae3ab01726a05d56c891cfb0a"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/docs/workorders/evidence/RESEARCH-baseline-20261004.json",
+      "bytes": 36076,
+      "sha256": "c78d9b0e9937f9d460dc29416197af8bcb8d59e1ae51ba2adfa5d1f8e69bb438"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/docs/workorders/evidence/RESEARCH-cursor-hole-20261004.json",
+      "bytes": 10899,
+      "sha256": "70a1ea27fc72dd591788ddf3ffe7beb10176191e0c38a3f68519a2e8b5850ce6"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/docs/workorders/evidence/RESEARCH-cursor-snapshot-20261004.json",
+      "bytes": 10381,
+      "sha256": "f2499acbf2c08ff3d1099fb10e1107275b4a4b5def25713b7d7fa32c8f747830"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/docs/workorders/evidence/RESEARCH-delete-restore-20261004.json",
+      "bytes": 159865,
+      "sha256": "0e65036b0b770650d5d38c847ccd7ce2a39e8d71ac5012b178d5cd143e072a49"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/docs/workorders/evidence/RESEARCH-double-purge-20261004.json",
+      "bytes": 92379,
+      "sha256": "361f9efb8955049bb5e95942e5f0b551ce8d68ba172d7ddf2645667194c611f8"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/docs/workorders/evidence/RESEARCH-higher-purge-20261004.json",
+      "bytes": 88987,
+      "sha256": "d8791110d1af87776477a632867cc935e88944f24ff14db31c44a0bdb5ecb761"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/docs/workorders/evidence/RESEARCH-index-fields-20261004.json",
+      "bytes": 16131,
+      "sha256": "8c4f54d287f7a843c861731bd15ca9fc7a4cd66305176aa2fea294451a2e3a54"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/docs/workorders/evidence/RESEARCH-index-multi-position-20261004.json",
+      "bytes": 69251,
+      "sha256": "5a98136d343527094bf58807803ef4beb2d89e1999e097e02d18418eabcb1528"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/docs/workorders/evidence/RESEARCH-index-restore-20261004.json",
+      "bytes": 69907,
+      "sha256": "26f17f8c3ff7b1f4831678587dc563df44ace3700ff02f2d0f01bd860a312249"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/docs/workorders/evidence/RESEARCH-index-slot-shift-20261004.json",
+      "bytes": 120472,
+      "sha256": "63c38cb77fd358a9ba93c15c9b589293d21ab2577d03b83329af238223f9284c"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/docs/workorders/evidence/RESEARCH-intervening-purge-20261004.json",
+      "bytes": 81577,
+      "sha256": "af2e0cd09069173c8ead7be2050d40e69f01157be2905ec7736510357ab83a63"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/docs/workorders/evidence/RESEARCH-resume-fixture-20261004.json",
+      "bytes": 15566,
+      "sha256": "1e8b2e13ad25537bdf5de6d6da1865d68d48195a29bfa2fd834f7d8ea8947e31"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/docs/workorders/evidence/RESEARCH-second-rollback-20261004.json",
+      "bytes": 31353,
+      "sha256": "6f0c0ca86c4b61447890fe6a7caa0bcd09d43d0f9fa0d42f628e965babaf1443"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/docs/workorders/evidence/RESEARCH-undo-snapshot-20261004.json",
+      "bytes": 2131,
+      "sha256": "f9add25cfa08c01f4229a519525b030fd521142b5a68631b3a51b93cd7241f30"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/docs/workorders/RESEARCH_W4_CURSOR_HOLE_20261004.md",
+      "bytes": 3273,
+      "sha256": "a65f980c84f90a689f83b6382674d1c413d33b260c935d09d66c84e40642a4b1"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/docs/workorders/RESEARCH_W4_CURSOR_SNAPSHOT_20261004.md",
+      "bytes": 2139,
+      "sha256": "404e4a669274b6ab0b4ed90bccf146dba852edd24f51534876ec757c9a66f398"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/docs/workorders/RESEARCH_W4_DELETE_RESTORE_20261004.md",
+      "bytes": 4067,
+      "sha256": "97f7b336ca01f3526c1010190064369a779bc694b8480955c6092152670d36d0"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/docs/workorders/RESEARCH_W4_DOUBLE_PURGE_20261004.md",
+      "bytes": 3651,
+      "sha256": "3d1dab83bb4dcb20658a7922723822b69273d79b71ff4a63a4bea5a11fc562e3"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/docs/workorders/RESEARCH_W4_HIGHER_PURGE_20261004.md",
+      "bytes": 3715,
+      "sha256": "9320b8dcb6727b5f75579b7ff46e71308d341867af8e053db30e90f99ffb6b0d"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/docs/workorders/RESEARCH_W4_INDEX_FIELDS_20261004.md",
+      "bytes": 3676,
+      "sha256": "e1527d6edefa0a43c451e4861d394029da0b5358e442c7a11acab5d550e0fd0a"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/docs/workorders/RESEARCH_W4_INDEX_MULTI_INSERT_20261004.md",
+      "bytes": 3894,
+      "sha256": "b9dbec7e2db75beae5c878cdd47ee9fe39a4826da0bccf404cc1200bf4dc78c3"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/docs/workorders/RESEARCH_W4_INDEX_RESTORE_20261004.md",
+      "bytes": 4241,
+      "sha256": "96190bd5c037c9606027fa80212fa8e2054af0578bc9884e8cb4631f8e9533a4"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/docs/workorders/RESEARCH_W4_INDEX_SLOT_SHIFT_20261004.md",
+      "bytes": 6064,
+      "sha256": "53f22fdb978202044509410676ae3881313f1d4b3d3272a02a73baf0962988d8"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/docs/workorders/RESEARCH_W4_INTERVENING_PURGE_20261004.md",
+      "bytes": 5144,
+      "sha256": "ebdd8a1ba84eca3c053c9f3b7cb2a4d1789253aa3f389b16912a7a25902c5971"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/docs/workorders/RESEARCH_W4_RESUMED_WRITE_20261004.md",
+      "bytes": 3929,
+      "sha256": "aa3b8172ac0e21abf7edc51a62b309eeaa194eeed97f28de79f05ec75262bf2d"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/docs/workorders/RESEARCH_W4_SECOND_ROLLBACK_20261004.md",
+      "bytes": 4448,
+      "sha256": "d90a4e92326e4675166f5017d9aaa146d9ec7389a4de4ff1aa870fe290b29a3d"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/docs/workorders/RESEARCH_W4_UNDO_SNAPSHOT_20261004.md",
+      "bytes": 1816,
+      "sha256": "d70554eed34d3811e35c703e73b0a89b0fc0ca7d4f54405d649c4c237dd90934"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/docs/workorders/RESEARCH_W5_BASELINE_20261004.md",
+      "bytes": 5726,
+      "sha256": "b7b921a551cf0faa5fc904929de801c46a4f82d130ca5a6d83405f47330a5d30"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/docs/workorders/STATUS.md",
+      "bytes": 35682,
+      "sha256": "048ded37ed264e865a1da96383bbadc48503aed2f7e0cc0889cc17afae121999"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/lab/baseline19.py",
+      "bytes": 7654,
+      "sha256": "429b3905853fd373744da5ddc397624cd16a42350ca1eb88c5fad75d1dfe4a3d"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/lab/baseline_generation19.py",
+      "bytes": 5703,
+      "sha256": "0b7581a536f332448a7573365f4a083b7d37005fef2bc5780e5044114a1d6e95"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/lab/capture_heap_baseline19.py",
+      "bytes": 5008,
+      "sha256": "94884d1d5e61ec6908c6365c4e3dae0d51c8f66d9f1451da9a4ca5f34fff68e5"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/lab/check_index_survey_negatives.py",
+      "bytes": 2165,
+      "sha256": "46a2a246edb0fd41ccdd912e7dfe619c3638eba2792954d9b522691135e5a415"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/lab/ColumnLayoutProbe.java",
+      "bytes": 2373,
+      "sha256": "fb9ddde9f9415828ddb15d540789d2f56ed1e0da592cada4ffeb0537830af72d"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/lab/compare_advance_dump.py",
+      "bytes": 3017,
+      "sha256": "e89094aa4ab353c054232404ef23462f08f1f32285ff1933b258a64f8e1e7840"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/lab/compare_baseline_rows.py",
+      "bytes": 4345,
+      "sha256": "3b5820e233c4e913e4c7cb47e40e21d71af817e4befe7c057d6495381d534126"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/lab/compare_begin_dump.py",
+      "bytes": 2909,
+      "sha256": "a4241095b53319cea7d49c1f23720e2fd59dfe1d2e793d463d4161ed7b0a7828"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/lab/compare_chain_dump.py",
+      "bytes": 4788,
+      "sha256": "ad543ffb985d53c384a6a69ad620755e8aa6128a4c2182478f3328392e1d7e26"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/lab/compare_column_layout.py",
+      "bytes": 2483,
+      "sha256": "3d00d517329e283eb02ef3e400408d34d75ca066181a35b27f0be5f2c0cb46fb"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/lab/compare_compensation_associations.py",
+      "bytes": 4747,
+      "sha256": "5f2c702cb8ebc636333d169bcaeba2a3d17898f91ea1adcd1426c837c180572a"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/lab/compare_compensation_dump.py",
+      "bytes": 7061,
+      "sha256": "7e5bbdcf4bc7283161e280fe9d9f27f0b829921a8ad0b245da02b9c00a94e6fc"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/lab/compare_compensation_inventory.py",
+      "bytes": 3205,
+      "sha256": "1a3c692384af6b1d4d8d19dc57c479053b2b2fb42f3d055b5597ba4254e4b8eb"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/lab/compare_cursor_fields.py",
+      "bytes": 4729,
+      "sha256": "ae1a76b36013032f277f908233fabd8ca2385c2774f6b3936254f33a623efd7b"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/lab/compare_cursor_snapshot.py",
+      "bytes": 3640,
+      "sha256": "815b62cf73318a93d9f6d68367f911a91defe8bbbab95013c28a1b47c5bba00c"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/lab/compare_delete_restore.py",
+      "bytes": 3349,
+      "sha256": "1a4859658652ba47b0a4bc7ba6a64d057a3a56e919ea0b6bccf617cd86c84ec7"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/lab/compare_double_purge.py",
+      "bytes": 3635,
+      "sha256": "3ecf3831042ce1b03576f1ef1dd0626b7b8edd37d714f0f74d4d7ffb4c62c358"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/lab/compare_dump.py",
+      "bytes": 1612,
+      "sha256": "7cfcc231b1f1e375a73186de279afc3b84d36b6e7988603c1577aa334136fb61"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/lab/compare_extent_pairs.py",
+      "bytes": 4071,
+      "sha256": "febd1e0c3b94fac4fc2ef0c53d41d3dbeaaf9a09afd8609e657a3143f6dca5a5"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/lab/compare_head_update.py",
+      "bytes": 2134,
+      "sha256": "bb02eb5501c2e4ac1afec586c5241031be6e9dab6ce51daf1ec5f4511a34b06e"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/lab/compare_heap_dump.py",
+      "bytes": 2182,
+      "sha256": "29887ebb2d80156cde1f62439ed9662393b81b02db74cd8e5e3cef511738335f"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/lab/compare_higher_purge.py",
+      "bytes": 3530,
+      "sha256": "39dbecc1202a8c13ddf3625f8c652b69d4f4b6458bc24c75fcbd870b2fdfbe8b"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/lab/compare_index_leaf_inventory.py",
+      "bytes": 5275,
+      "sha256": "aa0e2f300948f5b60bba9c5e4d2b05843348c29fa3525ca7ab912b85ae2cfc6a"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/lab/compare_index_pairs.py",
+      "bytes": 4383,
+      "sha256": "1a44b974ac2fea7cd91f634d75e5585af60daaa8b77b307b88f8e01451a356ee"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/lab/compare_index_shift.py",
+      "bytes": 5075,
+      "sha256": "60efafceec56391729359a6dfd51664ec45c0fd9ce2ac50c7303d794c0e8eab3"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/lab/compare_index_survey.py",
+      "bytes": 6927,
+      "sha256": "4e93e2c8c42602efa53963e54664ec98b7033e49096d98ea43c5209aaad2215b"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/lab/compare_intervening_purge.py",
+      "bytes": 5373,
+      "sha256": "002cca6b657c5bf616321a9989569e914e4efbe36b849b4c2e3b486c6dfd8995"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/lab/compare_kdom2_dump.py",
+      "bytes": 4125,
+      "sha256": "40abedde9d605d0204b3039ef3f8980de3c2924d127a7f70ad42be58609419dc"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/lab/compare_lifecycle_dump.py",
+      "bytes": 3478,
+      "sha256": "43df55d51c1d2406acebcb590de7f23147f8a1761e296446f0b093676556cf4b"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/lab/compare_mixed_undo.py",
+      "bytes": 6593,
+      "sha256": "cc67c32ae4d6db1b5cb659315416bb4094d475eff2fa6efb58d5ab95c6581c0e"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/lab/compare_multi_compensation.py",
+      "bytes": 7920,
+      "sha256": "4a72e04b8491f8dc2b2059e695ca910dd650e97c4a74307b72348169d8a46d45"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/lab/compare_multi_index_position.py",
+      "bytes": 4671,
+      "sha256": "87bb2b2426dd353f3f9c60ac4408ab0589f6099b47c84229878ca190eb7d8949"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/lab/compare_multi_patches.py",
+      "bytes": 4785,
+      "sha256": "35fee18779b54313cbe7547ddce42480c5d2bb16d40f820ff3b37d21692ace9d"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/lab/compare_object_transactions.py",
+      "bytes": 2951,
+      "sha256": "cb8dbf0785dfbf522af7e363c65f97448dcdc3dc8f32ac07b850d10595869dcf"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/lab/compare_observation_archive.py",
+      "bytes": 2924,
+      "sha256": "11ce082a3255def571d3d2ac060ea5a056662aaf2b00cc1edee569e6951dc3ce"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/lab/compare_pair_dump.py",
+      "bytes": 4026,
+      "sha256": "35344f199287a5c293d69d4a7cfc793739bbf630c48ce6404cf60df212610fc3"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/lab/compare_physical_transactions.py",
+      "bytes": 1699,
+      "sha256": "9a93740c01105179e5e66deca1a290f0a4d0ab630ed808292d55397fde6669c1"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/lab/compare_slot_replay.py",
+      "bytes": 1746,
+      "sha256": "822e350c37beb151cd25da38510d6a8feecb0851c6d1a7e8debb5ed82181460e"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/lab/compare_transaction_dump.py",
+      "bytes": 2679,
+      "sha256": "f151dee6409ddad3f62b7e34574dc1fb63eb8f758aaacfead9991c0156cf0a16"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/lab/compare_undo_dump.py",
+      "bytes": 1865,
+      "sha256": "5c9e0292a5d0763b37c8977c2e48f6031cd1e9001e0431eac0f053f8658e2a57"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/lab/compare_undo_inventory.py",
+      "bytes": 2097,
+      "sha256": "242630cf04e06de6c62bc7311bb09efe869aa422aaa78cdb9411d33a8ce27d43"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/lab/compare_undo_row_dump.py",
+      "bytes": 2711,
+      "sha256": "93c44d3e84df40106f32e27957f94dfa7be1459d8229123a31ff89008d02d50d"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/lab/CompensationAssociationProbe.java",
+      "bytes": 2988,
+      "sha256": "b7ea55baf41fbc5b9ca6baacc28a4aa1421c87827b8c95ee6fde0731b9661a68"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/lab/CompensationInventoryProbe.java",
+      "bytes": 1718,
+      "sha256": "b72f6b15bacb123a47ef9df66fb82f43f9dda6b23716fff04b56bb873d0481a7"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/lab/ConcurrentRollbackProbe.java",
+      "bytes": 12350,
+      "sha256": "445ff2556b248240302ba978dc7b79f25e1e8ae5f90fcba71c5c26d8d532753a"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/lab/cross19.py",
+      "bytes": 3634,
+      "sha256": "e0311a87a1f57120ae036455686e32d258ae0342b083f6d6f192cb0404bfd63d"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/lab/cross_undo19.py",
+      "bytes": 4119,
+      "sha256": "8636c5752cdaa345521630419f1acb4e692695c39338b7aa0063a7a12e658c03"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/lab/derive_index_leaf_refusals.py",
+      "bytes": 2498,
+      "sha256": "6e0c1d0c2dd2e1c3e929da8ea8b7d00d651d4ae1ce26638dd494000b1c0865ee"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/lab/derive_window_slot_conflict.py",
+      "bytes": 3807,
+      "sha256": "bd0adbe9ac90f4cbc2d0c7a33732d778f6b1f7767a530e31fe0c8e531bf2f113"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/lab/FrozenBaselineProbe.java",
+      "bytes": 1534,
+      "sha256": "b12ec8eafe4d3406a33e6640b1cf2732790b95f4b4f2c1c21ba7604f2e915d46"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/lab/full_undo19.py",
+      "bytes": 4241,
+      "sha256": "7555728f6e9923f3f3f6b02ec1a81d70371f6b943a7142d74d06a5ade3270b8e"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/lab/FullRollbackEndProbe.java",
+      "bytes": 4899,
+      "sha256": "87c9c5a1b7220936785a0700dabfbbfd8a8f74cff87bebbaaee6f9e0fd3052e5"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/lab/HeapBaselineProbe.java",
+      "bytes": 2933,
+      "sha256": "215a682eb4c66a126a6886d972d56171e688b0522d61e04996c51eabebbf13f9"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/lab/HeapCompensationProbe.java",
+      "bytes": 4989,
+      "sha256": "9ba3ea3eb9928e570bb6b801a78cb8b7f2de2b6026d2a6214e44c454086d5e01"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/lab/HeapExtentProbe.java",
+      "bytes": 3023,
+      "sha256": "1959bf843df66df3615f42d3f6fdcd0da0008f4a80543e69ff102cadf0b6c6c1"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/lab/HeapMultiProbe.java",
+      "bytes": 2062,
+      "sha256": "4d804e1271a1d66a685e634a5fcb1937ec9cf9428604cdc6d6c58ac0e122c64a"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/lab/HeapProbe.java",
+      "bytes": 1292,
+      "sha256": "748bf641e604808fb13bab2e99a84f77330eaa39fba82271f6b3750133114c84"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/lab/HeapUndoPairProbe.java",
+      "bytes": 2219,
+      "sha256": "d2e940895074f4d1951658b261501e9214d498423422be7d91ba029c594084f9"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/lab/index_delete_restore19.py",
+      "bytes": 7621,
+      "sha256": "2e96263c779f272034ff19b7cec776e35dc8ebccd71ad1ed523a5ac350f5dcf0"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/lab/index_double_purge19.py",
+      "bytes": 7649,
+      "sha256": "58803d5aab689cf33bb559d4c8e57610ef47a496703208032e93112f7ef3e001"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/lab/index_higher_purge19.py",
+      "bytes": 7580,
+      "sha256": "461fa39cccb0b06e9402ac8cefd74384864fffd855557ef4f455131298cfddae"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/lab/index_intervening_purge19.py",
+      "bytes": 7598,
+      "sha256": "c9ceb1b2ad571be9de8617ac03c5643e215b57026dbbffb738a49a8f4c90d690"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/lab/index_multi_insert19.py",
+      "bytes": 7615,
+      "sha256": "22f757fba2ac30da5439f9c78565906592deafb544032b656a9158592077cdc6"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/lab/index_restore19.py",
+      "bytes": 3522,
+      "sha256": "e69480b93df295973739661b8f146668b292c8636b3d4e7f7e085357ef91b9bb"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/lab/index_slot_shift19.py",
+      "bytes": 7327,
+      "sha256": "1ecf81e911dc36c695add2bbf60c760dbc765479040fa842f017bfd8921d9f68"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/lab/IndexLeafInventoryProbe.java",
+      "bytes": 2664,
+      "sha256": "9aed5dadfa89dca7b0c7dfcf69776c88eff67f6635e47fd75a2061c0e5adfcd1"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/lab/IndexRestoreGateProbe.java",
+      "bytes": 1893,
+      "sha256": "d318ec25780ca7c694a6ad5efdf1588829250a377b9ecb55a68a03a5ba254659"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/lab/IndexRestoreSurvey.java",
+      "bytes": 1617,
+      "sha256": "7d9407f9bb6372222e51e3b192de46ece67a5f40448dd4282528b1bf25029486"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/lab/IndexSlotShiftProbe.java",
+      "bytes": 7212,
+      "sha256": "580ffcbf9ffbd929bf7a87cba7b3d2b0f073b91b04f5452b6ba5ddb7e655fcc7"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/lab/IndexUndoPairProbe.java",
+      "bytes": 3399,
+      "sha256": "7ffbf721dcc1e3e8e31b3c98b84c78a83ecaa7738131fb63d0410b75c542109a"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/lab/IndexVectorSurvey.java",
+      "bytes": 2204,
+      "sha256": "a7ea35087435451f58954aa6f574caff5cbeda3ce21daf3b7bca45552d3751d3"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/lab/inspect_records.py",
+      "bytes": 956,
+      "sha256": "7fda32a6fc3b517913b3803851fe43fc379292a29b1abf989ff66597a170faca"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/lab/inspect_undo_blocks.py",
+      "bytes": 3122,
+      "sha256": "0bb56005373daaac606b83f0916afb9ff212b4f7087eca3fe13558565419b9ab"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/lab/InterveningPurgeProfileProbe.java",
+      "bytes": 2743,
+      "sha256": "865aba07cba7af0b802057d65af11054881851116f6c024a563ed1f50151de23"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/lab/Kdom2Probe.java",
+      "bytes": 2012,
+      "sha256": "c73311941e6509479a1c55672996a74767afae078055c3b04c8d2bf555e7ae38"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/lab/MixedUndoProbe.java",
+      "bytes": 10871,
+      "sha256": "e43e562161e414298741c72712e346e7e7db7d1d7e18742318a071b9b63ebcdd"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/lab/multi_undo19.py",
+      "bytes": 4127,
+      "sha256": "aff1e9d482028aab8ef1f82e55fbf841d9d849b5f9349673ab02780a87fb0ca2"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/lab/multiblock_undo19.py",
+      "bytes": 4172,
+      "sha256": "b81902d8cfab91a016a06d60fa1490b634af816f1e35a51dda4524bd7d62494a"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/lab/MultiCompensationProbe.java",
+      "bytes": 8345,
+      "sha256": "a9f29c733166c24f5eae47ebda5478eb1b16085490d564e99ae54e5f98c10f16"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/lab/negative_archives.py",
+      "bytes": 1939,
+      "sha256": "204e15eaec5ec605ceec7f31c4459d4141e87db4e42d8d1a8d61f7a6ca05ab98"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/lab/negative_lifecycle.py",
+      "bytes": 1442,
+      "sha256": "25242c88b867f5ec62173a8a47ac3b9b28525e6795ce1544ac5e7e19f97b4582"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/lab/NegativeAdvanceProbe.java",
+      "bytes": 4032,
+      "sha256": "0c06fcb2e26d93bd33f2ca7786a116f57e37ba1da91dd9b11e02dbdcdca5d1f5"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/lab/NegativeCrossCompensationProbe.java",
+      "bytes": 5015,
+      "sha256": "f172b858776817e4e2dc609cb8974ae69fb3d73c52dcdbb84e6b5455951a3d9d"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/lab/NegativeIndexPairProbe.java",
+      "bytes": 3028,
+      "sha256": "eb3bd4ea1413792d1195f01018b79815719ad79b2bdf29052bd4c385c1b4c454"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/lab/NegativeKdom2Probe.java",
+      "bytes": 2712,
+      "sha256": "bf367b4ddaeeef57a37df1e43fbd22de6dad5ff7adc01e2df87b9841ad705feb"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/lab/NegativePairProbe.java",
+      "bytes": 3697,
+      "sha256": "3faa88bd933b81c419928879c98ee89f885e320524f4996ae7bcdcd9c2a81b62"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/lab/NegativeUndoChainProbe.java",
+      "bytes": 4163,
+      "sha256": "fc4aa3b35526494f505abb0c2d14fd3f8618f6e0cb4c9c6cdb4e68bfe76f3976"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/lab/NegativeUndoHistoryProbe.java",
+      "bytes": 3665,
+      "sha256": "72661022f02298cdf3581b3786a0ba291b9f81edd889d525f35038da5702e60b"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/lab/NegativeZInsertProbe.java",
+      "bytes": 2072,
+      "sha256": "787fd54fae4c04d1f279fd4a6caaf67f401fac2fbdec2d9526851ca13f30e47a"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/lab/NegativeZRestoreProbe.java",
+      "bytes": 1587,
+      "sha256": "2b31186cb1849cfb9d98b14ec216c86f20b705543f66c9639dbc1597b56b9620"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/lab/NegativeZRollbackProbe.java",
+      "bytes": 1863,
+      "sha256": "5cb4fb45d9560f9e487cc4049093b8fa25c4562881da7e0e7a57446a3c41717b"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/lab/ObjectTransactionProbe.java",
+      "bytes": 1419,
+      "sha256": "04edc1a028ad5f8192e4c845ae078957bedfa6670a07fd32d415ef880e5e800a"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/lab/observe_online_redo.py",
+      "bytes": 3661,
+      "sha256": "90db970d7e06d266df3b8d04e6519fbefffce6b5e7ad77c9d346cea978d9b7c9"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/lab/PhysicalTransactionProbe.java",
+      "bytes": 1528,
+      "sha256": "c5e7d5b696b143f827bbf4522002528ff311e23a4ddf79616309ac7d2babbaf9"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/lab/poison_physical_transactions.py",
+      "bytes": 2836,
+      "sha256": "8d403acf8c2cc18e99f217512ee78bf16a579050cdb6efc378b11f3ff820b49b"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/lab/poison_row_order.py",
+      "bytes": 1708,
+      "sha256": "3251a91a92c2398866d34ea7150da4a9604424dda838106eddd2c3cdd02c577d"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/lab/poison_tail_extent.py",
+      "bytes": 2373,
+      "sha256": "dcad800b3446549ac084bac8b0fedc52c597d1465b6f8ec4f25b05c687a4bf07"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/lab/research_cursor_hole.py",
+      "bytes": 4193,
+      "sha256": "ec7b4fd1cfffe4fc53a1b3beca9d31cbaeba6582078878a122d6f0dae0b9b84c"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/lab/RestoreHeapPairProbe.java",
+      "bytes": 1995,
+      "sha256": "6b35b09c709cc49c231c9b2149cfcd41e94cf65ae7e50f28960ebe66c595b163"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/lab/RestoreHeapSurvey.java",
+      "bytes": 1032,
+      "sha256": "dbafcaa832603b67112c2c9297948f173dae6668f72c8316a8c01d1bf570d127"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/lab/resume_undo19.py",
+      "bytes": 4267,
+      "sha256": "f85011404e99a06a9982383471451ef41f29faa3095ee219a5d675f7ffbf9668"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/lab/run19_fixture.py",
+      "bytes": 3467,
+      "sha256": "77f7169d75ba355ff60980070f73318500436ba6916515d10f1bcd4e182b932b"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/lab/run_online_observation19.py",
+      "bytes": 3573,
+      "sha256": "89e403e974bf26d1e46985dd5e3be12401d6666ed824ec1c4446c203a3372209"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/lab/second_undo19.py",
+      "bytes": 4283,
+      "sha256": "c8b28f60df158572233ca5a4323c2a020f9e721c2bc53bcf0b6a28eacc94b46e"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/lab/SlotHeapProbe.java",
+      "bytes": 2730,
+      "sha256": "a072cfce16aa6bff121f42c05b616394600f39c57e2a89110e80419bc38ebaad"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/lab/sql/dump-existing.sql",
+      "bytes": 376,
+      "sha256": "e7a047034c3ec44aaa7e9cc6fea329e36348d0b15038e377ccd8fc139d2aa4fa"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/lab/sql/dump19.sql",
+      "bytes": 434,
+      "sha256": "dc4de1385f6165db147d7de96847f30389269f56b89a034e6fecbb94425b814f"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/lab/sql/fixture19-capture-r3.sql",
+      "bytes": 1557,
+      "sha256": "48ead39ea5d878746d3eb6bd5d51e7e3104d456b5a1dc32ef7dfb6a21bc54069"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/lab/sql/fixture19-capture.sql",
+      "bytes": 1548,
+      "sha256": "c82de00b1bbed0329ceaa857fb4f5fc3579fe50ed64c1a80c767708c16beadfe"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/lab/sql/fixture19-cross-undo.sql",
+      "bytes": 2849,
+      "sha256": "eff0de4377be0c867fbaf2067cf64a2bc40c21e060741f8d5333d8ac3b6445a8"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/lab/sql/fixture19-full-undo.sql",
+      "bytes": 3437,
+      "sha256": "7a48b2da884b832bc4178db4b210b4411609e5c561a4d98aca4e44ddf12cada2"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/lab/sql/fixture19-index-restore.sql",
+      "bytes": 3164,
+      "sha256": "238824ac76b648a273bae4091c4b9748ec790f1fdcb2d7361df3910f3dd6ca2c"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/lab/sql/fixture19-multi-undo.sql",
+      "bytes": 3042,
+      "sha256": "12925a42bf6a2bb999ef7b5b427f74ea80025a9b75f4d6593c630060bb2ac5a4"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/lab/sql/fixture19-multiblock-undo.sql",
+      "bytes": 3820,
+      "sha256": "f74061ff4426fa34eed3e822a64c2f0bd4bfcc9072ccc86109403aa4a03e5d5c"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/lab/sql/fixture19-resume-undo.sql",
+      "bytes": 4251,
+      "sha256": "8063ce6d6b6d0c22fe7934dbfbe08439dc5fd95ae62962389158481dbbbdd7eb"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/lab/sql/fixture19-second-undo.sql",
+      "bytes": 5092,
+      "sha256": "a7eaa9a5fd6e8dc1be5bf78423dea623075badc025e4dafc616643dfbb14642a"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/lab/sql/fixture19.sql",
+      "bytes": 2903,
+      "sha256": "86cf542d0eda4143beaba0cd78615123effdf680cbe18a8f28e9a8639cf61ec0"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/lab/sql/freeze19.sql",
+      "bytes": 1477,
+      "sha256": "39bdd581547f8ad6ef1250546f67aa19514dcd55a3ea0575af0128dac8613bce"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/lab/sql/lab19-enable-archive.sql",
+      "bytes": 388,
+      "sha256": "1ceacaff9a26a83f90f17188da97a3fb7bee8bfa0c7263afa9f6286c07ecc420"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/lab/sql/latest-archive.sql",
+      "bytes": 429,
+      "sha256": "cbd6db8bc943bbb18cc413f1fe16c3b1570a0cca67ea2f6891fc51a9b2609f10"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/lab/sql/logminer19.sql",
+      "bytes": 1311,
+      "sha256": "e45b4cde35bc2a8f7b613285f5837e926c310147bf01c85c6a0797ebb713e592"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/lab/sql/preflight.sql",
+      "bytes": 987,
+      "sha256": "409ad7c539975d885047fd2824ba95641e83986d7d2219bd537787599a93ce39"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/lab/sql/truth19-cross-undo.sql",
+      "bytes": 1124,
+      "sha256": "e1104cd3ab8d48d8c26d3855721e54cd1b1ea49b1ddb23b5a75528289220100a"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/lab/sql/truth19-full-undo.sql",
+      "bytes": 1120,
+      "sha256": "8271be42e6b3764017a83f528272e2cd5df5c29dcdd262f7cad0126634965862"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/lab/sql/truth19-multi-undo.sql",
+      "bytes": 1124,
+      "sha256": "50c73a5021957449882a97795d71edd2674e3fbcde145fe9e34ee29cdf9bcc8e"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/lab/sql/truth19-multiblock-undo.sql",
+      "bytes": 1144,
+      "sha256": "600b70671d5cc4c65e4a3d6ae3fc97441287fa405048f1cc9c4adb35778bb6a5"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/lab/sql/truth19-resume-undo.sql",
+      "bytes": 1128,
+      "sha256": "ebb9ed4f5ff5a1f78fd2babd3d60a9ab6bbcefa1a10448b4009876034d6e6c7b"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/lab/sql/truth19-second-undo.sql",
+      "bytes": 1128,
+      "sha256": "cf22017d14f35b43984dc361cee0d6e690aaed7b8c444a621ce77bc644350cbc"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/lab/sql/truth19.sql",
+      "bytes": 484,
+      "sha256": "8389964cd454b6a718eb0063d85346201aede4aee3c4b02fca95b8f425878194"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/lab/TransactionBeginProbe.java",
+      "bytes": 2183,
+      "sha256": "cd0a719e1a3118732079a4ff4ce636f668c7ba7f1819b7c3671cc9091ad17e9f"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/lab/TransactionLifecycleProbe.java",
+      "bytes": 2701,
+      "sha256": "5d9a5c7536c3e1784d08a8c79c734085569fff1b7d2ee9361b3af472a9f1f8f7"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/lab/TransactionProbe.java",
+      "bytes": 1628,
+      "sha256": "24e6a11d717934f5a6aa049c576fdf9a6d38e0d3ee6a021570d01904a8a72cf5"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/lab/UndoAdvanceProbe.java",
+      "bytes": 2930,
+      "sha256": "22bff1c9f24ee53da8010168ed92d52d1880686771c21670d24a7e2827d1714a"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/lab/UndoChainProbe.java",
+      "bytes": 4035,
+      "sha256": "3515f4610f2523640d59d68d7034288ad5999c2d879dd6053274cdc27004d57d"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/lab/UndoControlFieldsProbe.java",
+      "bytes": 1089,
+      "sha256": "bb99bad1ac0865ee1734fe0c2078f6c565af1b0c112d38f529eac395bc86f0e1"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/lab/UndoCursorProbe.java",
+      "bytes": 6469,
+      "sha256": "80f14f0fd5da85ec57a4b9c128c16e634bd86005ec57f63c884eb91af9d10128"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/lab/UndoHeadUpdateProbe.java",
+      "bytes": 6064,
+      "sha256": "0cf0f48853effa4a041e5c766477035a7540499a6971b3bada9f8a623672b3ad"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/lab/UndoInventoryProbe.java",
+      "bytes": 1661,
+      "sha256": "a2a80990237acbae050e3e1f8be9178b5c9f06e2ff25049f74bcee634de26baa"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/lab/UndoProbe.java",
+      "bytes": 1370,
+      "sha256": "af9ff1bd2a2f6ca9aa82f5e03580e573599b9e951eb9a0f981786ca7aa5c9be4"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/lab/UndoRowProbe.java",
+      "bytes": 1216,
+      "sha256": "60a5546ed81f07a013ea7614e4788c0138dd0c228fe4ce8f19c51133cf202c29"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/pom.xml",
+      "bytes": 1344,
+      "sha256": "b7cf6995376aa9135e15a061157776e7751dc6f20a1622e97e207c33b9823f1e"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/README.md",
+      "bytes": 8242,
+      "sha256": "013062b46cb860daf92deed847b8e3c83eb2d62dc61a8762c875dd3efbb09622"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/src/main/java/com/streamhouse/oracle/ArchivedCompensationAssociations.java",
+      "bytes": 9202,
+      "sha256": "edd4c6322a70a66888439ab9c4a92a054025bdc642db068bd68993a0869e9f65"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/src/main/java/com/streamhouse/oracle/ArchivedCompensationInventory.java",
+      "bytes": 6408,
+      "sha256": "0ae9ecbf6698fc80896dd69203ef3fa46e9882d291b0a9044eca620c2f394e33"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/src/main/java/com/streamhouse/oracle/ArchivedHeapRows.java",
+      "bytes": 9130,
+      "sha256": "1e0946a3d9d77c685dfc583b051ae64578c1fbd628bd32bb33f9d3d8e95ccfcc"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/src/main/java/com/streamhouse/oracle/ArchivedIndexLeafInventory.java",
+      "bytes": 7474,
+      "sha256": "8eaea357b3a5fdc28284bc2a29dc9d17d6d1ddfbd23836361838b6b1bd7d97d9"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/src/main/java/com/streamhouse/oracle/ArchivedObjectTransactions.java",
+      "bytes": 4748,
+      "sha256": "9b512abac19e8dd71fc60d013d056d7e2b33b35cf967e6356f92d9326d5bc260"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/src/main/java/com/streamhouse/oracle/ArchivedPhysicalTransactions.java",
+      "bytes": 13239,
+      "sha256": "892720c852fb86ffcaaf434f925c2dafcdcef5235d94b6ca3272e4d2a5567101"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/src/main/java/com/streamhouse/oracle/ArchivedRedo.java",
+      "bytes": 3972,
+      "sha256": "261eb682459db415a7e09ed2cb3b5ead159bee8334f3d3421474c7c6fa72c906"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/src/main/java/com/streamhouse/oracle/ArchivedUndoInventory.java",
+      "bytes": 4466,
+      "sha256": "c32bac4b20c08851273bdd3a6d203cfd84a78d50d334f2cf67753726880df398"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/src/main/java/com/streamhouse/oracle/FrozenHeapBaseline.java",
+      "bytes": 8657,
+      "sha256": "e72136fed5d5d87fdfc7cc4232759186052616f1b19621c03b632fcf433b285a"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/src/main/java/com/streamhouse/oracle/HeapCompensation.java",
+      "bytes": 4844,
+      "sha256": "7804a792f84ec9b44be9b8e8243222751f133115b9d2d3d00b160703f4bbd2f8"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/src/main/java/com/streamhouse/oracle/HeapRowPatch.java",
+      "bytes": 8119,
+      "sha256": "84002832f27b2efa627930c5cca1b158a01ac7b2ab2196890cdca5f5ea9cca78"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/src/main/java/com/streamhouse/oracle/HeapUndoPair.java",
+      "bytes": 3502,
+      "sha256": "61470b4accaff45c4173176f1628b0a9929ae40cf206599d98c74648b9013a90"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/src/main/java/com/streamhouse/oracle/IndexCompensation.java",
+      "bytes": 5523,
+      "sha256": "0d31c7c98a4a25b8c4a9b2e19d3d39965cf2085bc087ba7fa05db47d557f5477"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/src/main/java/com/streamhouse/oracle/IndexLeafPositions.java",
+      "bytes": 7814,
+      "sha256": "99ab3dc25c4f2451beb2e07a6a25a9da7fc854c6727eb3731a16fc556fccec33"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/src/main/java/com/streamhouse/oracle/IndexUndoPair.java",
+      "bytes": 6554,
+      "sha256": "a76383e7e3d3414fe7f1c18e76ddc44e3e415abc85fac8b463e7f20a2ac75746"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/src/main/java/com/streamhouse/oracle/OracleScalars.java",
+      "bytes": 3033,
+      "sha256": "ddc799779be8db0299c1c23743416beb61514d89bb87b2489cb258e49dcfb06e"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/src/main/java/com/streamhouse/oracle/RedoBytes.java",
+      "bytes": 414,
+      "sha256": "af26e585546f705403b5df282adb360b127888740fe2b128cdc68bb54c32cc25"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/src/main/java/com/streamhouse/oracle/RedoCli.java",
+      "bytes": 2329,
+      "sha256": "94a74e47df50070ddad140d4862c1a448dc5a289ca3beb2b3bd523d86deeb9ef"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/src/main/java/com/streamhouse/oracle/RedoException.java",
+      "bytes": 246,
+      "sha256": "683f943fead2271bd6e83cc3b55dd00b704920c32d4bceffc05b5e278217d385"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/src/main/java/com/streamhouse/oracle/RedoRecords.java",
+      "bytes": 5150,
+      "sha256": "5d726a916b90c0ad3e3303623ae81552425639a4f08eb65caaa6774ca97180ce"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/src/main/java/com/streamhouse/oracle/TransactionEnd.java",
+      "bytes": 2480,
+      "sha256": "5db3f6c3d5910d9662602ecac75c0918e8a259a0db2a68d94397dc0635296281"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/src/main/java/com/streamhouse/oracle/TransactionLifecycle.java",
+      "bytes": 11843,
+      "sha256": "74a70408765c8495d8a3121c7aed155129de21868f5bb3aa584ce26769d4ad24"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/src/main/java/com/streamhouse/oracle/TransactionStart.java",
+      "bytes": 2472,
+      "sha256": "8bc8b2238131d31379b59226d1224012d4e03a6dd543ba29bd18419bbb565588"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/src/main/java/com/streamhouse/oracle/UndoBlockAdvance.java",
+      "bytes": 1983,
+      "sha256": "06bb0323f6a1ae832622f3a1a82484147c97fa558094188f740a4fbf49ce09d6"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/src/main/java/com/streamhouse/oracle/UndoChain.java",
+      "bytes": 2999,
+      "sha256": "277115e1d306669855d2f08ae1b24f49a7f3d90e336328ef8ca296a9ae6e88b2"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/src/main/java/com/streamhouse/oracle/UndoCompensation.java",
+      "bytes": 1840,
+      "sha256": "81b0a2f833ac513457140dda011fc39b10c82707e19c67afc2732fadbd8217ca"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/src/main/java/com/streamhouse/oracle/UndoHeader.java",
+      "bytes": 1291,
+      "sha256": "0b32c74d7bae1281c87ac19a7a16f158e5b9ab16024ed5a25d354167763e0336"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/src/main/java/com/streamhouse/oracle/UndoHeadUpdate.java",
+      "bytes": 1848,
+      "sha256": "d92bf2919ea70bc253f104a12b52511fd6b167dfb4da317a0e65927cb8b2e7bc"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/src/main/java/com/streamhouse/oracle/UndoHistory.java",
+      "bytes": 4602,
+      "sha256": "3f62092e8c956d87a98be78a44a961f062d5b8f8b51a1001ba1f7560c8f24977"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/src/main/java/com/streamhouse/oracle/UndoLink.java",
+      "bytes": 1329,
+      "sha256": "4b5597d086d7c25c1d6d356b6b63a17e4b5cd902dff113b0d35ac827d404328e"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/src/main/java/com/streamhouse/oracle/UndoRowPatch.java",
+      "bytes": 1447,
+      "sha256": "70c3e25083a8aeb7082d7d3ee07c29a7b056e93b3eca3e07c398b05a2ebfd6fe"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/src/test/java/com/streamhouse/oracle/ArchivedCompensationAssociationsTest.java",
+      "bytes": 7614,
+      "sha256": "f56b90365d95457b21252812991ed88420d4a085a4ec73e6c5c3ee9c9e83439f"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/src/test/java/com/streamhouse/oracle/ArchivedCompensationInventoryTest.java",
+      "bytes": 5525,
+      "sha256": "4c18c6ddb7d839e154e60f8f2bbc07bf2e5f74e16628f94ce243d5b06ebc6479"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/src/test/java/com/streamhouse/oracle/ArchivedHeapRowsTest.java",
+      "bytes": 2743,
+      "sha256": "1ec45c7bfd7ffd5518d821f5e4cd5133b59e680703a1f3257b0d069e614218b4"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/src/test/java/com/streamhouse/oracle/ArchivedIndexLeafInventoryTest.java",
+      "bytes": 6490,
+      "sha256": "cc0bed5cc5bdddd62e9be10c17888165832edf06c0cb7ba550a3561f951077f9"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/src/test/java/com/streamhouse/oracle/ArchivedObjectTransactionsTest.java",
+      "bytes": 3108,
+      "sha256": "97333b38b5c0f66104a19a2cfe018c4bce78fea645d140445ca94f4ccbebf60c"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/src/test/java/com/streamhouse/oracle/ArchivedPhysicalTransactionsTest.java",
+      "bytes": 4544,
+      "sha256": "4552e55d716e5214f352f715929c15ebbc89c75e13e7e186d4a0bfd3f4be26c3"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/src/test/java/com/streamhouse/oracle/ArchivedRedoTest.java",
+      "bytes": 4354,
+      "sha256": "a96b725bda87253de713c6420c7c8127531dbcb06279cd324d48327dcbaadc48"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/src/test/java/com/streamhouse/oracle/ArchivedUndoInventoryTest.java",
+      "bytes": 3860,
+      "sha256": "107f455c0e4bdcce61e916e5897815228959759a9eb7f9d8ef2155fbc853db3e"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/src/test/java/com/streamhouse/oracle/BeginCompensationTest.java",
+      "bytes": 5577,
+      "sha256": "f18c768e80ca9e0b57d155f2f693336082d921a19894e466d8504909ad0577a2"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/src/test/java/com/streamhouse/oracle/CrossCompensationTest.java",
+      "bytes": 4328,
+      "sha256": "28f285b36524a3198365ffacf851d23b00c0ace0a3a699a91dc43f8b9076668b"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/src/test/java/com/streamhouse/oracle/FrozenHeapBaselineTest.java",
+      "bytes": 4625,
+      "sha256": "ffefb6ac3b898f8dd6261114fd5d4c0db629babfc9a3e8807b8064bcb12b9972"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/src/test/java/com/streamhouse/oracle/HeapCleanoutCTest.java",
+      "bytes": 2716,
+      "sha256": "01626d228209c1640c2f647d88c836c8aa4cef51b0ee15b82545aa404b76f97a"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/src/test/java/com/streamhouse/oracle/HeapCompensationTest.java",
+      "bytes": 5927,
+      "sha256": "f765e3935a532b5d3b796e7efc66d4fafb40f99bb9f049b4f4b920863799fd5d"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/src/test/java/com/streamhouse/oracle/HeapRowPatchTest.java",
+      "bytes": 3848,
+      "sha256": "b455af46d65defac55d0830daf5cc0cb2d6fc61b9d38154f93047bceca853970"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/src/test/java/com/streamhouse/oracle/HeapTailExtentTest.java",
+      "bytes": 4047,
+      "sha256": "26e4bd593f8fba7e9121c595dfd8a880f0281c7327694a8f8a22749046336efe"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/src/test/java/com/streamhouse/oracle/HeapUndoPairTest.java",
+      "bytes": 4173,
+      "sha256": "482f4c85edba1e0bb04cf04d3de827f8bdf35fa7b40aafaa4d1fa1b058213418"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/src/test/java/com/streamhouse/oracle/IndexCompensationTest.java",
+      "bytes": 5847,
+      "sha256": "fa0df4485d022d7c4277df8ebfcf5f26d1e80a027da93ad7b1f1c8906da41cc4"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/src/test/java/com/streamhouse/oracle/IndexLeafPositionsTest.java",
+      "bytes": 7389,
+      "sha256": "53349cf317b429cb630566fe7f59e71c4ede7d8e1f6b586ce59a5b84e28357b6"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/src/test/java/com/streamhouse/oracle/IndexPositionReplayTest.java",
+      "bytes": 2225,
+      "sha256": "f1176be2597960443752749d08703dc75cae089cba32f73c6a9a6dc8b1361493"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/src/test/java/com/streamhouse/oracle/IndexRestoreCompensationTest.java",
+      "bytes": 5473,
+      "sha256": "5ae9a5d67339e8667dc0368bdc11952a12b359544a327dcebf9c17ad87fa44bb"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/src/test/java/com/streamhouse/oracle/IndexUndoPairTest.java",
+      "bytes": 5902,
+      "sha256": "21f25f381f08650ab93d2e0d470fac7727cb5e212127b267e59da792c4fa8aa0"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/src/test/java/com/streamhouse/oracle/Kdom2UpdateTest.java",
+      "bytes": 3525,
+      "sha256": "8606dbf416d49c4f10b152592800f4bbc9b8b89b8a06f95adfd7662af2e9791b"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/src/test/java/com/streamhouse/oracle/KtbZInsertTest.java",
+      "bytes": 2139,
+      "sha256": "7e430e03217f8c012933aa8b8e9824f48962e8b56c111e37e675f21ccabc7c0b"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/src/test/java/com/streamhouse/oracle/KtbZRollbackTest.java",
+      "bytes": 5681,
+      "sha256": "1b0f13578ea2fcb72c51f44ceb5d564c48dc9165f8eee6f26af59acc34034613"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/src/test/java/com/streamhouse/oracle/OracleScalarsTest.java",
+      "bytes": 1976,
+      "sha256": "b46407850ba86071b506239de1721b50b9013fe5fba35a470d1d4de1f716026a"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/src/test/java/com/streamhouse/oracle/TransactionLifecycleTest.java",
+      "bytes": 8628,
+      "sha256": "1251e1faa8cd3a2dcc806a6909841915bbace8b5cf21e7fe4fbaed7fa0eabd71"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/src/test/java/com/streamhouse/oracle/TransactionMarkersTest.java",
+      "bytes": 4302,
+      "sha256": "8ae047050d4e9d8e1c273b38218164f4d60e68b57b1ba81fc4b330abdf2b3569"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/src/test/java/com/streamhouse/oracle/TransactionStartTest.java",
+      "bytes": 3329,
+      "sha256": "fa2e0c09f15d116506ce3ed7500cb19c693d362db9ffe6d7faa98e78efb933c8"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/src/test/java/com/streamhouse/oracle/UndoBlockAdvanceTest.java",
+      "bytes": 3273,
+      "sha256": "6abccf52f6fe578d25da939036f14aff612c6858d2c14f0ff86ca9084c142e59"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/src/test/java/com/streamhouse/oracle/UndoChainTest.java",
+      "bytes": 4236,
+      "sha256": "6c683c0c327e1e7b4292a81d2329322f94ec5f82e9dde562beec96bbaed3a73d"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/src/test/java/com/streamhouse/oracle/UndoHeaderTest.java",
+      "bytes": 1719,
+      "sha256": "519759c2c2ef079b8d75c56fdf1b319e29c76ef25bffa24bd03aadff4c74e8e5"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/src/test/java/com/streamhouse/oracle/UndoHeadUpdateTest.java",
+      "bytes": 4443,
+      "sha256": "5a6c0a719938ef091a585ec5a785ba99b1d9c3085cd79f74fe855bda8e3fec5a"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/src/test/java/com/streamhouse/oracle/UndoHistoryTest.java",
+      "bytes": 7605,
+      "sha256": "3f917dee740fdfb9e6934a4d32eadb962452c75a55c199ada5c1b5b786103b94"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/src/test/java/com/streamhouse/oracle/UndoRowPatchTest.java",
+      "bytes": 3970,
+      "sha256": "99bc2c1bbbea255d1bcf5201111e4f570daf75b645925ca2a52a732365444e10"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/target/classes/com/streamhouse/oracle/ArchivedCompensationAssociations$Candidate.class",
+      "bytes": 2201,
+      "sha256": "3fb8358b8a1d303c602515172b4754f54990b3bbbe839327525ae0b7a3898ca0"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/target/classes/com/streamhouse/oracle/ArchivedCompensationAssociations$Entry.class",
+      "bytes": 2734,
+      "sha256": "eff92c0617d6570d8ff24dedcb1aac2ec0e259d046ad41e518c77a3e5c3365f3"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/target/classes/com/streamhouse/oracle/ArchivedCompensationAssociations$Marker.class",
+      "bytes": 2517,
+      "sha256": "a6c1265c7ba65b1fe596cac248c7072956e9ae8104cc9f4fd388dedee40f142d"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/target/classes/com/streamhouse/oracle/ArchivedCompensationAssociations.class",
+      "bytes": 16182,
+      "sha256": "f4e546cb0966e9212bb0364fa88ac1a4ef4ad2401887bcaae64b4d5cd50a8649"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/target/classes/com/streamhouse/oracle/ArchivedCompensationInventory$Entry.class",
+      "bytes": 2174,
+      "sha256": "11ce902218ba60bfa86aa85a15445925e7ac52789985e95db504b6c1f1c16141"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/target/classes/com/streamhouse/oracle/ArchivedCompensationInventory.class",
+      "bytes": 10636,
+      "sha256": "b8b51985a6779d9fcb59dcd3d35eb1fa407b4f58ef17636ab579bd6d36bed80b"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/target/classes/com/streamhouse/oracle/ArchivedHeapRows$Baseline.class",
+      "bytes": 4303,
+      "sha256": "7855a602ab8d064955a6d29be3a83049b096baa2adf7290a40c65e46c66fa871"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/target/classes/com/streamhouse/oracle/ArchivedHeapRows$Cell.class",
+      "bytes": 2380,
+      "sha256": "974084afc51579898b2fbfaa4115ae78fabdd29f51fc362069f954c058c5d9bb"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/target/classes/com/streamhouse/oracle/ArchivedHeapRows$Change.class",
+      "bytes": 3808,
+      "sha256": "3743000c7ece243ad8c83146db94294e74238052d3f78fe3e3eca9a86d68852d"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/target/classes/com/streamhouse/oracle/ArchivedHeapRows$Result.class",
+      "bytes": 3169,
+      "sha256": "fa27dbd73346abb5e0f75aabf5d7adf657850fdbbb609ef29b313a4dc90780ff"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/target/classes/com/streamhouse/oracle/ArchivedHeapRows$RowKey.class",
+      "bytes": 1799,
+      "sha256": "26ac39290c863455dbf1c632d5a4b0f0e1e70c7b4c7383f22dcca793be4ca0b6"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/target/classes/com/streamhouse/oracle/ArchivedHeapRows$Source.class",
+      "bytes": 2962,
+      "sha256": "fbf830ce476f0aa6c5b94bc641049ba8ca321c68790fee07beef8debe15405ed"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/target/classes/com/streamhouse/oracle/ArchivedHeapRows.class",
+      "bytes": 16504,
+      "sha256": "6593f6a021d530b9b55f16c50f66969733ae87d414a32e5c8b9b43ee168c1fcf"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/target/classes/com/streamhouse/oracle/ArchivedIndexLeafInventory$Entry.class",
+      "bytes": 4197,
+      "sha256": "911b826caa178d42c1bc2a1fbc690bf2954f68334a1668c36f20f583f8d6b4de"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/target/classes/com/streamhouse/oracle/ArchivedIndexLeafInventory.class",
+      "bytes": 13333,
+      "sha256": "00977f94eada81175fadfdd0be0da337874d4f264cd72e4ec764830cb0ab066e"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/target/classes/com/streamhouse/oracle/ArchivedObjectTransactions$Transaction.class",
+      "bytes": 2169,
+      "sha256": "371844495f2e40deb5924b0a0372309dafc784ecbb9da1c65ae7ed59bc2a8d3a"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/target/classes/com/streamhouse/oracle/ArchivedObjectTransactions.class",
+      "bytes": 9467,
+      "sha256": "abe687a7ca65034167592a3a3828cf4464ba26793499bcf81f9caacf6308c70c"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/target/classes/com/streamhouse/oracle/ArchivedPhysicalTransactions$Context.class",
+      "bytes": 3048,
+      "sha256": "a9f964ccb8d0d113893475b3f060a2e25efbfa8f82b7bdb13db093e27139ef22"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/target/classes/com/streamhouse/oracle/ArchivedPhysicalTransactions$Operation.class",
+      "bytes": 2326,
+      "sha256": "bbefb33be0a524543f2b9693088f8ca951e4ada352505e8ea230ad72c1b7f35b"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/target/classes/com/streamhouse/oracle/ArchivedPhysicalTransactions$Result.class",
+      "bytes": 2598,
+      "sha256": "83502796be8824565b1b10b1c582963008661b8ee4267b9537c64c41f1fbd282"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/target/classes/com/streamhouse/oracle/ArchivedPhysicalTransactions$Transaction.class",
+      "bytes": 3060,
+      "sha256": "34a000d669efb1fdcd0cc28e6efe7d07d5192843a7e5c798e97ed4143076c8ca"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/target/classes/com/streamhouse/oracle/ArchivedPhysicalTransactions.class",
+      "bytes": 22660,
+      "sha256": "0379e60ebade848b4b6e9214bc9f20ffab06c65661bec90272a71339ac44a919"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/target/classes/com/streamhouse/oracle/ArchivedRedo$Header.class",
+      "bytes": 3011,
+      "sha256": "64139a68de94814563cc81e53282d49bb8b771a14a57c518dfcd52dc67c6cc08"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/target/classes/com/streamhouse/oracle/ArchivedRedo.class",
+      "bytes": 4429,
+      "sha256": "84c1c900be46c34b39ec7df60af23b85856f638e49937e32b06f383839238c38"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/target/classes/com/streamhouse/oracle/ArchivedUndoInventory$Entry.class",
+      "bytes": 2603,
+      "sha256": "e35a1e6e11d91b5cdf27d37434a9326de4a46be3bf2e5dcfb621e8bfd713c948"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/target/classes/com/streamhouse/oracle/ArchivedUndoInventory$Position.class",
+      "bytes": 1988,
+      "sha256": "03ff978296aee7dbf27311b4ec0493719d5a7645aa7507d8bbdc061269570128"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/target/classes/com/streamhouse/oracle/ArchivedUndoInventory.class",
+      "bytes": 7969,
+      "sha256": "d4d77398d8d94b48bb059c74c841c5d1e185cf6e1ce0dc6f1a33ccb3329b903d"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/target/classes/com/streamhouse/oracle/FrozenHeapBaseline$Input.class",
+      "bytes": 3023,
+      "sha256": "4d57092bca4632e05206a0b82f7ab3048f3a61d769295063a730059176b4b2b3"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/target/classes/com/streamhouse/oracle/FrozenHeapBaseline$ObjectRole.class",
+      "bytes": 2029,
+      "sha256": "5bbf6c06934933deaa990c8044e267f8f334b03a2560a6f3fdf299a0f0c8d963"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/target/classes/com/streamhouse/oracle/FrozenHeapBaseline$PhysicalColumn.class",
+      "bytes": 2299,
+      "sha256": "0f3a82e0f045695e38205b0210cc989cf052d1f9b84c734f7767c4554301cdcb"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/target/classes/com/streamhouse/oracle/FrozenHeapBaseline$Snapshot.class",
+      "bytes": 5400,
+      "sha256": "235c77f02c838c1bcee494a402b339ef9e8de4c4ff864db4934dbe39108cc040"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/target/classes/com/streamhouse/oracle/FrozenHeapBaseline.class",
+      "bytes": 10254,
+      "sha256": "279dbca277364d8206f16450424c5d168ddad02ad4ee6ece5c4d9961782b1054"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/target/classes/com/streamhouse/oracle/HeapCompensation.class",
+      "bytes": 8042,
+      "sha256": "4f818db1fd8e0bf0b41621c80f1daf1ef0aefd13ddedd6154a79b1fc15691b78"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/target/classes/com/streamhouse/oracle/HeapRowPatch$Column.class",
+      "bytes": 1835,
+      "sha256": "8a1c8cf7ee7734e7d21fcb82532fedf9646275e2ae7af53ebffc3ec4d2c729e6"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/target/classes/com/streamhouse/oracle/HeapRowPatch$Kind.class",
+      "bytes": 1260,
+      "sha256": "8a496c991b7ad56ac247cea05653ef456b455daba60cb2626a15a6bd6a768353"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/target/classes/com/streamhouse/oracle/HeapRowPatch$Patch.class",
+      "bytes": 4277,
+      "sha256": "7bb17b3141a6e86a72b3d0739996847951dde9a189a2f306596918fa86146fdf"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/target/classes/com/streamhouse/oracle/HeapRowPatch$RowExtent.class",
+      "bytes": 2018,
+      "sha256": "188aa8fed645f63d1a7df854cf15519cf4e4c95920ce904366f884841197ed3f"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/target/classes/com/streamhouse/oracle/HeapRowPatch$State.class",
+      "bytes": 1264,
+      "sha256": "571880b395749251eb4ab0598c735c4b6c43639bbc2f7ea5ff63f168fdb7c97a"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/target/classes/com/streamhouse/oracle/HeapRowPatch$Uba.class",
+      "bytes": 1749,
+      "sha256": "f2df9ed4206bce5bf2682b3a2c448560cb9a7eaf99f06f396a8843b163ca1d33"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/target/classes/com/streamhouse/oracle/HeapRowPatch$Xid.class",
+      "bytes": 1744,
+      "sha256": "0e1d7b052012470aca768e3439e9a47b14de1d711c668e8f388d55275a465ce5"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/target/classes/com/streamhouse/oracle/HeapRowPatch.class",
+      "bytes": 7312,
+      "sha256": "f9e2abfe78e8aff2aaedfa210173d88edcfe6c779628c4bf636d6469c91aedfc"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/target/classes/com/streamhouse/oracle/HeapUndoPair.class",
+      "bytes": 6629,
+      "sha256": "a3721b5bf435fa25a6b3c19b453d69f51a0e3cf4798de9e4e62e9a1ea5926002"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/target/classes/com/streamhouse/oracle/IndexCompensation$LeafRollback.class",
+      "bytes": 2322,
+      "sha256": "5b950dbecefe1f402f9d4bee1064f82688c087d770f11c31b4aabd7ba207ceba"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/target/classes/com/streamhouse/oracle/IndexCompensation$Purge.class",
+      "bytes": 1916,
+      "sha256": "8a0143dcd4277462289860be14aa5e0203982c602c43d8e0c94e74926f7a8195"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/target/classes/com/streamhouse/oracle/IndexCompensation.class",
+      "bytes": 8647,
+      "sha256": "6210979baf0c66beafe7890279a5d9c0c27d9448bcf4aae806f134200eee89f3"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/target/classes/com/streamhouse/oracle/IndexLeafPositions.class",
+      "bytes": 10941,
+      "sha256": "c42ccec13da2cb258b9900f1db89182df8c23527789b248ee1890f68f84fbdda"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/target/classes/com/streamhouse/oracle/IndexUndoPair$Forward.class",
+      "bytes": 3151,
+      "sha256": "8575ced05ac6ea3c0d4de659426c4343316bc4555100043de02978b0da776db9"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/target/classes/com/streamhouse/oracle/IndexUndoPair$Inverse.class",
+      "bytes": 3267,
+      "sha256": "1fdf8b6bb6e91c38766f6721190fd480b773e5bde5654567cd11b4697aec577e"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/target/classes/com/streamhouse/oracle/IndexUndoPair$Kind.class",
+      "bytes": 1317,
+      "sha256": "bb039c3aa854336564e0fdf18e5d3dc59736e2fed519e18a31117dd64a759302"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/target/classes/com/streamhouse/oracle/IndexUndoPair.class",
+      "bytes": 8537,
+      "sha256": "803e7295fa44d185db595676cfb38cac236dc16f232305121c9f458b520eaa7c"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/target/classes/com/streamhouse/oracle/OracleScalars.class",
+      "bytes": 3381,
+      "sha256": "706cc0bcf2887caa224aef5af0522085e503038600c6f5c50c51387d1fab0a2b"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/target/classes/com/streamhouse/oracle/RedoBytes.class",
+      "bytes": 715,
+      "sha256": "32493e3ed01ad5902527460245c816646c5326c551aea719f0b05a322c0d5637"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/target/classes/com/streamhouse/oracle/RedoCli.class",
+      "bytes": 5617,
+      "sha256": "9a5c32ca780fc6592f4d512f0a96aa548ab219e12f995c1630a27d6bb4547a8f"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/target/classes/com/streamhouse/oracle/RedoException.class",
+      "bytes": 372,
+      "sha256": "7cb70c077d672348a4964fb309209fe03fbf81441443c528293d03bfc9a01770"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/target/classes/com/streamhouse/oracle/RedoRecords$Cursor.class",
+      "bytes": 1575,
+      "sha256": "6dc9bdb8454668cf3b41934b295d8c145749cd6cacf4f69ae97098a463d59f4b"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/target/classes/com/streamhouse/oracle/RedoRecords$Record.class",
+      "bytes": 2813,
+      "sha256": "05a0823a684be88e92545b6eb5fd15d3f0e06ac85d75695c8e2a409db8ada284"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/target/classes/com/streamhouse/oracle/RedoRecords$Vector.class",
+      "bytes": 2779,
+      "sha256": "a4c69d48b8628eaea402a4cd411a44219f2d0530e84dc0ed7306eadf7f3c2308"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/target/classes/com/streamhouse/oracle/RedoRecords$Visitor.class",
+      "bytes": 486,
+      "sha256": "553003892ece5808c2cea42fc8d3d72bbf623b1b3286f488e2a426c2924a9bb8"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/target/classes/com/streamhouse/oracle/RedoRecords.class",
+      "bytes": 4583,
+      "sha256": "eb15c47e190f246646f38ea0b12d243a9a623ce87043e3678cacb38f496bd21b"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/target/classes/com/streamhouse/oracle/TransactionEnd.class",
+      "bytes": 4210,
+      "sha256": "6f7226b28430ea0881159c57818ff9fb924a112b16073a1c9dc758e93822ca82"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/target/classes/com/streamhouse/oracle/TransactionLifecycle$Begin.class",
+      "bytes": 1931,
+      "sha256": "107d832b0e8b20af56a82bbfb2ea468f789411a3aefb3f909d456e944724ac1d"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/target/classes/com/streamhouse/oracle/TransactionLifecycle$ClosedIdentity.class",
+      "bytes": 2545,
+      "sha256": "4f80f83a752add85d77f8cb7c66a68663a94fd4bf8371adbf3939e4f37823d52"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/target/classes/com/streamhouse/oracle/TransactionLifecycle$Identity.class",
+      "bytes": 2057,
+      "sha256": "3d65b8589f4ac2a56297690430b2bb6d61d429b17dca9b13a63b878d420213c9"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/target/classes/com/streamhouse/oracle/TransactionLifecycle$Key.class",
+      "bytes": 2065,
+      "sha256": "4551ce03661d0ffca65c51b8782679cb2cf835598bd8414eec4b52bc67d414e3"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/target/classes/com/streamhouse/oracle/TransactionLifecycle.class",
+      "bytes": 14354,
+      "sha256": "367d1c5d49668411301a010aa0f8827feda344f96f00960d8e3958b97083d38b"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/target/classes/com/streamhouse/oracle/TransactionStart.class",
+      "bytes": 5218,
+      "sha256": "5d9f947f2b9cc5859dab690e7f5d501d63b3494fa2aed9e5c7d1a501f0ef1aec"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/target/classes/com/streamhouse/oracle/UndoBlockAdvance.class",
+      "bytes": 4585,
+      "sha256": "1bb4f3b0c15a6228487136b74815a539122c686f6a834db29d3cd987572129b1"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/target/classes/com/streamhouse/oracle/UndoChain.class",
+      "bytes": 4793,
+      "sha256": "d6ccc842a659e5323f59e87ee408923fe7dd6b58a2ae263ec5a50c383811f539"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/target/classes/com/streamhouse/oracle/UndoCompensation.class",
+      "bytes": 4430,
+      "sha256": "57bfebc12ccce1f927cc3fc05087eb7678203a872c7f423f593c0440d3da5cd9"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/target/classes/com/streamhouse/oracle/UndoHeader.class",
+      "bytes": 3760,
+      "sha256": "21918f33b03a508168be02916161809032949adc4c7c50a033b0574f8f0bd5a7"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/target/classes/com/streamhouse/oracle/UndoHeadUpdate.class",
+      "bytes": 4545,
+      "sha256": "0c57d8657d0c75654aff2e7fa25439375b2140c648d5cd547ada22f2a58e5578"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/target/classes/com/streamhouse/oracle/UndoHistory$Node.class",
+      "bytes": 2131,
+      "sha256": "89f2d8845a1ea23bed22cf840307ee110d627feba49df9d2abdf92114dd9dea3"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/target/classes/com/streamhouse/oracle/UndoHistory$Result.class",
+      "bytes": 3212,
+      "sha256": "3cdf66069f135fd630d423bf36cc6b91c205e0e3c93d2a8557f2a8f1316997a5"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/target/classes/com/streamhouse/oracle/UndoHistory.class",
+      "bytes": 5751,
+      "sha256": "0601510b9999197d401fa1bbc34f23006c484755a67feb40b249efb2a5bdf0bd"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/target/classes/com/streamhouse/oracle/UndoLink.class",
+      "bytes": 3711,
+      "sha256": "39a6e3002b2030da5ff72d88a8205385b130a4a79e5beb1e38c8fa0c582b61aa"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/target/classes/com/streamhouse/oracle/UndoRowPatch.class",
+      "bytes": 4087,
+      "sha256": "c2fa04b7d363cd6de3ed8b0b4c3fc99ad2889a1f5e0bb1dd063b0edb61e38662"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/target/maven-archiver/pom.properties",
+      "bytes": 87,
+      "sha256": "e67f71aa1f86b9434a75ca2517e1008ed66f2df06da117ea57c6c4bfd4da30c2"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst",
+      "bytes": 3935,
+      "sha256": "5e87dad87112e4aa1ccc58733d753c9c9ff02ee71bce19b0864ec1f4f6d12eb6"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst",
+      "bytes": 4060,
+      "sha256": "2f3cfce4257ab13c41484ab0cae18f4550cfd2e457b23354973d8d9d2f0ffe44"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/target/maven-status/maven-compiler-plugin/testCompile/default-testCompile/createdFiles.lst",
+      "bytes": 1788,
+      "sha256": "95b34143f4ebaba6a2a6c645add577a448f35c840e8fd225fa61677f10db082a"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/target/maven-status/maven-compiler-plugin/testCompile/default-testCompile/inputFiles.lst",
+      "bytes": 4618,
+      "sha256": "62e01a4a062d229377f3a02a8ed50d01027375a6fd36279cf8a4fe7fc4c7b345"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/target/oracle-redo-kernel-0.1.0-SNAPSHOT.jar",
+      "bytes": 159562,
+      "sha256": "5967c7e44aeeda4f59c886d4c7983c5336551a66ddd786798314ad309bde05fc"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/target/surefire-reports/2026-10-04T22-35-31_990.dumpstream",
+      "bytes": 296,
+      "sha256": "02d92a33bb0cf4d583676f86b179552297aa142895107b27f8a57724fcdee3e6"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/target/surefire-reports/com.streamhouse.oracle.ArchivedCompensationAssociationsTest.txt",
+      "bytes": 372,
+      "sha256": "b2bd3947dc2d41c5238c2359a9e44db644238dc4c2e64855865dba685fd0518b"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/target/surefire-reports/com.streamhouse.oracle.ArchivedCompensationInventoryTest.txt",
+      "bytes": 366,
+      "sha256": "17744eaad055b97ca6fe48490615a3455c359ca7cb4df5c74b988b42e8502ac1"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/target/surefire-reports/com.streamhouse.oracle.ArchivedHeapRowsTest.txt",
+      "bytes": 340,
+      "sha256": "c4e70daa8add61f76c2a49f85e7148933761b530d0fafc3f2f14660db036e054"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/target/surefire-reports/com.streamhouse.oracle.ArchivedIndexLeafInventoryTest.txt",
+      "bytes": 360,
+      "sha256": "1580c6b0a7f204b439f5f04664fd0126f0c9bcc64447cedc5f964aaf8b497b04"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/target/surefire-reports/com.streamhouse.oracle.ArchivedObjectTransactionsTest.txt",
+      "bytes": 360,
+      "sha256": "ac28859bf17c015b7d953e8b2bb6e43054e8ea1242bef071b568b6c90322e07b"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/target/surefire-reports/com.streamhouse.oracle.ArchivedPhysicalTransactionsTest.txt",
+      "bytes": 364,
+      "sha256": "65c78bbc3de680cc9145eda4f3d83d2b1b6e1df67f47912034d4920955748da9"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/target/surefire-reports/com.streamhouse.oracle.ArchivedRedoTest.txt",
+      "bytes": 332,
+      "sha256": "8185ee79970985bbbcce712669306f850a3a4ae990b7c1e5b61b85c22c17f008"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/target/surefire-reports/com.streamhouse.oracle.ArchivedUndoInventoryTest.txt",
+      "bytes": 350,
+      "sha256": "9dc3a4d1be2c64773d89d3aedf0f71a3798c55f803318284da63e5200746f658"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/target/surefire-reports/com.streamhouse.oracle.BeginCompensationTest.txt",
+      "bytes": 342,
+      "sha256": "c4adca8f21b847d0b92e0926d4b09c21024379c4950a51263fb3d009aaf90278"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/target/surefire-reports/com.streamhouse.oracle.CrossCompensationTest.txt",
+      "bytes": 342,
+      "sha256": "e95ec6d0b4617ea0153efce851c8bf74c86dd668930e80f3e592a674d0e7eb97"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/target/surefire-reports/com.streamhouse.oracle.FrozenHeapBaselineTest.txt",
+      "bytes": 344,
+      "sha256": "0745544d5d7d1217e9784505fdfaca3dd589655b983f259e2f3aae47d3d6091e"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/target/surefire-reports/com.streamhouse.oracle.HeapCleanoutCTest.txt",
+      "bytes": 334,
+      "sha256": "e6abc8905ed2cc1053f32ecd47e4bf1b7133f6f22335432ce8cdb14f31b9cfe8"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/target/surefire-reports/com.streamhouse.oracle.HeapCompensationTest.txt",
+      "bytes": 340,
+      "sha256": "1d65f4b9905e98f6ae12f4cf239439ab1ed7f038c8aa3bd5597ff0b77107d4bf"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/target/surefire-reports/com.streamhouse.oracle.HeapRowPatchTest.txt",
+      "bytes": 332,
+      "sha256": "3ee1433650e0f964ea29b496213666cb43b1106458ec2806bc9df118b8c4778e"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/target/surefire-reports/com.streamhouse.oracle.HeapTailExtentTest.txt",
+      "bytes": 336,
+      "sha256": "5dbba45ea44d5c9520e7e8830365d0b83d8809239a49a49b7f93a8164f7e4a8a"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/target/surefire-reports/com.streamhouse.oracle.HeapUndoPairTest.txt",
+      "bytes": 332,
+      "sha256": "80dbe24cd3aae764ac16c60e84c46e826ca415ff9167fcb998f94bfde4e634d6"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/target/surefire-reports/com.streamhouse.oracle.IndexCompensationTest.txt",
+      "bytes": 342,
+      "sha256": "2d2ba80e3f32ff2d346114bffeb1a334fca3679e705df85e6d5c226ed49ab05f"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/target/surefire-reports/com.streamhouse.oracle.IndexLeafPositionsTest.txt",
+      "bytes": 345,
+      "sha256": "430a173dde3f1edd56d6d53bb336e73871963c7eb68bf5157c2ee90e1ee92d8a"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/target/surefire-reports/com.streamhouse.oracle.IndexPositionReplayTest.txt",
+      "bytes": 346,
+      "sha256": "d56df1e5ec40f1ce333d6faa600d3d924e1650f0415ad09612bdc109f9bc0ff5"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/target/surefire-reports/com.streamhouse.oracle.IndexRestoreCompensationTest.txt",
+      "bytes": 356,
+      "sha256": "f15bb0105385304d6542ae1255c24bef3d29482c183b69fe26a528f0cf7fd33e"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/target/surefire-reports/com.streamhouse.oracle.IndexUndoPairTest.txt",
+      "bytes": 334,
+      "sha256": "24dbcb2c89bf89d3043bce1e66b4de5e03c1eb4255db069aefcf5d2963cbca1d"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/target/surefire-reports/com.streamhouse.oracle.Kdom2UpdateTest.txt",
+      "bytes": 330,
+      "sha256": "e968c4df6c29d637d06cd85e7ce04152ec3ffb1585f4c308641a1cff6f6eeaeb"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/target/surefire-reports/com.streamhouse.oracle.KtbZInsertTest.txt",
+      "bytes": 328,
+      "sha256": "9c19a3f67887ab9183c2bb87ca09fcea8c8d017b3232084412f47a41c37b9a5f"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/target/surefire-reports/com.streamhouse.oracle.KtbZRollbackTest.txt",
+      "bytes": 333,
+      "sha256": "d447306a3ad9553c8ff30d74264870088c7ea9e74bf00694cb07b429d7fb2756"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/target/surefire-reports/com.streamhouse.oracle.OracleScalarsTest.txt",
+      "bytes": 334,
+      "sha256": "9393b8706f3956d8ef3aca084d92eadd35790057f0bbee9d50470d5b4845422f"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/target/surefire-reports/com.streamhouse.oracle.TransactionLifecycleTest.txt",
+      "bytes": 349,
+      "sha256": "e8381a23ebeffb0b2992f61dc889e9b5f29f071e526ca99a049e4fa9133ec9d8"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/target/surefire-reports/com.streamhouse.oracle.TransactionMarkersTest.txt",
+      "bytes": 344,
+      "sha256": "305a5aa4bcf8a13e39a6007eef7495f1abf068e9eed85fafc4c1fea3b8bc55cf"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/target/surefire-reports/com.streamhouse.oracle.TransactionStartTest.txt",
+      "bytes": 340,
+      "sha256": "0f86f4891628f6b49c0ea6bbbe419771e76e2b2747d63275b8a8aac4753de487"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/target/surefire-reports/com.streamhouse.oracle.UndoBlockAdvanceTest.txt",
+      "bytes": 340,
+      "sha256": "86add5b48a83a7924bc8f31ca7786b69cd049902df0ff8dbb3046fe74e9023a3"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/target/surefire-reports/com.streamhouse.oracle.UndoChainTest.txt",
+      "bytes": 326,
+      "sha256": "85d0621e1ff070f954a130a51ab546d19d456c577156982ca83bf09285e66c44"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/target/surefire-reports/com.streamhouse.oracle.UndoHeaderTest.txt",
+      "bytes": 328,
+      "sha256": "0e3e25bd75df77f25b6badb4bf34ac424c0224025f72c61caeb7fabc6c454cfc"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/target/surefire-reports/com.streamhouse.oracle.UndoHeadUpdateTest.txt",
+      "bytes": 336,
+      "sha256": "b179978898c094bbe998afb7e010813e6e4eca65513bdca7edc6bfe7aaec467a"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/target/surefire-reports/com.streamhouse.oracle.UndoHistoryTest.txt",
+      "bytes": 330,
+      "sha256": "8eed969cb6527b4692690188da000b85fc9d92cd3c73568ac886bd4cc8552a4f"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/target/surefire-reports/com.streamhouse.oracle.UndoRowPatchTest.txt",
+      "bytes": 332,
+      "sha256": "3f98421864372740f8380131e55e5d957108fb51a10d675d78bb2298d16bb726"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/target/surefire-reports/TEST-com.streamhouse.oracle.ArchivedCompensationAssociationsTest.xml",
+      "bytes": 11324,
+      "sha256": "fabb956523e53cc62d2ba126902c0da9bf350e4a58ec72fa7c66659b244013e2"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/target/surefire-reports/TEST-com.streamhouse.oracle.ArchivedCompensationInventoryTest.xml",
+      "bytes": 10943,
+      "sha256": "3e4b086b4f3a9b27e566b9089cad2e69a35dc35c255f5c9b448f8b06a8e0ab1c"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/target/surefire-reports/TEST-com.streamhouse.oracle.ArchivedHeapRowsTest.xml",
+      "bytes": 10577,
+      "sha256": "76a699a852f049a7507bd2f4d1b0e2a34750c6b0cc7f3e1d0a89c59672e299f8"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/target/surefire-reports/TEST-com.streamhouse.oracle.ArchivedIndexLeafInventoryTest.xml",
+      "bytes": 11081,
+      "sha256": "10194273981aef9c6eb116576d089262acc738552224b1de050ba31ba98a71e1"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/target/surefire-reports/TEST-com.streamhouse.oracle.ArchivedObjectTransactionsTest.xml",
+      "bytes": 10923,
+      "sha256": "8e30051c12aefc38fd1be8508be1cced7a75794645512fbd81b248b99ac653ef"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/target/surefire-reports/TEST-com.streamhouse.oracle.ArchivedPhysicalTransactionsTest.xml",
+      "bytes": 10765,
+      "sha256": "338f1c2b628126fe66edc003dec50f1513a42a975a615a83cd1ef47ee5f313a8"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/target/surefire-reports/TEST-com.streamhouse.oracle.ArchivedRedoTest.xml",
+      "bytes": 11413,
+      "sha256": "d5d994a50c5b021d14ed10806eebaa878847bb8bb63541a80afe55d864142102"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/target/surefire-reports/TEST-com.streamhouse.oracle.ArchivedUndoInventoryTest.xml",
+      "bytes": 10728,
+      "sha256": "84af4760aa2474bdc1b9341c336d94c59cf88dda46939c7da8bfb8eecb45b414"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/target/surefire-reports/TEST-com.streamhouse.oracle.BeginCompensationTest.xml",
+      "bytes": 10833,
+      "sha256": "169d274b0cc6e92beacc024317fbedaa719913a13f2df1c960d9ca34654494d9"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/target/surefire-reports/TEST-com.streamhouse.oracle.CrossCompensationTest.xml",
+      "bytes": 10831,
+      "sha256": "c35a8327f233e0e70e6c824425d86aefcaec6183949db3e69ae14a6318c1c8b5"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/target/surefire-reports/TEST-com.streamhouse.oracle.FrozenHeapBaselineTest.xml",
+      "bytes": 10611,
+      "sha256": "4c72768b1d1ba5bdb502a349edbd24929c0d8aed028424495b17dac0e2949b17"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/target/surefire-reports/TEST-com.streamhouse.oracle.HeapCleanoutCTest.xml",
+      "bytes": 10401,
+      "sha256": "fcdac0373e514d9c3b95c871755479843162d03549999f9a3ca95d2f662372c6"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/target/surefire-reports/TEST-com.streamhouse.oracle.HeapCompensationTest.xml",
+      "bytes": 11102,
+      "sha256": "c363abb33482c80424531d61652ec58ff5f1bc367455325c7e5a0de6cfea0aea"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/target/surefire-reports/TEST-com.streamhouse.oracle.HeapRowPatchTest.xml",
+      "bytes": 10867,
+      "sha256": "2f6ef41651795ca90b619080fd18177ca2d90dc67c69bf33a99b4c23d867b1a3"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/target/surefire-reports/TEST-com.streamhouse.oracle.HeapTailExtentTest.xml",
+      "bytes": 10692,
+      "sha256": "63dc8a72a089ce56e0e7049713fb33982e04ab6103f46962fec21c8b5a9bb511"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/target/surefire-reports/TEST-com.streamhouse.oracle.HeapUndoPairTest.xml",
+      "bytes": 10788,
+      "sha256": "096e826336bb1dad811d228cea854af4e2630fc9437e4266f4279b5e295f5f12"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/target/surefire-reports/TEST-com.streamhouse.oracle.IndexCompensationTest.xml",
+      "bytes": 10715,
+      "sha256": "74ef2ffc6b896456b8022dc04eb64536981365e356124f6d6bfe5ad50c839ad0"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/target/surefire-reports/TEST-com.streamhouse.oracle.IndexLeafPositionsTest.xml",
+      "bytes": 11411,
+      "sha256": "5d67fc61dd9d783770155513ac8eb46bc05546e51141f16a79a803f532cf3750"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/target/surefire-reports/TEST-com.streamhouse.oracle.IndexPositionReplayTest.xml",
+      "bytes": 10654,
+      "sha256": "cd9b54f37d61cac0cfef072e54a14678ab5ec5a5e537ec59907b75649b2b5fb5"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/target/surefire-reports/TEST-com.streamhouse.oracle.IndexRestoreCompensationTest.xml",
+      "bytes": 10881,
+      "sha256": "75e1f467b5f7e1f37c044679aa5cb603bd9cec4774d8a1ce72e4f561a9c782db"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/target/surefire-reports/TEST-com.streamhouse.oracle.IndexUndoPairTest.xml",
+      "bytes": 11169,
+      "sha256": "f2e226c846e0b20b3362d42672c503a2d04041497bf3161d5c235bca719f442b"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/target/surefire-reports/TEST-com.streamhouse.oracle.Kdom2UpdateTest.xml",
+      "bytes": 10762,
+      "sha256": "3113956f8765e39fe45bcbb1ade64bdb6c353e11fb4b6c7e3903076cafe51e50"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/target/surefire-reports/TEST-com.streamhouse.oracle.KtbZInsertTest.xml",
+      "bytes": 10400,
+      "sha256": "4995044033e0f071dd937120b5d021d22b6d504882e24fdb5170da0d36291577"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/target/surefire-reports/TEST-com.streamhouse.oracle.KtbZRollbackTest.xml",
+      "bytes": 11456,
+      "sha256": "5cad3d9eb0ae21cc6e746a099bc39178f040bcaec2654e1cfb59129c3df2b876"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/target/surefire-reports/TEST-com.streamhouse.oracle.OracleScalarsTest.xml",
+      "bytes": 10616,
+      "sha256": "6447c2b9242b76eaaa4d90899e0a35dbf0843a32976861e034c1462f00c8bb9a"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/target/surefire-reports/TEST-com.streamhouse.oracle.TransactionLifecycleTest.xml",
+      "bytes": 11915,
+      "sha256": "ae306ca0794e834b98409018938d1e72b5c7dfeb2a56b8879a98ea1d094d8e84"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/target/surefire-reports/TEST-com.streamhouse.oracle.TransactionMarkersTest.xml",
+      "bytes": 11103,
+      "sha256": "62589819a12286ec36f5119c982124c6dbc50f043bd09e7b62d94d8741ec4d70"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/target/surefire-reports/TEST-com.streamhouse.oracle.TransactionStartTest.xml",
+      "bytes": 10786,
+      "sha256": "867dcd82309b5ba0d2052a52b581152297fc025bc01aa082f656d80df1c30c71"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/target/surefire-reports/TEST-com.streamhouse.oracle.UndoBlockAdvanceTest.xml",
+      "bytes": 10685,
+      "sha256": "5d6e298fdfb5b8b5d43e5b65422ddfd79d4ad2c8b54533df6c39b9f4df6a2201"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/target/surefire-reports/TEST-com.streamhouse.oracle.UndoChainTest.xml",
+      "bytes": 10792,
+      "sha256": "fff63f34e0a370ab4d1d55d8888a7499c3fd8aea691ebe9ee23945ed215af250"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/target/surefire-reports/TEST-com.streamhouse.oracle.UndoHeaderTest.xml",
+      "bytes": 10365,
+      "sha256": "a0f6a6597682808b5b9f9b07772dd826208b1760b22d4762cde34e1d9ec9d8c5"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/target/surefire-reports/TEST-com.streamhouse.oracle.UndoHeadUpdateTest.xml",
+      "bytes": 10839,
+      "sha256": "6fb1293059887e0fc7d6f36ab6e57dfd642dfb4f8376bb92192d0cac993ceaae"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/target/surefire-reports/TEST-com.streamhouse.oracle.UndoHistoryTest.xml",
+      "bytes": 11111,
+      "sha256": "05ab1e5fc77170d2a6e30557bac274c05d3c963f2fbbe2c0fc7fb00d15998b59"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/target/surefire-reports/TEST-com.streamhouse.oracle.UndoRowPatchTest.xml",
+      "bytes": 10647,
+      "sha256": "65c54b75cf1d4534a198cc06951a5bc220e484e8b88a36964ba01f464013201c"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/target/test-classes/com/streamhouse/oracle/ArchivedCompensationAssociationsTest.class",
+      "bytes": 15321,
+      "sha256": "690b7284aa86e37cdc8d31df18abad964f16482186b1cd7efd5878f6880514da"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/target/test-classes/com/streamhouse/oracle/ArchivedCompensationInventoryTest.class",
+      "bytes": 10553,
+      "sha256": "5fb007bcd1e77ca019343fad811f9aadce7adce76c490c6e95b7eef68b6f3ec7"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/target/test-classes/com/streamhouse/oracle/ArchivedHeapRowsTest.class",
+      "bytes": 7847,
+      "sha256": "854d0816c8b9605d5b44f40a632f16f5ceecf6c730ce29503c50b3044227bc37"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/target/test-classes/com/streamhouse/oracle/ArchivedIndexLeafInventoryTest.class",
+      "bytes": 11581,
+      "sha256": "f93294a0bbc3ed9b4da296ec7a6d8044f2aa15a827fa5a1155fb3b0576f6ca2a"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/target/test-classes/com/streamhouse/oracle/ArchivedObjectTransactionsTest.class",
+      "bytes": 8058,
+      "sha256": "9d42e03f0a613c0ed2562a1a50f609088041b4584b12b5a7b94e3c328a622e6e"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/target/test-classes/com/streamhouse/oracle/ArchivedPhysicalTransactionsTest.class",
+      "bytes": 10571,
+      "sha256": "2775eb0dbdae2ec093a8c0e59fa4e6e278c2b0462102fe8c9b0c48c928bbffab"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/target/test-classes/com/streamhouse/oracle/ArchivedRedoTest.class",
+      "bytes": 8499,
+      "sha256": "fd296f5f51ea5198fea8ba2d2eb630bea6fc4755481e489a67bbd7c65b3ae74f"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/target/test-classes/com/streamhouse/oracle/ArchivedUndoInventoryTest.class",
+      "bytes": 8604,
+      "sha256": "794258160a764f2e690c37f5a08bd973f614d0cca95e0a1511e683202e44ee81"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/target/test-classes/com/streamhouse/oracle/BeginCompensationTest.class",
+      "bytes": 11877,
+      "sha256": "fe554e58fc8701c1e475234f08286da15ea7334af7d66e1f0295a4a32d5793ca"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/target/test-classes/com/streamhouse/oracle/CrossCompensationTest.class",
+      "bytes": 10543,
+      "sha256": "d8664250871beb9c47411ec5f0660aa2809045d60dc4a68ccff7f1d05b160adc"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/target/test-classes/com/streamhouse/oracle/FrozenHeapBaselineTest.class",
+      "bytes": 9408,
+      "sha256": "7f422d6bb519337056e70bdb824f94fd586ebd3abbf4140f4ff20e07cd8d52cb"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/target/test-classes/com/streamhouse/oracle/HeapCleanoutCTest.class",
+      "bytes": 6545,
+      "sha256": "ebf6224c1796e3d5e8301d871f68732358496aed54fdb316d75568ee4da290e6"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/target/test-classes/com/streamhouse/oracle/HeapCompensationTest.class",
+      "bytes": 12223,
+      "sha256": "7ff00f8a86f95cb8ddd55800595778070597d17ac8af7acc6e3d91ba072e4185"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/target/test-classes/com/streamhouse/oracle/HeapRowPatchTest.class",
+      "bytes": 7498,
+      "sha256": "a40e438e524dcd6c11325eeed06904e6e8cbf29974dc30aa270212ca3bf34d63"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/target/test-classes/com/streamhouse/oracle/HeapTailExtentTest.class",
+      "bytes": 8590,
+      "sha256": "14c40b2f033bca69d329dec91126af777893aa578b5d6d12bda596beff39c654"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/target/test-classes/com/streamhouse/oracle/HeapUndoPairTest.class",
+      "bytes": 9022,
+      "sha256": "4e05b2ba8483c435071a3d6bd3e18c695661f7bfda37cc19925699535c908bd1"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/target/test-classes/com/streamhouse/oracle/IndexCompensationTest.class",
+      "bytes": 12174,
+      "sha256": "70748e6e89a5426bc2b9984e0192335a2cd3a475b3af5598f0e64ad4f8f4577e"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/target/test-classes/com/streamhouse/oracle/IndexLeafPositionsTest$Context.class",
+      "bytes": 3374,
+      "sha256": "d57bcfdaf996df4c430bb69f99de467b5e8be28303329f6e918c8bcb0e84af41"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/target/test-classes/com/streamhouse/oracle/IndexLeafPositionsTest.class",
+      "bytes": 17697,
+      "sha256": "bc2051dfc37ea4f4575f672c9433a99670b64b6e290ce3baf3d34d3d68ef7aa4"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/target/test-classes/com/streamhouse/oracle/IndexPositionReplayTest.class",
+      "bytes": 4290,
+      "sha256": "5d54a0c6ca0dbe49998caf5330985871c7118c89bde8ba60b7b0a81ec0e3ba0c"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/target/test-classes/com/streamhouse/oracle/IndexRestoreCompensationTest.class",
+      "bytes": 10534,
+      "sha256": "5b29d144f8e6355b0f9878555a08890a50533fd9990f75108e36bc78daac525c"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/target/test-classes/com/streamhouse/oracle/IndexUndoPairTest.class",
+      "bytes": 11494,
+      "sha256": "984b4dbf0b52760ad91dddbe076a22e7d41730d7dd5d19e6d05ff493154b5e33"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/target/test-classes/com/streamhouse/oracle/Kdom2UpdateTest.class",
+      "bytes": 7552,
+      "sha256": "9a64e083b7dfffd158a76ddc7dd3d6f0a9982b0d7d757c31e55d575d9a36e130"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/target/test-classes/com/streamhouse/oracle/KtbZInsertTest.class",
+      "bytes": 5427,
+      "sha256": "4c3dc2e34e9df7d09acc88e4132494efb9c5923fdb9f31004888cc151d92123a"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/target/test-classes/com/streamhouse/oracle/KtbZRollbackTest.class",
+      "bytes": 11988,
+      "sha256": "3add87e4b90c833098d75dcf513d781fafe3bd6936be888d11a87df31a01356c"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/target/test-classes/com/streamhouse/oracle/OracleScalarsTest.class",
+      "bytes": 4814,
+      "sha256": "e9879cb3144570e2b6a803b1185a2525bbca31cfdb39aa2bd08ecd89ed318934"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/target/test-classes/com/streamhouse/oracle/TransactionLifecycleTest.class",
+      "bytes": 16934,
+      "sha256": "cf198b27efd9dfcc4c30e6e1ce85af99a5cbbc4096039593f39fe0d65899759f"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/target/test-classes/com/streamhouse/oracle/TransactionMarkersTest.class",
+      "bytes": 7753,
+      "sha256": "bb923912aa171b114cf9c84f2a367f86fda3a12f3af7a955a1d761adf784d1c8"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/target/test-classes/com/streamhouse/oracle/TransactionStartTest.class",
+      "bytes": 7241,
+      "sha256": "55a086fe989b36f80b64f35552bde0b168fa82f8c70323abc18dc0bb6d9c44db"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/target/test-classes/com/streamhouse/oracle/UndoBlockAdvanceTest.class",
+      "bytes": 9218,
+      "sha256": "54e4b39cd9342d07f08239212aed8faeb83aab6fad2b98c2f29f9d330c8b5697"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/target/test-classes/com/streamhouse/oracle/UndoChainTest.class",
+      "bytes": 9323,
+      "sha256": "d3c3a8728fd7c40d0f51bb7212e329674ecbd9e5b0ee299cb2bc5211e1e6e2cd"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/target/test-classes/com/streamhouse/oracle/UndoHeaderTest.class",
+      "bytes": 3892,
+      "sha256": "86651ec456d63d68a65df4598d7be7a9de40951c7935fa25296d30c57997e3b6"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/target/test-classes/com/streamhouse/oracle/UndoHeadUpdateTest.class",
+      "bytes": 11221,
+      "sha256": "daacd33a63c475f288cc691e512f89fa15f3a5034f2b670c511d6b251f51dc99"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/target/test-classes/com/streamhouse/oracle/UndoHistoryTest.class",
+      "bytes": 15398,
+      "sha256": "23159dd9093d4a89552ab68ce5578b32018c857bd84cd798b98fe47a4322d6f8"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/tree/target/test-classes/com/streamhouse/oracle/UndoRowPatchTest.class",
+      "bytes": 7729,
+      "sha256": "97559d6d9aa5400092adb0c9380be57de3bd0b42bf8ab40ac00bcde37c09718b"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/truncated-command.json",
+      "bytes": 553,
+      "sha256": "4a9116452220d2a422cfd5fefe4bbc1cca8afb16efb01e921d000641dac59801"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/truncated.rc.txt",
+      "bytes": 1,
+      "sha256": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/truncated.self-reported-sha.txt",
+      "bytes": 64,
+      "sha256": "2d1773dc643ed8c979dfd3b2c87f788844e7ae6d32bda2effb9eb29a41270535"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/truncated.snapshot.txt",
+      "bytes": 736,
+      "sha256": "60bbca4c338c0f6fb9cbc5862ab68af05cdd9b66cfe59399643fd8e51508737a"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/truncated.stderr.txt",
+      "bytes": 241,
+      "sha256": "ae2e795e1e13802fe7c57f65f2bf4932b2b47069a2afbb59178f4e9164ce78cb"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/truncated.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/wrong_generation-command.json",
+      "bytes": 560,
+      "sha256": "6ad4a4e087b7b0301d0ad6cd2db1f65c8992b71b2dda6bd93a7c0dc28a314726"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/wrong_generation.rc.txt",
+      "bytes": 1,
+      "sha256": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/wrong_generation.self-reported-sha.txt",
+      "bytes": 64,
+      "sha256": "4e6c08516a7bf73f3880481fa277fb1ce92b5cdd73a79edac48d48eaecdaec7b"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/wrong_generation.snapshot.txt",
+      "bytes": 762,
+      "sha256": "4ec56ee8c0daea57471f8eba5e6033df07cc168a2b633767c1a2bfa797ce97ca"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/wrong_generation.stderr.txt",
+      "bytes": 241,
+      "sha256": "ae2e795e1e13802fe7c57f65f2bf4932b2b47069a2afbb59178f4e9164ce78cb"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/wrong_generation.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/wrong_key-command.json",
+      "bytes": 553,
+      "sha256": "2157ce7d49c423436c3a44cdbc23e7e3ededa826a9e42a9e30110f0b17b346f9"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/wrong_key.rc.txt",
+      "bytes": 1,
+      "sha256": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/wrong_key.self-reported-sha.txt",
+      "bytes": 64,
+      "sha256": "b4236ee0e29ca5ced0f5f1504fb991a9504873e830a382e0f267c193e56307a9"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/wrong_key.snapshot.txt",
+      "bytes": 762,
+      "sha256": "d3065a8027105a10d9d77db4d3d12ad82677412bafee46d58f0df86621adf77b"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/wrong_key.stderr.txt",
+      "bytes": 241,
+      "sha256": "ae2e795e1e13802fe7c57f65f2bf4932b2b47069a2afbb59178f4e9164ce78cb"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/wrong_key.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/wrong_map-command.json",
+      "bytes": 553,
+      "sha256": "8e8f9140693e1b9397f6e854213014e938afaffb4004e0871e7ceae73c7829d3"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/wrong_map.rc.txt",
+      "bytes": 1,
+      "sha256": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/wrong_map.self-reported-sha.txt",
+      "bytes": 64,
+      "sha256": "2bf81c073cc7c53f5d48431c6cd5aee71bbb37d694b77fa556288496300641b4"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/wrong_map.snapshot.txt",
+      "bytes": 762,
+      "sha256": "dbd948ee4328f0b8f0a672e4644f9031e2bf273c85e3d78d45f7339917e03e2b"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/wrong_map.stderr.txt",
+      "bytes": 241,
+      "sha256": "ae2e795e1e13802fe7c57f65f2bf4932b2b47069a2afbb59178f4e9164ce78cb"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/wrong_map.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/wrong_note-command.json",
+      "bytes": 554,
+      "sha256": "8bffdc48879ad32839b9b7b91e37fcadbba66de89f788fb588213d194fba3a72"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/wrong_note.rc.txt",
+      "bytes": 1,
+      "sha256": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/wrong_note.self-reported-sha.txt",
+      "bytes": 64,
+      "sha256": "4d1756ee5362519548cf91a38daef350d22c327a477357a1bc5b7ab1cedcc50a"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/wrong_note.snapshot.txt",
+      "bytes": 758,
+      "sha256": "3a6e1a73e022fdb6cf32cbce65bf33026023c36541eba02d76c9c1811a57a5b8"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/wrong_note.stderr.txt",
+      "bytes": 241,
+      "sha256": "ae2e795e1e13802fe7c57f65f2bf4932b2b47069a2afbb59178f4e9164ce78cb"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/wrong_note.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/wrong_pdb-command.json",
+      "bytes": 553,
+      "sha256": "2e5206653f46b2f59ad3652d906cd669fa7287e562b9c83befa9338daaa90575"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/wrong_pdb.rc.txt",
+      "bytes": 1,
+      "sha256": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/wrong_pdb.self-reported-sha.txt",
+      "bytes": 64,
+      "sha256": "2f79429ebde0a1be2e4d1a73c9d1a2583ddeab3165852cd6802a972885a3bf00"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/wrong_pdb.snapshot.txt",
+      "bytes": 762,
+      "sha256": "8237db3beb3bcdf20bac542dcc2a9d5fa3a2999942aa5905efe3092579c6c459"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/wrong_pdb.stderr.txt",
+      "bytes": 241,
+      "sha256": "ae2e795e1e13802fe7c57f65f2bf4932b2b47069a2afbb59178f4e9164ce78cb"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/wrong_pdb.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/wrong_scn-command.json",
+      "bytes": 553,
+      "sha256": "5335cc9fc83aef8efa1eed2badd19061e0f36bd50f4354af0f42a46617d90b67"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/wrong_scn.rc.txt",
+      "bytes": 1,
+      "sha256": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/wrong_scn.self-reported-sha.txt",
+      "bytes": 64,
+      "sha256": "00432101260635a26da634a4b949ccfa16c0992384085944fc0e84a9f9d9d540"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/wrong_scn.snapshot.txt",
+      "bytes": 762,
+      "sha256": "87d9a61ae905c9d122b0c1dbd1c8540c04bd38bcfddc5b3ce2fc1a4dd3f86974"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/wrong_scn.stderr.txt",
+      "bytes": 241,
+      "sha256": "ae2e795e1e13802fe7c57f65f2bf4932b2b47069a2afbb59178f4e9164ce78cb"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/wrong_scn.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/wrong_source-command.json",
+      "bytes": 556,
+      "sha256": "dd2b3a899de3beb3e24ee02c5c8ae1542711f9aad9ee866359db664b968e3eb6"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/wrong_source.rc.txt",
+      "bytes": 1,
+      "sha256": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/wrong_source.self-reported-sha.txt",
+      "bytes": 64,
+      "sha256": "55419c368633b411004197a1b9854bc3cc8b330a613b1f1dbd9f5fd21a2c4bfc"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/wrong_source.snapshot.txt",
+      "bytes": 762,
+      "sha256": "ce890efb6601dab5ff7966b56eed8e5512f0f28edb872728251192e0e1ea4d80"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/wrong_source.stderr.txt",
+      "bytes": 241,
+      "sha256": "ae2e795e1e13802fe7c57f65f2bf4932b2b47069a2afbb59178f4e9164ce78cb"
+    },
+    {
+      "path": "lab/out/release-frozen-baseline/wrong_source.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/seal-frozen-baseline.py",
+      "bytes": 2432,
+      "sha256": "9e78529d1f89d597fb6dd650f593f219ea87570377ecceb411678ebaccb6d8e4"
+    },
+    {
+      "path": "lab/out/verify-frozen-baseline-resume.py",
+      "bytes": 3148,
+      "sha256": "a8e9553aebf70369d58e85818674fd43d1f77607352e249980efa55463543057"
+    },
+    {
+      "path": "lab/out/verify-frozen-baseline.py",
+      "bytes": 3377,
+      "sha256": "a987ed474f15b83b88ecc5ed699240c43ede59bebfec7d2265a024b363437371"
+    }
+  ]
+}
