@@ -11,12 +11,14 @@
 | W2 record/vector | 通过：首批fa61476 | 通过：19c seq8/9完整dump、21c选定范围 | 待证：事务/字典 | 未开始 | 待证 | 未开始 |
 | W3 基础行/类型 | 进行中：scalar + pair + KDOM2单列扩展值 | 通过：18pair/302长值patch；完整行待证 | 进行中：物理配对；字典/基线待证 | 未开始 | 待证 | 未开始 |
 | W4 事务/回滚 | 进行中：有序history/覆盖/heap+index补偿、同源完整XID归属及有源位置重放 | 通过：203测试；seq21—24自主发现基线/A/B共12物理图；自主对象头关联；seq19—24六位置、seq21—24有限双上下文完整图与拒绝证据；九笔旧图及六批长heap证据保留 | 进行中：有界自主物理入口已交付；完整控制/页维护/跨块关联/恢复待证；不当通用生产能力 | 未开始 | 待证 | 未开始 |
-| W5 SCN字典/基线 | 进行中：extent/完整行及实际只读ASOF获取、可信获取SHA导入；typed世代待实现 | 通过：217测试；真实snapshot2341293查询/原始身份/native零差异，原回执下9篡改拒绝；seq25三次行/两快照证据保留。直填基线RETURN_FOR_FIX、生产可信交接/历史字典待证 | 进行中：实际不同logical/data世代可导入，旧重建scope仍拒绝；typed角色及新DML链路待证 | 未开始 | 待证 | 未开始 |
+| W5 SCN字典/基线 | 进行中：extent/完整行、实际ASOF获取/回执导入及typed heap/index世代链路 | 通过：223测试；seq27真实TXT/PK两次完整行、两SQL快照与4/0/4物理图native零差异，角色/回执/3 raw拒绝；初始跨snapshot、生产可信交接/历史字典待证 | 进行中：获取snapshot2341293→不同logical/data世代新DML完整行链路通过；通用历史schema/初始边界/rollback/并发待证 | 未开始 | 待证 | 未开始 |
 | W6 StreamHouse接入 | 未开始 | 待证 | 未开始 | 未开始 | 待证 | 未开始 |
 | W7 online采集 | 进行中：固定member有界观察journal实验 | 通过：429归档数据块字节覆盖、6派生拒绝；完整持续捕获/续接/Windows/ASM待证 | 未开始：journal到解析/ACK | 未开始 | 待证 | 未开始 |
 | W8-W11 扩展类型/LOB/RAC/ASM/TDE | 未开始 | 待证 | 未开始 | 未开始 | 待证 | 未开始 |
 
 ## 当前证据
+
+最新：[W5 typed世代与获取基线完整行链路](DELIVERY_W5_TYPED_REPLAY_20261004.md)，运行时4afea7f、实验1c7106f，[清单](evidence/DELIVERY-typed-replay-20261004.json)。223测试通过；专属既有项目表一次性CAS TXT再PK UPDATE，同XID2.9.595冻结seq27 SHA061b8b3d…；实际获取snapshot2341293经回执/typed scope直接重建两次完整before/after，native及旧ASOF/最终SQL两快照零差异。完整1事务4/0/4物理图零差异。错角色/旧epoch/错logical/原回执改键及3重封checksum原始派生均rc1/stdout0；比较器5反例检出，同件jar seq15长值120/120/0、seq24三图10/4/6回归通过，events拒绝。范围外未知flags、真实short KDOM2首轮拒绝和错误控制字候选均保全，只修读取/解析不重放DML。控制字0短正长度XA已支持，NULL/short XR未证；接续真实初始跨snapshot边界，再攻INSERT/DELETE/rollback/并发完整行，生产可信交接/历史字典/CDC/capture/接入/现场/发布仍待证。
 
 最新：[W5真实只读基线获取/回执导入](DELIVERY_W5_FROZEN_BASELINE_20261004.md)，运行时/获取脚本b1ff3af、比较器014297a，[清单](evidence/DELIVERY-frozen-baseline-20261004.json)。217测试通过；专属现有表只读获取snapshot2341293、完整1行/3列，与实际SQL输出及raw/native5身份字段零差异。原获取SHA下9份未改键/值/SCN/source/map/世代/漏行/截断篡改均rc1/stdout0，即使副本自报新SHA仍拒绝。伪造回执authority也可授权伪键，独立比较器2差异，明确可信控制进程边界，不能宣称SHA认证签发者。实际heap73073→73076/index73074→73075导入保留角色，旧equal-object重建scope拒绝，events拒绝。首次比较器SCN标志位错误rc1保全，只补比较器与未执行项；没有DML/DDL/归档或数据库配置改变。接续[typed角色与新DML链路派单](DISPATCH_W5_TYPED_OBJECT_SCOPE_20261004.md)，生产可信获取交接/历史字典/CDC/capture/接入/现场/发布仍待证。
 

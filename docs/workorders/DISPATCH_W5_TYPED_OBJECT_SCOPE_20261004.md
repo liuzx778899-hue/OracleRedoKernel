@@ -1,6 +1,6 @@
 # W5 typed世代scope与获取基线到原始redo链路
 
-状态：待实现。实际只读snapshot2341293已取得，heap73073→73076/index73074→73075，旧equal-object接口正确拒绝。接续原基线来源派单，不能以取得文件标完整验收。
+状态：typed scope及snapshot→新DML有限链路已交付，见[交付](DELIVERY_W5_TYPED_REPLAY_20261004.md)；初始跨snapshot等尚待证，接续[真实边界派单](DISPATCH_W5_SNAPSHOT_BOUNDARY_20261004.md)。不能以固定fixture通过标整个W5完成。
 
 1. 增加明确heap/index角色的logical/data-object映射，先在自主对象发现逐项验证原undo及补偿的完整(objectId,dataObjectId)对。禁止把四ID塞进Set后放宽原拒绝；错heap/index交叉role、旧epoch、未知scope一律整批拒绝。保留等值旧scope及其已通过证据。
 2. physical dispatcher、index leaf position及完整行row key一并使用该typed映射；不能只改发现器导致后续层仍把logical当data。映射同时绑定获取source/PDB/SCN/物理列，角色来自真实获取结果，历史区间认证仍独立待证。
