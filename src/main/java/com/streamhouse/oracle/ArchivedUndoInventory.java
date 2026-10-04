@@ -12,9 +12,11 @@ public final class ArchivedUndoInventory {
     public record Entry(Position position,UndoHeader identity,int opcodeMajor,int opcodeMinor,long previousDba,int rci) {}
     private final List<ArchivedRedo.Header> sources;
     private final List<Entry> entries;
+    private final long containerUid,containerId;
 
-    private ArchivedUndoInventory(List<ArchivedRedo.Header> sources,List<Entry> entries) {
+    private ArchivedUndoInventory(List<ArchivedRedo.Header> sources,List<Entry> entries,long containerUid,long containerId) {
         this.sources=List.copyOf(sources);this.entries=List.copyOf(entries);
+        this.containerUid=containerUid;this.containerId=containerId;
     }
 
     /** Owns the complete record traversal; callers cannot certify a supplied vector subset. */
@@ -52,11 +54,13 @@ public final class ArchivedUndoInventory {
             sources.add(header);
         }
         if (entries.isEmpty()) throw new RedoException("TARGET_UNDO_NOT_FOUND");
-        return new ArchivedUndoInventory(sources,entries);
+        return new ArchivedUndoInventory(sources,entries,containerUid,containerId);
     }
 
     public List<ArchivedRedo.Header> sources() { return sources; }
     public List<Entry> entries() { return entries; }
+    public long containerUid() { return containerUid; }
+    public long containerId() { return containerId; }
 
     /** Exact position/order coverage only; a pass does not prove links, commit, or surviving effects. */
     public void requireCompleteSelection(List<Position> selected) throws RedoException {

@@ -5,7 +5,7 @@ rows=[s.split('|') for s in Path(sys.argv[2]).read_text(encoding='utf-8-sig').sp
 actual={tuple(map(int,r[1:4])):r for r in rows if r[0]=='NODE'}
 x=tuple(map(int,sys.argv[3].split('.')))
 expected_nodes=int(sys.argv[4]) if len(sys.argv)>4 else 120
-expected={};cross=historical_differences=0;blocks=set();end_tails=[]
+expected={};cross=historical_differences=0;blocks=set();end_tails=[];rollback_ends=[];segment=None
 for record in re.split(r'(?=REDO RECORD - Thread:)',Path(sys.argv[1]).read_text(encoding='utf-8')):
     if not record.startswith('REDO RECORD - Thread:') or 'CON_UID: 677737149' not in record.splitlines()[0]:continue
     rba=re.search(r'RBA: 0x[0-9a-f]+\.([0-9a-f]+)\.([0-9a-f]+)',record)
@@ -13,6 +13,10 @@ for record in re.split(r'(?=REDO RECORD - Thread:)',Path(sys.argv[1]).read_text(
         h=re.search(r'CHANGE #(\d+) CON_ID:3 [^\n]*DBA:0x([0-9a-f]+)[^\n]*OP:5\.1\b',change)
         xid=re.search(r'xid:\s*0x([0-9a-f]+)\.([0-9a-f]+)\.([0-9a-f]+)',change)
         if not h or not xid or tuple(int(xid[i],16) for i in (1,2,3))!=x:continue
+        if 'Begin trans' in change:
+            starts=[int(start[1],16) for c in re.split(r'(?=CHANGE #\d+)',record)[1:] if (start:=re.search(r'CON_ID:3 [^\n]*DBA:0x([0-9a-f]+)[^\n]*OP:5\.2\b',c)) and re.search(r'ktudh redo: slt: 0x'+format(x[1],'04x')+r' sqn: 0x'+format(x[2],'08x'),c)]
+            if len(starts)!=1:raise RuntimeError('native begin segment ambiguity')
+            segment=starts[0]
         b=re.search(r'ktudb redo:[^\n]*seq: 0x([0-9a-f]+) rec: 0x([0-9a-f]+)',change)
         link=re.search(r'prev dba:\s*0x([0-9a-f]+) rci:\s*(\d+)',change)
         uba=(int(h[2],16),int(b[1],16),int(b[2],16));blocks.add(uba[:2])
@@ -27,6 +31,11 @@ for record in re.split(r'(?=REDO RECORD - Thread:)',Path(sys.argv[1]).read_text(
         if key in actual and old!='NONE' and old!=actual[key][5]:historical_differences+=1
     end=re.search(r'ktucm redo: slt: 0x([0-9a-f]+) sqn: 0x([0-9a-f]+) srt: 0 sta: 9 flg: 0x(?:2|12) ktucf redo: uba: 0x([0-9a-f]+)\.([0-9a-f]+)\.([0-9a-f]+)',record)
     if end and (int(end[1],16),int(end[2],16))==x[1:]:end_tails.append(':'.join(str(int(end[i],16)) for i in (3,4,5)))
+    for c in re.split(r'(?=CHANGE #\d+)',record)[1:]:
+        h=re.search(r'CON_ID:3 [^\n]*DBA:0x([0-9a-f]+)[^\n]*OP:5\.4\b',c)
+        e=re.search(r'ktucm redo: slt: 0x([0-9a-f]+) sqn: 0x([0-9a-f]+)[^\n]*flg: 0x(4|14)\b',c)
+        if h and e and int(h[1],16)==segment and (int(e[1],16),int(e[2],16))==x[1:] and 'rolled back transaction' in c:
+            rollback_ends.append([str(int(rba[1],16)),str(int(rba[2],16)),str(int(e[3],16)),sys.argv[3]])
 errors=[]
 for key in actual.keys()|expected.keys():
     row=actual.get(key);direct=None if row is None else [row[4],*row[6:11]]
@@ -37,9 +46,10 @@ for key in actual.keys()|expected.keys():
             if row[5]=='NONE' or int(row[5].split(':')[0])!=previous or rci!=0:errors.append({'position':key,'reason':'CROSS_DBA_DIFF'})
         elif rci and row[5]!=':'.join([*row[4].split(':')[:2],str(rci)]):errors.append({'position':key,'reason':'SAME_BLOCK_REFERENCE_DIFF'})
 actual_end=[r[3] for r in rows if r[0]=='END']
-if len(expected)!=expected_nodes or len(actual)!=expected_nodes or len(rows)!=expected_nodes+1 or actual_end!=end_tails:errors.append({'reason':'COVERAGE_OR_END_TAIL_DIFF'})
+actual_rollback=[r[1:] for r in rows if r[0]=='ROLLBACK']
+if len(expected)!=expected_nodes or len(actual)!=expected_nodes or len(rows)!=expected_nodes+1 or actual_end!=end_tails or actual_rollback!=rollback_ends or len(end_tails)+len(rollback_ends)!=1:errors.append({'reason':'COVERAGE_OR_END_TAIL_DIFF'})
 print(json.dumps({'nodes_direct_fields_compared':len(expected),'undo_block_generations':len(blocks),'cross_dba_references':cross,
                   'historical_ktb_vs_candidate_transaction_predecessor_differences':historical_differences,
-                  'native_end_tail_matches':actual_end==end_tails,'mismatches':len(errors),'errors':errors,
+                  'native_end_tail_matches':actual_end==end_tails if end_tails else None,'native_rollback_ends_compared':len(rollback_ends),'mismatches':len(errors),'errors':errors,
                   'scope':'cross DBA and control identity observed; full cross predecessor sequence/record inferred by experimental cursor, not independently certified'},indent=2))
 sys.exit(bool(errors))

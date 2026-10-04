@@ -26,6 +26,21 @@ class Kdom2UpdateTest {
         byte[] b=kdo(); b[11]=(byte)0x82;
         assertEquals(2,new HeapRowPatch().decode(vector(b,hex("0100"),value()),2).xtype());
     }
+    @Test void shortKtbZRestoresBytesWithoutInventingIdentity() throws Exception {
+        byte[] b=kdo();b[11]=(byte)0x82;
+        for (String ktb:List.of("030d200075230000","030d0001c8001500")) {
+            var v=vector(b,hex("0100"),value());var fields=new java.util.ArrayList<>(v.fields());fields.set(0,hex(ktb));
+            var patch=new HeapRowPatch().decode(new RedoRecords.Vector(11,5,1,11,v.dba(),v.scn(),1,3,fields),2);
+            assertEquals(2,patch.xtype());assertNull(patch.xid());assertNull(patch.uba());
+            assertEquals(900,patch.columns().get(1).bytes().length);
+        }
+    }
+    @Test void shortZCannotClaimXaOrUnprovenHeaderProfile() {
+        for (String ktb:List.of("030d200075230000","030c200075230000","030d20007523")) {
+            var v=vector(kdo(),hex("0100"),value());var fields=new java.util.ArrayList<>(v.fields());fields.set(0,hex(ktb));
+            assertThrows(RedoException.class,()->new HeapRowPatch().decode(new RedoRecords.Vector(11,5,1,11,v.dba(),v.scn(),1,3,fields),2));
+        }
+    }
     @Test void refusesLengthPoisonAndTrailingPayload() {
         byte[] b=value(); b[1]=(byte)0x85;
         assertThrows(RedoException.class,()->new HeapRowPatch().decode(vector(kdo(),hex("0100"),b),2));

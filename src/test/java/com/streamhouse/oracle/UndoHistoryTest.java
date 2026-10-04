@@ -67,4 +67,36 @@ class UndoHistoryTest {
         var wrong=new UndoHistory(input);wrong.append(e.get(0));wrong.append(e.get(1));wrong.append(e.get(2));wrong.compensate(e.get(2).identity());wrong.append(e.get(3));wrong.append(e.get(4));
         assertThrows(RedoException.class,()->wrong.close(e.get(3).identity().uba()));
     }
+    UndoHistory fullyUndone(ArchivedUndoInventory input) throws Exception {
+        var e=input.entries();var h=new UndoHistory(input);
+        h.append(e.get(0));h.append(e.get(1));h.append(e.get(2));h.compensate(e.get(2).identity());
+        h.append(e.get(3));h.append(e.get(4));
+        for (int i:new int[]{4,3,1,0}) h.compensate(e.get(i).identity());
+        return h;
+    }
+    TransactionLifecycle.ClosedIdentity rollback(long uid,long con,long seq,boolean rolledBack) {
+        return new TransactionLifecycle.ClosedIdentity(new HeapRowPatch.Xid(10,5,seq),uid,con,100,110,rolledBack);
+    }
+    @Test void fullRollbackClosesEmptyHeadWithoutInventingNativeTail() throws Exception {
+        var input=inventory();var h=fullyUndone(input);var result=h.closeRollback(rollback(9,3,1133,true));
+        assertTrue(result.live().isEmpty());assertNull(result.activeHead());assertEquals(5,result.compensated().size());
+        assertEquals(input.entries().get(4).identity().uba(),result.allocationTail());
+        assertEquals("UNDO_HISTORY_ALREADY_CLOSED",assertThrows(RedoException.class,()->h.closeRollback(rollback(9,3,1133,true))).getMessage());
+    }
+    @Test void rollbackRequiresFullIdentityContainerAndRollbackDisposition() throws Exception {
+        var input=inventory();
+        for (var identity:List.of(rollback(8,3,1133,true),rollback(9,4,1133,true),rollback(9,3,1133+65536,true),rollback(9,3,1133,false))) {
+            var h=fullyUndone(input);
+            assertEquals("UNDO_HISTORY_ROLLBACK_IDENTITY_MISMATCH",assertThrows(RedoException.class,()->h.closeRollback(identity)).getMessage());
+            assertEquals("UNDO_HISTORY_ALREADY_REFUSED",assertThrows(RedoException.class,()->h.closeRollback(rollback(9,3,1133,true))).getMessage());
+        }
+    }
+    @Test void missingBeginCompensationOrIncompleteInputCannotCloseRollback() throws Exception {
+        var input=inventory();var e=input.entries();var live=new UndoHistory(input);
+        live.append(e.get(0));live.append(e.get(1));live.append(e.get(2));live.compensate(e.get(2).identity());live.append(e.get(3));live.append(e.get(4));
+        for (int i:new int[]{4,3,1}) live.compensate(e.get(i).identity());
+        assertEquals("UNDO_HISTORY_ROLLBACK_HAS_LIVE_HEAD",assertThrows(RedoException.class,()->live.closeRollback(rollback(9,3,1133,true))).getMessage());
+        var missing=new UndoHistory(input);missing.append(e.get(0));missing.compensate(e.get(0).identity());
+        assertEquals("UNDO_HISTORY_INCOMPLETE_ORIGINAL_INPUT",assertThrows(RedoException.class,()->missing.closeRollback(rollback(9,3,1133,true))).getMessage());
+    }
 }

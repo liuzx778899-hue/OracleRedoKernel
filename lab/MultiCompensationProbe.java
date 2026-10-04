@@ -54,7 +54,10 @@ public class MultiCompensationProbe {
                 var rows=new ArrayList<RedoRecords.Vector>();
                 for(var v:r.vectors())if(heap(v) && new HeapRowPatch().decode(v,2).xtype()==2)rows.add(v);
                 if(rows.size()!=1)throw new RedoException("MULTI_XR_ROW_COUNT");
-                var pair=UndoCompensation.decode(marker).crossesUndoBlock()
+                var compensation=UndoCompensation.decode(marker);
+                var pair=compensation.beginsTransaction()
+                        ? HeapCompensation.matchBegin(r,marker,rows.get(0),history,2,state)
+                        : compensation.crossesUndoBlock()
                         ? HeapCompensation.matchCross(r,marker,rows.get(0),history,2,state)
                         : HeapCompensation.match(r,marker,rows.get(0),history,2);state.requireActive(r,pair);
                 int index=history.indexOf(pair);
@@ -67,7 +70,13 @@ public class MultiCompensationProbe {
             }
             for(var v:r.vectors())if(v.containerId()==3 && v.opcodeMajor()==5 && v.opcodeMinor()==4 && state.knowsEnd(r,v)) {
                 compensationInventory.requireCompleteSelection(selectedMarkers);
-                var tail=TransactionEnd.undoTail(v);closed[0]=graph.close(tail);edges.add("END|"+r.block()+"|"+r.offset()+"|"+UndoCursorProbe.address(tail));state.end(r,v);ends[0]++;
+                if(TransactionEnd.decode(v).rolledBack()) {
+                    var identity=state.end(r,v);closed[0]=graph.closeRollback(identity);
+                    edges.add("ROLLBACK|"+r.block()+"|"+r.offset()+"|"+TransactionEnd.decode(v).flags()+"|"+args[2]);
+                } else {
+                    var tail=TransactionEnd.undoTail(v);closed[0]=graph.close(tail);edges.add("END|"+r.block()+"|"+r.offset()+"|"+UndoCursorProbe.address(tail));state.end(r,v);
+                }
+                ends[0]++;
             }
         });state.finish();
         if(history.size()!=expectedOriginals || cancelled.size()!=expectedCompensations || ends[0]!=1)throw new RedoException("MULTI_COMPENSATION_COVERAGE_MISMATCH");

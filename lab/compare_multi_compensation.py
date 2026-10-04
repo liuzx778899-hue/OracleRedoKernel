@@ -48,17 +48,22 @@ for record in records:
         if u:
             uba=tuple(int(u[i],16) for i in (1,2,3))
             if uba in originals:forward[uba]=(position(change),value(change))
-expected=[];cancelled=set();cross=0;future_candidates_excluded=0
+expected=[];cancelled=set();cross=0;future_candidates_excluded=0;rollback_ends=0
 for record in records:
     rba=re.search(r'RBA: 0x[0-9a-f]+\.([0-9a-f]+)\.([0-9a-f]+)',record)
     if not rba:continue
     changes=re.split(r'(?=CHANGE #\d+)',record)[1:]
+    for c in changes:
+        end_header=re.search(r'CON_ID:3 [^\n]*DBA:0x([0-9a-f]+)[^\n]*OP:5\.4\b',c)
+        end=re.search(r'ktucm redo: slt: 0x([0-9a-f]+) sqn: 0x([0-9a-f]+)[^\n]*flg: 0x(4|14)\b',c)
+        if end_header and end and int(end_header[1],16)==segment and (int(end[1],16),int(end[2],16))==x[1:] and 'rolled back transaction' in c:rollback_ends+=1
     for change in changes:
         h=re.search(r'CHANGE #\d+ CON_ID:3 [^\n]*DBA:0x([0-9a-f]+)[^\n]*OP:5\.(6|11)\b',change)
         if not h or not re.search(r'objd:\s*'+str(object_id)+r'\b',change):continue
         meta=metadata(change);rows=[c for c in changes if re.search(r'CHANGE #\d+ CON_ID:3 [^\n]*OP:11\.5\b',c) and re.search(r'xtype: XR',c)]
         if len(rows)!=1:raise RuntimeError('native XR count')
-        candidates=[u for u,(m,pos,before,begin) in originals.items() if not begin and m==meta and pos==position(rows[0]) and before==value(rows[0]) and (int(h[1],16)==segment if h[2]=='11' else int(h[1],16)==u[0])]
+        is_begin='Begin trans' in change
+        candidates=[u for u,(m,pos,before,begin) in originals.items() if begin==is_begin and m==meta and pos==position(rows[0]) and before==value(rows[0]) and (int(h[1],16)==segment if h[2]=='11' else int(h[1],16)==u[0])]
         marker_position=(int(rba[1],16),int(rba[2],16))
         future_candidates_excluded+=sum(allocated_at[u]>marker_position for u in candidates)
         candidates=[u for u in candidates if allocated_at[u]<=marker_position]
@@ -87,12 +92,17 @@ if len(sys.argv)>6:
     latest={}
     for row in actual:
         if row[0]=='RETAIN':latest[(int(row[3]),int(row[4]))]=row[5].split(',')[1].split(':')[1]
+    if expected_compensations==expected_originals:
+        if rollback_ends!=1 or retained:errors.append({'reason':'FULL_ROLLBACK_DISPOSITION_DIFF'})
+        for _,pos,before,_ in originals.values():
+            if pos not in latest:latest[pos]=before
     for row_id,pos in locations.items():
         if latest.get(pos)!=truth[row_id]['txt'].encode('utf-8').hex():errors.append({'reason':'FINAL_SQL_ROW_DIFF','id':row_id})
         sql_compared+=1
 print(json.dumps({'original_heap_pairs':len(originals),'cancelled_heap_patches':len(cancelled),'cross_block_compensations':cross,
                   'retained_heap_patches':len(retained),'mismatches':len(errors),'errors':errors,
                   'future_native_candidates_excluded':future_candidates_excluded,
+                  'native_rollback_ends':rollback_ends,
                   'final_sql_rows_compared':sql_compared,
                   'scope':'bounded metadata and exact restored/retained column bytes; full cross-block predecessor graph, index and recovery unaccepted'},indent=2))
 sys.exit(bool(errors))

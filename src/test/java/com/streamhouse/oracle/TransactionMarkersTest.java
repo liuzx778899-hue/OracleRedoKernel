@@ -20,6 +20,26 @@ class TransactionMarkersTest {
         var h=TransactionEnd.decode(vector(4,"1b0000006d040000000000000900000004000000","ea44c16a"));
         assertTrue(h.rolledBack()); assertEquals(1133,h.sequence());
     }
+    @Test void extendedFullRollbackHasNoFabricatedTail() throws Exception {
+        var v=vector(4,"0d00000045020000000000000900000014000000",
+                "000000000100000085d2c16a010000001000000010000000","85d2c16a");
+        var end=TransactionEnd.decode(v);assertTrue(end.rolledBack());assertEquals(581,end.sequence());
+        assertEquals("TRANSACTION_END_HAS_NO_UNDO_TAIL_REFERENCE",assertThrows(RedoException.class,()->TransactionEnd.undoTail(v)).getMessage());
+        for (int offset:new int[]{0,4,8,12,16,20}) {
+            var bad=vector(4,"0d00000045020000000000000900000014000000",
+                    "000000000100000085d2c16a010000001000000010000000","85d2c16a");
+            bad.fields().get(1)[offset]^=1;
+            assertEquals("UNSUPPORTED_TRANSACTION_END_EXTENSION",assertThrows(RedoException.class,()->TransactionEnd.decode(bad)).getMessage());
+        }
+    }
+    @Test void rollbackExtensionCannotBeUsedUnderCommitOrPlainRollbackFlags() {
+        for (int flags:new int[]{0,2,4,0x12}) {
+            var bad=vector(4,"0d00000045020000000000000900000014000000",
+                    "000000000100000085d2c16a010000001000000010000000","85d2c16a");
+            bad.fields().get(0)[16]=(byte)flags;
+            assertThrows(RedoException.class,()->TransactionEnd.decode(bad));
+        }
+    }
     @Test void readsSavepointUndoHeaderWithoutInventingUndoneUba() throws Exception {
         var h=UndoCompensation.decode(vector(6,"401d0100401d010005000000000000000b01052310006d04020d0000",
                 "9010200002000000"));

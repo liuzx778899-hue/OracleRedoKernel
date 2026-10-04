@@ -56,6 +56,17 @@ public final class UndoHistory {
         closed=true;
         return new Result(inventory.entries(),List.copyOf(live),List.copyOf(compensated),allocated,head);
     }
+    /** Caller must verify the end through its source-bound lifecycle and complete compensation input. No native tail is asserted. */
+    public Result closeRollback(TransactionLifecycle.ClosedIdentity identity) throws RedoException {
+        healthy();
+        if (!identity.rolledBack() || !identity.xid().equals(inventory.entries().get(0).identity().xid())
+                || identity.containerUid()!=inventory.containerUid() || identity.containerId()!=inventory.containerId())
+            refuse("UNDO_HISTORY_ROLLBACK_IDENTITY_MISMATCH");
+        if (next!=inventory.entries().size()) refuse("UNDO_HISTORY_INCOMPLETE_ORIGINAL_INPUT");
+        if (head!=null) refuse("UNDO_HISTORY_ROLLBACK_HAS_LIVE_HEAD");
+        closed=true;
+        return new Result(inventory.entries(),List.of(),List.copyOf(compensated),allocated,null);
+    }
     private void healthy() throws RedoException {
         if (failed) throw new RedoException("UNDO_HISTORY_ALREADY_REFUSED");
         if (closed) throw new RedoException("UNDO_HISTORY_ALREADY_CLOSED");
