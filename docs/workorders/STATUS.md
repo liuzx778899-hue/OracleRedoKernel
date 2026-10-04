@@ -18,6 +18,8 @@
 
 ## 当前证据
 
+最新：[实际0x4a开始控制有限交付](DELIVERY_W4_START_4A_20261005.md)，运行时3a3a368、单点probe0287d11、只读前缀导出14cebb5，[清单](evidence/DELIVERY-start-4a-20261005.json)。231测试通过；真实38:14:16原始4a/record1/size176/parent0精确同record begin UBA绑定，完整XID10.17.1678与native一致，五重封字段反例scan0/start拒绝stdout0。旧seq30/31/32完整行native回归及真实初始边界拒绝通过。原38/39在4a通过后遇未发现补偿；只读补37及全范围dump后到达真实B LKR锁行opcode拒绝，physical/rows仍rc1/stdout0；并发完整图/行未通过。下一步冻结LKR节点覆盖与非业务值变化语义，不能忽略锁节点，已提交源动作不重放。源表当前11/blocking-closed/new-note；capture/接入/现场/发布仍待证。
+
 最新：[真实同一行锁等待样本及解析拒绝](RESEARCH_W5_BLOCKING_ROWS_20261005.md)，源57bb80f→b7a49ac，复用55c331a，生产代码未改，[清单](evidence/RESEARCH-blocking-rows-20261005.json)。新r2实际snapshot2362439后A两更新、B先SELECT FOR UPDATE，独立v$session证明TX row lock WAITING及A阻塞者绑定，等待时旧值可见；A/B完整XID10.17.1678/10.22.1675均提交rc0，seq38/39冻结，最终一行11/blocking-closed/new-note。physical/rows均UNSUPPORTED_TRANSACTION_START_FLAGS_OR_PARENT rc1/stdout0，native A begin38:14:16 flags0x4a未支持，不能算同key逻辑行通过。首次PRIOR变量导致B语法失败、A回滚，未提交，原目录保留；仅新目录提交实验一次，不重放。下一步只读修真实0x4a开始控制/UBA/parent门禁及完整物理图，再完整三行native/SQL对账；capture/接入/现场/发布仍待证。
 
 最新：[基线之后真实rollback-only空批次](DELIVERY_W5_ROLLBACK_ONLY_20261005.md)，源8da2f77、独立lab d9baca0，复用55c331a/229测试制品不重复构建，[清单](evidence/DELIVERY-rollback-only-20261005.json)。实际snapshot2361733 SHA5f42117b…之后自有XID10.21.1675对ID11两次CAS UPDATE后完整ROLLBACK，无commit；seq36 SHAd7c65405…冻结。物理2/2/0与native完整位置/UBA/取消图零差异，真实begin/end均在基线后，行变化0/完整一行与旧ASOF/回滚后/最终三SQL快照零差异。五重封raw scan通过而physical/rows rc1/stdout0，缺取消、错恢复值、缺end不能按rollback flag跳过；三个比较器反例检出，events拒绝。源码生成器语法失败在源执行前保全；唯一源动作未重放，原行恢复concurrent-closed/new-note。下一步真实同一行阻塞、无目标静默覆盖与index-only指定分支；持续capture/ACK/接入/现场/发布仍待证。
