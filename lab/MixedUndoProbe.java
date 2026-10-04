@@ -19,7 +19,7 @@ public class MixedUndoProbe {
             if (!multiFixture) throw new IllegalArgumentException("MULTI_FIXTURE_REQUIRED");
             leafInventory.requireCompleteSelection(leafInventory.entries().stream().filter(e->e.position().vector()!=5).map(ArchivedIndexLeafInventory.Entry::position).toList());
         }
-        var leafPositions=leafInventory==null ? null : new IndexLeafPositions(leafInventory);
+        var leafPositions=leafInventory==null ? null : IndexLeafPositions.read(paths,677737149,3,xid,indexObject,leafInventory.leafDba());
         var graph=new UndoHistory(inventory.undo());var state=new TransactionLifecycle();
         var heaps=new ArrayList<HeapUndoPair>();var indexes=new ArrayList<IndexUndoPair>();
         var markers=new ArrayList<ArchivedUndoInventory.Position>();var output=new ArrayList<String>();

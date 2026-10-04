@@ -1,12 +1,67 @@
 package com.streamhouse.oracle;
 
-/** Owned leaf position replay for intervening INSERTs. Other intervening operations remain refused. */
+/** Owned leaf position replay. Cancellation and current undo head require a separate graph proof. */
 public final class IndexLeafPositions {
     private final ArchivedIndexLeafInventory inventory;
+    private final boolean fullReplay;
     private ArchivedUndoInventory.Position lastMatched;
     private boolean failed;
 
-    public IndexLeafPositions(ArchivedIndexLeafInventory inventory) { this.inventory=inventory; }
+    public IndexLeafPositions(ArchivedIndexLeafInventory inventory) { this(inventory,false); }
+    private IndexLeafPositions(ArchivedIndexLeafInventory inventory,boolean fullReplay) { this.inventory=inventory;this.fullReplay=fullReplay; }
+
+    /** Owns both physical leaf coverage and full-XID original-header association traversal. */
+    public static IndexLeafPositions read(java.util.List<java.nio.file.Path> paths,long uid,long container,HeapRowPatch.Xid xid,
+                                          long indexObject,long leafDba) throws java.io.IOException {
+        var leaf=ArchivedIndexLeafInventory.read(paths,uid,container,xid,indexObject,leafDba);
+        var associations=ArchivedCompensationAssociations.read(paths,uid,container,xid);
+        if (!leaf.window().undo().sources().equals(associations.window().undo().sources())
+                || !leaf.window().entries().equals(associations.window().entries()))
+            throw new RedoException("INDEX_POSITION_ASSOCIATION_SOURCE_CHANGED");
+        var entries=leaf.entries();var cancelled=new java.util.HashSet<Integer>();
+        for (int i=0;i<entries.size();i++) {
+            var e=entries.get(i);if (e.marker()==null) continue;
+            ArchivedCompensationAssociations.Entry association=null;
+            for (int j=0;j<associations.entries().size();j++) {
+                var a=associations.entries().get(j);var m=associations.window().entries().get(j);
+                if (!sameRecord(e.position(),a.position()) || !m.marker().equals(e.marker())) continue;
+                if (association!=null) throw new RedoException("AMBIGUOUS_INDEX_POSITION_ASSOCIATION");
+                association=a;
+            }
+            if (association==null) throw new RedoException("MISSING_INDEX_POSITION_ASSOCIATION");
+            int original=-1;
+            for (int j=0;j<i;j++) {
+                var o=entries.get(j);
+                if (!association.original().equals(o.original()) || !sameRecord(o.position(),association.originalPosition())) continue;
+                if (original!=-1) throw new RedoException("AMBIGUOUS_INDEX_POSITION_ROLLBACK_ORIGINAL");
+                original=j;
+            }
+            if (original<0) throw new RedoException("INDEX_POSITION_ROLLBACK_ORIGINAL_OUTSIDE_LEAF_WINDOW");
+            var o=entries.get(original);
+            if ((e.kind()==IndexUndoPair.Kind.PURGE ? IndexUndoPair.Kind.INSERT : IndexUndoPair.Kind.DELETE)!=o.kind()
+                    || e.itl()!=o.itl() || e.rowSize()!=o.rowSize() || replaySlot(entries,original,i)!=e.slot())
+                throw new RedoException("INDEX_POSITION_ROLLBACK_PHYSICAL_MISMATCH");
+            if (!cancelled.add(original)) throw new RedoException("INDEX_POSITION_ORIGINAL_ALREADY_CANCELLED");
+        }
+        return new IndexLeafPositions(leaf,true);
+    }
+    private static boolean sameRecord(ArchivedUndoInventory.Position a,ArchivedUndoInventory.Position b) {
+        return a.archiveSequence()==b.archiveSequence() && a.block()==b.block() && a.offset()==b.offset();
+    }
+    static int replaySlot(java.util.List<ArchivedIndexLeafInventory.Entry> entries,int original,int target) throws RedoException {
+        int slot=entries.get(original).slot();
+        for (int i=original+1;i<target;i++) {
+            var e=entries.get(i);
+            if (e.kind()==IndexUndoPair.Kind.INSERT && e.slot()<=slot) {
+                if (slot==65535) throw new RedoException("INDEX_POSITION_SLOT_OVERFLOW");
+                slot++;
+            } else if (e.kind()==IndexUndoPair.Kind.PURGE) {
+                if (e.slot()==slot) throw new RedoException("INDEX_POSITION_TRACKED_ROW_PURGED");
+                if (e.slot()<slot) slot--;
+            }
+        }
+        return slot;
+    }
 
     int slotBefore(IndexUndoPair pair,RedoRecords.Record record,RedoRecords.Vector marker,RedoRecords.Vector row,
                    ArchivedUndoInventory.Position at,TransactionLifecycle state) throws RedoException {
@@ -40,6 +95,7 @@ public final class IndexLeafPositions {
                     || !query.markerSignature().equals(ArchivedIndexLeafInventory.vectorSignature(marker)))
                 throw new RedoException("INDEX_POSITION_QUERY_CHANGED_FROM_OWNED_SOURCE");
             int slot=entries.get(original).slot();
+            if (fullReplay) return replaySlot(entries,original,target);
             for (int i=original+1;i<target;i++) {
                 var e=entries.get(i);
                 if (e.kind()!=IndexUndoPair.Kind.INSERT)

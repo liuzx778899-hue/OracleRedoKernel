@@ -16,7 +16,7 @@ public class IndexSlotShiftProbe {
         var xid=deleteRestore ? new HeapRowPatch.Xid(10,12,1212) : doublePurge ? new HeapRowPatch.Xid(10,20,1240) : higher ? new HeapRowPatch.Xid(10,3,1236) : purge ? new HeapRowPatch.Xid(10,19,1233) : multi ? new HeapRowPatch.Xid(10,29,1230) : new HeapRowPatch.Xid(10,23,1220);
         long object=deleteRestore ? 73072 : doublePurge ? 73070 : higher ? 73068 : purge ? 73066 : multi ? 73064 : 73062,leaf=deleteRestore ? 0x0300018bL : doublePurge ? 0x0300017bL : higher ? 0x0300016bL : purge ? 0x0300015bL : multi ? 0x0300014bL : 0x0300013bL;
         var owned=positioned ? ArchivedIndexLeafInventory.read(List.of(path),677737149,3,xid,object,leaf) : null;
-        var positions=positioned ? new IndexLeafPositions(owned) : null;
+        var positions=positioned ? IndexLeafPositions.read(List.of(path),677737149,3,xid,object,leaf) : null;
         if (positioned && !header.equals(owned.window().undo().sources().get(0))) throw new RedoException("SHIFT_POSITION_INPUT_CHANGED");
         if (mode.equals("omit-foreign-position")) owned.requireCompleteSelection(owned.entries().stream().filter(e->e.original()==null || e.original().xid().equals(xid)).map(ArchivedIndexLeafInventory.Entry::position).toList());
         var state=new TransactionLifecycle();state.archive(header);

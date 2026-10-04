@@ -3,7 +3,7 @@ import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
 
-/** Frozen seq21 routing: proves B's own physical/head graph; A PURGE positioning remains refused. */
+/** Frozen seq21 routing: source-owned positions and independently closed A/B physical/head graphs in full mode. */
 public class ConcurrentRollbackProbe {
     static final HeapRowPatch.Xid A=new HeapRowPatch.Xid(10,19,1233),B=new HeapRowPatch.Xid(9,22,584);
     static class Context {
@@ -22,7 +22,7 @@ public class ConcurrentRollbackProbe {
             this.xid=xid;inventory=ArchivedCompensationInventory.read(List.of(path),677737149,3,xid);
             if (!inventory.undo().sources().equals(List.of(header))) throw new RedoException("ROUTED_CONTEXT_SOURCE_CHANGED");
             graph=new UndoHistory(inventory.undo());
-            positions=new IndexLeafPositions(ArchivedIndexLeafInventory.read(List.of(path),677737149,3,xid,73066,0x0300015bL));
+            positions=IndexLeafPositions.read(List.of(path),677737149,3,xid,73066,0x0300015bL);
             state.archive(header);
         }
         void originals(RedoRecords.Record r,long seq,String mode) throws Exception {
@@ -89,7 +89,7 @@ public class ConcurrentRollbackProbe {
                     inventory.requireCompleteSelection(markers);
                     var result=graph.closeRollback(identity);closed=true;
                     for (var e:result.live())output.add("LIVE|"+address(e.identity().uba())+"|"+e.identity().dataObjectId());
-                    System.err.println("ROUTED_B_CLOSED|"+result.original().size()+"|"+result.compensated().size()+"|"+result.live().size());
+                    System.err.println("ROUTED_CLOSED|"+xid+"|"+result.original().size()+"|"+result.compensated().size()+"|"+result.live().size());
                 }
             }
         }
@@ -113,20 +113,22 @@ public class ConcurrentRollbackProbe {
                     var e=associations.associate(header,r,v,at);var h=e.original();
                     output.add("ASSOC|"+CompensationAssociationProbe.position(at)+"|"+e.xid().usn()+"."+e.xid().slot()+"."+e.xid().sequence()+"|"+CompensationAssociationProbe.position(e.originalPosition())+"|"+address(h.uba())+"|"+h.objectId()+"|"+h.dataObjectId()+"|"+h.beginsTransaction());
                     if (e.xid().equals(B)) {
+                        if (mode.equals("full")) a.markers.add(at);
                         if (mode.equals("omit_B_cancel") && h.dataObjectId()==73066)continue;
                         (mode.equals("wrong_owner") ? a : b).compensate(r,v,header.sequence(),e,mode);
                     } else if (e.xid().equals(A)) {
                         if (mode.equals("full")) a.compensate(r,v,header.sequence(),e,mode);
                     } else throw new RedoException("ROUTED_UNKNOWN_OWNER");
                 }
-                b.end(r,true);a.end(r,false);
+                b.end(r,true);a.end(r,mode.equals("full"));
             } catch (java.io.IOException e) {throw e;} catch (Exception e) {throw new java.io.IOException(e);}
         });
         associations.finish();a.state.finish();b.state.finish();
-        if (!b.closed || a.ends!=1 || b.ends!=1 || a.next!=a.inventory.undo().entries().size() || b.next!=b.inventory.undo().entries().size())throw new RedoException("ROUTED_WINDOW_COVERAGE_INCOMPLETE");
+        if (!b.closed || (mode.equals("full") && !a.closed) || a.ends!=1 || b.ends!=1 || a.next!=a.inventory.undo().entries().size() || b.next!=b.inventory.undo().entries().size())throw new RedoException("ROUTED_WINDOW_COVERAGE_INCOMPLETE");
         if (!header.equals(new ArchivedRedo().scan(path)))throw new RedoException("ROUTED_SOURCE_CHANGED");
+        if (mode.equals("full")) output.addAll(a.output);
         output.addAll(b.output);output.forEach(System.out::println);
-        System.err.println("A_physical_graph_not_processed;foreign_B_graph_verified;cdc_events=0");
+        System.err.println((mode.equals("full") ? "A_and_B_physical_graph_verified" : "A_physical_graph_not_processed;foreign_B_graph_verified")+";cdc_events=0");
     }
     static ArchivedUndoInventory.Position position(long seq,RedoRecords.Record r,RedoRecords.Vector v) {return new ArchivedUndoInventory.Position(seq,r.block(),r.offset(),r.vectors().indexOf(v)+1);}
     static String address(HeapRowPatch.Uba u) {return u.dba()+":"+u.sequence()+":"+u.record();}
