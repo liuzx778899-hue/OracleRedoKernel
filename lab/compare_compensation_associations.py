@@ -52,6 +52,8 @@ for c in markers:
         if w['first']<=c['at'][:3]<=w['last']:matches.append(u)
     if len(matches)!=1:raise RuntimeError('NATIVE_ASSOCIATION_NOT_UNIQUE')
     u=matches[0];expected.append(['ASSOC',':'.join(map(str,c['at'])),'.'.join(map(str,u['xid'])),':'.join(map(str,u['at'])),':'.join(map(str,u['uba'])),str(u['meta'][7]),str(u['meta'][8]),str(u['begin']).lower()])
+if sys.argv[2]=='--native-only':
+    print(json.dumps({'target':'.'.join(map(str,target)),'native_associations':expected,'scope':'native-only complete full-XID header associations; not head or cancellation authorization'},indent=2));sys.exit(0)
 actual=[line.split('|') for line in Path(sys.argv[2]).read_text(encoding='utf-8-sig').splitlines()];errors=[]
 if actual!=expected:errors.append({'expected':expected,'actual':actual})
 print(json.dumps({'target':'.'.join(map(str,target)),'native_associations':len(expected),'foreign_associations':sum(e[2]!='.'.join(map(str,target)) for e in expected),'mismatches':len(errors),'errors':errors,'scope':'source/full-XID/original header association only; head, physical match and full DML unaccepted','cdc_events':0},indent=2));sys.exit(bool(errors))

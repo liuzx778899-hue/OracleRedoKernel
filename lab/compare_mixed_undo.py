@@ -1,10 +1,15 @@
 """Native selected full-XID heap/index allocation and compensation history, without Java input."""
-import json,re,sys
+import json,re,sys,subprocess
 from pathlib import Path
-args=sys.argv[1:];restore_fixture=args[0]=='--restore-fixture';slot_fixture=args[0]=='--slot-fixture';multi_fixture=args[0]=='--multi-fixture';purge_fixture=args[0]=='--purge-fixture';higher_fixture=args[0]=='--higher-fixture';delete_restore_fixture=args[0]=='--delete-restore-fixture';double_purge_fixture=args[0]=='--double-purge-fixture'
+args=sys.argv[1:];concurrent_fixture=args[0]=='--concurrent-fixture';restore_fixture=args[0]=='--restore-fixture';slot_fixture=args[0]=='--slot-fixture';multi_fixture=args[0]=='--multi-fixture';purge_fixture=args[0]=='--purge-fixture' or concurrent_fixture;higher_fixture=args[0]=='--higher-fixture';delete_restore_fixture=args[0]=='--delete-restore-fixture';double_purge_fixture=args[0]=='--double-purge-fixture'
 if restore_fixture or slot_fixture or multi_fixture or purge_fixture or higher_fixture or delete_restore_fixture or double_purge_fixture:args=args[1:]
 objects=(73069,73070) if double_purge_fixture else (73071,73072) if delete_restore_fixture else (73067,73068) if higher_fixture else (73065,73066) if purge_fixture else (73063,73064) if multi_fixture else (73061,73062) if slot_fixture else (73059,73060) if restore_fixture else (73024,73025)
 xid=tuple(map(int,args[0].split('.')));expected=[];history=[];nodes=[];active=False;ends=0;segment=None
+owned_markers=None
+if concurrent_fixture:
+    proof=subprocess.run([sys.executable,str(Path(__file__).with_name('compare_compensation_associations.py')),args[0],'--native-only',*args[2:]],capture_output=True,check=True)
+    associations=json.loads(proof.stdout)['native_associations']
+    owned_markers={tuple(map(int,e[1].split(':'))) for e in associations if e[2]==args[0]}
 def metadata(change):
     m=re.search(r'(?:ktubu|ktubl) redo: slt: (\d+) wrp: (\d+) flg: 0x([0-9a-f]+) prev dba:\s*0x([0-9a-f]+) rci: (\d+) opc: (\d+)\.(\d+) \[objn: (\d+) objd: (\d+) tsn: (\d+)\]',change)
     return [int(m[i],16 if i in (3,4) else 10) for i in range(1,11)] if m else None
@@ -40,6 +45,7 @@ for filename in args[2:]:
         if active:
             for h,change in changes:
                 if h[3] not in ('5.6','5.11'):continue
+                if owned_markers is not None and tuple(position)+(int(h[1]),) not in owned_markers:continue
                 m=metadata(change)
                 if not m or m[8] not in objects:raise RuntimeError('UNSUPPORTED_NATIVE_WINDOW_COMPENSATION')
                 candidates=[n for n in nodes if n['meta'][0]==m[0] and n['meta'][3:]==m[3:] and
