@@ -38,4 +38,13 @@ class HeapIndexScopeTest {
         assertThrows(IllegalArgumentException.class,()->new HeapIndexScope(new HeapIndexScope.Generation(42,43),new HeapIndexScope.Generation(44,43)));
         assertThrows(IllegalArgumentException.class,()->new HeapIndexScope(new HeapIndexScope.Generation(42,43),new HeapIndexScope.Generation(43,45)));
     }
+    @Test void opaqueOutsideMarkerCanBeExcludedButActiveWindowStillRefusesIt() throws Exception {
+        var raw=java.util.Arrays.copyOf(fixture(43,43),3584);put(raw,24,6,4);put(raw,668,7,4);
+        var outside=f.marker(32,0x024000ff);put(outside.fields().get(0),0,1,4);put(outside.fields().get(0),4,0xffffffffL,4);put(outside.fields().get(0),20,17,2);
+        f.records.record(raw,6,150,List.of(outside));for(int i=0;i<raw.length;i+=512)seal(raw,i);
+        assertEquals(2,ArchivedObjectTransactions.read(paths(raw),677737149,3,scope).transactions().size());
+        var b=f.undo(f.b,0x02402ccc,43);put(b.fields().get(1),4,43,4);
+        f.records.record(raw,3,120,List.of(f.start(f.b,0x02400120,0x02402ccc,43),b,outside));seal(raw,1536);
+        assertEquals("UNSUPPORTED_COMPENSATION_FLAGS",assertThrows(RedoException.class,()->ArchivedObjectTransactions.read(paths(raw),677737149,3,scope)).getMessage());
+    }
 }
