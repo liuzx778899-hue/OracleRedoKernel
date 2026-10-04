@@ -6,14 +6,15 @@ import java.util.List;
 /** Bounded original heap+index fixture graph; complete selected 5.1/compensation inventory, not all redo semantics. */
 public class MixedUndoProbe {
     public static void main(String[] args) throws Exception {
-        boolean restoreFixture=args[0].equals("--restore-fixture");int base=restoreFixture ? 1 : 0;
+        boolean restoreFixture=args[0].equals("--restore-fixture"),slotFixture=args[0].equals("--slot-fixture");int base=restoreFixture || slotFixture ? 1 : 0;
         String[] x=args[base].split("\\.");var xid=new HeapRowPatch.Xid(Integer.parseInt(x[0]),Integer.parseInt(x[1]),Long.parseLong(x[2]));
-        var paths=restoreFixture ? List.of(Path.of(args[2])) : List.of(Path.of(args[1]),Path.of(args[2]));
-        long heapObject=restoreFixture ? 73059 : 73024,indexObject=restoreFixture ? 73060 : 73025;
-        int columns=restoreFixture ? 2 : 4;
+        var paths=restoreFixture || slotFixture ? List.of(Path.of(args[2])) : List.of(Path.of(args[1]),Path.of(args[2]));
+        long heapObject=slotFixture ? 73061 : restoreFixture ? 73059 : 73024,indexObject=slotFixture ? 73062 : restoreFixture ? 73060 : 73025;
+        int columns=restoreFixture || slotFixture ? 2 : 4;
         String mode=args.length>3 ? args[3] : "positive";
         if (!List.of("positive","omit_index_node","wrong_index_purge_slot","wrong_index_leaf_slot","wrong_index_leaf_mode","repeat_index_compensation").contains(mode)) throw new IllegalArgumentException("UNKNOWN_RESEARCH_MODE");
         var inventory=ArchivedCompensationInventory.read(paths,677737149,3,xid);
+        var leafPositions=slotFixture ? new IndexLeafPositions(ArchivedIndexLeafInventory.read(paths,677737149,3,xid,indexObject,0x0300013bL)) : null;
         var graph=new UndoHistory(inventory.undo());var state=new TransactionLifecycle();
         var heaps=new ArrayList<HeapUndoPair>();var indexes=new ArrayList<IndexUndoPair>();
         var markers=new ArrayList<ArchivedUndoInventory.Position>();var output=new ArrayList<String>();
@@ -72,7 +73,9 @@ public class MixedUndoProbe {
                     if (c.dataObjectId()==indexObject) {
                         if (mode.equals("wrong_index_purge_slot") || mode.equals("wrong_index_leaf_slot")) rows.get(0).fields().get(1)[2]^=1;
                         if (mode.equals("wrong_index_leaf_mode")) rows.get(0).fields().get(1)[1]=0;
-                        original=IndexCompensation.match(r,marker,rows.get(0),indexes,state).undo().identity();
+                        var position=new ArchivedUndoInventory.Position(header.sequence(),r.block(),r.offset(),r.vectors().indexOf(rows.get(0))+1);
+                        original=(slotFixture ? IndexCompensation.match(r,marker,rows.get(0),indexes,state,leafPositions,position)
+                                : IndexCompensation.match(r,marker,rows.get(0),indexes,state)).undo().identity();
                     }
                     else if (c.dataObjectId()==heapObject) {
                         var pair=c.beginsTransaction() ? HeapCompensation.matchBegin(r,marker,rows.get(0),heaps,columns,state)

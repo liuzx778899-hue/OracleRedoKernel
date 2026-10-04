@@ -2,13 +2,20 @@ import com.streamhouse.oracle.*;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.HexFormat;
+import java.util.List;
 
 /** Frozen concurrent fixture: raw fields or existing matcher refusal, never CDC events. */
 public class IndexSlotShiftProbe {
     public static void main(String[] args) throws Exception {
-        boolean match=args[0].equals("match");
-        if (!match && !args[0].equals("fields")) throw new IllegalArgumentException("UNKNOWN_MODE");
+        String mode=args[0];boolean positioned=!mode.equals("fields") && !mode.equals("match");
+        if (!List.of("fields","match","position","wrong-position-slot","wrong-position-marker","wrong-position-pair-key",
+                "repeat-position","duplicate-position-original","omit-foreign-position","foreign-position-source").contains(mode)) throw new IllegalArgumentException("UNKNOWN_MODE");
+        boolean match=!mode.equals("fields");
         Path path=Path.of(args[1]);var header=new ArchivedRedo().scan(path);
+        var owned=positioned ? ArchivedIndexLeafInventory.read(List.of(path),677737149,3,new HeapRowPatch.Xid(10,23,1220),73062,0x0300013bL) : null;
+        var positions=positioned ? new IndexLeafPositions(owned) : null;
+        if (positioned && !header.equals(owned.window().undo().sources().get(0))) throw new RedoException("SHIFT_POSITION_INPUT_CHANGED");
+        if (mode.equals("omit-foreign-position")) owned.requireCompleteSelection(owned.entries().stream().filter(e->e.original()==null || e.original().xid().equals(new HeapRowPatch.Xid(10,23,1220))).map(ArchivedIndexLeafInventory.Entry::position).toList());
         var state=new TransactionLifecycle();state.archive(header);
         var xid=new HeapRowPatch.Xid(10,23,1220);
         var pairs=new ArrayList<IndexUndoPair>();var output=new ArrayList<String>();int[] matches={0};
@@ -49,11 +56,24 @@ public class IndexSlotShiftProbe {
                 var c=UndoCompensation.decode(marker);
                 if (c.dataObjectId()!=73062 || c.slot()!=xid.slot() || c.wrap()!=xid.sequence()) continue;
                 for (var row:r.vectors()) if (row.containerId()==3 && row.opcodeMajor()==10 && row.opcodeMinor()==5) {
-                    IndexCompensation.match(r,marker,row,pairs,state);matches[0]++;
+                    var at=new ArchivedUndoInventory.Position(header.sequence(),r.block(),r.offset(),r.vectors().indexOf(row)+1);
+                    if (mode.equals("wrong-position-slot")) row.fields().get(1)[2]^=1;
+                    if (mode.equals("wrong-position-marker")) marker.fields().get(0)[24]^=1;
+                    if (mode.equals("wrong-position-pair-key")) pairs.get(0).undo().key()[2]^=1;
+                    if (mode.equals("foreign-position-source")) at=new ArchivedUndoInventory.Position(header.sequence()+1,r.block(),r.offset(),at.vector());
+                    var candidates=mode.equals("duplicate-position-original") ? List.of(pairs.get(0),pairs.get(0)) : pairs;
+                    var original=positioned ? IndexCompensation.match(r,marker,row,candidates,state,positions,at)
+                            : IndexCompensation.match(r,marker,row,candidates,state);
+                    if (mode.equals("repeat-position")) IndexCompensation.match(r,marker,row,candidates,state,positions,at);
+                    if (positioned) output.add("MATCH|"+header.sequence()+":"+r.block()+":"+r.offset()+":"+(r.vectors().indexOf(row)+1)
+                            +"|"+xid.usn()+"."+xid.slot()+"."+xid.sequence()+"|"+original.undo().identity().uba().dba()+":"+original.undo().identity().uba().sequence()+":"+original.undo().identity().uba().record()
+                            +"|"+IndexCompensation.decodeRollback(row).kind()+"|"+original.forward().slot()+"|"+IndexCompensation.decodeRollback(row).slot());
+                    matches[0]++;
                 }
             }
         });
         if (match && matches[0]!=1) throw new RedoException("SHIFT_MATCH_COUNT");
+        if (!header.equals(new ArchivedRedo().scan(path))) throw new RedoException("SHIFT_POSITION_INPUT_CHANGED_AFTER_TRAVERSAL");
         output.forEach(System.out::println);
         System.err.println("index_shift_vectors="+output.size()+";matches="+matches[0]+";cdc_events=0;complete_transaction_not_accepted");
     }

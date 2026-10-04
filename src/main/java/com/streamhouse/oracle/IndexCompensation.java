@@ -28,7 +28,14 @@ public final class IndexCompensation {
 
     public static IndexUndoPair match(RedoRecords.Record record,RedoRecords.Vector marker,RedoRecords.Vector row,
                                       List<IndexUndoPair> history,TransactionLifecycle state) throws RedoException {
+        return match(record,marker,row,history,state,null,null);
+    }
+    /** Position correction is derived from an owned source inventory, never a caller-supplied slot. */
+    public static IndexUndoPair match(RedoRecords.Record record,RedoRecords.Vector marker,RedoRecords.Vector row,
+                                      List<IndexUndoPair> history,TransactionLifecycle state,IndexLeafPositions positions,
+                                      ArchivedUndoInventory.Position at) throws RedoException {
         try {
+            if (positions!=null && at==null) throw new RedoException("INDEX_POSITION_QUERY_REQUIRED");
             if (!record.vectors().contains(marker) || !record.vectors().contains(row)
                     || marker.containerId()!=row.containerId())
                 throw new RedoException("INDEX_COMPENSATION_RECORD_OR_CONTAINER_MISMATCH");
@@ -46,8 +53,10 @@ public final class IndexCompensation {
                         || h.dataObjectId()!=c.dataObjectId() || h.tablespace()!=c.tablespace()
                         || u.previousDba()!=c.previousDba() || u.predecessorRecord()!=c.predecessorRecord()
                         || u.kind()!=rollback.kind() || f.kind()!=(rollback.kind()==IndexUndoPair.Kind.PURGE ? IndexUndoPair.Kind.INSERT : IndexUndoPair.Kind.DELETE)
-                        || u.block()!=rollback.block() || f.itl()!=rollback.itl() || f.slot()!=rollback.slot()
+                        || u.block()!=rollback.block() || f.itl()!=rollback.itl()
                         || f.rowSize()!=rollback.rowSize()) continue;
+                int slot=positions==null ? f.slot() : positions.slotBefore(pair,record,marker,row,at,state);
+                if (slot!=rollback.slot()) continue;
                 if (match!=null) throw new RedoException("AMBIGUOUS_INDEX_COMPENSATION_ORIGINAL");
                 match=pair;
             }
@@ -57,7 +66,8 @@ public final class IndexCompensation {
                     && v.opcodeMajor()==10 && (v.opcodeMinor()==3 || v.opcodeMinor()==5) && decodeRollback(v).equals(rollback)) rows++;
             if (rows!=1) throw new RedoException("AMBIGUOUS_INDEX_COMPENSATION_LEAF");
             state.requireActive(record,match);
+            if (positions!=null) positions.matched(at);
             return match;
-        } catch (RedoException e) { state.compensationRefused(); throw e; }
+        } catch (RedoException e) { state.compensationRefused();if (positions!=null) positions.refused();throw e; }
     }
 }

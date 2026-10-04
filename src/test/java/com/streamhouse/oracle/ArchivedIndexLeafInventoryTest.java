@@ -19,13 +19,18 @@ class ArchivedIndexLeafInventoryTest {
     byte[] fixture() {
         byte[] bytes=Arrays.copyOf(records.fixture(true,false),3584);put(bytes,24,6,4);put(bytes,668,7,4);
         var row=index.delete();put(row.fields().get(0),10,xid.slot(),2);put(row.fields().get(0),12,xid.sequence(),4);
+        put(row.fields().get(1),2,1,2);
         var undo=index.restoreUndo();put(undo.fields().get(0),10,xid.slot(),2);put(undo.fields().get(0),12,xid.sequence(),4);
         put(undo.fields().get(1),18,xid.slot(),1);put(undo.fields().get(1),22,xid.sequence(),2);
         records.record(bytes,3,120,List.of(row,undo));
-        records.record(bytes,4,125,List.of(index.purgeUndo(),index.insert()));
+        var insert=index.insert();put(insert.fields().get(1),2,1,2);
+        records.record(bytes,4,125,List.of(index.purgeUndo(),insert));
         var p=new IndexCompensationTest().purge();put(p.fields().get(1),2,2,2);
         var restore=new RedoRecords.Vector(10,5,1,12,leaf,130,1,3,p.fields());
         var marker=records.marker(object,3);put(marker.fields().get(0),16,10,1);put(marker.fields().get(0),17,22,1);
+        put(marker.fields().get(0),19,24,1);
+        put(marker.fields().get(0),8,5,4);
+        marker=new RedoRecords.Vector(5,6,36,11,undo.dba(),130,1,3,marker.fields());
         records.record(bytes,5,130,List.of(restore,marker,records.vectors.end(2)));
         records.record(bytes,6,140,List.of(index.purgeUndo(),index.insert()));
         for (int i=0;i<bytes.length;i+=512) seal(bytes,i);

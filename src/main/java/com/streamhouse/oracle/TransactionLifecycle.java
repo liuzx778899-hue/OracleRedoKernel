@@ -156,6 +156,10 @@ public final class TransactionLifecycle {
     }
 
     void compensationRefused() { failed=true; }
+    void requireArchiveSource(ArchivedRedo.Header expected) throws RedoException {
+        checkHealthy();
+        if (!expected.equals(archive)) refuse("INDEX_POSITION_ARCHIVE_SOURCE_MISMATCH");
+    }
 
     public boolean knowsEnd(RedoRecords.Record record,RedoRecords.Vector vector) throws RedoException {
         checkRecord(record);

@@ -24,9 +24,11 @@ public final class HeapRowPatch {
         List<byte[]> fields=vector.fields();
         if (fields.size() < 2) throw new RedoException("MISSING_KTB_KDO_FIELDS");
         byte[] ktb=fields.get(0);
-        // Observed short KTB Z carries no current XID/UBA. Only the proven packed XR update is accepted.
+        // Observed short KTB Z carries no current XID/UBA. Only proven XR row profiles are accepted.
         if (ktb.length==8 && (ktb[0]&255)==3 && (ktb[1]&255)==0x0d) {
-            if (vector.opcodeMinor()!=5 || fields.get(1).length!=28 || (fields.get(1)[11]&255)!=0x82)
+            boolean packedUpdate=vector.opcodeMinor()==5 && fields.get(1).length==28 && (fields.get(1)[11]&255)==0x82;
+            boolean restoredInsert=vector.opcodeMinor()==2 && fields.get(1).length==49 && (fields.get(1)[11]&255)==2;
+            if (!packedUpdate && !restoredInsert)
                 throw new RedoException("UNSUPPORTED_KTB_Z_ROW_PROFILE");
             return decodeKdo(fields,vector.opcodeMinor(),vector.dba(),dictionaryColumns);
         }
