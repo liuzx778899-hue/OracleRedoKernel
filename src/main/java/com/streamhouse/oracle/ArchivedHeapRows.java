@@ -60,8 +60,14 @@ public final class ArchivedHeapRows {
         for (var t:transactions) {
             if (t.identity().beginRecordScn()<=baseline.scn()) throw new RedoException("BASELINE_CROSSES_TRANSACTION_BOUNDARY");
             if (t.identity().beginRecordScn()<=previousEnd) throw new RedoException("UNSUPPORTED_ROW_REPLAY_CONCURRENT_TRANSACTIONS");
-            if (t.identity().rolledBack() || !t.graph().compensated().isEmpty()) throw new RedoException("UNSUPPORTED_ROW_REPLAY_ROLLBACK");
             previousEnd=t.identity().endRecordScn();
+            if (t.identity().rolledBack()) {
+                if (!t.graph().live().isEmpty() || t.graph().original().isEmpty()
+                        || t.graph().compensated().size()!=t.graph().original().size())
+                    throw new RedoException("ROW_REPLAY_INCOMPLETE_ROLLBACK_GRAPH");
+                continue;
+            }
+            if (!t.graph().compensated().isEmpty()) throw new RedoException("UNSUPPORTED_ROW_REPLAY_PARTIAL_ROLLBACK");
             for (var op:t.operations()) if (op.original().dataObjectId()==scope.heap().dataObject()) selected.put(op.position(),t);
         }
         if (selected.isEmpty()) throw new RedoException("NO_ROW_CHANGES_AFTER_BASELINE");
