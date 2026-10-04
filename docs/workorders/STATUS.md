@@ -10,7 +10,7 @@
 | W1 文件/块 scanner | 通过：首批fa61476 | 通过：19c/21c有界样本/5个真实派生反例 | 待证：真实capture | 未开始 | 待证 | 未开始 |
 | W2 record/vector | 通过：首批fa61476 | 通过：19c seq8/9完整dump、21c选定范围 | 待证：事务/字典 | 未开始 | 待证 | 未开始 |
 | W3 基础行/类型 | 进行中：scalar + pair + KDOM2单列扩展值 | 通过：18pair/302长值patch；完整行待证 | 进行中：物理配对；字典/基线待证 | 未开始 | 待证 | 未开始 |
-| W4 事务/回滚 | 进行中：有序history/覆盖/heap rollback/index补偿、owned同叶清单及INSERT位置重放 | 通过：167测试；真实slot1→2及A/B图4/2/2；旧五笔混合图22/19/3与六批heap756/430/326回归；18项真实派生拒绝 | 进行中：多次迁移/其他中间操作/并发归属/控制覆盖/页维护/恢复待证 | 未开始 | 待证 | 未开始 |
+| W4 事务/回滚 | 进行中：有序history/覆盖/heap rollback/index补偿、owned同叶清单及INSERT位置重放 | 通过：167测试；真实slot1→2及A/B图4/2/2；slot1→3及新A/B图8/2/6、7反例；旧五笔混合图22/19/3与六批heap756/430/326回归 | 进行中：其他中间操作/并发归属/控制覆盖/页维护/恢复待证 | 未开始 | 待证 | 未开始 |
 | W5 SCN字典/基线 | 未开始 | 待证 | 未开始 | 未开始 | 待证 | 未开始 |
 | W6 StreamHouse接入 | 未开始 | 待证 | 未开始 | 未开始 | 待证 | 未开始 |
 | W7 online采集 | 进行中：固定member有界观察journal实验 | 通过：429归档数据块字节覆盖、6派生拒绝；完整持续捕获/续接/Windows/ASM待证 | 未开始：journal到解析/ACK | 未开始 | 待证 | 未开始 |
@@ -31,6 +31,8 @@
 - 首轮PDB切日志ORA-65040、CDB VLD9/13/marker结构缺口、SQLPlus中文显示与LogMiner status3均保留原文；两会话交叉事务/跨switch动作已执行。细节见[首批反馈](DELIVERY_W0_W2_20261004.md)。
 
 ## 接续与限制
+
+最新：[多次INSERT并发图交付](DELIVERY_W4_INDEX_MULTI_GRAPH_20261004.md)，完整研究树e3552af，main/test/pom与aa44b0d差异为空，[清单](evidence/DELIVERY-index-multi-graph-20261004.json)。冻结seq20同件jar两笔图8原始/2取消/6保留与native零差异；七项调用者选择/模型派生反例rc1/stdout0，三项比较器反例检出。首次wrong-live派生未改变的封存失败保留，只补跑正确反例及未执行events，events继续拒绝。无数据库动作，本批有限位置和选定图验证完成；中间PURGE/普通DELETE、完整控制/字典/持续capture/发布仍待证。
 
 最新研究：[多次并发INSERT位置](RESEARCH_W4_INDEX_MULTI_INSERT_20261004.md)，源脚本d3fd77b、完整研究树c469cd3，[清单](evidence/RESEARCH-index-multi-position-20261004.json)。专属源一次受控实验冻结seq20（620c6361…），A删除50，B按20/70/30插入后提交，A回滚；native slot1/1/3/2/3及三键raw字节零差异。已交付同件jar精确关联A原slot1→RESTORE slot3，旧静态matcher继续拒绝；无内核变化。新批完整A/B heap+index图、反例覆盖、其他中间操作仍待证，不补填旧批图计数或开放CDC。接续优先补本冻结批图和漏vector反例，再研究前方PURGE。
 
