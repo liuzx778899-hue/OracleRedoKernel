@@ -6,6 +6,25 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 class TransactionStartTest {
+    RedoRecords.Vector firstRecordStart() {
+        return new RedoRecords.Vector(5,2,35,11,0x02400110,2362414,1,3,List.of(
+                hex("110000008e060000142b4002080101004a00b000000000000000000000000000"),hex("bd726528")));
+    }
+    @Test void bindsObservedFirstRecordStartToActualBeginIdentity() throws Exception {
+        var h=TransactionStart.decode(firstRecordStart());
+        byte[] second=hex("711d0100741d010005000000000000000b011100080c010000000000132b4002080121004d0b2400000000004f0b24000000000000000000410c240000000000122b40020000000000000000");
+        var u=new RedoRecords.Vector(5,1,36,11,0x02402b14,2362444,1,3,List.of(
+                hex("b00000000a0000010a0011008e06000008010100"),second));
+        assertEquals(new HeapRowPatch.Xid(10,17,1678),h.bindBegin(record(677737149,u,firstRecordStart())));
+        u.fields().get(0)[18]=2;
+        assertThrows(RedoException.class,()->h.bindBegin(record(677737149,u,firstRecordStart())));
+    }
+    @Test void refusesUnobservedFirstRecordLayoutAndParent() {
+        for (int at:new int[]{2,14,15,18,20,24,28}) {
+            var v=firstRecordStart();v.fields().get(0)[at]^=1;
+            assertThrows(RedoException.class,()->TransactionStart.decode(v));
+        }
+    }
     byte[] hex(String s) { return HexFormat.of().parseHex(s); }
     RedoRecords.Vector start() {
         return new RedoRecords.Vector(5,2,35,11,0x02400110,2149086,1,3,List.of(

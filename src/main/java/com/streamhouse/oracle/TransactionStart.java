@@ -13,7 +13,9 @@ public record TransactionStart(long segmentDba, int slot, long sequence, HeapRow
             throw new RedoException("UNSUPPORTED_TRANSACTION_START_LAYOUT");
         byte[] b=fields.get(0);
         int flags=u16(b,16);
-        if ((flags!=0x52 && flags!=0x452) || u32(b,24)!=0 || u32(b,28)!=0)
+        boolean observedFirstRecord=flags==0x4a && u16(b,2)==0 && (b[14]&255)==1
+                && b[15]==0 && u16(b,18)==176 && u32(b,20)==0;
+        if ((flags!=0x52 && flags!=0x452 && !observedFirstRecord) || u32(b,24)!=0 || u32(b,28)!=0)
             throw new RedoException("UNSUPPORTED_TRANSACTION_START_FLAGS_OR_PARENT");
         return new TransactionStart(vector.dba(),u16(b,0),u32(b,4),
                 new HeapRowPatch.Uba(u32(b,8),u16(b,12),b[14]&255),flags,u32(fields.get(1),0),vector.containerId());
