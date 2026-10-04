@@ -123,7 +123,11 @@ public final class HeapRowPatch {
                 int index=u16(fields.get(2),i*2);
                 if (index >= stored || columns.get(index).state() != State.ABSENT)
                     throw new RedoException("INVALID_UPDATE_COLUMN_MAP");
-                columns.set(index,value(packed ? packedValue(fields.get(i+3),u16(kdo,26)) : fields.get(i+3)));
+                byte[] bytes=fields.get(i+3);
+                // Actual seq41 XA: marker3, physical column1 of3, unchanged 16-byte value with one-byte length.
+                boolean shortMarkerThree=packed && u16(kdo,26)==3 && xtype==1 && stored==3 && dictionaryColumns==3
+                        && index==1 && bytes.length==17 && (bytes[0]&255)==16;
+                columns.set(index,value(packed ? packedValue(bytes,u16(kdo,26),shortMarkerThree) : bytes));
             }
         } else {
             kind=Kind.DELETE; slot=u16(kdo,16);
@@ -137,8 +141,8 @@ public final class HeapRowPatch {
     }
 
     /** Observed single-column KDOM2 XA short or extended value; NULL and short XR remain unproven. */
-    private static byte[] packedValue(byte[] bytes,int layoutMarker) throws RedoException {
-        if (layoutMarker==0 || layoutMarker==0x10) {
+    private static byte[] packedValue(byte[] bytes,int layoutMarker,boolean shortMarkerThree) throws RedoException {
+        if (layoutMarker==0 || layoutMarker==0x10 || shortMarkerThree) {
             if (bytes.length<2 || (bytes[0]&255)<1 || (bytes[0]&255)>250 || (bytes[0]&255)!=bytes.length-1)
                 throw new RedoException("UNSUPPORTED_KDOM2_VALUE_LENGTH");
             return java.util.Arrays.copyOfRange(bytes,1,bytes.length);
