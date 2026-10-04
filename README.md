@@ -2,6 +2,8 @@
 
 Oracle Direct Redo 独立解析内核。目标：源库零配置改动，解析与采集分离，证据不足拒绝发布。
 
+新增`ArchivedCompensationInventory`自主读取归档，取得已验证目标事务record活动窗口内同PDB全部5.6/5.11候选；下游漏/重/乱序候选拒绝。候选超集不证明并发归属，lab关闭history前强制检查，完整生产事务组装仍待证。[交付与边界](docs/workorders/DELIVERY_W4_COMPENSATION_INVENTORY_20261004.md)。
+
 **当前支持文件/块/record/vector结构及有限单行heap物理patch、undo header，完整DML/事务/字典尚未验收。** `events` 命令明确失败且零事件，不能用于生产同步。进度看 [STATUS](docs/workorders/STATUS.md)，方案看 [执行方案](docs/Oracle_Direct_Redo_技术方案_v0.1_20261004.md)。
 
 使用 JDK17（Windows默认Java8需覆盖）：
