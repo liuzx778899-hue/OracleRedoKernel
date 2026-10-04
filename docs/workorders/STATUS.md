@@ -18,6 +18,8 @@
 
 ## 当前证据
 
+最新：[真实锁等待完整行与LKR节点](DELIVERY_W5_LKR_ROWS_20261005.md)，运行时592c817、独立lab6b9fe9d，[清单](evidence/DELIVERY-lkr-rows-20261005.json)。233测试通过；连续seq37/38/39含旧失败回滚，完整三图5/1/4 native零差异，LKR独立LOCK kind/明确to1与inverse0/列ABSENT、保留在图但不产出UPDATE；A两UPDATE/B一UPDATE三完整行与native/四SQL时点零差异。native证明A end早于B begin，真实等待不等于已活跃同key窗口交叠支持。六重封raw scan0而physical或晚before rows拒绝/stdout0，五比较器反例检出。旧INSERT/DELETE/全及部分回滚/不同行并发native回归、rollback-only空批次与边界拒绝通过；events拒绝，重复events输出名driver防覆盖assert未执行。无源动作重放，最终11/blocking-closed/new-note。主线接续W7持续capture/组切换/record续接/ACK，再W6；一般锁/类型/历史字典/信任/恢复/现场/发布仍待证。
+
 最新：[实际0x4a开始控制有限交付](DELIVERY_W4_START_4A_20261005.md)，运行时3a3a368、单点probe0287d11、只读前缀导出14cebb5，[清单](evidence/DELIVERY-start-4a-20261005.json)。231测试通过；真实38:14:16原始4a/record1/size176/parent0精确同record begin UBA绑定，完整XID10.17.1678与native一致，五重封字段反例scan0/start拒绝stdout0。旧seq30/31/32完整行native回归及真实初始边界拒绝通过。原38/39在4a通过后遇未发现补偿；只读补37及全范围dump后到达真实B LKR锁行opcode拒绝，physical/rows仍rc1/stdout0；并发完整图/行未通过。下一步冻结LKR节点覆盖与非业务值变化语义，不能忽略锁节点，已提交源动作不重放。源表当前11/blocking-closed/new-note；capture/接入/现场/发布仍待证。
 
 最新：[真实同一行锁等待样本及解析拒绝](RESEARCH_W5_BLOCKING_ROWS_20261005.md)，源57bb80f→b7a49ac，复用55c331a，生产代码未改，[清单](evidence/RESEARCH-blocking-rows-20261005.json)。新r2实际snapshot2362439后A两更新、B先SELECT FOR UPDATE，独立v$session证明TX row lock WAITING及A阻塞者绑定，等待时旧值可见；A/B完整XID10.17.1678/10.22.1675均提交rc0，seq38/39冻结，最终一行11/blocking-closed/new-note。physical/rows均UNSUPPORTED_TRANSACTION_START_FLAGS_OR_PARENT rc1/stdout0，native A begin38:14:16 flags0x4a未支持，不能算同key逻辑行通过。首次PRIOR变量导致B语法失败、A回滚，未提交，原目录保留；仅新目录提交实验一次，不重放。下一步只读修真实0x4a开始控制/UBA/parent门禁及完整物理图，再完整三行native/SQL对账；capture/接入/现场/发布仍待证。
