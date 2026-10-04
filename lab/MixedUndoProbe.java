@@ -15,8 +15,10 @@ public class MixedUndoProbe {
         var heaps=new ArrayList<HeapUndoPair>();var indexes=new ArrayList<IndexUndoPair>();
         var markers=new ArrayList<ArchivedUndoInventory.Position>();var output=new ArrayList<String>();
         int[] next={0},ends={0};boolean[] active={false};UndoHistory.Result[] closed={null};
-        for (var path:paths) {
-            var header=new ArchivedRedo().scan(path);state.archive(header);
+        for (int source=0;source<paths.size();source++) {
+            var path=paths.get(source);var header=new ArchivedRedo().scan(path);
+            if (!header.equals(inventory.undo().sources().get(source))) throw new RedoException("MIXED_INPUT_CHANGED_BEFORE_TRAVERSAL");
+            state.archive(header);
             new RedoRecords().visit(path,header,r -> {
                 if (r.containerUid()!=677737149) return;
                 var originals=new ArrayList<RedoRecords.Vector>();
@@ -38,7 +40,7 @@ public class MixedUndoProbe {
                     state.undo(r,u);var h=UndoHeader.decode(u);
                     var entry=inventory.undo().entries().get(next[0]++);
                     var position=new ArchivedUndoInventory.Position(header.sequence(),r.block(),r.offset(),r.vectors().indexOf(u)+1);
-                    if (!entry.position().equals(position)) throw new RedoException("MIXED_ORIGINAL_POSITION_MISMATCH");
+                    if (!entry.position().equals(position) || !entry.identity().equals(h)) throw new RedoException("MIXED_ORIGINAL_POSITION_OR_IDENTITY_MISMATCH");
                     if (!(mode.equals("omit_index_node") && h.dataObjectId()==73025)) graph.append(entry);
                     int pairs=0;
                     for (var v:r.vectors()) {
@@ -86,6 +88,7 @@ public class MixedUndoProbe {
                     ends[0]++;active[0]=false;
                 }
             });
+            if (!header.equals(new ArchivedRedo().scan(path))) throw new RedoException("MIXED_INPUT_CHANGED_AFTER_TRAVERSAL");
         }
         state.finish();
         if (ends[0]!=1 || closed[0]==null || next[0]!=inventory.undo().entries().size()) throw new RedoException("MIXED_GRAPH_COVERAGE_MISMATCH");
