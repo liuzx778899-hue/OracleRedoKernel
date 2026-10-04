@@ -11,12 +11,14 @@
 | W2 record/vector | 通过：首批fa61476 | 通过：19c seq8/9完整dump、21c选定范围 | 待证：事务/字典 | 未开始 | 待证 | 未开始 |
 | W3 基础行/类型 | 进行中：scalar + pair + KDOM2单列扩展值 | 通过：18pair/302长值patch；完整行待证 | 进行中：物理配对；字典/基线待证 | 未开始 | 待证 | 未开始 |
 | W4 事务/回滚 | 进行中：有序history/覆盖/heap+index补偿、同源完整XID归属及有源位置重放 | 通过：203测试；seq21—24自主发现基线/A/B共12物理图；自主对象头关联；seq19—24六位置、seq21—24有限双上下文完整图与拒绝证据；九笔旧图及六批长heap证据保留 | 进行中：有界自主物理入口已交付；完整控制/页维护/跨块关联/恢复待证；不当通用生产能力 | 未开始 | 待证 | 未开始 |
-| W5 SCN字典/基线 | 未开始 | 待证 | 未开始 | 未开始 | 待证 | 未开始 |
+| W5 SCN字典/基线 | 研究中：固定SCN基线/invisible列/世代证据，内核待实现 | 通过：seq25/26共10布局native零差异；完整行/历史字典待证 | 待证：真实末尾NULL缩列与世代接口拒绝 | 未开始 | 待证 | 未开始 |
 | W6 StreamHouse接入 | 未开始 | 待证 | 未开始 | 未开始 | 待证 | 未开始 |
 | W7 online采集 | 进行中：固定member有界观察journal实验 | 通过：429归档数据块字节覆盖、6派生拒绝；完整持续捕获/续接/Windows/ASM待证 | 未开始：journal到解析/ACK | 未开始 | 待证 | 未开始 |
 | W8-W11 扩展类型/LOB/RAC/ASM/TDE | 未开始 | 待证 | 未开始 | 未开始 | 待证 | 未开始 |
 
 ## 当前证据
+
+最新：[W5基线/物理列/世代研究](RESEARCH_W5_BASELINE_20261004.md)，首源ad9f9e0、只读恢复cfa7187、完整研究9003ec5，[清单](evidence/RESEARCH-baseline-20261004.json)182文件双次SHA一致。专属新表两次受控实验冻结seq25/26，10heap布局raw/native零差异。SCN2282688缓存10/alpha/secret在UPDATE提交后ASOF仍一致；invisible NOTE逻辑列号NULL而segment列3。真实NOTE→NULL是ncol3→2/nnew0无显式字段，当前内核UNSUPPORTED_UPDATE_ROWPIECE拒绝，不计行支持。TRUNCATE后heap data-object73073→73076、同file12/block403/slot0复用，旧ASOF实际ORA-01466；旧logical/新data范围均内核拒绝。首次建表后SCN读取ORA-01466保全，只补只读基线和未执行UPDATE，未重放已提交setup。三比较器反例5/1/1，events两件均拒绝；生产内核203测试树6dd1772不变/不重跑。接续[缩列与世代派单](DISPATCH_W5_ROW_EXTENT_EPOCH_20261004.md)，W5/完整CDC/持续capture/接入/现场/发布仍待证。
 
 最新：[自主物理事务分发交付](DELIVERY_W4_PHYSICAL_TRANSACTIONS_20261004.md)，运行时6dd1772、最终lab树eafdb16，[清单](evidence/DELIVERY-physical-transactions-20261004.json)1316文件双次SHA一致。203测试通过；新内核不预填XID，seq21—24各自主发现基线/A/B，共12笔图42原始/18取消/24保留与native零差异。9真实字节派生rc1/stdout0、四比较器反例5/2/1/1差异；正确A heap slot在基线/B已关闭后的实际遍历拒绝，无部分输出。首轮两测试预期/native参数错误及派生器错改非slot导致实际rc0的原文保全，只补失败/未执行项。没有数据库动作，events继续拒绝；物理范围不是SCN字典，非begin控制/跨块关联/页维护/恢复仍限制。接续W5字典/零侵入基线与完整行可恢复性，持续capture/ACK/接入/现场/发布独立待证。
 

@@ -1,0 +1,931 @@
+{
+  "research_source": "9003ec533194ad96c41d6d87aecd3968ebcdad64",
+  "runtime_source": "6dd1772e22daea6195709ebf02f1f93fb56c1060",
+  "jar_sha256": "5f74b32874c2ad5dd9dbf16bc53265ad927db77eb2d72cca4a73465fce6d997b",
+  "runtime_tests_preserved": 203,
+  "native_layout_vectors": 10,
+  "native_layout_mismatches": 0,
+  "baseline_scn": 2282688,
+  "physical_rows_before_after_generation": {
+    "old_data_object": 73073,
+    "new_data_object": 73076,
+    "relative_file": 12,
+    "block": 403,
+    "slot": 0
+  },
+  "production_dml_accepted": false,
+  "historical_dictionary_accepted": false,
+  "cdc_events": 0,
+  "files": [
+    {
+      "path": "lab/baseline19.py",
+      "bytes": 7571,
+      "sha256": "6cfa90a6dbb27e6a1aa4f3e1df438065a858ab3b91222808d1ae1d86378bc311"
+    },
+    {
+      "path": "lab/baseline_generation19.py",
+      "bytes": 5640,
+      "sha256": "7dfc4b5628f3189eeef6e69ded441bf7767a4668ab2fc9050c776e7f95af4c12"
+    },
+    {
+      "path": "lab/ColumnLayoutProbe.java",
+      "bytes": 2339,
+      "sha256": "7e080aff4a9c355c67c3862768a4527522eeaac476e121ab365af8bef57d1b68"
+    },
+    {
+      "path": "lab/compare_column_layout.py",
+      "bytes": 2448,
+      "sha256": "af594862744bc0f2e7db7c5fc71081ca108d431e861589a0e91f247000ee5ab1"
+    },
+    {
+      "path": "lab/out/finish-baseline-research.py",
+      "bytes": 2448,
+      "sha256": "3ed30199060de62d1162b690ea9729e8f46b3fe627d6fa8546e2230ce5ac7387"
+    },
+    {
+      "path": "lab/out/oracle19-baseline-20261004/archive-1-25.dbf",
+      "bytes": 5721088,
+      "sha256": "6d593f143521236722386196a5f0908459419d305c1364d968637599d0b109fe"
+    },
+    {
+      "path": "lab/out/oracle19-baseline-20261004/binding-resume.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/oracle19-baseline-20261004/binding-resume.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle19-baseline-20261004/binding-resume.stdout.txt",
+      "bytes": 84,
+      "sha256": "663213c6ddff7be1e55f48031ca6e99d821fac874d4aa01eb41eb0ef08ee52b2"
+    },
+    {
+      "path": "lab/out/oracle19-baseline-20261004/binding.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/oracle19-baseline-20261004/binding.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle19-baseline-20261004/binding.stdout.txt",
+      "bytes": 84,
+      "sha256": "663213c6ddff7be1e55f48031ca6e99d821fac874d4aa01eb41eb0ef08ee52b2"
+    },
+    {
+      "path": "lab/out/oracle19-baseline-20261004/capture-25.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/oracle19-baseline-20261004/capture-25.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle19-baseline-20261004/capture-25.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle19-baseline-20261004/capture.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/oracle19-baseline-20261004/capture.sql",
+      "bytes": 539,
+      "sha256": "62320ed2d96b5462b2d3aca07089ee07b71cf0f0b2739392c4405e3d014c3724"
+    },
+    {
+      "path": "lab/out/oracle19-baseline-20261004/capture.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle19-baseline-20261004/capture.stdout.txt",
+      "bytes": 1720,
+      "sha256": "40db8ebd0d6b1731535bdc1fba57ea93c57134100c496af179e5357ae6c0b2da"
+    },
+    {
+      "path": "lab/out/oracle19-baseline-20261004/changes.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/oracle19-baseline-20261004/changes.sql",
+      "bytes": 2062,
+      "sha256": "29bfe6971efc1961d3d8332dbf4d78af64dae8a4383972feacd0ca2efd156c2e"
+    },
+    {
+      "path": "lab/out/oracle19-baseline-20261004/changes.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle19-baseline-20261004/changes.stdout.txt",
+      "bytes": 347,
+      "sha256": "42887933fe55e13d057fcbe030bdb10dc7a9cd96805fc6275e62c1fc3ffb9c91"
+    },
+    {
+      "path": "lab/out/oracle19-baseline-20261004/commands.jsonl",
+      "bytes": 4629,
+      "sha256": "f01ab0f3576a17db98bc365297b5bf6acfa1bb7c55cc258ad39395f05bd2652e"
+    },
+    {
+      "path": "lab/out/oracle19-baseline-20261004/copy-capture.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/oracle19-baseline-20261004/copy-capture.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle19-baseline-20261004/copy-capture.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle19-baseline-20261004/copy-changes.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/oracle19-baseline-20261004/copy-changes.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle19-baseline-20261004/copy-changes.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle19-baseline-20261004/copy-dump.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/oracle19-baseline-20261004/copy-dump.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle19-baseline-20261004/copy-dump.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle19-baseline-20261004/copy-preflight-resume.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/oracle19-baseline-20261004/copy-preflight-resume.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle19-baseline-20261004/copy-preflight-resume.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle19-baseline-20261004/copy-preflight.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/oracle19-baseline-20261004/copy-preflight.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle19-baseline-20261004/copy-preflight.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle19-baseline-20261004/copy-setup-resume.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/oracle19-baseline-20261004/copy-setup-resume.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle19-baseline-20261004/copy-setup-resume.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle19-baseline-20261004/copy-setup.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/oracle19-baseline-20261004/copy-setup.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle19-baseline-20261004/copy-setup.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle19-baseline-20261004/copy-trace.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/oracle19-baseline-20261004/copy-trace.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle19-baseline-20261004/copy-trace.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle19-baseline-20261004/dump.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/oracle19-baseline-20261004/dump.sql",
+      "bytes": 400,
+      "sha256": "319f942d1da206855d86c65af3bf6a246fe674e39da14553b987a006e7f4698f"
+    },
+    {
+      "path": "lab/out/oracle19-baseline-20261004/dump.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle19-baseline-20261004/dump.stdout.txt",
+      "bytes": 74,
+      "sha256": "280a5f1f77d5fc0bc49868f914deb9f73e15383a6b2fddaa140c459336fea473"
+    },
+    {
+      "path": "lab/out/oracle19-baseline-20261004/dump.trc",
+      "bytes": 213947,
+      "sha256": "c8524053bf8200a921186169a36a8c1e7ddf9317cfa00ff83187ca325ff5716e"
+    },
+    {
+      "path": "lab/out/oracle19-baseline-20261004/manifest.json",
+      "bytes": 562,
+      "sha256": "2a9a98fadb0f7f52ef12590a0fb9fa764098b163e7113cf2e905bb38c38b3e83"
+    },
+    {
+      "path": "lab/out/oracle19-baseline-20261004/preflight-resume.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/oracle19-baseline-20261004/preflight-resume.sql",
+      "bytes": 854,
+      "sha256": "8ac9e3ed481d60717d65ef675bed78c913ed058f40a3e5ac652ebd7592f7a51f"
+    },
+    {
+      "path": "lab/out/oracle19-baseline-20261004/preflight-resume.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle19-baseline-20261004/preflight-resume.stdout.txt",
+      "bytes": 76,
+      "sha256": "5567ea4388c9198c991f01963c554704916c9517fe21fd14f9f4308a64a3625e"
+    },
+    {
+      "path": "lab/out/oracle19-baseline-20261004/preflight.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/oracle19-baseline-20261004/preflight.sql",
+      "bytes": 854,
+      "sha256": "8ac9e3ed481d60717d65ef675bed78c913ed058f40a3e5ac652ebd7592f7a51f"
+    },
+    {
+      "path": "lab/out/oracle19-baseline-20261004/preflight.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle19-baseline-20261004/preflight.stdout.txt",
+      "bytes": 41,
+      "sha256": "024486c35428fb09e2bfabe4e2f9dbed23f66e24fba0bfd73a095ff201271fa5"
+    },
+    {
+      "path": "lab/out/oracle19-baseline-20261004/setup-resume.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/oracle19-baseline-20261004/setup-resume.sql",
+      "bytes": 1339,
+      "sha256": "f995a4537db75dbc12bc17850d220973cadca100ea9193ebbc5f63788ab1270d"
+    },
+    {
+      "path": "lab/out/oracle19-baseline-20261004/setup-resume.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle19-baseline-20261004/setup-resume.stdout.txt",
+      "bytes": 279,
+      "sha256": "5fb26814873f325227ba41caf6d4a3d4b83bf0fb0b05e254e5e777cef74b7a3e"
+    },
+    {
+      "path": "lab/out/oracle19-baseline-20261004/setup.rc.txt",
+      "bytes": 1,
+      "sha256": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b"
+    },
+    {
+      "path": "lab/out/oracle19-baseline-20261004/setup.sql",
+      "bytes": 1736,
+      "sha256": "f44cc78b2574cab9c0b37394485f2e4fbe0139add665a63af22a1306d09e9806"
+    },
+    {
+      "path": "lab/out/oracle19-baseline-20261004/setup.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle19-baseline-20261004/setup.stdout.txt",
+      "bytes": 1206,
+      "sha256": "730641a2de7a4dd91e3234223e3650e5162c98c0bcd2457eeeeadf314ba9c08c"
+    },
+    {
+      "path": "lab/out/oracle19-baseline-generation-20261004/archive-1-26.dbf",
+      "bytes": 131072,
+      "sha256": "1674e2f73893fd6d1ab13b08e799a7d6ba6898a0e10a4babb6aa847bce61afae"
+    },
+    {
+      "path": "lab/out/oracle19-baseline-generation-20261004/before-command.json",
+      "bytes": 156,
+      "sha256": "d94446e369bb4c1bd2746be1851094728b978dc8d43bc1a83be4c4732e0964c2"
+    },
+    {
+      "path": "lab/out/oracle19-baseline-generation-20261004/before.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/oracle19-baseline-generation-20261004/before.sql",
+      "bytes": 1192,
+      "sha256": "17a67c94c867654358319a6e518fc78da36d56cfa5bfd61ff9e7fcf9ba3db8be"
+    },
+    {
+      "path": "lab/out/oracle19-baseline-generation-20261004/before.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle19-baseline-generation-20261004/before.stdout.txt",
+      "bytes": 97,
+      "sha256": "55c6fbe33df07986c1b83150c67ea79d6e4735504fb493c33e4549f93c4ad4e6"
+    },
+    {
+      "path": "lab/out/oracle19-baseline-generation-20261004/binding-command.json",
+      "bytes": 125,
+      "sha256": "92b11ce209b6f209002bbfe2fca241e2b4505dae9b02fa31abf42af2cce92a19"
+    },
+    {
+      "path": "lab/out/oracle19-baseline-generation-20261004/binding.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/oracle19-baseline-generation-20261004/binding.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle19-baseline-generation-20261004/binding.stdout.txt",
+      "bytes": 84,
+      "sha256": "663213c6ddff7be1e55f48031ca6e99d821fac874d4aa01eb41eb0ef08ee52b2"
+    },
+    {
+      "path": "lab/out/oracle19-baseline-generation-20261004/capture-26-command.json",
+      "bytes": 212,
+      "sha256": "db7e8aaf6d4d0be01dfdd01f0ad514ecc70776dc68169be6ee83be4c5c58afae"
+    },
+    {
+      "path": "lab/out/oracle19-baseline-generation-20261004/capture-26.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/oracle19-baseline-generation-20261004/capture-26.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle19-baseline-generation-20261004/capture-26.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle19-baseline-generation-20261004/change-command.json",
+      "bytes": 156,
+      "sha256": "bfceb8c5d39dd50a24aabae94b78685550010bea22a159e7582c0972a5d18546"
+    },
+    {
+      "path": "lab/out/oracle19-baseline-generation-20261004/change.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/oracle19-baseline-generation-20261004/change.sql",
+      "bytes": 1121,
+      "sha256": "5651c88b7a0a01e57767ebdda595888bae472f5e2c29833319add219e9c18381"
+    },
+    {
+      "path": "lab/out/oracle19-baseline-generation-20261004/change.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle19-baseline-generation-20261004/change.stdout.txt",
+      "bytes": 1951,
+      "sha256": "e0ac0ede7b1454f2798ef89cdf500bb868aeb2edf43de565157450c9941f30eb"
+    },
+    {
+      "path": "lab/out/oracle19-baseline-generation-20261004/copy-before-command.json",
+      "bytes": 185,
+      "sha256": "17976610cddb237d85aafacf160408e76b8ac84a3b129641c60dc0f1ddcc5793"
+    },
+    {
+      "path": "lab/out/oracle19-baseline-generation-20261004/copy-before.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/oracle19-baseline-generation-20261004/copy-before.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle19-baseline-generation-20261004/copy-before.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle19-baseline-generation-20261004/copy-change-command.json",
+      "bytes": 185,
+      "sha256": "de85ecb8c8815199f0d427e9f1fd08a3ded87ea96df56cb87d11b6808d2f5ce0"
+    },
+    {
+      "path": "lab/out/oracle19-baseline-generation-20261004/copy-change.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/oracle19-baseline-generation-20261004/copy-change.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle19-baseline-generation-20261004/copy-change.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle19-baseline-generation-20261004/copy-dump-command.json",
+      "bytes": 181,
+      "sha256": "22f0394f7dadbfca3d605e0c934da351fac3e3297e54d1e1c31ded1011b278a2"
+    },
+    {
+      "path": "lab/out/oracle19-baseline-generation-20261004/copy-dump.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/oracle19-baseline-generation-20261004/copy-dump.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle19-baseline-generation-20261004/copy-dump.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle19-baseline-generation-20261004/copy-old-baseline-after-ddl-command.json",
+      "bytes": 217,
+      "sha256": "3d2e98b8e2081ab0dfba8bf8f0d57b9947617c7cab36e7badf07b81ac63e8e64"
+    },
+    {
+      "path": "lab/out/oracle19-baseline-generation-20261004/copy-old-baseline-after-ddl.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/oracle19-baseline-generation-20261004/copy-old-baseline-after-ddl.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle19-baseline-generation-20261004/copy-old-baseline-after-ddl.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle19-baseline-generation-20261004/copy-trace-command.json",
+      "bytes": 228,
+      "sha256": "1be01cf4284b1e34df51f33f576ee25c67f393617c222bd37ad305b4c057d425"
+    },
+    {
+      "path": "lab/out/oracle19-baseline-generation-20261004/copy-trace.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/oracle19-baseline-generation-20261004/copy-trace.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle19-baseline-generation-20261004/copy-trace.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle19-baseline-generation-20261004/dump-command.json",
+      "bytes": 154,
+      "sha256": "54f074488229cae4ddd560592505a9e69b26f87f0ec6f99f66e1427f51ba0aee"
+    },
+    {
+      "path": "lab/out/oracle19-baseline-generation-20261004/dump.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/oracle19-baseline-generation-20261004/dump.sql",
+      "bytes": 411,
+      "sha256": "5399896dec8dbb3e8b77dd31f08c032755e2c609e550efc0f960fdfd670cbe3d"
+    },
+    {
+      "path": "lab/out/oracle19-baseline-generation-20261004/dump.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle19-baseline-generation-20261004/dump.stdout.txt",
+      "bytes": 85,
+      "sha256": "0224606a00e7e0f8c9df3099e8b95da57893d36be687481f657462b4987cbab1"
+    },
+    {
+      "path": "lab/out/oracle19-baseline-generation-20261004/dump.trc",
+      "bytes": 71571,
+      "sha256": "5678fc49a3559f35478458405545a5ed2c66accd8effd856e9823b2c57b13914"
+    },
+    {
+      "path": "lab/out/oracle19-baseline-generation-20261004/manifest.json",
+      "bytes": 539,
+      "sha256": "bbf2817b2b33a4100472992ebc18ebd583e4b007dd95ea7239150d64fdcb507a"
+    },
+    {
+      "path": "lab/out/oracle19-baseline-generation-20261004/old-baseline-after-ddl-command.json",
+      "bytes": 172,
+      "sha256": "898ced2020ad5c5deffd2065971b7599d8459075edcc9bad3b665c5105b41eae"
+    },
+    {
+      "path": "lab/out/oracle19-baseline-generation-20261004/old-baseline-after-ddl.rc.txt",
+      "bytes": 1,
+      "sha256": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b"
+    },
+    {
+      "path": "lab/out/oracle19-baseline-generation-20261004/old-baseline-after-ddl.sql",
+      "bytes": 265,
+      "sha256": "d8d3a6398a204bf045f44f498bd778e94ca273246579932e53b8329c46e58646"
+    },
+    {
+      "path": "lab/out/oracle19-baseline-generation-20261004/old-baseline-after-ddl.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle19-baseline-generation-20261004/old-baseline-after-ddl.stdout.txt",
+      "bytes": 183,
+      "sha256": "c7a3567c0b194bac3ea3a19116e699fcc19700cf4a60d4504f130d61087636e0"
+    },
+    {
+      "path": "lab/out/probe-baseline.py",
+      "bytes": 732,
+      "sha256": "904b1bac734ee7511f91306c4cfcf0313adabfe15cd5c2f5f87756bf821fe947"
+    },
+    {
+      "path": "lab/out/release-physical-transactions-r2/build.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/release-physical-transactions-r2/source.txt",
+      "bytes": 40,
+      "sha256": "d7de7d404a89bfb1205a7a6e977f882a2ee30792b35726ab2fc9911fd81caf53"
+    },
+    {
+      "path": "lab/out/release-physical-transactions-r2/tree/target/oracle-redo-kernel-0.1.0-SNAPSHOT.jar",
+      "bytes": 132077,
+      "sha256": "5f74b32874c2ad5dd9dbf16bc53265ad927db77eb2d72cca4a73465fce6d997b"
+    },
+    {
+      "path": "lab/out/research-baseline/classes/ColumnLayoutProbe.class",
+      "bytes": 5130,
+      "sha256": "adf4a9c4254771acd59c89c39ac5be14f772212fb762db0d8706163cc3e97fac"
+    },
+    {
+      "path": "lab/out/research-baseline/compile-command.json",
+      "bytes": 360,
+      "sha256": "ccfaa1aba94111715f49469bf82ac6bf717f3f92e275bdcf4061b212c5180842"
+    },
+    {
+      "path": "lab/out/research-baseline/compile.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/research-baseline/compile.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/research-baseline/compile.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/research-baseline/events-25-command.json",
+      "bytes": 291,
+      "sha256": "a9fb24d92dd57734f95fe724a7926515ef919ee7c26f75e5772e0eee6e12676d"
+    },
+    {
+      "path": "lab/out/research-baseline/events-25.rc.txt",
+      "bytes": 1,
+      "sha256": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b"
+    },
+    {
+      "path": "lab/out/research-baseline/events-25.stderr.txt",
+      "bytes": 349,
+      "sha256": "c0332914694de9c7c670e9b901ba110463e7aac7da90dbf2e69065ce057ead1f"
+    },
+    {
+      "path": "lab/out/research-baseline/events-25.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/research-baseline/events-26-command.json",
+      "bytes": 302,
+      "sha256": "f0efbafa16ffdcf27e7770bc57c36020119f2a02e17bdad3c990898e8cf7a3ca"
+    },
+    {
+      "path": "lab/out/research-baseline/events-26.rc.txt",
+      "bytes": 1,
+      "sha256": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b"
+    },
+    {
+      "path": "lab/out/research-baseline/events-26.stderr.txt",
+      "bytes": 346,
+      "sha256": "b949f0dedec9391aed9d90c2f1e136720a3b1e124f1accb618356a4a59dd3087"
+    },
+    {
+      "path": "lab/out/research-baseline/events-26.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/research-baseline/generation-layout-command.json",
+      "bytes": 410,
+      "sha256": "3d9eff61b28812ca7225a784bd192a8ea52dbfe555ccd88417622d52f8ea03fc"
+    },
+    {
+      "path": "lab/out/research-baseline/generation-layout.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/research-baseline/generation-layout.stderr.txt",
+      "bytes": 77,
+      "sha256": "a44c160ed2d210c1acafba28ce8f141b59db179b4f89ed0f6010480203370859"
+    },
+    {
+      "path": "lab/out/research-baseline/generation-layout.stdout.txt",
+      "bytes": 125,
+      "sha256": "170f755973352151ca0750eaff23b799cf8076a330f073929f96c1a7f68b07a1"
+    },
+    {
+      "path": "lab/out/research-baseline/generation-native-command.json",
+      "bytes": 379,
+      "sha256": "3e015be97c56a6d33d14810bf2d2ce034f31ae94e246872eb6ae7c45659f12e6"
+    },
+    {
+      "path": "lab/out/research-baseline/generation-native.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/research-baseline/generation-native.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/research-baseline/generation-native.stdout.txt",
+      "bytes": 194,
+      "sha256": "da5f742cb98848a441de5094c4258ac3af45cf134cd640bd958287c505f45e08"
+    },
+    {
+      "path": "lab/out/research-baseline/generation-physical-data-scope-command.json",
+      "bytes": 446,
+      "sha256": "c460a13d817bd56aa927ff2ba2650467b8d7ad06ecb062bce6c13cf951cbda62"
+    },
+    {
+      "path": "lab/out/research-baseline/generation-physical-data-scope.rc.txt",
+      "bytes": 1,
+      "sha256": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b"
+    },
+    {
+      "path": "lab/out/research-baseline/generation-physical-data-scope.stderr.txt",
+      "bytes": 538,
+      "sha256": "92d199bdf2a03eca0d698e1e74e000b590ccb1877e6aaa82aa513c1b2b75fa7f"
+    },
+    {
+      "path": "lab/out/research-baseline/generation-physical-data-scope.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/research-baseline/generation-physical-old-scope-command.json",
+      "bytes": 446,
+      "sha256": "7aebd28904b1f7bb776fbe9cb512c0d1dbcde9ace6572520dcef987d661bd0ba"
+    },
+    {
+      "path": "lab/out/research-baseline/generation-physical-old-scope.rc.txt",
+      "bytes": 1,
+      "sha256": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b"
+    },
+    {
+      "path": "lab/out/research-baseline/generation-physical-old-scope.stderr.txt",
+      "bytes": 598,
+      "sha256": "dacc5d5d2bfbabd7b85f2d9253fb3d9143edf778441155379cc2f4f7b3924747"
+    },
+    {
+      "path": "lab/out/research-baseline/generation-physical-old-scope.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/research-baseline/layout-command.json",
+      "bytes": 399,
+      "sha256": "af00a82884fd06179958fa804209f59fe51084d79d90f0c89fcbe5ecdc47f278"
+    },
+    {
+      "path": "lab/out/research-baseline/layout.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/research-baseline/layout.stderr.txt",
+      "bytes": 77,
+      "sha256": "48a56d42b1125ac07a2ce6f7a09d80b6201f6410791d57f5891705c2fbfb8637"
+    },
+    {
+      "path": "lab/out/research-baseline/layout.stdout.txt",
+      "bytes": 397,
+      "sha256": "c924aa3848126e90074707bb5d2836812d29abd91dee178e852cee42c3234dc4"
+    },
+    {
+      "path": "lab/out/research-baseline/native-command.json",
+      "bytes": 357,
+      "sha256": "03bf9ba5ec43f16d820b2ed4de99cd68f93d39003cb1d37a2b2f567d1ae6c60c"
+    },
+    {
+      "path": "lab/out/research-baseline/native.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/research-baseline/native.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/research-baseline/native.stdout.txt",
+      "bytes": 194,
+      "sha256": "f5a3ab9a76700b4d8d458bbfba07e8560762c0f95bf83cd17ff253e905fd7aac"
+    },
+    {
+      "path": "lab/out/research-baseline/negative-invent-NULL-command.json",
+      "bytes": 370,
+      "sha256": "50b259bd7523ab6e0f97b0b3ac72e0a924273c91168a368ba24d3d994d19dcff"
+    },
+    {
+      "path": "lab/out/research-baseline/negative-invent-NULL.input.txt",
+      "bytes": 404,
+      "sha256": "dea2774926686930797e57d59ce5f906e68647af6c28b3c1577813f94eeca0ab"
+    },
+    {
+      "path": "lab/out/research-baseline/negative-invent-NULL.rc.txt",
+      "bytes": 1,
+      "sha256": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b"
+    },
+    {
+      "path": "lab/out/research-baseline/negative-invent-NULL.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/research-baseline/negative-invent-NULL.stdout.txt",
+      "bytes": 595,
+      "sha256": "a877ced79e084d45972361ea73ab323886cce6015dcfcf06d4bfff3c75de8f4f"
+    },
+    {
+      "path": "lab/out/research-baseline/negative-missing-tail-record-command.json",
+      "bytes": 378,
+      "sha256": "5816540d2f2a9cd6fc1a1f5d6c54c98e9011a175795b6aad4659bf253739dfbb"
+    },
+    {
+      "path": "lab/out/research-baseline/negative-missing-tail-record.input.txt",
+      "bytes": 365,
+      "sha256": "955aaec94891f17fbdac4fc531f4eb430ca7d8435282d3d8f173f3125ca622ba"
+    },
+    {
+      "path": "lab/out/research-baseline/negative-missing-tail-record.rc.txt",
+      "bytes": 1,
+      "sha256": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b"
+    },
+    {
+      "path": "lab/out/research-baseline/negative-missing-tail-record.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/research-baseline/negative-missing-tail-record.stdout.txt",
+      "bytes": 2140,
+      "sha256": "e3ad84de15c3a7cc1e4b8eb10da2c8b5f9ed37c5afb734f4e2def0a7f5f10152"
+    },
+    {
+      "path": "lab/out/research-baseline/negative-wrong-invisible-column-command.json",
+      "bytes": 381,
+      "sha256": "9f079a887deece8f6ed17df1ecb60620642ef8350e0a5b0bf168aaf556db30ae"
+    },
+    {
+      "path": "lab/out/research-baseline/negative-wrong-invisible-column.input.txt",
+      "bytes": 397,
+      "sha256": "e1704e2a3d87d545b14f78a317c9fb403d77af549bd87a0c43b5b05f4639dd20"
+    },
+    {
+      "path": "lab/out/research-baseline/negative-wrong-invisible-column.rc.txt",
+      "bytes": 1,
+      "sha256": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b"
+    },
+    {
+      "path": "lab/out/research-baseline/negative-wrong-invisible-column.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/research-baseline/negative-wrong-invisible-column.stdout.txt",
+      "bytes": 628,
+      "sha256": "09659973cebfa975e2f5fe5054678a4dd96410980e4f623c1edcccdafa4ddb8d"
+    },
+    {
+      "path": "lab/out/research-baseline/physical-command.json",
+      "bytes": 435,
+      "sha256": "62cf9ee395fc51a867d93a51c0227758746965ef9aba8f39d28483994342f048"
+    },
+    {
+      "path": "lab/out/research-baseline/physical.rc.txt",
+      "bytes": 1,
+      "sha256": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b"
+    },
+    {
+      "path": "lab/out/research-baseline/physical.stderr.txt",
+      "bytes": 581,
+      "sha256": "4ca21513250f3ae3abafa51d3586b85f9980904c7fb47bdab1771f78fd4719be"
+    },
+    {
+      "path": "lab/out/research-baseline/physical.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/verify-baseline-layout.py",
+      "bytes": 1242,
+      "sha256": "1edb7f0ce1eb5facf7c18bf3dca7b6e5e9aca81295a9bb774bdc47d9991264a4"
+    }
+  ]
+}
