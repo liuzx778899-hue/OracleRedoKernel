@@ -32,6 +32,8 @@
 
 ## 接续与限制
 
+最新：[真实主键更新及index RESTORE研究](RESEARCH_W4_INDEX_RESTORE_20261004.md)，fixture418cd0c、研究完整树d957a34，[清单](evidence/RESEARCH-index-restore-20261004.json)。专属新表一次性主键UPDATE/DELETE/savepoint及full rollback，seq18 SHA5d5203bc…冻结；35index相关vector/native直接字段零差异，出现4条10.5 RESTORE，现有matcher均拒绝UNSUPPORTED_INDEX_PURGE_LAYOUT。SQL两阶段最终3行通过，研究比较器7项反例检出。生产内核9e80b0f不变，138测试不重跑；下一步RESTORE匹配与7索引取消/混合图，不能以SQL最终相等或结构scan代替DML支持。
+
 最新：[索引补偿与混合undo图交付](DELIVERY_W4_MIXED_UNDO_20261004.md)，最终完整封存树9e80b0f，[清单](evidence/DELIVERY-mixed-undo-20261004.json)。138项测试通过；三笔完整XID的heap+index原始9/取消7/保留2与native有序重建零差异（index取消3、heap取消4）；6项漏index节点/错误purge slot派生输入rc1/stdout0。同件jar14index pair/12拒绝及既有heap补偿回归，events拒绝。无数据库动作；下一步index RESTORE及主键更新回滚专属fixture，其他控制/并发/恢复/W5/持续capture仍待证。
 
 最新：[索引undo配对交付](DELIVERY_W4_INDEX_PAIR_20261004.md)，完整封存树b0771f7，[清单](evidence/DELIVERY-index-pair-20261004.json)。133项测试通过；seq8/9真实14index pair按同record唯一完整UBA与native零差异，12记录派生拒绝；同件jar既有18heap pair及4补偿/1保留回归，events rc1/stdout0。首次lambda编译失败保全；最终XID反例直接篡改forward当前身份。无数据库动作；下一步3条索引补偿归属及heap+index取消图，SCN字典/逻辑DML/发布未通过。
