@@ -2,9 +2,11 @@
 import json,re,sys
 from pathlib import Path
 dump,baseline_file,truth_file,actual_file=map(Path,sys.argv[1:5])
-text=baseline_file.read_text();truth=truth_file.read_text();scn=int(re.search(r'^BASELINE_SCN\|(\d+)',text,re.M)[1])
-base=re.search(r'^BASELINE\|(\d+)\|(\d+)\|(\d+)\|(\d+)\|([^\n]+)',text,re.M)
+text=baseline_file.read_text();truth=truth_file.read_text();frozen='FORMAT|ORK_HEAP_SNAPSHOT_V1' in text
+scn=int(re.search(r'^'+('SNAPSHOT_SCN' if frozen else 'BASELINE_SCN')+r'\|(\d+)',text,re.M)[1])
+base=re.search(r'^'+('ROW' if frozen else 'BASELINE')+r'\|(\d+)\|(\d+)\|(\d+)\|(\d+)\|([^\n]+)',text,re.M)
 obj,file,block,slot=map(int,base.groups()[:4]);dba=(file<<22)|block
+logical=int(re.search(r'^HEAP\|BEFORE\|[^|]+\|[^|]+\|(\d+)\|',text,re.M)[1]) if frozen else obj
 def cells(raw):return ['NULL:' if x=='NULL' else 'VALUE:'+x.lower() for x in raw.strip().split('|')]
 current=cells(base[5]);initial=current.copy();expected=[]
 def changed(c):
@@ -26,6 +28,7 @@ for record in re.split(r'(?=REDO RECORD - Thread:)',dump.read_text()):
   h=re.search(r'^CHANGE #(\d+) CON_ID:3 [^\n]*DBA:0x([0-9a-f]+)[^\n]*OP:(\d+\.\d+)\b',c)
   if not h:continue
   if h[3]=='5.1' and re.search(r'objd: '+str(obj)+r'\b',c):
+   if not re.search(r'objn: '+str(logical)+r'\b',c):raise RuntimeError('NATIVE_LOGICAL_DATA_OBJECT_ROLE_MISMATCH')
    pointer=re.search(r'ktudb redo:[^\n]*seq: 0x([0-9a-f]+) rec: 0x([0-9a-f]+)',c)
    uba=(int(h[2],16),int(pointer[1],16),int(pointer[2],16));undos.append((uba,int(h[1]),c))
   elif h[3]=='11.5' and re.search(r'OBJ:'+str(obj)+r'\b',c):

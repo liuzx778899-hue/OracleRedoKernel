@@ -94,7 +94,7 @@ public final class HeapRowPatch {
             kind=Kind.UPDATE; slot=u16(kdo,20);
             int count=kdo[23]&255;
             int stored=kdo[22]&255;int delta=(short)u16(kdo,24);
-            if (packed && (count!=1 || u16(kdo,24)!=0 || u16(kdo,26)!=3))
+            if (packed && (count!=1 || u16(kdo,24)!=0 || (u16(kdo,26)!=3 && (u16(kdo,26)!=1 || (kdo[11]&0x7f)!=1))))
                 throw new RedoException("UNSUPPORTED_KDOM2_UPDATE_LAYOUT");
             if ((kdo[16]&255) != 0x2c || stored<1 || stored>dictionaryColumns)
                 throw new RedoException("UNSUPPORTED_UPDATE_ROWPIECE");
@@ -112,7 +112,7 @@ public final class HeapRowPatch {
                 int index=u16(fields.get(2),i*2);
                 if (index >= stored || columns.get(index).state() != State.ABSENT)
                     throw new RedoException("INVALID_UPDATE_COLUMN_MAP");
-                columns.set(index,value(packed ? extendedPackedValue(fields.get(i+3)) : fields.get(i+3)));
+                columns.set(index,value(packed ? packedValue(fields.get(i+3),u16(kdo,26)) : fields.get(i+3)));
             }
         } else {
             kind=Kind.DELETE; slot=u16(kdo,16);
@@ -125,8 +125,13 @@ public final class HeapRowPatch {
         return new Column(bytes.length == 0 ? State.NULL : State.VALUE,bytes.clone());
     }
 
-    /** Observed single-column KDOM2 extended value: 0xfe, little-endian length, exact payload. */
-    private static byte[] extendedPackedValue(byte[] bytes) throws RedoException {
+    /** Observed single-column KDOM2 XA short or extended value; NULL and short XR remain unproven. */
+    private static byte[] packedValue(byte[] bytes,int prefixBytes) throws RedoException {
+        if (prefixBytes==1) {
+            if (bytes.length<2 || (bytes[0]&255)<1 || (bytes[0]&255)>250 || (bytes[0]&255)!=bytes.length-1)
+                throw new RedoException("UNSUPPORTED_KDOM2_VALUE_LENGTH");
+            return java.util.Arrays.copyOfRange(bytes,1,bytes.length);
+        }
         if (bytes.length<3 || (bytes[0]&255)!=0xfe || u16(bytes,1)<254 || u16(bytes,1)!=bytes.length-3)
             throw new RedoException("UNSUPPORTED_KDOM2_VALUE_LENGTH");
         return java.util.Arrays.copyOfRange(bytes,3,bytes.length);

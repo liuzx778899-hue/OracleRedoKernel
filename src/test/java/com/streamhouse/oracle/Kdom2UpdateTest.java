@@ -54,4 +54,16 @@ class Kdom2UpdateTest {
         assertThrows(RedoException.class,()->new HeapRowPatch().decode(vector(b,hex("00000100"),value()),2));
         assertThrows(RedoException.class,()->new HeapRowPatch().decode(vector(kdo(),hex("0200"),value()),2));
     }
+    @Test void observedXaShortPrefixRestoresNumberAndKeepsOtherColumnsAbsent() throws Exception {
+        byte[] k=kdo();k[22]=3;k[26]=1;
+        var patch=new HeapRowPatch().decode(vector(k,hex("0000"),hex("02c10c")),3);
+        assertArrayEquals(hex("c10c"),patch.columns().get(0).bytes());assertEquals(HeapRowPatch.State.ABSENT,patch.columns().get(1).state());
+        assertEquals(3,patch.extent().storedColumns());assertNull(patch.extent().sizeDelta());
+    }
+    @Test void shortPrefixLengthNullTrailingDataAndXrRefuse() {
+        byte[] k=kdo();k[22]=3;k[26]=1;
+        for(var bytes:List.of(hex("03c10c"),hex("02c10c00"),hex("ff"),hex("00"),hex("fec10c")))
+            assertThrows(RedoException.class,()->new HeapRowPatch().decode(vector(k,hex("0000"),bytes),3));
+        k[11]=(byte)0x82;assertThrows(RedoException.class,()->new HeapRowPatch().decode(vector(k,hex("0000"),hex("02c10c")),3));
+    }
 }
