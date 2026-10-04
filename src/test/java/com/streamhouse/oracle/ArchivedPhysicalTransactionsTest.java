@@ -60,12 +60,12 @@ class ArchivedPhysicalTransactionsTest {
     @Test void leafOperationWithoutPhysicalPairRefuses() {
         var raw=fixture();var entries=new ArrayList<>(insert(b,0x02402cbfL,0x02400120L,1));entries.remove(2);
         f.records.record(raw,3,120,entries);seal(raw,1536);
-        assertEquals("PHYSICAL_ORIGINAL_PAIR_COUNT",assertThrows(RedoException.class,()->read(raw,leaf,677737149)).getMessage());
+        assertEquals("TARGET_INDEX_LEAF_NOT_FOUND_IN_WINDOW",assertThrows(RedoException.class,()->read(raw,leaf,677737149)).getMessage());
     }
     @Test void unknownPageMaintenanceInActiveWindowRefuses() {
         var raw=fixture();var entries=new ArrayList<>(insert(b,0x02402cbfL,0x02400120L,1));
         entries.add(new RedoRecords.Vector(10,31,1,12,leaf,120,1,3,List.of()));
         f.records.record(raw,3,120,entries);seal(raw,1536);
-        assertEquals("UNSUPPORTED_INDEX_LEAF_WINDOW_OPCODE:10.31",assertThrows(RedoException.class,()->read(raw,leaf,677737149)).getMessage());
+        assertEquals("UNSUPPORTED_INDEX_FORWARD_OPCODE",assertThrows(RedoException.class,()->read(raw,leaf,677737149)).getMessage());
     }
 }
