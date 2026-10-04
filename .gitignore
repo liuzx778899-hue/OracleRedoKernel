@@ -1,4 +1,5 @@
 /target/
+/integration/streamhouse-engine-oracle/target/
 /lab/out/
 *.dbf
 *.log
