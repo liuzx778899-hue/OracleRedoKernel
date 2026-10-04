@@ -24,7 +24,7 @@ public final class CaptureJournal {
             +"\"resetlogs\":([0-9]+),\"sequence\":([0-9]+),\"thread\":([0-9]+)\\},"
             +"\"state\":\"OBSERVED_STABLE\"\\}");
 
-    public record Source(String journalSha256,long capacityBlocks,long blocks,long dbid,
+    public record Source(String journalSha256,long journalBytes,long capacityBlocks,long blocks,long dbid,
                          long activationId,long compatibility,int thread,long sequence,
                          long resetlogsId,long resetlogsScn,long firstScn,long nextScn) {}
     public static final class Verified {
@@ -85,7 +85,7 @@ public final class CaptureJournal {
         if (!Arrays.equals(source,actualSource) || actualSource[5]==0 || actualSource[4]==0
                 || (actualSource[1]!=0x13000000L && actualSource[1]!=0x15000000L))
             throw new RedoException("CAPTURE_SOURCE_HEADER_MISMATCH");
-        return new Verified(new Source(actual,capacity,nab,source[2],source[0],source[1],(int)source[5],
+        return new Verified(new Source(actual,data.length,capacity,nab,source[2],source[0],source[1],(int)source[5],
                 source[4],source[3],scn(header,164),first,next),blocks);
     }
 

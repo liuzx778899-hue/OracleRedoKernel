@@ -16,20 +16,22 @@ public final class ArchivedObjectTransactions {
         this.sources=List.copyOf(sources);this.transactions=List.copyOf(transactions);
     }
     public static ArchivedObjectTransactions read(List<Path> paths,long uid,long container,Set<Long> objects) throws IOException {
-        return read(paths,uid,container,objects.stream().collect(java.util.stream.Collectors.toUnmodifiableMap(o->o,o->o)));
+        return read(RedoBatch.archives(paths),uid,container,objects.stream().collect(java.util.stream.Collectors.toUnmodifiableMap(o->o,o->o)));
     }
     public static ArchivedObjectTransactions read(List<Path> paths,long uid,long container,HeapIndexScope roles) throws IOException {
+        return read(RedoBatch.archives(paths),uid,container,roles);
+    }
+    static ArchivedObjectTransactions read(RedoBatch paths,long uid,long container,HeapIndexScope roles) throws IOException {
         return read(paths,uid,container,roles.generations());
     }
-    private static ArchivedObjectTransactions read(List<Path> paths,long uid,long container,java.util.Map<Long,Long> generations) throws IOException {
-        paths=List.copyOf(paths);
+    private static ArchivedObjectTransactions read(RedoBatch paths,long uid,long container,java.util.Map<Long,Long> generations) throws IOException {
         if (paths.isEmpty() || generations.isEmpty()) throw new RedoException("EMPTY_OBJECT_TRANSACTION_SCOPE_OR_INPUT");
         var scope=new java.util.HashSet<Long>(generations.keySet());scope.addAll(generations.values());var xids=new LinkedHashSet<HeapRowPatch.Xid>();
         var relevantMarkers=new ArrayList<ArchivedUndoInventory.Position>();var sources=new ArrayList<ArchivedRedo.Header>();
-        var continuity=new TransactionLifecycle();var scanner=new ArchivedRedo();
+        var continuity=new TransactionLifecycle();
         for (var path:paths) {
-            var header=scanner.scan(path);continuity.archive(header);sources.add(header);
-            new RedoRecords().visit(path,header,r->{
+            var header=path.header();continuity.archive(header);sources.add(header);
+            path.visit(header,r->{
                 if (r.containerUid()!=uid) return;
                 for (int i=0;i<r.vectors().size();i++) {
                     var v=r.vectors().get(i);if (v.containerId()!=container || v.opcodeMajor()!=5) continue;
@@ -52,7 +54,7 @@ public final class ArchivedObjectTransactions {
                         throw new RedoException("OBJECT_TRANSACTION_MAPPING_MISMATCH");
                 }
             });
-            if (!header.equals(scanner.scan(path))) throw new RedoException("OBJECT_TRANSACTION_INPUT_CHANGED");
+            if (!header.equals(path.header())) throw new RedoException("OBJECT_TRANSACTION_INPUT_CHANGED");
         }
         var transactions=new ArrayList<Transaction>();var routed=new java.util.HashMap<ArchivedUndoInventory.Position,ArchivedCompensationAssociations.Entry>();
         for (var xid:xids) {
@@ -72,7 +74,7 @@ public final class ArchivedObjectTransactions {
             if (a==null || !xids.contains(a.xid())) throw new RedoException("UNDISCOVERED_OBJECT_TRANSACTION_COMPENSATION");
         }
         for (int i=0;i<paths.size();i++)
-            if (!sources.get(i).equals(scanner.scan(paths.get(i)))) throw new RedoException("OBJECT_TRANSACTION_INPUT_CHANGED");
+            if (!sources.get(i).equals(paths.get(i).header())) throw new RedoException("OBJECT_TRANSACTION_INPUT_CHANGED");
         return new ArchivedObjectTransactions(sources,transactions);
     }
     public List<ArchivedRedo.Header> sources() {return sources;}

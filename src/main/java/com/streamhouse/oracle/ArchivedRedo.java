@@ -14,6 +14,7 @@ import static com.streamhouse.oracle.RedoBytes.*;
 /** Frozen Linux x86_64 archived redo, 512-byte blocks; other layouts are refused. */
 public final class ArchivedRedo {
     public static final int BLOCK_SIZE = 512;
+    /** Shared closed-source identity. For capture inputs SHA/bytes describe the journal envelope. */
     public record Header(String sha256, long bytes, long dbid, long activationId,
                          long compatibility, int thread, long sequence, long resetlogsId,
                          long resetlogsScn, long firstScn, long nextScn, long blocks) {}

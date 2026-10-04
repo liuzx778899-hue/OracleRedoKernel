@@ -17,6 +17,10 @@ public final class IndexLeafPositions {
     }
     public static IndexLeafPositions read(java.util.List<java.nio.file.Path> paths,long uid,long container,HeapRowPatch.Xid xid,
                                           long indexObject,long indexDataObject,long leafDba) throws java.io.IOException {
+        return read(RedoBatch.archives(paths),uid,container,xid,indexObject,indexDataObject,leafDba);
+    }
+    static IndexLeafPositions read(RedoBatch paths,long uid,long container,HeapRowPatch.Xid xid,
+                                          long indexObject,long indexDataObject,long leafDba) throws java.io.IOException {
         var leaf=ArchivedIndexLeafInventory.read(paths,uid,container,xid,indexObject,indexDataObject,leafDba);
         var associations=ArchivedCompensationAssociations.read(paths,uid,container,xid);
         if (!leaf.window().undo().sources().equals(associations.window().undo().sources())

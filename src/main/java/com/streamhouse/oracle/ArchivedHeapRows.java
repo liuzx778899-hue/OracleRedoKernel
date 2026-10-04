@@ -37,19 +37,25 @@ public final class ArchivedHeapRows {
 
     public static Result read(List<Path> paths,Baseline baseline,long indexObject,long leaf) throws IOException {
         if (baseline==null || baseline.source()==null) throw new RedoException("MISSING_COMPLETE_BASELINE");
-        return read(paths,baseline,HeapIndexScope.equal(baseline.heapObject(),indexObject),leaf);
+        return read(RedoBatch.archives(paths),baseline,HeapIndexScope.equal(baseline.heapObject(),indexObject),leaf);
     }
     public static Result readVerified(List<Path> paths,Path snapshotPath,String trustedAcquisitionSha256,long leaf) throws IOException {
         var snapshot=FrozenHeapBaseline.read(snapshotPath,trustedAcquisitionSha256);
         var scope=new HeapIndexScope(new HeapIndexScope.Generation(snapshot.heap().logicalObject(),snapshot.heap().dataObject()),
                 new HeapIndexScope.Generation(snapshot.index().logicalObject(),snapshot.index().dataObject()));
-        return read(paths,new Baseline(snapshot.source(),snapshot.scn(),snapshot.heap().logicalObject(),snapshot.columns().size(),snapshot.rows()),scope,leaf);
+        return read(RedoBatch.archives(paths),new Baseline(snapshot.source(),snapshot.scn(),snapshot.heap().logicalObject(),snapshot.columns().size(),snapshot.rows()),scope,leaf);
     }
-    private static Result read(List<Path> paths,Baseline baseline,HeapIndexScope scope,long leaf) throws IOException {
+    public static Result readCaptured(List<CaptureJournal.Verified> captures,Path snapshotPath,String trustedAcquisitionSha256,long leaf) throws IOException {
+        var snapshot=FrozenHeapBaseline.read(snapshotPath,trustedAcquisitionSha256);
+        var scope=new HeapIndexScope(new HeapIndexScope.Generation(snapshot.heap().logicalObject(),snapshot.heap().dataObject()),
+                new HeapIndexScope.Generation(snapshot.index().logicalObject(),snapshot.index().dataObject()));
+        return read(RedoBatch.captures(captures),new Baseline(snapshot.source(),snapshot.scn(),snapshot.heap().logicalObject(),snapshot.columns().size(),snapshot.rows()),scope,leaf);
+    }
+    private static Result read(RedoBatch paths,Baseline baseline,HeapIndexScope scope,long leaf) throws IOException {
         if (baseline.columns()<1 || baseline.columns()>255 || baseline.rows().entrySet().stream().anyMatch(e->
                 e.getKey().dataObjectId()!=scope.heap().dataObject() || e.getKey().dba()<=0 || e.getKey().slot()<0 || e.getValue().size()!=baseline.columns()))
             throw new RedoException("BASELINE_ROW_SCOPE_OR_COLUMNS_MISMATCH");
-        paths=List.copyOf(paths);var source=baseline.source();
+        var source=baseline.source();
         var physical=ArchivedPhysicalTransactions.read(paths,source.containerUid(),source.containerId(),scope,leaf,baseline.columns());
         for (var h:physical.sources()) if (!source.equals(Source.of(h,source.containerUid(),source.containerId())))
             throw new RedoException("BASELINE_SOURCE_IDENTITY_MISMATCH");
@@ -77,7 +83,7 @@ public final class ArchivedHeapRows {
         var pending=new HashMap<Xid,List<Pending>>();
         for (int i=0;i<paths.size();i++) {
             var path=paths.get(i);var h=physical.sources().get(i);
-            new RedoRecords().visit(path,h,r->{
+            path.visit(h,r->{
                 int previousForward=-1;
                 for (int v=0;v<r.vectors().size();v++) {
                     var at=new ArchivedUndoInventory.Position(h.sequence(),r.block(),r.offset(),v+1);var owner=selected.get(at);
@@ -98,7 +104,7 @@ public final class ArchivedHeapRows {
                     pending.computeIfAbsent(undo.xid(),ignored->new ArrayList<>()).add(new Pending(at,undo.xid(),key,found));
                 }
             });
-            if (!h.equals(new ArchivedRedo().scan(path))) throw new RedoException("ROW_REPLAY_SOURCE_CHANGED");
+            if (!h.equals(path.header())) throw new RedoException("ROW_REPLAY_SOURCE_CHANGED");
         }
         if (seen.size()!=selected.size()) throw new RedoException("ROW_REPLAY_INCOMPLETE_SELECTED_INPUT");
         for (int i=0;i<transactions.size();i++) for (int j=i+1;j<transactions.size();j++) {
@@ -115,7 +121,7 @@ public final class ArchivedHeapRows {
             changes.add(new Change(p.position(),p.xid(),p.key(),p.pair().forward().kind(),before==null ? List.of() : before,after));
             if (after.isEmpty()) rows.remove(p.key());else rows.put(p.key(),after);
         }
-        for (int i=0;i<paths.size();i++) if (!physical.sources().get(i).equals(new ArchivedRedo().scan(paths.get(i))))
+        for (int i=0;i<paths.size();i++) if (!physical.sources().get(i).equals(paths.get(i).header()))
             throw new RedoException("ROW_REPLAY_SOURCE_CHANGED");
         return new Result(physical.sources(),List.copyOf(changes),Map.copyOf(rows));
     }

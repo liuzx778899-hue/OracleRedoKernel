@@ -25,17 +25,20 @@ public final class ArchivedCompensationAssociations {
         this.window=window;this.entries=List.copyOf(entries);this.markers=List.copyOf(markers);
     }
     public static ArchivedCompensationAssociations read(List<Path> paths,long uid,long container,HeapRowPatch.Xid target) throws IOException {
+        return read(RedoBatch.archives(paths),uid,container,target);
+    }
+    static ArchivedCompensationAssociations read(RedoBatch paths,long uid,long container,HeapRowPatch.Xid target) throws IOException {
         var window=ArchivedCompensationInventory.read(paths,uid,container,target);
         var candidates=new ArrayList<List<Candidate>>();var markers=new ArrayList<Marker>();
         for (var e:window.entries()) {
             if (e.marker().crossesUndoBlock()) throw new RedoException("UNSUPPORTED_ASSOCIATION_CROSS_BLOCK_MARKER");
             candidates.add(new ArrayList<>());
         }
-        var scanner=new ArchivedRedo();
+
         for (int source=0;source<paths.size();source++) {
-            var path=paths.get(source);var header=scanner.scan(path);
+            var path=paths.get(source);var header=path.header();
             if (!header.equals(window.undo().sources().get(source))) throw new RedoException("ASSOCIATION_INPUT_CHANGED");
-            new RedoRecords().visit(path,header,r->{
+            path.visit(header,r->{
                 if (r.containerUid()!=uid) return;
                 for (int i=0;i<r.vectors().size();i++) {
                     var v=r.vectors().get(i);if (v.containerId()!=container) continue;
@@ -74,7 +77,7 @@ public final class ArchivedCompensationAssociations {
                     }
                 }
             });
-            if (!header.equals(scanner.scan(path))) throw new RedoException("ASSOCIATION_INPUT_CHANGED");
+            if (!header.equals(path.header())) throw new RedoException("ASSOCIATION_INPUT_CHANGED");
         }
         if (!markers.stream().map(Marker::position).toList().equals(window.entries().stream().map(ArchivedCompensationInventory.Entry::position).toList()))
             throw new RedoException("ASSOCIATION_MARKER_COVERAGE_CHANGED");

@@ -70,4 +70,19 @@ class CaptureJournalTest {
         put32(raw[3],16,600);raw[3][20]=1;checksum(raw[3]);var capture=read(write("late",raw,-1));
         assertEquals("TRUNCATED_RECORD_BODY",assertThrows(RedoException.class,()->new RedoRecords().readCaptured(capture)).getMessage());
     }
+    @Test void capturedPassesOwnBytesAndArchivePassesStillRescan() throws Exception {
+        byte[][] raw=blocks(3);put32(raw[2],16,64);raw[2][20]=1;
+        raw[2][40]=11;raw[2][41]=5;put16(raw[2],72,4);put16(raw[2],74,4);raw[2][76]=7;checksum(raw[2]);
+        Path journal=write("owned",raw,-1);long bytes=Files.size(journal);var verified=read(journal);
+        var input=RedoBatch.captures(java.util.List.of(verified)).get(0);var header=input.header();
+        assertEquals(sha(Files.readAllBytes(journal)),header.sha256());assertEquals(bytes,header.bytes());
+        Files.delete(journal);
+        input.visit(header,r->r.vectors().get(0).fields().get(0)[0]=99);
+        input.visit(header,r->assertEquals(7,r.vectors().get(0).fields().get(0)[0]));
+        put32(raw[0],24,2);checksum(raw[0]);ByteArrayOutputStream stream=new ByteArrayOutputStream();
+        for (byte[] block:raw) stream.write(block);Path archive=directory.resolve("archive");Files.write(archive,stream.toByteArray());
+        var archived=RedoBatch.archives(java.util.List.of(archive)).get(0);assertEquals(1536,archived.header().bytes());
+        raw[2][76]^=1;stream.reset();for (byte[] block:raw) stream.write(block);Files.write(archive,stream.toByteArray());
+        assertTrue(assertThrows(RedoException.class,archived::header).getMessage().startsWith("BLOCK_CHECKSUM_MISMATCH"));
+    }
 }

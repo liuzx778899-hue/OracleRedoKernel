@@ -21,12 +21,15 @@ public final class ArchivedUndoInventory {
 
     /** Owns the complete record traversal; callers cannot certify a supplied vector subset. */
     public static ArchivedUndoInventory read(List<Path> archives,long containerUid,long containerId,HeapRowPatch.Xid xid) throws IOException {
+        return read(RedoBatch.archives(archives),containerUid,containerId,xid);
+    }
+    static ArchivedUndoInventory read(RedoBatch archives,long containerUid,long containerId,HeapRowPatch.Xid xid) throws IOException {
         if (archives.isEmpty()) throw new RedoException("NO_ARCHIVE_INPUT");
-        var scanner=new ArchivedRedo();var continuity=new TransactionLifecycle();
+        var continuity=new TransactionLifecycle();
         var sources=new ArrayList<ArchivedRedo.Header>();var entries=new ArrayList<Entry>();
         for (var path:archives) {
-            var header=scanner.scan(path);continuity.archive(header);
-            new RedoRecords().visit(path,header,record->{
+            var header=path.header();continuity.archive(header);
+            path.visit(header,record->{
                 if (record.containerUid()!=containerUid) return;
                 for (int index=0;index<record.vectors().size();index++) {
                     var vector=record.vectors().get(index);
@@ -50,7 +53,7 @@ public final class ArchivedUndoInventory {
                             metadata[16]&255,metadata[17]&255,previous,rci));
                 }
             });
-            if (!header.equals(scanner.scan(path))) throw new RedoException("UNDO_INVENTORY_INPUT_CHANGED");
+            if (!header.equals(path.header())) throw new RedoException("UNDO_INVENTORY_INPUT_CHANGED");
             sources.add(header);
         }
         if (entries.isEmpty()) throw new RedoException("TARGET_UNDO_NOT_FOUND");

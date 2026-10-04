@@ -21,15 +21,18 @@ public final class ArchivedCompensationInventory {
 
     /** Includes every 5.6/5.11 in the target's verified record window, including unrelated objects. */
     public static ArchivedCompensationInventory read(List<Path> archives,long uid,long container,HeapRowPatch.Xid xid) throws IOException {
+        return read(RedoBatch.archives(archives),uid,container,xid);
+    }
+    static ArchivedCompensationInventory read(RedoBatch archives,long uid,long container,HeapRowPatch.Xid xid) throws IOException {
         var undo=ArchivedUndoInventory.read(archives,uid,container,xid);
-        var state=new TransactionLifecycle();var scanner=new ArchivedRedo();var entries=new ArrayList<Entry>();
+        var state=new TransactionLifecycle();var entries=new ArrayList<Entry>();
         int[] next={0},begins={0},ends={0};boolean[] active={false};
         ArchivedUndoInventory.Position[] window=new ArchivedUndoInventory.Position[2];
         for (int source=0;source<archives.size();source++) {
-            var path=archives.get(source);var header=scanner.scan(path);
+            var path=archives.get(source);var header=path.header();
             if (!header.equals(undo.sources().get(source))) throw new RedoException("COMPENSATION_INVENTORY_INPUT_CHANGED");
             state.archive(header);
-            new RedoRecords().visit(path,header,record->{
+            path.visit(header,record->{
                 if (record.containerUid()!=uid) return;
                 var originals=new ArrayList<RedoRecords.Vector>();
                 for (int i=0;i<record.vectors().size();i++) {
@@ -75,7 +78,7 @@ public final class ArchivedCompensationInventory {
                     window[1]=new ArchivedUndoInventory.Position(header.sequence(),record.block(),record.offset(),0);
                 }
             });
-            if (!header.equals(scanner.scan(path))) throw new RedoException("COMPENSATION_INVENTORY_INPUT_CHANGED");
+            if (!header.equals(path.header())) throw new RedoException("COMPENSATION_INVENTORY_INPUT_CHANGED");
         }
         state.finish();
         if (begins[0]!=1 || ends[0]!=1 || next[0]!=undo.entries().size())

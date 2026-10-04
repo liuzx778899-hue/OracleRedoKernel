@@ -36,9 +36,14 @@ public final class ArchivedPhysicalTransactions {
         return read(paths,uid,container,HeapIndexScope.equal(heapObject,indexObject),leaf,columns);
     }
     public static Result read(List<Path> paths,long uid,long container,HeapIndexScope scope,long leaf,int columns) throws IOException {
+        return read(RedoBatch.archives(paths),uid,container,scope,leaf,columns);
+    }
+    public static Result readCaptured(List<CaptureJournal.Verified> captures,long uid,long container,HeapIndexScope scope,long leaf,int columns) throws IOException {
+        return read(RedoBatch.captures(captures),uid,container,scope,leaf,columns);
+    }
+    static Result read(RedoBatch paths,long uid,long container,HeapIndexScope scope,long leaf,int columns) throws IOException {
         if (columns<=0) throw new RedoException("INVALID_PHYSICAL_TRANSACTION_SCOPE");
         long heapObject=scope.heap().dataObject(),indexObject=scope.index().dataObject();
-        paths=List.copyOf(paths);
         var found=ArchivedObjectTransactions.read(paths,uid,container,scope);
         if (found.transactions().isEmpty()) throw new RedoException("NO_PHYSICAL_OBJECT_TRANSACTIONS");
         var contexts=new ArrayList<Context>();var owners=new HashMap<HeapRowPatch.Xid,Context>();
@@ -56,11 +61,11 @@ public final class ArchivedPhysicalTransactions {
             }
         }
         var state=new TransactionLifecycle();var heapBlocks=new HashSet<Long>();var undoBlocks=new HashSet<Long>();
-        var scanner=new ArchivedRedo();
+
         // Raw inverse fields establish the bounded physical block set; caller cannot omit individual nodes.
         for (int source=0;source<paths.size();source++) {
-            var header=scanner.scan(paths.get(source));requireSource(found,source,header);
-            new RedoRecords().visit(paths.get(source),header,r->{
+            var header=paths.get(source).header();requireSource(found,source,header);
+            paths.get(source).visit(header,r->{
                 if (r.containerUid()!=uid) return;
                 for (int i=0;i<r.vectors().size();i++) {
                     var v=r.vectors().get(i);if (!originals.containsKey(position(header,r,i))) continue;
@@ -69,11 +74,11 @@ public final class ArchivedPhysicalTransactions {
                     else if (IndexUndoPair.decodeUndo(v).block()!=leaf) throw new RedoException("PHYSICAL_INDEX_OUTSIDE_DECLARED_LEAF");
                 }
             });
-            requireSource(found,source,scanner.scan(paths.get(source)));
+            requireSource(found,source,paths.get(source).header());
         }
         for (int source=0;source<paths.size();source++) {
-            var path=paths.get(source);var header=scanner.scan(path);requireSource(found,source,header);state.archive(header);
-            new RedoRecords().visit(path,header,r->{
+            var path=paths.get(source);var header=path.header();requireSource(found,source,header);state.archive(header);
+            path.visit(header,r->{
                 if (r.containerUid()!=uid) return;
                 var paired=new HashSet<Integer>();var starts=new HashSet<Integer>();
                 for (int i=0;i<r.vectors().size();i++) {
@@ -159,14 +164,14 @@ public final class ArchivedPhysicalTransactions {
                     c.result=new Transaction(end,List.copyOf(c.operations),result);
                 }
             });
-            requireSource(found,source,scanner.scan(path));
+            requireSource(found,source,path.header());
         }
         state.finish();
         for (var c:contexts) {
             c.discovered.associations().finish();
             if (c.result==null || c.next!=c.discovered.associations().window().undo().entries().size()) throw new RedoException("PHYSICAL_TRANSACTION_COVERAGE_INCOMPLETE");
         }
-        for (int i=0;i<paths.size();i++) requireSource(found,i,scanner.scan(paths.get(i)));
+        for (int i=0;i<paths.size();i++) requireSource(found,i,paths.get(i).header());
         return new Result(found.sources(),contexts.stream().map(c->c.result).toList());
     }
     private static boolean heap(RedoRecords.Vector v) {return v.opcodeMajor()==11 && (v.opcodeMinor()==2 || v.opcodeMinor()==3 || v.opcodeMinor()==4 || v.opcodeMinor()==5);}

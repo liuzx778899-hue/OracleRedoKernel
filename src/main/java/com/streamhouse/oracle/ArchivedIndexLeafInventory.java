@@ -26,12 +26,16 @@ public final class ArchivedIndexLeafInventory {
     }
     public static ArchivedIndexLeafInventory read(List<Path> archives,long uid,long container,HeapRowPatch.Xid xid,
                                                  long indexObject,long indexDataObject,long leafDba) throws IOException {
+        return read(RedoBatch.archives(archives),uid,container,xid,indexObject,indexDataObject,leafDba);
+    }
+    static ArchivedIndexLeafInventory read(RedoBatch archives,long uid,long container,HeapRowPatch.Xid xid,
+                                                 long indexObject,long indexDataObject,long leafDba) throws IOException {
         var window=ArchivedCompensationInventory.read(archives,uid,container,xid);
-        var entries=new ArrayList<Entry>();var scanner=new ArchivedRedo();
+        var entries=new ArrayList<Entry>();
         for (int source=0;source<archives.size();source++) {
-            var path=archives.get(source);var header=scanner.scan(path);
+            var path=archives.get(source);var header=path.header();
             if (!header.equals(window.undo().sources().get(source))) throw new RedoException("INDEX_LEAF_INVENTORY_INPUT_CHANGED");
-            new RedoRecords().visit(path,header,r -> {
+            path.visit(header,r -> {
                 if (r.containerUid()!=uid) return;
                 var recordPosition=new ArchivedUndoInventory.Position(header.sequence(),r.block(),r.offset(),0);
                 if (compare(recordPosition,window.firstRecord())<0 || compare(recordPosition,window.lastRecord())>0) return;
@@ -69,7 +73,7 @@ public final class ArchivedIndexLeafInventory {
                     } else throw new RedoException("UNSUPPORTED_INDEX_LEAF_WINDOW_OPCODE:"+v.opcodeMajor()+"."+v.opcodeMinor());
                 }
             });
-            if (!header.equals(scanner.scan(path))) throw new RedoException("INDEX_LEAF_INVENTORY_INPUT_CHANGED");
+            if (!header.equals(path.header())) throw new RedoException("INDEX_LEAF_INVENTORY_INPUT_CHANGED");
         }
         if (entries.isEmpty()) throw new RedoException("TARGET_INDEX_LEAF_NOT_FOUND_IN_WINDOW");
         return new ArchivedIndexLeafInventory(window,entries,indexObject,leafDba);
