@@ -94,7 +94,9 @@ public final class HeapRowPatch {
             kind=Kind.UPDATE; slot=u16(kdo,20);
             int count=kdo[23]&255;
             int stored=kdo[22]&255;int delta=(short)u16(kdo,24);
-            if (packed && (count!=1 || u16(kdo,24)!=0 || (u16(kdo,26)!=3 && (u16(kdo,26)!=0 || (kdo[11]&0x7f)!=1))))
+            boolean shortColumnTwo=packed && u16(kdo,26)==0x10 && xtype==1 && fields.size()==4
+                    && fields.get(2).length==2 && u16(fields.get(2),0)==2;
+            if (packed && (count!=1 || u16(kdo,24)!=0 || (!shortColumnTwo && u16(kdo,26)!=3 && (u16(kdo,26)!=0 || (kdo[11]&0x7f)!=1))))
                 throw new RedoException("UNSUPPORTED_KDOM2_UPDATE_LAYOUT");
             if ((kdo[16]&255) != 0x2c || stored<1 || stored>dictionaryColumns)
                 throw new RedoException("UNSUPPORTED_UPDATE_ROWPIECE");
@@ -127,7 +129,7 @@ public final class HeapRowPatch {
 
     /** Observed single-column KDOM2 XA short or extended value; NULL and short XR remain unproven. */
     private static byte[] packedValue(byte[] bytes,int layoutMarker) throws RedoException {
-        if (layoutMarker==0) {
+        if (layoutMarker==0 || layoutMarker==0x10) {
             if (bytes.length<2 || (bytes[0]&255)<1 || (bytes[0]&255)>250 || (bytes[0]&255)!=bytes.length-1)
                 throw new RedoException("UNSUPPORTED_KDOM2_VALUE_LENGTH");
             return java.util.Arrays.copyOfRange(bytes,1,bytes.length);

@@ -66,4 +66,17 @@ class Kdom2UpdateTest {
             assertThrows(RedoException.class,()->new HeapRowPatch().decode(vector(k,hex("0000"),bytes),3));
         k[11]=(byte)0x82;assertThrows(RedoException.class,()->new HeapRowPatch().decode(vector(k,hex("0000"),hex("02c10c")),3));
     }
+    @Test void observedColumnTwoShortStringProfileKeepsUntouchedColumnsAbsent() throws Exception {
+        byte[] k=kdo();k[22]=3;k[26]=0x10;
+        var patch=new HeapRowPatch().decode(vector(k,hex("0200"),hex("0c7061727469616c2d6e6f7465")),3);
+        assertArrayEquals(hex("7061727469616c2d6e6f7465"),patch.columns().get(2).bytes());
+        assertEquals(HeapRowPatch.State.ABSENT,patch.columns().get(0).state());
+        assertEquals(HeapRowPatch.State.ABSENT,patch.columns().get(1).state());assertNull(patch.extent().sizeDelta());
+    }
+    @Test void columnTwoControlDoesNotAuthorizeOtherMapsFlagsOrXr() {
+        byte[] k=kdo();k[22]=3;k[26]=0x10;byte[] bytes=hex("0c7061727469616c2d6e6f7465");
+        for (var map:List.of(hex("0000"),hex("0100"))) assertThrows(RedoException.class,()->new HeapRowPatch().decode(vector(k,map,bytes),3));
+        k[26]=0x20;assertThrows(RedoException.class,()->new HeapRowPatch().decode(vector(k,hex("0200"),bytes),3));
+        k[26]=0x10;k[11]=(byte)0x82;assertThrows(RedoException.class,()->new HeapRowPatch().decode(vector(k,hex("0200"),bytes),3));
+    }
 }
