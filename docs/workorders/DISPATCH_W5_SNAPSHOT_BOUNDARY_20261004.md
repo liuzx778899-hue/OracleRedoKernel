@@ -1,6 +1,6 @@
 # W5 初始活动事务跨snapshot真实边界
 
-状态：待执行。typed世代/真实获取到新DML的有限链路已交付；不是整个W5完成。依据[typed链路交付](DELIVERY_W5_TYPED_REPLAY_20261004.md)，核心当前比较的是begin/end Record SCN，必须用真实分离时序验证，不能自行把Record SCN当SQL事务开始时刻。
+状态：已按一次性真实实验完成有限拒绝门禁，见[边界交付](DELIVERY_W5_SNAPSHOT_BOUNDARY_20261004.md)；不重复执行以下已提交动作。typed世代/真实获取到新DML的有限链路已交付；不是整个W5完成。核心比较的是begin/end Record SCN，不把Record SCN当通用SQL事务开始时刻。接续[INSERT/DELETE](DISPATCH_W5_INSERT_DELETE_ROWS_20261004.md)。
 
 1. 专属既有项目表先只读确认当前ID11/TXT typed-epoch/NOTE new-note、heap73073→73076/index73074→73075。新输出目录，获取/操作脚本先提交；不能重跑seq27的CAS事务。
 2. 一个受控持久SQLPlus会话执行首个CAS UPDATE后保持事务未提交，记录完整XID与READY握手。另一受控连接归档当前日志以确保首批redo已持久化，再做新的只读固定SCN基线获取；读到的必须是旧已提交值，不拿未提交连接自己的当前行当基线。

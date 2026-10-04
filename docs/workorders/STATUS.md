@@ -11,12 +11,14 @@
 | W2 record/vector | 通过：首批fa61476 | 通过：19c seq8/9完整dump、21c选定范围 | 待证：事务/字典 | 未开始 | 待证 | 未开始 |
 | W3 基础行/类型 | 进行中：scalar + pair + KDOM2单列扩展值 | 通过：18pair/302长值patch；完整行待证 | 进行中：物理配对；字典/基线待证 | 未开始 | 待证 | 未开始 |
 | W4 事务/回滚 | 进行中：有序history/覆盖/heap+index补偿、同源完整XID归属及有源位置重放 | 通过：203测试；seq21—24自主发现基线/A/B共12物理图；自主对象头关联；seq19—24六位置、seq21—24有限双上下文完整图与拒绝证据；九笔旧图及六批长heap证据保留 | 进行中：有界自主物理入口已交付；完整控制/页维护/跨块关联/恢复待证；不当通用生产能力 | 未开始 | 待证 | 未开始 |
-| W5 SCN字典/基线 | 进行中：extent/完整行、实际ASOF获取/回执导入及typed heap/index世代链路 | 通过：223测试；seq27真实TXT/PK两次完整行、两SQL快照与4/0/4物理图native零差异，角色/回执/3 raw拒绝；初始跨snapshot、生产可信交接/历史字典待证 | 进行中：获取snapshot2341293→不同logical/data世代新DML完整行链路通过；通用历史schema/初始边界/rollback/并发待证 | 未开始 | 待证 | 未开始 |
+| W5 SCN字典/基线 | 进行中：extent/完整行、实际ASOF获取/回执/typed世代，有限空heap cleanout | 通过：225测试；seq27真实TXT/PK完整行与两SQL快照；seq28/29真实初始跨snapshot整批拒绝、2/0/2物理图和SCN native零差异，4 raw拒绝；生产可信交接/历史字典待证 | 进行中：有限获取→新DML及真实初始跨snapshot拒绝通过；通用初始恢复/历史schema/INSERT/DELETE/rollback/并发待证 | 未开始 | 待证 | 未开始 |
 | W6 StreamHouse接入 | 未开始 | 待证 | 未开始 | 未开始 | 待证 | 未开始 |
 | W7 online采集 | 进行中：固定member有界观察journal实验 | 通过：429归档数据块字节覆盖、6派生拒绝；完整持续捕获/续接/Windows/ASM待证 | 未开始：journal到解析/ACK | 未开始 | 待证 | 未开始 |
 | W8-W11 扩展类型/LOB/RAC/ASM/TDE | 未开始 | 待证 | 未开始 | 未开始 | 待证 | 未开始 |
 
 ## 当前证据
+
+最新：[真实初始事务跨快照拒绝](DELIVERY_W5_SNAPSHOT_BOUNDARY_20261004.md)，运行时b9320ff、lab比较/派生5a2344b，[清单](evidence/DELIVERY-snapshot-boundary-20261004.json)。225测试通过；自有未提交会话/独立获取snapshot2345429/原会话继续提交，XID6.2.594冻结连续seq28/29。完整2/0/2物理图和begin2345424<=snapshot2345429<end2345432与native零差异后，完整行BASELINE_CROSSES_TRANSACTION_BOUNDARY、rc1/stdout0。真实窗口空heap OP4.1首轮拒绝保全，只支持已观察空条目/SCN/spare严格布局；4重封raw均scan通过、物理及行入口拒绝。缺begin/end、晚SCN语义、原回执SCN篡改及比较器反例检出，旧seq27两完整行同件jar回归零差异，events两件分别拒绝。实验DML没有重放，最终专属项目行11/boundary-closed/new-note；接续[INSERT/DELETE完整行](DISPATCH_W5_INSERT_DELETE_ROWS_20261004.md)。本例安全拒绝不代表通用初始恢复/历史字典/CDC/capture/接入/现场/发布通过。
 
 最新：[W5 typed世代与获取基线完整行链路](DELIVERY_W5_TYPED_REPLAY_20261004.md)，运行时4afea7f、实验1c7106f，[清单](evidence/DELIVERY-typed-replay-20261004.json)。223测试通过；专属既有项目表一次性CAS TXT再PK UPDATE，同XID2.9.595冻结seq27 SHA061b8b3d…；实际获取snapshot2341293经回执/typed scope直接重建两次完整before/after，native及旧ASOF/最终SQL两快照零差异。完整1事务4/0/4物理图零差异。错角色/旧epoch/错logical/原回执改键及3重封checksum原始派生均rc1/stdout0；比较器5反例检出，同件jar seq15长值120/120/0、seq24三图10/4/6回归通过，events拒绝。范围外未知flags、真实short KDOM2首轮拒绝和错误控制字候选均保全，只修读取/解析不重放DML。控制字0短正长度XA已支持，NULL/short XR未证；接续真实初始跨snapshot边界，再攻INSERT/DELETE/rollback/并发完整行，生产可信交接/历史字典/CDC/capture/接入/现场/发布仍待证。
 
