@@ -1,0 +1,2169 @@
+{
+  "source_commit": "b0771f74f85abf9b2b766fedbcf5eb65f4f4ac58",
+  "branch": "main",
+  "artifact": {
+    "build_from": "complete git archive tree",
+    "path": "lab/out/release-index-pair-r2/target/oracle-redo-kernel-0.1.0-SNAPSHOT.jar",
+    "sha256": "c7ef0effa9f45f45ccc2915095d9c9b660288a1cf1ac1bba39e86872674b1b53"
+  },
+  "validation": {
+    "tests": 133,
+    "index_pairs": 14,
+    "index_native_mismatches": 0,
+    "real_record_derived_refusals": 12,
+    "heap_pairs": 18,
+    "heap_compensations": 4,
+    "retained_heap_rows": 1,
+    "heap_compensation_text_matches_old_seal": true,
+    "events_rc": 1,
+    "events_stdout_bytes": 0,
+    "jar_sha256": "c7ef0effa9f45f45ccc2915095d9c9b660288a1cf1ac1bba39e86872674b1b53"
+  },
+  "heap_native": [
+    {
+      "pairs_compared": 15,
+      "forward_present_columns": 39,
+      "inverse_present_columns": 9,
+      "mismatches": 0,
+      "errors": [],
+      "scope": "selected same-record forward/inverse pairs; no complete rows or compensation cancellation"
+    },
+    {
+      "pairs_compared": 3,
+      "forward_present_columns": 9,
+      "inverse_present_columns": 1,
+      "mismatches": 0,
+      "errors": [],
+      "scope": "selected same-record forward/inverse pairs; no complete rows or compensation cancellation"
+    }
+  ],
+  "index_native": {
+    "native_pairs": 14,
+    "raw_pairs": 14,
+    "mismatches": 0,
+    "errors": [],
+    "scope": "frozen same-record association and fields; no compensation or logical DML acceptance",
+    "cdc_events": 0
+  },
+  "real_record_derived_refusals": [
+    "missing|MISSING_INDEX_UNDO_UBA",
+    "duplicate_undo|AMBIGUOUS_INDEX_UNDO_UBA",
+    "duplicate_forward|AMBIGUOUS_INDEX_FORWARD_UBA",
+    "container|MISSING_INDEX_UNDO_UBA",
+    "uba_sequence|MISSING_INDEX_UNDO_UBA",
+    "xid|INDEX_UNDO_OPERATION_BLOCK_ITL_XID_OR_KEY_MISMATCH",
+    "key|INDEX_UNDO_OPERATION_BLOCK_ITL_XID_OR_KEY_MISMATCH",
+    "block|INDEX_UNDO_OPERATION_BLOCK_ITL_XID_OR_KEY_MISMATCH",
+    "itl|INDEX_UNDO_OPERATION_BLOCK_ITL_XID_OR_KEY_MISMATCH",
+    "mode|UNSUPPORTED_INDEX_FORWARD_MODE",
+    "short_header|UNREADABLE_INDEX_UNDO_CANDIDATE",
+    "unknown_ktb|UNSUPPORTED_INDEX_FORWARD_KTB"
+  ],
+  "database_actions": 0,
+  "cdc_events": 0,
+  "acceptance": "CODE_AND_BOUNDED_PAIR_VALIDATION_ONLY; NO_FULL_TRANSACTION_DML_SITE_OR_RELEASE_GO",
+  "failures_preserved": [
+    "initial test lambda compilation failed rc1",
+    "first XID mutation reached metadata rejection; corrected final mutation targets forward current XID"
+  ],
+  "limitations": [
+    "index compensation/history pending",
+    "no SCN dictionary object binding",
+    "insert undo lacks keydata cross-check",
+    "delete forward lacks key",
+    "opaque cleanout tail not certified",
+    "single short key component; real matrix covers two-byte NUMBER only"
+  ],
+  "files": [
+    {
+      "path": "lab/out/index-pair-20261004/build-r2.rc.txt",
+      "bytes": 3,
+      "sha256": "13bf7b3039c63bf5a50491fa3cfd8eb4e699d1ba1436315aef9cbe5711530354"
+    },
+    {
+      "path": "lab/out/index-pair-20261004/build-r2.stderr.txt",
+      "bytes": 301,
+      "sha256": "a73235e74b7212a667f3c9a6209ea0afe89e0cb01c372b4298f0f1a5e284ba49"
+    },
+    {
+      "path": "lab/out/index-pair-20261004/build-r2.stdout.txt",
+      "bytes": 5770,
+      "sha256": "2fef40626fa8210b3fd21c1bf0bcb9e6caac4d9416122bc161e43dfeb7f8fa8d"
+    },
+    {
+      "path": "lab/out/index-pair-20261004/build.rc.txt",
+      "bytes": 3,
+      "sha256": "f1b2f662800122bed0ff255693df89c4487fbdcf453d3524a42d4ec20c3d9c04"
+    },
+    {
+      "path": "lab/out/index-pair-20261004/build.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/index-pair-20261004/build.stdout.txt",
+      "bytes": 2651,
+      "sha256": "6bf52d8ae90476429e5a9ca32b75010d82bfec490d350f0cf2a23ce9ccacdd67"
+    },
+    {
+      "path": "lab/out/index-pair-20261004/compile.rc.txt",
+      "bytes": 3,
+      "sha256": "13bf7b3039c63bf5a50491fa3cfd8eb4e699d1ba1436315aef9cbe5711530354"
+    },
+    {
+      "path": "lab/out/index-pair-20261004/compile.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/index-pair-20261004/compile.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/index-pair-20261004/IndexUndoPairProbe.class",
+      "bytes": 6736,
+      "sha256": "70b405c083c3bf5aa30bafed25227326d24aa5b60084df9763d120841c4cbfbe"
+    },
+    {
+      "path": "lab/out/index-pair-20261004/IndexVectorSurvey.class",
+      "bytes": 4576,
+      "sha256": "f55cc3e0f15fefb00f123a4e4cc32dc06b1bae3c521a70e25cf93ce02a10bb85"
+    },
+    {
+      "path": "lab/out/index-pair-20261004/pairs.rc.txt",
+      "bytes": 3,
+      "sha256": "13bf7b3039c63bf5a50491fa3cfd8eb4e699d1ba1436315aef9cbe5711530354"
+    },
+    {
+      "path": "lab/out/index-pair-20261004/pairs.stderr.txt",
+      "bytes": 37,
+      "sha256": "ec237c52e7917c9cc599e642764838981c7ccd18aa4e1975e8b6ca20b741e00d"
+    },
+    {
+      "path": "lab/out/index-pair-20261004/pairs.txt",
+      "bytes": 1769,
+      "sha256": "51738d7c3db09b09e2f4181b464cdb899a9fc2cb41cf7c378096b049a0b221a2"
+    },
+    {
+      "path": "lab/out/index-pair-20261004/parity.json",
+      "bytes": 205,
+      "sha256": "aba10f035b4f6c4aaa6e635a5f9aaadc01a058596cb881953e6b2c3ce944ed82"
+    },
+    {
+      "path": "lab/out/index-pair-20261004/parity.rc.txt",
+      "bytes": 3,
+      "sha256": "13bf7b3039c63bf5a50491fa3cfd8eb4e699d1ba1436315aef9cbe5711530354"
+    },
+    {
+      "path": "lab/out/index-pair-20261004/parity.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle19-nosupp-20261004/archive-1-8.dbf",
+      "bytes": 16283648,
+      "sha256": "e9ec1dafaedb93c65e2a0dbc7bc0a4f8d492a5cbd350fd46c7a994f2f34a4aae"
+    },
+    {
+      "path": "lab/out/oracle19-nosupp-20261004/archive-1-9.dbf",
+      "bytes": 10752,
+      "sha256": "99ea74e7cc2e1f8d89c329179ed16dad2d3633beceb5ac76beb7a91c722a0ba2"
+    },
+    {
+      "path": "lab/out/oracle19-nosupp-20261004/dump-8.trc",
+      "bytes": 79335568,
+      "sha256": "babfc5a1cc6bdfd4c71ee1083fe7e13bd3036d90bec045c9ef21b830abab140a"
+    },
+    {
+      "path": "lab/out/oracle19-nosupp-20261004/dump-9.trc",
+      "bytes": 45441,
+      "sha256": "95ca77b8d60e9ae8549a967345d65abd8cf55282acedfd90ead0e17191dcdd57"
+    },
+    {
+      "path": "lab/out/release-full-rollback/original-compensation.stdout.txt",
+      "bytes": 355,
+      "sha256": "e7031e16ba9f8e554c4ff3f4c8cf3c13a2b217a9c241b9b6c3ba9b30e70e48a2"
+    },
+    {
+      "path": "lab/out/release-index-pair/.gitignore",
+      "bytes": 56,
+      "sha256": "703ad957b3fa9bf984b6acc8804f6d8a2377e18e20ca8ffbcb30908e913fe665"
+    },
+    {
+      "path": "lab/out/release-index-pair/AGENTS.md",
+      "bytes": 1581,
+      "sha256": "efbd83dafaedf07cb6d536cac75f853c70f65847a4cc7b8b8aa6b675628d7416"
+    },
+    {
+      "path": "lab/out/release-index-pair/build.rc.txt",
+      "bytes": 3,
+      "sha256": "13bf7b3039c63bf5a50491fa3cfd8eb4e699d1ba1436315aef9cbe5711530354"
+    },
+    {
+      "path": "lab/out/release-index-pair/build.stderr.txt",
+      "bytes": 301,
+      "sha256": "a73235e74b7212a667f3c9a6209ea0afe89e0cb01c372b4298f0f1a5e284ba49"
+    },
+    {
+      "path": "lab/out/release-index-pair/build.stdout.txt",
+      "bytes": 5938,
+      "sha256": "9b577cd4e162efb0d7974b1254ccea5ec60a35571002c090811766207c5d5e41"
+    },
+    {
+      "path": "lab/out/release-index-pair/commands.json",
+      "bytes": 4565,
+      "sha256": "31edd4da2af581e24e7ca363ad784db5c302653b768fcdd135b4a0daaedf3bcd"
+    },
+    {
+      "path": "lab/out/release-index-pair/compile.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/release-index-pair/compile.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/release-index-pair/compile.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/release-index-pair/events.rc.txt",
+      "bytes": 1,
+      "sha256": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b"
+    },
+    {
+      "path": "lab/out/release-index-pair/events.stderr.txt",
+      "bytes": 343,
+      "sha256": "4ee80899762925099c65edd24783dd5781d84509ec2eee0cac0d2fced6130fa2"
+    },
+    {
+      "path": "lab/out/release-index-pair/events.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/release-index-pair/heap-compensation.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/release-index-pair/heap-compensation.stderr.txt",
+      "bytes": 74,
+      "sha256": "9fcaa2da3dbd0ab9f2d3158fc3e692f910b6ceee7097c943173c0b9b253469ba"
+    },
+    {
+      "path": "lab/out/release-index-pair/heap-compensation.stdout.txt",
+      "bytes": 355,
+      "sha256": "e7031e16ba9f8e554c4ff3f4c8cf3c13a2b217a9c241b9b6c3ba9b30e70e48a2"
+    },
+    {
+      "path": "lab/out/release-index-pair/heap-pair-8-rows.json",
+      "bytes": 95,
+      "sha256": "f12ebab2d20d770282736f87af8bd2381d7a296e5e0479e281eb7a6d299712a1"
+    },
+    {
+      "path": "lab/out/release-index-pair/heap-pair-8.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/release-index-pair/heap-pair-8.stderr.txt",
+      "bytes": 48,
+      "sha256": "0e3c1ac9fa447b3b795653a8b1d5f756e3d343c92afae8e875c7b336427d493d"
+    },
+    {
+      "path": "lab/out/release-index-pair/heap-pair-8.stdout.txt",
+      "bytes": 2160,
+      "sha256": "b530a50340158cc32f4d12a3d0ccec0b966116e1af6064a74cb67df66cdb489b"
+    },
+    {
+      "path": "lab/out/release-index-pair/heap-pair-9-rows.json",
+      "bytes": 94,
+      "sha256": "f40a206f33186b09102f975697fade39ddc94598ecd196a6d1988416141a82a8"
+    },
+    {
+      "path": "lab/out/release-index-pair/heap-pair-9.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/release-index-pair/heap-pair-9.stderr.txt",
+      "bytes": 48,
+      "sha256": "0e3c1ac9fa447b3b795653a8b1d5f756e3d343c92afae8e875c7b336427d493d"
+    },
+    {
+      "path": "lab/out/release-index-pair/heap-pair-9.stdout.txt",
+      "bytes": 472,
+      "sha256": "e478c41c9e9194b0ba4f905e40ec6e40aa9a7d9b8b2a2f517cfa20c6df54d6a9"
+    },
+    {
+      "path": "lab/out/release-index-pair/index-native.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/release-index-pair/index-native.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/release-index-pair/index-native.stdout.txt",
+      "bytes": 205,
+      "sha256": "aba10f035b4f6c4aaa6e635a5f9aaadc01a058596cb881953e6b2c3ce944ed82"
+    },
+    {
+      "path": "lab/out/release-index-pair/index-negative.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/release-index-pair/index-negative.stderr.txt",
+      "bytes": 46,
+      "sha256": "97690f41a5f4c142fffa9250a5ea132fe0dd3dbecace0a2d66681bfc1dfd474f"
+    },
+    {
+      "path": "lab/out/release-index-pair/index-negative.stdout.txt",
+      "bytes": 521,
+      "sha256": "0712bedbfcb0361c00276e555ac15abc139b3950b6430b2a375b0d0a665d386f"
+    },
+    {
+      "path": "lab/out/release-index-pair/index-pairs.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/release-index-pair/index-pairs.stderr.txt",
+      "bytes": 37,
+      "sha256": "ec237c52e7917c9cc599e642764838981c7ccd18aa4e1975e8b6ca20b741e00d"
+    },
+    {
+      "path": "lab/out/release-index-pair/index-pairs.stdout.txt",
+      "bytes": 1769,
+      "sha256": "51738d7c3db09b09e2f4181b464cdb899a9fc2cb41cf7c378096b049a0b221a2"
+    },
+    {
+      "path": "lab/out/release-index-pair/pom.xml",
+      "bytes": 1344,
+      "sha256": "b7cf6995376aa9135e15a061157776e7751dc6f20a1622e97e207c33b9823f1e"
+    },
+    {
+      "path": "lab/out/release-index-pair/README.md",
+      "bytes": 8242,
+      "sha256": "013062b46cb860daf92deed847b8e3c83eb2d62dc61a8762c875dd3efbb09622"
+    },
+    {
+      "path": "lab/out/release-index-pair/source.tar",
+      "bytes": 1515520,
+      "sha256": "0d15204d4300d3118be2961337ff1306d9c150eda59a2dad418e70ac4b50fdf8"
+    },
+    {
+      "path": "lab/out/release-index-pair/summary.json",
+      "bytes": 376,
+      "sha256": "e008447adf22c9c1e2ba545d4e9f845510e1b62fd1d8684919ffd3a824f2a138"
+    },
+    {
+      "path": "lab/out/release-index-pair/verify.rc.txt",
+      "bytes": 3,
+      "sha256": "13bf7b3039c63bf5a50491fa3cfd8eb4e699d1ba1436315aef9cbe5711530354"
+    },
+    {
+      "path": "lab/out/release-index-pair/verify.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/release-index-pair/verify.stdout.txt",
+      "bytes": 378,
+      "sha256": "0ee699b53c5de253e54924ffa178a6a6ced2a62f7a6d1ce0e19f672f92061854"
+    },
+    {
+      "path": "lab/out/release-index-pair/verify_seal.py",
+      "bytes": 3484,
+      "sha256": "f6b973abc5b74bbaea35510afe98670ad42291fdf42e41933811d5d2966039ba"
+    },
+    {
+      "path": "lab/out/release-index-pair-r2/.gitignore",
+      "bytes": 56,
+      "sha256": "703ad957b3fa9bf984b6acc8804f6d8a2377e18e20ca8ffbcb30908e913fe665"
+    },
+    {
+      "path": "lab/out/release-index-pair-r2/AGENTS.md",
+      "bytes": 1581,
+      "sha256": "efbd83dafaedf07cb6d536cac75f853c70f65847a4cc7b8b8aa6b675628d7416"
+    },
+    {
+      "path": "lab/out/release-index-pair-r2/build.rc.txt",
+      "bytes": 3,
+      "sha256": "13bf7b3039c63bf5a50491fa3cfd8eb4e699d1ba1436315aef9cbe5711530354"
+    },
+    {
+      "path": "lab/out/release-index-pair-r2/build.stderr.txt",
+      "bytes": 301,
+      "sha256": "a73235e74b7212a667f3c9a6209ea0afe89e0cb01c372b4298f0f1a5e284ba49"
+    },
+    {
+      "path": "lab/out/release-index-pair-r2/build.stdout.txt",
+      "bytes": 5947,
+      "sha256": "4a9ab7a2321312dfa3ee0e68f8e0b5c5e8c807b790adf47a5a07a6811fa7c9e1"
+    },
+    {
+      "path": "lab/out/release-index-pair-r2/classes/HeapCompensationProbe.class",
+      "bytes": 9424,
+      "sha256": "0d94204f97e9b0e02697cdeab751faa97dc25f4e21ad89e046387d39fc003c57"
+    },
+    {
+      "path": "lab/out/release-index-pair-r2/classes/HeapUndoPairProbe.class",
+      "bytes": 6908,
+      "sha256": "8e8a0e53c6aa71ef9e3a80bdeb5ef85b71b34360d353b20b04a6195c3e5eec23"
+    },
+    {
+      "path": "lab/out/release-index-pair-r2/classes/IndexUndoPairProbe.class",
+      "bytes": 6736,
+      "sha256": "70b405c083c3bf5aa30bafed25227326d24aa5b60084df9763d120841c4cbfbe"
+    },
+    {
+      "path": "lab/out/release-index-pair-r2/classes/IndexVectorSurvey.class",
+      "bytes": 4576,
+      "sha256": "f55cc3e0f15fefb00f123a4e4cc32dc06b1bae3c521a70e25cf93ce02a10bb85"
+    },
+    {
+      "path": "lab/out/release-index-pair-r2/classes/NegativeIndexPairProbe.class",
+      "bytes": 5685,
+      "sha256": "e9c2e6ae9f0250277f6e3d5ed36d63a56a9ab73e094a2374ddb3a47ac8f8306d"
+    },
+    {
+      "path": "lab/out/release-index-pair-r2/classes/TransactionLifecycleProbe.class",
+      "bytes": 5543,
+      "sha256": "bfe422617ea08700e1aeb83ccc5294065f5aab1545736c6a2baeee96475ade73"
+    },
+    {
+      "path": "lab/out/release-index-pair-r2/commands.json",
+      "bytes": 4628,
+      "sha256": "8ce14e7f5d7b55cd461f7f34c98b78ad9a28c29cc6906da3e50abcaaac8745ac"
+    },
+    {
+      "path": "lab/out/release-index-pair-r2/compile.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/release-index-pair-r2/compile.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/release-index-pair-r2/compile.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/release-index-pair-r2/docs/Oracle_Direct_Redo_鎶€鏈柟妗坃v0.1_20261004.md",
+      "bytes": 14786,
+      "sha256": "dcd966e77894d9cb67b585ad897eddab6f40727faf0e9432976be20faf0dbe3d"
+    },
+    {
+      "path": "lab/out/release-index-pair-r2/docs/workorders/DELIVERY_W0_W2_20261004.md",
+      "bytes": 3779,
+      "sha256": "ca44ddb7654adf502d61843787f4e2741262254df85f5ad0cb3ed1f49801641c"
+    },
+    {
+      "path": "lab/out/release-index-pair-r2/docs/workorders/DELIVERY_W3_KDOM2_20261004.md",
+      "bytes": 3874,
+      "sha256": "af1d78ac4050371a3fa5a0b6766c374be068480649f57e003fca0ef455f01970"
+    },
+    {
+      "path": "lab/out/release-index-pair-r2/docs/workorders/DELIVERY_W3_PAIR_20261004.md",
+      "bytes": 2718,
+      "sha256": "f695c69d85b4bfcb97824658d1a52f1692ebf617985a42fba8a275045bbdf325"
+    },
+    {
+      "path": "lab/out/release-index-pair-r2/docs/workorders/DELIVERY_W3_PATCH_20261004.md",
+      "bytes": 3444,
+      "sha256": "46ee78f4836af46b46a43f07e9fb3d5015d5db85ffc62ec807ffa3bc449c95e8"
+    },
+    {
+      "path": "lab/out/release-index-pair-r2/docs/workorders/DELIVERY_W3_UNDO_ROW_20261004.md",
+      "bytes": 2110,
+      "sha256": "fc78e4659c3aaca71c3825ef5ac58ba44d1bdd1fda0607a939bd8c3d59903a81"
+    },
+    {
+      "path": "lab/out/release-index-pair-r2/docs/workorders/DELIVERY_W4_BEGIN_20261004.md",
+      "bytes": 1943,
+      "sha256": "3df25f441aa92169c205a0e02683797114284743514766f1841e015c6607bc9b"
+    },
+    {
+      "path": "lab/out/release-index-pair-r2/docs/workorders/DELIVERY_W4_BEGIN_COMPENSATION_20261004.md",
+      "bytes": 2952,
+      "sha256": "df38634404c3719a0d3a79b2a37fcc4cbcb5c6c34e4eb0dc5d37a3b91499e0fd"
+    },
+    {
+      "path": "lab/out/release-index-pair-r2/docs/workorders/DELIVERY_W4_COMPENSATION_20261004.md",
+      "bytes": 3099,
+      "sha256": "b1abd9c794c498562c5925ba782e9ca70300d30bbc3d7d4481c184ec53c26f2f"
+    },
+    {
+      "path": "lab/out/release-index-pair-r2/docs/workorders/DELIVERY_W4_COMPENSATION_INVENTORY_20261004.md",
+      "bytes": 3679,
+      "sha256": "3fc1833ce5b7a927cb659f3cb39006df71ac978e69b5936b8aca9bdf8bc52fe7"
+    },
+    {
+      "path": "lab/out/release-index-pair-r2/docs/workorders/DELIVERY_W4_CROSS_COMPENSATION_20261004.md",
+      "bytes": 5988,
+      "sha256": "0492a1ec8614837453b6fd60501faee74467a53a4dba7d9e6c789a404bcab265"
+    },
+    {
+      "path": "lab/out/release-index-pair-r2/docs/workorders/DELIVERY_W4_FULL_ROLLBACK_20261004.md",
+      "bytes": 4447,
+      "sha256": "7d1ae69740f9fc3fe427ea996c3fc776b94b1764f916b95a0b36738aa19c4fa1"
+    },
+    {
+      "path": "lab/out/release-index-pair-r2/docs/workorders/DELIVERY_W4_HEAD_UPDATE_20261004.md",
+      "bytes": 3079,
+      "sha256": "5fad18c5f65d28962a0d7e455ee60fcbc16c673efd89cd2e7cbe3a7f44477617"
+    },
+    {
+      "path": "lab/out/release-index-pair-r2/docs/workorders/DELIVERY_W4_LIFECYCLE_20261004.md",
+      "bytes": 3129,
+      "sha256": "806c283174b65cdb9628edad4a9f6c6a7717cac670328ddc9869130928322e20"
+    },
+    {
+      "path": "lab/out/release-index-pair-r2/docs/workorders/DELIVERY_W4_MARKERS_20261004.md",
+      "bytes": 2530,
+      "sha256": "85fc1728adee88a7e6a40c2d9771682a02f76f8cbbea2d7ed532aa471d679524"
+    },
+    {
+      "path": "lab/out/release-index-pair-r2/docs/workorders/DELIVERY_W4_ORDERED_HISTORY_20261004.md",
+      "bytes": 3767,
+      "sha256": "08dc654bdf22018b93f0de91bdf5d7eb51f9bd5aa2a8994e24472358f2c01481"
+    },
+    {
+      "path": "lab/out/release-index-pair-r2/docs/workorders/DELIVERY_W4_UNDO_ADVANCE_20261004.md",
+      "bytes": 5017,
+      "sha256": "6f8cea47d089a4c85b5f4c57ee03e163791afa1c4d08096576e0d2de94125a97"
+    },
+    {
+      "path": "lab/out/release-index-pair-r2/docs/workorders/DELIVERY_W4_UNDO_CHAIN_20261004.md",
+      "bytes": 3150,
+      "sha256": "57ca6b62cc86c39c1667d3d8152ab0789e1cce05a87cd06405de144adeea35d7"
+    },
+    {
+      "path": "lab/out/release-index-pair-r2/docs/workorders/DELIVERY_W4_UNDO_INVENTORY_20261004.md",
+      "bytes": 3670,
+      "sha256": "1e6f3298c02ccd5ac3385837e975773f4150a45988a8aae403c139c04d64968a"
+    },
+    {
+      "path": "lab/out/release-index-pair-r2/docs/workorders/DELIVERY_W4_WINDOW_SLOT_20261004.md",
+      "bytes": 3563,
+      "sha256": "b38062beeee062ae64c4dec2deabff8d474734d63c3c8861f6ee0d50d55bbf2a"
+    },
+    {
+      "path": "lab/out/release-index-pair-r2/docs/workorders/DELIVERY_W7_OBSERVATION_20261004.md",
+      "bytes": 4568,
+      "sha256": "ef925ae55ec4244921e5025b1ba1abfc9b5611b5b9897348bde7bae8f971aad6"
+    },
+    {
+      "path": "lab/out/release-index-pair-r2/docs/workorders/DISPATCH_W3_W5_NOSUPP_20261004.md",
+      "bytes": 3823,
+      "sha256": "da47c3f47d49078519b9c6aeea20d7a127d79bd6ac8ec5c3f19b709b0169d222"
+    },
+    {
+      "path": "lab/out/release-index-pair-r2/docs/workorders/DISPATCH_W7_ONLINE_CAPTURE_20261004.md",
+      "bytes": 3630,
+      "sha256": "a2ba790abf59c8ee7401ddc5073ae1b4a257aa5d24c7ff565596593f25b110e3"
+    },
+    {
+      "path": "lab/out/release-index-pair-r2/docs/workorders/evidence/DELIVERY-0445b43.json",
+      "bytes": 46637,
+      "sha256": "0cf7ddc1ffb0ee65c8a3ee83df5b2a86c2b2c655b43cf5261b0d0ab03fe60e16"
+    },
+    {
+      "path": "lab/out/release-index-pair-r2/docs/workorders/evidence/DELIVERY-076865c.json",
+      "bytes": 149744,
+      "sha256": "ec666636f8d002f9c4b380dc241057fe11a42661db6ee9dc1131a05e7f6e48be"
+    },
+    {
+      "path": "lab/out/release-index-pair-r2/docs/workorders/evidence/DELIVERY-0b36846.json",
+      "bytes": 2989,
+      "sha256": "66de34f41292408b2f4881ab33956f7698e983d2ed454cb55d75f793ac8a5662"
+    },
+    {
+      "path": "lab/out/release-index-pair-r2/docs/workorders/evidence/DELIVERY-0c5ff4c.json",
+      "bytes": 3765,
+      "sha256": "985dbb50e54eb8931d80231d2976a158a1c81da86b07d28dfd8071b293e6490e"
+    },
+    {
+      "path": "lab/out/release-index-pair-r2/docs/workorders/evidence/DELIVERY-254e5e7.json",
+      "bytes": 3525,
+      "sha256": "15ae4368ec59cebc8a0e0b0d3d1cb2111c52e3968b231a434a11c0f67cdb7536"
+    },
+    {
+      "path": "lab/out/release-index-pair-r2/docs/workorders/evidence/DELIVERY-3418fb9.json",
+      "bytes": 4383,
+      "sha256": "9574b1755d9e881a546e5f660bba04080f9df8f6084a110fe2b7935214f9f667"
+    },
+    {
+      "path": "lab/out/release-index-pair-r2/docs/workorders/evidence/DELIVERY-3e1b5bc.json",
+      "bytes": 4134,
+      "sha256": "1eed0a2d52bd01ff37e865a06cf7ee2b41275e9da75a6c4a479cf10bccee08cd"
+    },
+    {
+      "path": "lab/out/release-index-pair-r2/docs/workorders/evidence/DELIVERY-6985d9c.json",
+      "bytes": 15045,
+      "sha256": "993868c61014b10e89ccb92e3584822ec1b9e944c015dd8a4fef2203c180cab9"
+    },
+    {
+      "path": "lab/out/release-index-pair-r2/docs/workorders/evidence/DELIVERY-6d30626.json",
+      "bytes": 62394,
+      "sha256": "d47b39fe1d55e0e9b131eeac12091baded1cca18f4e07824965e46e9cd2cc81d"
+    },
+    {
+      "path": "lab/out/release-index-pair-r2/docs/workorders/evidence/DELIVERY-8859c7d.json",
+      "bytes": 4598,
+      "sha256": "228b86da854d03e479ceecbb2ea66254a11fb9bbbe4bd68da9fedbd5e5f4ea63"
+    },
+    {
+      "path": "lab/out/release-index-pair-r2/docs/workorders/evidence/DELIVERY-8a18e3d.json",
+      "bytes": 70869,
+      "sha256": "cc40a69d541019931081193543a2ef315f368d125c0763153dec11d1c30d622b"
+    },
+    {
+      "path": "lab/out/release-index-pair-r2/docs/workorders/evidence/DELIVERY-952e65d.json",
+      "bytes": 86359,
+      "sha256": "c31f9b2144731ee659165f9503397d43a4096a2335435de3cfb786c6cf88459e"
+    },
+    {
+      "path": "lab/out/release-index-pair-r2/docs/workorders/evidence/DELIVERY-9a2344b.json",
+      "bytes": 114319,
+      "sha256": "586304f1397b22b6646fd4d950392fcd0ddfb1524cd09960af395d9bd5384566"
+    },
+    {
+      "path": "lab/out/release-index-pair-r2/docs/workorders/evidence/DELIVERY-9ffc19b.json",
+      "bytes": 53848,
+      "sha256": "44bf9f4bd3f621c48f52590fdd5bbca561d3d9750e2d91399c9b4a045eca2cff"
+    },
+    {
+      "path": "lab/out/release-index-pair-r2/docs/workorders/evidence/DELIVERY-b188709.json",
+      "bytes": 2935,
+      "sha256": "222462e5807f3d12d7bc854d5508555b61d847ea3383c237b3fd9598e4c18e4c"
+    },
+    {
+      "path": "lab/out/release-index-pair-r2/docs/workorders/evidence/DELIVERY-b99828e.json",
+      "bytes": 21545,
+      "sha256": "555ce312f8b272a07c603db52bbe08b001fc60e6e9a921d949ebf5f2462a8154"
+    },
+    {
+      "path": "lab/out/release-index-pair-r2/docs/workorders/evidence/DELIVERY-d3f07b3.json",
+      "bytes": 4116,
+      "sha256": "ac892189fd4ca28a25a385f90ae95a80926b2b25d5f897798e802ea42b33d5d6"
+    },
+    {
+      "path": "lab/out/release-index-pair-r2/docs/workorders/evidence/DELIVERY-ea709ae.json",
+      "bytes": 3878,
+      "sha256": "b46d573e4530365dca2c73ecedab1c2ff28338b700cbbf0edc6b9a0b6975abfa"
+    },
+    {
+      "path": "lab/out/release-index-pair-r2/docs/workorders/evidence/DELIVERY-fa61476.json",
+      "bytes": 5403,
+      "sha256": "040eefe334f88d89890c58aeec52bd5558dba0f38f865c5f0bfc004254763632"
+    },
+    {
+      "path": "lab/out/release-index-pair-r2/docs/workorders/evidence/DELIVERY-observation-20261004.json",
+      "bytes": 20366,
+      "sha256": "f90d5f4f02e3395d0d4c0659f84ed84a677623e8918da14c11f74ea86354b381"
+    },
+    {
+      "path": "lab/out/release-index-pair-r2/docs/workorders/evidence/READ-online-open-20261004.json",
+      "bytes": 3494,
+      "sha256": "4ced65662a840ae36c1ac842f2557b4bae358c2ae3ab01726a05d56c891cfb0a"
+    },
+    {
+      "path": "lab/out/release-index-pair-r2/docs/workorders/evidence/RESEARCH-cursor-hole-20261004.json",
+      "bytes": 10899,
+      "sha256": "70a1ea27fc72dd591788ddf3ffe7beb10176191e0c38a3f68519a2e8b5850ce6"
+    },
+    {
+      "path": "lab/out/release-index-pair-r2/docs/workorders/evidence/RESEARCH-cursor-snapshot-20261004.json",
+      "bytes": 10381,
+      "sha256": "f2499acbf2c08ff3d1099fb10e1107275b4a4b5def25713b7d7fa32c8f747830"
+    },
+    {
+      "path": "lab/out/release-index-pair-r2/docs/workorders/evidence/RESEARCH-index-fields-20261004.json",
+      "bytes": 16131,
+      "sha256": "8c4f54d287f7a843c861731bd15ca9fc7a4cd66305176aa2fea294451a2e3a54"
+    },
+    {
+      "path": "lab/out/release-index-pair-r2/docs/workorders/evidence/RESEARCH-resume-fixture-20261004.json",
+      "bytes": 15566,
+      "sha256": "1e8b2e13ad25537bdf5de6d6da1865d68d48195a29bfa2fd834f7d8ea8947e31"
+    },
+    {
+      "path": "lab/out/release-index-pair-r2/docs/workorders/evidence/RESEARCH-second-rollback-20261004.json",
+      "bytes": 31353,
+      "sha256": "6f0c0ca86c4b61447890fe6a7caa0bcd09d43d0f9fa0d42f628e965babaf1443"
+    },
+    {
+      "path": "lab/out/release-index-pair-r2/docs/workorders/evidence/RESEARCH-undo-snapshot-20261004.json",
+      "bytes": 2131,
+      "sha256": "f9add25cfa08c01f4229a519525b030fd521142b5a68631b3a51b93cd7241f30"
+    },
+    {
+      "path": "lab/out/release-index-pair-r2/docs/workorders/RESEARCH_W4_CURSOR_HOLE_20261004.md",
+      "bytes": 3273,
+      "sha256": "a65f980c84f90a689f83b6382674d1c413d33b260c935d09d66c84e40642a4b1"
+    },
+    {
+      "path": "lab/out/release-index-pair-r2/docs/workorders/RESEARCH_W4_CURSOR_SNAPSHOT_20261004.md",
+      "bytes": 2139,
+      "sha256": "404e4a669274b6ab0b4ed90bccf146dba852edd24f51534876ec757c9a66f398"
+    },
+    {
+      "path": "lab/out/release-index-pair-r2/docs/workorders/RESEARCH_W4_INDEX_FIELDS_20261004.md",
+      "bytes": 3676,
+      "sha256": "e1527d6edefa0a43c451e4861d394029da0b5358e442c7a11acab5d550e0fd0a"
+    },
+    {
+      "path": "lab/out/release-index-pair-r2/docs/workorders/RESEARCH_W4_RESUMED_WRITE_20261004.md",
+      "bytes": 3929,
+      "sha256": "aa3b8172ac0e21abf7edc51a62b309eeaa194eeed97f28de79f05ec75262bf2d"
+    },
+    {
+      "path": "lab/out/release-index-pair-r2/docs/workorders/RESEARCH_W4_SECOND_ROLLBACK_20261004.md",
+      "bytes": 4448,
+      "sha256": "d90a4e92326e4675166f5017d9aaa146d9ec7389a4de4ff1aa870fe290b29a3d"
+    },
+    {
+      "path": "lab/out/release-index-pair-r2/docs/workorders/RESEARCH_W4_UNDO_SNAPSHOT_20261004.md",
+      "bytes": 1816,
+      "sha256": "d70554eed34d3811e35c703e73b0a89b0fc0ca7d4f54405d649c4c237dd90934"
+    },
+    {
+      "path": "lab/out/release-index-pair-r2/docs/workorders/STATUS.md",
+      "bytes": 16650,
+      "sha256": "e2019304bde06d5053503a1fe53bd21a7b2f1532398e9263998364035245004a"
+    },
+    {
+      "path": "lab/out/release-index-pair-r2/events.rc.txt",
+      "bytes": 1,
+      "sha256": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b"
+    },
+    {
+      "path": "lab/out/release-index-pair-r2/events.stderr.txt",
+      "bytes": 343,
+      "sha256": "4ee80899762925099c65edd24783dd5781d84509ec2eee0cac0d2fced6130fa2"
+    },
+    {
+      "path": "lab/out/release-index-pair-r2/events.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/release-index-pair-r2/heap-compensation.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/release-index-pair-r2/heap-compensation.stderr.txt",
+      "bytes": 74,
+      "sha256": "9fcaa2da3dbd0ab9f2d3158fc3e692f910b6ceee7097c943173c0b9b253469ba"
+    },
+    {
+      "path": "lab/out/release-index-pair-r2/heap-compensation.stdout.txt",
+      "bytes": 355,
+      "sha256": "e7031e16ba9f8e554c4ff3f4c8cf3c13a2b217a9c241b9b6c3ba9b30e70e48a2"
+    },
+    {
+      "path": "lab/out/release-index-pair-r2/heap-native-8.json",
+      "bytes": 239,
+      "sha256": "026d8dd7209d6d83a39ded07dd4109b906d92f6898731a50983de0f89d04a37b"
+    },
+    {
+      "path": "lab/out/release-index-pair-r2/heap-native-8.rc.txt",
+      "bytes": 3,
+      "sha256": "13bf7b3039c63bf5a50491fa3cfd8eb4e699d1ba1436315aef9cbe5711530354"
+    },
+    {
+      "path": "lab/out/release-index-pair-r2/heap-native-8.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/release-index-pair-r2/heap-native-9.json",
+      "bytes": 237,
+      "sha256": "d1b122e01500d0e63e55073d439c788b59885612c175d57ec05cee47ec444cda"
+    },
+    {
+      "path": "lab/out/release-index-pair-r2/heap-native-9.rc.txt",
+      "bytes": 3,
+      "sha256": "13bf7b3039c63bf5a50491fa3cfd8eb4e699d1ba1436315aef9cbe5711530354"
+    },
+    {
+      "path": "lab/out/release-index-pair-r2/heap-native-9.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/release-index-pair-r2/heap-pair-8-rows.json",
+      "bytes": 95,
+      "sha256": "f12ebab2d20d770282736f87af8bd2381d7a296e5e0479e281eb7a6d299712a1"
+    },
+    {
+      "path": "lab/out/release-index-pair-r2/heap-pair-8.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/release-index-pair-r2/heap-pair-8.stderr.txt",
+      "bytes": 48,
+      "sha256": "0e3c1ac9fa447b3b795653a8b1d5f756e3d343c92afae8e875c7b336427d493d"
+    },
+    {
+      "path": "lab/out/release-index-pair-r2/heap-pair-8.stdout.txt",
+      "bytes": 2160,
+      "sha256": "b530a50340158cc32f4d12a3d0ccec0b966116e1af6064a74cb67df66cdb489b"
+    },
+    {
+      "path": "lab/out/release-index-pair-r2/heap-pair-9-rows.json",
+      "bytes": 94,
+      "sha256": "f40a206f33186b09102f975697fade39ddc94598ecd196a6d1988416141a82a8"
+    },
+    {
+      "path": "lab/out/release-index-pair-r2/heap-pair-9.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/release-index-pair-r2/heap-pair-9.stderr.txt",
+      "bytes": 48,
+      "sha256": "0e3c1ac9fa447b3b795653a8b1d5f756e3d343c92afae8e875c7b336427d493d"
+    },
+    {
+      "path": "lab/out/release-index-pair-r2/heap-pair-9.stdout.txt",
+      "bytes": 472,
+      "sha256": "e478c41c9e9194b0ba4f905e40ec6e40aa9a7d9b8b2a2f517cfa20c6df54d6a9"
+    },
+    {
+      "path": "lab/out/release-index-pair-r2/index-native.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/release-index-pair-r2/index-native.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/release-index-pair-r2/index-native.stdout.txt",
+      "bytes": 205,
+      "sha256": "aba10f035b4f6c4aaa6e635a5f9aaadc01a058596cb881953e6b2c3ce944ed82"
+    },
+    {
+      "path": "lab/out/release-index-pair-r2/index-negative.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/release-index-pair-r2/index-negative.stderr.txt",
+      "bytes": 46,
+      "sha256": "97690f41a5f4c142fffa9250a5ea132fe0dd3dbecace0a2d66681bfc1dfd474f"
+    },
+    {
+      "path": "lab/out/release-index-pair-r2/index-negative.stdout.txt",
+      "bytes": 543,
+      "sha256": "6841461c2ccf32039e22c5bb821599b9dd03a5e69278f75a775f8f3f73a187bb"
+    },
+    {
+      "path": "lab/out/release-index-pair-r2/index-pairs.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/release-index-pair-r2/index-pairs.stderr.txt",
+      "bytes": 37,
+      "sha256": "ec237c52e7917c9cc599e642764838981c7ccd18aa4e1975e8b6ca20b741e00d"
+    },
+    {
+      "path": "lab/out/release-index-pair-r2/index-pairs.stdout.txt",
+      "bytes": 1769,
+      "sha256": "51738d7c3db09b09e2f4181b464cdb899a9fc2cb41cf7c378096b049a0b221a2"
+    },
+    {
+      "path": "lab/out/release-index-pair-r2/lab/check_index_survey_negatives.py",
+      "bytes": 2165,
+      "sha256": "46a2a246edb0fd41ccdd912e7dfe619c3638eba2792954d9b522691135e5a415"
+    },
+    {
+      "path": "lab/out/release-index-pair-r2/lab/compare_advance_dump.py",
+      "bytes": 3017,
+      "sha256": "e89094aa4ab353c054232404ef23462f08f1f32285ff1933b258a64f8e1e7840"
+    },
+    {
+      "path": "lab/out/release-index-pair-r2/lab/compare_begin_dump.py",
+      "bytes": 2909,
+      "sha256": "a4241095b53319cea7d49c1f23720e2fd59dfe1d2e793d463d4161ed7b0a7828"
+    },
+    {
+      "path": "lab/out/release-index-pair-r2/lab/compare_chain_dump.py",
+      "bytes": 4788,
+      "sha256": "ad543ffb985d53c384a6a69ad620755e8aa6128a4c2182478f3328392e1d7e26"
+    },
+    {
+      "path": "lab/out/release-index-pair-r2/lab/compare_compensation_dump.py",
+      "bytes": 7061,
+      "sha256": "7e5bbdcf4bc7283161e280fe9d9f27f0b829921a8ad0b245da02b9c00a94e6fc"
+    },
+    {
+      "path": "lab/out/release-index-pair-r2/lab/compare_compensation_inventory.py",
+      "bytes": 3205,
+      "sha256": "1a3c692384af6b1d4d8d19dc57c479053b2b2fb42f3d055b5597ba4254e4b8eb"
+    },
+    {
+      "path": "lab/out/release-index-pair-r2/lab/compare_cursor_fields.py",
+      "bytes": 4729,
+      "sha256": "ae1a76b36013032f277f908233fabd8ca2385c2774f6b3936254f33a623efd7b"
+    },
+    {
+      "path": "lab/out/release-index-pair-r2/lab/compare_cursor_snapshot.py",
+      "bytes": 3640,
+      "sha256": "815b62cf73318a93d9f6d68367f911a91defe8bbbab95013c28a1b47c5bba00c"
+    },
+    {
+      "path": "lab/out/release-index-pair-r2/lab/compare_dump.py",
+      "bytes": 1612,
+      "sha256": "7cfcc231b1f1e375a73186de279afc3b84d36b6e7988603c1577aa334136fb61"
+    },
+    {
+      "path": "lab/out/release-index-pair-r2/lab/compare_head_update.py",
+      "bytes": 2134,
+      "sha256": "bb02eb5501c2e4ac1afec586c5241031be6e9dab6ce51daf1ec5f4511a34b06e"
+    },
+    {
+      "path": "lab/out/release-index-pair-r2/lab/compare_heap_dump.py",
+      "bytes": 2182,
+      "sha256": "29887ebb2d80156cde1f62439ed9662393b81b02db74cd8e5e3cef511738335f"
+    },
+    {
+      "path": "lab/out/release-index-pair-r2/lab/compare_index_pairs.py",
+      "bytes": 4383,
+      "sha256": "1a44b974ac2fea7cd91f634d75e5585af60daaa8b77b307b88f8e01451a356ee"
+    },
+    {
+      "path": "lab/out/release-index-pair-r2/lab/compare_index_survey.py",
+      "bytes": 6616,
+      "sha256": "0578d2a96ee6a1646cef45052855b1458e3391071779f647e4a872cd2ca1603d"
+    },
+    {
+      "path": "lab/out/release-index-pair-r2/lab/compare_kdom2_dump.py",
+      "bytes": 4125,
+      "sha256": "40abedde9d605d0204b3039ef3f8980de3c2924d127a7f70ad42be58609419dc"
+    },
+    {
+      "path": "lab/out/release-index-pair-r2/lab/compare_lifecycle_dump.py",
+      "bytes": 3478,
+      "sha256": "43df55d51c1d2406acebcb590de7f23147f8a1761e296446f0b093676556cf4b"
+    },
+    {
+      "path": "lab/out/release-index-pair-r2/lab/compare_multi_compensation.py",
+      "bytes": 7920,
+      "sha256": "4a72e04b8491f8dc2b2059e695ca910dd650e97c4a74307b72348169d8a46d45"
+    },
+    {
+      "path": "lab/out/release-index-pair-r2/lab/compare_multi_patches.py",
+      "bytes": 4785,
+      "sha256": "35fee18779b54313cbe7547ddce42480c5d2bb16d40f820ff3b37d21692ace9d"
+    },
+    {
+      "path": "lab/out/release-index-pair-r2/lab/compare_observation_archive.py",
+      "bytes": 2924,
+      "sha256": "11ce082a3255def571d3d2ac060ea5a056662aaf2b00cc1edee569e6951dc3ce"
+    },
+    {
+      "path": "lab/out/release-index-pair-r2/lab/compare_pair_dump.py",
+      "bytes": 3752,
+      "sha256": "232ae327168393ce2b21d95b23707c7815c6b6ba169d08a2cd6518b9f082d951"
+    },
+    {
+      "path": "lab/out/release-index-pair-r2/lab/compare_transaction_dump.py",
+      "bytes": 2679,
+      "sha256": "f151dee6409ddad3f62b7e34574dc1fb63eb8f758aaacfead9991c0156cf0a16"
+    },
+    {
+      "path": "lab/out/release-index-pair-r2/lab/compare_undo_dump.py",
+      "bytes": 1865,
+      "sha256": "5c9e0292a5d0763b37c8977c2e48f6031cd1e9001e0431eac0f053f8658e2a57"
+    },
+    {
+      "path": "lab/out/release-index-pair-r2/lab/compare_undo_inventory.py",
+      "bytes": 2097,
+      "sha256": "242630cf04e06de6c62bc7311bb09efe869aa422aaa78cdb9411d33a8ce27d43"
+    },
+    {
+      "path": "lab/out/release-index-pair-r2/lab/compare_undo_row_dump.py",
+      "bytes": 2711,
+      "sha256": "93c44d3e84df40106f32e27957f94dfa7be1459d8229123a31ff89008d02d50d"
+    },
+    {
+      "path": "lab/out/release-index-pair-r2/lab/CompensationInventoryProbe.java",
+      "bytes": 1718,
+      "sha256": "b72f6b15bacb123a47ef9df66fb82f43f9dda6b23716fff04b56bb873d0481a7"
+    },
+    {
+      "path": "lab/out/release-index-pair-r2/lab/cross19.py",
+      "bytes": 3634,
+      "sha256": "e0311a87a1f57120ae036455686e32d258ae0342b083f6d6f192cb0404bfd63d"
+    },
+    {
+      "path": "lab/out/release-index-pair-r2/lab/cross_undo19.py",
+      "bytes": 4119,
+      "sha256": "8636c5752cdaa345521630419f1acb4e692695c39338b7aa0063a7a12e658c03"
+    },
+    {
+      "path": "lab/out/release-index-pair-r2/lab/derive_window_slot_conflict.py",
+      "bytes": 3807,
+      "sha256": "bd0adbe9ac90f4cbc2d0c7a33732d778f6b1f7767a530e31fe0c8e531bf2f113"
+    },
+    {
+      "path": "lab/out/release-index-pair-r2/lab/full_undo19.py",
+      "bytes": 4241,
+      "sha256": "7555728f6e9923f3f3f6b02ec1a81d70371f6b943a7142d74d06a5ade3270b8e"
+    },
+    {
+      "path": "lab/out/release-index-pair-r2/lab/FullRollbackEndProbe.java",
+      "bytes": 4899,
+      "sha256": "87c9c5a1b7220936785a0700dabfbbfd8a8f74cff87bebbaaee6f9e0fd3052e5"
+    },
+    {
+      "path": "lab/out/release-index-pair-r2/lab/HeapCompensationProbe.java",
+      "bytes": 4989,
+      "sha256": "9ba3ea3eb9928e570bb6b801a78cb8b7f2de2b6026d2a6214e44c454086d5e01"
+    },
+    {
+      "path": "lab/out/release-index-pair-r2/lab/HeapMultiProbe.java",
+      "bytes": 2062,
+      "sha256": "4d804e1271a1d66a685e634a5fcb1937ec9cf9428604cdc6d6c58ac0e122c64a"
+    },
+    {
+      "path": "lab/out/release-index-pair-r2/lab/HeapProbe.java",
+      "bytes": 1292,
+      "sha256": "748bf641e604808fb13bab2e99a84f77330eaa39fba82271f6b3750133114c84"
+    },
+    {
+      "path": "lab/out/release-index-pair-r2/lab/HeapUndoPairProbe.java",
+      "bytes": 2219,
+      "sha256": "d2e940895074f4d1951658b261501e9214d498423422be7d91ba029c594084f9"
+    },
+    {
+      "path": "lab/out/release-index-pair-r2/lab/IndexUndoPairProbe.java",
+      "bytes": 3399,
+      "sha256": "7ffbf721dcc1e3e8e31b3c98b84c78a83ecaa7738131fb63d0410b75c542109a"
+    },
+    {
+      "path": "lab/out/release-index-pair-r2/lab/IndexVectorSurvey.java",
+      "bytes": 2204,
+      "sha256": "a7ea35087435451f58954aa6f574caff5cbeda3ce21daf3b7bca45552d3751d3"
+    },
+    {
+      "path": "lab/out/release-index-pair-r2/lab/inspect_records.py",
+      "bytes": 956,
+      "sha256": "7fda32a6fc3b517913b3803851fe43fc379292a29b1abf989ff66597a170faca"
+    },
+    {
+      "path": "lab/out/release-index-pair-r2/lab/inspect_undo_blocks.py",
+      "bytes": 3122,
+      "sha256": "0bb56005373daaac606b83f0916afb9ff212b4f7087eca3fe13558565419b9ab"
+    },
+    {
+      "path": "lab/out/release-index-pair-r2/lab/Kdom2Probe.java",
+      "bytes": 2012,
+      "sha256": "c73311941e6509479a1c55672996a74767afae078055c3b04c8d2bf555e7ae38"
+    },
+    {
+      "path": "lab/out/release-index-pair-r2/lab/multi_undo19.py",
+      "bytes": 4127,
+      "sha256": "aff1e9d482028aab8ef1f82e55fbf841d9d849b5f9349673ab02780a87fb0ca2"
+    },
+    {
+      "path": "lab/out/release-index-pair-r2/lab/multiblock_undo19.py",
+      "bytes": 4172,
+      "sha256": "b81902d8cfab91a016a06d60fa1490b634af816f1e35a51dda4524bd7d62494a"
+    },
+    {
+      "path": "lab/out/release-index-pair-r2/lab/MultiCompensationProbe.java",
+      "bytes": 8345,
+      "sha256": "a9f29c733166c24f5eae47ebda5478eb1b16085490d564e99ae54e5f98c10f16"
+    },
+    {
+      "path": "lab/out/release-index-pair-r2/lab/negative_archives.py",
+      "bytes": 1939,
+      "sha256": "204e15eaec5ec605ceec7f31c4459d4141e87db4e42d8d1a8d61f7a6ca05ab98"
+    },
+    {
+      "path": "lab/out/release-index-pair-r2/lab/negative_lifecycle.py",
+      "bytes": 1442,
+      "sha256": "25242c88b867f5ec62173a8a47ac3b9b28525e6795ce1544ac5e7e19f97b4582"
+    },
+    {
+      "path": "lab/out/release-index-pair-r2/lab/NegativeAdvanceProbe.java",
+      "bytes": 4032,
+      "sha256": "0c06fcb2e26d93bd33f2ca7786a116f57e37ba1da91dd9b11e02dbdcdca5d1f5"
+    },
+    {
+      "path": "lab/out/release-index-pair-r2/lab/NegativeCrossCompensationProbe.java",
+      "bytes": 5015,
+      "sha256": "f172b858776817e4e2dc609cb8974ae69fb3d73c52dcdbb84e6b5455951a3d9d"
+    },
+    {
+      "path": "lab/out/release-index-pair-r2/lab/NegativeIndexPairProbe.java",
+      "bytes": 3028,
+      "sha256": "eb3bd4ea1413792d1195f01018b79815719ad79b2bdf29052bd4c385c1b4c454"
+    },
+    {
+      "path": "lab/out/release-index-pair-r2/lab/NegativeKdom2Probe.java",
+      "bytes": 2712,
+      "sha256": "bf367b4ddaeeef57a37df1e43fbd22de6dad5ff7adc01e2df87b9841ad705feb"
+    },
+    {
+      "path": "lab/out/release-index-pair-r2/lab/NegativePairProbe.java",
+      "bytes": 3697,
+      "sha256": "3faa88bd933b81c419928879c98ee89f885e320524f4996ae7bcdcd9c2a81b62"
+    },
+    {
+      "path": "lab/out/release-index-pair-r2/lab/NegativeUndoChainProbe.java",
+      "bytes": 4163,
+      "sha256": "fc4aa3b35526494f505abb0c2d14fd3f8618f6e0cb4c9c6cdb4e68bfe76f3976"
+    },
+    {
+      "path": "lab/out/release-index-pair-r2/lab/NegativeUndoHistoryProbe.java",
+      "bytes": 3665,
+      "sha256": "72661022f02298cdf3581b3786a0ba291b9f81edd889d525f35038da5702e60b"
+    },
+    {
+      "path": "lab/out/release-index-pair-r2/lab/observe_online_redo.py",
+      "bytes": 3661,
+      "sha256": "90db970d7e06d266df3b8d04e6519fbefffce6b5e7ad77c9d346cea978d9b7c9"
+    },
+    {
+      "path": "lab/out/release-index-pair-r2/lab/research_cursor_hole.py",
+      "bytes": 4193,
+      "sha256": "ec7b4fd1cfffe4fc53a1b3beca9d31cbaeba6582078878a122d6f0dae0b9b84c"
+    },
+    {
+      "path": "lab/out/release-index-pair-r2/lab/resume_undo19.py",
+      "bytes": 4267,
+      "sha256": "f85011404e99a06a9982383471451ef41f29faa3095ee219a5d675f7ffbf9668"
+    },
+    {
+      "path": "lab/out/release-index-pair-r2/lab/run19_fixture.py",
+      "bytes": 3467,
+      "sha256": "77f7169d75ba355ff60980070f73318500436ba6916515d10f1bcd4e182b932b"
+    },
+    {
+      "path": "lab/out/release-index-pair-r2/lab/run_online_observation19.py",
+      "bytes": 3573,
+      "sha256": "89e403e974bf26d1e46985dd5e3be12401d6666ed824ec1c4446c203a3372209"
+    },
+    {
+      "path": "lab/out/release-index-pair-r2/lab/second_undo19.py",
+      "bytes": 4283,
+      "sha256": "c8b28f60df158572233ca5a4323c2a020f9e721c2bc53bcf0b6a28eacc94b46e"
+    },
+    {
+      "path": "lab/out/release-index-pair-r2/lab/sql/dump-existing.sql",
+      "bytes": 376,
+      "sha256": "e7a047034c3ec44aaa7e9cc6fea329e36348d0b15038e377ccd8fc139d2aa4fa"
+    },
+    {
+      "path": "lab/out/release-index-pair-r2/lab/sql/dump19.sql",
+      "bytes": 434,
+      "sha256": "dc4de1385f6165db147d7de96847f30389269f56b89a034e6fecbb94425b814f"
+    },
+    {
+      "path": "lab/out/release-index-pair-r2/lab/sql/fixture19-capture-r3.sql",
+      "bytes": 1557,
+      "sha256": "48ead39ea5d878746d3eb6bd5d51e7e3104d456b5a1dc32ef7dfb6a21bc54069"
+    },
+    {
+      "path": "lab/out/release-index-pair-r2/lab/sql/fixture19-capture.sql",
+      "bytes": 1548,
+      "sha256": "c82de00b1bbed0329ceaa857fb4f5fc3579fe50ed64c1a80c767708c16beadfe"
+    },
+    {
+      "path": "lab/out/release-index-pair-r2/lab/sql/fixture19-cross-undo.sql",
+      "bytes": 2849,
+      "sha256": "eff0de4377be0c867fbaf2067cf64a2bc40c21e060741f8d5333d8ac3b6445a8"
+    },
+    {
+      "path": "lab/out/release-index-pair-r2/lab/sql/fixture19-full-undo.sql",
+      "bytes": 3437,
+      "sha256": "7a48b2da884b832bc4178db4b210b4411609e5c561a4d98aca4e44ddf12cada2"
+    },
+    {
+      "path": "lab/out/release-index-pair-r2/lab/sql/fixture19-multi-undo.sql",
+      "bytes": 3042,
+      "sha256": "12925a42bf6a2bb999ef7b5b427f74ea80025a9b75f4d6593c630060bb2ac5a4"
+    },
+    {
+      "path": "lab/out/release-index-pair-r2/lab/sql/fixture19-multiblock-undo.sql",
+      "bytes": 3820,
+      "sha256": "f74061ff4426fa34eed3e822a64c2f0bd4bfcc9072ccc86109403aa4a03e5d5c"
+    },
+    {
+      "path": "lab/out/release-index-pair-r2/lab/sql/fixture19-resume-undo.sql",
+      "bytes": 4251,
+      "sha256": "8063ce6d6b6d0c22fe7934dbfbe08439dc5fd95ae62962389158481dbbbdd7eb"
+    },
+    {
+      "path": "lab/out/release-index-pair-r2/lab/sql/fixture19-second-undo.sql",
+      "bytes": 5092,
+      "sha256": "a7eaa9a5fd6e8dc1be5bf78423dea623075badc025e4dafc616643dfbb14642a"
+    },
+    {
+      "path": "lab/out/release-index-pair-r2/lab/sql/fixture19.sql",
+      "bytes": 2903,
+      "sha256": "86cf542d0eda4143beaba0cd78615123effdf680cbe18a8f28e9a8639cf61ec0"
+    },
+    {
+      "path": "lab/out/release-index-pair-r2/lab/sql/freeze19.sql",
+      "bytes": 1477,
+      "sha256": "39bdd581547f8ad6ef1250546f67aa19514dcd55a3ea0575af0128dac8613bce"
+    },
+    {
+      "path": "lab/out/release-index-pair-r2/lab/sql/lab19-enable-archive.sql",
+      "bytes": 388,
+      "sha256": "1ceacaff9a26a83f90f17188da97a3fb7bee8bfa0c7263afa9f6286c07ecc420"
+    },
+    {
+      "path": "lab/out/release-index-pair-r2/lab/sql/latest-archive.sql",
+      "bytes": 429,
+      "sha256": "cbd6db8bc943bbb18cc413f1fe16c3b1570a0cca67ea2f6891fc51a9b2609f10"
+    },
+    {
+      "path": "lab/out/release-index-pair-r2/lab/sql/logminer19.sql",
+      "bytes": 1311,
+      "sha256": "e45b4cde35bc2a8f7b613285f5837e926c310147bf01c85c6a0797ebb713e592"
+    },
+    {
+      "path": "lab/out/release-index-pair-r2/lab/sql/preflight.sql",
+      "bytes": 987,
+      "sha256": "409ad7c539975d885047fd2824ba95641e83986d7d2219bd537787599a93ce39"
+    },
+    {
+      "path": "lab/out/release-index-pair-r2/lab/sql/truth19-cross-undo.sql",
+      "bytes": 1124,
+      "sha256": "e1104cd3ab8d48d8c26d3855721e54cd1b1ea49b1ddb23b5a75528289220100a"
+    },
+    {
+      "path": "lab/out/release-index-pair-r2/lab/sql/truth19-full-undo.sql",
+      "bytes": 1120,
+      "sha256": "8271be42e6b3764017a83f528272e2cd5df5c29dcdd262f7cad0126634965862"
+    },
+    {
+      "path": "lab/out/release-index-pair-r2/lab/sql/truth19-multi-undo.sql",
+      "bytes": 1124,
+      "sha256": "50c73a5021957449882a97795d71edd2674e3fbcde145fe9e34ee29cdf9bcc8e"
+    },
+    {
+      "path": "lab/out/release-index-pair-r2/lab/sql/truth19-multiblock-undo.sql",
+      "bytes": 1144,
+      "sha256": "600b70671d5cc4c65e4a3d6ae3fc97441287fa405048f1cc9c4adb35778bb6a5"
+    },
+    {
+      "path": "lab/out/release-index-pair-r2/lab/sql/truth19-resume-undo.sql",
+      "bytes": 1128,
+      "sha256": "ebb9ed4f5ff5a1f78fd2babd3d60a9ab6bbcefa1a10448b4009876034d6e6c7b"
+    },
+    {
+      "path": "lab/out/release-index-pair-r2/lab/sql/truth19-second-undo.sql",
+      "bytes": 1128,
+      "sha256": "cf22017d14f35b43984dc361cee0d6e690aaed7b8c444a621ce77bc644350cbc"
+    },
+    {
+      "path": "lab/out/release-index-pair-r2/lab/sql/truth19.sql",
+      "bytes": 484,
+      "sha256": "8389964cd454b6a718eb0063d85346201aede4aee3c4b02fca95b8f425878194"
+    },
+    {
+      "path": "lab/out/release-index-pair-r2/lab/TransactionBeginProbe.java",
+      "bytes": 2183,
+      "sha256": "cd0a719e1a3118732079a4ff4ce636f668c7ba7f1819b7c3671cc9091ad17e9f"
+    },
+    {
+      "path": "lab/out/release-index-pair-r2/lab/TransactionLifecycleProbe.java",
+      "bytes": 2701,
+      "sha256": "5d9a5c7536c3e1784d08a8c79c734085569fff1b7d2ee9361b3af472a9f1f8f7"
+    },
+    {
+      "path": "lab/out/release-index-pair-r2/lab/TransactionProbe.java",
+      "bytes": 1628,
+      "sha256": "24e6a11d717934f5a6aa049c576fdf9a6d38e0d3ee6a021570d01904a8a72cf5"
+    },
+    {
+      "path": "lab/out/release-index-pair-r2/lab/UndoAdvanceProbe.java",
+      "bytes": 2930,
+      "sha256": "22bff1c9f24ee53da8010168ed92d52d1880686771c21670d24a7e2827d1714a"
+    },
+    {
+      "path": "lab/out/release-index-pair-r2/lab/UndoChainProbe.java",
+      "bytes": 4035,
+      "sha256": "3515f4610f2523640d59d68d7034288ad5999c2d879dd6053274cdc27004d57d"
+    },
+    {
+      "path": "lab/out/release-index-pair-r2/lab/UndoControlFieldsProbe.java",
+      "bytes": 1089,
+      "sha256": "bb99bad1ac0865ee1734fe0c2078f6c565af1b0c112d38f529eac395bc86f0e1"
+    },
+    {
+      "path": "lab/out/release-index-pair-r2/lab/UndoCursorProbe.java",
+      "bytes": 6469,
+      "sha256": "80f14f0fd5da85ec57a4b9c128c16e634bd86005ec57f63c884eb91af9d10128"
+    },
+    {
+      "path": "lab/out/release-index-pair-r2/lab/UndoHeadUpdateProbe.java",
+      "bytes": 6064,
+      "sha256": "0cf0f48853effa4a041e5c766477035a7540499a6971b3bada9f8a623672b3ad"
+    },
+    {
+      "path": "lab/out/release-index-pair-r2/lab/UndoInventoryProbe.java",
+      "bytes": 1661,
+      "sha256": "a2a80990237acbae050e3e1f8be9178b5c9f06e2ff25049f74bcee634de26baa"
+    },
+    {
+      "path": "lab/out/release-index-pair-r2/lab/UndoProbe.java",
+      "bytes": 1370,
+      "sha256": "af9ff1bd2a2f6ca9aa82f5e03580e573599b9e951eb9a0f981786ca7aa5c9be4"
+    },
+    {
+      "path": "lab/out/release-index-pair-r2/lab/UndoRowProbe.java",
+      "bytes": 1216,
+      "sha256": "60a5546ed81f07a013ea7614e4788c0138dd0c228fe4ce8f19c51133cf202c29"
+    },
+    {
+      "path": "lab/out/release-index-pair-r2/pom.xml",
+      "bytes": 1344,
+      "sha256": "b7cf6995376aa9135e15a061157776e7751dc6f20a1622e97e207c33b9823f1e"
+    },
+    {
+      "path": "lab/out/release-index-pair-r2/README.md",
+      "bytes": 8242,
+      "sha256": "013062b46cb860daf92deed847b8e3c83eb2d62dc61a8762c875dd3efbb09622"
+    },
+    {
+      "path": "lab/out/release-index-pair-r2/seal_evidence.py",
+      "bytes": 3200,
+      "sha256": "7f82eb784a35bc95b92661f6301140e0fbaca8856c65df9d8d53a04c9860775c"
+    },
+    {
+      "path": "lab/out/release-index-pair-r2/source.tar",
+      "bytes": 1515520,
+      "sha256": "6a7c9eb57449e7578df62ff97fcd956c832db8f8a36ac8ecf751f53363a1d769"
+    },
+    {
+      "path": "lab/out/release-index-pair-r2/src/main/java/com/streamhouse/oracle/ArchivedCompensationInventory.java",
+      "bytes": 5535,
+      "sha256": "a2f9ed754a80cdaeb3ccf8d75cf3c5025d180abf246783271e194d282c96e1c3"
+    },
+    {
+      "path": "lab/out/release-index-pair-r2/src/main/java/com/streamhouse/oracle/ArchivedRedo.java",
+      "bytes": 3972,
+      "sha256": "261eb682459db415a7e09ed2cb3b5ead159bee8334f3d3421474c7c6fa72c906"
+    },
+    {
+      "path": "lab/out/release-index-pair-r2/src/main/java/com/streamhouse/oracle/ArchivedUndoInventory.java",
+      "bytes": 4466,
+      "sha256": "c32bac4b20c08851273bdd3a6d203cfd84a78d50d334f2cf67753726880df398"
+    },
+    {
+      "path": "lab/out/release-index-pair-r2/src/main/java/com/streamhouse/oracle/HeapCompensation.java",
+      "bytes": 4517,
+      "sha256": "09c796c4d6693da5a92ef1ecc86c10e67b6c2748076f50cb44ee9816c02a2cc5"
+    },
+    {
+      "path": "lab/out/release-index-pair-r2/src/main/java/com/streamhouse/oracle/HeapRowPatch.java",
+      "bytes": 6244,
+      "sha256": "3b74bb05a052addff1a502388b28ec8f5cd7c66ed9c18acac858a521a9dbfc7e"
+    },
+    {
+      "path": "lab/out/release-index-pair-r2/src/main/java/com/streamhouse/oracle/HeapUndoPair.java",
+      "bytes": 2668,
+      "sha256": "16a12c62826b4f575f61efae61f5da3a871880af5b20f2daa4d8cb03592f505d"
+    },
+    {
+      "path": "lab/out/release-index-pair-r2/src/main/java/com/streamhouse/oracle/IndexUndoPair.java",
+      "bytes": 6554,
+      "sha256": "a76383e7e3d3414fe7f1c18e76ddc44e3e415abc85fac8b463e7f20a2ac75746"
+    },
+    {
+      "path": "lab/out/release-index-pair-r2/src/main/java/com/streamhouse/oracle/OracleScalars.java",
+      "bytes": 3033,
+      "sha256": "ddc799779be8db0299c1c23743416beb61514d89bb87b2489cb258e49dcfb06e"
+    },
+    {
+      "path": "lab/out/release-index-pair-r2/src/main/java/com/streamhouse/oracle/RedoBytes.java",
+      "bytes": 414,
+      "sha256": "af26e585546f705403b5df282adb360b127888740fe2b128cdc68bb54c32cc25"
+    },
+    {
+      "path": "lab/out/release-index-pair-r2/src/main/java/com/streamhouse/oracle/RedoCli.java",
+      "bytes": 2329,
+      "sha256": "94a74e47df50070ddad140d4862c1a448dc5a289ca3beb2b3bd523d86deeb9ef"
+    },
+    {
+      "path": "lab/out/release-index-pair-r2/src/main/java/com/streamhouse/oracle/RedoException.java",
+      "bytes": 246,
+      "sha256": "683f943fead2271bd6e83cc3b55dd00b704920c32d4bceffc05b5e278217d385"
+    },
+    {
+      "path": "lab/out/release-index-pair-r2/src/main/java/com/streamhouse/oracle/RedoRecords.java",
+      "bytes": 5150,
+      "sha256": "5d726a916b90c0ad3e3303623ae81552425639a4f08eb65caaa6774ca97180ce"
+    },
+    {
+      "path": "lab/out/release-index-pair-r2/src/main/java/com/streamhouse/oracle/TransactionEnd.java",
+      "bytes": 2480,
+      "sha256": "5db3f6c3d5910d9662602ecac75c0918e8a259a0db2a68d94397dc0635296281"
+    },
+    {
+      "path": "lab/out/release-index-pair-r2/src/main/java/com/streamhouse/oracle/TransactionLifecycle.java",
+      "bytes": 11243,
+      "sha256": "bd455e0306e216ca0664fcf292df3d6d080df7f2d9e73937ef081d319a70ee2a"
+    },
+    {
+      "path": "lab/out/release-index-pair-r2/src/main/java/com/streamhouse/oracle/TransactionStart.java",
+      "bytes": 2472,
+      "sha256": "8bc8b2238131d31379b59226d1224012d4e03a6dd543ba29bd18419bbb565588"
+    },
+    {
+      "path": "lab/out/release-index-pair-r2/src/main/java/com/streamhouse/oracle/UndoBlockAdvance.java",
+      "bytes": 1983,
+      "sha256": "06bb0323f6a1ae832622f3a1a82484147c97fa558094188f740a4fbf49ce09d6"
+    },
+    {
+      "path": "lab/out/release-index-pair-r2/src/main/java/com/streamhouse/oracle/UndoChain.java",
+      "bytes": 2999,
+      "sha256": "277115e1d306669855d2f08ae1b24f49a7f3d90e336328ef8ca296a9ae6e88b2"
+    },
+    {
+      "path": "lab/out/release-index-pair-r2/src/main/java/com/streamhouse/oracle/UndoCompensation.java",
+      "bytes": 1840,
+      "sha256": "81b0a2f833ac513457140dda011fc39b10c82707e19c67afc2732fadbd8217ca"
+    },
+    {
+      "path": "lab/out/release-index-pair-r2/src/main/java/com/streamhouse/oracle/UndoHeader.java",
+      "bytes": 1291,
+      "sha256": "0b32c74d7bae1281c87ac19a7a16f158e5b9ab16024ed5a25d354167763e0336"
+    },
+    {
+      "path": "lab/out/release-index-pair-r2/src/main/java/com/streamhouse/oracle/UndoHeadUpdate.java",
+      "bytes": 1848,
+      "sha256": "d92bf2919ea70bc253f104a12b52511fd6b167dfb4da317a0e65927cb8b2e7bc"
+    },
+    {
+      "path": "lab/out/release-index-pair-r2/src/main/java/com/streamhouse/oracle/UndoHistory.java",
+      "bytes": 4602,
+      "sha256": "3f62092e8c956d87a98be78a44a961f062d5b8f8b51a1001ba1f7560c8f24977"
+    },
+    {
+      "path": "lab/out/release-index-pair-r2/src/main/java/com/streamhouse/oracle/UndoLink.java",
+      "bytes": 1329,
+      "sha256": "4b5597d086d7c25c1d6d356b6b63a17e4b5cd902dff113b0d35ac827d404328e"
+    },
+    {
+      "path": "lab/out/release-index-pair-r2/src/main/java/com/streamhouse/oracle/UndoRowPatch.java",
+      "bytes": 1447,
+      "sha256": "70c3e25083a8aeb7082d7d3ee07c29a7b056e93b3eca3e07c398b05a2ebfd6fe"
+    },
+    {
+      "path": "lab/out/release-index-pair-r2/src/test/java/com/streamhouse/oracle/ArchivedCompensationInventoryTest.java",
+      "bytes": 5525,
+      "sha256": "4c18c6ddb7d839e154e60f8f2bbc07bf2e5f74e16628f94ce243d5b06ebc6479"
+    },
+    {
+      "path": "lab/out/release-index-pair-r2/src/test/java/com/streamhouse/oracle/ArchivedRedoTest.java",
+      "bytes": 4354,
+      "sha256": "a96b725bda87253de713c6420c7c8127531dbcb06279cd324d48327dcbaadc48"
+    },
+    {
+      "path": "lab/out/release-index-pair-r2/src/test/java/com/streamhouse/oracle/ArchivedUndoInventoryTest.java",
+      "bytes": 3860,
+      "sha256": "107f455c0e4bdcce61e916e5897815228959759a9eb7f9d8ef2155fbc853db3e"
+    },
+    {
+      "path": "lab/out/release-index-pair-r2/src/test/java/com/streamhouse/oracle/BeginCompensationTest.java",
+      "bytes": 5577,
+      "sha256": "f18c768e80ca9e0b57d155f2f693336082d921a19894e466d8504909ad0577a2"
+    },
+    {
+      "path": "lab/out/release-index-pair-r2/src/test/java/com/streamhouse/oracle/CrossCompensationTest.java",
+      "bytes": 4315,
+      "sha256": "cf6010ef5c3b0e13a73ba87ecfac7ba3cbe6e17deb8b1b2816e30491da8f207d"
+    },
+    {
+      "path": "lab/out/release-index-pair-r2/src/test/java/com/streamhouse/oracle/HeapCompensationTest.java",
+      "bytes": 5248,
+      "sha256": "26c1f2ad11b27b545c1dd4d3a1d48fdacfdd140e39e6efc6f36544cda12afa49"
+    },
+    {
+      "path": "lab/out/release-index-pair-r2/src/test/java/com/streamhouse/oracle/HeapRowPatchTest.java",
+      "bytes": 3848,
+      "sha256": "b455af46d65defac55d0830daf5cc0cb2d6fc61b9d38154f93047bceca853970"
+    },
+    {
+      "path": "lab/out/release-index-pair-r2/src/test/java/com/streamhouse/oracle/HeapUndoPairTest.java",
+      "bytes": 4173,
+      "sha256": "482f4c85edba1e0bb04cf04d3de827f8bdf35fa7b40aafaa4d1fa1b058213418"
+    },
+    {
+      "path": "lab/out/release-index-pair-r2/src/test/java/com/streamhouse/oracle/IndexUndoPairTest.java",
+      "bytes": 5902,
+      "sha256": "21f25f381f08650ab93d2e0d470fac7727cb5e212127b267e59da792c4fa8aa0"
+    },
+    {
+      "path": "lab/out/release-index-pair-r2/src/test/java/com/streamhouse/oracle/Kdom2UpdateTest.java",
+      "bytes": 3480,
+      "sha256": "1224bb2a8eddc88ed183246e7f629dbda7a62076bc6bbb9bbbd7fac796c0c1e3"
+    },
+    {
+      "path": "lab/out/release-index-pair-r2/src/test/java/com/streamhouse/oracle/OracleScalarsTest.java",
+      "bytes": 1976,
+      "sha256": "b46407850ba86071b506239de1721b50b9013fe5fba35a470d1d4de1f716026a"
+    },
+    {
+      "path": "lab/out/release-index-pair-r2/src/test/java/com/streamhouse/oracle/TransactionLifecycleTest.java",
+      "bytes": 8628,
+      "sha256": "1251e1faa8cd3a2dcc806a6909841915bbace8b5cf21e7fe4fbaed7fa0eabd71"
+    },
+    {
+      "path": "lab/out/release-index-pair-r2/src/test/java/com/streamhouse/oracle/TransactionMarkersTest.java",
+      "bytes": 4302,
+      "sha256": "8ae047050d4e9d8e1c273b38218164f4d60e68b57b1ba81fc4b330abdf2b3569"
+    },
+    {
+      "path": "lab/out/release-index-pair-r2/src/test/java/com/streamhouse/oracle/TransactionStartTest.java",
+      "bytes": 3329,
+      "sha256": "fa2e0c09f15d116506ce3ed7500cb19c693d362db9ffe6d7faa98e78efb933c8"
+    },
+    {
+      "path": "lab/out/release-index-pair-r2/src/test/java/com/streamhouse/oracle/UndoBlockAdvanceTest.java",
+      "bytes": 3273,
+      "sha256": "6abccf52f6fe578d25da939036f14aff612c6858d2c14f0ff86ca9084c142e59"
+    },
+    {
+      "path": "lab/out/release-index-pair-r2/src/test/java/com/streamhouse/oracle/UndoChainTest.java",
+      "bytes": 4236,
+      "sha256": "6c683c0c327e1e7b4292a81d2329322f94ec5f82e9dde562beec96bbaed3a73d"
+    },
+    {
+      "path": "lab/out/release-index-pair-r2/src/test/java/com/streamhouse/oracle/UndoHeaderTest.java",
+      "bytes": 1719,
+      "sha256": "519759c2c2ef079b8d75c56fdf1b319e29c76ef25bffa24bd03aadff4c74e8e5"
+    },
+    {
+      "path": "lab/out/release-index-pair-r2/src/test/java/com/streamhouse/oracle/UndoHeadUpdateTest.java",
+      "bytes": 4443,
+      "sha256": "5a6c0a719938ef091a585ec5a785ba99b1d9c3085cd79f74fe855bda8e3fec5a"
+    },
+    {
+      "path": "lab/out/release-index-pair-r2/src/test/java/com/streamhouse/oracle/UndoHistoryTest.java",
+      "bytes": 7605,
+      "sha256": "3f917dee740fdfb9e6934a4d32eadb962452c75a55c199ada5c1b5b786103b94"
+    },
+    {
+      "path": "lab/out/release-index-pair-r2/src/test/java/com/streamhouse/oracle/UndoRowPatchTest.java",
+      "bytes": 3970,
+      "sha256": "99bc2c1bbbea255d1bcf5201111e4f570daf75b645925ca2a52a732365444e10"
+    },
+    {
+      "path": "lab/out/release-index-pair-r2/summary.json",
+      "bytes": 376,
+      "sha256": "5e427b3b5b45a362f70e571281f6045d9fad4e4be5167bb21a10cd0191500d56"
+    },
+    {
+      "path": "lab/out/release-index-pair-r2/target/classes/com/streamhouse/oracle/ArchivedCompensationInventory$Entry.class",
+      "bytes": 2174,
+      "sha256": "11ce902218ba60bfa86aa85a15445925e7ac52789985e95db504b6c1f1c16141"
+    },
+    {
+      "path": "lab/out/release-index-pair-r2/target/classes/com/streamhouse/oracle/ArchivedCompensationInventory.class",
+      "bytes": 9905,
+      "sha256": "bd2f486736e27dfdabb291a7682a5814841f8db30d9426a6ac9320658d9fb88d"
+    },
+    {
+      "path": "lab/out/release-index-pair-r2/target/classes/com/streamhouse/oracle/ArchivedRedo$Header.class",
+      "bytes": 3011,
+      "sha256": "64139a68de94814563cc81e53282d49bb8b771a14a57c518dfcd52dc67c6cc08"
+    },
+    {
+      "path": "lab/out/release-index-pair-r2/target/classes/com/streamhouse/oracle/ArchivedRedo.class",
+      "bytes": 4429,
+      "sha256": "84c1c900be46c34b39ec7df60af23b85856f638e49937e32b06f383839238c38"
+    },
+    {
+      "path": "lab/out/release-index-pair-r2/target/classes/com/streamhouse/oracle/ArchivedUndoInventory$Entry.class",
+      "bytes": 2603,
+      "sha256": "e35a1e6e11d91b5cdf27d37434a9326de4a46be3bf2e5dcfb621e8bfd713c948"
+    },
+    {
+      "path": "lab/out/release-index-pair-r2/target/classes/com/streamhouse/oracle/ArchivedUndoInventory$Position.class",
+      "bytes": 1988,
+      "sha256": "03ff978296aee7dbf27311b4ec0493719d5a7645aa7507d8bbdc061269570128"
+    },
+    {
+      "path": "lab/out/release-index-pair-r2/target/classes/com/streamhouse/oracle/ArchivedUndoInventory.class",
+      "bytes": 7969,
+      "sha256": "d4d77398d8d94b48bb059c74c841c5d1e185cf6e1ce0dc6f1a33ccb3329b903d"
+    },
+    {
+      "path": "lab/out/release-index-pair-r2/target/classes/com/streamhouse/oracle/HeapCompensation.class",
+      "bytes": 7688,
+      "sha256": "6a942de4c42668dbe250cf5d04805d8b8b59c8e391a3013021b32b4cb4b429ab"
+    },
+    {
+      "path": "lab/out/release-index-pair-r2/target/classes/com/streamhouse/oracle/HeapRowPatch$Column.class",
+      "bytes": 1835,
+      "sha256": "8a1c8cf7ee7734e7d21fcb82532fedf9646275e2ae7af53ebffc3ec4d2c729e6"
+    },
+    {
+      "path": "lab/out/release-index-pair-r2/target/classes/com/streamhouse/oracle/HeapRowPatch$Kind.class",
+      "bytes": 1260,
+      "sha256": "8a496c991b7ad56ac247cea05653ef456b455daba60cb2626a15a6bd6a768353"
+    },
+    {
+      "path": "lab/out/release-index-pair-r2/target/classes/com/streamhouse/oracle/HeapRowPatch$Patch.class",
+      "bytes": 3355,
+      "sha256": "a0657eaa170a3513a79847792cba4ed097e73c89e1a75769999023af8ab07c7f"
+    },
+    {
+      "path": "lab/out/release-index-pair-r2/target/classes/com/streamhouse/oracle/HeapRowPatch$State.class",
+      "bytes": 1264,
+      "sha256": "571880b395749251eb4ab0598c735c4b6c43639bbc2f7ea5ff63f168fdb7c97a"
+    },
+    {
+      "path": "lab/out/release-index-pair-r2/target/classes/com/streamhouse/oracle/HeapRowPatch$Uba.class",
+      "bytes": 1749,
+      "sha256": "f2df9ed4206bce5bf2682b3a2c448560cb9a7eaf99f06f396a8843b163ca1d33"
+    },
+    {
+      "path": "lab/out/release-index-pair-r2/target/classes/com/streamhouse/oracle/HeapRowPatch$Xid.class",
+      "bytes": 1744,
+      "sha256": "0e1d7b052012470aca768e3439e9a47b14de1d711c668e8f388d55275a465ce5"
+    },
+    {
+      "path": "lab/out/release-index-pair-r2/target/classes/com/streamhouse/oracle/HeapRowPatch.class",
+      "bytes": 5961,
+      "sha256": "d9fa68ba9fa46981fb63f3db2a54faf63b147ddfb7612e5d5c56cc5701db644a"
+    },
+    {
+      "path": "lab/out/release-index-pair-r2/target/classes/com/streamhouse/oracle/HeapUndoPair.class",
+      "bytes": 5718,
+      "sha256": "a076d314e5394fd3c4db8c447f229c34647b577602237b23111b9ab86e6eeabe"
+    },
+    {
+      "path": "lab/out/release-index-pair-r2/target/classes/com/streamhouse/oracle/IndexUndoPair$Forward.class",
+      "bytes": 3151,
+      "sha256": "8575ced05ac6ea3c0d4de659426c4343316bc4555100043de02978b0da776db9"
+    },
+    {
+      "path": "lab/out/release-index-pair-r2/target/classes/com/streamhouse/oracle/IndexUndoPair$Inverse.class",
+      "bytes": 3267,
+      "sha256": "1fdf8b6bb6e91c38766f6721190fd480b773e5bde5654567cd11b4697aec577e"
+    },
+    {
+      "path": "lab/out/release-index-pair-r2/target/classes/com/streamhouse/oracle/IndexUndoPair$Kind.class",
+      "bytes": 1317,
+      "sha256": "bb039c3aa854336564e0fdf18e5d3dc59736e2fed519e18a31117dd64a759302"
+    },
+    {
+      "path": "lab/out/release-index-pair-r2/target/classes/com/streamhouse/oracle/IndexUndoPair.class",
+      "bytes": 8537,
+      "sha256": "803e7295fa44d185db595676cfb38cac236dc16f232305121c9f458b520eaa7c"
+    },
+    {
+      "path": "lab/out/release-index-pair-r2/target/classes/com/streamhouse/oracle/OracleScalars.class",
+      "bytes": 3381,
+      "sha256": "706cc0bcf2887caa224aef5af0522085e503038600c6f5c50c51387d1fab0a2b"
+    },
+    {
+      "path": "lab/out/release-index-pair-r2/target/classes/com/streamhouse/oracle/RedoBytes.class",
+      "bytes": 715,
+      "sha256": "32493e3ed01ad5902527460245c816646c5326c551aea719f0b05a322c0d5637"
+    },
+    {
+      "path": "lab/out/release-index-pair-r2/target/classes/com/streamhouse/oracle/RedoCli.class",
+      "bytes": 5617,
+      "sha256": "9a5c32ca780fc6592f4d512f0a96aa548ab219e12f995c1630a27d6bb4547a8f"
+    },
+    {
+      "path": "lab/out/release-index-pair-r2/target/classes/com/streamhouse/oracle/RedoException.class",
+      "bytes": 372,
+      "sha256": "7cb70c077d672348a4964fb309209fe03fbf81441443c528293d03bfc9a01770"
+    },
+    {
+      "path": "lab/out/release-index-pair-r2/target/classes/com/streamhouse/oracle/RedoRecords$Cursor.class",
+      "bytes": 1575,
+      "sha256": "6dc9bdb8454668cf3b41934b295d8c145749cd6cacf4f69ae97098a463d59f4b"
+    },
+    {
+      "path": "lab/out/release-index-pair-r2/target/classes/com/streamhouse/oracle/RedoRecords$Record.class",
+      "bytes": 2813,
+      "sha256": "05a0823a684be88e92545b6eb5fd15d3f0e06ac85d75695c8e2a409db8ada284"
+    },
+    {
+      "path": "lab/out/release-index-pair-r2/target/classes/com/streamhouse/oracle/RedoRecords$Vector.class",
+      "bytes": 2779,
+      "sha256": "a4c69d48b8628eaea402a4cd411a44219f2d0530e84dc0ed7306eadf7f3c2308"
+    },
+    {
+      "path": "lab/out/release-index-pair-r2/target/classes/com/streamhouse/oracle/RedoRecords$Visitor.class",
+      "bytes": 486,
+      "sha256": "553003892ece5808c2cea42fc8d3d72bbf623b1b3286f488e2a426c2924a9bb8"
+    },
+    {
+      "path": "lab/out/release-index-pair-r2/target/classes/com/streamhouse/oracle/RedoRecords.class",
+      "bytes": 4583,
+      "sha256": "eb15c47e190f246646f38ea0b12d243a9a623ce87043e3678cacb38f496bd21b"
+    },
+    {
+      "path": "lab/out/release-index-pair-r2/target/classes/com/streamhouse/oracle/TransactionEnd.class",
+      "bytes": 4210,
+      "sha256": "6f7226b28430ea0881159c57818ff9fb924a112b16073a1c9dc758e93822ca82"
+    },
+    {
+      "path": "lab/out/release-index-pair-r2/target/classes/com/streamhouse/oracle/TransactionLifecycle$Begin.class",
+      "bytes": 1931,
+      "sha256": "107d832b0e8b20af56a82bbfb2ea468f789411a3aefb3f909d456e944724ac1d"
+    },
+    {
+      "path": "lab/out/release-index-pair-r2/target/classes/com/streamhouse/oracle/TransactionLifecycle$ClosedIdentity.class",
+      "bytes": 2545,
+      "sha256": "4f80f83a752add85d77f8cb7c66a68663a94fd4bf8371adbf3939e4f37823d52"
+    },
+    {
+      "path": "lab/out/release-index-pair-r2/target/classes/com/streamhouse/oracle/TransactionLifecycle$Identity.class",
+      "bytes": 2057,
+      "sha256": "3d65b8589f4ac2a56297690430b2bb6d61d429b17dca9b13a63b878d420213c9"
+    },
+    {
+      "path": "lab/out/release-index-pair-r2/target/classes/com/streamhouse/oracle/TransactionLifecycle$Key.class",
+      "bytes": 2065,
+      "sha256": "4551ce03661d0ffca65c51b8782679cb2cf835598bd8414eec4b52bc67d414e3"
+    },
+    {
+      "path": "lab/out/release-index-pair-r2/target/classes/com/streamhouse/oracle/TransactionLifecycle.class",
+      "bytes": 13615,
+      "sha256": "f71497557147c50b42244af6ca94f71882a18030cf1235bf38d37f9a2ca6894b"
+    },
+    {
+      "path": "lab/out/release-index-pair-r2/target/classes/com/streamhouse/oracle/TransactionStart.class",
+      "bytes": 5218,
+      "sha256": "5d9f947f2b9cc5859dab690e7f5d501d63b3494fa2aed9e5c7d1a501f0ef1aec"
+    },
+    {
+      "path": "lab/out/release-index-pair-r2/target/classes/com/streamhouse/oracle/UndoBlockAdvance.class",
+      "bytes": 4585,
+      "sha256": "1bb4f3b0c15a6228487136b74815a539122c686f6a834db29d3cd987572129b1"
+    },
+    {
+      "path": "lab/out/release-index-pair-r2/target/classes/com/streamhouse/oracle/UndoChain.class",
+      "bytes": 4793,
+      "sha256": "d6ccc842a659e5323f59e87ee408923fe7dd6b58a2ae263ec5a50c383811f539"
+    },
+    {
+      "path": "lab/out/release-index-pair-r2/target/classes/com/streamhouse/oracle/UndoCompensation.class",
+      "bytes": 4430,
+      "sha256": "57bfebc12ccce1f927cc3fc05087eb7678203a872c7f423f593c0440d3da5cd9"
+    },
+    {
+      "path": "lab/out/release-index-pair-r2/target/classes/com/streamhouse/oracle/UndoHeader.class",
+      "bytes": 3760,
+      "sha256": "21918f33b03a508168be02916161809032949adc4c7c50a033b0574f8f0bd5a7"
+    },
+    {
+      "path": "lab/out/release-index-pair-r2/target/classes/com/streamhouse/oracle/UndoHeadUpdate.class",
+      "bytes": 4545,
+      "sha256": "0c57d8657d0c75654aff2e7fa25439375b2140c648d5cd547ada22f2a58e5578"
+    },
+    {
+      "path": "lab/out/release-index-pair-r2/target/classes/com/streamhouse/oracle/UndoHistory$Node.class",
+      "bytes": 2131,
+      "sha256": "89f2d8845a1ea23bed22cf840307ee110d627feba49df9d2abdf92114dd9dea3"
+    },
+    {
+      "path": "lab/out/release-index-pair-r2/target/classes/com/streamhouse/oracle/UndoHistory$Result.class",
+      "bytes": 3212,
+      "sha256": "3cdf66069f135fd630d423bf36cc6b91c205e0e3c93d2a8557f2a8f1316997a5"
+    },
+    {
+      "path": "lab/out/release-index-pair-r2/target/classes/com/streamhouse/oracle/UndoHistory.class",
+      "bytes": 5751,
+      "sha256": "0601510b9999197d401fa1bbc34f23006c484755a67feb40b249efb2a5bdf0bd"
+    },
+    {
+      "path": "lab/out/release-index-pair-r2/target/classes/com/streamhouse/oracle/UndoLink.class",
+      "bytes": 3711,
+      "sha256": "39a6e3002b2030da5ff72d88a8205385b130a4a79e5beb1e38c8fa0c582b61aa"
+    },
+    {
+      "path": "lab/out/release-index-pair-r2/target/classes/com/streamhouse/oracle/UndoRowPatch.class",
+      "bytes": 4087,
+      "sha256": "c2fa04b7d363cd6de3ed8b0b4c3fc99ad2889a1f5e0bb1dd063b0edb61e38662"
+    },
+    {
+      "path": "lab/out/release-index-pair-r2/target/maven-archiver/pom.properties",
+      "bytes": 87,
+      "sha256": "e67f71aa1f86b9434a75ca2517e1008ed66f2df06da117ea57c6c4bfd4da30c2"
+    },
+    {
+      "path": "lab/out/release-index-pair-r2/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst",
+      "bytes": 2190,
+      "sha256": "86b8f454c44a8e0fe2a5826d6b47854bfb2e3c0248900fc815ee912a9a7e7df6"
+    },
+    {
+      "path": "lab/out/release-index-pair-r2/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst",
+      "bytes": 2798,
+      "sha256": "7a9b8faf95fa7ca8e0919939c3798960b207ff5ae295d9c5a7c656f618e2dd36"
+    },
+    {
+      "path": "lab/out/release-index-pair-r2/target/maven-status/maven-compiler-plugin/testCompile/default-testCompile/createdFiles.lst",
+      "bytes": 979,
+      "sha256": "dd57de40cfbe46e8a287a84658858da19e11deb79c2d2d391dd906eecdf5999a"
+    },
+    {
+      "path": "lab/out/release-index-pair-r2/target/maven-status/maven-compiler-plugin/testCompile/default-testCompile/inputFiles.lst",
+      "bytes": 2539,
+      "sha256": "1c2d47d2148d62f73f98709f646970018e91d5ba36c6811a34177b369a1a634c"
+    },
+    {
+      "path": "lab/out/release-index-pair-r2/target/oracle-redo-kernel-0.1.0-SNAPSHOT.jar",
+      "bytes": 86079,
+      "sha256": "c7ef0effa9f45f45ccc2915095d9c9b660288a1cf1ac1bba39e86872674b1b53"
+    },
+    {
+      "path": "lab/out/release-index-pair-r2/target/surefire-reports/2026-10-04T13-13-29_907.dumpstream",
+      "bytes": 289,
+      "sha256": "55ca0b2819dc899b6cd18cd20bcc4c338a78fc0ce6d3e169ca515a5a95a04cda"
+    },
+    {
+      "path": "lab/out/release-index-pair-r2/target/surefire-reports/com.streamhouse.oracle.ArchivedCompensationInventoryTest.txt",
+      "bytes": 366,
+      "sha256": "66f1e7944f2d746029d6e00570e7ab99046ac9ada7de8629d8a76f0b6cdb17f0"
+    },
+    {
+      "path": "lab/out/release-index-pair-r2/target/surefire-reports/com.streamhouse.oracle.ArchivedRedoTest.txt",
+      "bytes": 332,
+      "sha256": "3fbd67795b5dbd9f529c65721bc6a7be5a6b91f04b38cb6a2bcb11397f9ec21a"
+    },
+    {
+      "path": "lab/out/release-index-pair-r2/target/surefire-reports/com.streamhouse.oracle.ArchivedUndoInventoryTest.txt",
+      "bytes": 350,
+      "sha256": "6884eaf21f9b20fee7531cb3e8e7752198895d5dbb666eea295b2497abafe20a"
+    },
+    {
+      "path": "lab/out/release-index-pair-r2/target/surefire-reports/com.streamhouse.oracle.BeginCompensationTest.txt",
+      "bytes": 342,
+      "sha256": "a7417952c4f4848f9fc590d65e0c5f1d10887c67831d633b0dfd525c86a22ddf"
+    },
+    {
+      "path": "lab/out/release-index-pair-r2/target/surefire-reports/com.streamhouse.oracle.CrossCompensationTest.txt",
+      "bytes": 342,
+      "sha256": "3d592f2270d9606f589097769432d77789db4dd214282fd8acd28cc6418c8de9"
+    },
+    {
+      "path": "lab/out/release-index-pair-r2/target/surefire-reports/com.streamhouse.oracle.HeapCompensationTest.txt",
+      "bytes": 340,
+      "sha256": "e8fd8c9d4c61c1de544bf8ece1de76bc9b71567dd278a7c0e07173bd03f2e843"
+    },
+    {
+      "path": "lab/out/release-index-pair-r2/target/surefire-reports/com.streamhouse.oracle.HeapRowPatchTest.txt",
+      "bytes": 332,
+      "sha256": "db6e4498c6b26beb58bebc41b0b7cb8f9defc281aabf61e42f4835fe73c5fafc"
+    },
+    {
+      "path": "lab/out/release-index-pair-r2/target/surefire-reports/com.streamhouse.oracle.HeapUndoPairTest.txt",
+      "bytes": 332,
+      "sha256": "9f8e107c32ad2e8e08f974207729ab9e98176881a3bdee2617f75f968096a424"
+    },
+    {
+      "path": "lab/out/release-index-pair-r2/target/surefire-reports/com.streamhouse.oracle.IndexUndoPairTest.txt",
+      "bytes": 334,
+      "sha256": "c36f01c80fb4ad3478645365f0360af45b3e73fa2d9f02e94487682d58c2bc6b"
+    },
+    {
+      "path": "lab/out/release-index-pair-r2/target/surefire-reports/com.streamhouse.oracle.Kdom2UpdateTest.txt",
+      "bytes": 330,
+      "sha256": "924e9b77884d69f74b81bc9d171d64ccd01dcf531f0daf82c89672eaa9da6874"
+    },
+    {
+      "path": "lab/out/release-index-pair-r2/target/surefire-reports/com.streamhouse.oracle.OracleScalarsTest.txt",
+      "bytes": 334,
+      "sha256": "9393b8706f3956d8ef3aca084d92eadd35790057f0bbee9d50470d5b4845422f"
+    },
+    {
+      "path": "lab/out/release-index-pair-r2/target/surefire-reports/com.streamhouse.oracle.TransactionLifecycleTest.txt",
+      "bytes": 349,
+      "sha256": "bd041d9c2e111cf93d78df6b114437db82a92a5be4b662611b416782dbbfb183"
+    },
+    {
+      "path": "lab/out/release-index-pair-r2/target/surefire-reports/com.streamhouse.oracle.TransactionMarkersTest.txt",
+      "bytes": 344,
+      "sha256": "305a5aa4bcf8a13e39a6007eef7495f1abf068e9eed85fafc4c1fea3b8bc55cf"
+    },
+    {
+      "path": "lab/out/release-index-pair-r2/target/surefire-reports/com.streamhouse.oracle.TransactionStartTest.txt",
+      "bytes": 340,
+      "sha256": "c9dce038321366627af642434481632a3f552eeff18207c02ca802f64cc7dfda"
+    },
+    {
+      "path": "lab/out/release-index-pair-r2/target/surefire-reports/com.streamhouse.oracle.UndoBlockAdvanceTest.txt",
+      "bytes": 340,
+      "sha256": "596bcda5acb0001ca349b21bc37b4f4894bfa38f1b4aff577e06f3bf45bc5db9"
+    },
+    {
+      "path": "lab/out/release-index-pair-r2/target/surefire-reports/com.streamhouse.oracle.UndoChainTest.txt",
+      "bytes": 326,
+      "sha256": "77f249e8418a791f73b6ab30e11212f3ce50eac345f035819056c7917aa0d159"
+    },
+    {
+      "path": "lab/out/release-index-pair-r2/target/surefire-reports/com.streamhouse.oracle.UndoHeaderTest.txt",
+      "bytes": 328,
+      "sha256": "fe8b549456f7e0a609ade1c7bad45fa958d6a9c93c2697a9d528d1437e5eace6"
+    },
+    {
+      "path": "lab/out/release-index-pair-r2/target/surefire-reports/com.streamhouse.oracle.UndoHeadUpdateTest.txt",
+      "bytes": 336,
+      "sha256": "f86263af7598cb06c9ac7659eb4d3b58c7889650126ba4fadd49f547592c0039"
+    },
+    {
+      "path": "lab/out/release-index-pair-r2/target/surefire-reports/com.streamhouse.oracle.UndoHistoryTest.txt",
+      "bytes": 330,
+      "sha256": "73193c908715f8386c65427fef2923a0e22319e870d6ade020d2ea5baf848d42"
+    },
+    {
+      "path": "lab/out/release-index-pair-r2/target/surefire-reports/com.streamhouse.oracle.UndoRowPatchTest.txt",
+      "bytes": 332,
+      "sha256": "947c171794b8da10de39770ca81b532fa34451768bbfafd72789c3d3ab928c82"
+    },
+    {
+      "path": "lab/out/release-index-pair-r2/target/surefire-reports/TEST-com.streamhouse.oracle.ArchivedCompensationInventoryTest.xml",
+      "bytes": 10901,
+      "sha256": "008a531554b33643b5885bd31c7c7973bf5d63c87f86f4ef793c3dac4b5e90cb"
+    },
+    {
+      "path": "lab/out/release-index-pair-r2/target/surefire-reports/TEST-com.streamhouse.oracle.ArchivedRedoTest.xml",
+      "bytes": 11373,
+      "sha256": "d87b9747dd1da90c6d5c0c157a138f9a0cdd84cd373ad5b10af489c0d1d3afe8"
+    },
+    {
+      "path": "lab/out/release-index-pair-r2/target/surefire-reports/TEST-com.streamhouse.oracle.ArchivedUndoInventoryTest.xml",
+      "bytes": 10685,
+      "sha256": "309332b91f92194ef204849d5b2178c5a35577fc6318cbca93dfe8a615a2d3ad"
+    },
+    {
+      "path": "lab/out/release-index-pair-r2/target/surefire-reports/TEST-com.streamhouse.oracle.BeginCompensationTest.xml",
+      "bytes": 10791,
+      "sha256": "1466757a888b85eda021519131810f6fad2f35169c6a863b094957733fbab165"
+    },
+    {
+      "path": "lab/out/release-index-pair-r2/target/surefire-reports/TEST-com.streamhouse.oracle.CrossCompensationTest.xml",
+      "bytes": 10789,
+      "sha256": "d3c177496b2497ba6ea0cb1a6351c15c654a7c22f7048cc5aed47b9dc4abe314"
+    },
+    {
+      "path": "lab/out/release-index-pair-r2/target/surefire-reports/TEST-com.streamhouse.oracle.HeapCompensationTest.xml",
+      "bytes": 10914,
+      "sha256": "498f08b46afd662092bae85049755050fdb40a352322716384ee32c4936205c0"
+    },
+    {
+      "path": "lab/out/release-index-pair-r2/target/surefire-reports/TEST-com.streamhouse.oracle.HeapRowPatchTest.xml",
+      "bytes": 10826,
+      "sha256": "6e8136dd84fa42b81fafa8b56bc758a9ec63785725d191832ba7e28f9d3f108d"
+    },
+    {
+      "path": "lab/out/release-index-pair-r2/target/surefire-reports/TEST-com.streamhouse.oracle.HeapUndoPairTest.xml",
+      "bytes": 10750,
+      "sha256": "49ae47cd25e74006c90458f57e0084525576b40b0ebde33a2beea2841c0b06ff"
+    },
+    {
+      "path": "lab/out/release-index-pair-r2/target/surefire-reports/TEST-com.streamhouse.oracle.IndexUndoPairTest.xml",
+      "bytes": 11121,
+      "sha256": "ad3469e3f72e6216b98c6f01de03bd581c6012f926b2edf9918fd47921ee671e"
+    },
+    {
+      "path": "lab/out/release-index-pair-r2/target/surefire-reports/TEST-com.streamhouse.oracle.Kdom2UpdateTest.xml",
+      "bytes": 10720,
+      "sha256": "8f36d421ef863707f60ed7612f95ce34221b2e223da736fda50047970a78036f"
+    },
+    {
+      "path": "lab/out/release-index-pair-r2/target/surefire-reports/TEST-com.streamhouse.oracle.OracleScalarsTest.xml",
+      "bytes": 10574,
+      "sha256": "a6f68856fe5a9db3d56b13e739978fe4957db7e136e589248cbe6a31fcf78888"
+    },
+    {
+      "path": "lab/out/release-index-pair-r2/target/surefire-reports/TEST-com.streamhouse.oracle.TransactionLifecycleTest.xml",
+      "bytes": 11883,
+      "sha256": "efb001d966d4200e392df4a8976ea87517db682c26697774ccd45fe389c6e2aa"
+    },
+    {
+      "path": "lab/out/release-index-pair-r2/target/surefire-reports/TEST-com.streamhouse.oracle.TransactionMarkersTest.xml",
+      "bytes": 11063,
+      "sha256": "8a4af2ea0fd541f4072151e20a54c48251fd3e12b5ec375efc94fdd45f45cb7b"
+    },
+    {
+      "path": "lab/out/release-index-pair-r2/target/surefire-reports/TEST-com.streamhouse.oracle.TransactionStartTest.xml",
+      "bytes": 10748,
+      "sha256": "23b67f77569ad336ec5465a79caa6cc67d518137af0a527c270d9be76a6da930"
+    },
+    {
+      "path": "lab/out/release-index-pair-r2/target/surefire-reports/TEST-com.streamhouse.oracle.UndoBlockAdvanceTest.xml",
+      "bytes": 10643,
+      "sha256": "4dd2c03eb667ce8531b24596e6eb782f488e76afb61329566780584fe2a28142"
+    },
+    {
+      "path": "lab/out/release-index-pair-r2/target/surefire-reports/TEST-com.streamhouse.oracle.UndoChainTest.xml",
+      "bytes": 10752,
+      "sha256": "902fdb606ffac5536e4c756bb0fa21c4c7e26a67fb27ffa82ac19489a83d623d"
+    },
+    {
+      "path": "lab/out/release-index-pair-r2/target/surefire-reports/TEST-com.streamhouse.oracle.UndoHeaderTest.xml",
+      "bytes": 10323,
+      "sha256": "7d62cf7c1d9ef2af45488f7051aaadbb0f47f0c2c30680d97ee04db48dbc8e64"
+    },
+    {
+      "path": "lab/out/release-index-pair-r2/target/surefire-reports/TEST-com.streamhouse.oracle.UndoHeadUpdateTest.xml",
+      "bytes": 10799,
+      "sha256": "f40fa4bee4e695fa041f01601e1212fe3c51c00a459ae552b71fc38cc3de49e9"
+    },
+    {
+      "path": "lab/out/release-index-pair-r2/target/surefire-reports/TEST-com.streamhouse.oracle.UndoHistoryTest.xml",
+      "bytes": 11069,
+      "sha256": "90e8dc27af90ec2fb3c44e92d6c576a33a137e29bc3fc87300eeeacf9df45f11"
+    },
+    {
+      "path": "lab/out/release-index-pair-r2/target/surefire-reports/TEST-com.streamhouse.oracle.UndoRowPatchTest.xml",
+      "bytes": 10607,
+      "sha256": "e56b25ba3ce6f0f7208f780ba5fee454e8db7bbcd4c315a531bb7cdeb88cc5cd"
+    },
+    {
+      "path": "lab/out/release-index-pair-r2/target/test-classes/com/streamhouse/oracle/ArchivedCompensationInventoryTest.class",
+      "bytes": 10553,
+      "sha256": "5fb007bcd1e77ca019343fad811f9aadce7adce76c490c6e95b7eef68b6f3ec7"
+    },
+    {
+      "path": "lab/out/release-index-pair-r2/target/test-classes/com/streamhouse/oracle/ArchivedRedoTest.class",
+      "bytes": 8499,
+      "sha256": "fd296f5f51ea5198fea8ba2d2eb630bea6fc4755481e489a67bbd7c65b3ae74f"
+    },
+    {
+      "path": "lab/out/release-index-pair-r2/target/test-classes/com/streamhouse/oracle/ArchivedUndoInventoryTest.class",
+      "bytes": 8604,
+      "sha256": "794258160a764f2e690c37f5a08bd973f614d0cca95e0a1511e683202e44ee81"
+    },
+    {
+      "path": "lab/out/release-index-pair-r2/target/test-classes/com/streamhouse/oracle/BeginCompensationTest.class",
+      "bytes": 11877,
+      "sha256": "fe554e58fc8701c1e475234f08286da15ea7334af7d66e1f0295a4a32d5793ca"
+    },
+    {
+      "path": "lab/out/release-index-pair-r2/target/test-classes/com/streamhouse/oracle/CrossCompensationTest.class",
+      "bytes": 10350,
+      "sha256": "0252f5e9b24f9891f558ab29a0140c90f5abf63034f260a25fb26db3e572c01a"
+    },
+    {
+      "path": "lab/out/release-index-pair-r2/target/test-classes/com/streamhouse/oracle/HeapCompensationTest.class",
+      "bytes": 11085,
+      "sha256": "f1d0b46b4251627d6d1d15c16bd82becfa474ebfd7173a7ab634f13ec66961f6"
+    },
+    {
+      "path": "lab/out/release-index-pair-r2/target/test-classes/com/streamhouse/oracle/HeapRowPatchTest.class",
+      "bytes": 7498,
+      "sha256": "a40e438e524dcd6c11325eeed06904e6e8cbf29974dc30aa270212ca3bf34d63"
+    },
+    {
+      "path": "lab/out/release-index-pair-r2/target/test-classes/com/streamhouse/oracle/HeapUndoPairTest.class",
+      "bytes": 9022,
+      "sha256": "4e05b2ba8483c435071a3d6bd3e18c695661f7bfda37cc19925699535c908bd1"
+    },
+    {
+      "path": "lab/out/release-index-pair-r2/target/test-classes/com/streamhouse/oracle/IndexUndoPairTest.class",
+      "bytes": 11494,
+      "sha256": "984b4dbf0b52760ad91dddbe076a22e7d41730d7dd5d19e6d05ff493154b5e33"
+    },
+    {
+      "path": "lab/out/release-index-pair-r2/target/test-classes/com/streamhouse/oracle/Kdom2UpdateTest.class",
+      "bytes": 7350,
+      "sha256": "09fafb0fd4fc3d085cf729e79b153c9a612b44ba572ca58c5f86af503f35a269"
+    },
+    {
+      "path": "lab/out/release-index-pair-r2/target/test-classes/com/streamhouse/oracle/OracleScalarsTest.class",
+      "bytes": 4814,
+      "sha256": "e9879cb3144570e2b6a803b1185a2525bbca31cfdb39aa2bd08ecd89ed318934"
+    },
+    {
+      "path": "lab/out/release-index-pair-r2/target/test-classes/com/streamhouse/oracle/TransactionLifecycleTest.class",
+      "bytes": 16934,
+      "sha256": "cf198b27efd9dfcc4c30e6e1ce85af99a5cbbc4096039593f39fe0d65899759f"
+    },
+    {
+      "path": "lab/out/release-index-pair-r2/target/test-classes/com/streamhouse/oracle/TransactionMarkersTest.class",
+      "bytes": 7753,
+      "sha256": "bb923912aa171b114cf9c84f2a367f86fda3a12f3af7a955a1d761adf784d1c8"
+    },
+    {
+      "path": "lab/out/release-index-pair-r2/target/test-classes/com/streamhouse/oracle/TransactionStartTest.class",
+      "bytes": 7241,
+      "sha256": "55a086fe989b36f80b64f35552bde0b168fa82f8c70323abc18dc0bb6d9c44db"
+    },
+    {
+      "path": "lab/out/release-index-pair-r2/target/test-classes/com/streamhouse/oracle/UndoBlockAdvanceTest.class",
+      "bytes": 9218,
+      "sha256": "54e4b39cd9342d07f08239212aed8faeb83aab6fad2b98c2f29f9d330c8b5697"
+    },
+    {
+      "path": "lab/out/release-index-pair-r2/target/test-classes/com/streamhouse/oracle/UndoChainTest.class",
+      "bytes": 9323,
+      "sha256": "d3c3a8728fd7c40d0f51bb7212e329674ecbd9e5b0ee299cb2bc5211e1e6e2cd"
+    },
+    {
+      "path": "lab/out/release-index-pair-r2/target/test-classes/com/streamhouse/oracle/UndoHeaderTest.class",
+      "bytes": 3892,
+      "sha256": "86651ec456d63d68a65df4598d7be7a9de40951c7935fa25296d30c57997e3b6"
+    },
+    {
+      "path": "lab/out/release-index-pair-r2/target/test-classes/com/streamhouse/oracle/UndoHeadUpdateTest.class",
+      "bytes": 11221,
+      "sha256": "daacd33a63c475f288cc691e512f89fa15f3a5034f2b670c511d6b251f51dc99"
+    },
+    {
+      "path": "lab/out/release-index-pair-r2/target/test-classes/com/streamhouse/oracle/UndoHistoryTest.class",
+      "bytes": 15398,
+      "sha256": "23159dd9093d4a89552ab68ce5578b32018c857bd84cd798b98fe47a4322d6f8"
+    },
+    {
+      "path": "lab/out/release-index-pair-r2/target/test-classes/com/streamhouse/oracle/UndoRowPatchTest.class",
+      "bytes": 7729,
+      "sha256": "97559d6d9aa5400092adb0c9380be57de3bd0b42bf8ab40ac00bcde37c09718b"
+    },
+    {
+      "path": "lab/out/release-index-pair-r2/verify.rc.txt",
+      "bytes": 3,
+      "sha256": "13bf7b3039c63bf5a50491fa3cfd8eb4e699d1ba1436315aef9cbe5711530354"
+    },
+    {
+      "path": "lab/out/release-index-pair-r2/verify.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/release-index-pair-r2/verify.stdout.txt",
+      "bytes": 378,
+      "sha256": "cff51ad4789008cacfaeb721eeebbbb72aba293aca49ea3c5dd3b085817c34d5"
+    },
+    {
+      "path": "lab/out/release-index-pair-r2/verify_seal.py",
+      "bytes": 3531,
+      "sha256": "0d6bddb455859cfbeabf983b3e9ab2eab13831e149c563459a3fe87e18bffe87"
+    }
+  ]
+}
