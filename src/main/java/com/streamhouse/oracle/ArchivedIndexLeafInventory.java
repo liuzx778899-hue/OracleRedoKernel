@@ -40,6 +40,9 @@ public final class ArchivedIndexLeafInventory {
                     if (v.containerId()!=container || v.dba()!=leafDba) continue;
                     if (r.scn()<header.firstScn() || r.scn()>=header.nextScn())
                         throw new RedoException("INDEX_LEAF_INVENTORY_RECORD_OUTSIDE_ARCHIVE_SCN");
+                    if (v.opcodeMajor()==4 && v.opcodeMinor()==1) {
+                        SingleEntryBlockCleanout.require(r,v);continue;
+                    }
                     var position=new ArchivedUndoInventory.Position(header.sequence(),r.block(),r.offset(),i+1);
                     if (v.opcodeMajor()==10 && (v.opcodeMinor()==2 || v.opcodeMinor()==4)) {
                         var pair=IndexUndoPair.bind(r,v);var f=pair.forward();var u=pair.undo();

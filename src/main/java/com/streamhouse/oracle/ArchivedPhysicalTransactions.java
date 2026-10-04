@@ -138,8 +138,8 @@ public final class ArchivedPhysicalTransactions {
                 for (int i=0;i<r.vectors().size();i++) {
                     var v=r.vectors().get(i);if (v.containerId()!=container) continue;
                     if (inWindow && (v.dba()==leaf || heapBlocks.contains(v.dba())) && !paired.contains(i)) {
-                        if (heapBlocks.contains(v.dba()) && v.opcodeMajor()==4 && v.opcodeMinor()==1)
-                            EmptyHeapCleanout.require(r,v);
+                        if (v.opcodeMajor()==4 && v.opcodeMinor()==1)
+                            SingleEntryBlockCleanout.require(r,v);
                         else throw new RedoException("UNBOUND_PHYSICAL_WINDOW_OPERATION:"+v.opcodeMajor()+"."+v.opcodeMinor());
                     }
                     boolean control=contexts.stream().anyMatch(c->c.segment==v.dba() && c.inWindow(recordAt));
