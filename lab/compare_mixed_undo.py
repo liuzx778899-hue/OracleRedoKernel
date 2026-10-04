@@ -3,10 +3,14 @@ import json,re,sys,subprocess
 from pathlib import Path
 args=sys.argv[1:];concurrent_fixture=args[0] in ('--concurrent-fixture','--concurrent')
 if args[0]=='--concurrent':args=args[1:]
+declared_objects=None
+if args[0]=='--objects':declared_objects=tuple(map(int,args[1].split(',')));args=args[2:]
 restore_fixture=args[0]=='--restore-fixture';slot_fixture=args[0]=='--slot-fixture';multi_fixture=args[0]=='--multi-fixture';purge_fixture=args[0]=='--purge-fixture' or concurrent_fixture;higher_fixture=args[0]=='--higher-fixture';delete_restore_fixture=args[0]=='--delete-restore-fixture';double_purge_fixture=args[0]=='--double-purge-fixture'
 if restore_fixture or slot_fixture or multi_fixture or purge_fixture or higher_fixture or delete_restore_fixture or double_purge_fixture:args=args[1:]
 objects=(73069,73070) if double_purge_fixture else (73071,73072) if delete_restore_fixture else (73067,73068) if higher_fixture else (73065,73066) if purge_fixture else (73063,73064) if multi_fixture else (73061,73062) if slot_fixture else (73059,73060) if restore_fixture else (73024,73025)
+if declared_objects is not None:objects=declared_objects
 xid=tuple(map(int,args[0].split('.')));expected=[];history=[];nodes=[];active=False;ends=0;segment=None
+rolled_back=None
 owned_markers=None
 if concurrent_fixture:
     proof=subprocess.run([sys.executable,str(Path(__file__).with_name('compare_compensation_associations.py')),args[0],'--native-only',*args[2:]],capture_output=True,check=True)
@@ -59,10 +63,13 @@ for filename in args[2:]:
             e=re.search(r'ktucm redo: slt: 0x([0-9a-f]+) sqn: 0x([0-9a-f]+)',change)
             if active and h[3]=='5.4' and e and int(h[2],16)==segment and (int(e[1],16),int(e[2],16))==xid[1:]:
                 active=False;ends+=1
-                if 'rolled back transaction' in change and history:raise RuntimeError('NATIVE_ROLLBACK_LIVE_HEAD')
+                rolled_back='rolled back transaction' in change
+                if rolled_back and history:raise RuntimeError('NATIVE_ROLLBACK_LIVE_HEAD')
 if active or ends!=1:raise RuntimeError('NATIVE_END_COVERAGE_MISMATCH')
 for n in reversed(history):expected.append(['LIVE',':'.join(map(str,n['uba'])),n['meta'][8]])
 expected=[list(map(str,row)) for row in expected]
+if args[1]=='--native-only':
+    print(json.dumps({'native_graph':expected,'original_nodes':len(nodes),'compensations':sum(r[0]=='CANCEL' for r in expected),'live_nodes':len(history),'rolled_back':rolled_back},indent=2));sys.exit(0)
 actual=[line.split('|') for line in Path(args[1]).read_text(encoding='utf-8-sig').splitlines()]
 errors=[]
 for i in range(max(len(expected),len(actual))):

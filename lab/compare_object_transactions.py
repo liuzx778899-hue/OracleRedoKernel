@@ -34,6 +34,8 @@ for xid in targets:
     expected.append(['DISCOVER',label,str(len(originals)),position(window['first']),position(window['last'])])
     expected.extend(associations);original_count+=len(originals);association_count+=len(associations)
 sys.argv=saved_args
+if str(actual_path)=='--native-only':
+    print(json.dumps({'native_discovery':expected,'scope':'native-only object discovery and header associations'},indent=2));sys.exit(0)
 actual=[line.split('|') for line in actual_path.read_text(encoding='utf-8-sig').splitlines()]
 errors=[] if actual==expected else [{'expected':expected,'actual':actual}]
 print(json.dumps({'native_transactions':len(targets),'native_originals':original_count,'window_associations':association_count,'mismatches':len(errors),'errors':errors,'scope':'object discovery and header routes only; physical graph and DML unverified','cdc_events':0},indent=2))
