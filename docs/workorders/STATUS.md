@@ -11,12 +11,14 @@
 | W2 record/vector | 通过：首批fa61476 | 通过：19c seq8/9完整dump、21c选定范围 | 待证：事务/字典 | 未开始 | 待证 | 未开始 |
 | W3 基础行/类型 | 进行中：scalar + pair + KDOM2单列扩展值 | 通过：18pair/302长值patch；完整行待证 | 进行中：物理配对；字典/基线待证 | 未开始 | 待证 | 未开始 |
 | W4 事务/回滚 | 进行中：有序history/覆盖/heap+index补偿、同源完整XID归属及有源位置重放 | 通过：203测试；seq21—24自主发现基线/A/B共12物理图；自主对象头关联；seq19—24六位置、seq21—24有限双上下文完整图与拒绝证据；九笔旧图及六批长heap证据保留 | 进行中：有界自主物理入口已交付；完整控制/页维护/跨块关联/恢复待证；不当通用生产能力 | 未开始 | 待证 | 未开始 |
-| W5 SCN字典/基线 | 进行中：extent/完整行、实际ASOF/回执/typed世代，有限cleanout及闭合图live原始位置选择 | 通过：227测试新冻结树；seq27 TXT/PK、seq30 INSERT/DELETE、seq31全回滚抑制；seq32真实SAVEPOINT三存活完整行/三SQL快照/6/1/5图native零差异、7 raw拒绝；seq28/29真实初始跨snapshot拒绝；生产可信交接/历史字典待证 | 进行中：有限串行DML/全及部分回滚存活完整行通过；并发/多savepoint/跨块/空结果/通用初始恢复/历史schema待证 | 未开始 | 待证 | 未开始 |
+| W5 SCN字典/基线 | 进行中：extent/完整行、ASOF/回执/typed世代，有限cleanout、闭合图live选择及commit SCN重放 | 通过：229测试新冻结树；seq33/34真实不同行并发四完整行/四SQL快照/6/0/6图native零差异、8 raw拒绝；seq30/31/32同件完整行回归；seq28/29初始跨snapshot拒绝；生产可信交接/历史字典待证 | 进行中：有限不同行并发及全/部分回滚完整行通过；真实同一行阻塞/相同commit SCN/多savepoint/跨块/空结果/初始恢复/历史schema待证 | 未开始 | 待证 | 未开始 |
 | W6 StreamHouse接入 | 未开始 | 待证 | 未开始 | 未开始 | 待证 | 未开始 |
 | W7 online采集 | 进行中：固定member有界观察journal实验 | 通过：429归档数据块字节覆盖、6派生拒绝；完整持续捕获/续接/Windows/ASM待证 | 未开始：journal到解析/ACK | 未开始 | 待证 | 未开始 |
 | W8-W11 扩展类型/LOB/RAC/ASM/TDE | 未开始 | 待证 | 未开始 | 未开始 | 待证 | 未开始 |
 
 ## 当前证据
+
+最新：[不同行并发完整行与提交顺序](DELIVERY_W5_CONCURRENT_ROWS_20261005.md)，源脚本c036164、cleanout修正09655d6、运行时5bfde64、独立lab09ddedc，[清单](evidence/DELIVERY-concurrent-rows-20261005.json)。最终229测试通过；真实snapshot2349199后A更新持有、B独立INSERT先commit且SQL仍见A旧值、A再次UPDATE后commit、最后DELETE B新行；seq33/34冻结，完整三物理图6/0/6及B INSERT→A两UPDATE→DELETE四完整行与native/四SQL快照零差异。6 cleanout篡改及晚DELETE before、同rowkey派生冲突共8 raw scan通过而行rc1/stdout0，四比较器反例检出；同件seq30/31/32回归零差异、seq28/29初始边界拒绝、events拒绝。首次leaf4.1拒绝、错误24字节假设导致r2单测失败及缺jar编译、r3并发行拒绝、共享key派生driver越界均保全，源DML未重放。最终专属一行11/concurrent-closed/new-note。接续[行顺序边界与空结果](DISPATCH_W5_ROW_ORDER_BOUNDARIES_20261005.md)；真实同rowkey阻塞、相同commit SCN分支、一般并发/历史字典/信任/恢复/capture/ACK/接入/现场/发布仍待证。
 
 最新：[真实SAVEPOINT存活完整行](DELIVERY_W5_PARTIAL_ROWS_20261005.md)，源脚本9d4ff98、布局0e502ec、运行时1bfa736、lab验证dfcc2ad，[清单](evidence/DELIVERY-partial-rows-20261005.json)。两新树各227测试通过；实际snapshot2348260后新ID13 INSERT→SAVEPOINT→TXT UPDATE取消→NOTE UPDATE commit，再CAS DELETE新行commit，XID10.6.1643/10.26.1642冻结seq32 SHA357ee00b…。完整物理图4/1/3与2/0/2共6/1/5 native零差异，仅live原始heap位置产出INSERT/NOTE UPDATE/DELETE三完整行，与旧ASOF/中间commit/最终三SQL快照零差异，partial-cancel不产出。新column2/control0x10/XA短值首轮拒绝与r2已闭合物理后的partial拒绝保全，没重放源动作；7重封raw scan通过、物理或最后DELETE before失配整批rc1/stdout0，五比较器与语义/原回执反例检出。同件seq31全回滚、seq30完整行和seq28/29真实边界回归通过，events拒绝。最终原有单行11/rollback-proof/new-note未改。接续[并发完整行/commit顺序](DISPATCH_W5_CONCURRENT_ROWS_20261005.md)；多savepoint/跨块/空结果/初始恢复/历史字典/CDC/capture/接入/现场/发布仍待证。
 

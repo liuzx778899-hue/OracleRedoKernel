@@ -1,6 +1,6 @@
 # W5 真实并发完整行与提交顺序
 
-状态：待执行。完整/部分回滚有限串行完整行已通过；当前begin<=前一事务end明确UNSUPPORTED_ROW_REPLAY_CONCURRENT_TRANSACTIONS，不能让既有并发物理图通过冒充逻辑行通过。
+状态：本次不同行并发有界样本已执行并独立验证，见[交付](DELIVERY_W5_CONCURRENT_ROWS_20261005.md)。同一行真实阻塞与相同结束SCN等更广边界未验收，见[接续执行包](DISPATCH_W5_ROW_ORDER_BOUNDARIES_20261005.md)。以下保留原始任务与判据，不能让物理图通过冒充通用逻辑行通过。
 
 1. 专属现有项目表核source/两角色generation/无supplemental及单行ID11/rollback-proof/new-note。新的实际固定SCN基线及控制进程获取SHA；新目录，脚本先提交，不重放seq32。
 2. 自有持久A会话CAS UPDATE ID11 TXT concurrent-open后保持未提交，握手记录完整XID。B独立会话INSERT新ID15/concurrent-b/b-note并commit，保存独立已提交SQL真值，必须仍看到A旧值。A随后CAS UPDATE自己的行TXT concurrent-closed并commit；保存独立SQL真值，再单独CAS DELETE B新行并commit清理。仅专属源、无DDL/config改变；异常只回滚自己的未提交事务，不重放已提交操作。
