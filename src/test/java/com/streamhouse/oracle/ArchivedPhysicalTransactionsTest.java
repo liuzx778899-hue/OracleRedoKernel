@@ -1,0 +1,71 @@
+package com.streamhouse.oracle;
+
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.util.ArrayList;
+import java.util.List;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.io.TempDir;
+import static org.junit.jupiter.api.Assertions.*;
+import static com.streamhouse.oracle.ArchivedRedoTest.*;
+
+class ArchivedPhysicalTransactionsTest {
+    @TempDir Path dir;
+    final ArchivedCompensationAssociationsTest f=new ArchivedCompensationAssociationsTest();
+    final IndexUndoPairTest index=new IndexUndoPairTest();
+    final HeapRowPatch.Xid a=new HeapRowPatch.Xid(10,12,1105),b=new HeapRowPatch.Xid(9,5,585);
+    final long leaf=0x0300008bL;
+    List<RedoRecords.Vector> insert(HeapRowPatch.Xid xid,long undoDba,long segment,int slot) {
+        var u=index.purgeUndo();var fields=new ArrayList<>(u.fields());
+        byte[] m=java.util.Arrays.copyOf(fields.get(1),76);fields.set(1,m);
+        put(fields.get(0),8,xid.usn(),2);put(fields.get(0),10,xid.slot(),2);put(fields.get(0),12,xid.sequence(),4);
+        put(m,18,xid.slot(),1);put(m,19,0,1);put(m,20,0x0c08,2);put(m,22,1,2);
+        u=new RedoRecords.Vector(5,1,36,11,undoDba,110,1,3,fields);
+        var row=index.insert();put(row.fields().get(0),8,xid.usn(),2);put(row.fields().get(0),10,xid.slot(),2);
+        put(row.fields().get(0),12,xid.sequence(),4);put(row.fields().get(0),16,undoDba,4);put(row.fields().get(1),2,slot,2);
+        var start=f.start(xid,segment,undoDba,8);
+        return List.of(start,u,row);
+    }
+    RedoRecords.Vector end(HeapRowPatch.Xid xid,long undoDba,long segment) {
+        var e=f.end(xid,segment);put(e.fields().get(0),16,2,4);byte[] tail=new byte[16];
+        put(tail,0,undoDba,4);put(tail,4,242,2);put(tail,6,8,1);
+        return new RedoRecords.Vector(5,4,35,11,segment,140,1,3,List.of(e.fields().get(0),tail,e.fields().get(1)));
+    }
+    byte[] fixture() {
+        var raw=f.fixture();f.records.record(raw,2,110,insert(a,0x02402cbeL,0x02400110L,0));
+        f.records.record(raw,3,120,insert(b,0x02402cbfL,0x02400120L,1));
+        f.records.record(raw,4,130,List.of(end(b,0x02402cbfL,0x02400120L)));
+        f.records.record(raw,5,140,List.of(end(a,0x02402cbeL,0x02400110L)));
+        for (int i=0;i<raw.length;i+=512)seal(raw,i);return raw;
+    }
+    ArchivedPhysicalTransactions.Result read(byte[] raw,long selectedLeaf,long uid) throws Exception {
+        var path=dir.resolve("archive.dbf");Files.write(path,raw);
+        return ArchivedPhysicalTransactions.read(List.of(path),uid,3,73024,73025,selectedLeaf,4);
+    }
+    @Test void discoversAndClosesEveryTransactionWithoutSuppliedIdentityList() throws Exception {
+        var result=read(fixture(),leaf,677737149);
+        assertEquals(List.of(a,b),result.transactions().stream().map(t->t.identity().xid()).toList());
+        assertTrue(result.transactions().stream().allMatch(t->t.graph().original().size()==1 && t.graph().live().size()==1 && t.operations().size()==1));
+        assertThrows(UnsupportedOperationException.class,()->result.transactions().clear());
+        assertThrows(UnsupportedOperationException.class,()->result.transactions().get(0).operations().clear());
+    }
+    @Test void missingWholeForeignEndRefusesTheBatch() {
+        var raw=fixture();f.records.record(raw,4,130,List.of());seal(raw,2048);
+        assertThrows(RedoException.class,()->read(raw,leaf,677737149));
+    }
+    @Test void wrongLeafAndContainerCannotReturnPartialSuccess() {
+        assertThrows(RedoException.class,()->read(fixture(),leaf+1,677737149));
+        assertEquals("NO_PHYSICAL_OBJECT_TRANSACTIONS",assertThrows(RedoException.class,()->read(fixture(),leaf,1)).getMessage());
+    }
+    @Test void leafOperationWithoutPhysicalPairRefuses() {
+        var raw=fixture();var entries=new ArrayList<>(insert(b,0x02402cbfL,0x02400120L,1));entries.remove(2);
+        f.records.record(raw,3,120,entries);seal(raw,1536);
+        assertEquals("PHYSICAL_ORIGINAL_PAIR_COUNT",assertThrows(RedoException.class,()->read(raw,leaf,677737149)).getMessage());
+    }
+    @Test void unknownPageMaintenanceInActiveWindowRefuses() {
+        var raw=fixture();var entries=new ArrayList<>(insert(b,0x02402cbfL,0x02400120L,1));
+        entries.add(new RedoRecords.Vector(10,31,1,12,leaf,120,1,3,List.of()));
+        f.records.record(raw,3,120,entries);seal(raw,1536);
+        assertEquals("UNSUPPORTED_INDEX_LEAF_WINDOW_OPCODE:10.31",assertThrows(RedoException.class,()->read(raw,leaf,677737149)).getMessage());
+    }
+}
