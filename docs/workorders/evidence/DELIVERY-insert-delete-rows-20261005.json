@@ -1,0 +1,1939 @@
+{
+  "runtime_source": "b9320ff002d60c4dbb47b56adddbc6faf45eed97",
+  "lab_source": "1585dcb736d8476555d857d7065000f095585513",
+  "jar_sha256": "9053c01bae7420837c80448cc4d3ca39ae0b28431706a1483a9eda52a5e4fc5d",
+  "tests_in_reused_frozen_runtime": {
+    "tests": 225,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0
+  },
+  "runtime_modified_or_tests_repeated_this_round": false,
+  "source_experiment": {
+    "snapshot_scn": 2346182,
+    "acquisition_sha256": "e254ee68b3c38646ef23e62b5f16f7c78377e6a92d3a90e5fb8c7b124f1eb454",
+    "start_scn": 2346178,
+    "end_scn": 2346194,
+    "insert_xid": "10.22.1639",
+    "delete_xid": "10.3.1641",
+    "files": [
+      {
+        "sequence": 30,
+        "source": "/opt/oracle/product/19c/dbhome_1/dbs/arch1_30_1245693159.dbf",
+        "path": "archive-1-30.dbf",
+        "first_scn": 2345442,
+        "next_scn": 2346198,
+        "bytes": 207360,
+        "sha256": "986241002eeea784ca8ce7540226c0471512ce5bf828256a161ad3a5c6d03907"
+      }
+    ],
+    "scope": "dedicated two committed logical operations; not public CDC"
+  },
+  "native_ordered_insert_delete_changes": 2,
+  "sql_snapshot_comparisons": 3,
+  "physical_transactions": 2,
+  "physical_original_cancelled_live": [
+    4,
+    0,
+    4
+  ],
+  "resealed_raw_negatives": 4,
+  "raw_key_poisons_physically_accepted_but_rows_refused": 2,
+  "late_before_mismatch_no_partial_output": true,
+  "semantic_existing_insert_recomputed_digest_refused": true,
+  "original_receipt_extra_row_refused": true,
+  "comparator_negatives": 4,
+  "isolated_insert_index_heap_key_semantics_accepted": false,
+  "rollback_complete_rows_accepted": false,
+  "concurrent_complete_rows_accepted": false,
+  "production_baseline_authority_accepted": false,
+  "historical_dictionary_accepted": false,
+  "continuous_capture_accepted": false,
+  "streamhouse_integration_accepted": false,
+  "site_accepted": false,
+  "release_accepted": false,
+  "cdc_events": 0,
+  "sha256_passes": 2,
+  "commands": [
+    {
+      "folder": "release-insert-delete-rows",
+      "name": "comparator-false_delete_before",
+      "args": [
+        "C:/Users/Administrator/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/python.exe",
+        "D:\\work\\vibecode\\OracleRedoKernel\\lab\\compare_insert_delete_rows.py",
+        "D:\\work\\vibecode\\OracleRedoKernel\\lab\\out\\oracle19-insert-delete-rows-20261004\\dump.trc",
+        "D:\\work\\vibecode\\OracleRedoKernel\\lab\\out\\oracle19-insert-delete-rows-20261004\\baseline\\snapshot.stdout.txt",
+        "D:\\work\\vibecode\\OracleRedoKernel\\lab\\out\\oracle19-insert-delete-rows-20261004\\change.stdout.txt",
+        "D:\\work\\vibecode\\OracleRedoKernel\\lab\\out\\release-insert-delete-rows\\comparator-false_delete_before.txt"
+      ],
+      "rc": 1,
+      "stdout_bytes": 873
+    },
+    {
+      "folder": "release-insert-delete-rows",
+      "name": "comparator-intermediate-sql",
+      "args": [
+        "C:/Users/Administrator/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/python.exe",
+        "D:\\work\\vibecode\\OracleRedoKernel\\lab\\compare_insert_delete_rows.py",
+        "D:\\work\\vibecode\\OracleRedoKernel\\lab\\out\\oracle19-insert-delete-rows-20261004\\dump.trc",
+        "D:\\work\\vibecode\\OracleRedoKernel\\lab\\out\\oracle19-insert-delete-rows-20261004\\baseline\\snapshot.stdout.txt",
+        "D:\\work\\vibecode\\OracleRedoKernel\\lab\\out\\release-insert-delete-rows\\false-intermediate-sql.txt",
+        "D:\\work\\vibecode\\OracleRedoKernel\\lab\\out\\release-insert-delete-rows\\rows.stdout.txt"
+      ],
+      "rc": 1,
+      "stdout_bytes": 781
+    },
+    {
+      "folder": "release-insert-delete-rows",
+      "name": "comparator-missing_insert",
+      "args": [
+        "C:/Users/Administrator/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/python.exe",
+        "D:\\work\\vibecode\\OracleRedoKernel\\lab\\compare_insert_delete_rows.py",
+        "D:\\work\\vibecode\\OracleRedoKernel\\lab\\out\\oracle19-insert-delete-rows-20261004\\dump.trc",
+        "D:\\work\\vibecode\\OracleRedoKernel\\lab\\out\\oracle19-insert-delete-rows-20261004\\baseline\\snapshot.stdout.txt",
+        "D:\\work\\vibecode\\OracleRedoKernel\\lab\\out\\oracle19-insert-delete-rows-20261004\\change.stdout.txt",
+        "D:\\work\\vibecode\\OracleRedoKernel\\lab\\out\\release-insert-delete-rows\\comparator-missing_insert.txt"
+      ],
+      "rc": 1,
+      "stdout_bytes": 1218
+    },
+    {
+      "folder": "release-insert-delete-rows",
+      "name": "comparator-wrong_operation",
+      "args": [
+        "C:/Users/Administrator/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/python.exe",
+        "D:\\work\\vibecode\\OracleRedoKernel\\lab\\compare_insert_delete_rows.py",
+        "D:\\work\\vibecode\\OracleRedoKernel\\lab\\out\\oracle19-insert-delete-rows-20261004\\dump.trc",
+        "D:\\work\\vibecode\\OracleRedoKernel\\lab\\out\\oracle19-insert-delete-rows-20261004\\baseline\\snapshot.stdout.txt",
+        "D:\\work\\vibecode\\OracleRedoKernel\\lab\\out\\oracle19-insert-delete-rows-20261004\\change.stdout.txt",
+        "D:\\work\\vibecode\\OracleRedoKernel\\lab\\out\\release-insert-delete-rows\\comparator-wrong_operation.txt"
+      ],
+      "rc": 1,
+      "stdout_bytes": 875
+    },
+    {
+      "folder": "release-insert-delete-rows",
+      "name": "compile",
+      "args": [
+        "D:/work/Java/jdk-17.0.7/bin/javac.exe",
+        "-encoding",
+        "UTF-8",
+        "-cp",
+        "D:\\work\\vibecode\\OracleRedoKernel\\lab\\out\\release-snapshot-boundary-r3\\tree\\target\\oracle-redo-kernel-0.1.0-SNAPSHOT.jar",
+        "-d",
+        "D:\\work\\vibecode\\OracleRedoKernel\\lab\\out\\release-insert-delete-rows\\classes",
+        "D:\\work\\vibecode\\OracleRedoKernel\\lab\\PhysicalTransactionProbe.java",
+        "D:\\work\\vibecode\\OracleRedoKernel\\lab\\VerifiedHeapRowsProbe.java"
+      ],
+      "rc": 0,
+      "stdout_bytes": 0
+    },
+    {
+      "folder": "release-insert-delete-rows",
+      "name": "events",
+      "args": [
+        "D:/work/Java/jdk-17.0.7/bin/java.exe",
+        "-jar",
+        "D:\\work\\vibecode\\OracleRedoKernel\\lab\\out\\release-snapshot-boundary-r3\\tree\\target\\oracle-redo-kernel-0.1.0-SNAPSHOT.jar",
+        "events",
+        "D:\\work\\vibecode\\OracleRedoKernel\\lab\\out\\oracle19-insert-delete-rows-20261004\\archive-1-30.dbf"
+      ],
+      "rc": 1,
+      "stdout_bytes": 0
+    },
+    {
+      "folder": "release-insert-delete-rows",
+      "name": "native-physical",
+      "args": [
+        "C:/Users/Administrator/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/python.exe",
+        "D:\\work\\vibecode\\OracleRedoKernel\\lab\\compare_typed_physical.py",
+        "D:\\work\\vibecode\\OracleRedoKernel\\lab\\out\\oracle19-insert-delete-rows-20261004\\baseline\\snapshot.stdout.txt",
+        "D:\\work\\vibecode\\OracleRedoKernel\\lab\\out\\release-insert-delete-rows\\physical.stdout.txt",
+        "D:\\work\\vibecode\\OracleRedoKernel\\lab\\out\\oracle19-insert-delete-rows-20261004\\dump.trc"
+      ],
+      "rc": 0,
+      "stdout_bytes": 265
+    },
+    {
+      "folder": "release-insert-delete-rows",
+      "name": "native-rows",
+      "args": [
+        "C:/Users/Administrator/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/python.exe",
+        "D:\\work\\vibecode\\OracleRedoKernel\\lab\\compare_insert_delete_rows.py",
+        "D:\\work\\vibecode\\OracleRedoKernel\\lab\\out\\oracle19-insert-delete-rows-20261004\\dump.trc",
+        "D:\\work\\vibecode\\OracleRedoKernel\\lab\\out\\oracle19-insert-delete-rows-20261004\\baseline\\snapshot.stdout.txt",
+        "D:\\work\\vibecode\\OracleRedoKernel\\lab\\out\\oracle19-insert-delete-rows-20261004\\change.stdout.txt",
+        "D:\\work\\vibecode\\OracleRedoKernel\\lab\\out\\release-insert-delete-rows\\rows.stdout.txt"
+      ],
+      "rc": 0,
+      "stdout_bytes": 261
+    },
+    {
+      "folder": "release-insert-delete-rows",
+      "name": "original-receipt-extra-row",
+      "args": [
+        "D:/work/Java/jdk-17.0.7/bin/java.exe",
+        "-cp",
+        "D:\\work\\vibecode\\OracleRedoKernel\\lab\\out\\release-snapshot-boundary-r3\\tree\\target\\oracle-redo-kernel-0.1.0-SNAPSHOT.jar;D:\\work\\vibecode\\OracleRedoKernel\\lab\\out\\release-insert-delete-rows\\classes",
+        "VerifiedHeapRowsProbe",
+        "D:\\work\\vibecode\\OracleRedoKernel\\lab\\out\\oracle19-insert-delete-rows-20261004\\archive-1-30.dbf",
+        "D:\\work\\vibecode\\OracleRedoKernel\\lab\\out\\release-insert-delete-rows\\duplicate-insert-row.snapshot.txt",
+        "e254ee68b3c38646ef23e62b5f16f7c78377e6a92d3a90e5fb8c7b124f1eb454",
+        "0x0300019b"
+      ],
+      "rc": 1,
+      "stdout_bytes": 0
+    },
+    {
+      "folder": "release-insert-delete-rows",
+      "name": "physical",
+      "args": [
+        "D:/work/Java/jdk-17.0.7/bin/java.exe",
+        "-cp",
+        "D:\\work\\vibecode\\OracleRedoKernel\\lab\\out\\release-snapshot-boundary-r3\\tree\\target\\oracle-redo-kernel-0.1.0-SNAPSHOT.jar;D:\\work\\vibecode\\OracleRedoKernel\\lab\\out\\release-insert-delete-rows\\classes",
+        "PhysicalTransactionProbe",
+        "--snapshot",
+        "D:\\work\\vibecode\\OracleRedoKernel\\lab\\out\\oracle19-insert-delete-rows-20261004\\baseline\\snapshot.stdout.txt",
+        "e254ee68b3c38646ef23e62b5f16f7c78377e6a92d3a90e5fb8c7b124f1eb454",
+        "0x0300019b",
+        "D:\\work\\vibecode\\OracleRedoKernel\\lab\\out\\oracle19-insert-delete-rows-20261004\\archive-1-30.dbf"
+      ],
+      "rc": 0,
+      "stdout_bytes": 329
+    },
+    {
+      "folder": "release-insert-delete-rows",
+      "name": "raw-delete_before_key-physical",
+      "args": [
+        "D:/work/Java/jdk-17.0.7/bin/java.exe",
+        "-cp",
+        "D:\\work\\vibecode\\OracleRedoKernel\\lab\\out\\release-snapshot-boundary-r3\\tree\\target\\oracle-redo-kernel-0.1.0-SNAPSHOT.jar;D:\\work\\vibecode\\OracleRedoKernel\\lab\\out\\release-insert-delete-rows\\classes",
+        "PhysicalTransactionProbe",
+        "--snapshot",
+        "D:\\work\\vibecode\\OracleRedoKernel\\lab\\out\\oracle19-insert-delete-rows-20261004\\baseline\\snapshot.stdout.txt",
+        "e254ee68b3c38646ef23e62b5f16f7c78377e6a92d3a90e5fb8c7b124f1eb454",
+        "0x0300019b",
+        "D:\\work\\vibecode\\OracleRedoKernel\\lab\\out\\release-insert-delete-rows\\raw-negatives\\delete_before_key.dbf"
+      ],
+      "rc": 0,
+      "stdout_bytes": 329
+    },
+    {
+      "folder": "release-insert-delete-rows",
+      "name": "raw-delete_before_key-rows",
+      "args": [
+        "D:/work/Java/jdk-17.0.7/bin/java.exe",
+        "-cp",
+        "D:\\work\\vibecode\\OracleRedoKernel\\lab\\out\\release-snapshot-boundary-r3\\tree\\target\\oracle-redo-kernel-0.1.0-SNAPSHOT.jar;D:\\work\\vibecode\\OracleRedoKernel\\lab\\out\\release-insert-delete-rows\\classes",
+        "VerifiedHeapRowsProbe",
+        "D:\\work\\vibecode\\OracleRedoKernel\\lab\\out\\release-insert-delete-rows\\raw-negatives\\delete_before_key.dbf",
+        "D:\\work\\vibecode\\OracleRedoKernel\\lab\\out\\oracle19-insert-delete-rows-20261004\\baseline\\snapshot.stdout.txt",
+        "e254ee68b3c38646ef23e62b5f16f7c78377e6a92d3a90e5fb8c7b124f1eb454",
+        "0x0300019b"
+      ],
+      "rc": 1,
+      "stdout_bytes": 0
+    },
+    {
+      "folder": "release-insert-delete-rows",
+      "name": "raw-delete_before_key-scan",
+      "args": [
+        "D:/work/Java/jdk-17.0.7/bin/java.exe",
+        "-jar",
+        "D:\\work\\vibecode\\OracleRedoKernel\\lab\\out\\release-snapshot-boundary-r3\\tree\\target\\oracle-redo-kernel-0.1.0-SNAPSHOT.jar",
+        "scan",
+        "D:\\work\\vibecode\\OracleRedoKernel\\lab\\out\\release-insert-delete-rows\\raw-negatives\\delete_before_key.dbf"
+      ],
+      "rc": 0,
+      "stdout_bytes": 22
+    },
+    {
+      "folder": "release-insert-delete-rows",
+      "name": "raw-delete_inverse_slot-physical",
+      "args": [
+        "D:/work/Java/jdk-17.0.7/bin/java.exe",
+        "-cp",
+        "D:\\work\\vibecode\\OracleRedoKernel\\lab\\out\\release-snapshot-boundary-r3\\tree\\target\\oracle-redo-kernel-0.1.0-SNAPSHOT.jar;D:\\work\\vibecode\\OracleRedoKernel\\lab\\out\\release-insert-delete-rows\\classes",
+        "PhysicalTransactionProbe",
+        "--snapshot",
+        "D:\\work\\vibecode\\OracleRedoKernel\\lab\\out\\oracle19-insert-delete-rows-20261004\\baseline\\snapshot.stdout.txt",
+        "e254ee68b3c38646ef23e62b5f16f7c78377e6a92d3a90e5fb8c7b124f1eb454",
+        "0x0300019b",
+        "D:\\work\\vibecode\\OracleRedoKernel\\lab\\out\\release-insert-delete-rows\\raw-negatives\\delete_inverse_slot.dbf"
+      ],
+      "rc": 1,
+      "stdout_bytes": 0
+    },
+    {
+      "folder": "release-insert-delete-rows",
+      "name": "raw-delete_inverse_slot-rows",
+      "args": [
+        "D:/work/Java/jdk-17.0.7/bin/java.exe",
+        "-cp",
+        "D:\\work\\vibecode\\OracleRedoKernel\\lab\\out\\release-snapshot-boundary-r3\\tree\\target\\oracle-redo-kernel-0.1.0-SNAPSHOT.jar;D:\\work\\vibecode\\OracleRedoKernel\\lab\\out\\release-insert-delete-rows\\classes",
+        "VerifiedHeapRowsProbe",
+        "D:\\work\\vibecode\\OracleRedoKernel\\lab\\out\\release-insert-delete-rows\\raw-negatives\\delete_inverse_slot.dbf",
+        "D:\\work\\vibecode\\OracleRedoKernel\\lab\\out\\oracle19-insert-delete-rows-20261004\\baseline\\snapshot.stdout.txt",
+        "e254ee68b3c38646ef23e62b5f16f7c78377e6a92d3a90e5fb8c7b124f1eb454",
+        "0x0300019b"
+      ],
+      "rc": 1,
+      "stdout_bytes": 0
+    },
+    {
+      "folder": "release-insert-delete-rows",
+      "name": "raw-delete_inverse_slot-scan",
+      "args": [
+        "D:/work/Java/jdk-17.0.7/bin/java.exe",
+        "-jar",
+        "D:\\work\\vibecode\\OracleRedoKernel\\lab\\out\\release-snapshot-boundary-r3\\tree\\target\\oracle-redo-kernel-0.1.0-SNAPSHOT.jar",
+        "scan",
+        "D:\\work\\vibecode\\OracleRedoKernel\\lab\\out\\release-insert-delete-rows\\raw-negatives\\delete_inverse_slot.dbf"
+      ],
+      "rc": 0,
+      "stdout_bytes": 22
+    },
+    {
+      "folder": "release-insert-delete-rows",
+      "name": "raw-insert_after_key-physical",
+      "args": [
+        "D:/work/Java/jdk-17.0.7/bin/java.exe",
+        "-cp",
+        "D:\\work\\vibecode\\OracleRedoKernel\\lab\\out\\release-snapshot-boundary-r3\\tree\\target\\oracle-redo-kernel-0.1.0-SNAPSHOT.jar;D:\\work\\vibecode\\OracleRedoKernel\\lab\\out\\release-insert-delete-rows\\classes",
+        "PhysicalTransactionProbe",
+        "--snapshot",
+        "D:\\work\\vibecode\\OracleRedoKernel\\lab\\out\\oracle19-insert-delete-rows-20261004\\baseline\\snapshot.stdout.txt",
+        "e254ee68b3c38646ef23e62b5f16f7c78377e6a92d3a90e5fb8c7b124f1eb454",
+        "0x0300019b",
+        "D:\\work\\vibecode\\OracleRedoKernel\\lab\\out\\release-insert-delete-rows\\raw-negatives\\insert_after_key.dbf"
+      ],
+      "rc": 0,
+      "stdout_bytes": 329
+    },
+    {
+      "folder": "release-insert-delete-rows",
+      "name": "raw-insert_after_key-rows",
+      "args": [
+        "D:/work/Java/jdk-17.0.7/bin/java.exe",
+        "-cp",
+        "D:\\work\\vibecode\\OracleRedoKernel\\lab\\out\\release-snapshot-boundary-r3\\tree\\target\\oracle-redo-kernel-0.1.0-SNAPSHOT.jar;D:\\work\\vibecode\\OracleRedoKernel\\lab\\out\\release-insert-delete-rows\\classes",
+        "VerifiedHeapRowsProbe",
+        "D:\\work\\vibecode\\OracleRedoKernel\\lab\\out\\release-insert-delete-rows\\raw-negatives\\insert_after_key.dbf",
+        "D:\\work\\vibecode\\OracleRedoKernel\\lab\\out\\oracle19-insert-delete-rows-20261004\\baseline\\snapshot.stdout.txt",
+        "e254ee68b3c38646ef23e62b5f16f7c78377e6a92d3a90e5fb8c7b124f1eb454",
+        "0x0300019b"
+      ],
+      "rc": 1,
+      "stdout_bytes": 0
+    },
+    {
+      "folder": "release-insert-delete-rows",
+      "name": "raw-insert_after_key-scan",
+      "args": [
+        "D:/work/Java/jdk-17.0.7/bin/java.exe",
+        "-jar",
+        "D:\\work\\vibecode\\OracleRedoKernel\\lab\\out\\release-snapshot-boundary-r3\\tree\\target\\oracle-redo-kernel-0.1.0-SNAPSHOT.jar",
+        "scan",
+        "D:\\work\\vibecode\\OracleRedoKernel\\lab\\out\\release-insert-delete-rows\\raw-negatives\\insert_after_key.dbf"
+      ],
+      "rc": 0,
+      "stdout_bytes": 22
+    },
+    {
+      "folder": "release-insert-delete-rows",
+      "name": "raw-insert_column_count-physical",
+      "args": [
+        "D:/work/Java/jdk-17.0.7/bin/java.exe",
+        "-cp",
+        "D:\\work\\vibecode\\OracleRedoKernel\\lab\\out\\release-snapshot-boundary-r3\\tree\\target\\oracle-redo-kernel-0.1.0-SNAPSHOT.jar;D:\\work\\vibecode\\OracleRedoKernel\\lab\\out\\release-insert-delete-rows\\classes",
+        "PhysicalTransactionProbe",
+        "--snapshot",
+        "D:\\work\\vibecode\\OracleRedoKernel\\lab\\out\\oracle19-insert-delete-rows-20261004\\baseline\\snapshot.stdout.txt",
+        "e254ee68b3c38646ef23e62b5f16f7c78377e6a92d3a90e5fb8c7b124f1eb454",
+        "0x0300019b",
+        "D:\\work\\vibecode\\OracleRedoKernel\\lab\\out\\release-insert-delete-rows\\raw-negatives\\insert_column_count.dbf"
+      ],
+      "rc": 1,
+      "stdout_bytes": 0
+    },
+    {
+      "folder": "release-insert-delete-rows",
+      "name": "raw-insert_column_count-rows",
+      "args": [
+        "D:/work/Java/jdk-17.0.7/bin/java.exe",
+        "-cp",
+        "D:\\work\\vibecode\\OracleRedoKernel\\lab\\out\\release-snapshot-boundary-r3\\tree\\target\\oracle-redo-kernel-0.1.0-SNAPSHOT.jar;D:\\work\\vibecode\\OracleRedoKernel\\lab\\out\\release-insert-delete-rows\\classes",
+        "VerifiedHeapRowsProbe",
+        "D:\\work\\vibecode\\OracleRedoKernel\\lab\\out\\release-insert-delete-rows\\raw-negatives\\insert_column_count.dbf",
+        "D:\\work\\vibecode\\OracleRedoKernel\\lab\\out\\oracle19-insert-delete-rows-20261004\\baseline\\snapshot.stdout.txt",
+        "e254ee68b3c38646ef23e62b5f16f7c78377e6a92d3a90e5fb8c7b124f1eb454",
+        "0x0300019b"
+      ],
+      "rc": 1,
+      "stdout_bytes": 0
+    },
+    {
+      "folder": "release-insert-delete-rows",
+      "name": "raw-insert_column_count-scan",
+      "args": [
+        "D:/work/Java/jdk-17.0.7/bin/java.exe",
+        "-jar",
+        "D:\\work\\vibecode\\OracleRedoKernel\\lab\\out\\release-snapshot-boundary-r3\\tree\\target\\oracle-redo-kernel-0.1.0-SNAPSHOT.jar",
+        "scan",
+        "D:\\work\\vibecode\\OracleRedoKernel\\lab\\out\\release-insert-delete-rows\\raw-negatives\\insert_column_count.dbf"
+      ],
+      "rc": 0,
+      "stdout_bytes": 22
+    },
+    {
+      "folder": "release-insert-delete-rows",
+      "name": "rows",
+      "args": [
+        "D:/work/Java/jdk-17.0.7/bin/java.exe",
+        "-cp",
+        "D:\\work\\vibecode\\OracleRedoKernel\\lab\\out\\release-snapshot-boundary-r3\\tree\\target\\oracle-redo-kernel-0.1.0-SNAPSHOT.jar;D:\\work\\vibecode\\OracleRedoKernel\\lab\\out\\release-insert-delete-rows\\classes",
+        "VerifiedHeapRowsProbe",
+        "D:\\work\\vibecode\\OracleRedoKernel\\lab\\out\\oracle19-insert-delete-rows-20261004\\archive-1-30.dbf",
+        "D:\\work\\vibecode\\OracleRedoKernel\\lab\\out\\oracle19-insert-delete-rows-20261004\\baseline\\snapshot.stdout.txt",
+        "e254ee68b3c38646ef23e62b5f16f7c78377e6a92d3a90e5fb8c7b124f1eb454",
+        "0x0300019b"
+      ],
+      "rc": 0,
+      "stdout_bytes": 307
+    },
+    {
+      "folder": "release-insert-delete-rows",
+      "name": "semantic-insert-existing",
+      "args": [
+        "D:/work/Java/jdk-17.0.7/bin/java.exe",
+        "-cp",
+        "D:\\work\\vibecode\\OracleRedoKernel\\lab\\out\\release-snapshot-boundary-r3\\tree\\target\\oracle-redo-kernel-0.1.0-SNAPSHOT.jar;D:\\work\\vibecode\\OracleRedoKernel\\lab\\out\\release-insert-delete-rows\\classes",
+        "VerifiedHeapRowsProbe",
+        "D:\\work\\vibecode\\OracleRedoKernel\\lab\\out\\oracle19-insert-delete-rows-20261004\\archive-1-30.dbf",
+        "D:\\work\\vibecode\\OracleRedoKernel\\lab\\out\\release-insert-delete-rows\\duplicate-insert-row.snapshot.txt",
+        "1813bd861112cd7a776d10979b25198a9ab1ec25acff6b3f50ff5e96a2c37f12",
+        "0x0300019b"
+      ],
+      "rc": 1,
+      "stdout_bytes": 0
+    },
+    {
+      "folder": "oracle19-insert-delete-rows-20261004",
+      "name": "acquire-baseline",
+      "args": [
+        "C:\\Users\\Administrator\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\python.exe",
+        "D:\\work\\vibecode\\OracleRedoKernel\\lab\\capture_heap_baseline19.py",
+        "--execute",
+        "D:\\work\\vibecode\\OracleRedoKernel\\lab\\out\\oracle19-insert-delete-rows-20261004\\baseline"
+      ],
+      "rc": 0,
+      "stdout_bytes": 1385
+    },
+    {
+      "folder": "oracle19-insert-delete-rows-20261004",
+      "name": "binding",
+      "args": [
+        "docker",
+        "inspect",
+        "oraredo-19c-lab-20261004",
+        "--format",
+        "{{.Config.Labels.owner}}|{{.Config.Image}}|{{.State.Status}}"
+      ],
+      "rc": 0,
+      "stdout_bytes": 84
+    },
+    {
+      "folder": "oracle19-insert-delete-rows-20261004",
+      "name": "capture-30",
+      "args": [
+        "docker",
+        "cp",
+        "oraredo-19c-lab-20261004:/opt/oracle/product/19c/dbhome_1/dbs/arch1_30_1245693159.dbf",
+        "D:\\work\\vibecode\\OracleRedoKernel\\lab\\out\\oracle19-insert-delete-rows-20261004\\archive-1-30.dbf"
+      ],
+      "rc": 0,
+      "stdout_bytes": 0
+    },
+    {
+      "folder": "oracle19-insert-delete-rows-20261004",
+      "name": "change",
+      "args": [
+        "docker",
+        "exec",
+        "-e",
+        "NLS_LANG=.AL32UTF8",
+        "oraredo-19c-lab-20261004",
+        "sqlplus",
+        "-s",
+        "/",
+        "as",
+        "sysdba",
+        "@/tmp/ork-insert-delete-rows-change.sql"
+      ],
+      "rc": 0,
+      "stdout_bytes": 2532
+    },
+    {
+      "folder": "oracle19-insert-delete-rows-20261004",
+      "name": "copy-change",
+      "args": [
+        "docker",
+        "cp",
+        "D:\\work\\vibecode\\OracleRedoKernel\\lab\\out\\oracle19-insert-delete-rows-20261004\\change.sql",
+        "oraredo-19c-lab-20261004:/tmp/ork-insert-delete-rows-change.sql"
+      ],
+      "rc": 0,
+      "stdout_bytes": 0
+    },
+    {
+      "folder": "oracle19-insert-delete-rows-20261004",
+      "name": "copy-dump",
+      "args": [
+        "docker",
+        "cp",
+        "D:\\work\\vibecode\\OracleRedoKernel\\lab\\out\\oracle19-insert-delete-rows-20261004\\dump.sql",
+        "oraredo-19c-lab-20261004:/tmp/ork-insert-delete-rows-dump.sql"
+      ],
+      "rc": 0,
+      "stdout_bytes": 0
+    },
+    {
+      "folder": "oracle19-insert-delete-rows-20261004",
+      "name": "copy-preflight",
+      "args": [
+        "docker",
+        "cp",
+        "D:\\work\\vibecode\\OracleRedoKernel\\lab\\out\\oracle19-insert-delete-rows-20261004\\preflight.sql",
+        "oraredo-19c-lab-20261004:/tmp/ork-insert-delete-rows-preflight.sql"
+      ],
+      "rc": 0,
+      "stdout_bytes": 0
+    },
+    {
+      "folder": "oracle19-insert-delete-rows-20261004",
+      "name": "copy-trace",
+      "args": [
+        "docker",
+        "cp",
+        "oraredo-19c-lab-20261004:/opt/oracle/diag/rdbms/ork19/ORK19/trace/ORK19_ora_56878_ORK_INSERT_DELETE_ROWS.trc",
+        "D:\\work\\vibecode\\OracleRedoKernel\\lab\\out\\oracle19-insert-delete-rows-20261004\\dump.trc"
+      ],
+      "rc": 0,
+      "stdout_bytes": 0
+    },
+    {
+      "folder": "oracle19-insert-delete-rows-20261004",
+      "name": "dump",
+      "args": [
+        "docker",
+        "exec",
+        "-e",
+        "NLS_LANG=.AL32UTF8",
+        "oraredo-19c-lab-20261004",
+        "sqlplus",
+        "-s",
+        "/",
+        "as",
+        "sysdba",
+        "@/tmp/ork-insert-delete-rows-dump.sql"
+      ],
+      "rc": 0,
+      "stdout_bytes": 84
+    },
+    {
+      "folder": "oracle19-insert-delete-rows-20261004",
+      "name": "preflight",
+      "args": [
+        "docker",
+        "exec",
+        "-e",
+        "NLS_LANG=.AL32UTF8",
+        "oraredo-19c-lab-20261004",
+        "sqlplus",
+        "-s",
+        "/",
+        "as",
+        "sysdba",
+        "@/tmp/ork-insert-delete-rows-preflight.sql"
+      ],
+      "rc": 0,
+      "stdout_bytes": 18
+    },
+    {
+      "folder": "oracle19-insert-delete-rows-20261004/baseline",
+      "name": "binding",
+      "args": [
+        "docker",
+        "inspect",
+        "oraredo-19c-lab-20261004",
+        "--format",
+        "{{.Config.Labels.owner}}|{{.Config.Image}}|{{.State.Status}}"
+      ],
+      "rc": 0,
+      "stdout_bytes": 84
+    },
+    {
+      "folder": "oracle19-insert-delete-rows-20261004/baseline",
+      "name": "copy-query",
+      "args": [
+        "docker",
+        "cp",
+        "D:\\work\\vibecode\\OracleRedoKernel\\lab\\out\\oracle19-insert-delete-rows-20261004\\baseline\\snapshot.sql",
+        "oraredo-19c-lab-20261004:/tmp/ork-read-only-baseline-baseline.sql"
+      ],
+      "rc": 0,
+      "stdout_bytes": 0
+    },
+    {
+      "folder": "oracle19-insert-delete-rows-20261004/baseline",
+      "name": "snapshot",
+      "args": [
+        "docker",
+        "exec",
+        "-e",
+        "NLS_LANG=.AL32UTF8",
+        "oraredo-19c-lab-20261004",
+        "sqlplus",
+        "-s",
+        "/",
+        "as",
+        "sysdba",
+        "@/tmp/ork-read-only-baseline-baseline.sql"
+      ],
+      "rc": 0,
+      "stdout_bytes": 754
+    }
+  ],
+  "files": [
+    {
+      "path": "docs/workorders/DELIVERY_W5_INSERT_DELETE_ROWS_20261005.md",
+      "bytes": 3654,
+      "sha256": "e3eebaea3990a304c937957b6326d10ded8d4803d8058c03df26e8c2ff3194e3"
+    },
+    {
+      "path": "docs/workorders/DISPATCH_W5_INSERT_DELETE_ROWS_20261004.md",
+      "bytes": 1844,
+      "sha256": "937f56f882bf02534f2d28a05f00aeb12c948e8ec872f3ef53c3e87b077d3f9d"
+    },
+    {
+      "path": "docs/workorders/DISPATCH_W5_ROLLBACK_ROWS_20261005.md",
+      "bytes": 1853,
+      "sha256": "070945a6f987dd722ab28b35057d338ac8ffeaa16bafebf5f752626c58da1bc9"
+    },
+    {
+      "path": "lab/capture_heap_baseline19.py",
+      "bytes": 4959,
+      "sha256": "6b7fbfb7249f5bdec0991893e20ffda9c90dc23eb43c6c44dc2fc56c584840e5"
+    },
+    {
+      "path": "lab/compare_compensation_associations.py",
+      "bytes": 4688,
+      "sha256": "3fbafb87a642c2762c0f6a84b56916a54c26234f43ebe469d2c8d22dd74015c8"
+    },
+    {
+      "path": "lab/compare_insert_delete_rows.py",
+      "bytes": 4911,
+      "sha256": "03f2dfaed83281eb2323a7f2e7d98693b3c1a908941ebbc74436d3f44979d5e1"
+    },
+    {
+      "path": "lab/compare_mixed_undo.py",
+      "bytes": 6593,
+      "sha256": "cc67c32ae4d6db1b5cb659315416bb4094d475eff2fa6efb58d5ab95c6581c0e"
+    },
+    {
+      "path": "lab/compare_object_transactions.py",
+      "bytes": 2909,
+      "sha256": "f6b38fcde172e23457cf3117c827c48bc5b47fd5e4938c2e9dddfce323885ea8"
+    },
+    {
+      "path": "lab/compare_physical_transactions.py",
+      "bytes": 1673,
+      "sha256": "1210b961761f5834a33b370d648fead2d65798cf31dea132f21926e65029f140"
+    },
+    {
+      "path": "lab/compare_typed_physical.py",
+      "bytes": 1307,
+      "sha256": "5027610d940eb8f7c6d8dc0522a5a1cd065c0bd613888e0d467482065bfb4350"
+    },
+    {
+      "path": "lab/insert_delete_rows19.py",
+      "bytes": 6321,
+      "sha256": "29c3b9e3f6c74103df6880a14843247e5ce860045bd89047ec43336c9291f141"
+    },
+    {
+      "path": "lab/out/oracle19-insert-delete-rows-20261004/acquire-baseline-command.json",
+      "bytes": 293,
+      "sha256": "85c54b62572fa901f8c62363cd48895f1b933b33bbc06d68537616b95e909f0e"
+    },
+    {
+      "path": "lab/out/oracle19-insert-delete-rows-20261004/acquire-baseline.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/oracle19-insert-delete-rows-20261004/acquire-baseline.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle19-insert-delete-rows-20261004/acquire-baseline.stdout.txt",
+      "bytes": 1385,
+      "sha256": "1ec6ccde992dfd2a4e19f4a3499e9d17f3716365082692151056942d7d54eed2"
+    },
+    {
+      "path": "lab/out/oracle19-insert-delete-rows-20261004/archive-1-30.dbf",
+      "bytes": 207360,
+      "sha256": "986241002eeea784ca8ce7540226c0471512ce5bf828256a161ad3a5c6d03907"
+    },
+    {
+      "path": "lab/out/oracle19-insert-delete-rows-20261004/baseline/binding-command.json",
+      "bytes": 125,
+      "sha256": "92b11ce209b6f209002bbfe2fca241e2b4505dae9b02fa31abf42af2cce92a19"
+    },
+    {
+      "path": "lab/out/oracle19-insert-delete-rows-20261004/baseline/binding.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/oracle19-insert-delete-rows-20261004/baseline/binding.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle19-insert-delete-rows-20261004/baseline/binding.stdout.txt",
+      "bytes": 84,
+      "sha256": "663213c6ddff7be1e55f48031ca6e99d821fac874d4aa01eb41eb0ef08ee52b2"
+    },
+    {
+      "path": "lab/out/oracle19-insert-delete-rows-20261004/baseline/copy-query-command.json",
+      "bytes": 197,
+      "sha256": "fa6153f2000c61425444ffa1c24d7dc4201cbaaec320c9c908e75478562a9199"
+    },
+    {
+      "path": "lab/out/oracle19-insert-delete-rows-20261004/baseline/copy-query.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/oracle19-insert-delete-rows-20261004/baseline/copy-query.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle19-insert-delete-rows-20261004/baseline/copy-query.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle19-insert-delete-rows-20261004/baseline/receipt.json",
+      "bytes": 642,
+      "sha256": "771a8009d9e1455e65db6dde51a1bde5c46e7ef618c7104db88d528f44039008"
+    },
+    {
+      "path": "lab/out/oracle19-insert-delete-rows-20261004/baseline/snapshot-command.json",
+      "bytes": 157,
+      "sha256": "6824f8fa3937965748ceef987e67ee9a2c679f566ea7aad5c4649235e19e5098"
+    },
+    {
+      "path": "lab/out/oracle19-insert-delete-rows-20261004/baseline/snapshot.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/oracle19-insert-delete-rows-20261004/baseline/snapshot.sql",
+      "bytes": 3379,
+      "sha256": "916f8ed0de320ba1614e331efac48debe858bb6fefb956a6805bccb1dbecd720"
+    },
+    {
+      "path": "lab/out/oracle19-insert-delete-rows-20261004/baseline/snapshot.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle19-insert-delete-rows-20261004/baseline/snapshot.stdout.txt",
+      "bytes": 754,
+      "sha256": "e254ee68b3c38646ef23e62b5f16f7c78377e6a92d3a90e5fb8c7b124f1eb454"
+    },
+    {
+      "path": "lab/out/oracle19-insert-delete-rows-20261004/binding-command.json",
+      "bytes": 125,
+      "sha256": "92b11ce209b6f209002bbfe2fca241e2b4505dae9b02fa31abf42af2cce92a19"
+    },
+    {
+      "path": "lab/out/oracle19-insert-delete-rows-20261004/binding.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/oracle19-insert-delete-rows-20261004/binding.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle19-insert-delete-rows-20261004/binding.stdout.txt",
+      "bytes": 84,
+      "sha256": "663213c6ddff7be1e55f48031ca6e99d821fac874d4aa01eb41eb0ef08ee52b2"
+    },
+    {
+      "path": "lab/out/oracle19-insert-delete-rows-20261004/capture-30-command.json",
+      "bytes": 211,
+      "sha256": "716ca548ce712f22b2a596bf703faa4d82a30de6fe8afda905637223f53639f6"
+    },
+    {
+      "path": "lab/out/oracle19-insert-delete-rows-20261004/capture-30.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/oracle19-insert-delete-rows-20261004/capture-30.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle19-insert-delete-rows-20261004/capture-30.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle19-insert-delete-rows-20261004/change-command.json",
+      "bytes": 155,
+      "sha256": "be80787bb13abbc3fc9a6f720738ee1a52e32ffc40255abb8afc46f4c4b0a1c1"
+    },
+    {
+      "path": "lab/out/oracle19-insert-delete-rows-20261004/change.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/oracle19-insert-delete-rows-20261004/change.sql",
+      "bytes": 2381,
+      "sha256": "56e487ffe962346fff4ab06cce87dac3a5a89384be2c388c3891ed20cd2cfb67"
+    },
+    {
+      "path": "lab/out/oracle19-insert-delete-rows-20261004/change.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle19-insert-delete-rows-20261004/change.stdout.txt",
+      "bytes": 2532,
+      "sha256": "bd227c7aa6d4bdc3ddd0cb93395ccc524d7e48496ec463d9140187047d29a34c"
+    },
+    {
+      "path": "lab/out/oracle19-insert-delete-rows-20261004/copy-change-command.json",
+      "bytes": 183,
+      "sha256": "cd20dae2bf9d4c04316d3ee781b21b151d5ae2b7f77f59c111108bd7fa4e24f8"
+    },
+    {
+      "path": "lab/out/oracle19-insert-delete-rows-20261004/copy-change.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/oracle19-insert-delete-rows-20261004/copy-change.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle19-insert-delete-rows-20261004/copy-change.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle19-insert-delete-rows-20261004/copy-dump-command.json",
+      "bytes": 179,
+      "sha256": "97f5ab29f978b5f467decab542234d06a0c13ab7465591650052632a34c1a6e8"
+    },
+    {
+      "path": "lab/out/oracle19-insert-delete-rows-20261004/copy-dump.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/oracle19-insert-delete-rows-20261004/copy-dump.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle19-insert-delete-rows-20261004/copy-dump.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle19-insert-delete-rows-20261004/copy-preflight-command.json",
+      "bytes": 189,
+      "sha256": "47ccb325c8908fa1f1293cf779bf6172075e8ca2175357bd28ffff0a29a9aae7"
+    },
+    {
+      "path": "lab/out/oracle19-insert-delete-rows-20261004/copy-preflight.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/oracle19-insert-delete-rows-20261004/copy-preflight.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle19-insert-delete-rows-20261004/copy-preflight.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle19-insert-delete-rows-20261004/copy-trace-command.json",
+      "bytes": 226,
+      "sha256": "0007e8518c046195a8e80934e828319d3ba15bbaad02cb3e25286436e88e0bcd"
+    },
+    {
+      "path": "lab/out/oracle19-insert-delete-rows-20261004/copy-trace.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/oracle19-insert-delete-rows-20261004/copy-trace.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle19-insert-delete-rows-20261004/copy-trace.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle19-insert-delete-rows-20261004/dump-command.json",
+      "bytes": 153,
+      "sha256": "4ca8402f404592b7b0523e35bd4de2da93a188de0a4f6356555d86d43dbbddd1"
+    },
+    {
+      "path": "lab/out/oracle19-insert-delete-rows-20261004/dump.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/oracle19-insert-delete-rows-20261004/dump.sql",
+      "bytes": 411,
+      "sha256": "c8ed53094266f4a4ea1bcdc67334167ff0fe41905070ba9f3b7a5befc3361b03"
+    },
+    {
+      "path": "lab/out/oracle19-insert-delete-rows-20261004/dump.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle19-insert-delete-rows-20261004/dump.stdout.txt",
+      "bytes": 84,
+      "sha256": "7474e43f2c4f4a0890be5ff225947494caddd571711eab433d8e59e71ddc12c5"
+    },
+    {
+      "path": "lab/out/oracle19-insert-delete-rows-20261004/dump.trc",
+      "bytes": 17877,
+      "sha256": "e679de180aa92b45a0d20715faf1bd8a038459a045688d6930edd2a232dde5f3"
+    },
+    {
+      "path": "lab/out/oracle19-insert-delete-rows-20261004/manifest.json",
+      "bytes": 647,
+      "sha256": "21e78269334d6fdc36205d2fa224429d917251383b997f7d3651f346fd581694"
+    },
+    {
+      "path": "lab/out/oracle19-insert-delete-rows-20261004/preflight-command.json",
+      "bytes": 158,
+      "sha256": "0357b04d1c5cb9e1c62fbf0b6630095164a4f2ac65fd3acf03ef344becf1ff6d"
+    },
+    {
+      "path": "lab/out/oracle19-insert-delete-rows-20261004/preflight.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/oracle19-insert-delete-rows-20261004/preflight.sql",
+      "bytes": 1225,
+      "sha256": "cb67f7671fa60fd89ea152a127e0fd95f37b9bf6194d3dc46d8c18cda9b0121c"
+    },
+    {
+      "path": "lab/out/oracle19-insert-delete-rows-20261004/preflight.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle19-insert-delete-rows-20261004/preflight.stdout.txt",
+      "bytes": 18,
+      "sha256": "beaef1d093a6fcb475dee013db4ccb505730db2cb979600e76a0984ce15b2dd9"
+    },
+    {
+      "path": "lab/out/release-insert-delete-rows/classes/PhysicalTransactionProbe.class",
+      "bytes": 6883,
+      "sha256": "b3f934cd32fc90e5058cb41ac487dc1237177a5547ecbbcaadbd135e553d1a9a"
+    },
+    {
+      "path": "lab/out/release-insert-delete-rows/classes/VerifiedHeapRowsProbe.class",
+      "bytes": 4536,
+      "sha256": "08b822e0c969770b7df6180b95e50d80c0e1362a174d109bea15a67b8719c387"
+    },
+    {
+      "path": "lab/out/release-insert-delete-rows/comparator-false_delete_before-command.json",
+      "bytes": 615,
+      "sha256": "5ce76bb02a4fc5af5a4ff6312a374ce6982869047bb74895b6e77d9fd1612fac"
+    },
+    {
+      "path": "lab/out/release-insert-delete-rows/comparator-false_delete_before.rc.txt",
+      "bytes": 1,
+      "sha256": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b"
+    },
+    {
+      "path": "lab/out/release-insert-delete-rows/comparator-false_delete_before.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/release-insert-delete-rows/comparator-false_delete_before.stdout.txt",
+      "bytes": 873,
+      "sha256": "a66bcce28c28eeac23e34bedb8bf9232267d066a9a4f4dbe0cf1a323bdb11c6c"
+    },
+    {
+      "path": "lab/out/release-insert-delete-rows/comparator-false_delete_before.txt",
+      "bytes": 307,
+      "sha256": "6b4ced5919ebe599287ce3a01ec8887ea8b5cbefa8aa9f23965ccbf3b7bcecad"
+    },
+    {
+      "path": "lab/out/release-insert-delete-rows/comparator-intermediate-sql-command.json",
+      "bytes": 595,
+      "sha256": "3220b98d6b6e5729dd4538cd3bc16b006e8b3c51f2d81882f827bdff3b441c36"
+    },
+    {
+      "path": "lab/out/release-insert-delete-rows/comparator-intermediate-sql.rc.txt",
+      "bytes": 1,
+      "sha256": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b"
+    },
+    {
+      "path": "lab/out/release-insert-delete-rows/comparator-intermediate-sql.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/release-insert-delete-rows/comparator-intermediate-sql.stdout.txt",
+      "bytes": 781,
+      "sha256": "adf3ec8ff1bc4252e3e9ccb1304bebafcd84e242678c7e8aaa0e058e7731d776"
+    },
+    {
+      "path": "lab/out/release-insert-delete-rows/comparator-missing_insert-command.json",
+      "bytes": 610,
+      "sha256": "8ad90d2ece716e41232ff5815de7b75b79a4e065173f053fb5d6cfd578c56df7"
+    },
+    {
+      "path": "lab/out/release-insert-delete-rows/comparator-missing_insert.rc.txt",
+      "bytes": 1,
+      "sha256": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b"
+    },
+    {
+      "path": "lab/out/release-insert-delete-rows/comparator-missing_insert.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/release-insert-delete-rows/comparator-missing_insert.stdout.txt",
+      "bytes": 1218,
+      "sha256": "7682c63ac37aa0b717b5640d250eb78c492ffd916def7465d2097f40db8de397"
+    },
+    {
+      "path": "lab/out/release-insert-delete-rows/comparator-missing_insert.txt",
+      "bytes": 153,
+      "sha256": "b1c3afbd2b896f90599ee719baffa6e55c6774c0b4c5cfa2aa3a5f64e953f9b7"
+    },
+    {
+      "path": "lab/out/release-insert-delete-rows/comparator-wrong_operation-command.json",
+      "bytes": 611,
+      "sha256": "66f90fb117b1d71c3864d8e20848b9c2ad9648b9e0542a95e432145f026810d7"
+    },
+    {
+      "path": "lab/out/release-insert-delete-rows/comparator-wrong_operation.rc.txt",
+      "bytes": 1,
+      "sha256": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b"
+    },
+    {
+      "path": "lab/out/release-insert-delete-rows/comparator-wrong_operation.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/release-insert-delete-rows/comparator-wrong_operation.stdout.txt",
+      "bytes": 875,
+      "sha256": "ec3da647f26e104aa06e5b01f42370fac6c27455acaf25ae80797ce896b1dce8"
+    },
+    {
+      "path": "lab/out/release-insert-delete-rows/comparator-wrong_operation.txt",
+      "bytes": 307,
+      "sha256": "4100c134e44d62f9237b3fc0d3de15a7e5c3007fb2c153c9e51c837927ecaf7d"
+    },
+    {
+      "path": "lab/out/release-insert-delete-rows/compile-command.json",
+      "bytes": 445,
+      "sha256": "c65ffbcffbdb68bd1e207fd96e971f0ac0ff2ecc48b00a22a022394f2580d246"
+    },
+    {
+      "path": "lab/out/release-insert-delete-rows/compile.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/release-insert-delete-rows/compile.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/release-insert-delete-rows/compile.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/release-insert-delete-rows/duplicate-insert-row.snapshot.txt",
+      "bytes": 851,
+      "sha256": "1813bd861112cd7a776d10979b25198a9ab1ec25acff6b3f50ff5e96a2c37f12"
+    },
+    {
+      "path": "lab/out/release-insert-delete-rows/events-command.json",
+      "bytes": 297,
+      "sha256": "77cb67c1e8ce5741d4d4dde730c5fd66d5430dbc58de554b0a4c61c67c2b9045"
+    },
+    {
+      "path": "lab/out/release-insert-delete-rows/events.rc.txt",
+      "bytes": 1,
+      "sha256": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b"
+    },
+    {
+      "path": "lab/out/release-insert-delete-rows/events.stderr.txt",
+      "bytes": 346,
+      "sha256": "b89fe0db42e6505984af55cc49f729a50e5db237f9d90cac57832f7312aead5e"
+    },
+    {
+      "path": "lab/out/release-insert-delete-rows/events.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/release-insert-delete-rows/false-intermediate-sql.txt",
+      "bytes": 2563,
+      "sha256": "73914716af0221ee8fdf2ee2233ceb8512325a568053d3636063f59b0d395fa3"
+    },
+    {
+      "path": "lab/out/release-insert-delete-rows/native-physical-command.json",
+      "bytes": 489,
+      "sha256": "ff703202f20a88f2fb189270bcd365b26bfbc090ae81a9abacbdaa02bbbef0bc"
+    },
+    {
+      "path": "lab/out/release-insert-delete-rows/native-physical.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/release-insert-delete-rows/native-physical.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/release-insert-delete-rows/native-physical.stdout.txt",
+      "bytes": 265,
+      "sha256": "bfea9250cd96b63efd0e7a304cd3aae420f596c6ff8756fc146dfbbfb2ad8d80"
+    },
+    {
+      "path": "lab/out/release-insert-delete-rows/native-rows-command.json",
+      "bytes": 596,
+      "sha256": "60364a72439d62ef57de7c20035b63c4beefb2a910eb54cd2b68f1682a398f05"
+    },
+    {
+      "path": "lab/out/release-insert-delete-rows/native-rows.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/release-insert-delete-rows/native-rows.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/release-insert-delete-rows/native-rows.stdout.txt",
+      "bytes": 261,
+      "sha256": "a04644df044cb2edfa23c3cd3669319edf70d0c14021f91f4f46efe2f7e91083"
+    },
+    {
+      "path": "lab/out/release-insert-delete-rows/original-receipt-extra-row-command.json",
+      "bytes": 590,
+      "sha256": "c1f545d7d09fb22b5a7cf8bf4f9ef472927303a7d7726c2ec0e817ae9c601bce"
+    },
+    {
+      "path": "lab/out/release-insert-delete-rows/original-receipt-extra-row.rc.txt",
+      "bytes": 1,
+      "sha256": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b"
+    },
+    {
+      "path": "lab/out/release-insert-delete-rows/original-receipt-extra-row.stderr.txt",
+      "bytes": 330,
+      "sha256": "580a7de4224de82b4f45a18b2d3030d40633e013b6e7c11ecb16a9c6a28dc4b9"
+    },
+    {
+      "path": "lab/out/release-insert-delete-rows/original-receipt-extra-row.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/release-insert-delete-rows/physical-command.json",
+      "bytes": 613,
+      "sha256": "c8c952bc148d323cf3d499c10f987ae4db21d2c2fd987f3139a240f05b8d1d32"
+    },
+    {
+      "path": "lab/out/release-insert-delete-rows/physical.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/release-insert-delete-rows/physical.stderr.txt",
+      "bytes": 96,
+      "sha256": "e679a4c0d48c4a9e6b34bf0f4104273ff44f512a4d296e3ff1c84e1792078d5f"
+    },
+    {
+      "path": "lab/out/release-insert-delete-rows/physical.stdout.txt",
+      "bytes": 329,
+      "sha256": "8500195b7b31c83c8af363b526526b4a0390e779ad10a04899d93e7fdf91ab56"
+    },
+    {
+      "path": "lab/out/release-insert-delete-rows/raw-delete_before_key-physical-command.json",
+      "bytes": 623,
+      "sha256": "020c049d835c3e0290d39fc73be21fc30e2d5a955c47cbfa18075c8f600e8125"
+    },
+    {
+      "path": "lab/out/release-insert-delete-rows/raw-delete_before_key-physical.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/release-insert-delete-rows/raw-delete_before_key-physical.stderr.txt",
+      "bytes": 96,
+      "sha256": "e679a4c0d48c4a9e6b34bf0f4104273ff44f512a4d296e3ff1c84e1792078d5f"
+    },
+    {
+      "path": "lab/out/release-insert-delete-rows/raw-delete_before_key-physical.stdout.txt",
+      "bytes": 329,
+      "sha256": "8500195b7b31c83c8af363b526526b4a0390e779ad10a04899d93e7fdf91ab56"
+    },
+    {
+      "path": "lab/out/release-insert-delete-rows/raw-delete_before_key-rows-command.json",
+      "bytes": 606,
+      "sha256": "854b7e48d5db90f1adb90c00c9961e6a6b6a03114d59dfedf1a82ff1992efb6d"
+    },
+    {
+      "path": "lab/out/release-insert-delete-rows/raw-delete_before_key-rows.rc.txt",
+      "bytes": 1,
+      "sha256": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b"
+    },
+    {
+      "path": "lab/out/release-insert-delete-rows/raw-delete_before_key-rows.stderr.txt",
+      "bytes": 552,
+      "sha256": "cab3bb3fa1f41e7089abb3b77dd95c20a61b3c529b5c8d15d6973231f35797d5"
+    },
+    {
+      "path": "lab/out/release-insert-delete-rows/raw-delete_before_key-rows.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/release-insert-delete-rows/raw-delete_before_key-scan-command.json",
+      "bytes": 305,
+      "sha256": "2b6d39ceee6de55ce6d577ce13e18ffea1a31c6a5c5bf541ca0090cc27dd0ac5"
+    },
+    {
+      "path": "lab/out/release-insert-delete-rows/raw-delete_before_key-scan.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/release-insert-delete-rows/raw-delete_before_key-scan.stderr.txt",
+      "bytes": 278,
+      "sha256": "01d1669bfe4202a83b893cd9d253d4323e2d96763b7f6a5cfd595c60529b545f"
+    },
+    {
+      "path": "lab/out/release-insert-delete-rows/raw-delete_before_key-scan.stdout.txt",
+      "bytes": 22,
+      "sha256": "43b4733169d6e007aeb99a8ddd34a5c1c256dd2d71bd958ddcc72f09a9cae4e9"
+    },
+    {
+      "path": "lab/out/release-insert-delete-rows/raw-delete_inverse_slot-physical-command.json",
+      "bytes": 625,
+      "sha256": "8b48052353223bd1490f17426617266d1db8f9ad6bdd4bf7247c9f4c3fb8c582"
+    },
+    {
+      "path": "lab/out/release-insert-delete-rows/raw-delete_inverse_slot-physical.rc.txt",
+      "bytes": 1,
+      "sha256": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b"
+    },
+    {
+      "path": "lab/out/release-insert-delete-rows/raw-delete_inverse_slot-physical.stderr.txt",
+      "bytes": 524,
+      "sha256": "6160e110b8574443e317cae8e574ed7071d3001b516c789cf97b6e75d79cf3d9"
+    },
+    {
+      "path": "lab/out/release-insert-delete-rows/raw-delete_inverse_slot-physical.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/release-insert-delete-rows/raw-delete_inverse_slot-rows-command.json",
+      "bytes": 608,
+      "sha256": "930273b0e99f37d4cb0971b84deefeae46bd06e0b01eee628430941fd16c5134"
+    },
+    {
+      "path": "lab/out/release-insert-delete-rows/raw-delete_inverse_slot-rows.rc.txt",
+      "bytes": 1,
+      "sha256": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b"
+    },
+    {
+      "path": "lab/out/release-insert-delete-rows/raw-delete_inverse_slot-rows.stderr.txt",
+      "bytes": 678,
+      "sha256": "73a8c0e610ff576d2f67c867679ea1290df59d993c2be6bc7d01a1f7803c1e7c"
+    },
+    {
+      "path": "lab/out/release-insert-delete-rows/raw-delete_inverse_slot-rows.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/release-insert-delete-rows/raw-delete_inverse_slot-scan-command.json",
+      "bytes": 307,
+      "sha256": "a158f242c723eb141aec0fcd5dc676ff03d2f713e79bd8a32857feb6c49efc23"
+    },
+    {
+      "path": "lab/out/release-insert-delete-rows/raw-delete_inverse_slot-scan.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/release-insert-delete-rows/raw-delete_inverse_slot-scan.stderr.txt",
+      "bytes": 278,
+      "sha256": "c41d6f82dcd41a89156e6d23fac0da181f898aae98eb14fd8b262facaa700b36"
+    },
+    {
+      "path": "lab/out/release-insert-delete-rows/raw-delete_inverse_slot-scan.stdout.txt",
+      "bytes": 22,
+      "sha256": "43b4733169d6e007aeb99a8ddd34a5c1c256dd2d71bd958ddcc72f09a9cae4e9"
+    },
+    {
+      "path": "lab/out/release-insert-delete-rows/raw-insert_after_key-physical-command.json",
+      "bytes": 622,
+      "sha256": "ed6e4243e3affe6753962707137dd138da12d3f07d4f222454587ae271646419"
+    },
+    {
+      "path": "lab/out/release-insert-delete-rows/raw-insert_after_key-physical.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/release-insert-delete-rows/raw-insert_after_key-physical.stderr.txt",
+      "bytes": 96,
+      "sha256": "e679a4c0d48c4a9e6b34bf0f4104273ff44f512a4d296e3ff1c84e1792078d5f"
+    },
+    {
+      "path": "lab/out/release-insert-delete-rows/raw-insert_after_key-physical.stdout.txt",
+      "bytes": 329,
+      "sha256": "8500195b7b31c83c8af363b526526b4a0390e779ad10a04899d93e7fdf91ab56"
+    },
+    {
+      "path": "lab/out/release-insert-delete-rows/raw-insert_after_key-rows-command.json",
+      "bytes": 605,
+      "sha256": "b44c87210cc7d527d82ec01156ea1d367091c132c2017b4e069d34302e9923f9"
+    },
+    {
+      "path": "lab/out/release-insert-delete-rows/raw-insert_after_key-rows.rc.txt",
+      "bytes": 1,
+      "sha256": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b"
+    },
+    {
+      "path": "lab/out/release-insert-delete-rows/raw-insert_after_key-rows.stderr.txt",
+      "bytes": 552,
+      "sha256": "cab3bb3fa1f41e7089abb3b77dd95c20a61b3c529b5c8d15d6973231f35797d5"
+    },
+    {
+      "path": "lab/out/release-insert-delete-rows/raw-insert_after_key-rows.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/release-insert-delete-rows/raw-insert_after_key-scan-command.json",
+      "bytes": 304,
+      "sha256": "d3da63993ddb73a3630e710600dbd6a85f0bddeeffd8c4873e95e7afb2bd5dcd"
+    },
+    {
+      "path": "lab/out/release-insert-delete-rows/raw-insert_after_key-scan.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/release-insert-delete-rows/raw-insert_after_key-scan.stderr.txt",
+      "bytes": 278,
+      "sha256": "86b8e49a132891f6dd6904afafb4af05755a163c68184ad95e59197fad8ffce0"
+    },
+    {
+      "path": "lab/out/release-insert-delete-rows/raw-insert_after_key-scan.stdout.txt",
+      "bytes": 22,
+      "sha256": "43b4733169d6e007aeb99a8ddd34a5c1c256dd2d71bd958ddcc72f09a9cae4e9"
+    },
+    {
+      "path": "lab/out/release-insert-delete-rows/raw-insert_column_count-physical-command.json",
+      "bytes": 625,
+      "sha256": "a08197d8232b272ac32fc8c3f1330cb082e912bc994faec9848d183ec82c6c4b"
+    },
+    {
+      "path": "lab/out/release-insert-delete-rows/raw-insert_column_count-physical.rc.txt",
+      "bytes": 1,
+      "sha256": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b"
+    },
+    {
+      "path": "lab/out/release-insert-delete-rows/raw-insert_column_count-physical.stderr.txt",
+      "bytes": 582,
+      "sha256": "f4e8243a36e9574ee7f76009c1ab84bf939b6d47d8279c4439397d7d82c41f05"
+    },
+    {
+      "path": "lab/out/release-insert-delete-rows/raw-insert_column_count-physical.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/release-insert-delete-rows/raw-insert_column_count-rows-command.json",
+      "bytes": 608,
+      "sha256": "cb40a77b7db05b4b0aa901fc2fbbdf06d61270fffd7109bab80b74074c160c78"
+    },
+    {
+      "path": "lab/out/release-insert-delete-rows/raw-insert_column_count-rows.rc.txt",
+      "bytes": 1,
+      "sha256": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b"
+    },
+    {
+      "path": "lab/out/release-insert-delete-rows/raw-insert_column_count-rows.stderr.txt",
+      "bytes": 736,
+      "sha256": "01336ded0ab9e51aa34b5d8861f1dc7ca2076167dbccab281d260da756862dd7"
+    },
+    {
+      "path": "lab/out/release-insert-delete-rows/raw-insert_column_count-rows.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/release-insert-delete-rows/raw-insert_column_count-scan-command.json",
+      "bytes": 307,
+      "sha256": "e8e330db2804a5e45db652533039c693c93cb6f18e584bbd6350bc768c8b523b"
+    },
+    {
+      "path": "lab/out/release-insert-delete-rows/raw-insert_column_count-scan.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/release-insert-delete-rows/raw-insert_column_count-scan.stderr.txt",
+      "bytes": 278,
+      "sha256": "c4a4b8aee56ae49b5bae162183b110da13f8365e13921d252ab847a36fff63c0"
+    },
+    {
+      "path": "lab/out/release-insert-delete-rows/raw-insert_column_count-scan.stdout.txt",
+      "bytes": 22,
+      "sha256": "43b4733169d6e007aeb99a8ddd34a5c1c256dd2d71bd958ddcc72f09a9cae4e9"
+    },
+    {
+      "path": "lab/out/release-insert-delete-rows/raw-negatives/delete_before_key.dbf",
+      "bytes": 207360,
+      "sha256": "df01fa06792b5741c13ba0f539a1e17057c6fc5fbb060b0feb0e202885d38e94"
+    },
+    {
+      "path": "lab/out/release-insert-delete-rows/raw-negatives/delete_inverse_slot.dbf",
+      "bytes": 207360,
+      "sha256": "a988101e92d42e629acb5992422db31eeb1de035256ba7379a0a8ef9f2b5920e"
+    },
+    {
+      "path": "lab/out/release-insert-delete-rows/raw-negatives/insert_after_key.dbf",
+      "bytes": 207360,
+      "sha256": "e31342d024c67a58160ee2e79b8aa9467d46e53d3932606740c8c5b45e47896d"
+    },
+    {
+      "path": "lab/out/release-insert-delete-rows/raw-negatives/insert_column_count.dbf",
+      "bytes": 207360,
+      "sha256": "2a171ef91065871114a4860369e31c7975a39f04c38cd7ae53e653fd674cafde"
+    },
+    {
+      "path": "lab/out/release-insert-delete-rows/raw-negatives/summary.json",
+      "bytes": 1089,
+      "sha256": "76ba9101871a95214d45f44148c4f3f6c76a8ab0be66209c772a5b6fdb1f7052"
+    },
+    {
+      "path": "lab/out/release-insert-delete-rows/rows-command.json",
+      "bytes": 596,
+      "sha256": "c903817c596f272b5a8942802e2c05434bad3a539c288d82fa5912bf554e5d22"
+    },
+    {
+      "path": "lab/out/release-insert-delete-rows/rows.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/release-insert-delete-rows/rows.stderr.txt",
+      "bytes": 117,
+      "sha256": "a880fa025bcd86869ec6dc7ce5676b8cdced3bd1f8c95bd0145773aa33572182"
+    },
+    {
+      "path": "lab/out/release-insert-delete-rows/rows.stdout.txt",
+      "bytes": 307,
+      "sha256": "7423931412fecb648913fcdd707faeb5553b17ad152fe11a982094bbc6e31daf"
+    },
+    {
+      "path": "lab/out/release-insert-delete-rows/semantic-insert-existing-command.json",
+      "bytes": 590,
+      "sha256": "08ccb0a75bc27fba442e20e5cd054c216b35efb1085b5cd1a3446f37924e7038"
+    },
+    {
+      "path": "lab/out/release-insert-delete-rows/semantic-insert-existing.rc.txt",
+      "bytes": 1,
+      "sha256": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b"
+    },
+    {
+      "path": "lab/out/release-insert-delete-rows/semantic-insert-existing.stderr.txt",
+      "bytes": 555,
+      "sha256": "f8280163c73e8ee60c1ed08ca7a04763da410fb2719861aaedaaaac204f481a3"
+    },
+    {
+      "path": "lab/out/release-insert-delete-rows/semantic-insert-existing.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/release-snapshot-boundary-r3/build-command.json",
+      "bytes": 80,
+      "sha256": "86dedba6eb5d14bf946eaeef5b18e86e5770ffb9b5a898feefab0bad3b49180d"
+    },
+    {
+      "path": "lab/out/release-snapshot-boundary-r3/build.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/release-snapshot-boundary-r3/build.stderr.txt",
+      "bytes": 301,
+      "sha256": "a73235e74b7212a667f3c9a6209ea0afe89e0cb01c372b4298f0f1a5e284ba49"
+    },
+    {
+      "path": "lab/out/release-snapshot-boundary-r3/build.stdout.txt",
+      "bytes": 9201,
+      "sha256": "6790ceae014b0c581510bcfe45b0e66475522a6b99aa350a6caffe2017768b56"
+    },
+    {
+      "path": "lab/out/release-snapshot-boundary-r3/source.tar",
+      "bytes": 6973440,
+      "sha256": "f67249ee04bf98d9a73cf157329d59345e1b87719bc800536e5a6923aa00d812"
+    },
+    {
+      "path": "lab/out/release-snapshot-boundary-r3/source.txt",
+      "bytes": 40,
+      "sha256": "09de9a8dc690c37c70bd20859807378e118b09eedbba12d6dc43a4fe82b2b4cc"
+    },
+    {
+      "path": "lab/out/release-snapshot-boundary-r3/tree/target/oracle-redo-kernel-0.1.0-SNAPSHOT.jar",
+      "bytes": 164641,
+      "sha256": "9053c01bae7420837c80448cc4d3ca39ae0b28431706a1483a9eda52a5e4fc5d"
+    },
+    {
+      "path": "lab/out/release-snapshot-boundary-r3/tree/target/surefire-reports/2026-10-04T23-47-39_117.dumpstream",
+      "bytes": 301,
+      "sha256": "06ea67dc381a0a3804fb5bf8cf62bbd8e64fdd32468fe96ac7e83e0d7a59ce42"
+    },
+    {
+      "path": "lab/out/release-snapshot-boundary-r3/tree/target/surefire-reports/com.streamhouse.oracle.ArchivedCompensationAssociationsTest.txt",
+      "bytes": 372,
+      "sha256": "dd35d5f34042192ad94b139f0197b6e4eb61f83d80b616179c029e0aa0210c46"
+    },
+    {
+      "path": "lab/out/release-snapshot-boundary-r3/tree/target/surefire-reports/com.streamhouse.oracle.ArchivedCompensationInventoryTest.txt",
+      "bytes": 366,
+      "sha256": "fcbfdacfb0188e9bce6cb27e2d7b8bc8ebf6131c10bc6832b09e5e54532ab542"
+    },
+    {
+      "path": "lab/out/release-snapshot-boundary-r3/tree/target/surefire-reports/com.streamhouse.oracle.ArchivedHeapRowsTest.txt",
+      "bytes": 340,
+      "sha256": "15f319100884e69d86d24255b935253e21b849790b68acf8db78b541f68cfa99"
+    },
+    {
+      "path": "lab/out/release-snapshot-boundary-r3/tree/target/surefire-reports/com.streamhouse.oracle.ArchivedIndexLeafInventoryTest.txt",
+      "bytes": 360,
+      "sha256": "ebbdf56dd493e54013292e57ce7a3d24fde0395324596d10580bde102dd154dd"
+    },
+    {
+      "path": "lab/out/release-snapshot-boundary-r3/tree/target/surefire-reports/com.streamhouse.oracle.ArchivedObjectTransactionsTest.txt",
+      "bytes": 360,
+      "sha256": "ccc9dec017302a75d43a76fe3121ecd9e4daaeea6898c397d222e1a022191440"
+    },
+    {
+      "path": "lab/out/release-snapshot-boundary-r3/tree/target/surefire-reports/com.streamhouse.oracle.ArchivedPhysicalTransactionsTest.txt",
+      "bytes": 364,
+      "sha256": "33e46ab5a51175c6e5678ffc26b01116cde5edef0ad7be97b81c61358c305057"
+    },
+    {
+      "path": "lab/out/release-snapshot-boundary-r3/tree/target/surefire-reports/com.streamhouse.oracle.ArchivedRedoTest.txt",
+      "bytes": 332,
+      "sha256": "649f1930a78b6820c8037a7625d022ec84693d9d3b22b66dc5702da452de0c65"
+    },
+    {
+      "path": "lab/out/release-snapshot-boundary-r3/tree/target/surefire-reports/com.streamhouse.oracle.ArchivedUndoInventoryTest.txt",
+      "bytes": 350,
+      "sha256": "5896370cabe4ebff2f530a2071c73b60842900332ece5a5b75e10da199d0f30d"
+    },
+    {
+      "path": "lab/out/release-snapshot-boundary-r3/tree/target/surefire-reports/com.streamhouse.oracle.BeginCompensationTest.txt",
+      "bytes": 342,
+      "sha256": "53cf241c39ab939f1bee933f070a7d6cafbb4b153885327a99332271d1358ca1"
+    },
+    {
+      "path": "lab/out/release-snapshot-boundary-r3/tree/target/surefire-reports/com.streamhouse.oracle.CrossCompensationTest.txt",
+      "bytes": 342,
+      "sha256": "41a9ba99ee297332aae2d131ba2e0f6438e736108fab1023124e50a194725725"
+    },
+    {
+      "path": "lab/out/release-snapshot-boundary-r3/tree/target/surefire-reports/com.streamhouse.oracle.EmptyHeapCleanoutTest.txt",
+      "bytes": 342,
+      "sha256": "d06d88bc93877c37b6dcfb96c53911a99789c0bc1e0c4c2732133eeed75ff5e5"
+    },
+    {
+      "path": "lab/out/release-snapshot-boundary-r3/tree/target/surefire-reports/com.streamhouse.oracle.FrozenHeapBaselineTest.txt",
+      "bytes": 344,
+      "sha256": "8b38d92f077f303c5ec318fd7d000daad455f90830603ca0c91e0ef494635fdc"
+    },
+    {
+      "path": "lab/out/release-snapshot-boundary-r3/tree/target/surefire-reports/com.streamhouse.oracle.HeapCleanoutCTest.txt",
+      "bytes": 334,
+      "sha256": "de73f65c5d841a17461a40102f324f0a20f4d043d40ad2eedf68d4dd3cf328c1"
+    },
+    {
+      "path": "lab/out/release-snapshot-boundary-r3/tree/target/surefire-reports/com.streamhouse.oracle.HeapCompensationTest.txt",
+      "bytes": 340,
+      "sha256": "b35c52d9df9ba02d73e98cef6e86c647a03273e592ebb0be29ebcd626ac4e936"
+    },
+    {
+      "path": "lab/out/release-snapshot-boundary-r3/tree/target/surefire-reports/com.streamhouse.oracle.HeapIndexScopeTest.txt",
+      "bytes": 336,
+      "sha256": "c1667bd10414980c6d33e839310a461e1b743c3d3f35c1f8566bafd99d070bb3"
+    },
+    {
+      "path": "lab/out/release-snapshot-boundary-r3/tree/target/surefire-reports/com.streamhouse.oracle.HeapRowPatchTest.txt",
+      "bytes": 332,
+      "sha256": "288518a10f1ac7b198d822cd37464d2c7b8f164a8afbb68cf7b63fbb2fe4e0a9"
+    },
+    {
+      "path": "lab/out/release-snapshot-boundary-r3/tree/target/surefire-reports/com.streamhouse.oracle.HeapTailExtentTest.txt",
+      "bytes": 336,
+      "sha256": "30a59716bd37f5a6bec00b37856ee37d5b5a4bdc4ff797a8fa2d922547c280f0"
+    },
+    {
+      "path": "lab/out/release-snapshot-boundary-r3/tree/target/surefire-reports/com.streamhouse.oracle.HeapUndoPairTest.txt",
+      "bytes": 332,
+      "sha256": "bc24ecfe9d482ca3277bb6ef89c8e508ff38b910aa60df4d40f322904f592633"
+    },
+    {
+      "path": "lab/out/release-snapshot-boundary-r3/tree/target/surefire-reports/com.streamhouse.oracle.IndexCompensationTest.txt",
+      "bytes": 342,
+      "sha256": "e1a9109e7de9ceb3f714abf366ada4b980516a737a4572dd6bb3c2660f343daa"
+    },
+    {
+      "path": "lab/out/release-snapshot-boundary-r3/tree/target/surefire-reports/com.streamhouse.oracle.IndexLeafPositionsTest.txt",
+      "bytes": 345,
+      "sha256": "1ef62d581c4bfad22208107e8fcf65a80d18458c32b739d392081bf73cef3d80"
+    },
+    {
+      "path": "lab/out/release-snapshot-boundary-r3/tree/target/surefire-reports/com.streamhouse.oracle.IndexPositionReplayTest.txt",
+      "bytes": 346,
+      "sha256": "a321c37831304026147cc8cc1a5d3725761edef3eb85885ca0961bd7638ccce0"
+    },
+    {
+      "path": "lab/out/release-snapshot-boundary-r3/tree/target/surefire-reports/com.streamhouse.oracle.IndexRestoreCompensationTest.txt",
+      "bytes": 356,
+      "sha256": "805efc986efe8e3e32c0af5125b0edcd17f0cda30555a6ca2fccb20c34a2264c"
+    },
+    {
+      "path": "lab/out/release-snapshot-boundary-r3/tree/target/surefire-reports/com.streamhouse.oracle.IndexUndoPairTest.txt",
+      "bytes": 334,
+      "sha256": "17103f2f35f5e2e78e64222924c7c6e62699e3141a1494329e76a3bb38733a55"
+    },
+    {
+      "path": "lab/out/release-snapshot-boundary-r3/tree/target/surefire-reports/com.streamhouse.oracle.Kdom2UpdateTest.txt",
+      "bytes": 330,
+      "sha256": "594446cfcc346b0220f03b03f529f67cea41988d976b72544e504d9f9dd2fedd"
+    },
+    {
+      "path": "lab/out/release-snapshot-boundary-r3/tree/target/surefire-reports/com.streamhouse.oracle.KtbZInsertTest.txt",
+      "bytes": 328,
+      "sha256": "606ba0a492bfc22732037fd396bda0ba097b84df4e0c6399b761e3f8faea3db2"
+    },
+    {
+      "path": "lab/out/release-snapshot-boundary-r3/tree/target/surefire-reports/com.streamhouse.oracle.KtbZRollbackTest.txt",
+      "bytes": 333,
+      "sha256": "799a70f1f11b46b73c4762aeb664a0f1e1309a85d328fa554201e43372477214"
+    },
+    {
+      "path": "lab/out/release-snapshot-boundary-r3/tree/target/surefire-reports/com.streamhouse.oracle.OracleScalarsTest.txt",
+      "bytes": 334,
+      "sha256": "41b2d803879ce9309a1c796bae168d67b1d9abc48180aac569d6230cc6094086"
+    },
+    {
+      "path": "lab/out/release-snapshot-boundary-r3/tree/target/surefire-reports/com.streamhouse.oracle.TransactionLifecycleTest.txt",
+      "bytes": 349,
+      "sha256": "6e72c430395a0970338f49470f7a5f1dc1d99a3142fe1a4fcfe3c2c926e70b45"
+    },
+    {
+      "path": "lab/out/release-snapshot-boundary-r3/tree/target/surefire-reports/com.streamhouse.oracle.TransactionMarkersTest.txt",
+      "bytes": 344,
+      "sha256": "97d6d66091713ab09cd8c7ccb2a44b812cafe321bae87bbc9afcaecfb2c81924"
+    },
+    {
+      "path": "lab/out/release-snapshot-boundary-r3/tree/target/surefire-reports/com.streamhouse.oracle.TransactionStartTest.txt",
+      "bytes": 340,
+      "sha256": "8cd34b0770e47f7d6e7b9a045e755228530b6b89f25f7b27b88b04b8c404d2c3"
+    },
+    {
+      "path": "lab/out/release-snapshot-boundary-r3/tree/target/surefire-reports/com.streamhouse.oracle.UndoBlockAdvanceTest.txt",
+      "bytes": 340,
+      "sha256": "9c631f6936c29586431825b3245854e0211a801927d6efb6c982176257fe8d0e"
+    },
+    {
+      "path": "lab/out/release-snapshot-boundary-r3/tree/target/surefire-reports/com.streamhouse.oracle.UndoChainTest.txt",
+      "bytes": 326,
+      "sha256": "85d0621e1ff070f954a130a51ab546d19d456c577156982ca83bf09285e66c44"
+    },
+    {
+      "path": "lab/out/release-snapshot-boundary-r3/tree/target/surefire-reports/com.streamhouse.oracle.UndoHeaderTest.txt",
+      "bytes": 328,
+      "sha256": "4a0cfb3783b18d5496c50f18a4e385cd14ee44b52f83fe988d88ac98e696536e"
+    },
+    {
+      "path": "lab/out/release-snapshot-boundary-r3/tree/target/surefire-reports/com.streamhouse.oracle.UndoHeadUpdateTest.txt",
+      "bytes": 336,
+      "sha256": "2ec6e65e62b3591f1fcab1a32ae2dd01da0dedc4cf54f0a6ca6ae4a8ed2896dc"
+    },
+    {
+      "path": "lab/out/release-snapshot-boundary-r3/tree/target/surefire-reports/com.streamhouse.oracle.UndoHistoryTest.txt",
+      "bytes": 330,
+      "sha256": "2f957f5a6ff93445b7ee335b455b1f07d8af900ff888f8d34749edd9a95c285e"
+    },
+    {
+      "path": "lab/out/release-snapshot-boundary-r3/tree/target/surefire-reports/com.streamhouse.oracle.UndoRowPatchTest.txt",
+      "bytes": 332,
+      "sha256": "38b1924676e35b5f9790ce53e653af070bf79d1da372c3703e03c0064fd7801c"
+    },
+    {
+      "path": "lab/out/release-snapshot-boundary-r3/tree/target/surefire-reports/TEST-com.streamhouse.oracle.ArchivedCompensationAssociationsTest.xml",
+      "bytes": 11356,
+      "sha256": "ac1711a57ea36f9943e3283fd1c3e8da3a325b0473a53c473a42466a9f1055c5"
+    },
+    {
+      "path": "lab/out/release-snapshot-boundary-r3/tree/target/surefire-reports/TEST-com.streamhouse.oracle.ArchivedCompensationInventoryTest.xml",
+      "bytes": 10975,
+      "sha256": "e9b01f793b6d4c493be5f834e3e2bd33964c42810a698ac700da289f11cb3e93"
+    },
+    {
+      "path": "lab/out/release-snapshot-boundary-r3/tree/target/surefire-reports/TEST-com.streamhouse.oracle.ArchivedHeapRowsTest.xml",
+      "bytes": 10611,
+      "sha256": "444e00e6def70c552d67bda2fd5e40f1825d07b5db8e40c3609f98158c470088"
+    },
+    {
+      "path": "lab/out/release-snapshot-boundary-r3/tree/target/surefire-reports/TEST-com.streamhouse.oracle.ArchivedIndexLeafInventoryTest.xml",
+      "bytes": 11114,
+      "sha256": "1bd540cf82283d5a661465ce3434387bda026375f98f01726de574c61b00a8b9"
+    },
+    {
+      "path": "lab/out/release-snapshot-boundary-r3/tree/target/surefire-reports/TEST-com.streamhouse.oracle.ArchivedObjectTransactionsTest.xml",
+      "bytes": 10954,
+      "sha256": "c292bb9b44db2ba145e2da52f8419f3cba8423432d9ef16a5cdb66832ffb5d3b"
+    },
+    {
+      "path": "lab/out/release-snapshot-boundary-r3/tree/target/surefire-reports/TEST-com.streamhouse.oracle.ArchivedPhysicalTransactionsTest.xml",
+      "bytes": 10798,
+      "sha256": "d7c8decf115396d443c50528945d8a594e31f636562a908858a3eae2f6406f1f"
+    },
+    {
+      "path": "lab/out/release-snapshot-boundary-r3/tree/target/surefire-reports/TEST-com.streamhouse.oracle.ArchivedRedoTest.xml",
+      "bytes": 11448,
+      "sha256": "de0219c4827a055fe4cc257bc1464e0d7637605989cb7935d14a1b40fb923d38"
+    },
+    {
+      "path": "lab/out/release-snapshot-boundary-r3/tree/target/surefire-reports/TEST-com.streamhouse.oracle.ArchivedUndoInventoryTest.xml",
+      "bytes": 10759,
+      "sha256": "237020f930a9c7fc783877f5c7124425d4067c2a6db18880d5dcdf9d893a2f20"
+    },
+    {
+      "path": "lab/out/release-snapshot-boundary-r3/tree/target/surefire-reports/TEST-com.streamhouse.oracle.BeginCompensationTest.xml",
+      "bytes": 10866,
+      "sha256": "018551259b24ce37b37202bf5814efd993c8a2e40f91dacf1adcdff20f9252f8"
+    },
+    {
+      "path": "lab/out/release-snapshot-boundary-r3/tree/target/surefire-reports/TEST-com.streamhouse.oracle.CrossCompensationTest.xml",
+      "bytes": 10864,
+      "sha256": "4228ec59a5b5c1f756ec7b2ca09b787a80f597b64e8ce453c84096369b0ccb1c"
+    },
+    {
+      "path": "lab/out/release-snapshot-boundary-r3/tree/target/surefire-reports/TEST-com.streamhouse.oracle.EmptyHeapCleanoutTest.xml",
+      "bytes": 10340,
+      "sha256": "891dd5b307a0d6371480e6b177f7f74b822e14302a7bbfd51572037719215b47"
+    },
+    {
+      "path": "lab/out/release-snapshot-boundary-r3/tree/target/surefire-reports/TEST-com.streamhouse.oracle.FrozenHeapBaselineTest.xml",
+      "bytes": 10645,
+      "sha256": "bddc581d10aa4c32627da1a8448390a072ccdece49e37d06d48ec2fa3c6111b1"
+    },
+    {
+      "path": "lab/out/release-snapshot-boundary-r3/tree/target/surefire-reports/TEST-com.streamhouse.oracle.HeapCleanoutCTest.xml",
+      "bytes": 10434,
+      "sha256": "2382de6291f979367a4e37122812643b8a0ef4ae5afc27425dace163caaf8506"
+    },
+    {
+      "path": "lab/out/release-snapshot-boundary-r3/tree/target/surefire-reports/TEST-com.streamhouse.oracle.HeapCompensationTest.xml",
+      "bytes": 11135,
+      "sha256": "1421e6fc224faea0b2d5c9a63555860e633840cf58e702315ceb785e08ae9efb"
+    },
+    {
+      "path": "lab/out/release-snapshot-boundary-r3/tree/target/surefire-reports/TEST-com.streamhouse.oracle.HeapIndexScopeTest.xml",
+      "bytes": 10631,
+      "sha256": "7618d520ff5c8d8fa343dc6d15a255f7ef3adb871be0b303f286c856256ace09"
+    },
+    {
+      "path": "lab/out/release-snapshot-boundary-r3/tree/target/surefire-reports/TEST-com.streamhouse.oracle.HeapRowPatchTest.xml",
+      "bytes": 10903,
+      "sha256": "c305d91ece7fc7ea19ada938397ba52bb6f2cbe459be76580a88c8a3d8ce3a02"
+    },
+    {
+      "path": "lab/out/release-snapshot-boundary-r3/tree/target/surefire-reports/TEST-com.streamhouse.oracle.HeapTailExtentTest.xml",
+      "bytes": 10725,
+      "sha256": "157ffcfd56e3395d60d73a329406f3b055ebba04503eef77b173df80b4de6d8a"
+    },
+    {
+      "path": "lab/out/release-snapshot-boundary-r3/tree/target/surefire-reports/TEST-com.streamhouse.oracle.HeapUndoPairTest.xml",
+      "bytes": 10825,
+      "sha256": "444ade16c0882aa6a101fea3660cabffb5ce05b9b0249b2ae054d22daf08690f"
+    },
+    {
+      "path": "lab/out/release-snapshot-boundary-r3/tree/target/surefire-reports/TEST-com.streamhouse.oracle.IndexCompensationTest.xml",
+      "bytes": 10752,
+      "sha256": "3edcaa1d599fb58c16e36b6cef2cd6a38e511fb4425085e0d312999d4e5ab78f"
+    },
+    {
+      "path": "lab/out/release-snapshot-boundary-r3/tree/target/surefire-reports/TEST-com.streamhouse.oracle.IndexLeafPositionsTest.xml",
+      "bytes": 11443,
+      "sha256": "4dd86bfa889b25c66aec99ff90564a9e71dae191db39b055c101fda09dd97510"
+    },
+    {
+      "path": "lab/out/release-snapshot-boundary-r3/tree/target/surefire-reports/TEST-com.streamhouse.oracle.IndexPositionReplayTest.xml",
+      "bytes": 10693,
+      "sha256": "714ea99587dd4ed31f47a28dd16e5c2578601869d0b584e7875edec840ece0a0"
+    },
+    {
+      "path": "lab/out/release-snapshot-boundary-r3/tree/target/surefire-reports/TEST-com.streamhouse.oracle.IndexRestoreCompensationTest.xml",
+      "bytes": 10916,
+      "sha256": "535de0007d990037d00eb7f376dd4df7a021021961dc27b3418e559b3d90ba2e"
+    },
+    {
+      "path": "lab/out/release-snapshot-boundary-r3/tree/target/surefire-reports/TEST-com.streamhouse.oracle.IndexUndoPairTest.xml",
+      "bytes": 11202,
+      "sha256": "bffdaac28a445ce39d41b7f3dffc23bbeab93ddb9dc4e52d62adc6bd549b0a4a"
+    },
+    {
+      "path": "lab/out/release-snapshot-boundary-r3/tree/target/surefire-reports/TEST-com.streamhouse.oracle.Kdom2UpdateTest.xml",
+      "bytes": 11074,
+      "sha256": "b00eb9057f598f3fb07d0a94045fab35fc2d9f9d5776346602370e53d08a2588"
+    },
+    {
+      "path": "lab/out/release-snapshot-boundary-r3/tree/target/surefire-reports/TEST-com.streamhouse.oracle.KtbZInsertTest.xml",
+      "bytes": 10435,
+      "sha256": "ef8cb408678a88fbf1bc80933287b8372735e1741af41d90f8b26e18f84faefb"
+    },
+    {
+      "path": "lab/out/release-snapshot-boundary-r3/tree/target/surefire-reports/TEST-com.streamhouse.oracle.KtbZRollbackTest.xml",
+      "bytes": 11491,
+      "sha256": "b29a81a59b4b5965a02a8d902d8efcc3b4844ed4eb46e38e4353eea860e6ea4d"
+    },
+    {
+      "path": "lab/out/release-snapshot-boundary-r3/tree/target/surefire-reports/TEST-com.streamhouse.oracle.OracleScalarsTest.xml",
+      "bytes": 10652,
+      "sha256": "76531d3d64674cb095657aebccef773c56897409b4ba6923a08566afef89f3c4"
+    },
+    {
+      "path": "lab/out/release-snapshot-boundary-r3/tree/target/surefire-reports/TEST-com.streamhouse.oracle.TransactionLifecycleTest.xml",
+      "bytes": 11962,
+      "sha256": "b4aa3b610a99897d9c43a22e2f80bba1445719c5480d57fde7d341295df6c4ee"
+    },
+    {
+      "path": "lab/out/release-snapshot-boundary-r3/tree/target/surefire-reports/TEST-com.streamhouse.oracle.TransactionMarkersTest.xml",
+      "bytes": 11139,
+      "sha256": "7501fb78472ee8300959eeba367ded62bb9bba6edf74cc3543c5db0a23aad950"
+    },
+    {
+      "path": "lab/out/release-snapshot-boundary-r3/tree/target/surefire-reports/TEST-com.streamhouse.oracle.TransactionStartTest.xml",
+      "bytes": 10825,
+      "sha256": "7c1fb39589d046c2f8d061764bc33f2ed2cc8c0387566611cb46e7aaa3e68437"
+    },
+    {
+      "path": "lab/out/release-snapshot-boundary-r3/tree/target/surefire-reports/TEST-com.streamhouse.oracle.UndoBlockAdvanceTest.xml",
+      "bytes": 10718,
+      "sha256": "2f21f1dc7b9e276896bea361925b8a0f60ad8cb043e480b506621dcfa0539f66"
+    },
+    {
+      "path": "lab/out/release-snapshot-boundary-r3/tree/target/surefire-reports/TEST-com.streamhouse.oracle.UndoChainTest.xml",
+      "bytes": 10827,
+      "sha256": "10d42c8d410b1d1c8f31df61cbb7ee0ccefc5c2318d1196cf7171281b3813176"
+    },
+    {
+      "path": "lab/out/release-snapshot-boundary-r3/tree/target/surefire-reports/TEST-com.streamhouse.oracle.UndoHeaderTest.xml",
+      "bytes": 10400,
+      "sha256": "bcda08135c1709680e61b8af08f2d960d6ae66578e1b1cddbf01be6d03f134af"
+    },
+    {
+      "path": "lab/out/release-snapshot-boundary-r3/tree/target/surefire-reports/TEST-com.streamhouse.oracle.UndoHeadUpdateTest.xml",
+      "bytes": 10874,
+      "sha256": "a5bdec0334285d13469b902cb762e3ebd497be9f27f75c76452160ee57c34e48"
+    },
+    {
+      "path": "lab/out/release-snapshot-boundary-r3/tree/target/surefire-reports/TEST-com.streamhouse.oracle.UndoHistoryTest.xml",
+      "bytes": 11143,
+      "sha256": "ee78a4641b5c9c088fa60bfdbf04b963acf9779332782d297c39bd8ff2ff8765"
+    },
+    {
+      "path": "lab/out/release-snapshot-boundary-r3/tree/target/surefire-reports/TEST-com.streamhouse.oracle.UndoRowPatchTest.xml",
+      "bytes": 10682,
+      "sha256": "4f86bf8dffebc3e55a6ec6e37a6bbbbe1afe53992e776c25d96a6828e3c48804"
+    },
+    {
+      "path": "lab/out/seal-insert-delete.py",
+      "bytes": 5163,
+      "sha256": "a24172ad67796d325c22928e8ee605f050e354150c05cc05b0232ff731d67de3"
+    },
+    {
+      "path": "lab/out/verify-insert-delete-extra.py",
+      "bytes": 682,
+      "sha256": "45cad51b6e84a70ed206bfa2daed76c98ca4be76e8cf032c538950c33c16c045"
+    },
+    {
+      "path": "lab/out/verify-insert-delete-negatives.py",
+      "bytes": 2401,
+      "sha256": "c9cd97615869ae363af0e942dfb73e4d383e68a1b506159135bbdeabe6d31a08"
+    },
+    {
+      "path": "lab/out/verify-insert-delete.py",
+      "bytes": 1388,
+      "sha256": "92b14d35ee4541a8c8aac3e430ccec7c800adecd391d85865526e1b4a0b0139b"
+    },
+    {
+      "path": "lab/PhysicalTransactionProbe.java",
+      "bytes": 2184,
+      "sha256": "10cf04dd6079227bdf65fd78dd3402b3975a86751aea19ee11c4d1c72298c474"
+    },
+    {
+      "path": "lab/poison_insert_delete_rows.py",
+      "bytes": 2126,
+      "sha256": "00c4a2d63dea286596a3561bde88a3036a384b90f9065cf9e329ed463557726b"
+    },
+    {
+      "path": "lab/VerifiedHeapRowsProbe.java",
+      "bytes": 1194,
+      "sha256": "a1f9b8ab4b10905eb1a6e4b311a8df7a949816462adf579e884406482b002925"
+    }
+  ]
+}

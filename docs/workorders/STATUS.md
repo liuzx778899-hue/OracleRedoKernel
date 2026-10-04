@@ -1,6 +1,6 @@
 # OracleRedoKernel 当前状态
 
-更新：2026-10-04（Asia/Shanghai）。用户授权自主论证、实现、专属实验验证，主攻解析；禁止 Luna。目标仍进行中，不是全流程验收完成。
+更新：2026-10-05（Asia/Shanghai）。用户授权自主论证、实现、专属实验验证，主攻解析；禁止 Luna。目标仍进行中，不是全流程验收完成。
 
 ## 六列状态
 
@@ -11,12 +11,14 @@
 | W2 record/vector | 通过：首批fa61476 | 通过：19c seq8/9完整dump、21c选定范围 | 待证：事务/字典 | 未开始 | 待证 | 未开始 |
 | W3 基础行/类型 | 进行中：scalar + pair + KDOM2单列扩展值 | 通过：18pair/302长值patch；完整行待证 | 进行中：物理配对；字典/基线待证 | 未开始 | 待证 | 未开始 |
 | W4 事务/回滚 | 进行中：有序history/覆盖/heap+index补偿、同源完整XID归属及有源位置重放 | 通过：203测试；seq21—24自主发现基线/A/B共12物理图；自主对象头关联；seq19—24六位置、seq21—24有限双上下文完整图与拒绝证据；九笔旧图及六批长heap证据保留 | 进行中：有界自主物理入口已交付；完整控制/页维护/跨块关联/恢复待证；不当通用生产能力 | 未开始 | 待证 | 未开始 |
-| W5 SCN字典/基线 | 进行中：extent/完整行、实际ASOF获取/回执/typed世代，有限空heap cleanout | 通过：225测试；seq27真实TXT/PK完整行与两SQL快照；seq28/29真实初始跨snapshot整批拒绝、2/0/2物理图和SCN native零差异，4 raw拒绝；生产可信交接/历史字典待证 | 进行中：有限获取→新DML及真实初始跨snapshot拒绝通过；通用初始恢复/历史schema/INSERT/DELETE/rollback/并发待证 | 未开始 | 待证 | 未开始 |
+| W5 SCN字典/基线 | 进行中：extent/完整行、实际ASOF获取/回执/typed世代，有限空heap cleanout | 通过：225测试冻结树；seq27 TXT/PK、seq30 INSERT/DELETE完整行与三SQL快照/4/0/4图native零差异，4 raw拒绝；seq28/29真实初始跨snapshot整批拒绝；生产可信交接/历史字典待证 | 进行中：有限获取→INSERT/UPDATE/DELETE及初始跨snapshot拒绝通过；通用初始恢复/历史schema/rollback/并发待证 | 未开始 | 待证 | 未开始 |
 | W6 StreamHouse接入 | 未开始 | 待证 | 未开始 | 未开始 | 待证 | 未开始 |
 | W7 online采集 | 进行中：固定member有界观察journal实验 | 通过：429归档数据块字节覆盖、6派生拒绝；完整持续捕获/续接/Windows/ASM待证 | 未开始：journal到解析/ACK | 未开始 | 待证 | 未开始 |
 | W8-W11 扩展类型/LOB/RAC/ASM/TDE | 未开始 | 待证 | 未开始 | 未开始 | 待证 | 未开始 |
 
 ## 当前证据
+
+最新：[真实INSERT/DELETE完整行](DELIVERY_W5_INSERT_DELETE_ROWS_20261005.md)，源脚本076d183、复用225测试运行时b9320ff，[清单](evidence/DELIVERY-insert-delete-rows-20261005.json)。实际只读获取snapshot2346182后专属新增ID12提交再CAS DELETE新行提交，XID10.22.1639/10.3.1641冻结seq30 SHA98624100…；完整INSERT after/DELETE before及原ASOF/中间两行/最终一行三SQL快照与native零差异，完整两物理图4/0/4零差异。4重封raw scan通过，其中两键篡改物理仍通过而完整行晚before失配整批rc1/stdout0，另外slot/列数物理及行拒绝；现有行语义/原回执额外行拒绝、四比较器反例检出，events拒绝。本例不证明孤立INSERT的index/heap主键语义认证；内核无修改、不重复225测试，源DML没有重放，原ID11未改。接续[完整行rollback](DISPATCH_W5_ROLLBACK_ROWS_20261005.md)，部分回滚/并发/初始恢复/历史字典/CDC/capture/接入/现场/发布仍待证。
 
 最新：[真实初始事务跨快照拒绝](DELIVERY_W5_SNAPSHOT_BOUNDARY_20261004.md)，运行时b9320ff、lab比较/派生5a2344b，[清单](evidence/DELIVERY-snapshot-boundary-20261004.json)。225测试通过；自有未提交会话/独立获取snapshot2345429/原会话继续提交，XID6.2.594冻结连续seq28/29。完整2/0/2物理图和begin2345424<=snapshot2345429<end2345432与native零差异后，完整行BASELINE_CROSSES_TRANSACTION_BOUNDARY、rc1/stdout0。真实窗口空heap OP4.1首轮拒绝保全，只支持已观察空条目/SCN/spare严格布局；4重封raw均scan通过、物理及行入口拒绝。缺begin/end、晚SCN语义、原回执SCN篡改及比较器反例检出，旧seq27两完整行同件jar回归零差异，events两件分别拒绝。实验DML没有重放，最终专属项目行11/boundary-closed/new-note；接续[INSERT/DELETE完整行](DISPATCH_W5_INSERT_DELETE_ROWS_20261004.md)。本例安全拒绝不代表通用初始恢复/历史字典/CDC/capture/接入/现场/发布通过。
 

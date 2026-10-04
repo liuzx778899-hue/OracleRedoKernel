@@ -1,6 +1,6 @@
 # W5 获取基线后的真实INSERT/DELETE完整行
 
-状态：待执行。现有UPDATE/PK完整行及真实初始事务跨snapshot拒绝已有限交付；INSERT/DELETE代码分支没有对应真实完整行验收。
+状态：真实有限链路已完成，见[INSERT/DELETE交付](DELIVERY_W5_INSERT_DELETE_ROWS_20261005.md)。以下已提交动作不重复执行，接续[完整行rollback](DISPATCH_W5_ROLLBACK_ROWS_20261005.md)。现有UPDATE/PK及真实初始事务跨snapshot拒绝已有限交付；通用DML和CDC未验收。
 
 1. 专属现有项目表先只读核source/无supplemental、两角色generation、总数1以及ID11/TXT boundary-closed/NOTE new-note。新输出目录，脚本先提交，不重放seq28/29事务。
 2. 先用实际只读获取脚本取得新的固定SCN完整基线及控制进程交付SHA；不手填基线，不复用已跨过事务的2345429来冒充正样本。
