@@ -32,6 +32,8 @@
 
 ## 接续与限制
 
+最新：[真实短Z RESTORE及B图交付](DELIVERY_W4_Z_RESTORE_20261004.md)，运行时b7bb75f、完整封存树bbd2fd6，[清单](evidence/DELIVERY-z-restore-20261004.json)1063文件双次SHA一致。187测试通过；OP10.5增加已观察030db87100000000精确布局，未知bytes2/3不解释/其他变体拒绝。seq24 A/B同叶清单4/2与native零差异，B图2/2/0闭合；13真实vector派生+3图派生rc1/stdout0。旧seq21/22 B图各2/2/0、seq18两笔8/7/1和5/5/0同件jar回归零差异。A位置现在到达中间DELETE拒绝，A单上下文图仍缺B原始节点，events拒绝。首轮旧Java编译失败保全，新目录绑定Java17重建通过；没有数据库动作。接续有源归属DELETE/RESTORE及PURGE位置重放，用seq24 A/seq23 B冻结失败正样本验证；字典/持续capture/集成/现场/发布待证。
+
 最新研究：[普通DELETE/RESTORE及真实短Z缺口](RESEARCH_W4_DELETE_RESTORE_20261004.md)，源脚本4cb3693、驱动树6f49a87、研究比较器修正树6bd7a87，[清单](evidence/RESEARCH-delete-restore-20261004.json)698文件双次SHA一致。专属一次新实验冻结seq24（def82f0b…），A删除50、B删除10后rollback、A再rollback；四叶slot1/0/0/1与raw/native零差异，A/B补偿头关联4/2含A的2外国marker零差异。真实B index RESTORE短Z为030db87100000000；owned清单A/B、A位置及A/B图五入口均rc1/stdout0拒绝，未到DELETE位置模型验收。首轮比较器错误沿用PURGE全零Z及native反例选择器断言保全，补充仅失败/未执行检查，三比较器反例检出1/1/2差异；events拒绝。内核仍184测试树582fec6无变化。接续直接补真实短Z RESTORE布局/反例、清单及B图，再实现有证据的DELETE/RESTORE与PURGE位置模型；字典/持续capture/接入/发布待证。
 
 最新研究：[两次PURGE顺序/完整图缺口](RESEARCH_W4_DOUBLE_PURGE_20261004.md)，源脚本a5846cd、完整研究树4249b73，[清单](evidence/RESEARCH-double-purge-20261004.json)411文件双次SHA一致。专属一次新实验冻结seq23（da6a0d7c…），A删除50、B插入20/30后整事务回滚、A再回滚；六叶slot1/1/2/2/1/1及C/Z PURGE raw/native零差异，A/B owned清单6/4及头关联6/4（A含4外国marker）零差异。B自身第二次取消也因中间PURGE位置拒绝，rc1/stdout0，完整A/B图均不计通过。三比较器反例检出1/1/2差异，events拒绝。main/test/pom与184测试内核582fec6差异为空；不重复已通过测试。接续普通DELETE/RESTORE及有源归属PURGE模型，用本冻结B图作修复前失败正样本；字典/持续capture/接入/发布待证。
