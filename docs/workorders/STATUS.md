@@ -13,7 +13,7 @@
 | W4 事务/回滚 | 进行中：有序history/覆盖/slot排除/完整heap rollback | 通过：六批756节点/430补偿/326 live含二次及整事务回滚；18新真实派生拒绝；完整事务待证 | 进行中：并发归属/其他控制/index/恢复待证 | 未开始 | 待证 | 未开始 |
 | W5 SCN字典/基线 | 未开始 | 待证 | 未开始 | 未开始 | 待证 | 未开始 |
 | W6 StreamHouse接入 | 未开始 | 待证 | 未开始 | 未开始 | 待证 | 未开始 |
-| W7 online采集 | 未开始：捕获持久化待实现 | 通过：专属Linux CURRENT文件只读打开；持续捕获/Windows/ASM待证 | 未开始 | 未开始 | 待证 | 未开始 |
+| W7 online采集 | 进行中：固定member有界观察journal实验 | 通过：429归档数据块字节覆盖、6派生拒绝；完整持续捕获/续接/Windows/ASM待证 | 未开始：journal到解析/ACK | 未开始 | 待证 | 未开始 |
 | W8-W11 扩展类型/LOB/RAC/ASM/TDE | 未开始 | 待证 | 未开始 | 未开始 | 待证 | 未开始 |
 
 ## 当前证据
@@ -31,6 +31,8 @@
 - 首轮PDB切日志ORA-65040、CDB VLD9/13/marker结构缺口、SQLPlus中文显示与LogMiner status3均保留原文；两会话交叉事务/跨switch动作已执行。细节见[首批反馈](DELIVERY_W0_W2_20261004.md)。
 
 ## 接续与限制
+
+最新：[W7原始块观察交付](DELIVERY_W7_OBSERVATION_20261004.md)，源码7669d7c，[清单](evidence/DELIVERY-observation-20261004.json)。实际固定member采样journal与新fixture DML/seq17→18切换时间交叠，432帧验证、429归档数据块字节零差异；6真实journal派生反例拒绝。第一轮结束后才DML的编排错误保留，seq16相对journal missing284、rc1。Python3.6时间API和CRLF/LF源码封存失败保留。`capture_complete=false`；未自动跟组/续接/完成record/ACK，W7实验不算捕获验收，CDC拒绝；Java内核076865c不变。
 
 最新：[整事务rollback交付](DELIVERY_W4_FULL_ROLLBACK_20261004.md)，封存源码076865c，[清单](evidence/DELIVERY-076865c.json)。124项测试通过；新seq15/XID2.13.581的120原始/120补偿/0 live与native零差异，20行恢复基线，有限0x14结束与两条短KTB Z完成；10真实结束反例及锁定、8真实Z反例拒绝。同件jar六批长事务756/430/326回归通过，首轮字段索引错误及实际KTB拒绝保留。并发/index/恢复/W5继续待证，CDC拒绝。
 

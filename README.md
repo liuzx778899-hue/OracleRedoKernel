@@ -2,6 +2,8 @@
 
 Oracle Direct Redo 独立解析内核。目标：源库零配置改动，解析与采集分离，证据不足拒绝发布。
 
+新增Linux专属lab固定member的原始块观察journal实验：真实采样与DML/切换交叠，429归档数据块字节覆盖通过。自动跟组/恢复/record游标/ACK未实现，`capture_complete=false`，未接入事件生产。[W7反馈](docs/workorders/DELIVERY_W7_OBSERVATION_20261004.md)。
+
 新增`ArchivedCompensationInventory`自主读取归档，取得已验证目标事务record活动窗口内同PDB全部5.6/5.11候选；下游漏/重/乱序候选拒绝。候选超集不证明并发归属，lab关闭history前强制检查，完整生产事务组装仍待证。[交付与边界](docs/workorders/DELIVERY_W4_COMPENSATION_INVENTORY_20261004.md)。
 
 活动窗口的5.2控制另经`TransactionLifecycle.observeSlotControl`检查同segment/slot的完整sequence冲突与不可读身份，拒绝后锁定；sqn0仍需advance/head-update独立绑定。[12项派生冲突前后证据](docs/workorders/DELIVERY_W4_WINDOW_SLOT_20261004.md)。
