@@ -28,7 +28,8 @@ public final class HeapRowPatch {
         if (ktb.length==8 && (ktb[0]&255)==3 && (ktb[1]&255)==0x0d) {
             boolean packedUpdate=vector.opcodeMinor()==5 && fields.get(1).length==28 && (fields.get(1)[11]&255)==0x82;
             boolean restoredInsert=vector.opcodeMinor()==2 && fields.get(1).length==49 && (fields.get(1)[11]&255)==2;
-            if (!packedUpdate && !restoredInsert)
+            boolean rollbackDelete=vector.opcodeMinor()==3 && fields.get(1).length==20 && (fields.get(1)[11]&255)==2;
+            if (!packedUpdate && !restoredInsert && !rollbackDelete)
                 throw new RedoException("UNSUPPORTED_KTB_Z_ROW_PROFILE");
             return decodeKdo(fields,vector.opcodeMinor(),vector.dba(),dictionaryColumns);
         }
