@@ -4,6 +4,7 @@ from pathlib import Path
 rows=[s.split('|') for s in Path(sys.argv[2]).read_text(encoding='utf-8-sig').splitlines()]
 actual={tuple(map(int,r[1:4])):r for r in rows if r[0]=='NODE'}
 x=tuple(map(int,sys.argv[3].split('.')))
+expected_nodes=int(sys.argv[4]) if len(sys.argv)>4 else 120
 expected={};cross=historical_differences=0;blocks=set();end_tails=[]
 for record in re.split(r'(?=REDO RECORD - Thread:)',Path(sys.argv[1]).read_text(encoding='utf-8')):
     if not record.startswith('REDO RECORD - Thread:') or 'CON_UID: 677737149' not in record.splitlines()[0]:continue
@@ -36,7 +37,7 @@ for key in actual.keys()|expected.keys():
             if row[5]=='NONE' or int(row[5].split(':')[0])!=previous or rci!=0:errors.append({'position':key,'reason':'CROSS_DBA_DIFF'})
         elif rci and row[5]!=':'.join([*row[4].split(':')[:2],str(rci)]):errors.append({'position':key,'reason':'SAME_BLOCK_REFERENCE_DIFF'})
 actual_end=[r[3] for r in rows if r[0]=='END']
-if len(expected)!=120 or len(actual)!=120 or len(rows)!=121 or actual_end!=end_tails:errors.append({'reason':'COVERAGE_OR_END_TAIL_DIFF'})
+if len(expected)!=expected_nodes or len(actual)!=expected_nodes or len(rows)!=expected_nodes+1 or actual_end!=end_tails:errors.append({'reason':'COVERAGE_OR_END_TAIL_DIFF'})
 print(json.dumps({'nodes_direct_fields_compared':len(expected),'undo_block_generations':len(blocks),'cross_dba_references':cross,
                   'historical_ktb_vs_candidate_transaction_predecessor_differences':historical_differences,
                   'native_end_tail_matches':actual_end==end_tails,'mismatches':len(errors),'errors':errors,
