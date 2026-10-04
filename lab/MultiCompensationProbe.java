@@ -11,7 +11,9 @@ public class MultiCompensationProbe {
         int expectedOriginals=args.length>=4 ? Integer.parseInt(args[3]) : 120;
         var xid=new HeapRowPatch.Xid(Integer.parseInt(x[0]),Integer.parseInt(x[1]),Long.parseLong(x[2]));
         var header=new ArchivedRedo().scan(p);var state=new TransactionLifecycle();state.archive(header);
-        var inventory=ArchivedUndoInventory.read(List.of(p),677737149,3,xid);var graph=new UndoHistory(inventory);
+        var compensationInventory=ArchivedCompensationInventory.read(List.of(p),677737149,3,xid);
+        var inventory=compensationInventory.undo();var graph=new UndoHistory(inventory);
+        var selectedMarkers=new ArrayList<ArchivedUndoInventory.Position>();
         var edges=new ArrayList<String>();int[] next={0};UndoHistory.Result[] closed={null};
         var history=new ArrayList<HeapUndoPair>();var cancelled=new HashSet<HeapUndoPair>();var output=new ArrayList<String>();
         int[] ends={0};
@@ -59,9 +61,11 @@ public class MultiCompensationProbe {
                 while(active>=0 && cancelled.contains(history.get(active)))active--;
                 if(index!=active || !cancelled.add(pair))throw new RedoException("MULTI_COMPENSATION_SUFFIX_OR_DUPLICATE:rba="+r.block()+":"+r.offset()+":index="+index+":expected="+active+":history="+history.size()+":cancelled="+cancelled.size()+":uba="+UndoCursorProbe.address(pair.undo().identity().uba()));
                 graph.compensate(pair.undo().identity());
+                selectedMarkers.add(new ArchivedUndoInventory.Position(header.sequence(),r.block(),r.offset(),r.vectors().indexOf(marker)+1));
                 output.add("CANCEL|"+r.block()+"|"+r.offset()+"|"+UndoCursorProbe.address(pair.undo().identity().uba())+"|"+index);
             }
             for(var v:r.vectors())if(v.containerId()==3 && v.opcodeMajor()==5 && v.opcodeMinor()==4 && state.knowsEnd(r,v)) {
+                compensationInventory.requireCompleteSelection(selectedMarkers);
                 var tail=TransactionEnd.undoTail(v);closed[0]=graph.close(tail);edges.add("END|"+r.block()+"|"+r.offset()+"|"+UndoCursorProbe.address(tail));state.end(r,v);ends[0]++;
             }
         });state.finish();
