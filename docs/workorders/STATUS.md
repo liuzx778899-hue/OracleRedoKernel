@@ -10,7 +10,7 @@
 | W1 文件/块 scanner | 通过：首批fa61476 | 通过：19c/21c有界样本/5个真实派生反例 | 待证：真实capture | 未开始 | 待证 | 未开始 |
 | W2 record/vector | 通过：首批fa61476 | 通过：19c seq8/9完整dump、21c选定范围 | 待证：事务/字典 | 未开始 | 待证 | 未开始 |
 | W3 基础行/类型 | 进行中：scalar + pair + KDOM2单列扩展值 | 通过：18pair/302长值patch；完整行待证 | 进行中：物理配对；字典/基线待证 | 未开始 | 待证 | 未开始 |
-| W4 事务/回滚 | 进行中：有序history/覆盖/heap rollback/index补偿、owned同叶清单、INSERT位置重放及有限short-Z PURGE/DRP布局 | 通过：175测试；slot1→2/1→3；九笔旧混合图34/23/11和六批heap756/430/326回归；seq21 B图2/2/0、A/B清单4/2、11派生拒绝 | 进行中：seq21 A并发marker归属/PURGE位置、其他控制/页维护/恢复待证 | 未开始 | 待证 | 未开始 |
+| W4 事务/回滚 | 进行中：有序history/覆盖/heap rollback/index补偿、owned同叶清单、INSERT位置及有限short-Z、同源完整XID补偿头关联 | 通过：184测试；seq19—21共10头关联/2外国项、8查询拒绝；此前九笔图34/23/11、六批heap756/430/326及seq21 B图2/2/0证据保留 | 进行中：seq21 A并发分发/物理match/head/PURGE位置、其他控制/页维护/恢复待证 | 未开始 | 待证 | 未开始 |
 | W5 SCN字典/基线 | 未开始 | 待证 | 未开始 | 未开始 | 待证 | 未开始 |
 | W6 StreamHouse接入 | 未开始 | 待证 | 未开始 | 未开始 | 待证 | 未开始 |
 | W7 online采集 | 进行中：固定member有界观察journal实验 | 通过：429归档数据块字节覆盖、6派生拒绝；完整持续捕获/续接/Windows/ASM待证 | 未开始：journal到解析/ACK | 未开始 | 待证 | 未开始 |
@@ -31,6 +31,8 @@
 - 首轮PDB切日志ORA-65040、CDB VLD9/13/marker结构缺口、SQLPlus中文显示与LogMiner status3均保留原文；两会话交叉事务/跨switch动作已执行。细节见[首批反馈](DELIVERY_W0_W2_20261004.md)。
 
 ## 接续与限制
+
+最新：[同源完整XID补偿头关联交付](DELIVERY_W4_COMPENSATION_ASSOCIATIONS_20261004.md)，实现12910d5、完整封存树582fec6，[清单](evidence/DELIVERY-compensation-associations-20261004.json)543文件双次SHA一致。184测试通过；内核自主遍历完整归档，绑定唯一先前原始头与同源完整事务窗口，seq19—21共10项/其中2外国marker与native全字段零差异；8真实查询拒绝和3比较器反例。仅认证header关联，不认证物理行/当前head或取消，cross-block和同record原始关联仍未支持。A旧图、PURGE位置及events继续拒绝，没有补填通过计数。无数据库动作，旧解析类未变且不重复已通过回归；接续消费者须完整分类并独立核B物理/head/取消图，再补PURGE矩阵。
 
 最新：[短Z PURGE/XR DELETE交付](DELIVERY_W4_Z_ROLLBACK_20261004.md)，运行时a6818ea、完整封存树919e6ee，[清单](evidence/DELIVERY-z-rollback-20261004.json)974文件双次SHA一致。175测试通过；真实index Z固定前缀PURGE与heap短Z XR DRP物理输出native零差异，不补造XID/UBA/列值；11项真实vector派生拒绝。seq21 A/B完整同叶清单4/2项native零差异，B图2/2/0通过；A现在分别到达中间PURGE位置拒绝与B marker缺原始节点拒绝，仍未验收。同件jar九笔旧图34/23/11、六批heap756/430/326回归零差异；events继续拒绝。本轮无数据库动作，接续先攻并发marker完整归属，再补PURGE位置及更多实际布局。
 
