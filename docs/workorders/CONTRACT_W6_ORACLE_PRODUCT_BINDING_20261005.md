@@ -1,0 +1,22 @@
+# W6 Oracle 产品来源与位置契约接续
+
+选择：保留SQL Server既有v2事件ID及LSN验证分支；Oracle使用原有oracle1事件ID与显式typed evidence，不能靠修改前缀或把SCN拼成LSN接入。不存在侧遵循公共null契约。该契约尚未接通生产注册与完整pipeline，因此公开Oracle decoder继续拒绝。
+
+## 实际接口约束
+
+产品CapDecoder.DecodeResult目前只有events/rc/reason/gaps/eventsPath；DecodeBatchService全量收集迭代器、晚失败清空事件，必须保留。DecodeContext.options是普通调用者输入，不能作为可信登记或安全授权。WindowDescriptor.issueSeq是传输队列序号，不是redo sequence。当前ArchivedHeapRows.Source可提供dbid、activationId、compatibility、thread、resetlogsId/resetlogsScn、containerUid/containerId；ClosedIdentity可提供完整XID与beginRecordScn/endRecordScn/rolledBack；event仅有pairedUndoPosition（archiveSequence/block/offset/vector），不能声明有未提供的begin/commit物理RBA。
+
+## 最小接线
+
+1. 产品SPI增加可选Oracle batch evidence，保留旧DecodeResult构造器与SQL Server流程。字段为typed source、实际闭合capture范围及journal SHA、可信baseline SHA/SCN、schema SHA、目标对象范围、batch SHA、每事件完整XID/record SCN范围/paired undo位置/payload SHA。这里的SCN明确称record SCN，不自行改名成未证含义；不得将证据放到自由字符串options中。
+2. Oracle adapter只能由已核验Captures与CapturedHeapBatch构造evidence，复用二进制内核，先缓冲全部事件与证据再返回；rc非零时两者都为空。核验收据与typed输出不能来自LogMiner、dump、SQL truth作为事件输入。
+3. 产品可信registry按sourceId定位受控登记，精确绑定原始source八字段、baseline acquisition与schema generation、允许对象、闭合capture序列/摘要、唯一消费身份和实际window范围。客户端options、上传JSON、引擎名称或声称rc0均不能创建登记；缺登记/未知历史schema/跨窗活跃状态不足时拒绝。现有私有固定baseline只能认有界实验，不自动进入生产registry。
+4. DecodeBatchService把evidence与events绑定后传给PublishGateService；gate先对登记与实际batch逐字段核验，再按engineType分支。Oracle校验事件namespace、完整XID、SCN范围与captured source/范围、位置归属、完整像及存在侧NULL、event/payload摘要和唯一事件ID。SQL Server继续原LSN排序规则。
+5. Oracle事件顺序以已认证的事务提交顺序与事务内sequence核验；paired undo只作事件定位，不能要求跨事务物理位置单调。相同endRecordScn仍未证通用安全排序时明确拒绝，不编造全序。transport issueSeq连续性另行校验，不能用redo sequence替代。
+6. target原子凭证必须关联同一验证后的batch/source/schema/baseline/事件成员，完成目标commit后才发布checkpoint/ACK；完整产品账本与target事务边界、已提交恢复与并发竞争必须实际验证。metadata形状校验不算trusted registry通过。
+
+## 验证出口
+
+先用冻结seq44—51真实batch核验所有typed值与既有二进制内核/独立记录一致，再测试错source、错XID/位置/SCN、错schema/baseline、普通options企图授权、晚失败、无登记空batch与缺目标凭证拒绝，最后经真实产品decode→gate→target→checkpoint/ACK及重启重复。SQL Server正反例回归保持原拒绝语义。产品变更必须在独立提交树构建、独立审阅后才能进入部署；禁止Luna/子代理意味着当前会话不能把作者自检记成独立人员审阅。
+
+当前执行前置：已在独立产品分支修复缺失LSN被List.of先抛null异常的问题，改为明确LSN_MALFORMED拒绝；不授予Oracle任何发布能力。后续按上述接线实施，历史字典、C++真实采集与现场发布仍是原目标的一部分。

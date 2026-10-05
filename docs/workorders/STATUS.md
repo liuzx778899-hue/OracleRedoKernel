@@ -18,6 +18,8 @@
 
 ## 当前证据
 
+最新：[产品null LSN明确拒绝候选](DELIVERY_W6_PRODUCT_NULL_LSN_20261005.md)。产品独立分支代码784a569、文档19f8806，完整提交树reactor 701项0失败0错误0跳过；三种缺LSN测试拒绝/零账本写入（fake Mapper，未当真实台账验收）。三真实冻结批次用实际reactor候选class再核验rc1/stdout0，身份/来源/LSN明确拒绝且无null异常；37文件双SHA、83测试报告指纹。草稿PR#2已推送/附属本chat，独立评审PENDING/未合并部署，shared dirty保留。下一步[typed batch evidence与trusted registry接线](CONTRACT_W6_ORACLE_PRODUCT_BINDING_20261005.md)，不把SCN/paired undo/transport序号混成LSN，不由options授权；完整产品/历史字典/跨窗/C++现场/发布继续待证，goal active。
+
 最新：[实际产品gate与空侧契约](DELIVERY_W6_NULL_SIDES_PRODUCT_GATE_20261005.md)。共享StreamHouse保持只读，实际gate源码隔离编译，三真实冻结批次rc1/stdout0，身份/源拒绝后null legacy LSN异常；未伪造字段开放门禁。adapter c98b1a37…/16通过，内核96095420…复用/254不重跑；INSERT before/DELETE after改null，存在侧SQL NULL保留。新SNON/SNUL各1+1、SMIX3+0+0、重复0/checkpoint原字节稳定；SFAIL约束失败整批0/0/0且无checkpoint/ACK、恢复3/重复0。四新专属目标20像计数/18成员/8凭证与全字段checkpoint/ACK独立零差异，三比較反例拒绝，三个投影逐字节不变；0源DML/配置改变。完整产品typed源/redo位置、生产注册、跨窗/历史字典、C++采集/现场/发布继续待证，goal active。
 
 最新：[真实独立空capture到target/checkpoint](DELIVERY_W7_EMPTY_CAPTURE_TARGET_20261005.md)，源driver f658a9a，一次新空基线/INSERT→ROLLBACK，seq51真实3873块/归档零差异；旧a084完整batch非begin控制拒绝保全，精确外来begin排除修复后kernel96095420…/254测试、adaptercab86009…/15通过。四控制/native归属及两图6/2/4零差异、基线后回滚2/2/0；完整batch0事件/空state，旧四完整batch逐字节不变。专属空目标0业务/0审计/0成员/1凭证events0、实际checkpoint/ACK全字段独立零差异与重复0稳定；缺已发布目标commit拒绝/恢复0，三raw重封结构0/语义1stdout0及三独立比较反例。失败测试越块/预检SQL转义原文保全，仅补失败和未执行项。643文件双SHA清单；源旧DML不重放，原表/NO补充日志保留，helper退出。下一步[产品公开契约门禁](DISPATCH_W6_PRODUCT_GATE_CONTRACT_20261005.md)：只读发现SQL身份/LSN/空侧语义不兼容及C++目录sweep不能证明Oracle采集；生产字典/活跃跨窗/全产品/现场/发布未完成，goal active。
