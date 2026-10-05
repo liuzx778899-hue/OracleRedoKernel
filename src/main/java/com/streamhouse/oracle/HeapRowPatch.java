@@ -88,7 +88,8 @@ public final class HeapRowPatch {
         if (kdo.length != expectedKdo || (kdo[10]&255) != op || u32(kdo,0) != dba)
             throw new RedoException("UNSUPPORTED_KDO_LAYOUT_OR_BLOCK");
         if(dictionaryObject && (dictionaryColumns!=37 || op!=5 || packed || tail || kdo[11]!=1 || kdo[12]!=1 || kdo[13]!=0
-                || u16(kdo,14)!=0 || kdo[16]!=0x2c || (kdo[17]!=0 && kdo[17]!=1) || kdo[18]!=0 || kdo[19]!=0
+                || u16(kdo,14)!=0 || kdo[16]!=0x2c || (kdo[17]!=0 && kdo[17]!=1)
+                || (kdo[18]!=0 && !((kdo[18]&255)==239 && (kdo[23]&255)==6 && (kdo[22]&255)==26)) || kdo[19]!=0
                 || !java.util.List.of(6,8,9).contains(kdo[23]&255) || u16(kdo,26)!=(sysNine?0x20:0x10)
                 || kdo[28]!=0 || (sysNine && kdo[29]!=0)))
             throw new RedoException("UNSUPPORTED_DICTIONARY_OBJECT_UPDATE_PROFILE");
