@@ -18,6 +18,8 @@
 
 ## 当前证据
 
+最新研究：[尾列NULL capture失败正样本](RESEARCH_W3_NULL_CAPTURE_20261005.md)，生产 bed7fdb/58da93ea…不改，新driver9f7504e。专属新表一次INSERT11/NULL/NULL和DELETE，seq46/47共1939/7块与归档数据块零差异、raw唯一leaf50333107；完整batch rc1/stdout0/事件0。三raw/native结束记录零差异：实际baseline2423979，DELETE end2424017 flags0两字段无tail，明确在基线后；不能用旧基线过滤修复。两目标raw heap pair/native完整F/L cc1只ID、尾两列物理ABSENT而SQL为NULL，尚未转换为完整行。研究探针首次未筛外来对象失败原文/源码保全，修正只读归属后两pair通过；0源重放/生产测试不重跑。下一步先独立验证无引用commit闭合（不得伪造native tail），再可信完整行nullable省略；NULL/混合/回滚capture及target/产品/现场/发布待证。
+
 最新：[可信基线/capture完整INSERT/DELETE](DELIVERY_W3_BASELINE_CAPTURE_DML_20261005.md)，生产/lab bed7fdb、kernel58da93ea…。完整raw生命周期/节点/foreign路由不删除，可信获取基线前事务被覆盖但不宣称其旧图关闭；基线后完整关闭，generic无tail及跨基线继续拒绝。冻结seq44/45两完整非空INSERT/DELETE、native/SQL与capture/archive行及最终seed零差异；旧三UPDATE完整batch逐字节不变、rollback-only空结果、晚before/错回执/错source/基线后无tail/实际跨基线及public events拒绝。生产245测试、新增后类7测试通过；提前复制旧jar与合成activation=0测试失败保全，仅补失败项。0新数据库动作/源操作不重放；NULL/混合/回滚capture矩阵、新两DML到target、产品/现场/发布待证。
 
 最新研究：[新 INSERT/DELETE capture 基线边界](RESEARCH_W3_FULL_DML_CAPTURE_20261005.md)，生产 ec3b430 不改。专属新表一次 INSERT/DELETE、seq44/45 journal 与归档数据块零差异，raw 唯一 leaf50333091；完整 batch rc1/stdout0/事件0，`TRANSACTION_END_HAS_NO_UNDO_TAIL_REFERENCE`，不算完整 DML 通过。raw/native 三结束 record 零差异：seed end2421224<实际 baseline2421228、flags0无 tail；实际 INSERT/DELETE end2421252/2421268 flags2均有正常 tail。三 native SCN/flags/tail 反例检出。原 DML 不重放、新表仅 seed、旧 fixture 未改；15/245及强杀不重跑。[下一步](DISPATCH_W3_BASELINE_PHYSICAL_SCOPE_20261005.md)修可信基线物理范围，保留 generic 缺 tail、跨基线及 foreign 补偿拒绝；公开 decoder/产品/现场/发布未通过。
