@@ -1,0 +1,525 @@
+{
+  "files_count": 98,
+  "double_sha256_verified": true,
+  "previous_173_unchanged": true,
+  "kernel_code_commit": "0bd5005",
+  "tests": [
+    278,
+    0,
+    0,
+    0
+  ],
+  "scope": "Physical clustered SYS patches and selected ASOF values only; parent bindings, full row pairs/history/events unverified",
+  "proof": {
+    "kernel_sha256": "9288afbcbd0e53999ed38631121078731e8fd265fb350f26960f998b9ef24557",
+    "unchanged_prior_class_files": 94,
+    "added_classes": [
+      "com/streamhouse/oracle/ClusterRowPatch$Patch.class",
+      "com/streamhouse/oracle/ClusterRowPatch.class"
+    ],
+    "physical_row_sides": 16,
+    "native_column_comparisons": 98,
+    "selected_ASOF_values": 24,
+    "drop_absence_verified": true,
+    "system_layout_physical_internal_reordering_verified": true,
+    "source_actions": 0,
+    "events": 0,
+    "parent_object_binding_verified": false,
+    "SYS_transaction_row_pairs_verified": false,
+    "complete_SYS_row_images_verified": false,
+    "historical_dictionary_authorized": false,
+    "product_rebuilt": false
+  },
+  "files": [
+    {
+      "path": "lab/out/sys-cluster-row-research-20261006/classes/SysControlResearchProbe.class",
+      "bytes": 5797,
+      "sha256": "695d648534603f19aa1e037f15361be957b785b0f603a186b9212f36c65663fd"
+    },
+    {
+      "path": "lab/out/sys-cluster-row-research-20261006/compile.command.json",
+      "bytes": 339,
+      "sha256": "eefebb92ea91c271ad54d5ed167609443ef10c033fa6bc4abb6555ee7f34a943"
+    },
+    {
+      "path": "lab/out/sys-cluster-row-research-20261006/compile.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/sys-cluster-row-research-20261006/compile.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/sys-cluster-row-research-20261006/compile.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/sys-cluster-row-research-20261006/executed-driver.py",
+      "bytes": 4887,
+      "sha256": "1415c27b82f5da8e907d209de6125525a40c1109b08bf1ae57e023a9b5d735ed"
+    },
+    {
+      "path": "lab/out/sys-cluster-row-research-20261006/execution-pin.json",
+      "bytes": 735,
+      "sha256": "2d5e5605b03fc0be5b6f3d5f53370f18c72272fc379467b4720bf2219cff2479"
+    },
+    {
+      "path": "lab/out/sys-cluster-row-research-20261006/independent-sys-layout-history.command.json",
+      "bytes": 90,
+      "sha256": "6095ca5a9605c02acb9b77ba5ea4d19487ab938e2e51045704dedb495bc394d5"
+    },
+    {
+      "path": "lab/out/sys-cluster-row-research-20261006/independent-sys-layout-history.execution-pin.json",
+      "bytes": 142,
+      "sha256": "736f5881edbd25a6d9bad01205d624fceaca4393f2e51b1f4027f50958e3d62d"
+    },
+    {
+      "path": "lab/out/sys-cluster-row-research-20261006/independent-sys-layout-history.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/sys-cluster-row-research-20261006/independent-sys-layout-history.sql",
+      "bytes": 1882,
+      "sha256": "1f1ce6016ceca5788204a2730544cadf3a5b7504620ef74286373809ea396b67"
+    },
+    {
+      "path": "lab/out/sys-cluster-row-research-20261006/independent-sys-layout-history.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/sys-cluster-row-research-20261006/independent-sys-layout-history.stdout.txt",
+      "bytes": 5589,
+      "sha256": "7c246c7c79cd97a20635f5595065030c18366cfa79a184aded2f54e28b677f48"
+    },
+    {
+      "path": "lab/out/sys-cluster-row-research-20261006/native-selected-records.txt",
+      "bytes": 16264,
+      "sha256": "5364053a9a2b436823a1adacc828e4114676a6ed4a4483d7a6c685862c9f29ee"
+    },
+    {
+      "path": "lab/out/sys-cluster-row-research-20261006/raw-66-10.18.2272.command.json",
+      "bytes": 384,
+      "sha256": "e0957801d9f20dc561b10f1332de8a61bec50eedf1d9d746e0a77e9b55b0450b"
+    },
+    {
+      "path": "lab/out/sys-cluster-row-research-20261006/raw-66-10.18.2272.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/sys-cluster-row-research-20261006/raw-66-10.18.2272.stderr.txt",
+      "bytes": 65,
+      "sha256": "2077a3ee8d702ecfec5c464c64d1c43423f25f47c14a931c63eac5d986e55f05"
+    },
+    {
+      "path": "lab/out/sys-cluster-row-research-20261006/raw-66-10.18.2272.stdout.txt",
+      "bytes": 4729,
+      "sha256": "6e65ae38e66b486ef8db60811af753a88d184a1933e58a59cdca485ee0369f91"
+    },
+    {
+      "path": "lab/out/sys-cluster-row-research-20261006/raw-66-3.30.705.command.json",
+      "bytes": 382,
+      "sha256": "7878158034cea77f0824aa8175f83d7a809c4e90239fb759835d7a65422f3503"
+    },
+    {
+      "path": "lab/out/sys-cluster-row-research-20261006/raw-66-3.30.705.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/sys-cluster-row-research-20261006/raw-66-3.30.705.stderr.txt",
+      "bytes": 65,
+      "sha256": "a9c260dc2a4fa67d854084943094a1f4bebf85845242aafafacbc03f45e0d6a6"
+    },
+    {
+      "path": "lab/out/sys-cluster-row-research-20261006/raw-66-3.30.705.stdout.txt",
+      "bytes": 5926,
+      "sha256": "8d3131ba5f3ddb197d7d28db05843a9a9f598dcdcaa9e1a85e846ed5d5b9ea03"
+    },
+    {
+      "path": "lab/out/sys-cluster-row-research-20261006/raw-67-3.26.705.command.json",
+      "bytes": 382,
+      "sha256": "a9ab68b54c8081d879b0c85feed2fd0909c1a94fa226eafa017561e53fd6dcbf"
+    },
+    {
+      "path": "lab/out/sys-cluster-row-research-20261006/raw-67-3.26.705.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/sys-cluster-row-research-20261006/raw-67-3.26.705.stderr.txt",
+      "bytes": 65,
+      "sha256": "a9c260dc2a4fa67d854084943094a1f4bebf85845242aafafacbc03f45e0d6a6"
+    },
+    {
+      "path": "lab/out/sys-cluster-row-research-20261006/raw-67-3.26.705.stdout.txt",
+      "bytes": 4652,
+      "sha256": "e9c79d6f1e9f0f4f2b269dfd2f568f3f0c4cc8314c34d1d276312cf2c8489a41"
+    },
+    {
+      "path": "lab/out/sys-cluster-row-research-20261006/raw-records.json",
+      "bytes": 25263,
+      "sha256": "d6a9917e919d406ba43572e74835107fe8f135f02d8b8763fdd6255a589f0d3b"
+    },
+    {
+      "path": "lab/out/sys-cluster-row-research-20261006/row-shapes.json",
+      "bytes": 29541,
+      "sha256": "c107dd998de660aa68434c32a68362d5dd3ded6a7f8929e4912ffb54a2ae5310"
+    },
+    {
+      "path": "lab/out/sys-cluster-row-candidate-20261006/classes/ClusterRowsProbe.class",
+      "bytes": 9141,
+      "sha256": "cb5867f3cef14d41bf250cf030a23f4a8233ec358f14c645c0b8b7a8a02a840d"
+    },
+    {
+      "path": "lab/out/sys-cluster-row-candidate-20261006/committed-ClusterRowsProbe.java",
+      "bytes": 3214,
+      "sha256": "dd91a6ac2c28483556ae5f3a1520bf2deb479d1307243d7ee569dc9f271251d0"
+    },
+    {
+      "path": "lab/out/sys-cluster-row-candidate-20261006/committed-research_sys_cluster_rows19.py",
+      "bytes": 4887,
+      "sha256": "1415c27b82f5da8e907d209de6125525a40c1109b08bf1ae57e023a9b5d735ed"
+    },
+    {
+      "path": "lab/out/sys-cluster-row-candidate-20261006/committed-verify_cluster_row_candidate19.py",
+      "bytes": 6087,
+      "sha256": "f39985992e83bbeb122ac1b1f852c4bfec2ab4182bbbac72270926fbc5499e60"
+    },
+    {
+      "path": "lab/out/sys-cluster-row-candidate-20261006/executed-driver.py",
+      "bytes": 6104,
+      "sha256": "37d2e1567502d445aa36f53cc7ef583ea8e36dddf12e856321c943a6dd7f1334"
+    },
+    {
+      "path": "lab/out/sys-cluster-row-candidate-20261006/execution-pin.json",
+      "bytes": 1188,
+      "sha256": "4d68fea1fb5bbb9c22095b27b186d4ac0053921a914d1eba76a3dc33b564641e"
+    },
+    {
+      "path": "lab/out/sys-cluster-row-candidate-20261006/full-build-r1.log",
+      "bytes": 10648,
+      "sha256": "f9b5eb71b395967665630239d44346fc5583474b3709187e639e0e49dc2ffa41"
+    },
+    {
+      "path": "lab/out/sys-cluster-row-candidate-20261006/full-build-r1.rc.txt",
+      "bytes": 3,
+      "sha256": "13bf7b3039c63bf5a50491fa3cfd8eb4e699d1ba1436315aef9cbe5711530354"
+    },
+    {
+      "path": "lab/out/sys-cluster-row-candidate-20261006/kernel.jar",
+      "bytes": 207217,
+      "sha256": "9288afbcbd0e53999ed38631121078731e8fd265fb350f26960f998b9ef24557"
+    },
+    {
+      "path": "lab/out/sys-cluster-row-candidate-20261006/probe-compile-r1.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/sys-cluster-row-candidate-20261006/probe-compile-r1.rc.txt",
+      "bytes": 3,
+      "sha256": "13bf7b3039c63bf5a50491fa3cfd8eb4e699d1ba1436315aef9cbe5711530354"
+    },
+    {
+      "path": "lab/out/sys-cluster-row-candidate-20261006/proof.json",
+      "bytes": 51824,
+      "sha256": "a3a88cff89447e5cdb0dbb2398869b984521663662ef7896c94403c2bdba4aa6"
+    },
+    {
+      "path": "lab/out/sys-cluster-row-candidate-20261006/rows-66-10.18.2272.command.json",
+      "bytes": 572,
+      "sha256": "e05a1f1e1ee8651d3d87df73ccc5f76dce1b86a4bc45dacf06650badd521d9c5"
+    },
+    {
+      "path": "lab/out/sys-cluster-row-candidate-20261006/rows-66-10.18.2272.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/sys-cluster-row-candidate-20261006/rows-66-10.18.2272.stderr.txt",
+      "bytes": 73,
+      "sha256": "2e63dfc1932cdfdfc8f00671651233dead3fe9bb40e67377909d084219cda293"
+    },
+    {
+      "path": "lab/out/sys-cluster-row-candidate-20261006/rows-66-10.18.2272.stdout.txt",
+      "bytes": 3295,
+      "sha256": "e87e7f6f6b1c02b1b9effc85767623041bc884f3211f4b7782e5330157c07c56"
+    },
+    {
+      "path": "lab/out/sys-cluster-row-candidate-20261006/rows-66-3.30.705.command.json",
+      "bytes": 570,
+      "sha256": "01d68245bb9964cec4965872f046c9bdd523c2f951782eadf610ea77005d626a"
+    },
+    {
+      "path": "lab/out/sys-cluster-row-candidate-20261006/rows-66-3.30.705.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/sys-cluster-row-candidate-20261006/rows-66-3.30.705.stderr.txt",
+      "bytes": 73,
+      "sha256": "2e63dfc1932cdfdfc8f00671651233dead3fe9bb40e67377909d084219cda293"
+    },
+    {
+      "path": "lab/out/sys-cluster-row-candidate-20261006/rows-66-3.30.705.stdout.txt",
+      "bytes": 6180,
+      "sha256": "61de473f92651ecba16ef8f15a294b2bc108fe9d119dc63b42e94dec5656ba43"
+    },
+    {
+      "path": "lab/out/sys-cluster-row-candidate-20261006/rows-67-3.26.705.command.json",
+      "bytes": 570,
+      "sha256": "0ed9e3ee2725afafbbdbf85049e4bf8e46a0226e0ca57166e692351899da8055"
+    },
+    {
+      "path": "lab/out/sys-cluster-row-candidate-20261006/rows-67-3.26.705.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/sys-cluster-row-candidate-20261006/rows-67-3.26.705.stderr.txt",
+      "bytes": 73,
+      "sha256": "2e63dfc1932cdfdfc8f00671651233dead3fe9bb40e67377909d084219cda293"
+    },
+    {
+      "path": "lab/out/sys-cluster-row-candidate-20261006/rows-67-3.26.705.stdout.txt",
+      "bytes": 3253,
+      "sha256": "5cb5aee6876a801bd8f07fc243786052a6f7bbaf98018d761861cd7be6a31d4a"
+    },
+    {
+      "path": "lab/out/sys-cluster-row-candidate-20261006/targeted-r1.log",
+      "bytes": 2109,
+      "sha256": "9b6f2ed04c0f8e861f25347002be202e597078166ca2da82f26dcf05c65d185c"
+    },
+    {
+      "path": "lab/out/sys-cluster-row-candidate-20261006/targeted-r1.rc.txt",
+      "bytes": 3,
+      "sha256": "13bf7b3039c63bf5a50491fa3cfd8eb4e699d1ba1436315aef9cbe5711530354"
+    },
+    {
+      "path": "lab/out/sys-cluster-row-candidate-20261006/TEST-com.streamhouse.oracle.ArchivedCompensationAssociationsTest.xml",
+      "bytes": 11101,
+      "sha256": "d644b5e71b6e3f39fafabe47392ec25a4f611bec7836c7880269e4a60d048405"
+    },
+    {
+      "path": "lab/out/sys-cluster-row-candidate-20261006/TEST-com.streamhouse.oracle.ArchivedCompensationInventoryTest.xml",
+      "bytes": 10720,
+      "sha256": "042d887dc1ded2587a954c74fa5a83c0faccaa8196b03d7b2ce4599db7bfb7c7"
+    },
+    {
+      "path": "lab/out/sys-cluster-row-candidate-20261006/TEST-com.streamhouse.oracle.ArchivedHeapRowsTest.xml",
+      "bytes": 10664,
+      "sha256": "50f701650a714b36fc83cf27b705dbffbef8a91bd74bf1e35ff982dbc04433b9"
+    },
+    {
+      "path": "lab/out/sys-cluster-row-candidate-20261006/TEST-com.streamhouse.oracle.ArchivedIndexLeafInventoryTest.xml",
+      "bytes": 10858,
+      "sha256": "cec8b798a76528fc198782974698d045ba05a83943c020d72be9d6b48dad1365"
+    },
+    {
+      "path": "lab/out/sys-cluster-row-candidate-20261006/TEST-com.streamhouse.oracle.ArchivedObjectTransactionsTest.xml",
+      "bytes": 10701,
+      "sha256": "7028ead63b91de2c57ab1b24d0efa015e301cdd65755732d9fc68580f9fb0e3f"
+    },
+    {
+      "path": "lab/out/sys-cluster-row-candidate-20261006/TEST-com.streamhouse.oracle.ArchivedPhysicalTransactionsTest.xml",
+      "bytes": 11489,
+      "sha256": "d6d115b08d604112c9ac4a4847cf7d7c7d6e9cd2d44f697b732e38ebdd6dd76e"
+    },
+    {
+      "path": "lab/out/sys-cluster-row-candidate-20261006/TEST-com.streamhouse.oracle.ArchivedRedoTest.xml",
+      "bytes": 11192,
+      "sha256": "16a13554b275541f3a7f909b443ea460705ff738acba9843daa78bb39b017c94"
+    },
+    {
+      "path": "lab/out/sys-cluster-row-candidate-20261006/TEST-com.streamhouse.oracle.ArchivedUndoInventoryTest.xml",
+      "bytes": 10504,
+      "sha256": "062722837f1927512f14db4ab258ee384719a1feb690fbd0b2a8e54a4f12b4fb"
+    },
+    {
+      "path": "lab/out/sys-cluster-row-candidate-20261006/TEST-com.streamhouse.oracle.BeginCompensationTest.xml",
+      "bytes": 10611,
+      "sha256": "c854e9cfae9832659e12e40831d27142e0261723ec744057290211239fada1dc"
+    },
+    {
+      "path": "lab/out/sys-cluster-row-candidate-20261006/TEST-com.streamhouse.oracle.CapturedHeapBatchTest.xml",
+      "bytes": 10541,
+      "sha256": "1c02663796c27a7c72ce8fa6bfd34e35095c05fad65d015c0f3d84f91d167ff2"
+    },
+    {
+      "path": "lab/out/sys-cluster-row-candidate-20261006/TEST-com.streamhouse.oracle.CaptureJournalTest.xml",
+      "bytes": 10454,
+      "sha256": "2ea7beaf603015c32c10b4f9acb4fae39a4c5520ebd16a9263eadfafefcb6bf7"
+    },
+    {
+      "path": "lab/out/sys-cluster-row-candidate-20261006/TEST-com.streamhouse.oracle.ClusterRowPatchTest.xml",
+      "bytes": 10248,
+      "sha256": "bb0d116eac58ad84df0d63ce17bbaae2ac876ec4e39eacbeab5fe47e1e8966b3"
+    },
+    {
+      "path": "lab/out/sys-cluster-row-candidate-20261006/TEST-com.streamhouse.oracle.CrossCompensationTest.xml",
+      "bytes": 10607,
+      "sha256": "6f16b89f821369e9585e2787c830481c2fc776e011685b58d26244fbf617bb0d"
+    },
+    {
+      "path": "lab/out/sys-cluster-row-candidate-20261006/TEST-com.streamhouse.oracle.EmptyHeapCleanoutTest.xml",
+      "bytes": 10085,
+      "sha256": "418216aaeb43b07d9ff961b77b660164a4db052cae6663b634c65ef630acae3f"
+    },
+    {
+      "path": "lab/out/sys-cluster-row-candidate-20261006/TEST-com.streamhouse.oracle.FrozenHeapBaselineTest.xml",
+      "bytes": 10715,
+      "sha256": "901d5a40fd59347ae4a73a10a7b3edccac30bbef6f36d01fe45e70d985cd7914"
+    },
+    {
+      "path": "lab/out/sys-cluster-row-candidate-20261006/TEST-com.streamhouse.oracle.HeapCleanoutCTest.xml",
+      "bytes": 10175,
+      "sha256": "ecad3b9a2a4ea01e528caa3da76e965380344c10a29b7e75e96b56a8f663d690"
+    },
+    {
+      "path": "lab/out/sys-cluster-row-candidate-20261006/TEST-com.streamhouse.oracle.HeapCompensationTest.xml",
+      "bytes": 10874,
+      "sha256": "1149c8f23ee2009476499d65144c26ef9101259fa3577eff545deb414caf5bbf"
+    },
+    {
+      "path": "lab/out/sys-cluster-row-candidate-20261006/TEST-com.streamhouse.oracle.HeapIndexScopeTest.xml",
+      "bytes": 10375,
+      "sha256": "2cf70fed16e8e4df5849f3d089f9a20556051b35a578edac2580909cb22d68ef"
+    },
+    {
+      "path": "lab/out/sys-cluster-row-candidate-20261006/TEST-com.streamhouse.oracle.HeapLockTest.xml",
+      "bytes": 10044,
+      "sha256": "c85042eb6a44d83844e6d3ddd3fcb2f667192e7d5dee8a71b965517723511905"
+    },
+    {
+      "path": "lab/out/sys-cluster-row-candidate-20261006/TEST-com.streamhouse.oracle.HeapRowPatchTest.xml",
+      "bytes": 10650,
+      "sha256": "7e0dd69e9506ecd4830606565680bb4a1a382ed8bc1b9c2ff63dd847b732b3eb"
+    },
+    {
+      "path": "lab/out/sys-cluster-row-candidate-20261006/TEST-com.streamhouse.oracle.HeapTailExtentTest.xml",
+      "bytes": 10759,
+      "sha256": "36e0e04da609485b2be2b38aba9acc60254d2d459e3717e128d94af5912f407e"
+    },
+    {
+      "path": "lab/out/sys-cluster-row-candidate-20261006/TEST-com.streamhouse.oracle.HeapUndoPairTest.xml",
+      "bytes": 10568,
+      "sha256": "b377a331549f2aab37130bf757b1213033ea46643483ba2f170041f1804d40b4"
+    },
+    {
+      "path": "lab/out/sys-cluster-row-candidate-20261006/TEST-com.streamhouse.oracle.HistoricalSchemaBarrierTest.xml",
+      "bytes": 11450,
+      "sha256": "8c34543048f0af37872de45ef7d8013ce7a4e521339a3f5e9978919ac0bddebe"
+    },
+    {
+      "path": "lab/out/sys-cluster-row-candidate-20261006/TEST-com.streamhouse.oracle.IndexCompensationTest.xml",
+      "bytes": 10495,
+      "sha256": "754308ac9dc6446a03b512367310144c4def28ceb7f3e5f7aa1b76b5813c030d"
+    },
+    {
+      "path": "lab/out/sys-cluster-row-candidate-20261006/TEST-com.streamhouse.oracle.IndexLeafPositionsTest.xml",
+      "bytes": 11188,
+      "sha256": "d0cb5455dbc5165f2c03f7b01b4f75dd356d005ba14e923cf02b844a583081fd"
+    },
+    {
+      "path": "lab/out/sys-cluster-row-candidate-20261006/TEST-com.streamhouse.oracle.IndexPositionReplayTest.xml",
+      "bytes": 10434,
+      "sha256": "16a4da8a9e95de97767d5c2be835f7d923f7254fad3f950bf4769efcb07241cb"
+    },
+    {
+      "path": "lab/out/sys-cluster-row-candidate-20261006/TEST-com.streamhouse.oracle.IndexRestoreCompensationTest.xml",
+      "bytes": 10655,
+      "sha256": "c7f013f5e64a51f6d807bf8f81b49db59984ed597750e7e80f81cbf3a4cb58ba"
+    },
+    {
+      "path": "lab/out/sys-cluster-row-candidate-20261006/TEST-com.streamhouse.oracle.IndexUndoPairTest.xml",
+      "bytes": 10940,
+      "sha256": "51bd981fa7306acea8a013b1d5b43872c80c829b38449e4540d41eb74b93e5ae"
+    },
+    {
+      "path": "lab/out/sys-cluster-row-candidate-20261006/TEST-com.streamhouse.oracle.Kdom2MarkerThreeTest.xml",
+      "bytes": 10057,
+      "sha256": "bd3d87f05809e2dc16594791ba9bba898b23ee1873427d7f5b3cc0f76ea80592"
+    },
+    {
+      "path": "lab/out/sys-cluster-row-candidate-20261006/TEST-com.streamhouse.oracle.Kdom2UpdateTest.xml",
+      "bytes": 11098,
+      "sha256": "943b1412bb04f52ed3c0141de8e4488b550672d1a5385603d1e39d198f082185"
+    },
+    {
+      "path": "lab/out/sys-cluster-row-candidate-20261006/TEST-com.streamhouse.oracle.KtbZInsertTest.xml",
+      "bytes": 10180,
+      "sha256": "1c4cbadbd64d0bf5d2277a8b27945551487b04e5056e7202a3d4f58c898ae2ba"
+    },
+    {
+      "path": "lab/out/sys-cluster-row-candidate-20261006/TEST-com.streamhouse.oracle.KtbZRollbackTest.xml",
+      "bytes": 11232,
+      "sha256": "d7682e0d78b0f30b2a7f14b7d6b2a1d7020942a484ae1d56e7cff3d573f6d725"
+    },
+    {
+      "path": "lab/out/sys-cluster-row-candidate-20261006/TEST-com.streamhouse.oracle.OracleScalarsTest.xml",
+      "bytes": 10391,
+      "sha256": "cdeb3865a5ca2f374b3189757b757326b6f62cc22dc7c404b4275c1d100b5c26"
+    },
+    {
+      "path": "lab/out/sys-cluster-row-candidate-20261006/TEST-com.streamhouse.oracle.SingleEntryBlockCleanoutTest.xml",
+      "bytes": 10095,
+      "sha256": "2a3e86d2c2316be1b8b9a4360e4c115df6f50eee2952967093b67742254daa5a"
+    },
+    {
+      "path": "lab/out/sys-cluster-row-candidate-20261006/TEST-com.streamhouse.oracle.TransactionLifecycleTest.xml",
+      "bytes": 11695,
+      "sha256": "5516cce7edbe890795caa871e0eb8102588375f48d368a7ce702cc9b3c23a12b"
+    },
+    {
+      "path": "lab/out/sys-cluster-row-candidate-20261006/TEST-com.streamhouse.oracle.TransactionMarkersTest.xml",
+      "bytes": 11187,
+      "sha256": "a07cbf93413ef67dc78b4e789540ac8b97d0212391f9be551b7771a7158795b3"
+    },
+    {
+      "path": "lab/out/sys-cluster-row-candidate-20261006/TEST-com.streamhouse.oracle.TransactionStartTest.xml",
+      "bytes": 10840,
+      "sha256": "684cc5729e49ad6875b9add88d7ca0d94e70822a4afa95beb4035a3b002ece70"
+    },
+    {
+      "path": "lab/out/sys-cluster-row-candidate-20261006/TEST-com.streamhouse.oracle.UndoBlockAdvanceTest.xml",
+      "bytes": 10463,
+      "sha256": "e4169ea507beab03a9cdd20660ac5341c0185e24858838d3e738ae129788bf19"
+    },
+    {
+      "path": "lab/out/sys-cluster-row-candidate-20261006/TEST-com.streamhouse.oracle.UndoChainTest.xml",
+      "bytes": 10572,
+      "sha256": "c3bc461d29157b08f05f6c03c8a2ad90e91197c7f027ac10c923d5e449efca2f"
+    },
+    {
+      "path": "lab/out/sys-cluster-row-candidate-20261006/TEST-com.streamhouse.oracle.UndoControlRootTest.xml",
+      "bytes": 10353,
+      "sha256": "21195fc58e6362aef56b55e9061686eeae4bf6435193c2d93a4d5f564a91d2be"
+    },
+    {
+      "path": "lab/out/sys-cluster-row-candidate-20261006/TEST-com.streamhouse.oracle.UndoHeaderTest.xml",
+      "bytes": 10147,
+      "sha256": "aac37deaae51426b19cd17f18c9adad7e1957273ed03c8b3376be0f54ff927d3"
+    },
+    {
+      "path": "lab/out/sys-cluster-row-candidate-20261006/TEST-com.streamhouse.oracle.UndoHeadUpdateTest.xml",
+      "bytes": 10617,
+      "sha256": "b3a8daacf619ffa2fbd0bd5d7b862bd3739c5bafb637a79a0b13304305476593"
+    },
+    {
+      "path": "lab/out/sys-cluster-row-candidate-20261006/TEST-com.streamhouse.oracle.UndoHistoryTest.xml",
+      "bytes": 11044,
+      "sha256": "ab3e889f17a82de4b2cf8be7d77ae5ca50f463b275563f07fe49659cba25bb68"
+    },
+    {
+      "path": "lab/out/sys-cluster-row-candidate-20261006/TEST-com.streamhouse.oracle.UndoRowPatchTest.xml",
+      "bytes": 10425,
+      "sha256": "385ff6f04ea5c0b6f543c82190e67821bd32bdf9c4de9174a434fb7e5cae8eb5"
+    }
+  ]
+}

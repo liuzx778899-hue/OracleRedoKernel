@@ -1,5 +1,7 @@
 # OracleRedoKernel 当前状态
 
+最新：[SYS clustered行片候选](DELIVERY_W5_CLUSTER_ROW_PATCH_20261006.md)：0bd5005/kernel9288afbc/278、验证5da1b55；仅新增2class、旧94class字节不变。TAB$ tab1/COL$ tab5窄profile与普通heap分开；冻结16 forward/inverse片段98native列字节/NULL零差异、两提交SCN新slot51选定24DUMP值一致及DROP消失，尾四ABSENT不补NULL。专属source只读查layout见ACDRRESCOL物理14/内部37、DEFAULT相反；parent/index generation/正逆pair/完整SYS像和历史schema未授权。98双SHA/旧173未变、0源变更/目标动作，产品仍efd068f/737无新HTTP；接续CLUSTER_PARENT_PAIR可信索引/布局与新baseline后历史正功能，原goal active，跨窗/采集/独立目标/评审现场发布未过，Codex最后查。
+
 最新：[SYS非行控制/行链根候选](DELIVERY_W5_SYS_CONTROL_ROOT_20261006.md)：内核70c1a12/kernel5fb55de7/275、lab6e8ac66；flags51 obj0 begin5.7与唯一flags2首行根严格绑定，分配控制和行链分开、不造33→32边。冻结三SYS事务22节点/native原始前驱、三完整控制窗口/end SCN/tail零差异；非行10原始=1控制+9live行节点。九合法checksum raw scan0/history1/stdout0，原/擦marker actual V2仍历史拒绝。173双SHA、旧34/146未变、0源/目标动作，产品efd068f/737仍旧候选无新HTTP。接续SYS_ROW_HISTORY正功能/间接列依赖，完整历史/跨窗/采集/独立目标/评审现场发布未完成，goal active，Codex最后查。
 
 最新：[SYS非行begin/首COL$控制原始证据](RESEARCH_W5_SYS_BEGIN_CONTROL_20261006.md)：lab6404423，冻结seq66十5.1节点及三begin/head/end控制字段与native零差异，tail...:41对应末分配节点。flags51 obj0 begin5.7→flags2首COL$ rci0没有显式33→32边；首cluster LKR逆向ITL属旧XID10.18.2272，前向属3.30.705，tabn5/to2不能套普通heap锁。无生产/源/目标动作，不重跑271/737；原失败和比较器修复保全，上一146未变。下一步typed非行控制/首行根完整绑定与反例，再SYS行/SCN历史正功能；仅字段研究，不当图闭合/历史DML/现场发布，原goal active，Codex最后查。
