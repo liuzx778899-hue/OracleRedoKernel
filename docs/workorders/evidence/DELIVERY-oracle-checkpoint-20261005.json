@@ -1,0 +1,623 @@
+{
+  "runtime_commit": "ec3b4306ce088b93fedc5794b4ffb57f225a2306",
+  "lab_source_commit": "deabf27690c929463b1735043313a6a824ce491d",
+  "runtime_source_unchanged_after_build": true,
+  "executed_source_lf_normalized_equal_archive": true,
+  "sha256_checked_twice": true,
+  "prior_raw_and_driver_manifest": "docs/workorders/evidence/DELIVERY-oracle-target-20261005.json",
+  "prior_kernel_window_manifest": "docs/workorders/evidence/DELIVERY-oracle-window-20261005.json",
+  "build": {
+    "runtime_commit": "ec3b4306ce088b93fedc5794b4ffb57f225a2306",
+    "kernel_sha256": "ea9f58c629d39fb1a1c15dddd72b74322581a641c8fb6fa252fad43bc4e39d51",
+    "spi_sha256": "93e451fe6c16c665cbdc5b5471a9879cd0a01ec7699a5d9666068dc14c2f8523",
+    "adapter_sha256": "6f06247e400a0a802cb395a224f983fcf4c600a8a7991293cc804e374edbab86",
+    "adapter_tests": {
+      "tests": 15,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "kernel_tests_rerun": false,
+    "target_driver_changed": false,
+    "checkpoint_sigkill_accepted": false
+  },
+  "actual_recovery": {
+    "actual_linux_checkpoint": true,
+    "actual_oracle_receipt_validation": true,
+    "old_prefix_frontier_remains_sequence": 42,
+    "complete_pending_restored_and_retained": true,
+    "stale_prefix_recovered_from_all_registered_target_commits": true,
+    "file_refusals": 4,
+    "refusal_success_output": 0,
+    "refusal_owned_files_preserved": true,
+    "target_dml": 0,
+    "target_snapshot_unchanged": true,
+    "kernel_tests_rerun": false,
+    "source_dml": 0,
+    "checkpoint_sigkill_accepted": false,
+    "new_dml_then_checkpoint_accepted": false,
+    "retention_accepted": false
+  },
+  "files": [
+    {
+      "path": "lab/build_oracle_checkpoint.py",
+      "bytes": 2101,
+      "sha256": "f7b4ed6bb058e038ba7d75fda902d9b46663de454bab0f99294ad462fb031a54"
+    },
+    {
+      "path": "lab/OracleCheckpointProbe.java",
+      "bytes": 1285,
+      "sha256": "553275ea6c74eb7eeccfd673fa4b1296f3a98399ad0c451d75c9542767a5dcad"
+    },
+    {
+      "path": "lab/out/oracle-checkpoint-20261005/adapter.jar",
+      "bytes": 36882,
+      "sha256": "6f06247e400a0a802cb395a224f983fcf4c600a8a7991293cc804e374edbab86"
+    },
+    {
+      "path": "lab/out/oracle-checkpoint-20261005/bad-checkpoint/86cd8a04438d7c82eb97b5e32dcb86c37b45fbd42c6cd33ab7b94416b69b9b31.ack",
+      "bytes": 185,
+      "sha256": "d4fe198ca76412d6575a7f82698a09226cbe0dc9dc467ea7f2ac5b4d1c958c8c"
+    },
+    {
+      "path": "lab/out/oracle-checkpoint-20261005/bad-checkpoint/b6658e92d88d4a910a5a4b4870189b6ba8fa4d30873ff715f08e35dd3d15aeb8.ack",
+      "bytes": 185,
+      "sha256": "6eecfd0635774b1a123d9ced680efefeb798c84759e000948e479988c1060ae8"
+    },
+    {
+      "path": "lab/out/oracle-checkpoint-20261005/bad-checkpoint/checkpoint",
+      "bytes": 1183,
+      "sha256": "78a84abe52337a356b27a97a6e65c70eb681a47b89365218deb05abf96b72aa8"
+    },
+    {
+      "path": "lab/out/oracle-checkpoint-20261005/bad-checkpoint/consumer.lock",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle-checkpoint-20261005/bad-checkpoint.command.json",
+      "bytes": 1079,
+      "sha256": "b8850d0641005be63ce054385b8fc55e361d28c68666af8a9359961e5f6adcd8"
+    },
+    {
+      "path": "lab/out/oracle-checkpoint-20261005/bad-checkpoint.rc.txt",
+      "bytes": 1,
+      "sha256": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b"
+    },
+    {
+      "path": "lab/out/oracle-checkpoint-20261005/bad-checkpoint.stderr.txt",
+      "bytes": 353,
+      "sha256": "a914be5509815ab3ae80154696be80ec91aa769f12fb509c5f13d840c1e7ec88"
+    },
+    {
+      "path": "lab/out/oracle-checkpoint-20261005/bad-checkpoint.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle-checkpoint-20261005/classes/OracleCheckpointProbe.class",
+      "bytes": 4373,
+      "sha256": "2fbe5174ae1f3fb85fe7ea539d507202c2df3747424decc3e11b1547cee21106"
+    },
+    {
+      "path": "lab/out/oracle-checkpoint-20261005/compile-probe.command.json",
+      "bytes": 581,
+      "sha256": "34b0eff56ebd9900cb5cdb75190a5b716f2ccd57ad97255ec7a87f2cf188b66e"
+    },
+    {
+      "path": "lab/out/oracle-checkpoint-20261005/compile-probe.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/oracle-checkpoint-20261005/compile-probe.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle-checkpoint-20261005/compile-probe.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle-checkpoint-20261005/complete-pending/86cd8a04438d7c82eb97b5e32dcb86c37b45fbd42c6cd33ab7b94416b69b9b31.ack",
+      "bytes": 185,
+      "sha256": "d4fe198ca76412d6575a7f82698a09226cbe0dc9dc467ea7f2ac5b4d1c958c8c"
+    },
+    {
+      "path": "lab/out/oracle-checkpoint-20261005/complete-pending/b6658e92d88d4a910a5a4b4870189b6ba8fa4d30873ff715f08e35dd3d15aeb8.ack",
+      "bytes": 185,
+      "sha256": "6eecfd0635774b1a123d9ced680efefeb798c84759e000948e479988c1060ae8"
+    },
+    {
+      "path": "lab/out/oracle-checkpoint-20261005/complete-pending/checkpoint",
+      "bytes": 1183,
+      "sha256": "128694df21cef018b5b440c7bcdd4a8938a529f425f46774130ef9c5639f44a7"
+    },
+    {
+      "path": "lab/out/oracle-checkpoint-20261005/complete-pending/checkpoint.tmp.retained-d8b0e1cd-2445-41db-9a80-6259b455c21b",
+      "bytes": 1183,
+      "sha256": "128694df21cef018b5b440c7bcdd4a8938a529f425f46774130ef9c5639f44a7"
+    },
+    {
+      "path": "lab/out/oracle-checkpoint-20261005/complete-pending/consumer.lock",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle-checkpoint-20261005/complete-pending.command.json",
+      "bytes": 1081,
+      "sha256": "34b1dd098a8b4d776fdfc3d40c173534bec2a316466b533e8a283fc04ec9fabe"
+    },
+    {
+      "path": "lab/out/oracle-checkpoint-20261005/complete-pending.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/oracle-checkpoint-20261005/complete-pending.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle-checkpoint-20261005/complete-pending.stdout.txt",
+      "bytes": 26,
+      "sha256": "e6df4b66f0f9f2e7f3594b3eb255f312c4807d2cf0eebe7b23f11fb60438ac38"
+    },
+    {
+      "path": "lab/out/oracle-checkpoint-20261005/executed-source/build_oracle_checkpoint.py",
+      "bytes": 2101,
+      "sha256": "f7b4ed6bb058e038ba7d75fda902d9b46663de454bab0f99294ad462fb031a54"
+    },
+    {
+      "path": "lab/out/oracle-checkpoint-20261005/executed-source/OracleCheckpointProbe.java",
+      "bytes": 1285,
+      "sha256": "553275ea6c74eb7eeccfd673fa4b1296f3a98399ad0c451d75c9542767a5dcad"
+    },
+    {
+      "path": "lab/out/oracle-checkpoint-20261005/executed-source/verify_oracle_checkpoint19.py",
+      "bytes": 6607,
+      "sha256": "aa617f2f3a0432b313ce6aa7e2ba4e5d37e1ae779e046d60586f7b2f7410ed0e"
+    },
+    {
+      "path": "lab/out/oracle-checkpoint-20261005/helpers-exited.command.json",
+      "bytes": 87,
+      "sha256": "8e2b78db0a3923983264d3141649720f4b6dead70daf15693cbd4aa84a48dfcc"
+    },
+    {
+      "path": "lab/out/oracle-checkpoint-20261005/helpers-exited.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/oracle-checkpoint-20261005/helpers-exited.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle-checkpoint-20261005/helpers-exited.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle-checkpoint-20261005/kernel.jar",
+      "bytes": 188826,
+      "sha256": "ea9f58c629d39fb1a1c15dddd72b74322581a641c8fb6fa252fad43bc4e39d51"
+    },
+    {
+      "path": "lab/out/oracle-checkpoint-20261005/lab-source-tree.zip",
+      "bytes": 2543906,
+      "sha256": "5b580841102d5787e964ee006b43bc4f399ed850c9a1559f284f852fe3da3e2e"
+    },
+    {
+      "path": "lab/out/oracle-checkpoint-20261005/lgwr.command.json",
+      "bytes": 72,
+      "sha256": "5d77e97a9d24b8b78fa660b1f56aef6da8907f54d94e4f2f71a1439fe005529b"
+    },
+    {
+      "path": "lab/out/oracle-checkpoint-20261005/lgwr.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/oracle-checkpoint-20261005/lgwr.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle-checkpoint-20261005/lgwr.stdout.txt",
+      "bytes": 15,
+      "sha256": "5a63875a5c70e29cc03476c9d138c821b04e46ee91792c9808cb46ab10595b3a"
+    },
+    {
+      "path": "lab/out/oracle-checkpoint-20261005/no-existing-helper.command.json",
+      "bytes": 87,
+      "sha256": "8e2b78db0a3923983264d3141649720f4b6dead70daf15693cbd4aa84a48dfcc"
+    },
+    {
+      "path": "lab/out/oracle-checkpoint-20261005/no-existing-helper.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/oracle-checkpoint-20261005/no-existing-helper.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle-checkpoint-20261005/no-existing-helper.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle-checkpoint-20261005/normal/86cd8a04438d7c82eb97b5e32dcb86c37b45fbd42c6cd33ab7b94416b69b9b31.ack",
+      "bytes": 185,
+      "sha256": "d4fe198ca76412d6575a7f82698a09226cbe0dc9dc467ea7f2ac5b4d1c958c8c"
+    },
+    {
+      "path": "lab/out/oracle-checkpoint-20261005/normal/b6658e92d88d4a910a5a4b4870189b6ba8fa4d30873ff715f08e35dd3d15aeb8.ack",
+      "bytes": 185,
+      "sha256": "6eecfd0635774b1a123d9ced680efefeb798c84759e000948e479988c1060ae8"
+    },
+    {
+      "path": "lab/out/oracle-checkpoint-20261005/normal/checkpoint",
+      "bytes": 1183,
+      "sha256": "128694df21cef018b5b440c7bcdd4a8938a529f425f46774130ef9c5639f44a7"
+    },
+    {
+      "path": "lab/out/oracle-checkpoint-20261005/normal/consumer.lock",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle-checkpoint-20261005/normal.command.json",
+      "bytes": 1071,
+      "sha256": "d65a7cd105ea5a795ae7e332c150466fc45235c0cfe59d2addde7e3b38c732ee"
+    },
+    {
+      "path": "lab/out/oracle-checkpoint-20261005/normal.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/oracle-checkpoint-20261005/normal.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle-checkpoint-20261005/normal.stdout.txt",
+      "bytes": 26,
+      "sha256": "e6df4b66f0f9f2e7f3594b3eb255f312c4807d2cf0eebe7b23f11fb60438ac38"
+    },
+    {
+      "path": "lab/out/oracle-checkpoint-20261005/old-prefix-no-retreat.command.json",
+      "bytes": 1071,
+      "sha256": "4c547896b6e9922a9acb146ecf650e78d5f3ccdb8bd0f8f528114d7ea454e2d5"
+    },
+    {
+      "path": "lab/out/oracle-checkpoint-20261005/old-prefix-no-retreat.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/oracle-checkpoint-20261005/old-prefix-no-retreat.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle-checkpoint-20261005/old-prefix-no-retreat.stdout.txt",
+      "bytes": 26,
+      "sha256": "e6df4b66f0f9f2e7f3594b3eb255f312c4807d2cf0eebe7b23f11fb60438ac38"
+    },
+    {
+      "path": "lab/out/oracle-checkpoint-20261005/owner.command.json",
+      "bytes": 107,
+      "sha256": "6cc60bfdc53919bf5068bdcbf30ec5c8b4e38feaebc9cbc53db9992eff5a6357"
+    },
+    {
+      "path": "lab/out/oracle-checkpoint-20261005/owner.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/oracle-checkpoint-20261005/owner.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle-checkpoint-20261005/owner.stdout.txt",
+      "bytes": 25,
+      "sha256": "0a713b1fc68700ddfe68d6757c3a323c2b2a06f3c595b5513399d6b6771b1823"
+    },
+    {
+      "path": "lab/out/oracle-checkpoint-20261005/partial-pending/checkpoint.tmp",
+      "bytes": 100,
+      "sha256": "c13984e8c357c52c515d4b9d77efb9b360e82f13c6dc9464038d8c56c606a4a5"
+    },
+    {
+      "path": "lab/out/oracle-checkpoint-20261005/partial-pending/consumer.lock",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle-checkpoint-20261005/partial-pending.command.json",
+      "bytes": 1080,
+      "sha256": "c6c5d59a2ff16001e801b294d1976e7d90d80fbde15d3796f054ac1c48223fd6"
+    },
+    {
+      "path": "lab/out/oracle-checkpoint-20261005/partial-pending.rc.txt",
+      "bytes": 1,
+      "sha256": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b"
+    },
+    {
+      "path": "lab/out/oracle-checkpoint-20261005/partial-pending.stderr.txt",
+      "bytes": 352,
+      "sha256": "bbd19096d90968fd2365edd2b1641dc90f8993dbd290224486a366592a76d44f"
+    },
+    {
+      "path": "lab/out/oracle-checkpoint-20261005/partial-pending.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle-checkpoint-20261005/proof.json",
+      "bytes": 578,
+      "sha256": "ea4dcfd417354da6ada89c2fb0bb723bb463fe3dc438ac8feab38e6471a0426c"
+    },
+    {
+      "path": "lab/out/oracle-checkpoint-20261005/spi.jar",
+      "bytes": 13901,
+      "sha256": "93e451fe6c16c665cbdc5b5471a9879cd0a01ec7699a5d9666068dc14c2f8523"
+    },
+    {
+      "path": "lab/out/oracle-checkpoint-20261005/stale-prefix/86cd8a04438d7c82eb97b5e32dcb86c37b45fbd42c6cd33ab7b94416b69b9b31.ack",
+      "bytes": 185,
+      "sha256": "d4fe198ca76412d6575a7f82698a09226cbe0dc9dc467ea7f2ac5b4d1c958c8c"
+    },
+    {
+      "path": "lab/out/oracle-checkpoint-20261005/stale-prefix/b6658e92d88d4a910a5a4b4870189b6ba8fa4d30873ff715f08e35dd3d15aeb8.ack",
+      "bytes": 185,
+      "sha256": "6eecfd0635774b1a123d9ced680efefeb798c84759e000948e479988c1060ae8"
+    },
+    {
+      "path": "lab/out/oracle-checkpoint-20261005/stale-prefix/checkpoint",
+      "bytes": 1183,
+      "sha256": "128694df21cef018b5b440c7bcdd4a8938a529f425f46774130ef9c5639f44a7"
+    },
+    {
+      "path": "lab/out/oracle-checkpoint-20261005/stale-prefix/consumer.lock",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle-checkpoint-20261005/stale-prefix.command.json",
+      "bytes": 1077,
+      "sha256": "e43c42a738723fd66c124d7c922c1711422b6c1d3e2e7460c7b33b6846da9690"
+    },
+    {
+      "path": "lab/out/oracle-checkpoint-20261005/stale-prefix.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/oracle-checkpoint-20261005/stale-prefix.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle-checkpoint-20261005/stale-prefix.stdout.txt",
+      "bytes": 26,
+      "sha256": "e6df4b66f0f9f2e7f3594b3eb255f312c4807d2cf0eebe7b23f11fb60438ac38"
+    },
+    {
+      "path": "lab/out/oracle-checkpoint-20261005/target-after.command.json",
+      "bytes": 90,
+      "sha256": "6095ca5a9605c02acb9b77ba5ea4d19487ab938e2e51045704dedb495bc394d5"
+    },
+    {
+      "path": "lab/out/oracle-checkpoint-20261005/target-after.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/oracle-checkpoint-20261005/target-after.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle-checkpoint-20261005/target-after.stdout.txt",
+      "bytes": 2080,
+      "sha256": "0d7bd9dddc7fa2b9754745e90d1b074d202ea50044b741fa51a58a4471bc8e7d"
+    },
+    {
+      "path": "lab/out/oracle-checkpoint-20261005/target-before.command.json",
+      "bytes": 90,
+      "sha256": "6095ca5a9605c02acb9b77ba5ea4d19487ab938e2e51045704dedb495bc394d5"
+    },
+    {
+      "path": "lab/out/oracle-checkpoint-20261005/target-before.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/oracle-checkpoint-20261005/target-before.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle-checkpoint-20261005/target-before.stdout.txt",
+      "bytes": 2080,
+      "sha256": "0d7bd9dddc7fa2b9754745e90d1b074d202ea50044b741fa51a58a4471bc8e7d"
+    },
+    {
+      "path": "lab/out/oracle-checkpoint-20261005/unknown-ack/0000000000000000000000000000000000000000000000000000000000000000.ack",
+      "bytes": 185,
+      "sha256": "6eecfd0635774b1a123d9ced680efefeb798c84759e000948e479988c1060ae8"
+    },
+    {
+      "path": "lab/out/oracle-checkpoint-20261005/unknown-ack/86cd8a04438d7c82eb97b5e32dcb86c37b45fbd42c6cd33ab7b94416b69b9b31.ack",
+      "bytes": 185,
+      "sha256": "d4fe198ca76412d6575a7f82698a09226cbe0dc9dc467ea7f2ac5b4d1c958c8c"
+    },
+    {
+      "path": "lab/out/oracle-checkpoint-20261005/unknown-ack/b6658e92d88d4a910a5a4b4870189b6ba8fa4d30873ff715f08e35dd3d15aeb8.ack",
+      "bytes": 185,
+      "sha256": "6eecfd0635774b1a123d9ced680efefeb798c84759e000948e479988c1060ae8"
+    },
+    {
+      "path": "lab/out/oracle-checkpoint-20261005/unknown-ack/checkpoint",
+      "bytes": 1183,
+      "sha256": "128694df21cef018b5b440c7bcdd4a8938a529f425f46774130ef9c5639f44a7"
+    },
+    {
+      "path": "lab/out/oracle-checkpoint-20261005/unknown-ack/consumer.lock",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle-checkpoint-20261005/unknown-ack.command.json",
+      "bytes": 1076,
+      "sha256": "d59cff0897d5277785bfc7f30c440c8d55380a2aa56f4a9faff32df6a668b108"
+    },
+    {
+      "path": "lab/out/oracle-checkpoint-20261005/unknown-ack.rc.txt",
+      "bytes": 1,
+      "sha256": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b"
+    },
+    {
+      "path": "lab/out/oracle-checkpoint-20261005/unknown-ack.stderr.txt",
+      "bytes": 246,
+      "sha256": "62fe3a53f4ce034511a9f9bb0b3107889512d95383162f6bbd72acaf9c924e9c"
+    },
+    {
+      "path": "lab/out/oracle-checkpoint-20261005/unknown-ack.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle-checkpoint-20261005/wrong-ack/86cd8a04438d7c82eb97b5e32dcb86c37b45fbd42c6cd33ab7b94416b69b9b31.ack",
+      "bytes": 185,
+      "sha256": "d4fe198ca76412d6575a7f82698a09226cbe0dc9dc467ea7f2ac5b4d1c958c8c"
+    },
+    {
+      "path": "lab/out/oracle-checkpoint-20261005/wrong-ack/b6658e92d88d4a910a5a4b4870189b6ba8fa4d30873ff715f08e35dd3d15aeb8.ack",
+      "bytes": 185,
+      "sha256": "4c76be9ba5a1e783150fd3e28e965e8cc9e7f8caa37fd7a7df8e10ff39cc42fa"
+    },
+    {
+      "path": "lab/out/oracle-checkpoint-20261005/wrong-ack/checkpoint",
+      "bytes": 1183,
+      "sha256": "128694df21cef018b5b440c7bcdd4a8938a529f425f46774130ef9c5639f44a7"
+    },
+    {
+      "path": "lab/out/oracle-checkpoint-20261005/wrong-ack/consumer.lock",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle-checkpoint-20261005/wrong-ack.command.json",
+      "bytes": 1074,
+      "sha256": "cde7f902d481ef3c43017a07c2502b63c75c5149c67f5f73dee11d2ee4273d05"
+    },
+    {
+      "path": "lab/out/oracle-checkpoint-20261005/wrong-ack.rc.txt",
+      "bytes": 1,
+      "sha256": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b"
+    },
+    {
+      "path": "lab/out/oracle-checkpoint-20261005/wrong-ack.stderr.txt",
+      "bytes": 241,
+      "sha256": "75e3ccf18e4cdf7c801fbc08b0425e5cc043ee5c0644a0a52f8b0721fe7b801e"
+    },
+    {
+      "path": "lab/out/oracle-checkpoint-20261005/wrong-ack.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/release-oracle-checkpoint-20261005/adapter.jar",
+      "bytes": 36882,
+      "sha256": "6f06247e400a0a802cb395a224f983fcf4c600a8a7991293cc804e374edbab86"
+    },
+    {
+      "path": "lab/out/release-oracle-checkpoint-20261005/build.command.json",
+      "bytes": 304,
+      "sha256": "183dac8ca496f226565d8ce4935a1b9018e6e849fbf77463f22f6429033bb1fc"
+    },
+    {
+      "path": "lab/out/release-oracle-checkpoint-20261005/build.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/release-oracle-checkpoint-20261005/build.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/release-oracle-checkpoint-20261005/build.stdout.txt",
+      "bytes": 3366,
+      "sha256": "be49aa425ab525d92b7150276ecdf80133dc5de359482407d6730915e7be13ea"
+    },
+    {
+      "path": "lab/out/release-oracle-checkpoint-20261005/kernel.jar",
+      "bytes": 188826,
+      "sha256": "ea9f58c629d39fb1a1c15dddd72b74322581a641c8fb6fa252fad43bc4e39d51"
+    },
+    {
+      "path": "lab/out/release-oracle-checkpoint-20261005/proof.json",
+      "bytes": 540,
+      "sha256": "ca5efe010402f77b3233ae3af5dee4b00eb2eafc910f6f5652930b7f344f9f54"
+    },
+    {
+      "path": "lab/out/release-oracle-checkpoint-20261005/source-tree.zip",
+      "bytes": 2539184,
+      "sha256": "40995d46de8cc9bc35bda2220812f8fbcd990a4bdbaafbe4009bf1d7f822cfbf"
+    },
+    {
+      "path": "lab/out/release-oracle-checkpoint-20261005/spi.jar",
+      "bytes": 13901,
+      "sha256": "93e451fe6c16c665cbdc5b5471a9879cd0a01ec7699a5d9666068dc14c2f8523"
+    },
+    {
+      "path": "lab/out/release-oracle-checkpoint-20261005/tests/2026-10-05T10-29-22_224.dumpstream",
+      "bytes": 355,
+      "sha256": "f705596e3d8357bf6d7012a5f72a45f0d706011bc5e9b03c6a592af613fd3d7d"
+    },
+    {
+      "path": "lab/out/release-oracle-checkpoint-20261005/tests/com.streamhouse.engines.oracle.OracleBatchProjectionTest.txt",
+      "bytes": 366,
+      "sha256": "0ec4cdc01b6a1b77db48622514dceb3ff5f373543a43cee90ba523485ac076cb"
+    },
+    {
+      "path": "lab/out/release-oracle-checkpoint-20261005/tests/com.streamhouse.engines.oracle.OracleConsumerCheckpointTest.txt",
+      "bytes": 372,
+      "sha256": "5264cdb4aeaf80bcc2a318e64c442399b8632ab0497e004625a1d97469986988"
+    },
+    {
+      "path": "lab/out/release-oracle-checkpoint-20261005/tests/com.streamhouse.engines.oracle.OracleConsumptionWindowTest.txt",
+      "bytes": 370,
+      "sha256": "0fcafa0258430dcef34a2cd2009f722591843db97167579bb7afebab59e534ad"
+    },
+    {
+      "path": "lab/out/release-oracle-checkpoint-20261005/tests/TEST-com.streamhouse.engines.oracle.OracleBatchProjectionTest.xml",
+      "bytes": 12193,
+      "sha256": "658dff1f62829704372442f05610a34a73b7f9dfa919e3173eee90d29e255515"
+    },
+    {
+      "path": "lab/out/release-oracle-checkpoint-20261005/tests/TEST-com.streamhouse.engines.oracle.OracleConsumerCheckpointTest.xml",
+      "bytes": 12074,
+      "sha256": "1b0f285db58c825b5527d8c2248e00e4f958743a6d6316bfad4340048fb21aee"
+    },
+    {
+      "path": "lab/out/release-oracle-checkpoint-20261005/tests/TEST-com.streamhouse.engines.oracle.OracleConsumptionWindowTest.xml",
+      "bytes": 12323,
+      "sha256": "9154ab1bc31b0ea0ab30eb7fd3a14e2a0ddb5bce1d907d6c1a508849e6961cd0"
+    },
+    {
+      "path": "lab/verify_oracle_checkpoint19.py",
+      "bytes": 6607,
+      "sha256": "aa617f2f3a0432b313ce6aa7e2ba4e5d37e1ae779e046d60586f7b2f7410ed0e"
+    }
+  ]
+}
