@@ -22,6 +22,7 @@ public final class ArchivedPhysicalTransactions {
         final List<ArchivedUndoInventory.Position> markers=new ArrayList<>();
         final List<Operation> operations=new ArrayList<>();
         Transaction result;
+        boolean coveredByBaseline;
         long segment;
         int next;
         Context(ArchivedObjectTransactions.Transaction discovered,IndexLeafPositions positions) {
@@ -42,6 +43,19 @@ public final class ArchivedPhysicalTransactions {
         return read(RedoBatch.captures(captures),uid,container,scope,leaf,columns);
     }
     static Result read(RedoBatch paths,long uid,long container,HeapIndexScope scope,long leaf,int columns) throws IOException {
+        return read(paths,uid,container,scope,leaf,columns,null);
+    }
+    static Result readVerifiedBaseline(RedoBatch paths,Path snapshotPath,String trustedAcquisitionSha256,long leaf) throws IOException {
+        var snapshot=FrozenHeapBaseline.read(snapshotPath,trustedAcquisitionSha256);
+        for (var path:paths) snapshot.requireSource(path.header());
+        if (paths.isEmpty() || snapshot.scn()<paths.get(0).header().firstScn()
+                || snapshot.scn()>=paths.get(paths.size()-1).header().nextScn())
+            throw new RedoException("BASELINE_SCN_OUTSIDE_INPUT_COVERAGE");
+        var scope=new HeapIndexScope(new HeapIndexScope.Generation(snapshot.heap().logicalObject(),snapshot.heap().dataObject()),
+                new HeapIndexScope.Generation(snapshot.index().logicalObject(),snapshot.index().dataObject()));
+        return read(paths,snapshot.source().containerUid(),snapshot.source().containerId(),scope,leaf,snapshot.columns().size(),snapshot);
+    }
+    private static Result read(RedoBatch paths,long uid,long container,HeapIndexScope scope,long leaf,int columns,FrozenHeapBaseline.Snapshot snapshot) throws IOException {
         if (columns<=0) throw new RedoException("INVALID_PHYSICAL_TRANSACTION_SCOPE");
         long heapObject=scope.heap().dataObject(),indexObject=scope.index().dataObject();
         var found=ArchivedObjectTransactions.read(paths,uid,container,scope);
@@ -158,8 +172,15 @@ public final class ArchivedPhysicalTransactions {
                 }
                 for (var v:r.vectors()) if (v.containerId()==container && v.opcodeMajor()==5 && v.opcodeMinor()==4 && state.knowsEnd(r,v)) {
                     var end=state.end(r,v);var c=owners.get(end.xid());
-                    if (c==null || c.result!=null) throw new RedoException("PHYSICAL_END_OWNER_CHANGED_OR_REPEATED");
+                    if (c==null || c.result!=null || c.coveredByBaseline) throw new RedoException("PHYSICAL_END_OWNER_CHANGED_OR_REPEATED");
                     c.discovered.associations().window().requireCompleteSelection(c.markers);
+                    // Keep all contexts and foreign routes until their raw lifecycle closes. The verified
+                    // acquisition already covers old values; it does not authorize any post-baseline graph.
+                    if (snapshot!=null && end.endRecordScn()<=snapshot.scn()) {
+                        c.coveredByBaseline=true;continue;
+                    }
+                    if (snapshot!=null && end.beginRecordScn()<=snapshot.scn())
+                        throw new RedoException("BASELINE_CROSSES_TRANSACTION_BOUNDARY");
                     var result=end.rolledBack() ? c.graph.closeRollback(end) : c.graph.close(TransactionEnd.undoTail(v));
                     c.result=new Transaction(end,List.copyOf(c.operations),result);
                 }
@@ -169,10 +190,10 @@ public final class ArchivedPhysicalTransactions {
         state.finish();
         for (var c:contexts) {
             c.discovered.associations().finish();
-            if (c.result==null || c.next!=c.discovered.associations().window().undo().entries().size()) throw new RedoException("PHYSICAL_TRANSACTION_COVERAGE_INCOMPLETE");
+            if ((c.result==null && !c.coveredByBaseline) || c.next!=c.discovered.associations().window().undo().entries().size()) throw new RedoException("PHYSICAL_TRANSACTION_COVERAGE_INCOMPLETE");
         }
         for (int i=0;i<paths.size();i++) requireSource(found,i,paths.get(i).header());
-        return new Result(found.sources(),contexts.stream().map(c->c.result).toList());
+        return new Result(found.sources(),contexts.stream().filter(c->!c.coveredByBaseline).map(c->c.result).toList());
     }
     private static boolean heap(RedoRecords.Vector v) {return v.opcodeMajor()==11 && (v.opcodeMinor()==2 || v.opcodeMinor()==3 || v.opcodeMinor()==4 || v.opcodeMinor()==5);}
     private static ArchivedUndoInventory.Position position(ArchivedRedo.Header h,RedoRecords.Record r,int i) {return new ArchivedUndoInventory.Position(h.sequence(),r.block(),r.offset(),i+1);}

@@ -43,20 +43,27 @@ public final class ArchivedHeapRows {
         var snapshot=FrozenHeapBaseline.read(snapshotPath,trustedAcquisitionSha256);
         var scope=new HeapIndexScope(new HeapIndexScope.Generation(snapshot.heap().logicalObject(),snapshot.heap().dataObject()),
                 new HeapIndexScope.Generation(snapshot.index().logicalObject(),snapshot.index().dataObject()));
-        return read(RedoBatch.archives(paths),new Baseline(snapshot.source(),snapshot.scn(),snapshot.heap().logicalObject(),snapshot.columns().size(),snapshot.rows()),scope,leaf);
+        var inputs=RedoBatch.archives(paths);
+        return read(inputs,new Baseline(snapshot.source(),snapshot.scn(),snapshot.heap().logicalObject(),snapshot.columns().size(),snapshot.rows()),scope,leaf,
+                ArchivedPhysicalTransactions.readVerifiedBaseline(inputs,snapshotPath,trustedAcquisitionSha256,leaf));
     }
     public static Result readCaptured(List<CaptureJournal.Verified> captures,Path snapshotPath,String trustedAcquisitionSha256,long leaf) throws IOException {
         var snapshot=FrozenHeapBaseline.read(snapshotPath,trustedAcquisitionSha256);
         var scope=new HeapIndexScope(new HeapIndexScope.Generation(snapshot.heap().logicalObject(),snapshot.heap().dataObject()),
                 new HeapIndexScope.Generation(snapshot.index().logicalObject(),snapshot.index().dataObject()));
-        return read(RedoBatch.captures(captures),new Baseline(snapshot.source(),snapshot.scn(),snapshot.heap().logicalObject(),snapshot.columns().size(),snapshot.rows()),scope,leaf);
+        var inputs=RedoBatch.captures(captures);
+        return read(inputs,new Baseline(snapshot.source(),snapshot.scn(),snapshot.heap().logicalObject(),snapshot.columns().size(),snapshot.rows()),scope,leaf,
+                ArchivedPhysicalTransactions.readVerifiedBaseline(inputs,snapshotPath,trustedAcquisitionSha256,leaf));
     }
     private static Result read(RedoBatch paths,Baseline baseline,HeapIndexScope scope,long leaf) throws IOException {
+        var source=baseline.source();
+        return read(paths,baseline,scope,leaf,ArchivedPhysicalTransactions.read(paths,source.containerUid(),source.containerId(),scope,leaf,baseline.columns()));
+    }
+    private static Result read(RedoBatch paths,Baseline baseline,HeapIndexScope scope,long leaf,ArchivedPhysicalTransactions.Result physical) throws IOException {
         if (baseline.columns()<1 || baseline.columns()>255 || baseline.rows().entrySet().stream().anyMatch(e->
                 e.getKey().dataObjectId()!=scope.heap().dataObject() || e.getKey().dba()<=0 || e.getKey().slot()<0 || e.getValue().size()!=baseline.columns()))
             throw new RedoException("BASELINE_ROW_SCOPE_OR_COLUMNS_MISMATCH");
         var source=baseline.source();
-        var physical=ArchivedPhysicalTransactions.read(paths,source.containerUid(),source.containerId(),scope,leaf,baseline.columns());
         for (var h:physical.sources()) if (!source.equals(Source.of(h,source.containerUid(),source.containerId())))
             throw new RedoException("BASELINE_SOURCE_IDENTITY_MISMATCH");
         if (baseline.scn()<physical.sources().get(0).firstScn() || baseline.scn()>=physical.sources().get(physical.sources().size()-1).nextScn())

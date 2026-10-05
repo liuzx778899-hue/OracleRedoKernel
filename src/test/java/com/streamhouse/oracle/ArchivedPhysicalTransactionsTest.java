@@ -68,4 +68,35 @@ class ArchivedPhysicalTransactionsTest {
         f.records.record(raw,3,120,entries);seal(raw,1536);
         assertEquals("UNSUPPORTED_INDEX_FORWARD_OPCODE",assertThrows(RedoException.class,()->read(raw,leaf,677737149)).getMessage());
     }
+    ArchivedPhysicalTransactions.Result verified(byte[] raw,long scn) throws Exception {
+        put(raw,512+52,1,4);put(raw,512+160,1,4);put(raw,512+164,1,4);seal(raw,512);
+        var path=dir.resolve("verified-archive.dbf");Files.write(path,raw);var h=new ArchivedRedo().scan(path);
+        String text=new FrozenHeapBaselineTest().sample()
+                .replace("SOURCE|1276726821|1276717861|1245693159|1920977|1|19.0.0",
+                        "SOURCE|"+h.dbid()+"|"+h.activationId()+"|"+h.resetlogsId()+"|"+h.resetlogsScn()+"|1|19.0.0")
+                .replace("SOURCE_AFTER|1276726821|1276717861|1245693159|1920977|1|19.0.0",
+                        "SOURCE_AFTER|"+h.dbid()+"|"+h.activationId()+"|"+h.resetlogsId()+"|"+h.resetlogsScn()+"|1|19.0.0")
+                .replace("2341293",Long.toString(scn)).replace("73073","73024").replace("73076","73024")
+                .replace("73074","73025").replace("73075","73025");
+        var snapshot=dir.resolve("snapshot.txt");Files.writeString(snapshot,text);
+        return ArchivedPhysicalTransactions.readVerifiedBaseline(RedoBatch.archives(List.of(path)),snapshot,
+                new FrozenHeapBaselineTest().digest(text),leaf);
+    }
+    byte[] noTailFixture() {
+        var raw=fixture();var e=f.end(b,0x02400120L);put(e.fields().get(0),16,0,4);
+        f.records.record(raw,4,130,List.of(e));seal(raw,2048);return raw;
+    }
+    @Test void verifiedBaselineCoversOldNoTailButGenericAndLaterSelectionRefuse() throws Exception {
+        assertTrue(verified(noTailFixture(),150).transactions().isEmpty());
+        assertEquals("TRANSACTION_END_HAS_NO_UNDO_TAIL_REFERENCE",assertThrows(RedoException.class,
+                ()->read(noTailFixture(),leaf,677737149)).getMessage());
+        assertEquals("TRANSACTION_END_HAS_NO_UNDO_TAIL_REFERENCE",assertThrows(RedoException.class,
+                ()->verified(noTailFixture(),105)).getMessage());
+    }
+    @Test void baselineCannotHideCrossingOrMissingOldLifecycleEnd() {
+        assertEquals("BASELINE_CROSSES_TRANSACTION_BOUNDARY",assertThrows(RedoException.class,
+                ()->verified(noTailFixture(),125)).getMessage());
+        var raw=noTailFixture();f.records.record(raw,4,130,List.of());seal(raw,2048);
+        assertThrows(RedoException.class,()->verified(raw,150));
+    }
 }

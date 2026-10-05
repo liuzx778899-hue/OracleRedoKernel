@@ -47,10 +47,7 @@ public final class CapturedHeapBatch {
                                          String trustedAcquisitionSha256,long leaf) throws IOException {
         var inputs=List.copyOf(captures);
         var snapshot=FrozenHeapBaseline.read(snapshotPath,trustedAcquisitionSha256);
-        var scope=new HeapIndexScope(new HeapIndexScope.Generation(snapshot.heap().logicalObject(),snapshot.heap().dataObject()),
-                new HeapIndexScope.Generation(snapshot.index().logicalObject(),snapshot.index().dataObject()));
-        var physical=ArchivedPhysicalTransactions.readCaptured(inputs,snapshot.source().containerUid(),
-                snapshot.source().containerId(),scope,leaf,snapshot.columns().size());
+        var physical=ArchivedPhysicalTransactions.readVerifiedBaseline(RedoBatch.captures(inputs),snapshotPath,trustedAcquisitionSha256,leaf);
         var rows=ArchivedHeapRows.readCaptured(inputs,snapshotPath,trustedAcquisitionSha256,leaf);
         if (!physical.sources().equals(rows.sources())) throw new RedoException("CAPTURED_BATCH_SOURCE_CHANGED");
         var owners=new HashMap<ArchivedUndoInventory.Position,TransactionLifecycle.ClosedIdentity>();
