@@ -1,5 +1,7 @@
 # OracleRedoKernel 当前状态
 
+最新：[V2身份五实库反例/SYS清单缺口](DELIVERY_W5_V2_IDENTITY_SYS_INVENTORY_20261006.md)：driver5cd9f82复用672/efd068f，无生产改动/不重跑271/737。authority/账SCN/metadata source/role/anchor五实际GET拒绝且逐项恢复全字段/基线SHA精确一致，target/control/source审计不变，helper exited143。seq66/67三SYS XID native22节点：两笔6+6清单零差异，3.30.705十节点因obj0 begin5.7后首COL$ rci0被现有普通门禁拒绝/零输出，原失败保全。146双SHA/旧334未变；仅身份负例/两清单，不当完整SYS图或历史通过，接续SYS_BEGIN_CONTROL派单。原goal active，历史/跨窗/采集/独立目标/评审现场发布未完成，Codex最后查。
+
 最新：[V2历史原始/擦标记产品拒绝](DELIVERY_W5_V2_HISTORICAL_PRODUCT_20261006.md)：同件efd068f/737/application2db7106f不重构；actual V2获取100644812901937152/SCN2522819六anchors/列/基线零差异，新seq66/67 ADD/DROP两源事务闭合禁止重放，capture/归档零差异。原始/DERIVED擦三24.x均按SYS写入拒绝；实际HTTP首次/擦除/重启三拒绝准确reason，target/ledger/CP/ACK0推进。native六锚点写/四COL$位置关联零差异、三比较反例检出，334双SHA/旧446未变，异步snapshot/修复root失败保留，helper exited143。仅安全拒绝，身份实库反例矩阵/完整SYS历史/间接链待补；接续V2_IDENTITY_DICTIONARY_HISTORY，原完整goal active，评审现场发布未过，Codex卡顿最后查。
 
 最新：[V2新raw实际产品提交/重启](DELIVERY_W5_V2_DML_PRODUCT_RUNTIME_20261006.md)：产品efd068f/737通过、文档b2a754d/草稿PR#13待评审，实际V2 SCN2517052六锚点/列/基线值独立零差异。新672候选实际HTTP错authority目标前REFUSED/event0，恢复同task DONE/三完整IUD→目标commit→controlCP→持久ACK全字段独立一致；重复及同件重启核验字节不变。446非secret双SHA/旧197未变、安装参数失败保全；helper exited143、源事务不重放。仅有限静态DML产品链，历史/跨窗/正式采集/独立目标/现场发布仍待证，接续V2_HISTORICAL_PRODUCT派单，goal active。用户要求Codex卡顿排查放到整个Oracle目标完成后。
