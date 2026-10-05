@@ -1,0 +1,1504 @@
+{
+  "runtime_commit": "ec3b4306ce088b93fedc5794b4ffb57f225a2306",
+  "lab_commit": "2f36394f915e611c76f3626a9b4f1a03d446eb15",
+  "production_sources_unchanged": true,
+  "executed_source_lf_normalized_equal_archive": true,
+  "sha256_checked_twice": true,
+  "prior_artifact_and_healthy_target_manifest": "docs/workorders/evidence/DELIVERY-oracle-checkpoint-crash-20261005.json",
+  "proof": {
+    "published_state_input_refusals": 5,
+    "published_state_actual_target_refusals": 6,
+    "success_output_on_refusal": 0,
+    "checkpoint_ack_and_evidence_files_preserved": true,
+    "consumer_did_not_repair_target_damage": true,
+    "target_control_rows_restored": true,
+    "recovery_new_business_dml": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "final_targets_healthy": 2,
+    "new_business_source_dml": 0,
+    "new_business_target_dml": 0,
+    "controlled_target_metadata_faults": 6,
+    "production_code_changed": false,
+    "kill_rounds_rerun": false,
+    "retention_accepted": false,
+    "product_pipeline_accepted": false
+  },
+  "files": [
+    {
+      "path": "lab/OracleCheckpointRegistryProbe.java",
+      "bytes": 1443,
+      "sha256": "cc8c650f9f1b6bc35415ac5dd54e5c71af01bd842675e121601dd9fe69fd00b7"
+    },
+    {
+      "path": "lab/out/oracle-checkpoint-refusals-20261005/adapter.jar",
+      "bytes": 36882,
+      "sha256": "6f06247e400a0a802cb395a224f983fcf4c600a8a7991293cc804e374edbab86"
+    },
+    {
+      "path": "lab/out/oracle-checkpoint-refusals-20261005/classes/OracleCheckpointRegistryProbe.class",
+      "bytes": 4533,
+      "sha256": "74fa2119eb3cef6b194d7e2ecaf8a3ba3d103574a0ead6b0b9e3abcf5807a103"
+    },
+    {
+      "path": "lab/out/oracle-checkpoint-refusals-20261005/commit-count-conflict-damaged-after.command.json",
+      "bytes": 90,
+      "sha256": "6095ca5a9605c02acb9b77ba5ea4d19487ab938e2e51045704dedb495bc394d5"
+    },
+    {
+      "path": "lab/out/oracle-checkpoint-refusals-20261005/commit-count-conflict-damaged-after.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/oracle-checkpoint-refusals-20261005/commit-count-conflict-damaged-after.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle-checkpoint-refusals-20261005/commit-count-conflict-damaged-after.stdout.txt",
+      "bytes": 1767,
+      "sha256": "be1fd58ec8ab8a4647bc858859a8ec708386005b3c73d5fc1c000cc9b1e6e924"
+    },
+    {
+      "path": "lab/out/oracle-checkpoint-refusals-20261005/commit-count-conflict-damaged-before.command.json",
+      "bytes": 90,
+      "sha256": "6095ca5a9605c02acb9b77ba5ea4d19487ab938e2e51045704dedb495bc394d5"
+    },
+    {
+      "path": "lab/out/oracle-checkpoint-refusals-20261005/commit-count-conflict-damaged-before.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/oracle-checkpoint-refusals-20261005/commit-count-conflict-damaged-before.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle-checkpoint-refusals-20261005/commit-count-conflict-damaged-before.stdout.txt",
+      "bytes": 1767,
+      "sha256": "be1fd58ec8ab8a4647bc858859a8ec708386005b3c73d5fc1c000cc9b1e6e924"
+    },
+    {
+      "path": "lab/out/oracle-checkpoint-refusals-20261005/commit-count-conflict-inject.command.json",
+      "bytes": 90,
+      "sha256": "6095ca5a9605c02acb9b77ba5ea4d19487ab938e2e51045704dedb495bc394d5"
+    },
+    {
+      "path": "lab/out/oracle-checkpoint-refusals-20261005/commit-count-conflict-inject.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/oracle-checkpoint-refusals-20261005/commit-count-conflict-inject.sql",
+      "bytes": 424,
+      "sha256": "14e9f3cb7f14ead8b2879a3080c7b700ebdfcaa3deb2a1981e63db3b84d03185"
+    },
+    {
+      "path": "lab/out/oracle-checkpoint-refusals-20261005/commit-count-conflict-inject.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle-checkpoint-refusals-20261005/commit-count-conflict-inject.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle-checkpoint-refusals-20261005/commit-count-conflict-recover.command.json",
+      "bytes": 1111,
+      "sha256": "47bbefaf555fa85d19463bbd9059b511de4763613729af8a67a0c68168947292"
+    },
+    {
+      "path": "lab/out/oracle-checkpoint-refusals-20261005/commit-count-conflict-recover.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/oracle-checkpoint-refusals-20261005/commit-count-conflict-recover.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle-checkpoint-refusals-20261005/commit-count-conflict-recover.stdout.txt",
+      "bytes": 16,
+      "sha256": "a8d83c839977b9a95b40c3e891a6a697a62d207e9d3ef38dea04716531558e26"
+    },
+    {
+      "path": "lab/out/oracle-checkpoint-refusals-20261005/commit-count-conflict-recovered.command.json",
+      "bytes": 90,
+      "sha256": "6095ca5a9605c02acb9b77ba5ea4d19487ab938e2e51045704dedb495bc394d5"
+    },
+    {
+      "path": "lab/out/oracle-checkpoint-refusals-20261005/commit-count-conflict-recovered.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/oracle-checkpoint-refusals-20261005/commit-count-conflict-recovered.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle-checkpoint-refusals-20261005/commit-count-conflict-recovered.stdout.txt",
+      "bytes": 1767,
+      "sha256": "d0496d66a530710c3bc131da3a1fc0738729e904d5830fb96d463aec4ea0cf76"
+    },
+    {
+      "path": "lab/out/oracle-checkpoint-refusals-20261005/commit-count-conflict-restore.command.json",
+      "bytes": 90,
+      "sha256": "6095ca5a9605c02acb9b77ba5ea4d19487ab938e2e51045704dedb495bc394d5"
+    },
+    {
+      "path": "lab/out/oracle-checkpoint-refusals-20261005/commit-count-conflict-restore.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/oracle-checkpoint-refusals-20261005/commit-count-conflict-restore.sql",
+      "bytes": 424,
+      "sha256": "cc961ce101ca22fc1857168524d1ae17b00518c66cc6cb9d5e84064dcfcfcc04"
+    },
+    {
+      "path": "lab/out/oracle-checkpoint-refusals-20261005/commit-count-conflict-restore.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle-checkpoint-refusals-20261005/commit-count-conflict-restore.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle-checkpoint-refusals-20261005/commit-count-conflict-restored.command.json",
+      "bytes": 90,
+      "sha256": "6095ca5a9605c02acb9b77ba5ea4d19487ab938e2e51045704dedb495bc394d5"
+    },
+    {
+      "path": "lab/out/oracle-checkpoint-refusals-20261005/commit-count-conflict-restored.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/oracle-checkpoint-refusals-20261005/commit-count-conflict-restored.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle-checkpoint-refusals-20261005/commit-count-conflict-restored.stdout.txt",
+      "bytes": 1767,
+      "sha256": "d0496d66a530710c3bc131da3a1fc0738729e904d5830fb96d463aec4ea0cf76"
+    },
+    {
+      "path": "lab/out/oracle-checkpoint-refusals-20261005/commit-count-conflict.command.json",
+      "bytes": 1111,
+      "sha256": "47bbefaf555fa85d19463bbd9059b511de4763613729af8a67a0c68168947292"
+    },
+    {
+      "path": "lab/out/oracle-checkpoint-refusals-20261005/commit-count-conflict.rc.txt",
+      "bytes": 1,
+      "sha256": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b"
+    },
+    {
+      "path": "lab/out/oracle-checkpoint-refusals-20261005/commit-count-conflict.stderr.txt",
+      "bytes": 358,
+      "sha256": "9c5285b5278dddfe959678d9f7bb958cc10ccc38cdf701f4940f8e8fbd4450a4"
+    },
+    {
+      "path": "lab/out/oracle-checkpoint-refusals-20261005/commit-count-conflict.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle-checkpoint-refusals-20261005/commit-missing-damaged-after.command.json",
+      "bytes": 90,
+      "sha256": "6095ca5a9605c02acb9b77ba5ea4d19487ab938e2e51045704dedb495bc394d5"
+    },
+    {
+      "path": "lab/out/oracle-checkpoint-refusals-20261005/commit-missing-damaged-after.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/oracle-checkpoint-refusals-20261005/commit-missing-damaged-after.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle-checkpoint-refusals-20261005/commit-missing-damaged-after.stdout.txt",
+      "bytes": 1594,
+      "sha256": "4c3b07ea99f961a64257bb842d34a7829d447022cc9478f915d1cce159393652"
+    },
+    {
+      "path": "lab/out/oracle-checkpoint-refusals-20261005/commit-missing-damaged-before.command.json",
+      "bytes": 90,
+      "sha256": "6095ca5a9605c02acb9b77ba5ea4d19487ab938e2e51045704dedb495bc394d5"
+    },
+    {
+      "path": "lab/out/oracle-checkpoint-refusals-20261005/commit-missing-damaged-before.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/oracle-checkpoint-refusals-20261005/commit-missing-damaged-before.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle-checkpoint-refusals-20261005/commit-missing-damaged-before.stdout.txt",
+      "bytes": 1594,
+      "sha256": "4c3b07ea99f961a64257bb842d34a7829d447022cc9478f915d1cce159393652"
+    },
+    {
+      "path": "lab/out/oracle-checkpoint-refusals-20261005/commit-missing-inject.command.json",
+      "bytes": 90,
+      "sha256": "6095ca5a9605c02acb9b77ba5ea4d19487ab938e2e51045704dedb495bc394d5"
+    },
+    {
+      "path": "lab/out/oracle-checkpoint-refusals-20261005/commit-missing-inject.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/oracle-checkpoint-refusals-20261005/commit-missing-inject.sql",
+      "bytes": 410,
+      "sha256": "7e28efed997b9cfecac7d3309d9692a5468fa4b639bf1f1159bdd6e6b5adefea"
+    },
+    {
+      "path": "lab/out/oracle-checkpoint-refusals-20261005/commit-missing-inject.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle-checkpoint-refusals-20261005/commit-missing-inject.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle-checkpoint-refusals-20261005/commit-missing-recover.command.json",
+      "bytes": 1111,
+      "sha256": "47bbefaf555fa85d19463bbd9059b511de4763613729af8a67a0c68168947292"
+    },
+    {
+      "path": "lab/out/oracle-checkpoint-refusals-20261005/commit-missing-recover.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/oracle-checkpoint-refusals-20261005/commit-missing-recover.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle-checkpoint-refusals-20261005/commit-missing-recover.stdout.txt",
+      "bytes": 16,
+      "sha256": "a8d83c839977b9a95b40c3e891a6a697a62d207e9d3ef38dea04716531558e26"
+    },
+    {
+      "path": "lab/out/oracle-checkpoint-refusals-20261005/commit-missing-recovered.command.json",
+      "bytes": 90,
+      "sha256": "6095ca5a9605c02acb9b77ba5ea4d19487ab938e2e51045704dedb495bc394d5"
+    },
+    {
+      "path": "lab/out/oracle-checkpoint-refusals-20261005/commit-missing-recovered.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/oracle-checkpoint-refusals-20261005/commit-missing-recovered.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle-checkpoint-refusals-20261005/commit-missing-recovered.stdout.txt",
+      "bytes": 1767,
+      "sha256": "d0496d66a530710c3bc131da3a1fc0738729e904d5830fb96d463aec4ea0cf76"
+    },
+    {
+      "path": "lab/out/oracle-checkpoint-refusals-20261005/commit-missing-restore.command.json",
+      "bytes": 90,
+      "sha256": "6095ca5a9605c02acb9b77ba5ea4d19487ab938e2e51045704dedb495bc394d5"
+    },
+    {
+      "path": "lab/out/oracle-checkpoint-refusals-20261005/commit-missing-restore.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/oracle-checkpoint-refusals-20261005/commit-missing-restore.sql",
+      "bytes": 527,
+      "sha256": "4d36e6fb661d92c4ad33c1522e89643ab4d41818bc556a32e6ba0167ae3fe2eb"
+    },
+    {
+      "path": "lab/out/oracle-checkpoint-refusals-20261005/commit-missing-restore.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle-checkpoint-refusals-20261005/commit-missing-restore.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle-checkpoint-refusals-20261005/commit-missing-restored.command.json",
+      "bytes": 90,
+      "sha256": "6095ca5a9605c02acb9b77ba5ea4d19487ab938e2e51045704dedb495bc394d5"
+    },
+    {
+      "path": "lab/out/oracle-checkpoint-refusals-20261005/commit-missing-restored.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/oracle-checkpoint-refusals-20261005/commit-missing-restored.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle-checkpoint-refusals-20261005/commit-missing-restored.stdout.txt",
+      "bytes": 1767,
+      "sha256": "d0496d66a530710c3bc131da3a1fc0738729e904d5830fb96d463aec4ea0cf76"
+    },
+    {
+      "path": "lab/out/oracle-checkpoint-refusals-20261005/commit-missing.command.json",
+      "bytes": 1111,
+      "sha256": "47bbefaf555fa85d19463bbd9059b511de4763613729af8a67a0c68168947292"
+    },
+    {
+      "path": "lab/out/oracle-checkpoint-refusals-20261005/commit-missing.rc.txt",
+      "bytes": 1,
+      "sha256": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b"
+    },
+    {
+      "path": "lab/out/oracle-checkpoint-refusals-20261005/commit-missing.stderr.txt",
+      "bytes": 361,
+      "sha256": "f7c75d380e44c54bc99ae55be20ae2a1f59a65538a165431331a424bfe41a906"
+    },
+    {
+      "path": "lab/out/oracle-checkpoint-refusals-20261005/commit-missing.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle-checkpoint-refusals-20261005/compile-registry-probe.command.json",
+      "bytes": 625,
+      "sha256": "1ac1dd581d0c4da3fbb4361a46a5426f864f3c1e3bc990de6369a5051669954f"
+    },
+    {
+      "path": "lab/out/oracle-checkpoint-refusals-20261005/compile-registry-probe.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/oracle-checkpoint-refusals-20261005/compile-registry-probe.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle-checkpoint-refusals-20261005/compile-registry-probe.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle-checkpoint-refusals-20261005/CPBE/b6658e92d88d4a910a5a4b4870189b6ba8fa4d30873ff715f08e35dd3d15aeb8.ack",
+      "bytes": 185,
+      "sha256": "e09618242ca8349faa700cdce6b35d9e383cf692bd5525afe60a3ccc3d94e8a5"
+    },
+    {
+      "path": "lab/out/oracle-checkpoint-refusals-20261005/CPBE/checkpoint",
+      "bytes": 749,
+      "sha256": "653eba1921cd95613412f72e7fb57a2526f61a8638298dc4c8db7968142a3389"
+    },
+    {
+      "path": "lab/out/oracle-checkpoint-refusals-20261005/CPBE/consumer.lock",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle-checkpoint-refusals-20261005/CPBE/ready",
+      "bytes": 20,
+      "sha256": "b02d78098fb8f6aeac4ec057a7ab1ff2951cbe8291b33c43e184496690137515"
+    },
+    {
+      "path": "lab/out/oracle-checkpoint-refusals-20261005/CPBE-before.command.json",
+      "bytes": 90,
+      "sha256": "6095ca5a9605c02acb9b77ba5ea4d19487ab938e2e51045704dedb495bc394d5"
+    },
+    {
+      "path": "lab/out/oracle-checkpoint-refusals-20261005/CPBE-before.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/oracle-checkpoint-refusals-20261005/CPBE-before.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle-checkpoint-refusals-20261005/CPBE-before.stdout.txt",
+      "bytes": 1767,
+      "sha256": "d0496d66a530710c3bc131da3a1fc0738729e904d5830fb96d463aec4ea0cf76"
+    },
+    {
+      "path": "lab/out/oracle-checkpoint-refusals-20261005/CPNO/86cd8a04438d7c82eb97b5e32dcb86c37b45fbd42c6cd33ab7b94416b69b9b31.ack",
+      "bytes": 185,
+      "sha256": "1f78bc07e7694244471ea6398b4e8d83214a419e8e6714d714d8231ca81272af"
+    },
+    {
+      "path": "lab/out/oracle-checkpoint-refusals-20261005/CPNO/b6658e92d88d4a910a5a4b4870189b6ba8fa4d30873ff715f08e35dd3d15aeb8.ack",
+      "bytes": 185,
+      "sha256": "e7bffa165ea925005754795357bb0b4a7aa9d46af2d591fe43004217c27ebf78"
+    },
+    {
+      "path": "lab/out/oracle-checkpoint-refusals-20261005/CPNO/checkpoint",
+      "bytes": 1183,
+      "sha256": "be11ac8bfb2cbc3656c80af01eaefc4680f0f6b0e955c0b77343077728a8ed46"
+    },
+    {
+      "path": "lab/out/oracle-checkpoint-refusals-20261005/CPNO/consumer.lock",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle-checkpoint-refusals-20261005/CPNO-before.command.json",
+      "bytes": 90,
+      "sha256": "6095ca5a9605c02acb9b77ba5ea4d19487ab938e2e51045704dedb495bc394d5"
+    },
+    {
+      "path": "lab/out/oracle-checkpoint-refusals-20261005/CPNO-before.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/oracle-checkpoint-refusals-20261005/CPNO-before.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle-checkpoint-refusals-20261005/CPNO-before.stdout.txt",
+      "bytes": 2244,
+      "sha256": "68189baef70e0db3689f8778c5b07e7f9eda642ddafcf9624a525943a5d8653e"
+    },
+    {
+      "path": "lab/out/oracle-checkpoint-refusals-20261005/CPNO-final.command.json",
+      "bytes": 90,
+      "sha256": "6095ca5a9605c02acb9b77ba5ea4d19487ab938e2e51045704dedb495bc394d5"
+    },
+    {
+      "path": "lab/out/oracle-checkpoint-refusals-20261005/CPNO-final.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/oracle-checkpoint-refusals-20261005/CPNO-final.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle-checkpoint-refusals-20261005/CPNO-final.stdout.txt",
+      "bytes": 2244,
+      "sha256": "68189baef70e0db3689f8778c5b07e7f9eda642ddafcf9624a525943a5d8653e"
+    },
+    {
+      "path": "lab/out/oracle-checkpoint-refusals-20261005/executed-source/OracleCheckpointRegistryProbe.java",
+      "bytes": 1443,
+      "sha256": "cc8c650f9f1b6bc35415ac5dd54e5c71af01bd842675e121601dd9fe69fd00b7"
+    },
+    {
+      "path": "lab/out/oracle-checkpoint-refusals-20261005/executed-source/verify_oracle_checkpoint_refusals19.py",
+      "bytes": 8752,
+      "sha256": "b83e60277f6fe281608fb0a8398bb10325a9e0f64fffbebb048145c1986db163"
+    },
+    {
+      "path": "lab/out/oracle-checkpoint-refusals-20261005/helpers-exited.command.json",
+      "bytes": 96,
+      "sha256": "7e25afd669cef6f917539a2283504b0bc0734991ba601e20920f9722af9e8ca9"
+    },
+    {
+      "path": "lab/out/oracle-checkpoint-refusals-20261005/helpers-exited.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/oracle-checkpoint-refusals-20261005/helpers-exited.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle-checkpoint-refusals-20261005/helpers-exited.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle-checkpoint-refusals-20261005/kernel.jar",
+      "bytes": 188826,
+      "sha256": "ea9f58c629d39fb1a1c15dddd72b74322581a641c8fb6fa252fad43bc4e39d51"
+    },
+    {
+      "path": "lab/out/oracle-checkpoint-refusals-20261005/lab-source-tree.zip",
+      "bytes": 2577569,
+      "sha256": "caaf36ca0a3cbea02c7c9cacf48489475e071ff680721b216ca8465960534725"
+    },
+    {
+      "path": "lab/out/oracle-checkpoint-refusals-20261005/lgwr.command.json",
+      "bytes": 72,
+      "sha256": "5d77e97a9d24b8b78fa660b1f56aef6da8907f54d94e4f2f71a1439fe005529b"
+    },
+    {
+      "path": "lab/out/oracle-checkpoint-refusals-20261005/lgwr.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/oracle-checkpoint-refusals-20261005/lgwr.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle-checkpoint-refusals-20261005/lgwr.stdout.txt",
+      "bytes": 15,
+      "sha256": "5a63875a5c70e29cc03476c9d138c821b04e46ee91792c9808cb46ab10595b3a"
+    },
+    {
+      "path": "lab/out/oracle-checkpoint-refusals-20261005/member-missing-damaged-after.command.json",
+      "bytes": 90,
+      "sha256": "6095ca5a9605c02acb9b77ba5ea4d19487ab938e2e51045704dedb495bc394d5"
+    },
+    {
+      "path": "lab/out/oracle-checkpoint-refusals-20261005/member-missing-damaged-after.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/oracle-checkpoint-refusals-20261005/member-missing-damaged-after.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle-checkpoint-refusals-20261005/member-missing-damaged-after.stdout.txt",
+      "bytes": 1615,
+      "sha256": "c953cca405f559869b9d63b752257c2c2b3531a7ba24abe12b80c51265638b38"
+    },
+    {
+      "path": "lab/out/oracle-checkpoint-refusals-20261005/member-missing-damaged-before.command.json",
+      "bytes": 90,
+      "sha256": "6095ca5a9605c02acb9b77ba5ea4d19487ab938e2e51045704dedb495bc394d5"
+    },
+    {
+      "path": "lab/out/oracle-checkpoint-refusals-20261005/member-missing-damaged-before.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/oracle-checkpoint-refusals-20261005/member-missing-damaged-before.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle-checkpoint-refusals-20261005/member-missing-damaged-before.stdout.txt",
+      "bytes": 1615,
+      "sha256": "c953cca405f559869b9d63b752257c2c2b3531a7ba24abe12b80c51265638b38"
+    },
+    {
+      "path": "lab/out/oracle-checkpoint-refusals-20261005/member-missing-inject.command.json",
+      "bytes": 90,
+      "sha256": "6095ca5a9605c02acb9b77ba5ea4d19487ab938e2e51045704dedb495bc394d5"
+    },
+    {
+      "path": "lab/out/oracle-checkpoint-refusals-20261005/member-missing-inject.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/oracle-checkpoint-refusals-20261005/member-missing-inject.sql",
+      "bytes": 493,
+      "sha256": "ead14a435c4f26b7079e47bdce5f506a04692a21a49f69ddfec5069e0f81bce9"
+    },
+    {
+      "path": "lab/out/oracle-checkpoint-refusals-20261005/member-missing-inject.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle-checkpoint-refusals-20261005/member-missing-inject.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle-checkpoint-refusals-20261005/member-missing-recover.command.json",
+      "bytes": 1111,
+      "sha256": "47bbefaf555fa85d19463bbd9059b511de4763613729af8a67a0c68168947292"
+    },
+    {
+      "path": "lab/out/oracle-checkpoint-refusals-20261005/member-missing-recover.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/oracle-checkpoint-refusals-20261005/member-missing-recover.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle-checkpoint-refusals-20261005/member-missing-recover.stdout.txt",
+      "bytes": 16,
+      "sha256": "a8d83c839977b9a95b40c3e891a6a697a62d207e9d3ef38dea04716531558e26"
+    },
+    {
+      "path": "lab/out/oracle-checkpoint-refusals-20261005/member-missing-recovered.command.json",
+      "bytes": 90,
+      "sha256": "6095ca5a9605c02acb9b77ba5ea4d19487ab938e2e51045704dedb495bc394d5"
+    },
+    {
+      "path": "lab/out/oracle-checkpoint-refusals-20261005/member-missing-recovered.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/oracle-checkpoint-refusals-20261005/member-missing-recovered.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle-checkpoint-refusals-20261005/member-missing-recovered.stdout.txt",
+      "bytes": 1767,
+      "sha256": "d0496d66a530710c3bc131da3a1fc0738729e904d5830fb96d463aec4ea0cf76"
+    },
+    {
+      "path": "lab/out/oracle-checkpoint-refusals-20261005/member-missing-restore.command.json",
+      "bytes": 90,
+      "sha256": "6095ca5a9605c02acb9b77ba5ea4d19487ab938e2e51045704dedb495bc394d5"
+    },
+    {
+      "path": "lab/out/oracle-checkpoint-refusals-20261005/member-missing-restore.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/oracle-checkpoint-refusals-20261005/member-missing-restore.sql",
+      "bytes": 488,
+      "sha256": "9a6e2eab071a897404f55f8c95bda01779a6f10620c6519a47c1282fe8f0e0b7"
+    },
+    {
+      "path": "lab/out/oracle-checkpoint-refusals-20261005/member-missing-restore.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle-checkpoint-refusals-20261005/member-missing-restore.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle-checkpoint-refusals-20261005/member-missing-restored.command.json",
+      "bytes": 90,
+      "sha256": "6095ca5a9605c02acb9b77ba5ea4d19487ab938e2e51045704dedb495bc394d5"
+    },
+    {
+      "path": "lab/out/oracle-checkpoint-refusals-20261005/member-missing-restored.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/oracle-checkpoint-refusals-20261005/member-missing-restored.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle-checkpoint-refusals-20261005/member-missing-restored.stdout.txt",
+      "bytes": 1767,
+      "sha256": "d0496d66a530710c3bc131da3a1fc0738729e904d5830fb96d463aec4ea0cf76"
+    },
+    {
+      "path": "lab/out/oracle-checkpoint-refusals-20261005/member-missing.command.json",
+      "bytes": 1111,
+      "sha256": "47bbefaf555fa85d19463bbd9059b511de4763613729af8a67a0c68168947292"
+    },
+    {
+      "path": "lab/out/oracle-checkpoint-refusals-20261005/member-missing.rc.txt",
+      "bytes": 1,
+      "sha256": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b"
+    },
+    {
+      "path": "lab/out/oracle-checkpoint-refusals-20261005/member-missing.stderr.txt",
+      "bytes": 367,
+      "sha256": "14476b22029f91075a3d1fe2536b5951629382f7e818463ae42f93926d0ce33c"
+    },
+    {
+      "path": "lab/out/oracle-checkpoint-refusals-20261005/member-missing.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle-checkpoint-refusals-20261005/missing-baseline-target-after.command.json",
+      "bytes": 90,
+      "sha256": "6095ca5a9605c02acb9b77ba5ea4d19487ab938e2e51045704dedb495bc394d5"
+    },
+    {
+      "path": "lab/out/oracle-checkpoint-refusals-20261005/missing-baseline-target-after.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/oracle-checkpoint-refusals-20261005/missing-baseline-target-after.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle-checkpoint-refusals-20261005/missing-baseline-target-after.stdout.txt",
+      "bytes": 1767,
+      "sha256": "d0496d66a530710c3bc131da3a1fc0738729e904d5830fb96d463aec4ea0cf76"
+    },
+    {
+      "path": "lab/out/oracle-checkpoint-refusals-20261005/missing-baseline.command.json",
+      "bytes": 1128,
+      "sha256": "18b055badcec1a6f1e47a37b11084a7ebd73a0232d8448f51aaa1f2d94e2b216"
+    },
+    {
+      "path": "lab/out/oracle-checkpoint-refusals-20261005/missing-baseline.rc.txt",
+      "bytes": 1,
+      "sha256": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b"
+    },
+    {
+      "path": "lab/out/oracle-checkpoint-refusals-20261005/missing-baseline.stderr.txt",
+      "bytes": 1022,
+      "sha256": "e60e026c9a9ba573ae864ad742abb3d6eefb293682060b93ab840b5053779620"
+    },
+    {
+      "path": "lab/out/oracle-checkpoint-refusals-20261005/missing-baseline.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle-checkpoint-refusals-20261005/missing-raw-target-after.command.json",
+      "bytes": 90,
+      "sha256": "6095ca5a9605c02acb9b77ba5ea4d19487ab938e2e51045704dedb495bc394d5"
+    },
+    {
+      "path": "lab/out/oracle-checkpoint-refusals-20261005/missing-raw-target-after.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/oracle-checkpoint-refusals-20261005/missing-raw-target-after.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle-checkpoint-refusals-20261005/missing-raw-target-after.stdout.txt",
+      "bytes": 1767,
+      "sha256": "d0496d66a530710c3bc131da3a1fc0738729e904d5830fb96d463aec4ea0cf76"
+    },
+    {
+      "path": "lab/out/oracle-checkpoint-refusals-20261005/missing-raw.command.json",
+      "bytes": 1136,
+      "sha256": "b737c641297e3f01049ba646d1779df894566681a0e5550d4f2bda182c5f68b6"
+    },
+    {
+      "path": "lab/out/oracle-checkpoint-refusals-20261005/missing-raw.rc.txt",
+      "bytes": 1,
+      "sha256": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b"
+    },
+    {
+      "path": "lab/out/oracle-checkpoint-refusals-20261005/missing-raw.stderr.txt",
+      "bytes": 951,
+      "sha256": "b6f8c428fcf3449abf7187d2ed205c5c5c355aeeb7a9d009f02d6eff0d92ed3e"
+    },
+    {
+      "path": "lab/out/oracle-checkpoint-refusals-20261005/missing-raw.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle-checkpoint-refusals-20261005/no-owned-helper.command.json",
+      "bytes": 96,
+      "sha256": "7e25afd669cef6f917539a2283504b0bc0734991ba601e20920f9722af9e8ca9"
+    },
+    {
+      "path": "lab/out/oracle-checkpoint-refusals-20261005/no-owned-helper.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/oracle-checkpoint-refusals-20261005/no-owned-helper.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle-checkpoint-refusals-20261005/no-owned-helper.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle-checkpoint-refusals-20261005/owner.command.json",
+      "bytes": 107,
+      "sha256": "6cc60bfdc53919bf5068bdcbf30ec5c8b4e38feaebc9cbc53db9992eff5a6357"
+    },
+    {
+      "path": "lab/out/oracle-checkpoint-refusals-20261005/owner.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/oracle-checkpoint-refusals-20261005/owner.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle-checkpoint-refusals-20261005/owner.stdout.txt",
+      "bytes": 25,
+      "sha256": "0a713b1fc68700ddfe68d6757c3a323c2b2a06f3c595b5513399d6b6771b1823"
+    },
+    {
+      "path": "lab/out/oracle-checkpoint-refusals-20261005/payload-conflict-damaged-after.command.json",
+      "bytes": 90,
+      "sha256": "6095ca5a9605c02acb9b77ba5ea4d19487ab938e2e51045704dedb495bc394d5"
+    },
+    {
+      "path": "lab/out/oracle-checkpoint-refusals-20261005/payload-conflict-damaged-after.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/oracle-checkpoint-refusals-20261005/payload-conflict-damaged-after.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle-checkpoint-refusals-20261005/payload-conflict-damaged-after.stdout.txt",
+      "bytes": 1767,
+      "sha256": "f4688f2847eb61714b368b7e464c6023c3045f1f30184b8e37fd0c6f29ab07c6"
+    },
+    {
+      "path": "lab/out/oracle-checkpoint-refusals-20261005/payload-conflict-damaged-before.command.json",
+      "bytes": 90,
+      "sha256": "6095ca5a9605c02acb9b77ba5ea4d19487ab938e2e51045704dedb495bc394d5"
+    },
+    {
+      "path": "lab/out/oracle-checkpoint-refusals-20261005/payload-conflict-damaged-before.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/oracle-checkpoint-refusals-20261005/payload-conflict-damaged-before.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle-checkpoint-refusals-20261005/payload-conflict-damaged-before.stdout.txt",
+      "bytes": 1767,
+      "sha256": "f4688f2847eb61714b368b7e464c6023c3045f1f30184b8e37fd0c6f29ab07c6"
+    },
+    {
+      "path": "lab/out/oracle-checkpoint-refusals-20261005/payload-conflict-inject.command.json",
+      "bytes": 90,
+      "sha256": "6095ca5a9605c02acb9b77ba5ea4d19487ab938e2e51045704dedb495bc394d5"
+    },
+    {
+      "path": "lab/out/oracle-checkpoint-refusals-20261005/payload-conflict-inject.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/oracle-checkpoint-refusals-20261005/payload-conflict-inject.sql",
+      "bytes": 559,
+      "sha256": "51d80949f3847eb8b945132d5efa4c20cd46a28f9283f39e02463835671f25ad"
+    },
+    {
+      "path": "lab/out/oracle-checkpoint-refusals-20261005/payload-conflict-inject.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle-checkpoint-refusals-20261005/payload-conflict-inject.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle-checkpoint-refusals-20261005/payload-conflict-recover.command.json",
+      "bytes": 1111,
+      "sha256": "47bbefaf555fa85d19463bbd9059b511de4763613729af8a67a0c68168947292"
+    },
+    {
+      "path": "lab/out/oracle-checkpoint-refusals-20261005/payload-conflict-recover.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/oracle-checkpoint-refusals-20261005/payload-conflict-recover.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle-checkpoint-refusals-20261005/payload-conflict-recover.stdout.txt",
+      "bytes": 16,
+      "sha256": "a8d83c839977b9a95b40c3e891a6a697a62d207e9d3ef38dea04716531558e26"
+    },
+    {
+      "path": "lab/out/oracle-checkpoint-refusals-20261005/payload-conflict-recovered.command.json",
+      "bytes": 90,
+      "sha256": "6095ca5a9605c02acb9b77ba5ea4d19487ab938e2e51045704dedb495bc394d5"
+    },
+    {
+      "path": "lab/out/oracle-checkpoint-refusals-20261005/payload-conflict-recovered.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/oracle-checkpoint-refusals-20261005/payload-conflict-recovered.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle-checkpoint-refusals-20261005/payload-conflict-recovered.stdout.txt",
+      "bytes": 1767,
+      "sha256": "d0496d66a530710c3bc131da3a1fc0738729e904d5830fb96d463aec4ea0cf76"
+    },
+    {
+      "path": "lab/out/oracle-checkpoint-refusals-20261005/payload-conflict-restore.command.json",
+      "bytes": 90,
+      "sha256": "6095ca5a9605c02acb9b77ba5ea4d19487ab938e2e51045704dedb495bc394d5"
+    },
+    {
+      "path": "lab/out/oracle-checkpoint-refusals-20261005/payload-conflict-restore.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/oracle-checkpoint-refusals-20261005/payload-conflict-restore.sql",
+      "bytes": 559,
+      "sha256": "d57fee7b720c9b41a671d1be073c85cdb8cff86aa2cd5652e61456bcb9dccce4"
+    },
+    {
+      "path": "lab/out/oracle-checkpoint-refusals-20261005/payload-conflict-restore.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle-checkpoint-refusals-20261005/payload-conflict-restore.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle-checkpoint-refusals-20261005/payload-conflict-restored.command.json",
+      "bytes": 90,
+      "sha256": "6095ca5a9605c02acb9b77ba5ea4d19487ab938e2e51045704dedb495bc394d5"
+    },
+    {
+      "path": "lab/out/oracle-checkpoint-refusals-20261005/payload-conflict-restored.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/oracle-checkpoint-refusals-20261005/payload-conflict-restored.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle-checkpoint-refusals-20261005/payload-conflict-restored.stdout.txt",
+      "bytes": 1767,
+      "sha256": "d0496d66a530710c3bc131da3a1fc0738729e904d5830fb96d463aec4ea0cf76"
+    },
+    {
+      "path": "lab/out/oracle-checkpoint-refusals-20261005/payload-conflict.command.json",
+      "bytes": 1111,
+      "sha256": "47bbefaf555fa85d19463bbd9059b511de4763613729af8a67a0c68168947292"
+    },
+    {
+      "path": "lab/out/oracle-checkpoint-refusals-20261005/payload-conflict.rc.txt",
+      "bytes": 1,
+      "sha256": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b"
+    },
+    {
+      "path": "lab/out/oracle-checkpoint-refusals-20261005/payload-conflict.stderr.txt",
+      "bytes": 357,
+      "sha256": "95e4073d61720c7e15ca00b4df37d9c040bf84a951e09f490f2327e2ee233aca"
+    },
+    {
+      "path": "lab/out/oracle-checkpoint-refusals-20261005/payload-conflict.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle-checkpoint-refusals-20261005/proof.json",
+      "bytes": 639,
+      "sha256": "fd90fcacfdbd710c7ec9bfe5353de183b83020bcb8c4c6227239a60969664495"
+    },
+    {
+      "path": "lab/out/oracle-checkpoint-refusals-20261005/published-full-input-unregistered-target-after.command.json",
+      "bytes": 90,
+      "sha256": "6095ca5a9605c02acb9b77ba5ea4d19487ab938e2e51045704dedb495bc394d5"
+    },
+    {
+      "path": "lab/out/oracle-checkpoint-refusals-20261005/published-full-input-unregistered-target-after.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/oracle-checkpoint-refusals-20261005/published-full-input-unregistered-target-after.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle-checkpoint-refusals-20261005/published-full-input-unregistered-target-after.stdout.txt",
+      "bytes": 1767,
+      "sha256": "d0496d66a530710c3bc131da3a1fc0738729e904d5830fb96d463aec4ea0cf76"
+    },
+    {
+      "path": "lab/out/oracle-checkpoint-refusals-20261005/published-full-input-unregistered.command.json",
+      "bytes": 1023,
+      "sha256": "54b800cf593df7a5bc2b16bf7813ce81f3ce9a1d0b45707650722abbc89f35ec"
+    },
+    {
+      "path": "lab/out/oracle-checkpoint-refusals-20261005/published-full-input-unregistered.rc.txt",
+      "bytes": 1,
+      "sha256": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b"
+    },
+    {
+      "path": "lab/out/oracle-checkpoint-refusals-20261005/published-full-input-unregistered.stderr.txt",
+      "bytes": 385,
+      "sha256": "86b0684713e7f4ce5f2f91ed58c75e3c4d4258165caf8c78071510843ea00707"
+    },
+    {
+      "path": "lab/out/oracle-checkpoint-refusals-20261005/published-full-input-unregistered.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle-checkpoint-refusals-20261005/published-prefix-input-unregistered-target-after.command.json",
+      "bytes": 90,
+      "sha256": "6095ca5a9605c02acb9b77ba5ea4d19487ab938e2e51045704dedb495bc394d5"
+    },
+    {
+      "path": "lab/out/oracle-checkpoint-refusals-20261005/published-prefix-input-unregistered-target-after.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/oracle-checkpoint-refusals-20261005/published-prefix-input-unregistered-target-after.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle-checkpoint-refusals-20261005/published-prefix-input-unregistered-target-after.stdout.txt",
+      "bytes": 2244,
+      "sha256": "68189baef70e0db3689f8778c5b07e7f9eda642ddafcf9624a525943a5d8653e"
+    },
+    {
+      "path": "lab/out/oracle-checkpoint-refusals-20261005/published-prefix-input-unregistered.command.json",
+      "bytes": 1116,
+      "sha256": "39153f3e4fc0b1eff98a71c37ea9970635a2b4d79e9a41d6666a938baa89ae24"
+    },
+    {
+      "path": "lab/out/oracle-checkpoint-refusals-20261005/published-prefix-input-unregistered.rc.txt",
+      "bytes": 1,
+      "sha256": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b"
+    },
+    {
+      "path": "lab/out/oracle-checkpoint-refusals-20261005/published-prefix-input-unregistered.stderr.txt",
+      "bytes": 385,
+      "sha256": "86b0684713e7f4ce5f2f91ed58c75e3c4d4258165caf8c78071510843ea00707"
+    },
+    {
+      "path": "lab/out/oracle-checkpoint-refusals-20261005/published-prefix-input-unregistered.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle-checkpoint-refusals-20261005/schema-conflict-damaged-after.command.json",
+      "bytes": 90,
+      "sha256": "6095ca5a9605c02acb9b77ba5ea4d19487ab938e2e51045704dedb495bc394d5"
+    },
+    {
+      "path": "lab/out/oracle-checkpoint-refusals-20261005/schema-conflict-damaged-after.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/oracle-checkpoint-refusals-20261005/schema-conflict-damaged-after.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle-checkpoint-refusals-20261005/schema-conflict-damaged-after.stdout.txt",
+      "bytes": 1767,
+      "sha256": "f38f9bf54bc5839393008fb072341b668ba09dca2c2dc0f864d3bed857e663f4"
+    },
+    {
+      "path": "lab/out/oracle-checkpoint-refusals-20261005/schema-conflict-damaged-before.command.json",
+      "bytes": 90,
+      "sha256": "6095ca5a9605c02acb9b77ba5ea4d19487ab938e2e51045704dedb495bc394d5"
+    },
+    {
+      "path": "lab/out/oracle-checkpoint-refusals-20261005/schema-conflict-damaged-before.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/oracle-checkpoint-refusals-20261005/schema-conflict-damaged-before.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle-checkpoint-refusals-20261005/schema-conflict-damaged-before.stdout.txt",
+      "bytes": 1767,
+      "sha256": "f38f9bf54bc5839393008fb072341b668ba09dca2c2dc0f864d3bed857e663f4"
+    },
+    {
+      "path": "lab/out/oracle-checkpoint-refusals-20261005/schema-conflict-inject.command.json",
+      "bytes": 90,
+      "sha256": "6095ca5a9605c02acb9b77ba5ea4d19487ab938e2e51045704dedb495bc394d5"
+    },
+    {
+      "path": "lab/out/oracle-checkpoint-refusals-20261005/schema-conflict-inject.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/oracle-checkpoint-refusals-20261005/schema-conflict-inject.sql",
+      "bytes": 476,
+      "sha256": "51fa3a4f2b82bdba328db4736c97b69cd2cee06dc69586eb4e7333a078e36008"
+    },
+    {
+      "path": "lab/out/oracle-checkpoint-refusals-20261005/schema-conflict-inject.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle-checkpoint-refusals-20261005/schema-conflict-inject.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle-checkpoint-refusals-20261005/schema-conflict-recover.command.json",
+      "bytes": 1111,
+      "sha256": "47bbefaf555fa85d19463bbd9059b511de4763613729af8a67a0c68168947292"
+    },
+    {
+      "path": "lab/out/oracle-checkpoint-refusals-20261005/schema-conflict-recover.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/oracle-checkpoint-refusals-20261005/schema-conflict-recover.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle-checkpoint-refusals-20261005/schema-conflict-recover.stdout.txt",
+      "bytes": 16,
+      "sha256": "a8d83c839977b9a95b40c3e891a6a697a62d207e9d3ef38dea04716531558e26"
+    },
+    {
+      "path": "lab/out/oracle-checkpoint-refusals-20261005/schema-conflict-recovered.command.json",
+      "bytes": 90,
+      "sha256": "6095ca5a9605c02acb9b77ba5ea4d19487ab938e2e51045704dedb495bc394d5"
+    },
+    {
+      "path": "lab/out/oracle-checkpoint-refusals-20261005/schema-conflict-recovered.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/oracle-checkpoint-refusals-20261005/schema-conflict-recovered.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle-checkpoint-refusals-20261005/schema-conflict-recovered.stdout.txt",
+      "bytes": 1767,
+      "sha256": "d0496d66a530710c3bc131da3a1fc0738729e904d5830fb96d463aec4ea0cf76"
+    },
+    {
+      "path": "lab/out/oracle-checkpoint-refusals-20261005/schema-conflict-restore.command.json",
+      "bytes": 90,
+      "sha256": "6095ca5a9605c02acb9b77ba5ea4d19487ab938e2e51045704dedb495bc394d5"
+    },
+    {
+      "path": "lab/out/oracle-checkpoint-refusals-20261005/schema-conflict-restore.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/oracle-checkpoint-refusals-20261005/schema-conflict-restore.sql",
+      "bytes": 476,
+      "sha256": "1a18fec124445d8d5cf38bef85bdc399c6ee320b6821611ccaeb7c1c8e26f2e4"
+    },
+    {
+      "path": "lab/out/oracle-checkpoint-refusals-20261005/schema-conflict-restore.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle-checkpoint-refusals-20261005/schema-conflict-restore.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle-checkpoint-refusals-20261005/schema-conflict-restored.command.json",
+      "bytes": 90,
+      "sha256": "6095ca5a9605c02acb9b77ba5ea4d19487ab938e2e51045704dedb495bc394d5"
+    },
+    {
+      "path": "lab/out/oracle-checkpoint-refusals-20261005/schema-conflict-restored.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/oracle-checkpoint-refusals-20261005/schema-conflict-restored.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle-checkpoint-refusals-20261005/schema-conflict-restored.stdout.txt",
+      "bytes": 1767,
+      "sha256": "d0496d66a530710c3bc131da3a1fc0738729e904d5830fb96d463aec4ea0cf76"
+    },
+    {
+      "path": "lab/out/oracle-checkpoint-refusals-20261005/schema-conflict.command.json",
+      "bytes": 1111,
+      "sha256": "47bbefaf555fa85d19463bbd9059b511de4763613729af8a67a0c68168947292"
+    },
+    {
+      "path": "lab/out/oracle-checkpoint-refusals-20261005/schema-conflict.rc.txt",
+      "bytes": 1,
+      "sha256": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b"
+    },
+    {
+      "path": "lab/out/oracle-checkpoint-refusals-20261005/schema-conflict.stderr.txt",
+      "bytes": 360,
+      "sha256": "33c0767ad8c6f256cd17dc90423f666920cb12e1ccc28386dc200425d8c3222d"
+    },
+    {
+      "path": "lab/out/oracle-checkpoint-refusals-20261005/schema-conflict.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle-checkpoint-refusals-20261005/source-conflict-damaged-after.command.json",
+      "bytes": 90,
+      "sha256": "6095ca5a9605c02acb9b77ba5ea4d19487ab938e2e51045704dedb495bc394d5"
+    },
+    {
+      "path": "lab/out/oracle-checkpoint-refusals-20261005/source-conflict-damaged-after.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/oracle-checkpoint-refusals-20261005/source-conflict-damaged-after.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle-checkpoint-refusals-20261005/source-conflict-damaged-after.stdout.txt",
+      "bytes": 1719,
+      "sha256": "253550fb0d7ceb82d561f6d58b0e8f820164e08bb6a064203a9d1e1d3760acf1"
+    },
+    {
+      "path": "lab/out/oracle-checkpoint-refusals-20261005/source-conflict-damaged-before.command.json",
+      "bytes": 90,
+      "sha256": "6095ca5a9605c02acb9b77ba5ea4d19487ab938e2e51045704dedb495bc394d5"
+    },
+    {
+      "path": "lab/out/oracle-checkpoint-refusals-20261005/source-conflict-damaged-before.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/oracle-checkpoint-refusals-20261005/source-conflict-damaged-before.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle-checkpoint-refusals-20261005/source-conflict-damaged-before.stdout.txt",
+      "bytes": 1719,
+      "sha256": "253550fb0d7ceb82d561f6d58b0e8f820164e08bb6a064203a9d1e1d3760acf1"
+    },
+    {
+      "path": "lab/out/oracle-checkpoint-refusals-20261005/source-conflict-inject.command.json",
+      "bytes": 90,
+      "sha256": "6095ca5a9605c02acb9b77ba5ea4d19487ab938e2e51045704dedb495bc394d5"
+    },
+    {
+      "path": "lab/out/oracle-checkpoint-refusals-20261005/source-conflict-inject.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/oracle-checkpoint-refusals-20261005/source-conflict-inject.sql",
+      "bytes": 436,
+      "sha256": "eca50839860670538e7722dd34114c47a368c4c614b53ed9e4ea14411b283581"
+    },
+    {
+      "path": "lab/out/oracle-checkpoint-refusals-20261005/source-conflict-inject.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle-checkpoint-refusals-20261005/source-conflict-inject.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle-checkpoint-refusals-20261005/source-conflict-recover.command.json",
+      "bytes": 1111,
+      "sha256": "47bbefaf555fa85d19463bbd9059b511de4763613729af8a67a0c68168947292"
+    },
+    {
+      "path": "lab/out/oracle-checkpoint-refusals-20261005/source-conflict-recover.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/oracle-checkpoint-refusals-20261005/source-conflict-recover.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle-checkpoint-refusals-20261005/source-conflict-recover.stdout.txt",
+      "bytes": 16,
+      "sha256": "a8d83c839977b9a95b40c3e891a6a697a62d207e9d3ef38dea04716531558e26"
+    },
+    {
+      "path": "lab/out/oracle-checkpoint-refusals-20261005/source-conflict-recovered.command.json",
+      "bytes": 90,
+      "sha256": "6095ca5a9605c02acb9b77ba5ea4d19487ab938e2e51045704dedb495bc394d5"
+    },
+    {
+      "path": "lab/out/oracle-checkpoint-refusals-20261005/source-conflict-recovered.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/oracle-checkpoint-refusals-20261005/source-conflict-recovered.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle-checkpoint-refusals-20261005/source-conflict-recovered.stdout.txt",
+      "bytes": 1767,
+      "sha256": "d0496d66a530710c3bc131da3a1fc0738729e904d5830fb96d463aec4ea0cf76"
+    },
+    {
+      "path": "lab/out/oracle-checkpoint-refusals-20261005/source-conflict-restore.command.json",
+      "bytes": 90,
+      "sha256": "6095ca5a9605c02acb9b77ba5ea4d19487ab938e2e51045704dedb495bc394d5"
+    },
+    {
+      "path": "lab/out/oracle-checkpoint-refusals-20261005/source-conflict-restore.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/oracle-checkpoint-refusals-20261005/source-conflict-restore.sql",
+      "bytes": 436,
+      "sha256": "b329afd96df6d7ae0012c0bde33d23a4fd6adbd4612c4b4ce77d9b3f131455b0"
+    },
+    {
+      "path": "lab/out/oracle-checkpoint-refusals-20261005/source-conflict-restore.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle-checkpoint-refusals-20261005/source-conflict-restore.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle-checkpoint-refusals-20261005/source-conflict-restored.command.json",
+      "bytes": 90,
+      "sha256": "6095ca5a9605c02acb9b77ba5ea4d19487ab938e2e51045704dedb495bc394d5"
+    },
+    {
+      "path": "lab/out/oracle-checkpoint-refusals-20261005/source-conflict-restored.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/oracle-checkpoint-refusals-20261005/source-conflict-restored.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle-checkpoint-refusals-20261005/source-conflict-restored.stdout.txt",
+      "bytes": 1767,
+      "sha256": "d0496d66a530710c3bc131da3a1fc0738729e904d5830fb96d463aec4ea0cf76"
+    },
+    {
+      "path": "lab/out/oracle-checkpoint-refusals-20261005/source-conflict.command.json",
+      "bytes": 1111,
+      "sha256": "47bbefaf555fa85d19463bbd9059b511de4763613729af8a67a0c68168947292"
+    },
+    {
+      "path": "lab/out/oracle-checkpoint-refusals-20261005/source-conflict.rc.txt",
+      "bytes": 1,
+      "sha256": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b"
+    },
+    {
+      "path": "lab/out/oracle-checkpoint-refusals-20261005/source-conflict.stderr.txt",
+      "bytes": 360,
+      "sha256": "33c0767ad8c6f256cd17dc90423f666920cb12e1ccc28386dc200425d8c3222d"
+    },
+    {
+      "path": "lab/out/oracle-checkpoint-refusals-20261005/source-conflict.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle-checkpoint-refusals-20261005/spi.jar",
+      "bytes": 13901,
+      "sha256": "93e451fe6c16c665cbdc5b5471a9879cd0a01ec7699a5d9666068dc14c2f8523"
+    },
+    {
+      "path": "lab/out/oracle-checkpoint-refusals-20261005/wrong-baseline-receipt-target-after.command.json",
+      "bytes": 90,
+      "sha256": "6095ca5a9605c02acb9b77ba5ea4d19487ab938e2e51045704dedb495bc394d5"
+    },
+    {
+      "path": "lab/out/oracle-checkpoint-refusals-20261005/wrong-baseline-receipt-target-after.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/oracle-checkpoint-refusals-20261005/wrong-baseline-receipt-target-after.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle-checkpoint-refusals-20261005/wrong-baseline-receipt-target-after.stdout.txt",
+      "bytes": 1767,
+      "sha256": "d0496d66a530710c3bc131da3a1fc0738729e904d5830fb96d463aec4ea0cf76"
+    },
+    {
+      "path": "lab/out/oracle-checkpoint-refusals-20261005/wrong-baseline-receipt.command.json",
+      "bytes": 1111,
+      "sha256": "3a76565e76dd7153f2ee931dd7cfa61825980467edf9f850e19b29a9c017b756"
+    },
+    {
+      "path": "lab/out/oracle-checkpoint-refusals-20261005/wrong-baseline-receipt.rc.txt",
+      "bytes": 1,
+      "sha256": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b"
+    },
+    {
+      "path": "lab/out/oracle-checkpoint-refusals-20261005/wrong-baseline-receipt.stderr.txt",
+      "bytes": 525,
+      "sha256": "3eae557bc3c236b2876e3efa322d959dd5408e9a6898be15cea4d3bbc989e6cb"
+    },
+    {
+      "path": "lab/out/oracle-checkpoint-refusals-20261005/wrong-baseline-receipt.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/verify_oracle_checkpoint_refusals19.py",
+      "bytes": 8752,
+      "sha256": "b83e60277f6fe281608fb0a8398bb10325a9e0f64fffbebb048145c1986db163"
+    }
+  ]
+}
