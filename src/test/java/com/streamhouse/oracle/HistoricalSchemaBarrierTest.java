@@ -1,0 +1,49 @@
+package com.streamhouse.oracle;
+
+import org.junit.jupiter.api.Test;
+import java.nio.charset.StandardCharsets;
+import java.util.*;
+import static org.junit.jupiter.api.Assertions.*;
+
+class HistoricalSchemaBarrierTest {
+    final FrozenHeapBaseline.Snapshot snapshot=new FrozenHeapBaseline.Snapshot("sha",
+            new ArchivedHeapRows.Source(1276726821,1276717861,318767104,1,1245693159,1920977,677737149,3),2501884,
+            new FrozenHeapBaseline.ObjectRole("ORKLAB","T_SCHEMA_BARRIER_20261005",74695,74695),
+            new FrozenHeapBaseline.ObjectRole("ORKLAB","PK_SCHEMA_BARRIER_20261005",74696,74696),List.of(),Map.of());
+    RedoRecords.Vector marker() {
+        var fields=new ArrayList<byte[]>();for(int i=0;i<46;i++)fields.add(new byte[0]);
+        fields.set(0,HexFormat.of().parseHex("e02e00000a000d00710800000f0002000000010001000000"));
+        fields.set(3,HexFormat.of().parseHex("6a000000c723010002000000"));
+        fields.set(8,"ORKLAB".getBytes(StandardCharsets.UTF_8));fields.set(9,"T_SCHEMA_BARRIER_20261005".getBytes(StandardCharsets.UTF_8));
+        fields.set(11,HexFormat.of().parseHex("c7230100"));
+        return new RedoRecords.Vector(24,1,0,0,0,0,0,3,fields);
+    }
+    RedoRecords.Record record(long scn,long uid,RedoRecords.Vector vector) {return new RedoRecords.Record(118,96,544,1,scn,1,uid,List.of(vector));}
+    void refuse(RedoRecords.Vector vector) {
+        var e=assertThrows(RedoException.class,()->HistoricalSchemaBarrier.requireUnchanged(record(2501918,677737149,vector),snapshot));
+        assertTrue(e.getMessage().startsWith("HISTORICAL_SCHEMA_BARRIER"));
+    }
+    @Test void actualAddAndRestoredSchemaStillRefuse() {
+        refuse(marker());var drop=marker();drop.fields().set(3,HexFormat.of().parseHex("6a000000c723010003000000"));refuse(drop);
+    }
+    @Test void eitherNumericIdentityOrExactNameIsEnoughToRefuse() {
+        var v=marker();v.fields().set(8,new byte[0]);v.fields().set(9,new byte[0]);refuse(v);
+        v=marker();v.fields().set(3,new byte[12]);v.fields().set(11,new byte[4]);refuse(v);
+        v=marker();v.fields().set(3,HexFormat.of().parseHex("6a000000c823010002000000"));v.fields().set(8,new byte[0]);v.fields().set(9,new byte[0]);v.fields().set(11,new byte[4]);refuse(v);
+    }
+    @Test void foreignRecognizedMarkerDoesNotUseSqlTextForScope() throws Exception {
+        var v=marker();v.fields().set(3,new byte[12]);v.fields().set(11,new byte[4]);v.fields().set(8,"OTHER".getBytes(StandardCharsets.UTF_8));
+        v.fields().set(7,"alter table ORKLAB.T_SCHEMA_BARRIER_20261005 add EXTRA number".getBytes(StandardCharsets.UTF_8));
+        HistoricalSchemaBarrier.requireUnchanged(record(2501918,677737149,v),snapshot);
+    }
+    @Test void preAcquisitionOrDifferentContainerDoesNotChangeThisGeneration() throws Exception {
+        HistoricalSchemaBarrier.requireUnchanged(record(2501884,677737149,marker()),snapshot);
+        HistoricalSchemaBarrier.requireUnchanged(record(2501918,677737150,marker()),snapshot);
+        var v=marker();v=new RedoRecords.Vector(24,1,0,0,0,0,0,1,v.fields());HistoricalSchemaBarrier.requireUnchanged(record(2501918,677737149,v),snapshot);
+    }
+    @Test void unknownMarkerProfileCannotEstablishUnrelatedScope() {
+        var v=marker();v.fields().remove(45);
+        var e=assertThrows(RedoException.class,()->HistoricalSchemaBarrier.requireUnchanged(record(2501918,677737149,v),snapshot));
+        assertEquals("UNSUPPORTED_HISTORICAL_SCHEMA_MARKER",e.getMessage());
+    }
+}

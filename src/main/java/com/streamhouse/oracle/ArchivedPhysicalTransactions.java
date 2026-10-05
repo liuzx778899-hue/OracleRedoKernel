@@ -51,6 +51,7 @@ public final class ArchivedPhysicalTransactions {
         if (paths.isEmpty() || snapshot.scn()<paths.get(0).header().firstScn()
                 || snapshot.scn()>=paths.get(paths.size()-1).header().nextScn())
             throw new RedoException("BASELINE_SCN_OUTSIDE_INPUT_COVERAGE");
+        HistoricalSchemaBarrier.requireUnchanged(paths,snapshot);
         var scope=new HeapIndexScope(new HeapIndexScope.Generation(snapshot.heap().logicalObject(),snapshot.heap().dataObject()),
                 new HeapIndexScope.Generation(snapshot.index().logicalObject(),snapshot.index().dataObject()));
         return read(paths,snapshot.source().containerUid(),snapshot.source().containerId(),scope,leaf,snapshot.columns().size(),snapshot);
