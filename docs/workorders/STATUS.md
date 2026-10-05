@@ -12,11 +12,13 @@
 | W3 基础行/类型 | 进行中：scalar/pair/KDOM2及可信基线后完整行 | 通过有限样本：254测试制品；seq44—50非空/NULL尾列INSERT/DELETE、混合/全回滚，seq51独立完整回滚空capture；18pair/302长值patch保留 | 进行中：固定可信基线完整像及独立空batch到目标/checkpoint通过；历史字典与一般完整DML待证 | 未开始 | 待证 | 未开始 |
 | W4 事务/回滚 | 进行中：有序history/覆盖/heap+index补偿、同源完整XID归属、有源位置重放及精确外来begin排除 | 通过有限样本：254测试；seq51四控制/native归属及两图6/2/4零差异、三重封结构通过/语义拒绝；旧自主图/跨归档/回滚证据保留 | 进行中：有界自主物理入口已交付；完整控制/页维护/跨块关联/恢复待证；不当通用生产能力 | 未开始 | 待证 | 未开始 |
 | W5 SCN字典/基线 | 进行中：extent/完整行、ASOF/回执/typed世代，有限cleanout、闭合图live选择、commit SCN重放及LKR独立LOCK节点 | 通过：233测试制品；seq37—39真实锁等待三完整行/native/四SQL零差异；seq36 rollback-only及seq33—35旧批次空结果，既有并发/行证据保留；生产可信交接/历史字典待证 | 进行中：有限不同行并发、全/部分回滚、空批次、真实锁等待但redo事务窗口串行通过；活跃同key重叠/相同commit SCN支持/无目标静默/多savepoint/跨块/初始恢复/历史schema待证 | 未开始 | 待证 | 未开始 |
-| W6 StreamHouse接入 | 进行中：独立Oracle adapter及JDBC目标原子凭证；空侧null及typed证据透传；私仓内核96095420，公开decoder拒绝 | 通过有限样本：模块16；新专属非空/NULL/混合目标完整像/摘要不漂移、重复0与约束失败原子回滚；独立空batch0/0/0/1、缺commit拒绝及旧SIGKILL证据保留；任意窗口/可信schema待证 | 通过有限raw→内核→私有SPI→专属Oracle目标commit/ACK；产品候选704测试、四真实冻结批次typed核验及未绑定拒绝透传；可信registry和target/checkpoint顺序待证，未换装；完整产品pipeline/独立目标实例待证 | 未开始 | 待证 | 未开始 |
+| W6 StreamHouse接入 | 进行中：独立Oracle adapter及JDBC目标原子凭证；空侧null及typed证据透传；私仓内核96095420，公开decoder拒绝 | 通过有限样本：模块16；新专属非空/NULL/混合目标完整像/摘要不漂移、重复0与约束失败原子回滚；独立空batch0/0/0/1、缺commit拒绝及旧SIGKILL证据保留；任意窗口/可信schema待证 | 通过有限raw→内核→私有SPI→专属Oracle目标commit/ACK；产品候选704测试、四真实冻结批次typed核验及未绑定拒绝透传；可信registry三库有界验证通过（707测试/24实库项）；target/checkpoint顺序待证，未换装；完整产品pipeline/独立目标实例待证 | 未开始 | 待证 | 未开始 |
 | W7 online采集 | 进行中：关闭代际多member跟踪/回执审计/独占重启续接；共用capture输入接完整图/行 | 通过有限样本：seq51真实3873块/归档零差异、独立空batch checkpoint/ACK全字段核验/重复稳定/缺凭证拒绝；旧collector重启/SIGKILL/半帧拒绝保留；C++真实采集/实时/高压/断电/Windows/ASM待证 | 通过有限关闭批次→typed事务/可信baseline→完整DML或已审核空batch→target commit→checkpoint/ACK；旧四消费者强杀保留（两文件边界lab插桩）；跨批活跃状态/生产字典/断电/生产现场待证，有关闭延迟 | 未开始 | 待证 | 未开始 |
 | W8-W11 扩展类型/LOB/RAC/ASM/TDE | 未开始 | 待证 | 未开始 | 未开始 | 待证 | 未开始 |
 
 ## 当前证据
+
+最新：[有界可信registry交付](DELIVERY_W6_REGISTRY_20261005.md)。产品完整树9d65d58，707项测试通过；MySQL/SQLServer/Oracle新建与升级四冻结组24/24通过，真实绑定及拒绝记录落库、ledger0；仍ORACLE_ATOMIC_TARGET_NOT_ACCEPTED，公开decoder未开放。181文件双SHA安全摘要，首轮Oracle密码长度及全局V728冲突失败保留；目标提交顺序/完整产品/独立目标实例/生产字典/C++现场与发布待证，评审PENDING，goal active。
 
 最新：[typed evidence与未绑定拒绝](DELIVERY_W6_TYPED_EVIDENCE_20261005.md)。产品代码ddff6ae完整提交树clean verify 704项0失败0错误0跳过，docs f43b66b/草稿PR#3（依赖#2）待独立评审；SPI fb9c443b…绑定私仓坐标，adapter dfcfe38b…/16通过，kernel96095420…复用/254不重跑。四冻结组2/2/3/0事件typed字段及8capture容量独立零差异、JSON roundtrip/三legacy投影不变、四比较反例拒绝；实际product classes/fake Mapper链确认typed到gate，未绑定Oracle含空批次拒绝、账本/target0、checkpoint/消费状态不动，options不能授权公开decoder。编译key误用及Windows换行比较失败源码/原文保留，仅补失败；85文件/14命令双SHA。可信registry/引擎guard未接通，Facade目标前推进checkpoint的顺序尚需Oracle专属真实修复，[接续P0派单](DISPATCH_W6_TRUSTED_REGISTRY_TARGET_ORDER_20261005.md)，完整产品/历史字典/跨窗/C++现场/发布待证，goal active。
 

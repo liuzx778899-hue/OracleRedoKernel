@@ -1,0 +1,17 @@
+{
+  "product_commit": "9d65d58b8c30713b8cb826a24dfd36ee1b6eaf1a",
+  "tests": {
+    "tests": 707,
+    "errors": 0,
+    "failures": 0,
+    "skipped": 0
+  },
+  "matrix_cases": 24,
+  "public_oracle_enabled": false,
+  "independent_review": "PENDING",
+  "excluded": "secret filenames and m2; no credentials or raw input uploaded",
+  "local_seal_path": "lab/out/oracle-registry-20261005/seal.json",
+  "local_seal_sha256": "2ff96fdf41b5ef1547e1c8c10a144d651e447f42a44dfb95879e02959e8aba59",
+  "file_count": 181,
+  "matrix_proof_sha256": "91eb0a99d4b84aad12d96de28716fb260c6ea4e50fdd6b57aaf9978667072f44"
+}
