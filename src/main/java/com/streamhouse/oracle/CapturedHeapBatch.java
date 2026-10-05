@@ -75,12 +75,15 @@ public final class CapturedHeapBatch {
         return new CapturedHeapBatch(snapshot,schema,sources,events,batch,leaf);
     }
     static String schemaDigest(FrozenHeapBaseline.Snapshot snapshot) {
+        return schemaDigest(snapshot.heap(),snapshot.index(),snapshot.columns());
+    }
+    static String schemaDigest(FrozenHeapBaseline.ObjectRole heap,FrozenHeapBaseline.ObjectRole index,List<FrozenHeapBaseline.PhysicalColumn> columns) {
         return hash(out->{
             text(out,"ORK_FIXED_HEAP_SCHEMA_V1");text(out,"AL32UTF8");
-            for (var role:List.of(snapshot.heap(),snapshot.index())) {
+            for (var role:List.of(heap,index)) {
                 text(out,role.owner());text(out,role.name());out.writeLong(role.logicalObject());out.writeLong(role.dataObject());
             }
-            out.writeInt(snapshot.columns().size());for (var c:snapshot.columns()) {
+            out.writeInt(columns.size());for (var c:columns) {
                 out.writeInt(c.segment());out.writeInt(c.internal());text(out,c.name());text(out,c.type());
                 out.writeBoolean(c.nullable());out.writeBoolean(c.hidden());
             }
@@ -106,14 +109,14 @@ public final class CapturedHeapBatch {
             }
         });
     }
-    private interface Writer { void write(DataOutputStream out) throws IOException; }
-    private static String hash(Writer writer) {
+    interface Writer { void write(DataOutputStream out) throws IOException; }
+    static String hash(Writer writer) {
         try {
             var bytes=new ByteArrayOutputStream();try (var out=new DataOutputStream(bytes)) {writer.write(out);}
             return HexFormat.of().formatHex(MessageDigest.getInstance("SHA-256").digest(bytes.toByteArray()));
         } catch (IOException | NoSuchAlgorithmException e) {throw new AssertionError(e);}
     }
-    private static void text(DataOutputStream out,String value) throws IOException {
+    static void text(DataOutputStream out,String value) throws IOException {
         byte[] bytes=value.getBytes(StandardCharsets.UTF_8);out.writeInt(bytes.length);out.write(bytes);
     }
 }

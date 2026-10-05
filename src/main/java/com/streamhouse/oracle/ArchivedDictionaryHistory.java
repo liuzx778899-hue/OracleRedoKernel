@@ -22,11 +22,28 @@ public final class ArchivedDictionaryHistory {
         public List<ArchivedRedo.Header> sources(){return sources;}
         public List<Commit> commits(){return commits;}
         public String baselineSha256(){return snapshot.sha256();}
+        void requireBoundTo(RedoBatch inputs,FrozenHeapBaseline.Snapshot baseline)throws IOException {
+            if(!snapshot.equals(baseline) || inputs.size()!=sources.size())throw new RedoException("HISTORY_TIMELINE_BASELINE_OR_INPUT_MISMATCH");
+            for(int i=0;i<inputs.size();i++)if(!sources.get(i).equals(inputs.get(i).header()))throw new RedoException("HISTORY_TIMELINE_SOURCE_CHANGED");
+        }
+        void requireAddedNullDefault(FrozenHeapBaseline.PhysicalColumn column,long scn)throws RedoException {
+            var baseline=snapshot.dictionaryBaseline();var layout=baseline.layouts().get("COL$");
+            int defaultAt=-1;for(int i=0;i<layout.columns().size();i++)if(layout.columns().get(i).name().equals("DEFAULT$"))defaultAt=i;
+            for(var row:rowsAt(scn))if(row.role().equals("COL$") && baseline.number(row,"INTCOL#")==column.internal()
+                    && baseline.text(row,"NAME").equals(column.name())) {
+                if(!column.nullable() || defaultAt<0 || row.values().get(defaultAt).state()!=HeapRowPatch.State.NULL)
+                    throw new RedoException("UNSUPPORTED_HISTORICAL_ADDED_COLUMN_DEFAULT");return;
+            }
+            throw new RedoException("HISTORICAL_ADDED_COLUMN_METADATA_MISSING");
+        }
         public List<FrozenHeapBaseline.PhysicalColumn> schemaAt(long scn)throws RedoException {
+            return DictionaryHistoryRows.schema(snapshot,rowsAt(scn));
+        }
+        private List<DictionaryBaseline.Row> rowsAt(long scn)throws RedoException {
             if(scn<snapshot.scn() || scn>=sources.get(sources.size()-1).nextScn())throw new RedoException("DICTIONARY_SCHEMA_SCN_OUTSIDE_VERIFIED_WINDOW");
             List<DictionaryBaseline.Row> rows=snapshot.dictionaryBaseline().rows();
             for(var commit:commits) {if(commit.identity().endRecordScn()>scn)break;rows=commit.rows();}
-            return DictionaryHistoryRows.schema(snapshot,rows);
+            return rows;
         }
     }
     private static final class Context {

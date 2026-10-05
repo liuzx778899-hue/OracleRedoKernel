@@ -85,6 +85,27 @@ class TransactionMarkersTest {
             assertThrows(RedoException.class,()->TransactionEnd.decode(r));
         }
     }
+    RedoRecords.Vector historicalCommit() {
+        return vector(4,"1b0000005a020000000000000900000012000000",
+                "c7004002ff0007000000f01b000b0000",
+                "0000000000000000f306c46a000000000000000000000000","f306c46a");
+    }
+    @Test void observedHistoricalCommitKeepsTailAndRejectsMixedExtension() throws Exception {
+        var v=historicalCommit();var end=TransactionEnd.decode(v);
+        assertEquals(27,end.slot());assertEquals(602,end.sequence());assertFalse(end.rolledBack());
+        assertEquals(new HeapRowPatch.Uba(0x024000c7L,255,7),TransactionEnd.undoTail(v));
+        for(int offset:new int[]{7,8,12,13,14,15}) {
+            var bad=historicalCommit();bad.fields().get(1)[offset]^=1;
+            assertThrows(RedoException.class,()->TransactionEnd.decode(bad));
+        }
+        for(int offset:new int[]{0,4,8,12,16,20}) {
+            var bad=historicalCommit();bad.fields().get(2)[offset]^=1;
+            assertThrows(RedoException.class,()->TransactionEnd.decode(bad));
+        }
+        var mixed=historicalCommit();mixed.fields().get(1)[8]=1;
+        mixed.fields().get(2)[0]=1;mixed.fields().get(2)[4]=1;
+        assertThrows(RedoException.class,()->TransactionEnd.decode(mixed));
+    }
     @Test void refusesMissingUserUndoDoneAndWrongBeginWrap() {
         assertThrows(RedoException.class,()->UndoCompensation.decode(vector(6,
                 "401d0100401d010005000000000000000b01052300006d04020d0000","9010200002000000")));

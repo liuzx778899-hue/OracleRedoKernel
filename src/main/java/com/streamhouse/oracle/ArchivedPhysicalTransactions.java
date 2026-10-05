@@ -57,6 +57,15 @@ public final class ArchivedPhysicalTransactions {
         return read(paths,snapshot.source().containerUid(),snapshot.source().containerId(),scope,leaf,snapshot.columns().size(),snapshot);
     }
     private static Result read(RedoBatch paths,long uid,long container,HeapIndexScope scope,long leaf,int columns,FrozenHeapBaseline.Snapshot snapshot) throws IOException {
+        return read(paths,uid,container,scope,leaf,columns,snapshot,null);
+    }
+    static Result readHistory(RedoBatch paths,FrozenHeapBaseline.Snapshot snapshot,ArchivedDictionaryHistory.Timeline history,long leaf)throws IOException {
+        history.requireBoundTo(paths,snapshot);
+        var scope=new HeapIndexScope(new HeapIndexScope.Generation(snapshot.heap().logicalObject(),snapshot.heap().dataObject()),
+                new HeapIndexScope.Generation(snapshot.index().logicalObject(),snapshot.index().dataObject()));
+        return read(paths,snapshot.source().containerUid(),snapshot.source().containerId(),scope,leaf,snapshot.columns().size(),snapshot,history);
+    }
+    private static Result read(RedoBatch paths,long uid,long container,HeapIndexScope scope,long leaf,int columns,FrozenHeapBaseline.Snapshot snapshot,ArchivedDictionaryHistory.Timeline history) throws IOException {
         if (columns<=0) throw new RedoException("INVALID_PHYSICAL_TRANSACTION_SCOPE");
         long heapObject=scope.heap().dataObject(),indexObject=scope.index().dataObject();
         var found=ArchivedObjectTransactions.read(paths,uid,container,scope);
@@ -85,7 +94,7 @@ public final class ArchivedPhysicalTransactions {
                 for (int i=0;i<r.vectors().size();i++) {
                     var v=r.vectors().get(i);if (!originals.containsKey(position(header,r,i))) continue;
                     var h=UndoHeader.decode(v);undoBlocks.add(v.dba());
-                    if (h.dataObjectId()==heapObject) heapBlocks.add(UndoRowPatch.decode(v,columns).inverse().dba());
+                    if (h.dataObjectId()==heapObject) heapBlocks.add(UndoRowPatch.decode(v,columnsAt(history,snapshot,r.scn(),columns)).inverse().dba());
                     else if (IndexUndoPair.decodeUndo(v).block()!=leaf) throw new RedoException("PHYSICAL_INDEX_OUTSIDE_DECLARED_LEAF");
                 }
             });
@@ -116,9 +125,10 @@ public final class ArchivedPhysicalTransactions {
                     for (int j=0;j<r.vectors().size();j++) {
                         var row=r.vectors().get(j);if (row.containerId()!=container) continue;
                         if (h.dataObjectId()==heapObject && heap(row)) {
-                            var f=new HeapRowPatch().decode(row,columns);
+                            int rowColumns=columnsAt(history,snapshot,r.scn(),columns);
+                            var f=new HeapRowPatch().decode(row,rowColumns);
                             if (f.xtype()!=1 || !h.uba().equals(f.uba())) continue;
-                            var pair=HeapUndoPair.bind(r,row,columns);state.requireActive(r,pair);c.heaps.add(pair);
+                            var pair=HeapUndoPair.bind(r,row,rowColumns);state.requireActive(r,pair);c.heaps.add(pair);
                         } else if (h.dataObjectId()==indexObject && row.opcodeMajor()==10 && (row.opcodeMinor()==2 || row.opcodeMinor()==4)) {
                             if (!h.uba().equals(IndexUndoPair.decodeForward(row).uba())) continue;
                             var pair=IndexUndoPair.bind(r,row);state.requireActive(r,pair);c.indexes.add(pair);
@@ -142,9 +152,10 @@ public final class ArchivedPhysicalTransactions {
                         if (marker.dataObjectId()==indexObject && row.opcodeMajor()==10 && (row.opcodeMinor()==3 || row.opcodeMinor()==5)) {
                             if (matched!=null) throw new RedoException("PHYSICAL_COMPENSATION_ROW_AMBIGUOUS");
                             matched=IndexCompensation.match(r,v,row,c.indexes,state,c.positions,position(header,r,j)).undo().identity();
-                        } else if (marker.dataObjectId()==heapObject && heap(row) && new HeapRowPatch().decode(row,columns).xtype()==2) {
+                        } else if (marker.dataObjectId()==heapObject && heap(row) && new HeapRowPatch().decode(row,columnsAt(history,snapshot,r.scn(),columns)).xtype()==2) {
                             if (matched!=null) throw new RedoException("PHYSICAL_COMPENSATION_ROW_AMBIGUOUS");
-                            var pair=marker.beginsTransaction() ? HeapCompensation.matchBegin(r,v,row,c.heaps,columns,state) : HeapCompensation.match(r,v,row,c.heaps,columns);
+                            int rowColumns=columnsAt(history,snapshot,r.scn(),columns);
+                            var pair=marker.beginsTransaction() ? HeapCompensation.matchBegin(r,v,row,c.heaps,rowColumns,state) : HeapCompensation.match(r,v,row,c.heaps,rowColumns);
                             state.requireActive(r,pair);matched=pair.undo().identity();
                         } else continue;
                         rowIndex=j;
@@ -182,6 +193,8 @@ public final class ArchivedPhysicalTransactions {
                     }
                     if (snapshot!=null && end.beginRecordScn()<=snapshot.scn())
                         throw new RedoException("BASELINE_CROSSES_TRANSACTION_BOUNDARY");
+                    if(history!=null && !history.schemaAt(end.beginRecordScn()).equals(history.schemaAt(end.endRecordScn())))
+                        throw new RedoException("UNSUPPORTED_TRANSACTION_CROSSES_SCHEMA_CHANGE");
                     var result=end.rolledBack() ? c.graph.closeRollback(end)
                             : v.fields().size()==2 && TransactionEnd.decode(v).flags()==0
                                 ? c.graph.closeCommitWithoutNativeTail(end) : c.graph.close(TransactionEnd.undoTail(v));
@@ -199,6 +212,9 @@ public final class ArchivedPhysicalTransactions {
         return new Result(found.sources(),contexts.stream().filter(c->!c.coveredByBaseline).map(c->c.result).toList());
     }
     private static boolean heap(RedoRecords.Vector v) {return v.opcodeMajor()==11 && (v.opcodeMinor()==2 || v.opcodeMinor()==3 || v.opcodeMinor()==4 || v.opcodeMinor()==5);}
+    private static int columnsAt(ArchivedDictionaryHistory.Timeline history,FrozenHeapBaseline.Snapshot snapshot,long scn,int columns)throws RedoException {
+        return history==null || scn<=snapshot.scn()?columns:history.schemaAt(scn).size();
+    }
     private static void requireForeignBegin(RedoRecords.Record record,RedoRecords.Vector vector,HeapIndexScope scope,
                                            java.util.Map<HeapRowPatch.Xid,Context> owners,ArchivedUndoInventory.Position at) throws RedoException {
         var start=TransactionStart.decode(vector);var xid=start.bindBegin(record);

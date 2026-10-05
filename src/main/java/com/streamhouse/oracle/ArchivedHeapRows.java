@@ -61,6 +61,17 @@ public final class ArchivedHeapRows {
     }
     private static Result read(RedoBatch paths,Baseline baseline,HeapIndexScope scope,long leaf,ArchivedPhysicalTransactions.Result physical,
                                List<FrozenHeapBaseline.PhysicalColumn> schema) throws IOException {
+        return read(paths,baseline,scope,leaf,physical,schema,null);
+    }
+    static Result readHistory(RedoBatch paths,FrozenHeapBaseline.Snapshot snapshot,long leaf,ArchivedDictionaryHistory.Timeline history,
+                              ArchivedPhysicalTransactions.Result physical)throws IOException {
+        history.requireBoundTo(paths,snapshot);
+        var scope=new HeapIndexScope(new HeapIndexScope.Generation(snapshot.heap().logicalObject(),snapshot.heap().dataObject()),
+                new HeapIndexScope.Generation(snapshot.index().logicalObject(),snapshot.index().dataObject()));
+        return read(paths,new Baseline(snapshot.source(),snapshot.scn(),snapshot.heap().logicalObject(),snapshot.columns().size(),snapshot.rows()),scope,leaf,physical,snapshot.columns(),history);
+    }
+    private static Result read(RedoBatch paths,Baseline baseline,HeapIndexScope scope,long leaf,ArchivedPhysicalTransactions.Result physical,
+                               List<FrozenHeapBaseline.PhysicalColumn> schema,ArchivedDictionaryHistory.Timeline history) throws IOException {
         if (baseline.columns()<1 || baseline.columns()>255 || baseline.rows().entrySet().stream().anyMatch(e->
                 e.getKey().dataObjectId()!=scope.heap().dataObject() || e.getKey().dba()<=0 || e.getKey().slot()<0 || e.getValue().size()!=baseline.columns()))
             throw new RedoException("BASELINE_ROW_SCOPE_OR_COLUMNS_MISMATCH");
@@ -96,13 +107,17 @@ public final class ArchivedHeapRows {
                 for (int v=0;v<r.vectors().size();v++) {
                     var at=new ArchivedUndoInventory.Position(h.sequence(),r.block(),r.offset(),v+1);var owner=selected.get(at);
                     if (owner==null) continue;
+                    var recordSchema=history==null?schema:history.schemaAt(r.scn());
+                    if(history!=null && !recordSchema.equals(history.schemaAt(owner.identity().endRecordScn())))
+                        throw new RedoException("UNSUPPORTED_ROW_RECORD_SCHEMA_TRANSITION");
+                    int rowColumns=history==null?baseline.columns():recordSchema.size();
                     var undo=UndoHeader.decode(r.vectors().get(v));HeapUndoPair found=null;int forwardIndex=-1;
                     for (var f:r.vectors()) if (f.containerId()==source.containerId() && f.opcodeMajor()==11
                             && (f.opcodeMinor()==2 || f.opcodeMinor()==3 || f.opcodeMinor()==4 || f.opcodeMinor()==5)) {
-                        var patch=new HeapRowPatch().decode(f,baseline.columns());
+                        var patch=new HeapRowPatch().decode(f,rowColumns);
                         if (patch.xtype()!=1 || !undo.uba().equals(patch.uba())) continue;
                         if (found!=null) throw new RedoException("ROW_REPLAY_PAIR_AMBIGUOUS");
-                        found=HeapUndoPair.bind(r,f,baseline.columns());forwardIndex=r.vectors().indexOf(f);
+                        found=HeapUndoPair.bind(r,f,rowColumns);forwardIndex=r.vectors().indexOf(f);
                     }
                     if (found==null || !undo.equals(found.undo().identity()) || !owner.identity().xid().equals(undo.xid()) || !seen.add(at))
                         throw new RedoException("ROW_REPLAY_PAIR_OWNER_OR_COVERAGE_MISMATCH");
@@ -123,15 +138,56 @@ public final class ArchivedHeapRows {
             if (pending.getOrDefault(b.xid(),List.of()).stream().anyMatch(p->keys.contains(p.key())))
                 throw new RedoException("UNSUPPORTED_ROW_REPLAY_OVERLAPPING_ROW_KEY");
         }
-        for (var t:transactions) for (var p:pending.getOrDefault(t.identity().xid(),List.of())) {
-            var before=rows.get(p.key());var after=apply(p.pair(),before,baseline.columns(),schema);
+        var replaySchema=schema;
+        for (var t:transactions) {
+            if(history!=null) {
+                var next=history.schemaAt(t.identity().endRecordScn());
+                rows=new HashMap<>(remapRows(rows,replaySchema,next,history,t.identity().endRecordScn()));replaySchema=next;
+            }
+            for (var p:pending.getOrDefault(t.identity().xid(),List.of())) {
+            var before=rows.get(p.key());var after=apply(p.pair(),before,history==null?baseline.columns():replaySchema.size(),replaySchema);
+            if(history!=null && !after.isEmpty())requireCompleteValues(after,replaySchema);
             if (p.pair().forward().kind()==Kind.LOCK) continue;
             changes.add(new Change(p.position(),p.xid(),p.key(),p.pair().forward().kind(),before==null ? List.of() : before,after));
             if (after.isEmpty()) rows.remove(p.key());else rows.put(p.key(),after);
+            }
         }
         for (int i=0;i<paths.size();i++) if (!physical.sources().get(i).equals(paths.get(i).header()))
             throw new RedoException("ROW_REPLAY_SOURCE_CHANGED");
         return new Result(physical.sources(),List.copyOf(changes),Map.copyOf(rows));
+    }
+
+    static Map<RowKey,List<Cell>> remapRows(Map<RowKey,List<Cell>> rows,List<FrozenHeapBaseline.PhysicalColumn> previous,
+                                           List<FrozenHeapBaseline.PhysicalColumn> next,ArchivedDictionaryHistory.Timeline history,long scn)throws RedoException {
+        if(previous.equals(next))return rows;
+        var positions=new ArrayList<Integer>();
+        for(var column:next) {
+            int at=previous.indexOf(column);
+            if(at<0) {
+                if(previous.stream().anyMatch(c->c.internal()==column.internal() || c.name().equals(column.name())))
+                    throw new RedoException("UNSUPPORTED_HISTORICAL_COLUMN_IDENTITY_CHANGE");
+                history.requireAddedNullDefault(column,scn);
+            }
+            positions.add(at);
+        }
+        var result=new HashMap<RowKey,List<Cell>>();
+        for(var entry:rows.entrySet()) {
+            if(entry.getValue().size()!=previous.size())throw new RedoException("HISTORICAL_ROW_SCHEMA_WIDTH_MISMATCH");
+            var row=new ArrayList<Cell>();for(int at:positions)row.add(at<0?new Cell(State.NULL,""):entry.getValue().get(at));
+            requireCompleteValues(row,next);result.put(entry.getKey(),List.copyOf(row));
+        }
+        return Map.copyOf(result);
+    }
+    private static void requireCompleteValues(List<Cell> row,List<FrozenHeapBaseline.PhysicalColumn> schema)throws RedoException {
+        if(row.size()!=schema.size())throw new RedoException("HISTORICAL_ROW_SCHEMA_WIDTH_MISMATCH");
+        for(int i=0;i<row.size();i++) {
+            var cell=row.get(i);var column=schema.get(i);
+            if(cell.state()==State.NULL) {if(!column.nullable())throw new RedoException("HISTORICAL_REQUIRED_ROW_VALUE_MISSING");continue;}
+            byte[] raw=HexFormat.of().parseHex(cell.hex());
+            if(column.type().equals("NUMBER"))OracleScalars.number(raw);
+            else if(column.type().equals("VARCHAR2"))OracleScalars.varchar2(raw,"AL32UTF8");
+            else throw new RedoException("UNSUPPORTED_HISTORICAL_ROW_VALUE_TYPE");
+        }
     }
 
     static List<Cell> apply(HeapUndoPair pair,List<Cell> current,int columns) throws RedoException {
