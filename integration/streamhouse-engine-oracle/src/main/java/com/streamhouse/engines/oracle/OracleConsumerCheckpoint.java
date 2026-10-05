@@ -67,7 +67,7 @@ public final class OracleConsumerCheckpoint {
                 String id=entry.getKey();
                 boolean published=contains(old,id)||contains(temp,id)||Files.exists(directory.resolve(id+".ack"))||Files.exists(directory.resolve(id+".ack.tmp"));
                 try {
-                    writer.apply(connections.open(),target,entry.getValue().projected(),true);
+                    writer.verifyCommitted(connections.open(),target,entry.getValue().projected());
                     committed.add(id);
                 } catch (SQLException e) {
                     if (published || !"ORACLE_TARGET_ACK_WITHOUT_COMMIT".equals(e.getMessage())) throw e;
@@ -76,6 +76,7 @@ public final class OracleConsumerCheckpoint {
             int applied=0;
             if (!committed.contains(currentBatch)) {
                 applied=writer.apply(connections.open(),target,registry.get(currentBatch).projected(),false).newApplications();
+                writer.verifyCommitted(connections.open(),target,registry.get(currentBatch).projected());
                 committed.add(currentBatch);
             }
             // Include already committed registered windows even if a local checkpoint was lost or stale.

@@ -24,6 +24,45 @@ public final class OracleTargetBatchWriter {
         var s=batch.source();return s.dbid()+":"+s.activationId()+":"+s.compatibility()+":"+s.thread()+":"+s.resetlogsId()
                 +":"+s.resetlogsScn()+":"+s.containerUid()+":"+s.containerId();
     }
+    /** One Oracle statement snapshot on an independent connection; no DML, locks, commit or ACK. */
+    public CommitReceipt verifyCommitted(Connection freshConnection,Target target,OracleBatchProjection.Batch batch) throws SQLException {
+        try (var conn=freshConnection) {
+            if (!conn.getAutoCommit()) throw new SQLException("ORACLE_TARGET_REQUIRES_FRESH_AUTOCOMMIT_CONNECTION");
+            var expected=new CommitReceipt(target.targetId(),batch.inputBatchSha256(),batch.schema().sha256(),batch.entries().size());
+            String sql="select i.TARGET_ID,i.SOURCE_BINDING,i.SCHEMA_SHA,c.TARGET_ID,c.SCHEMA_SHA,c.EVENTS_COUNT,"
+                    +"m.ORDINAL,m.EVENT_ID,a.PAYLOAD_SHA,a.BEFORE_IMAGE,a.AFTER_IMAGE,a.OPERATION from "+target.table("IDENT")+" i"
+                    +" left join "+target.table("COMMITS")+" c on c.BATCH_SHA=?"
+                    +" left join "+target.table("MEMBERS")+" m on m.BATCH_SHA=c.BATCH_SHA"
+                    +" left join "+target.table("APPLIED")+" a on a.EVENT_ID=m.EVENT_ID where i.ID=1 order by m.ORDINAL";
+            try (var ps=conn.prepareStatement(sql)) {
+                ps.setString(1,expected.batchSha256());
+                try (var rs=ps.executeQuery()) {
+                    int count=0;
+                    while (rs.next()) {
+                        if (!target.targetId().equals(rs.getString(1)) || !sourceBinding(batch).equals(rs.getString(2))
+                                || !expected.schemaSha256().equals(rs.getString(3))) throw new SQLException("ORACLE_TARGET_IDENTITY_MISMATCH");
+                        if (rs.getString(4)==null) throw new SQLException("ORACLE_TARGET_ACK_WITHOUT_COMMIT");
+                        if (!target.targetId().equals(rs.getString(4)) || !expected.schemaSha256().equals(rs.getString(5))
+                                || rs.getInt(6)!=expected.events()) throw new SQLException("ORACLE_TARGET_COMMIT_CONFLICT");
+                        if (expected.events()==0) {
+                            if (count!=0 || rs.getObject(7)!=null || rs.getString(8)!=null) throw new SQLException("ORACLE_TARGET_BATCH_MEMBERS_CONFLICT");
+                            count++;
+                        } else {
+                            if (count>=expected.events() || rs.getObject(7)==null || rs.getInt(7)!=count
+                                    || !batch.entries().get(count).envelope().eventId().equals(rs.getString(8)))
+                                throw new SQLException("ORACLE_TARGET_BATCH_MEMBERS_CONFLICT");
+                            var entry=batch.entries().get(count++);var event=entry.envelope();
+                            if (!entry.payloadSha256().equals(rs.getString(9)) || !image(event.before()).equals(empty(rs.getString(10)))
+                                    || !image(event.after()).equals(empty(rs.getString(11))) || !event.operation().name().equals(rs.getString(12)))
+                                throw new SQLException("ORACLE_TARGET_EVENT_CONFLICT");
+                        }
+                    }
+                    if (count!=Math.max(1,expected.events())) throw new SQLException("ORACLE_TARGET_BATCH_MEMBERS_INCOMPLETE");
+                }
+            }
+            return expected;
+        }
+    }
     public Result apply(Connection freshConnection,Target target,OracleBatchProjection.Batch batch,boolean requireExistingCommit) throws SQLException {
         // Ownership is explicit: the caller must not supply an existing transaction or pooled shared handle.
         try (var conn=freshConnection) {
