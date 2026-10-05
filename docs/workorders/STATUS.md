@@ -12,11 +12,13 @@
 | W3 基础行/类型 | 进行中：scalar/pair/KDOM2及可信基线后完整行 | 通过有限样本：254测试制品；seq44—50非空/NULL尾列INSERT/DELETE、混合/全回滚，seq51独立完整回滚空capture；18pair/302长值patch保留 | 进行中：固定可信基线完整像及独立空batch到目标/checkpoint通过；历史字典与一般完整DML待证 | 未开始 | 待证 | 未开始 |
 | W4 事务/回滚 | 进行中：有序history/覆盖/heap+index补偿、同源完整XID归属、有源位置重放及精确外来begin排除 | 通过有限样本：254测试；seq51四控制/native归属及两图6/2/4零差异、三重封结构通过/语义拒绝；旧自主图/跨归档/回滚证据保留 | 进行中：有界自主物理入口已交付；完整控制/页维护/跨块关联/恢复待证；不当通用生产能力 | 未开始 | 待证 | 未开始 |
 | W5 SCN字典/基线 | 进行中：extent/完整行、ASOF/回执/typed世代，有限cleanout、闭合图live选择、commit SCN重放及LKR独立LOCK节点 | 通过：233测试制品；seq37—39真实锁等待三完整行/native/四SQL零差异；seq36 rollback-only及seq33—35旧批次空结果，既有并发/行证据保留；生产可信交接/历史字典待证 | 进行中：有限不同行并发、全/部分回滚、空批次、真实锁等待但redo事务窗口串行通过；活跃同key重叠/相同commit SCN支持/无目标静默/多savepoint/跨块/初始恢复/历史schema待证 | 未开始 | 待证 | 未开始 |
-| W6 StreamHouse接入 | 进行中：独立Oracle adapter及JDBC目标原子凭证；空侧null及typed证据透传；私仓内核96095420，公开decoder拒绝 | 通过有限样本：模块16；新专属非空/NULL/混合目标完整像/摘要不漂移、重复0与约束失败原子回滚；独立空batch0/0/0/1、缺commit拒绝及旧SIGKILL证据保留；任意窗口/可信schema待证 | 通过有限raw→内核→私有SPI→专属Oracle目标commit/ACK；产品候选723测试；registry三库24实库项通过，Oracle控制下实际Java Facade四组目标/控制事务/持久ACK有限通过；HTTP/跨进程/其他方言完整Facade/独立目标实例待证，未换装 | 未开始 | 待证 | 未开始 |
+| W6 StreamHouse接入 | 进行中：独立Oracle adapter及JDBC目标原子凭证；空侧null及typed证据透传；私仓内核96095420，公开decoder拒绝 | 通过有限样本：模块16；新专属非空/NULL/混合目标完整像/摘要不漂移、重复0与约束失败原子回滚；独立空batch0/0/0/1、缺commit拒绝及旧SIGKILL证据保留；任意窗口/可信schema待证 | 通过有限raw→内核→私有SPI→专属Oracle目标commit/ACK；产品候选723测试；registry三库24实库项通过，Oracle控制下实际Java Facade四组目标/控制事务/持久ACK有限通过；实际HTTP混合三DML/两处跨进程SIGKILL有限通过，其他方言完整Facade/独立目标实例待证，未换装 | 未开始 | 待证 | 未开始 |
 | W7 online采集 | 进行中：关闭代际多member跟踪/回执审计/独占重启续接；共用capture输入接完整图/行 | 通过有限样本：seq51真实3873块/归档零差异、独立空batch checkpoint/ACK全字段核验/重复稳定/缺凭证拒绝；旧collector重启/SIGKILL/半帧拒绝保留；C++真实采集/实时/高压/断电/Windows/ASM待证 | 通过有限关闭批次→typed事务/可信baseline→完整DML或已审核空batch→target commit→checkpoint/ACK；旧四消费者强杀保留（两文件边界lab插桩）；跨批活跃状态/生产字典/断电/生产现场待证，有关闭延迟 | 未开始 | 待证 | 未开始 |
 | W8-W11 扩展类型/LOB/RAC/ASM/TDE | 未开始 | 待证 | 未开始 | 未开始 | 待证 | 未开始 |
 
 ## 当前证据
+
+最新：[实际HTTP混合DML与两处进程强杀](DELIVERY_W6_HTTP_CRASH_20261005.md)。审计修复411cd64完整提交树724项全通过；同件专属服务认证HTTP，真实目标INSERT等待时SIGKILL137/目标0，目标三事件commit后控制窗口UPDATE等待时SIGKILL137/目标3保留控制回滚；重启HTTP恢复DONE，完整目标中间像/成员/账本/CP/ACK零差异、DONE重复字节不变、三比较反例检出。15+266文件双SHA，源业务/NO/NO/旧表不变，混合helper正常停止。首次SQLPlus长行rc0实际失败、NOWAIT正确拒绝、脚本/观察失败保留；lab源码SHA执行后封存不冒充执行前。独立评审PENDING；生产字典/租约/活跃跨窗/C++/独立目标/其他控制方言HTTP/现场发布及ACK失败published口径仍待证，goal active。
 
 最新：[实际有界Java Facade运行时](DELIVERY_W6_BOUNDED_RUNTIME_20261005.md)。产品完整代码树1c6d75e/723项全通过；批准raw/基线→固定二进制→目标独立commit核验→真实控制事务→持久ACK，专属Oracle控制四组2/2/3/0通过。实际CP SQL后失败全回滚、控制提交后ACK冲突/空pending实例恢复及DONE重复；SQL完整目标/账本/CP/ACK四组零差异、三比较反例检出，316文件双SHA。编译/测试/旧控制eventId冲突失败保全，SNON复用旧冲突轮目标；源业务/配置不变，不重放源DML。HTTP、跨进程/SIGKILL、其他控制方言完整Facade、独立目标、生产字典/租约/C++/现场发布待证，评审PENDING，goal active。
 

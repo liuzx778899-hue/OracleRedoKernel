@@ -1,0 +1,55 @@
+{
+  "product": {
+    "commit": "411cd645703464c234bed527a975599e3af85322",
+    "tests": {
+      "tests": 724,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "app_sha256": "1583a759c53f7423b61e9d7e57412586283f268503ab18c1d92ae880645fdd2c"
+  },
+  "proof": {
+    "actual_http_mixed_dml": true,
+    "events": 3,
+    "operations": [
+      "INSERT",
+      "UPDATE",
+      "DELETE"
+    ],
+    "real_sigkill_boundaries": 2,
+    "exit_codes": [
+      137,
+      137
+    ],
+    "all_target_control_checkpoint_ack_fields_zero_differences": true,
+    "repeat_target_control_unchanged": true,
+    "ack_sha256": "7223e15d1a371de31cf20d58500a28e82232cc3463a13420334f72959787353c",
+    "comparator_refusals": [
+      "wrong-operation",
+      "checkpoint-source",
+      "ack-conflict"
+    ],
+    "source_dml_replayed": false,
+    "independent_target_instance": false,
+    "site_accepted": false,
+    "release_accepted": false
+  },
+  "seals": [
+    {
+      "directory": "oracle-http-20261005",
+      "files": 15,
+      "manifest_sha256": "8f00e66598419b76beb4a9e885cb094d1f20316acf03805aa62a889b201a148e"
+    },
+    {
+      "directory": "oracle-http-mixed-20261005",
+      "files": 266,
+      "manifest_sha256": "56c48d036f8133795104c672850307dadefa7d806683be2f7569f13d0497de70"
+    }
+  ],
+  "review": "PENDING",
+  "deployment": "OWNED_LAB_ONLY",
+  "site": "NOT_VERIFIED",
+  "release": "NOT_STARTED",
+  "pull_request": "https://github.com/liuzx778899-hue/StreamHouse/pull/8"
+}
