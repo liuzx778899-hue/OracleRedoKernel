@@ -1,5 +1,7 @@
 # OracleRedoKernel 当前状态
 
+最新：[实际新V3后SYS历史](DELIVERY_W5_NEW_V3_HISTORY_RAW_20261006.md)：c9f340d/kerneld7ee0dfd/296，actual V3 SCN2536302/SHA226c9322完整230字段/三index/基线独立0差异，新seq68/69 ADD EXTRA_V3/DROP与两UPDATE已结束禁止重放，capture归档34029/14块0差异。三SYS commit2536394/6401/6419完整22节点/764值native与ASOF0差异，归档/capture/擦四marker历史字节一致，七合法checksum raw scan0/history1/stdout0；旧V2静态三IUD/历史拒绝不变。374双SHA/旧227不变，ckix239窄profile正逆绑定，首拒绝/预检NOTE误判/编译/定位失败保留。仅真实有界SYS历史，不当业务历史DML/产品现场发布；0配置/目标/产品动作，collector terminal0。接续HISTORICAL_ROW_SCHEMA时点schema完整事件与产品V3账HTTP。原goal active，Codex最后查。
+
 最新：[归档自主SYS历史候选](DELIVERY_W5_SYS_HISTORY_KERNEL_20261006.md)：a3fb674/kernel58a6e56e/295，raw自主完整三SYS事务22original、764值独立0差异；archive/actual capture/擦marker输出字节一致，11整入口反例rc1/stdout0，旧V2静态三IUD不变/历史仍拒绝。227双SHA/旧220未变，选择无关SYS与parent检查失败保全，0源/目标/产品动作。旧SCN V3仍synthetic诊断，真实晚V3拒绝；不当历史DML/现场发布。接续NEW_V3_HISTORY_RAW实际新baseline后新日志正功能，再业务时点schema与产品V3账/HTTP。原全goal active，Codex最后查。
 
 最新：[SYS完整历史/OBJ$候选](DELIVERY_W5_SYS_FULL_HISTORY_RESEARCH_20261006.md)：b65ade5/kernelf78ad0f9/292，scoped OBJ$九列30字节URP已实现，普通heap不放宽；十一行pair/十index/一控制22original完整处置，三个commit SCN完整764值及三index lifecycle诊断0差异、四比较反例检出。七合法checksum raw scan0/pair1/stdout0；旧V2静态三IUD字节不变/历史拒绝不变。220双SHA/旧219未变，profile/跨块定位失败原文保全；0业务/配置/目标/产品动作。仅诊断行史、IRP尾NULL假设仍无生产authority；接续SYS_HISTORY_KERNEL自主完整覆盖/可信V3历史入口，再新SCN后历史DML正功能与产品获取账HTTP。原goal active，跨窗/采集/独立目标/矩阵/评审现场发布未过，Codex最后查。

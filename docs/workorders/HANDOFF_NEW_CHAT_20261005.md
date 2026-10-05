@@ -1,3 +1,8 @@
+# 最新接续：时点schema完整业务事件
+
+最新：[实际新V3后SYS历史](DELIVERY_W5_NEW_V3_HISTORY_RAW_20261006.md)：c9f340d/kerneld7ee0dfd/296，actual V3 SCN2536302/SHA226c9322完整230字段/三index/基线独立0差异，新seq68/69 ADD EXTRA_V3/DROP与两UPDATE已结束禁止重放，capture归档34029/14块0差异。三SYS commit2536394/6401/6419完整22节点/764值native与ASOF0差异，归档/capture/擦四marker历史字节一致，七合法checksum raw scan0/history1/stdout0；旧V2静态三IUD/历史拒绝不变。374双SHA/旧227不变，ckix239窄profile正逆绑定，首拒绝/预检NOTE误判/编译/定位失败保留。仅真实有界SYS历史，不当业务历史DML/产品现场发布；0配置/目标/产品动作，collector terminal0。接续HISTORICAL_ROW_SCHEMA时点schema完整事件与产品V3账HTTP。原goal active，Codex最后查。
+O=lab/out/v3-historical-raw-20261006，N=lab/out/v3-history-ckix-candidate-20261006；真实基线ID0/dictionary-restored/NOTE anchor，ADD后EXTRA_V3 NULL，DROP后history-v3-restored。实际new-kernel.jar d7ee0dfd8bce1aaf6e5c5fb0aa9659f43ea15ba2a76043d17b2336393c1849b0、296；实际基线SHA226c9322176bb6fafffb9c6a2cecd093bb76a1bf2f9e6bd71570b7f4c5bc839a。七counterexample、四marker擦除、三SYS完整值通过；业务两个UPDATE尚未事件验收，源绝不重跑，必须复用冻结68/69。下一DISPATCH_W5_HISTORICAL_ROW_SCHEMA_20261006。产品P仍efd068f/737/旧672，adaptere095822b/22不重构未变旧件，PR#13待评审；0目标/control/ACK/源配置变化。原goal/automation保留，旧chat只历史，Codex全部Oracle之后。
+
 # 最新接续：真实新V3后历史raw
 
 最新：[归档自主SYS历史候选](DELIVERY_W5_SYS_HISTORY_KERNEL_20261006.md)：a3fb674/kernel58a6e56e/295，raw自主完整三SYS事务22original、764值独立0差异；archive/actual capture/擦marker输出字节一致，11整入口反例rc1/stdout0，旧V2静态三IUD不变/历史仍拒绝。227双SHA/旧220未变，选择无关SYS与parent检查失败保全，0源/目标/产品动作。旧SCN V3仍synthetic诊断，真实晚V3拒绝；不当历史DML/现场发布。接续NEW_V3_HISTORY_RAW实际新baseline后新日志正功能，再业务时点schema与产品V3账/HTTP。原全goal active，Codex最后查。
