@@ -18,6 +18,8 @@
 
 ## 当前证据
 
+最新：[实际commit后核验失败窗口](DELIVERY_W6_POSTCOMMIT_PROOF_20261005.md)。复用8de94aae adapter/16不重跑，四新专属目标首次应用2/2/3/0；实际commit后查询不可用均rc1/stdout0，无CP/tmp/ACK，恢复/重复0且全target快照不变；独立中间像/成员/凭证/CP/ACK四组零差异，三比较反例检出。空批比较器错切片失败保全，只补只读比较；源业务/NO/NO/原旧表不变，helpers退出。完整产品Facade控制事务/并发/独立目标实例待证，现场发布未通过，goal active。
+
 最新：[独立只读commit核验](DELIVERY_W6_READONLY_COMMIT_PROOF_20261005.md)。adapter实现2d03896/16测试；一条SELECT一致性视图验证真实target/source/schema/batch/成员/完整像。四冻结组2/2/3/0通过、44查询结果篡改拒绝，四已发布CP/ACK缺commit拒绝且原字节保持，健康恢复/重复零DML、实际目标快照不变。首轮新目录反例编排失败保全；产品Facade及新apply后核验失败窗口仍待证，公开gate拒绝，goal active。
 
 最新：[有界可信registry交付](DELIVERY_W6_REGISTRY_20261005.md)。产品完整树9d65d58，707项测试通过；MySQL/SQLServer/Oracle新建与升级四冻结组24/24通过，真实绑定及拒绝记录落库、ledger0；仍ORACLE_ATOMIC_TARGET_NOT_ACCEPTED，公开decoder未开放。181文件双SHA安全摘要，首轮Oracle密码长度及全局V728冲突失败保留；目标提交顺序/完整产品/独立目标实例/生产字典/C++现场与发布待证，评审PENDING，goal active。

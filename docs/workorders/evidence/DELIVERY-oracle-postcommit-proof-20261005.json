@@ -1,0 +1,104 @@
+{
+  "local_seal_path": "lab/out/oracle-postcommit-proof-20261005/seal.json",
+  "local_seal_sha256": "b6308a70a74b8d5c4c7220ca481ada10efe7cd5cdf6626af7f3f8e5547f4bb4b",
+  "files": 179,
+  "build": {
+    "tests": {
+      "tests": 16,
+      "errors": 0,
+      "failures": 0,
+      "skipped": 0
+    },
+    "adapter_sha256": "8de94aae373dba947624e5b34413fc16bfcd23e2480e48a8e47686dc32d76704",
+    "kernel_sha256": "960954207b626be4d19db547ce2a9e3c5245075e84edb7196935ba3c0489c55e",
+    "spi_sha256": "fb9c443ba88e49b656d97a4bd881c31a3c9fef305bf9d5a503c13364ed940b95",
+    "kernel_tests_rerun": false
+  },
+  "proof": {
+    "cases": [
+      {
+        "case": "SNON",
+        "target_prefix": "PCNON",
+        "committed_events": 2,
+        "postcommit_failure_no_checkpoint_or_ack": true,
+        "recovery_and_repeat_new_applications": 0,
+        "target_unchanged_on_recovery": true
+      },
+      {
+        "case": "SNUL",
+        "target_prefix": "PCNUL",
+        "committed_events": 2,
+        "postcommit_failure_no_checkpoint_or_ack": true,
+        "recovery_and_repeat_new_applications": 0,
+        "target_unchanged_on_recovery": true
+      },
+      {
+        "case": "SMIX",
+        "target_prefix": "PCMIX",
+        "committed_events": 3,
+        "postcommit_failure_no_checkpoint_or_ack": true,
+        "recovery_and_repeat_new_applications": 0,
+        "target_unchanged_on_recovery": true
+      },
+      {
+        "case": "EMPT",
+        "target_prefix": "PCEMP",
+        "committed_events": 0,
+        "postcommit_failure_no_checkpoint_or_ack": true,
+        "recovery_and_repeat_new_applications": 0,
+        "target_unchanged_on_recovery": true
+      }
+    ],
+    "source_business_dml": 0,
+    "source_config_changed": false,
+    "new_owned_target_tables": 20,
+    "production_fault_injection": false,
+    "independent_comparison": "PENDING",
+    "product_facade_not_executed": true
+  },
+  "independent_comparison": {
+    "targets": [
+      {
+        "case": "SNON",
+        "events": 2,
+        "complete_images": 4,
+        "checkpoint_and_ack_zero_differences": true
+      },
+      {
+        "case": "SNUL",
+        "events": 2,
+        "complete_images": 4,
+        "checkpoint_and_ack_zero_differences": true
+      },
+      {
+        "case": "SMIX",
+        "events": 3,
+        "complete_images": 6,
+        "checkpoint_and_ack_zero_differences": true
+      },
+      {
+        "case": "EMPT",
+        "events": 0,
+        "complete_images": 0,
+        "checkpoint_and_ack_zero_differences": true
+      }
+    ],
+    "comparator_refusals": [
+      {
+        "case": "missing-member",
+        "reason": "member order"
+      },
+      {
+        "case": "wrong-operation",
+        "reason": "complete intermediate images"
+      },
+      {
+        "case": "checkpoint-source",
+        "reason": "all checkpoint fields"
+      }
+    ],
+    "product_facade_accepted": false,
+    "site_accepted": false
+  },
+  "independent_review": "PENDING"
+}
