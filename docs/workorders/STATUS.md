@@ -9,14 +9,16 @@
 | W0 环境/样本/真值 | 通过：首批fa61476，矩阵继续 | 通过：环境/冻结归档；矩阵待证 | 待证 | 不适用：实验脚本 | 待证 | 未开始 |
 | W1 文件/块 scanner | 通过：首批fa61476 | 通过：19c/21c有界样本/5个真实派生反例 | 待证：真实capture | 未开始 | 待证 | 未开始 |
 | W2 record/vector | 通过：首批fa61476 | 通过：19c seq8/9完整dump、21c选定范围 | 待证：事务/字典 | 未开始 | 待证 | 未开始 |
-| W3 基础行/类型 | 进行中：scalar/pair/KDOM2及可信基线后完整行 | 通过有限样本：18pair/302长值patch；seq44/45 capture完整两笔三列非空INSERT/DELETE，NULL/混合capture矩阵待证 | 进行中：物理配对/固定字典基线；历史字典与一般完整DML待证 | 未开始 | 待证 | 未开始 |
+| W3 基础行/类型 | 进行中：scalar/pair/KDOM2及可信基线后完整行 | 通过有限样本：251测试制品；seq44—50非空/NULL尾列INSERT/DELETE、同事务混合三事件及两全回滚capture；18pair/302长值patch保留 | 进行中：三独立可信基线完整像到目标/checkpoint通过；历史字典与一般完整DML待证 | 未开始 | 待证 | 未开始 |
 | W4 事务/回滚 | 进行中：有序history/覆盖/heap+index补偿、同源完整XID归属及有源位置重放 | 通过：203测试；seq21—24自主发现基线/A/B共12物理图；自主对象头关联；seq19—24六位置、seq21—24有限双上下文完整图与拒绝证据；九笔旧图及六批长heap证据保留 | 进行中：有界自主物理入口已交付；完整控制/页维护/跨块关联/恢复待证；不当通用生产能力 | 未开始 | 待证 | 未开始 |
 | W5 SCN字典/基线 | 进行中：extent/完整行、ASOF/回执/typed世代，有限cleanout、闭合图live选择、commit SCN重放及LKR独立LOCK节点 | 通过：233测试制品；seq37—39真实锁等待三完整行/native/四SQL零差异；seq36 rollback-only及seq33—35旧批次空结果，既有并发/行证据保留；生产可信交接/历史字典待证 | 进行中：有限不同行并发、全/部分回滚、空批次、真实锁等待但redo事务窗口串行通过；活跃同key重叠/相同commit SCN支持/无目标静默/多savepoint/跨块/初始恢复/历史schema待证 | 未开始 | 待证 | 未开始 |
-| W6 StreamHouse接入 | 进行中：独立Oracle adapter及JDBC目标原子凭证；公开decoder拒绝 | 通过：内核245保留、模块5、三真实SIGKILL rc137、四同批重复0新增、六拒绝、三fresh目标六像零差异；有界两旧一新跨批2+1及重复0；任意窗口/可信schema待证 | 通过有限raw→内核→SPI→专属Oracle目标commit/ACK；同实例跨schema，完整产品pipeline/独立目标实例待证 | 未开始 | 待证 | 未开始 |
-| W7 online采集 | 进行中：关闭代际多member跟踪/回执审计/独占重启续接；共用capture输入接完整图/行 | 通过：原40—42重启追加43/9161归档数据块零差异；两真实collector SIGKILL/完整尾恢复与半帧保全拒绝/11反例；既有240测试及图/行保留；实时/高压复用/断电/Windows/ASM待证 | 通过有限关闭批次与collector重启：journal→record/vector→typed事务→可信baseline完整UPDATE；有限既有target commit→checkpoint/ACK恢复通过；有限新DML→checkpoint/ACK及四消费者强杀通过（两文件边界lab插桩）；跨批活跃状态/生产字典/断电/生产现场待证，有关闭延迟 | 未开始 | 待证 | 未开始 |
+| W6 StreamHouse接入 | 进行中：独立Oracle adapter及JDBC目标原子凭证；私仓内核升级a084，公开decoder拒绝 | 通过有限样本：模块15；新非空/NULL各1+1、混合3+0+0/重复0，四新目标20像/18成员/8凭证独立零差异及目标约束原子回滚；旧SIGKILL/拒绝证据保留；任意窗口/可信schema待证 | 通过有限raw→内核→SPI→专属Oracle目标commit/ACK；同实例跨schema，完整产品pipeline/独立目标实例待证 | 未开始 | 待证 | 未开始 |
+| W7 online采集 | 进行中：关闭代际多member跟踪/回执审计/独占重启续接；共用capture输入接完整图/行 | 通过有限样本：新非空/NULL/混合/回滚前缀checkpoint/ACK全字段独立核验及重复文件稳定；旧collector重启/SIGKILL/半帧拒绝保留；独立空batch、实时/高压复用/断电/Windows/ASM待证 | 通过有限关闭批次→typed事务/可信baseline→完整INSERT/UPDATE/DELETE→target commit→checkpoint/ACK；旧四消费者强杀保留（两文件边界lab插桩）；跨批活跃状态/生产字典/断电/生产现场待证，有关闭延迟 | 未开始 | 待证 | 未开始 |
 | W8-W11 扩展类型/LOB/RAC/ASM/TDE | 未开始 | 待证 | 未开始 | 未开始 | 待证 | 未开始 |
 
 ## 当前证据
+
+最新：[冻结新DML目标提交/checkpoint](DELIVERY_W6_W7_NEW_DML_TARGET_20261005.md)，私仓版本0.1.0-bounded-4f79691复用a084内核/251不重跑，adapter029ffa13…/15模块测试通过且运行class与旧adapter相同。44→45与46→47各1+1新增，48→49→50为3+0+0，各前缀重复0/checkpoint原字节稳定；四专属目标20完整像/18成员/8凭证及checkpoint全scope/位置/ACK独立零差异。混合UPDATE目标约束失败rc1/stdout0、0/0/0且无checkpoint/ACK，修复目标条件后恢复3/重复0；三比较反例/public拒绝。0源DML/日志配置变化，helper退出。探针参数失败原文保全；49—50单独后缀因可信基线属于48而BASELINE_SCN_OUTSIDE_INPUT_COVERAGE拒绝，不伪造新基线、不当独立空batch通过。下一步[合法空批次/产品执行包](DISPATCH_W7_EMPTY_BATCH_AND_PRODUCT_20261005.md)；同实例跨schema不当独立目标/完整产品/现场/发布，goal active，automation已绑定本chat。
 
 最新：[同事务混合/全回滚capture](DELIVERY_W3_MIXED_ROLLBACK_CAPTURE_20261005.md)，生产4f79691/a084218e…不改/251不重跑，driver30e42f4。专属三事务各一次，48/49/50捕获9039/10/17块与归档数据块零差异；混合INSERT→UPDATE→DELETE三完整事件、两rollback零业务事件，四图11/4/7与native全图、三完整中间像/SQL步骤/capture-archive及最终seed零差异。晚DELETE before和缺回滚marker重封raw scan0而rows/physical1/stdout0，三比较反例/public拒绝。比较器首轮SQL下标漏ID失败源码保全，仅补失败和未执行项。旧fixture保留/源操作不重放；下一步冻结非空/NULL/混合/rollback新DML到target commit/checkpoint，完整产品/现场/发布待证。
 
