@@ -13,7 +13,10 @@ public class ClusterPairsProbe {
             if(r.containerUid()!=snapshot.source().containerUid())return;
             for(var entry:inventory.entries()) {
                 var at=entry.position();if(r.block()!=at.block()||r.offset()!=at.offset())continue;
-                var h=entry.identity();var role=snapshot.dictionaryAnchors().stream().map(FrozenHeapBaseline.DictionaryAnchor::dictionary)
+                var h=entry.identity();
+                if(snapshot.dictionaryAnchors().stream().anyMatch(a->a.dictionary().logicalObject()==h.objectId()
+                        &&a.dictionary().dataObject()!=h.dataObjectId()))throw new RedoException("RESEARCH_CLUSTER_GENERATION_MISMATCH");
+                var role=snapshot.dictionaryAnchors().stream().map(FrozenHeapBaseline.DictionaryAnchor::dictionary)
                         .filter(d->d.logicalObject()==h.objectId()&&d.dataObject()==h.dataObjectId()&&List.of("TAB$","COL$").contains(d.name())).findFirst();
                 if(role.isEmpty())continue;
                 int pairs=0,tab=role.get().name().equals("TAB$")?1:5,columns=tab==1?44:36;
