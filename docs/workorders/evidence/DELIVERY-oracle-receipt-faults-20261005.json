@@ -1,0 +1,997 @@
+{
+  "lab_source_commit": "833b79e2273ef7464348fe2d38be4d232b266eb8",
+  "module_runtime_unchanged": "6a6ce3e8361d8c036b3da68efa24effdbb6a07f8",
+  "sha256_checked_twice": true,
+  "executed_initial_and_final_preserved": true,
+  "final_source_lf_normalized_equal_archive": true,
+  "initial_driver_rc": 1,
+  "continued_driver_rc": 0,
+  "prior_artifacts_manifest": "docs/workorders/evidence/DELIVERY-oracle-target-20261005.json",
+  "prior_healthy_target_manifest": "docs/workorders/evidence/DELIVERY-oracle-overlap-20261005.json",
+  "proof": {
+    "actual_oracle_receipt_refusals": 4,
+    "refusal_stdout_events": 0,
+    "ack_bytes_unchanged": true,
+    "damaged_target_unchanged_by_consumer": true,
+    "owned_target_restored_relationally": true,
+    "ident_in_fresh_audit": true,
+    "continued_after_comparator_order_failure": true,
+    "recovery_new_dml": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "final_target_state": "3 audits / 5 members / 2 commits",
+    "source_dml": 0,
+    "source_config_changes": 0,
+    "checkpoint_implemented": false
+  },
+  "files": [
+    {
+      "path": "lab/out/oracle-receipt-faults-20261005/continued-after-row-order/commit-count-conflict-consume.command.json",
+      "bytes": 1070,
+      "sha256": "7fb6f34587cd6cab2a2ecdaa2c05a117ee66f98419eff9f86d6165fd5bd41748"
+    },
+    {
+      "path": "lab/out/oracle-receipt-faults-20261005/continued-after-row-order/commit-count-conflict-consume.rc.txt",
+      "bytes": 1,
+      "sha256": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b"
+    },
+    {
+      "path": "lab/out/oracle-receipt-faults-20261005/continued-after-row-order/commit-count-conflict-consume.stderr.txt",
+      "bytes": 234,
+      "sha256": "c212bc13a600957de3cecaae2dcd8dca4afa9ce69ff924703b7a183509a07352"
+    },
+    {
+      "path": "lab/out/oracle-receipt-faults-20261005/continued-after-row-order/commit-count-conflict-consume.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle-receipt-faults-20261005/continued-after-row-order/commit-count-conflict-damaged-after.command.json",
+      "bytes": 90,
+      "sha256": "6095ca5a9605c02acb9b77ba5ea4d19487ab938e2e51045704dedb495bc394d5"
+    },
+    {
+      "path": "lab/out/oracle-receipt-faults-20261005/continued-after-row-order/commit-count-conflict-damaged-after.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/oracle-receipt-faults-20261005/continued-after-row-order/commit-count-conflict-damaged-after.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle-receipt-faults-20261005/continued-after-row-order/commit-count-conflict-damaged-after.stdout.txt",
+      "bytes": 2244,
+      "sha256": "e877d1a42b23ad15ba59f0807b8050d11a9826b9debc8afb1dbf47ee4f1b0296"
+    },
+    {
+      "path": "lab/out/oracle-receipt-faults-20261005/continued-after-row-order/commit-count-conflict-damaged-before.command.json",
+      "bytes": 90,
+      "sha256": "6095ca5a9605c02acb9b77ba5ea4d19487ab938e2e51045704dedb495bc394d5"
+    },
+    {
+      "path": "lab/out/oracle-receipt-faults-20261005/continued-after-row-order/commit-count-conflict-damaged-before.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/oracle-receipt-faults-20261005/continued-after-row-order/commit-count-conflict-damaged-before.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle-receipt-faults-20261005/continued-after-row-order/commit-count-conflict-damaged-before.stdout.txt",
+      "bytes": 2244,
+      "sha256": "e877d1a42b23ad15ba59f0807b8050d11a9826b9debc8afb1dbf47ee4f1b0296"
+    },
+    {
+      "path": "lab/out/oracle-receipt-faults-20261005/continued-after-row-order/commit-count-conflict-inject.command.json",
+      "bytes": 90,
+      "sha256": "6095ca5a9605c02acb9b77ba5ea4d19487ab938e2e51045704dedb495bc394d5"
+    },
+    {
+      "path": "lab/out/oracle-receipt-faults-20261005/continued-after-row-order/commit-count-conflict-inject.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/oracle-receipt-faults-20261005/continued-after-row-order/commit-count-conflict-inject.sql",
+      "bytes": 432,
+      "sha256": "7da8c871c3280087e47d29cfef5d4adcf29e2a3c6d9db88ad02e97e4a888345e"
+    },
+    {
+      "path": "lab/out/oracle-receipt-faults-20261005/continued-after-row-order/commit-count-conflict-inject.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle-receipt-faults-20261005/continued-after-row-order/commit-count-conflict-inject.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle-receipt-faults-20261005/continued-after-row-order/commit-count-conflict-recover-consume.command.json",
+      "bytes": 1070,
+      "sha256": "7fb6f34587cd6cab2a2ecdaa2c05a117ee66f98419eff9f86d6165fd5bd41748"
+    },
+    {
+      "path": "lab/out/oracle-receipt-faults-20261005/continued-after-row-order/commit-count-conflict-recover-consume.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/oracle-receipt-faults-20261005/continued-after-row-order/commit-count-conflict-recover-consume.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle-receipt-faults-20261005/continued-after-row-order/commit-count-conflict-recover-consume.stdout.txt",
+      "bytes": 197,
+      "sha256": "336ee4598c38eecd645138795ee2e961afff6daf8479d54667365c002e4283e4"
+    },
+    {
+      "path": "lab/out/oracle-receipt-faults-20261005/continued-after-row-order/commit-count-conflict-recovered-after.command.json",
+      "bytes": 90,
+      "sha256": "6095ca5a9605c02acb9b77ba5ea4d19487ab938e2e51045704dedb495bc394d5"
+    },
+    {
+      "path": "lab/out/oracle-receipt-faults-20261005/continued-after-row-order/commit-count-conflict-recovered-after.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/oracle-receipt-faults-20261005/continued-after-row-order/commit-count-conflict-recovered-after.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle-receipt-faults-20261005/continued-after-row-order/commit-count-conflict-recovered-after.stdout.txt",
+      "bytes": 2244,
+      "sha256": "1abb7de837dbe48ff0fcf91abb5aaa4053bc09267a68b284d34784571a0bd90b"
+    },
+    {
+      "path": "lab/out/oracle-receipt-faults-20261005/continued-after-row-order/commit-count-conflict-restore.command.json",
+      "bytes": 90,
+      "sha256": "6095ca5a9605c02acb9b77ba5ea4d19487ab938e2e51045704dedb495bc394d5"
+    },
+    {
+      "path": "lab/out/oracle-receipt-faults-20261005/continued-after-row-order/commit-count-conflict-restore.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/oracle-receipt-faults-20261005/continued-after-row-order/commit-count-conflict-restore.sql",
+      "bytes": 432,
+      "sha256": "abccc407f9e4d8ffd9c60c8ecec2104504d59a0ba6577e7265d3155595cec747"
+    },
+    {
+      "path": "lab/out/oracle-receipt-faults-20261005/continued-after-row-order/commit-count-conflict-restore.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle-receipt-faults-20261005/continued-after-row-order/commit-count-conflict-restore.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle-receipt-faults-20261005/continued-after-row-order/commit-count-conflict-restored.command.json",
+      "bytes": 90,
+      "sha256": "6095ca5a9605c02acb9b77ba5ea4d19487ab938e2e51045704dedb495bc394d5"
+    },
+    {
+      "path": "lab/out/oracle-receipt-faults-20261005/continued-after-row-order/commit-count-conflict-restored.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/oracle-receipt-faults-20261005/continued-after-row-order/commit-count-conflict-restored.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle-receipt-faults-20261005/continued-after-row-order/commit-count-conflict-restored.stdout.txt",
+      "bytes": 2244,
+      "sha256": "1abb7de837dbe48ff0fcf91abb5aaa4053bc09267a68b284d34784571a0bd90b"
+    },
+    {
+      "path": "lab/out/oracle-receipt-faults-20261005/continued-after-row-order/lgwr.command.json",
+      "bytes": 72,
+      "sha256": "5d77e97a9d24b8b78fa660b1f56aef6da8907f54d94e4f2f71a1439fe005529b"
+    },
+    {
+      "path": "lab/out/oracle-receipt-faults-20261005/continued-after-row-order/lgwr.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/oracle-receipt-faults-20261005/continued-after-row-order/lgwr.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle-receipt-faults-20261005/continued-after-row-order/lgwr.stdout.txt",
+      "bytes": 15,
+      "sha256": "5a63875a5c70e29cc03476c9d138c821b04e46ee91792c9808cb46ab10595b3a"
+    },
+    {
+      "path": "lab/out/oracle-receipt-faults-20261005/continued-after-row-order/missing-member-recover-consume.command.json",
+      "bytes": 1070,
+      "sha256": "7fb6f34587cd6cab2a2ecdaa2c05a117ee66f98419eff9f86d6165fd5bd41748"
+    },
+    {
+      "path": "lab/out/oracle-receipt-faults-20261005/continued-after-row-order/missing-member-recover-consume.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/oracle-receipt-faults-20261005/continued-after-row-order/missing-member-recover-consume.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle-receipt-faults-20261005/continued-after-row-order/missing-member-recover-consume.stdout.txt",
+      "bytes": 197,
+      "sha256": "336ee4598c38eecd645138795ee2e961afff6daf8479d54667365c002e4283e4"
+    },
+    {
+      "path": "lab/out/oracle-receipt-faults-20261005/continued-after-row-order/missing-member-recovered-after.command.json",
+      "bytes": 90,
+      "sha256": "6095ca5a9605c02acb9b77ba5ea4d19487ab938e2e51045704dedb495bc394d5"
+    },
+    {
+      "path": "lab/out/oracle-receipt-faults-20261005/continued-after-row-order/missing-member-recovered-after.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/oracle-receipt-faults-20261005/continued-after-row-order/missing-member-recovered-after.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle-receipt-faults-20261005/continued-after-row-order/missing-member-recovered-after.stdout.txt",
+      "bytes": 2244,
+      "sha256": "1abb7de837dbe48ff0fcf91abb5aaa4053bc09267a68b284d34784571a0bd90b"
+    },
+    {
+      "path": "lab/out/oracle-receipt-faults-20261005/continued-after-row-order/missing-member-resume-restored.command.json",
+      "bytes": 90,
+      "sha256": "6095ca5a9605c02acb9b77ba5ea4d19487ab938e2e51045704dedb495bc394d5"
+    },
+    {
+      "path": "lab/out/oracle-receipt-faults-20261005/continued-after-row-order/missing-member-resume-restored.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/oracle-receipt-faults-20261005/continued-after-row-order/missing-member-resume-restored.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle-receipt-faults-20261005/continued-after-row-order/missing-member-resume-restored.stdout.txt",
+      "bytes": 2244,
+      "sha256": "1abb7de837dbe48ff0fcf91abb5aaa4053bc09267a68b284d34784571a0bd90b"
+    },
+    {
+      "path": "lab/out/oracle-receipt-faults-20261005/continued-after-row-order/no-live-helper.command.json",
+      "bytes": 91,
+      "sha256": "edb541f9800c146cc60310eb401ae94df3c7e82fd70a994654b86c9d105939df"
+    },
+    {
+      "path": "lab/out/oracle-receipt-faults-20261005/continued-after-row-order/no-live-helper.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/oracle-receipt-faults-20261005/continued-after-row-order/no-live-helper.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle-receipt-faults-20261005/continued-after-row-order/no-live-helper.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle-receipt-faults-20261005/continued-after-row-order/no-owned-helper.command.json",
+      "bytes": 84,
+      "sha256": "24da90eaa1185f7b31e15c79c79ab31ac1b939652212fd477190fd1f582c4e10"
+    },
+    {
+      "path": "lab/out/oracle-receipt-faults-20261005/continued-after-row-order/no-owned-helper.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/oracle-receipt-faults-20261005/continued-after-row-order/no-owned-helper.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle-receipt-faults-20261005/continued-after-row-order/no-owned-helper.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle-receipt-faults-20261005/continued-after-row-order/owner.command.json",
+      "bytes": 107,
+      "sha256": "6cc60bfdc53919bf5068bdcbf30ec5c8b4e38feaebc9cbc53db9992eff5a6357"
+    },
+    {
+      "path": "lab/out/oracle-receipt-faults-20261005/continued-after-row-order/owner.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/oracle-receipt-faults-20261005/continued-after-row-order/owner.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle-receipt-faults-20261005/continued-after-row-order/owner.stdout.txt",
+      "bytes": 25,
+      "sha256": "0a713b1fc68700ddfe68d6757c3a323c2b2a06f3c595b5513399d6b6771b1823"
+    },
+    {
+      "path": "lab/out/oracle-receipt-faults-20261005/continued-after-row-order/payload-conflict-consume.command.json",
+      "bytes": 1070,
+      "sha256": "7fb6f34587cd6cab2a2ecdaa2c05a117ee66f98419eff9f86d6165fd5bd41748"
+    },
+    {
+      "path": "lab/out/oracle-receipt-faults-20261005/continued-after-row-order/payload-conflict-consume.rc.txt",
+      "bytes": 1,
+      "sha256": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b"
+    },
+    {
+      "path": "lab/out/oracle-receipt-faults-20261005/continued-after-row-order/payload-conflict-consume.stderr.txt",
+      "bytes": 233,
+      "sha256": "235bd3ba9f4b3e61a1d5ac3cb8ca5a4e004cd1ddcdce6d6f4dac604dbc0f9eec"
+    },
+    {
+      "path": "lab/out/oracle-receipt-faults-20261005/continued-after-row-order/payload-conflict-consume.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle-receipt-faults-20261005/continued-after-row-order/payload-conflict-damaged-after.command.json",
+      "bytes": 90,
+      "sha256": "6095ca5a9605c02acb9b77ba5ea4d19487ab938e2e51045704dedb495bc394d5"
+    },
+    {
+      "path": "lab/out/oracle-receipt-faults-20261005/continued-after-row-order/payload-conflict-damaged-after.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/oracle-receipt-faults-20261005/continued-after-row-order/payload-conflict-damaged-after.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle-receipt-faults-20261005/continued-after-row-order/payload-conflict-damaged-after.stdout.txt",
+      "bytes": 2244,
+      "sha256": "e85db1f5b336f9b07068c6d3b2ac6dbc168838e6d734f0db8bd23ee2222bcd2d"
+    },
+    {
+      "path": "lab/out/oracle-receipt-faults-20261005/continued-after-row-order/payload-conflict-damaged-before.command.json",
+      "bytes": 90,
+      "sha256": "6095ca5a9605c02acb9b77ba5ea4d19487ab938e2e51045704dedb495bc394d5"
+    },
+    {
+      "path": "lab/out/oracle-receipt-faults-20261005/continued-after-row-order/payload-conflict-damaged-before.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/oracle-receipt-faults-20261005/continued-after-row-order/payload-conflict-damaged-before.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle-receipt-faults-20261005/continued-after-row-order/payload-conflict-damaged-before.stdout.txt",
+      "bytes": 2244,
+      "sha256": "e85db1f5b336f9b07068c6d3b2ac6dbc168838e6d734f0db8bd23ee2222bcd2d"
+    },
+    {
+      "path": "lab/out/oracle-receipt-faults-20261005/continued-after-row-order/payload-conflict-inject.command.json",
+      "bytes": 90,
+      "sha256": "6095ca5a9605c02acb9b77ba5ea4d19487ab938e2e51045704dedb495bc394d5"
+    },
+    {
+      "path": "lab/out/oracle-receipt-faults-20261005/continued-after-row-order/payload-conflict-inject.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/oracle-receipt-faults-20261005/continued-after-row-order/payload-conflict-inject.sql",
+      "bytes": 567,
+      "sha256": "cfc149e551157d1e4d13d05f6c2ab00812f6d3a4e0e93b64e7789ed403fc80b6"
+    },
+    {
+      "path": "lab/out/oracle-receipt-faults-20261005/continued-after-row-order/payload-conflict-inject.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle-receipt-faults-20261005/continued-after-row-order/payload-conflict-inject.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle-receipt-faults-20261005/continued-after-row-order/payload-conflict-recover-consume.command.json",
+      "bytes": 1070,
+      "sha256": "7fb6f34587cd6cab2a2ecdaa2c05a117ee66f98419eff9f86d6165fd5bd41748"
+    },
+    {
+      "path": "lab/out/oracle-receipt-faults-20261005/continued-after-row-order/payload-conflict-recover-consume.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/oracle-receipt-faults-20261005/continued-after-row-order/payload-conflict-recover-consume.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle-receipt-faults-20261005/continued-after-row-order/payload-conflict-recover-consume.stdout.txt",
+      "bytes": 197,
+      "sha256": "336ee4598c38eecd645138795ee2e961afff6daf8479d54667365c002e4283e4"
+    },
+    {
+      "path": "lab/out/oracle-receipt-faults-20261005/continued-after-row-order/payload-conflict-recovered-after.command.json",
+      "bytes": 90,
+      "sha256": "6095ca5a9605c02acb9b77ba5ea4d19487ab938e2e51045704dedb495bc394d5"
+    },
+    {
+      "path": "lab/out/oracle-receipt-faults-20261005/continued-after-row-order/payload-conflict-recovered-after.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/oracle-receipt-faults-20261005/continued-after-row-order/payload-conflict-recovered-after.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle-receipt-faults-20261005/continued-after-row-order/payload-conflict-recovered-after.stdout.txt",
+      "bytes": 2244,
+      "sha256": "1abb7de837dbe48ff0fcf91abb5aaa4053bc09267a68b284d34784571a0bd90b"
+    },
+    {
+      "path": "lab/out/oracle-receipt-faults-20261005/continued-after-row-order/payload-conflict-restore.command.json",
+      "bytes": 90,
+      "sha256": "6095ca5a9605c02acb9b77ba5ea4d19487ab938e2e51045704dedb495bc394d5"
+    },
+    {
+      "path": "lab/out/oracle-receipt-faults-20261005/continued-after-row-order/payload-conflict-restore.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/oracle-receipt-faults-20261005/continued-after-row-order/payload-conflict-restore.sql",
+      "bytes": 567,
+      "sha256": "b1f0b9a3aeb1fd5e02890fe8ddabb61eaf735d2aa1f4406e55bb97db69281d70"
+    },
+    {
+      "path": "lab/out/oracle-receipt-faults-20261005/continued-after-row-order/payload-conflict-restore.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle-receipt-faults-20261005/continued-after-row-order/payload-conflict-restore.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle-receipt-faults-20261005/continued-after-row-order/payload-conflict-restored.command.json",
+      "bytes": 90,
+      "sha256": "6095ca5a9605c02acb9b77ba5ea4d19487ab938e2e51045704dedb495bc394d5"
+    },
+    {
+      "path": "lab/out/oracle-receipt-faults-20261005/continued-after-row-order/payload-conflict-restored.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/oracle-receipt-faults-20261005/continued-after-row-order/payload-conflict-restored.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle-receipt-faults-20261005/continued-after-row-order/payload-conflict-restored.stdout.txt",
+      "bytes": 2244,
+      "sha256": "1abb7de837dbe48ff0fcf91abb5aaa4053bc09267a68b284d34784571a0bd90b"
+    },
+    {
+      "path": "lab/out/oracle-receipt-faults-20261005/continued-after-row-order/proof.json",
+      "bytes": 498,
+      "sha256": "c16fa7e6419bf1f74a7619b0658e9dd509287619858850cfeab1970f7ed0918d"
+    },
+    {
+      "path": "lab/out/oracle-receipt-faults-20261005/continued-after-row-order/source-after.command.json",
+      "bytes": 90,
+      "sha256": "6095ca5a9605c02acb9b77ba5ea4d19487ab938e2e51045704dedb495bc394d5"
+    },
+    {
+      "path": "lab/out/oracle-receipt-faults-20261005/continued-after-row-order/source-after.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/oracle-receipt-faults-20261005/continued-after-row-order/source-after.sql",
+      "bytes": 354,
+      "sha256": "940e5cf5bfecb3a3734f707531f8c2a790a91b417002bb3c88ebeb2be2e1166e"
+    },
+    {
+      "path": "lab/out/oracle-receipt-faults-20261005/continued-after-row-order/source-after.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle-receipt-faults-20261005/continued-after-row-order/source-after.stdout.txt",
+      "bytes": 74,
+      "sha256": "43aff26048c42de27bde314320934237b29f382a0361b6618f38b4d2e9a33a5f"
+    },
+    {
+      "path": "lab/out/oracle-receipt-faults-20261005/continued-after-row-order/source-before.command.json",
+      "bytes": 90,
+      "sha256": "6095ca5a9605c02acb9b77ba5ea4d19487ab938e2e51045704dedb495bc394d5"
+    },
+    {
+      "path": "lab/out/oracle-receipt-faults-20261005/continued-after-row-order/source-before.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/oracle-receipt-faults-20261005/continued-after-row-order/source-before.sql",
+      "bytes": 354,
+      "sha256": "940e5cf5bfecb3a3734f707531f8c2a790a91b417002bb3c88ebeb2be2e1166e"
+    },
+    {
+      "path": "lab/out/oracle-receipt-faults-20261005/continued-after-row-order/source-before.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle-receipt-faults-20261005/continued-after-row-order/source-before.stdout.txt",
+      "bytes": 74,
+      "sha256": "43aff26048c42de27bde314320934237b29f382a0361b6618f38b4d2e9a33a5f"
+    },
+    {
+      "path": "lab/out/oracle-receipt-faults-20261005/continued-after-row-order/source-binding-conflict-consume.command.json",
+      "bytes": 1070,
+      "sha256": "7fb6f34587cd6cab2a2ecdaa2c05a117ee66f98419eff9f86d6165fd5bd41748"
+    },
+    {
+      "path": "lab/out/oracle-receipt-faults-20261005/continued-after-row-order/source-binding-conflict-consume.rc.txt",
+      "bytes": 1,
+      "sha256": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b"
+    },
+    {
+      "path": "lab/out/oracle-receipt-faults-20261005/continued-after-row-order/source-binding-conflict-consume.stderr.txt",
+      "bytes": 236,
+      "sha256": "7abb7ed4113384391ca67a91f9fbad9440f60ffbfc3632391c2e8945d2625894"
+    },
+    {
+      "path": "lab/out/oracle-receipt-faults-20261005/continued-after-row-order/source-binding-conflict-consume.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle-receipt-faults-20261005/continued-after-row-order/source-binding-conflict-damaged-after.command.json",
+      "bytes": 90,
+      "sha256": "6095ca5a9605c02acb9b77ba5ea4d19487ab938e2e51045704dedb495bc394d5"
+    },
+    {
+      "path": "lab/out/oracle-receipt-faults-20261005/continued-after-row-order/source-binding-conflict-damaged-after.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/oracle-receipt-faults-20261005/continued-after-row-order/source-binding-conflict-damaged-after.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle-receipt-faults-20261005/continued-after-row-order/source-binding-conflict-damaged-after.stdout.txt",
+      "bytes": 2196,
+      "sha256": "3586101ee3bb2e733d66a493bfa2dccd6e82739f2631460d19e49e74c37d8243"
+    },
+    {
+      "path": "lab/out/oracle-receipt-faults-20261005/continued-after-row-order/source-binding-conflict-damaged-before.command.json",
+      "bytes": 90,
+      "sha256": "6095ca5a9605c02acb9b77ba5ea4d19487ab938e2e51045704dedb495bc394d5"
+    },
+    {
+      "path": "lab/out/oracle-receipt-faults-20261005/continued-after-row-order/source-binding-conflict-damaged-before.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/oracle-receipt-faults-20261005/continued-after-row-order/source-binding-conflict-damaged-before.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle-receipt-faults-20261005/continued-after-row-order/source-binding-conflict-damaged-before.stdout.txt",
+      "bytes": 2196,
+      "sha256": "3586101ee3bb2e733d66a493bfa2dccd6e82739f2631460d19e49e74c37d8243"
+    },
+    {
+      "path": "lab/out/oracle-receipt-faults-20261005/continued-after-row-order/source-binding-conflict-inject.command.json",
+      "bytes": 90,
+      "sha256": "6095ca5a9605c02acb9b77ba5ea4d19487ab938e2e51045704dedb495bc394d5"
+    },
+    {
+      "path": "lab/out/oracle-receipt-faults-20261005/continued-after-row-order/source-binding-conflict-inject.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/oracle-receipt-faults-20261005/continued-after-row-order/source-binding-conflict-inject.sql",
+      "bytes": 444,
+      "sha256": "c23007ef34727834ef4562d849a7f67b53c8cac94a96dbf53932b2b815df6852"
+    },
+    {
+      "path": "lab/out/oracle-receipt-faults-20261005/continued-after-row-order/source-binding-conflict-inject.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle-receipt-faults-20261005/continued-after-row-order/source-binding-conflict-inject.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle-receipt-faults-20261005/continued-after-row-order/source-binding-conflict-recover-consume.command.json",
+      "bytes": 1070,
+      "sha256": "7fb6f34587cd6cab2a2ecdaa2c05a117ee66f98419eff9f86d6165fd5bd41748"
+    },
+    {
+      "path": "lab/out/oracle-receipt-faults-20261005/continued-after-row-order/source-binding-conflict-recover-consume.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/oracle-receipt-faults-20261005/continued-after-row-order/source-binding-conflict-recover-consume.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle-receipt-faults-20261005/continued-after-row-order/source-binding-conflict-recover-consume.stdout.txt",
+      "bytes": 197,
+      "sha256": "336ee4598c38eecd645138795ee2e961afff6daf8479d54667365c002e4283e4"
+    },
+    {
+      "path": "lab/out/oracle-receipt-faults-20261005/continued-after-row-order/source-binding-conflict-recovered-after.command.json",
+      "bytes": 90,
+      "sha256": "6095ca5a9605c02acb9b77ba5ea4d19487ab938e2e51045704dedb495bc394d5"
+    },
+    {
+      "path": "lab/out/oracle-receipt-faults-20261005/continued-after-row-order/source-binding-conflict-recovered-after.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/oracle-receipt-faults-20261005/continued-after-row-order/source-binding-conflict-recovered-after.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle-receipt-faults-20261005/continued-after-row-order/source-binding-conflict-recovered-after.stdout.txt",
+      "bytes": 2244,
+      "sha256": "1abb7de837dbe48ff0fcf91abb5aaa4053bc09267a68b284d34784571a0bd90b"
+    },
+    {
+      "path": "lab/out/oracle-receipt-faults-20261005/continued-after-row-order/source-binding-conflict-restore.command.json",
+      "bytes": 90,
+      "sha256": "6095ca5a9605c02acb9b77ba5ea4d19487ab938e2e51045704dedb495bc394d5"
+    },
+    {
+      "path": "lab/out/oracle-receipt-faults-20261005/continued-after-row-order/source-binding-conflict-restore.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/oracle-receipt-faults-20261005/continued-after-row-order/source-binding-conflict-restore.sql",
+      "bytes": 444,
+      "sha256": "5d419d370e7490a9b1df7bb7ea1cfb3b1f40d12e0240082ef38ddd9c1e05e1fe"
+    },
+    {
+      "path": "lab/out/oracle-receipt-faults-20261005/continued-after-row-order/source-binding-conflict-restore.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle-receipt-faults-20261005/continued-after-row-order/source-binding-conflict-restore.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle-receipt-faults-20261005/continued-after-row-order/source-binding-conflict-restored.command.json",
+      "bytes": 90,
+      "sha256": "6095ca5a9605c02acb9b77ba5ea4d19487ab938e2e51045704dedb495bc394d5"
+    },
+    {
+      "path": "lab/out/oracle-receipt-faults-20261005/continued-after-row-order/source-binding-conflict-restored.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/oracle-receipt-faults-20261005/continued-after-row-order/source-binding-conflict-restored.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle-receipt-faults-20261005/continued-after-row-order/source-binding-conflict-restored.stdout.txt",
+      "bytes": 2244,
+      "sha256": "1abb7de837dbe48ff0fcf91abb5aaa4053bc09267a68b284d34784571a0bd90b"
+    },
+    {
+      "path": "lab/out/oracle-receipt-faults-20261005/continued-after-row-order/target-before.command.json",
+      "bytes": 90,
+      "sha256": "6095ca5a9605c02acb9b77ba5ea4d19487ab938e2e51045704dedb495bc394d5"
+    },
+    {
+      "path": "lab/out/oracle-receipt-faults-20261005/continued-after-row-order/target-before.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/oracle-receipt-faults-20261005/continued-after-row-order/target-before.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle-receipt-faults-20261005/continued-after-row-order/target-before.stdout.txt",
+      "bytes": 2244,
+      "sha256": "1abb7de837dbe48ff0fcf91abb5aaa4053bc09267a68b284d34784571a0bd90b"
+    },
+    {
+      "path": "lab/out/oracle-receipt-faults-20261005/driver-initial-failure.txt",
+      "bytes": 226,
+      "sha256": "2ec55cdc86bbf781b27712e64d8eca76ef1fb7b01ab840b697d91866aecdcfbb"
+    },
+    {
+      "path": "lab/out/oracle-receipt-faults-20261005/executed-final.py",
+      "bytes": 6803,
+      "sha256": "3bc207f3cb33a484d37dc57ac67322484994f08d5cd902bf3655c4ec12ec60e4"
+    },
+    {
+      "path": "lab/out/oracle-receipt-faults-20261005/executed-initial.py",
+      "bytes": 5900,
+      "sha256": "d9cec8de6d222b7ec482cdd5f57d7f7bc8e2fb71c664a9eefd567f5f7a2ca846"
+    },
+    {
+      "path": "lab/out/oracle-receipt-faults-20261005/lab-source-tree.zip",
+      "bytes": 2510086,
+      "sha256": "b720602eff8016df8aebe7b4d4b70c4f9cca77ad4bedd894c1e1371fe57716b0"
+    },
+    {
+      "path": "lab/out/oracle-receipt-faults-20261005/missing-member-consume.command.json",
+      "bytes": 1070,
+      "sha256": "7fb6f34587cd6cab2a2ecdaa2c05a117ee66f98419eff9f86d6165fd5bd41748"
+    },
+    {
+      "path": "lab/out/oracle-receipt-faults-20261005/missing-member-consume.rc.txt",
+      "bytes": 1,
+      "sha256": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b"
+    },
+    {
+      "path": "lab/out/oracle-receipt-faults-20261005/missing-member-consume.stderr.txt",
+      "bytes": 243,
+      "sha256": "3b945dd855d23414b5362d207a53bf25368fbcbd524d6afafee7381fe771e274"
+    },
+    {
+      "path": "lab/out/oracle-receipt-faults-20261005/missing-member-consume.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle-receipt-faults-20261005/missing-member-damaged-after.command.json",
+      "bytes": 90,
+      "sha256": "6095ca5a9605c02acb9b77ba5ea4d19487ab938e2e51045704dedb495bc394d5"
+    },
+    {
+      "path": "lab/out/oracle-receipt-faults-20261005/missing-member-damaged-after.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/oracle-receipt-faults-20261005/missing-member-damaged-after.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle-receipt-faults-20261005/missing-member-damaged-after.stdout.txt",
+      "bytes": 1928,
+      "sha256": "7408c4e69a072d55dbe6511768cb066aa477c476658400b431f0d131b0c6a173"
+    },
+    {
+      "path": "lab/out/oracle-receipt-faults-20261005/missing-member-damaged-before.command.json",
+      "bytes": 90,
+      "sha256": "6095ca5a9605c02acb9b77ba5ea4d19487ab938e2e51045704dedb495bc394d5"
+    },
+    {
+      "path": "lab/out/oracle-receipt-faults-20261005/missing-member-damaged-before.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/oracle-receipt-faults-20261005/missing-member-damaged-before.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle-receipt-faults-20261005/missing-member-damaged-before.stdout.txt",
+      "bytes": 1928,
+      "sha256": "7408c4e69a072d55dbe6511768cb066aa477c476658400b431f0d131b0c6a173"
+    },
+    {
+      "path": "lab/out/oracle-receipt-faults-20261005/missing-member-inject.command.json",
+      "bytes": 90,
+      "sha256": "6095ca5a9605c02acb9b77ba5ea4d19487ab938e2e51045704dedb495bc394d5"
+    },
+    {
+      "path": "lab/out/oracle-receipt-faults-20261005/missing-member-inject.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/oracle-receipt-faults-20261005/missing-member-inject.sql",
+      "bytes": 501,
+      "sha256": "09ae2a050ee44f831273d9142df8f68f5bdf3989b258fb2d69a0bd421913c429"
+    },
+    {
+      "path": "lab/out/oracle-receipt-faults-20261005/missing-member-inject.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle-receipt-faults-20261005/missing-member-inject.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle-receipt-faults-20261005/missing-member-restore.command.json",
+      "bytes": 90,
+      "sha256": "6095ca5a9605c02acb9b77ba5ea4d19487ab938e2e51045704dedb495bc394d5"
+    },
+    {
+      "path": "lab/out/oracle-receipt-faults-20261005/missing-member-restore.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/oracle-receipt-faults-20261005/missing-member-restore.sql",
+      "bytes": 496,
+      "sha256": "3d61703ea535d577c70852dd7d7fa5d05bbca61dc0f6b409b5787c455646db19"
+    },
+    {
+      "path": "lab/out/oracle-receipt-faults-20261005/missing-member-restore.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle-receipt-faults-20261005/missing-member-restore.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle-receipt-faults-20261005/missing-member-restored.command.json",
+      "bytes": 90,
+      "sha256": "6095ca5a9605c02acb9b77ba5ea4d19487ab938e2e51045704dedb495bc394d5"
+    },
+    {
+      "path": "lab/out/oracle-receipt-faults-20261005/missing-member-restored.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/oracle-receipt-faults-20261005/missing-member-restored.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle-receipt-faults-20261005/missing-member-restored.stdout.txt",
+      "bytes": 2080,
+      "sha256": "0d7bd9dddc7fa2b9754745e90d1b074d202ea50044b741fa51a58a4471bc8e7d"
+    },
+    {
+      "path": "lab/out/oracle-receipt-faults-20261005/no-owned-helper.command.json",
+      "bytes": 84,
+      "sha256": "24da90eaa1185f7b31e15c79c79ab31ac1b939652212fd477190fd1f582c4e10"
+    },
+    {
+      "path": "lab/out/oracle-receipt-faults-20261005/no-owned-helper.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/oracle-receipt-faults-20261005/no-owned-helper.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle-receipt-faults-20261005/no-owned-helper.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle-receipt-faults-20261005/owner.command.json",
+      "bytes": 107,
+      "sha256": "6cc60bfdc53919bf5068bdcbf30ec5c8b4e38feaebc9cbc53db9992eff5a6357"
+    },
+    {
+      "path": "lab/out/oracle-receipt-faults-20261005/owner.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/oracle-receipt-faults-20261005/owner.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle-receipt-faults-20261005/owner.stdout.txt",
+      "bytes": 25,
+      "sha256": "0a713b1fc68700ddfe68d6757c3a323c2b2a06f3c595b5513399d6b6771b1823"
+    },
+    {
+      "path": "lab/out/oracle-receipt-faults-20261005/source-before.command.json",
+      "bytes": 90,
+      "sha256": "6095ca5a9605c02acb9b77ba5ea4d19487ab938e2e51045704dedb495bc394d5"
+    },
+    {
+      "path": "lab/out/oracle-receipt-faults-20261005/source-before.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/oracle-receipt-faults-20261005/source-before.sql",
+      "bytes": 354,
+      "sha256": "940e5cf5bfecb3a3734f707531f8c2a790a91b417002bb3c88ebeb2be2e1166e"
+    },
+    {
+      "path": "lab/out/oracle-receipt-faults-20261005/source-before.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle-receipt-faults-20261005/source-before.stdout.txt",
+      "bytes": 74,
+      "sha256": "43aff26048c42de27bde314320934237b29f382a0361b6618f38b4d2e9a33a5f"
+    },
+    {
+      "path": "lab/out/oracle-receipt-faults-20261005/target-before.command.json",
+      "bytes": 90,
+      "sha256": "6095ca5a9605c02acb9b77ba5ea4d19487ab938e2e51045704dedb495bc394d5"
+    },
+    {
+      "path": "lab/out/oracle-receipt-faults-20261005/target-before.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/oracle-receipt-faults-20261005/target-before.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle-receipt-faults-20261005/target-before.stdout.txt",
+      "bytes": 2080,
+      "sha256": "af15e76bf58b1303e8878f4f9b0a836b2591a6e68ce465290e242b68072afea3"
+    },
+    {
+      "path": "lab/verify_oracle_receipt_faults19.py",
+      "bytes": 6803,
+      "sha256": "3bc207f3cb33a484d37dc57ac67322484994f08d5cd902bf3655c4ec12ec60e4"
+    }
+  ]
+}

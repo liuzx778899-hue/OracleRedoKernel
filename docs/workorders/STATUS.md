@@ -18,6 +18,8 @@
 
 ## 当前证据
 
+最新：[真实目标凭证破坏与恢复](DELIVERY_W6_ORACLE_RECEIPT_FAULTS_20261005.md)，lab833b79e，[清单](evidence/DELIVERY-oracle-receipt-faults-20261005.json)。生产模块/制品未变；已commit/ACK下实际缺成员、payload冲突、commitCount冲突、sourceBinding冲突四拒绝rc1/stdout0/ACK不变，损坏状态无消费者补写；四条件恢复后完整目标行集合一致、消费各0新增，MIXD最终健康3/5/2。跨batch同ordinal SQL排序导致首次逐字节断言失败保留，续接排序完整行并纳入IDENT，仅跑未完成项。源业务/日志配置无变，LGWR5601/helper退出。消费checkpoint未实现，接续[执行包](DISPATCH_W7_CONSUMER_CHECKPOINT_20261005.md)；不授权删除capture，公开decoder/全产品/现场/发布待证。
+
 最新：[有界跨批与两旧一新目标凭证](DELIVERY_W6_ORACLE_OVERLAP_20261005.md)，lab557195d/0baea8e，[清单](evidence/DELIVERY-oracle-overlap-20261005.json)。生产模块/245及5测试制品不变、强杀不重跑；metadata-only派生14749帧redo未变，3EVENT/ROW完全一致，新batch在POST0新增/重复0，当前3/6/2及原ACK不变，三比较反例检出。原始40—41先2新增、40—42重叠两旧一新仅1新增，两批重复各0；专属新MIXD五表当前3审计/5成员/2凭证、六完整像及原SQL零差异，两ACK核验。原目标POST旧3/3/1为历史时点；当前MIXD健康。源业务/日志配置无变、LGWR5601保留/helper退出；同实例目标DDL不是生产零数据库配置证明。下一步消费checkpoint/元数据成员实际拒绝与恢复；任意活跃窗口/生产字典/公开decoder/全产品/部署/现场/发布待证。
 
 最新：[真实Oracle目标提交与ACK恢复](DELIVERY_W6_ORACLE_TARGET_20261005.md)，模块6a6ce3e、lab937705b、jar8103c262…，[清单](evidence/DELIVERY-oracle-target-20261005.json)。专属同实例新目标schema/35表，五表原子DML/审计/成员/提交凭证后ACK；三客户端SIGKILL rc137、四同批重复0新增、六实际拒绝；三fresh恢复目标完整六像/凭证/ACK零差异，四独立比较拒绝。NORM最后有意污染，只引用破坏前快照，不当当前健康。密码长度及CRLF失败保留，仅续未执行项；口令排除哈希和提交。源业务DML/日志配置无变、LGWR5601不变、helper已退出；目标实验DDL不是生产零数据库配置证明。模块5测试/内核245保留；公开decoder、全产品接入/部署/现场/发布仍未通过。下一步不同/重叠批次去重与成员，再消费checkpoint及Oracle窗口/可信历史字典。
