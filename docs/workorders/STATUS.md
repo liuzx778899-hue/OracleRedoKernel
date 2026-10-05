@@ -1,5 +1,7 @@
 # OracleRedoKernel 当前状态
 
+最新：[SYS非行控制/行链根候选](DELIVERY_W5_SYS_CONTROL_ROOT_20261006.md)：内核70c1a12/kernel5fb55de7/275、lab6e8ac66；flags51 obj0 begin5.7与唯一flags2首行根严格绑定，分配控制和行链分开、不造33→32边。冻结三SYS事务22节点/native原始前驱、三完整控制窗口/end SCN/tail零差异；非行10原始=1控制+9live行节点。九合法checksum raw scan0/history1/stdout0，原/擦marker actual V2仍历史拒绝。173双SHA、旧34/146未变、0源/目标动作，产品efd068f/737仍旧候选无新HTTP。接续SYS_ROW_HISTORY正功能/间接列依赖，完整历史/跨窗/采集/独立目标/评审现场发布未完成，goal active，Codex最后查。
+
 最新：[SYS非行begin/首COL$控制原始证据](RESEARCH_W5_SYS_BEGIN_CONTROL_20261006.md)：lab6404423，冻结seq66十5.1节点及三begin/head/end控制字段与native零差异，tail...:41对应末分配节点。flags51 obj0 begin5.7→flags2首COL$ rci0没有显式33→32边；首cluster LKR逆向ITL属旧XID10.18.2272，前向属3.30.705，tabn5/to2不能套普通heap锁。无生产/源/目标动作，不重跑271/737；原失败和比较器修复保全，上一146未变。下一步typed非行控制/首行根完整绑定与反例，再SYS行/SCN历史正功能；仅字段研究，不当图闭合/历史DML/现场发布，原goal active，Codex最后查。
 
 最新：[V2身份五实库反例/SYS清单缺口](DELIVERY_W5_V2_IDENTITY_SYS_INVENTORY_20261006.md)：driver5cd9f82复用672/efd068f，无生产改动/不重跑271/737。authority/账SCN/metadata source/role/anchor五实际GET拒绝且逐项恢复全字段/基线SHA精确一致，target/control/source审计不变，helper exited143。seq66/67三SYS XID native22节点：两笔6+6清单零差异，3.30.705十节点因obj0 begin5.7后首COL$ rci0被现有普通门禁拒绝/零输出，原失败保全。146双SHA/旧334未变；仅身份负例/两清单，不当完整SYS图或历史通过，接续SYS_BEGIN_CONTROL派单。原goal active，历史/跨窗/采集/独立目标/评审现场发布未完成，Codex最后查。

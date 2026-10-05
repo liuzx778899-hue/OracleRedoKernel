@@ -1,0 +1,1048 @@
+{
+  "files_count": 173,
+  "double_sha256_verified": true,
+  "previous_files_unchanged": {
+    "DELIVERY-sys-begin-control-20261006.json": 34,
+    "DELIVERY-v2-identity-sys-inventory-20261006.json": 146
+  },
+  "kernel_code_commit": "70c1a12",
+  "tests": 275,
+  "scope": "Three frozen SYS original/control histories and native end parity; no SYS row values/history DML/product/site/release authorization",
+  "proof": {
+    "kernel_sha256": "5fb55de7f1d75cfdab71307a7734508cc5c49873ac543ee51add0ae9517c6af6",
+    "results": [
+      {
+        "sequence": 66,
+        "xid": "10.18.2272",
+        "originals": 6,
+        "allocation_controls": 0,
+        "live_row_nodes": 6,
+        "native_differences": 0
+      },
+      {
+        "sequence": 66,
+        "xid": "3.30.705",
+        "originals": 10,
+        "allocation_controls": 1,
+        "live_row_nodes": 9,
+        "native_differences": 0
+      },
+      {
+        "sequence": 67,
+        "xid": "3.26.705",
+        "originals": 6,
+        "allocation_controls": 0,
+        "live_row_nodes": 6,
+        "native_differences": 0
+      }
+    ],
+    "faults": [
+      {
+        "name": "missing-begin",
+        "structure_rc": 0,
+        "history_rc": 1,
+        "events": 0,
+        "reason": "Exception in thread \"main\" com.streamhouse.oracle.RedoException: UNDO_INVENTORY_METADATA_LINK_MISMATCH"
+      },
+      {
+        "name": "missing-root-control",
+        "structure_rc": 0,
+        "history_rc": 1,
+        "events": 0,
+        "reason": "Exception in thread \"main\" com.streamhouse.oracle.RedoException: NON_ROW_FIRST_ROOT_CONTROL_MISSING_OR_AMBIGUOUS"
+      },
+      {
+        "name": "wrong-control-UBA",
+        "structure_rc": 0,
+        "history_rc": 1,
+        "events": 0,
+        "reason": "Exception in thread \"main\" com.streamhouse.oracle.RedoException: NON_ROW_FIRST_ROOT_CONTROL_UBA_MISMATCH"
+      },
+      {
+        "name": "wrong-root-wrap",
+        "structure_rc": 0,
+        "history_rc": 1,
+        "events": 0,
+        "reason": "Exception in thread \"main\" com.streamhouse.oracle.RedoException: NON_ROW_FIRST_ROOT_IDENTITY_OR_LINK_MISMATCH"
+      },
+      {
+        "name": "wrong-control-slot",
+        "structure_rc": 0,
+        "history_rc": 1,
+        "events": 0,
+        "reason": "Exception in thread \"main\" com.streamhouse.oracle.RedoException: NON_ROW_FIRST_ROOT_CONTROL_MISSING_OR_AMBIGUOUS"
+      },
+      {
+        "name": "wrong-root-container",
+        "structure_rc": 0,
+        "history_rc": 1,
+        "events": 0,
+        "reason": "Exception in thread \"main\" com.streamhouse.oracle.RedoException: NON_ROW_FIRST_ROOT_IDENTITY_OR_LINK_MISMATCH"
+      },
+      {
+        "name": "zero-root-object",
+        "structure_rc": 0,
+        "history_rc": 1,
+        "events": 0,
+        "reason": "Exception in thread \"main\" com.streamhouse.oracle.RedoException: NON_ROW_FIRST_ROOT_IDENTITY_OR_LINK_MISMATCH"
+      },
+      {
+        "name": "wrong-root-rci",
+        "structure_rc": 0,
+        "history_rc": 1,
+        "events": 0,
+        "reason": "Exception in thread \"main\" com.streamhouse.oracle.RedoException: NON_ROW_FIRST_ROOT_IDENTITY_OR_LINK_MISMATCH"
+      },
+      {
+        "name": "missing-middle-original",
+        "structure_rc": 0,
+        "history_rc": 1,
+        "events": 0,
+        "reason": "Exception in thread \"main\" com.streamhouse.oracle.RedoException: UNDO_HISTORY_SAME_BLOCK_HEAD_MISMATCH"
+      }
+    ],
+    "source_actions": 0,
+    "events": 0,
+    "SYS_row_values_verified": false,
+    "historical_dictionary_verified": false,
+    "product_rebuilt": false
+  },
+  "native_end": {
+    "cases": [
+      {
+        "sequence": 66,
+        "xid": "10.18.2272",
+        "end_position": [
+          66,
+          6711,
+          20
+        ],
+        "end_scn": 2522904,
+        "tail": [
+          37749351,
+          283,
+          65
+        ],
+        "control_count": 1,
+        "native_differences": 0
+      },
+      {
+        "sequence": 66,
+        "xid": "3.30.705",
+        "end_position": [
+          66,
+          6720,
+          236
+        ],
+        "end_scn": 2522911,
+        "tail": [
+          37749054,
+          436,
+          41
+        ],
+        "control_count": 2,
+        "native_differences": 0
+      },
+      {
+        "sequence": 67,
+        "xid": "3.26.705",
+        "end_position": [
+          67,
+          12,
+          404
+        ],
+        "end_scn": 2522937,
+        "tail": [
+          37749054,
+          436,
+          47
+        ],
+        "control_count": 1,
+        "native_differences": 0
+      }
+    ],
+    "history_refusals": [
+      {
+        "input": "actual-v2-batch",
+        "rc": 1,
+        "events": 0,
+        "reason": "Exception in thread \"main\" com.streamhouse.oracle.RedoException: TARGET_DICTIONARY_WRITE_REQUIRES_HISTORY:scn=2522903:object=75185"
+      },
+      {
+        "input": "erased-v2-batch",
+        "rc": 1,
+        "events": 0,
+        "reason": "Exception in thread \"main\" com.streamhouse.oracle.RedoException: TARGET_DICTIONARY_WRITE_REQUIRES_HISTORY:scn=2522903:object=75185"
+      }
+    ],
+    "driver_sha256": "b407ff3bc8d532347fe3cf79aa44728a850023fc760eb2f3b28247e47e4d82e7",
+    "source_actions": 0
+  },
+  "files": [
+    {
+      "path": "lab/out/sys-control-candidate-20261006/classes/SysUndoHistoryProbe.class",
+      "bytes": 9352,
+      "sha256": "2f7e7d88e95cac883ebd004e68512ce08710e09a9684e211d856f9ac7fe5b1c4"
+    },
+    {
+      "path": "lab/out/sys-control-candidate-20261006/classes/UndoInventoryProbe.class",
+      "bytes": 3756,
+      "sha256": "03bac9297b8ea6f66306934de617601d7a58916e4120cabb8cf2ac4fa694a686"
+    },
+    {
+      "path": "lab/out/sys-control-candidate-20261006/committed-SysUndoHistoryProbe.java",
+      "bytes": 4635,
+      "sha256": "194cfcf55239644db7c9a125e52b7ec24af7773173f9dccbf597e074392afb6d"
+    },
+    {
+      "path": "lab/out/sys-control-candidate-20261006/committed-verify_sys_control_candidate19.py",
+      "bytes": 6088,
+      "sha256": "1bf087a10c0ad9b0ab50b1ea73d5a12a1dd1ab2a4127ff9caa6328265f60d27b"
+    },
+    {
+      "path": "lab/out/sys-control-candidate-20261006/committed-verify_sys_history_end19.py",
+      "bytes": 3432,
+      "sha256": "b407ff3bc8d532347fe3cf79aa44728a850023fc760eb2f3b28247e47e4d82e7"
+    },
+    {
+      "path": "lab/out/sys-control-candidate-20261006/DERIVED-missing-begin.dbf",
+      "bytes": 3446272,
+      "sha256": "da223ac2f3ead44333fc580081238e5a509b5495a3db19ec960839b18f8a6438"
+    },
+    {
+      "path": "lab/out/sys-control-candidate-20261006/DERIVED-missing-middle-original.dbf",
+      "bytes": 3446272,
+      "sha256": "3d3f7f5422849624c6ef72e71f1abcba129d2e3df4bd1c95d0f6cf3dabfdcda9"
+    },
+    {
+      "path": "lab/out/sys-control-candidate-20261006/DERIVED-missing-root-control.dbf",
+      "bytes": 3446272,
+      "sha256": "61ac787b4c831defd1678902af6b6bb9d97f4672bdcdb3c9e0aafa53960e71c5"
+    },
+    {
+      "path": "lab/out/sys-control-candidate-20261006/DERIVED-wrong-control-slot.dbf",
+      "bytes": 3446272,
+      "sha256": "9129980e576a17708dbd004048faaeff1421f22888b685e49c59d271e55ceb0c"
+    },
+    {
+      "path": "lab/out/sys-control-candidate-20261006/DERIVED-wrong-control-UBA.dbf",
+      "bytes": 3446272,
+      "sha256": "dd34167fc908440f658ed0ffce280a19287de858b73240e3a2f39ff43c339967"
+    },
+    {
+      "path": "lab/out/sys-control-candidate-20261006/DERIVED-wrong-root-container.dbf",
+      "bytes": 3446272,
+      "sha256": "fea266128abe83ba2d71862c346288fb8427ad821ad8835442414698111299e4"
+    },
+    {
+      "path": "lab/out/sys-control-candidate-20261006/DERIVED-wrong-root-rci.dbf",
+      "bytes": 3446272,
+      "sha256": "af818c0392b4d1000cb6af6726f31ee5d1813cae9608bc67fc4e1ab59dc7aad4"
+    },
+    {
+      "path": "lab/out/sys-control-candidate-20261006/DERIVED-wrong-root-wrap.dbf",
+      "bytes": 3446272,
+      "sha256": "066a765d471eb34fb471b0996b12c9748daeefe41f59a71b74c09d77c50f88cd"
+    },
+    {
+      "path": "lab/out/sys-control-candidate-20261006/DERIVED-zero-root-object.dbf",
+      "bytes": 3446272,
+      "sha256": "ff89dfe6d779f4bf7995b52a1cac38d8716d84cb75a3b51679aabab2042615de"
+    },
+    {
+      "path": "lab/out/sys-control-candidate-20261006/executed-driver.py",
+      "bytes": 6088,
+      "sha256": "1bf087a10c0ad9b0ab50b1ea73d5a12a1dd1ab2a4127ff9caa6328265f60d27b"
+    },
+    {
+      "path": "lab/out/sys-control-candidate-20261006/executed-native-end-driver.py",
+      "bytes": 3432,
+      "sha256": "b407ff3bc8d532347fe3cf79aa44728a850023fc760eb2f3b28247e47e4d82e7"
+    },
+    {
+      "path": "lab/out/sys-control-candidate-20261006/execution-pin.json",
+      "bytes": 837,
+      "sha256": "f879c0b2a4a4a12913f7c49cfa4e29034a3958753a108b088280bb36473dcf5e"
+    },
+    {
+      "path": "lab/out/sys-control-candidate-20261006/full-build-r1.log",
+      "bytes": 10640,
+      "sha256": "28b9ec232deb0bfc2de48f16a57f8ded8764e5e26eee1b7aaaee68dfcbd3b9f9"
+    },
+    {
+      "path": "lab/out/sys-control-candidate-20261006/full-build-r1.rc.txt",
+      "bytes": 3,
+      "sha256": "13bf7b3039c63bf5a50491fa3cfd8eb4e699d1ba1436315aef9cbe5711530354"
+    },
+    {
+      "path": "lab/out/sys-control-candidate-20261006/history-66-10.18.2272.command.json",
+      "bytes": 377,
+      "sha256": "d7e6c3e9d3b74f6074a842808f9f4a061eccd63c852744bb95099b213c3ba426"
+    },
+    {
+      "path": "lab/out/sys-control-candidate-20261006/history-66-10.18.2272.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/sys-control-candidate-20261006/history-66-10.18.2272.stderr.txt",
+      "bytes": 70,
+      "sha256": "bd19f14d1e21c1c3933f7579049e49ee8e422747b53473257d9a5c7294a22643"
+    },
+    {
+      "path": "lab/out/sys-control-candidate-20261006/history-66-10.18.2272.stdout.txt",
+      "bytes": 695,
+      "sha256": "9cb8cfadf19593bfa163727e022cb1a89e93dad7b1e10dfaa1d988a12e1b3723"
+    },
+    {
+      "path": "lab/out/sys-control-candidate-20261006/history-66-3.30.705.command.json",
+      "bytes": 375,
+      "sha256": "353da3b34bfbc96cd12fa68f42a08b833c0df72e44fb1f6b1f0c8dcda86e212c"
+    },
+    {
+      "path": "lab/out/sys-control-candidate-20261006/history-66-3.30.705.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/sys-control-candidate-20261006/history-66-3.30.705.stderr.txt",
+      "bytes": 70,
+      "sha256": "bd19f14d1e21c1c3933f7579049e49ee8e422747b53473257d9a5c7294a22643"
+    },
+    {
+      "path": "lab/out/sys-control-candidate-20261006/history-66-3.30.705.stdout.txt",
+      "bytes": 1107,
+      "sha256": "6fdb83eb1b5d692f907f1d90822f060f318a51d2167c0b25013453cb05c7b90d"
+    },
+    {
+      "path": "lab/out/sys-control-candidate-20261006/history-67-3.26.705.command.json",
+      "bytes": 375,
+      "sha256": "cb4936ee684944b8a27f29f48d69e8094410936972b9f6ae60aacc78b433d9a8"
+    },
+    {
+      "path": "lab/out/sys-control-candidate-20261006/history-67-3.26.705.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/sys-control-candidate-20261006/history-67-3.26.705.stderr.txt",
+      "bytes": 70,
+      "sha256": "bd19f14d1e21c1c3933f7579049e49ee8e422747b53473257d9a5c7294a22643"
+    },
+    {
+      "path": "lab/out/sys-control-candidate-20261006/history-67-3.26.705.stdout.txt",
+      "bytes": 674,
+      "sha256": "7771aaaf324ab01993a5de6dfedc7e64e736c4768c159e1aa9138f775a0b8e25"
+    },
+    {
+      "path": "lab/out/sys-control-candidate-20261006/inventory-66-10.18.2272.command.json",
+      "bytes": 376,
+      "sha256": "d8aa8d38bf6882f9046f89d997dc8704c68b5daaa394ec37ff779cf57ccc6160"
+    },
+    {
+      "path": "lab/out/sys-control-candidate-20261006/inventory-66-10.18.2272.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/sys-control-candidate-20261006/inventory-66-10.18.2272.stderr.txt",
+      "bytes": 136,
+      "sha256": "e2a1338a0eb5969bd818e6248e55002cc25fcea5ce4ca1a5b3fc4fa73754ed3f"
+    },
+    {
+      "path": "lab/out/sys-control-candidate-20261006/inventory-66-10.18.2272.stdout.txt",
+      "bytes": 275,
+      "sha256": "a3c7f1eff41aeace036666bb3941f0fcd40149a9c07011fded05f698f890b740"
+    },
+    {
+      "path": "lab/out/sys-control-candidate-20261006/inventory-66-3.30.705.command.json",
+      "bytes": 374,
+      "sha256": "4c5153044725e89d7c644949f20f1fad8377957149e5d134403d82cf17231fae"
+    },
+    {
+      "path": "lab/out/sys-control-candidate-20261006/inventory-66-3.30.705.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/sys-control-candidate-20261006/inventory-66-3.30.705.stderr.txt",
+      "bytes": 137,
+      "sha256": "b6069197b18d5f160bb724636ae36080c5235bcc2f65ebd9a0a980f761f6ff38"
+    },
+    {
+      "path": "lab/out/sys-control-candidate-20261006/inventory-66-3.30.705.stdout.txt",
+      "bytes": 457,
+      "sha256": "6024796d46e5e95ab1d1a4dec3546f6b3adf74424536ab923f7daeb92d4340f2"
+    },
+    {
+      "path": "lab/out/sys-control-candidate-20261006/inventory-67-3.26.705.command.json",
+      "bytes": 374,
+      "sha256": "2283521740e9c038159252b3984a1d41cba048d56cb9c8db4c6c0c689a982c19"
+    },
+    {
+      "path": "lab/out/sys-control-candidate-20261006/inventory-67-3.26.705.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/sys-control-candidate-20261006/inventory-67-3.26.705.stderr.txt",
+      "bytes": 136,
+      "sha256": "305ca17fe55eb108a1206e8032de0721c99ab2ebce2dab068806e18ce66cc166"
+    },
+    {
+      "path": "lab/out/sys-control-candidate-20261006/inventory-67-3.26.705.stdout.txt",
+      "bytes": 260,
+      "sha256": "0dc69a57314c95af3babf780b675aa2696ff50f8ac2b9d203871de4efb6f636f"
+    },
+    {
+      "path": "lab/out/sys-control-candidate-20261006/kernel.jar",
+      "bytes": 203562,
+      "sha256": "5fb55de7f1d75cfdab71307a7734508cc5c49873ac543ee51add0ae9517c6af6"
+    },
+    {
+      "path": "lab/out/sys-control-candidate-20261006/missing-begin-history.command.json",
+      "bytes": 386,
+      "sha256": "e741074f736b96a1104f73540dd6a7776d35618f5cf729c6f5e1e1e2195ed661"
+    },
+    {
+      "path": "lab/out/sys-control-candidate-20261006/missing-begin-history.rc.txt",
+      "bytes": 1,
+      "sha256": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b"
+    },
+    {
+      "path": "lab/out/sys-control-candidate-20261006/missing-begin-history.stderr.txt",
+      "bytes": 633,
+      "sha256": "f02d47537403bda20fd7619f0597dac98bb84cdf059a0fcc65c9a6202c7fcd84"
+    },
+    {
+      "path": "lab/out/sys-control-candidate-20261006/missing-begin-history.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/sys-control-candidate-20261006/missing-begin-scan.command.json",
+      "bytes": 292,
+      "sha256": "25344397fc384462d18702bf43f243ac7ce29378c32e207ddf334e859a395621"
+    },
+    {
+      "path": "lab/out/sys-control-candidate-20261006/missing-begin-scan.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/sys-control-candidate-20261006/missing-begin-scan.stderr.txt",
+      "bytes": 280,
+      "sha256": "7dbd0636e5dc6ccfa706f5b96eca7530134e700a24146a33f98e69ab998b6154"
+    },
+    {
+      "path": "lab/out/sys-control-candidate-20261006/missing-begin-scan.stdout.txt",
+      "bytes": 22,
+      "sha256": "43b4733169d6e007aeb99a8ddd34a5c1c256dd2d71bd958ddcc72f09a9cae4e9"
+    },
+    {
+      "path": "lab/out/sys-control-candidate-20261006/missing-middle-original-history.command.json",
+      "bytes": 396,
+      "sha256": "dec1fb37d2e94fd7b4adb1ea3e768e21172e131141f39dcb34ebd8b7cce17144"
+    },
+    {
+      "path": "lab/out/sys-control-candidate-20261006/missing-middle-original-history.rc.txt",
+      "bytes": 1,
+      "sha256": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b"
+    },
+    {
+      "path": "lab/out/sys-control-candidate-20261006/missing-middle-original-history.stderr.txt",
+      "bytes": 501,
+      "sha256": "142f0e258ba825b197381b0bc0676289acd037b03ce342dbd63eeb2b6e4de8b4"
+    },
+    {
+      "path": "lab/out/sys-control-candidate-20261006/missing-middle-original-history.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/sys-control-candidate-20261006/missing-middle-original-scan.command.json",
+      "bytes": 302,
+      "sha256": "0b6993bcfbc57b1c79e737c990c42548bf3fcc3b0986ce85cd1f11983e677a03"
+    },
+    {
+      "path": "lab/out/sys-control-candidate-20261006/missing-middle-original-scan.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/sys-control-candidate-20261006/missing-middle-original-scan.stderr.txt",
+      "bytes": 280,
+      "sha256": "10b7dfc88908940e6da3abe46d5254520baaf2e870449bf2d484ff0266bb8ae9"
+    },
+    {
+      "path": "lab/out/sys-control-candidate-20261006/missing-middle-original-scan.stdout.txt",
+      "bytes": 22,
+      "sha256": "43b4733169d6e007aeb99a8ddd34a5c1c256dd2d71bd958ddcc72f09a9cae4e9"
+    },
+    {
+      "path": "lab/out/sys-control-candidate-20261006/missing-root-control-history.command.json",
+      "bytes": 393,
+      "sha256": "0bb731982f9091871999d644698a099791bd6bd92740cffc97de5c0db2faa7a6"
+    },
+    {
+      "path": "lab/out/sys-control-candidate-20261006/missing-root-control-history.rc.txt",
+      "bytes": 1,
+      "sha256": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b"
+    },
+    {
+      "path": "lab/out/sys-control-candidate-20261006/missing-root-control-history.stderr.txt",
+      "bytes": 717,
+      "sha256": "a57673b6834023d93cfd112da647bdf9e899edcd31e7518ca0545fe61c249bcf"
+    },
+    {
+      "path": "lab/out/sys-control-candidate-20261006/missing-root-control-history.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/sys-control-candidate-20261006/missing-root-control-scan.command.json",
+      "bytes": 299,
+      "sha256": "6998a0cf642ebb19ce53ec21249b62c10c65bb51ed940b7ef4f13c69778fafbb"
+    },
+    {
+      "path": "lab/out/sys-control-candidate-20261006/missing-root-control-scan.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/sys-control-candidate-20261006/missing-root-control-scan.stderr.txt",
+      "bytes": 280,
+      "sha256": "1d2fd5df12302fa2e42d2d86eb1970583e931e09cd8d387fba24e7dcf9d97c85"
+    },
+    {
+      "path": "lab/out/sys-control-candidate-20261006/missing-root-control-scan.stdout.txt",
+      "bytes": 22,
+      "sha256": "43b4733169d6e007aeb99a8ddd34a5c1c256dd2d71bd958ddcc72f09a9cae4e9"
+    },
+    {
+      "path": "lab/out/sys-control-candidate-20261006/native-end-proof.json",
+      "bytes": 1530,
+      "sha256": "7b30028fd44c479b2d38f5e7e213e8247c25d9c9c1fc7396ef7a762158c5d501"
+    },
+    {
+      "path": "lab/out/sys-control-candidate-20261006/new-kernel-actual-v2-batch.command.json",
+      "bytes": 831,
+      "sha256": "8528d77477b2ef224d748c2113e9c2e48894bf384106bfd78b72deaf76997bb5"
+    },
+    {
+      "path": "lab/out/sys-control-candidate-20261006/new-kernel-actual-v2-batch.rc.txt",
+      "bytes": 1,
+      "sha256": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b"
+    },
+    {
+      "path": "lab/out/sys-control-candidate-20261006/new-kernel-actual-v2-batch.stderr.txt",
+      "bytes": 879,
+      "sha256": "5f0a59718c15a231fa883e225f7f5f03c99679921c795c92faf7f7247e682081"
+    },
+    {
+      "path": "lab/out/sys-control-candidate-20261006/new-kernel-actual-v2-batch.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/sys-control-candidate-20261006/new-kernel-erased-v2-batch.command.json",
+      "bytes": 809,
+      "sha256": "30b4de72aaf36de0adfcd03224bdd0e540c5d3583dc299d3e3051f370192ef5a"
+    },
+    {
+      "path": "lab/out/sys-control-candidate-20261006/new-kernel-erased-v2-batch.rc.txt",
+      "bytes": 1,
+      "sha256": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b"
+    },
+    {
+      "path": "lab/out/sys-control-candidate-20261006/new-kernel-erased-v2-batch.stderr.txt",
+      "bytes": 879,
+      "sha256": "5f0a59718c15a231fa883e225f7f5f03c99679921c795c92faf7f7247e682081"
+    },
+    {
+      "path": "lab/out/sys-control-candidate-20261006/new-kernel-erased-v2-batch.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/sys-control-candidate-20261006/probe-compile.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/sys-control-candidate-20261006/probe-compile.rc.txt",
+      "bytes": 3,
+      "sha256": "13bf7b3039c63bf5a50491fa3cfd8eb4e699d1ba1436315aef9cbe5711530354"
+    },
+    {
+      "path": "lab/out/sys-control-candidate-20261006/proof.json",
+      "bytes": 3080,
+      "sha256": "379b21e86d3dc33a0a43ef897316f368947a76c85b449a9873bdb71f300bce92"
+    },
+    {
+      "path": "lab/out/sys-control-candidate-20261006/targeted-r1.log",
+      "bytes": 2109,
+      "sha256": "368e33991b13f811ca72c4ce8015c3b12bbfd21d62bc523b6ef51c4edfebb3ac"
+    },
+    {
+      "path": "lab/out/sys-control-candidate-20261006/targeted-r1.rc.txt",
+      "bytes": 3,
+      "sha256": "13bf7b3039c63bf5a50491fa3cfd8eb4e699d1ba1436315aef9cbe5711530354"
+    },
+    {
+      "path": "lab/out/sys-control-candidate-20261006/TEST-com.streamhouse.oracle.ArchivedCompensationAssociationsTest.xml",
+      "bytes": 11102,
+      "sha256": "c19f39bff299e8cd431453a5707c4840fd2195b42bcfcac8bd39d373a838e90c"
+    },
+    {
+      "path": "lab/out/sys-control-candidate-20261006/TEST-com.streamhouse.oracle.ArchivedCompensationInventoryTest.xml",
+      "bytes": 10720,
+      "sha256": "407110cd6ae8210ffdaa6d8fa166d1f47ddb54b1603123d077dac737a4639ecf"
+    },
+    {
+      "path": "lab/out/sys-control-candidate-20261006/TEST-com.streamhouse.oracle.ArchivedHeapRowsTest.xml",
+      "bytes": 10664,
+      "sha256": "047148f5f77287c6bde3064c4a176424eb81330943a5b17a7c8faafdd31cf769"
+    },
+    {
+      "path": "lab/out/sys-control-candidate-20261006/TEST-com.streamhouse.oracle.ArchivedIndexLeafInventoryTest.xml",
+      "bytes": 10856,
+      "sha256": "fc9e0b80124186dd0438c5f6a89ce3a6532fbb9042d0e72b78ffe37f86ae417e"
+    },
+    {
+      "path": "lab/out/sys-control-candidate-20261006/TEST-com.streamhouse.oracle.ArchivedObjectTransactionsTest.xml",
+      "bytes": 10700,
+      "sha256": "bcddd35e3b53c01102eb11f38740459923f8e5a011ad7309d58e7e609ef7a77d"
+    },
+    {
+      "path": "lab/out/sys-control-candidate-20261006/TEST-com.streamhouse.oracle.ArchivedPhysicalTransactionsTest.xml",
+      "bytes": 11489,
+      "sha256": "666926fdf59a68dd2761ceb8e4770581f25ddae1e329b54d8563384b9a03c98b"
+    },
+    {
+      "path": "lab/out/sys-control-candidate-20261006/TEST-com.streamhouse.oracle.ArchivedRedoTest.xml",
+      "bytes": 11192,
+      "sha256": "aee3553f15ae967c3bbdcc606ca84f4aaf8591ece64ba9df6d62d209e78d727a"
+    },
+    {
+      "path": "lab/out/sys-control-candidate-20261006/TEST-com.streamhouse.oracle.ArchivedUndoInventoryTest.xml",
+      "bytes": 10505,
+      "sha256": "0091cd9001f76737bb118cdeb81e45b30287ae1654cc566e6da3a41d5f47c76f"
+    },
+    {
+      "path": "lab/out/sys-control-candidate-20261006/TEST-com.streamhouse.oracle.BeginCompensationTest.xml",
+      "bytes": 10611,
+      "sha256": "c65bbf882435078b1005172d19b8962b43f6952d8e823a06bf87f348400a148e"
+    },
+    {
+      "path": "lab/out/sys-control-candidate-20261006/TEST-com.streamhouse.oracle.CapturedHeapBatchTest.xml",
+      "bytes": 10541,
+      "sha256": "779d38d00fe2b5bd76919796cdfef39a96054105f528776c6883f4f5de150e6b"
+    },
+    {
+      "path": "lab/out/sys-control-candidate-20261006/TEST-com.streamhouse.oracle.CaptureJournalTest.xml",
+      "bytes": 10452,
+      "sha256": "334a4fea195c6bd6b56624558c7c5ef65124df692380a686049af1246cb25c60"
+    },
+    {
+      "path": "lab/out/sys-control-candidate-20261006/TEST-com.streamhouse.oracle.CrossCompensationTest.xml",
+      "bytes": 10607,
+      "sha256": "f5ac3c568ab24584fc7d27a0e3e41d9a8e3638883b71f3951f3ac583662b391b"
+    },
+    {
+      "path": "lab/out/sys-control-candidate-20261006/TEST-com.streamhouse.oracle.EmptyHeapCleanoutTest.xml",
+      "bytes": 10085,
+      "sha256": "dcad40477a11a52b22b0c75b9a89dbaf03e5a171d992d46bb4459de678062d27"
+    },
+    {
+      "path": "lab/out/sys-control-candidate-20261006/TEST-com.streamhouse.oracle.FrozenHeapBaselineTest.xml",
+      "bytes": 10717,
+      "sha256": "42b46473fe13313b8fce6505c4292d016470dce446fd66641138508226176cd8"
+    },
+    {
+      "path": "lab/out/sys-control-candidate-20261006/TEST-com.streamhouse.oracle.HeapCleanoutCTest.xml",
+      "bytes": 10177,
+      "sha256": "9f5c89847cfe8e65d3cd745607e9571ed2649f64dfdfaffa5e65240dafd4d62b"
+    },
+    {
+      "path": "lab/out/sys-control-candidate-20261006/TEST-com.streamhouse.oracle.HeapCompensationTest.xml",
+      "bytes": 10871,
+      "sha256": "2720f7faad94177d5774207f87a575b83bc89bf1c5043f0c92b7ad473e1c76c3"
+    },
+    {
+      "path": "lab/out/sys-control-candidate-20261006/TEST-com.streamhouse.oracle.HeapIndexScopeTest.xml",
+      "bytes": 10376,
+      "sha256": "0f67fdc6e141216b8a6e7afb6c305f1a36018a2956c8b88f2073d4cd8a72ef73"
+    },
+    {
+      "path": "lab/out/sys-control-candidate-20261006/TEST-com.streamhouse.oracle.HeapLockTest.xml",
+      "bytes": 10044,
+      "sha256": "7832332e6f7db5d7ea412eff9c9ca418e03424ba9c7e7e15c9e49d730a91bb1e"
+    },
+    {
+      "path": "lab/out/sys-control-candidate-20261006/TEST-com.streamhouse.oracle.HeapRowPatchTest.xml",
+      "bytes": 10647,
+      "sha256": "b4983534df59448db99c5dff327100ff927e7cb2c154063234fa9b7efca90b14"
+    },
+    {
+      "path": "lab/out/sys-control-candidate-20261006/TEST-com.streamhouse.oracle.HeapTailExtentTest.xml",
+      "bytes": 10756,
+      "sha256": "9ee10c979edcfec443bbf115da32de03a74f0f7301c2722b98ac3ee0dedd24e7"
+    },
+    {
+      "path": "lab/out/sys-control-candidate-20261006/TEST-com.streamhouse.oracle.HeapUndoPairTest.xml",
+      "bytes": 10566,
+      "sha256": "6facd283e9698204d859ac89cb6e2d1f1c3645b66cfa857cfd4681405447ff1b"
+    },
+    {
+      "path": "lab/out/sys-control-candidate-20261006/TEST-com.streamhouse.oracle.HistoricalSchemaBarrierTest.xml",
+      "bytes": 11450,
+      "sha256": "5397c02c60e40e43131d0a1c48d2d337ce5fb7f906bea84d9df792decc53423e"
+    },
+    {
+      "path": "lab/out/sys-control-candidate-20261006/TEST-com.streamhouse.oracle.IndexCompensationTest.xml",
+      "bytes": 10493,
+      "sha256": "fe2564568a8528fcd0bb3449857f7a49fef74bc35c9b02a51dac482015c3793c"
+    },
+    {
+      "path": "lab/out/sys-control-candidate-20261006/TEST-com.streamhouse.oracle.IndexLeafPositionsTest.xml",
+      "bytes": 11189,
+      "sha256": "baeee9d8d84b739dfe0399a4b3ac4bd0d2e5e9b738591a84330409b025a9b352"
+    },
+    {
+      "path": "lab/out/sys-control-candidate-20261006/TEST-com.streamhouse.oracle.IndexPositionReplayTest.xml",
+      "bytes": 10434,
+      "sha256": "56ec54c0999121f7e7db238ba255798e6262997b5f4742101084df032582625b"
+    },
+    {
+      "path": "lab/out/sys-control-candidate-20261006/TEST-com.streamhouse.oracle.IndexRestoreCompensationTest.xml",
+      "bytes": 10657,
+      "sha256": "c00154453a8f4adf90c05a572e1ce4655112dbb68a1c392a9fa18bdfbfaa3982"
+    },
+    {
+      "path": "lab/out/sys-control-candidate-20261006/TEST-com.streamhouse.oracle.IndexUndoPairTest.xml",
+      "bytes": 10943,
+      "sha256": "ceea3b37bb3be46d983efb7c34f12c7c39c8ecca1d6488d44c8ee5d63b21cb72"
+    },
+    {
+      "path": "lab/out/sys-control-candidate-20261006/TEST-com.streamhouse.oracle.Kdom2MarkerThreeTest.xml",
+      "bytes": 10057,
+      "sha256": "5335463541531011a4ad0cce562f9c019d02e227225f5f0e15a60e03f0a8b70a"
+    },
+    {
+      "path": "lab/out/sys-control-candidate-20261006/TEST-com.streamhouse.oracle.Kdom2UpdateTest.xml",
+      "bytes": 11095,
+      "sha256": "4cd4a293bd7b9f679bd37e753fa9aea3ceff35f4047c2a90de36ea0f613a5d02"
+    },
+    {
+      "path": "lab/out/sys-control-candidate-20261006/TEST-com.streamhouse.oracle.KtbZInsertTest.xml",
+      "bytes": 10178,
+      "sha256": "1049fe9a739d8f50ea3fbda2b52db421b831363397b33debf112d01b1a838560"
+    },
+    {
+      "path": "lab/out/sys-control-candidate-20261006/TEST-com.streamhouse.oracle.KtbZRollbackTest.xml",
+      "bytes": 11228,
+      "sha256": "1f3167bab7ac5009505ed95df8a8f9a4e642af35c919574a647a5d663f2f6096"
+    },
+    {
+      "path": "lab/out/sys-control-candidate-20261006/TEST-com.streamhouse.oracle.OracleScalarsTest.xml",
+      "bytes": 10395,
+      "sha256": "08aea14ce6a12cc9425bc87f3a9fa3c94dba8cc8c8f21add231fafa4bad3d4fd"
+    },
+    {
+      "path": "lab/out/sys-control-candidate-20261006/TEST-com.streamhouse.oracle.SingleEntryBlockCleanoutTest.xml",
+      "bytes": 10095,
+      "sha256": "4b89a525446b57d309829196893f5dfb4fad371f94e5e0f9bad3c80d2330d570"
+    },
+    {
+      "path": "lab/out/sys-control-candidate-20261006/TEST-com.streamhouse.oracle.TransactionLifecycleTest.xml",
+      "bytes": 11699,
+      "sha256": "f42065b55fce11d88a236e9919d065aa3112f54fa81f0bf42c12d3d4abd5660e"
+    },
+    {
+      "path": "lab/out/sys-control-candidate-20261006/TEST-com.streamhouse.oracle.TransactionMarkersTest.xml",
+      "bytes": 11185,
+      "sha256": "6809c235c63c99a5c8ba6217e3367e69bd052c6a138fb35ac715094bc89f530e"
+    },
+    {
+      "path": "lab/out/sys-control-candidate-20261006/TEST-com.streamhouse.oracle.TransactionStartTest.xml",
+      "bytes": 10841,
+      "sha256": "563a7dc0700f96d551add697f989d27cdd750a6379da23ef8d7c245498d90f4d"
+    },
+    {
+      "path": "lab/out/sys-control-candidate-20261006/TEST-com.streamhouse.oracle.UndoBlockAdvanceTest.xml",
+      "bytes": 10460,
+      "sha256": "6276397388f7fed1496e360c4d3b964797eee6fde669d9ff3a4b00d804cf5f2b"
+    },
+    {
+      "path": "lab/out/sys-control-candidate-20261006/TEST-com.streamhouse.oracle.UndoChainTest.xml",
+      "bytes": 10570,
+      "sha256": "7f9af97f8930050a185e03c0d6e86f2de072dbf2eda9121f10aa7d47cc7f80e0"
+    },
+    {
+      "path": "lab/out/sys-control-candidate-20261006/TEST-com.streamhouse.oracle.UndoControlRootTest.xml",
+      "bytes": 10353,
+      "sha256": "a12891e449f11e280df0f86c7a514b33ea3d9d2e7a277f2990cd8d4991b38824"
+    },
+    {
+      "path": "lab/out/sys-control-candidate-20261006/TEST-com.streamhouse.oracle.UndoHeaderTest.xml",
+      "bytes": 10145,
+      "sha256": "dff11e066b21c97df38d08f38c2f97ce4cb1c8c608cbb09aab4927606859873d"
+    },
+    {
+      "path": "lab/out/sys-control-candidate-20261006/TEST-com.streamhouse.oracle.UndoHeadUpdateTest.xml",
+      "bytes": 10617,
+      "sha256": "c741801300eddd0fb68a7340954d57d7893f0d7c32531bffc33f8cab563da15e"
+    },
+    {
+      "path": "lab/out/sys-control-candidate-20261006/TEST-com.streamhouse.oracle.UndoHistoryTest.xml",
+      "bytes": 11041,
+      "sha256": "b6d553ff1582acbd63f794eac984328520975dd3d24121d6d3acfe857286bba3"
+    },
+    {
+      "path": "lab/out/sys-control-candidate-20261006/TEST-com.streamhouse.oracle.UndoRowPatchTest.xml",
+      "bytes": 10423,
+      "sha256": "68012bb7667227653a13049d1c093680fb735b4bb4e90f480a7b3a686a209db8"
+    },
+    {
+      "path": "lab/out/sys-control-candidate-20261006/wrong-control-slot-history.command.json",
+      "bytes": 391,
+      "sha256": "3083de7446eddc6b73cf44d7f02b64fd89cf55178215cbdda666256277f2feff"
+    },
+    {
+      "path": "lab/out/sys-control-candidate-20261006/wrong-control-slot-history.rc.txt",
+      "bytes": 1,
+      "sha256": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b"
+    },
+    {
+      "path": "lab/out/sys-control-candidate-20261006/wrong-control-slot-history.stderr.txt",
+      "bytes": 717,
+      "sha256": "a57673b6834023d93cfd112da647bdf9e899edcd31e7518ca0545fe61c249bcf"
+    },
+    {
+      "path": "lab/out/sys-control-candidate-20261006/wrong-control-slot-history.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/sys-control-candidate-20261006/wrong-control-slot-scan.command.json",
+      "bytes": 297,
+      "sha256": "5857fdd3a2e350dbab3730bdf02be138ebc6fb6e00a816f7f5b6fbd7ef1bde92"
+    },
+    {
+      "path": "lab/out/sys-control-candidate-20261006/wrong-control-slot-scan.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/sys-control-candidate-20261006/wrong-control-slot-scan.stderr.txt",
+      "bytes": 280,
+      "sha256": "585121eb39964d81b002169efbe8c09fdd034a799e08a262bed75a16f8a3a645"
+    },
+    {
+      "path": "lab/out/sys-control-candidate-20261006/wrong-control-slot-scan.stdout.txt",
+      "bytes": 22,
+      "sha256": "43b4733169d6e007aeb99a8ddd34a5c1c256dd2d71bd958ddcc72f09a9cae4e9"
+    },
+    {
+      "path": "lab/out/sys-control-candidate-20261006/wrong-control-UBA-history.command.json",
+      "bytes": 390,
+      "sha256": "a1de02b0580d76006e151dcf61b66349de657ccea7864c4fc7ee5ff97cfd5546"
+    },
+    {
+      "path": "lab/out/sys-control-candidate-20261006/wrong-control-UBA-history.rc.txt",
+      "bytes": 1,
+      "sha256": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b"
+    },
+    {
+      "path": "lab/out/sys-control-candidate-20261006/wrong-control-UBA-history.stderr.txt",
+      "bytes": 709,
+      "sha256": "31614246851afb2214efd1409cd74ff7276565a1edcfd100aa70fbf3206881b5"
+    },
+    {
+      "path": "lab/out/sys-control-candidate-20261006/wrong-control-UBA-history.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/sys-control-candidate-20261006/wrong-control-UBA-scan.command.json",
+      "bytes": 296,
+      "sha256": "bd9d986814d17e6750f99ea559365f3572040b623e9e524af04be26c2ad9ba28"
+    },
+    {
+      "path": "lab/out/sys-control-candidate-20261006/wrong-control-UBA-scan.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/sys-control-candidate-20261006/wrong-control-UBA-scan.stderr.txt",
+      "bytes": 280,
+      "sha256": "fb856f5a4857728a524c8df5983e35da5d5517c7f163328408764613746b444a"
+    },
+    {
+      "path": "lab/out/sys-control-candidate-20261006/wrong-control-UBA-scan.stdout.txt",
+      "bytes": 22,
+      "sha256": "43b4733169d6e007aeb99a8ddd34a5c1c256dd2d71bd958ddcc72f09a9cae4e9"
+    },
+    {
+      "path": "lab/out/sys-control-candidate-20261006/wrong-root-container-history.command.json",
+      "bytes": 393,
+      "sha256": "5226d7f06b5c9fb304e141ef3f364d86e7dac298e0d79b6457b66bdf9266d15b"
+    },
+    {
+      "path": "lab/out/sys-control-candidate-20261006/wrong-root-container-history.rc.txt",
+      "bytes": 1,
+      "sha256": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b"
+    },
+    {
+      "path": "lab/out/sys-control-candidate-20261006/wrong-root-container-history.stderr.txt",
+      "bytes": 714,
+      "sha256": "594f44943bdc299bffecf4379ca5c58a263d5b101e8a991c59d3253283ae0007"
+    },
+    {
+      "path": "lab/out/sys-control-candidate-20261006/wrong-root-container-history.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/sys-control-candidate-20261006/wrong-root-container-scan.command.json",
+      "bytes": 299,
+      "sha256": "0e02226968df4168e203871e2b96ff3a15f9dc1685b6b8e0553dc595570aaaa1"
+    },
+    {
+      "path": "lab/out/sys-control-candidate-20261006/wrong-root-container-scan.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/sys-control-candidate-20261006/wrong-root-container-scan.stderr.txt",
+      "bytes": 280,
+      "sha256": "2192384bd79e325bbcba65976a2cac9f226eea94182c71c713452bf05420ed17"
+    },
+    {
+      "path": "lab/out/sys-control-candidate-20261006/wrong-root-container-scan.stdout.txt",
+      "bytes": 22,
+      "sha256": "43b4733169d6e007aeb99a8ddd34a5c1c256dd2d71bd958ddcc72f09a9cae4e9"
+    },
+    {
+      "path": "lab/out/sys-control-candidate-20261006/wrong-root-rci-history.command.json",
+      "bytes": 387,
+      "sha256": "4cbe02087f415361be67b35b1ea8f53ed7983e3981d0bcd531ff12b5f02cf486"
+    },
+    {
+      "path": "lab/out/sys-control-candidate-20261006/wrong-root-rci-history.rc.txt",
+      "bytes": 1,
+      "sha256": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b"
+    },
+    {
+      "path": "lab/out/sys-control-candidate-20261006/wrong-root-rci-history.stderr.txt",
+      "bytes": 714,
+      "sha256": "594f44943bdc299bffecf4379ca5c58a263d5b101e8a991c59d3253283ae0007"
+    },
+    {
+      "path": "lab/out/sys-control-candidate-20261006/wrong-root-rci-history.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/sys-control-candidate-20261006/wrong-root-rci-scan.command.json",
+      "bytes": 293,
+      "sha256": "98e4bc0f940d85f1cc45ef5aead4e7fa32bc50bb52eb0a012cb7d5e12e0da5c0"
+    },
+    {
+      "path": "lab/out/sys-control-candidate-20261006/wrong-root-rci-scan.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/sys-control-candidate-20261006/wrong-root-rci-scan.stderr.txt",
+      "bytes": 280,
+      "sha256": "5bf698a5bdc61de42fa195a292cfdc354269c028e85f663c3f6c234e81142fac"
+    },
+    {
+      "path": "lab/out/sys-control-candidate-20261006/wrong-root-rci-scan.stdout.txt",
+      "bytes": 22,
+      "sha256": "43b4733169d6e007aeb99a8ddd34a5c1c256dd2d71bd958ddcc72f09a9cae4e9"
+    },
+    {
+      "path": "lab/out/sys-control-candidate-20261006/wrong-root-wrap-history.command.json",
+      "bytes": 388,
+      "sha256": "e2cf64e89ee1bd6e6095cdd50d9fef20e8306e3727a6e572a4a3180d996db378"
+    },
+    {
+      "path": "lab/out/sys-control-candidate-20261006/wrong-root-wrap-history.rc.txt",
+      "bytes": 1,
+      "sha256": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b"
+    },
+    {
+      "path": "lab/out/sys-control-candidate-20261006/wrong-root-wrap-history.stderr.txt",
+      "bytes": 714,
+      "sha256": "594f44943bdc299bffecf4379ca5c58a263d5b101e8a991c59d3253283ae0007"
+    },
+    {
+      "path": "lab/out/sys-control-candidate-20261006/wrong-root-wrap-history.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/sys-control-candidate-20261006/wrong-root-wrap-scan.command.json",
+      "bytes": 294,
+      "sha256": "acb1540a4409d58f29cf1b4dad574a6b12beb5676efbb42f654236f9a31000f5"
+    },
+    {
+      "path": "lab/out/sys-control-candidate-20261006/wrong-root-wrap-scan.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/sys-control-candidate-20261006/wrong-root-wrap-scan.stderr.txt",
+      "bytes": 280,
+      "sha256": "e8a01cbdfbc6e28a721d4b38c50e1c2f713a6c1be66ee9d9bd4172d2085c991a"
+    },
+    {
+      "path": "lab/out/sys-control-candidate-20261006/wrong-root-wrap-scan.stdout.txt",
+      "bytes": 22,
+      "sha256": "43b4733169d6e007aeb99a8ddd34a5c1c256dd2d71bd958ddcc72f09a9cae4e9"
+    },
+    {
+      "path": "lab/out/sys-control-candidate-20261006/zero-root-object-history.command.json",
+      "bytes": 389,
+      "sha256": "8ebc2b5f8a69a416fc6b1da0b1dfd51d866e7806bd8f534fe8b7a777e5788584"
+    },
+    {
+      "path": "lab/out/sys-control-candidate-20261006/zero-root-object-history.rc.txt",
+      "bytes": 1,
+      "sha256": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b"
+    },
+    {
+      "path": "lab/out/sys-control-candidate-20261006/zero-root-object-history.stderr.txt",
+      "bytes": 714,
+      "sha256": "594f44943bdc299bffecf4379ca5c58a263d5b101e8a991c59d3253283ae0007"
+    },
+    {
+      "path": "lab/out/sys-control-candidate-20261006/zero-root-object-history.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/sys-control-candidate-20261006/zero-root-object-scan.command.json",
+      "bytes": 295,
+      "sha256": "946297eaa37277bbd5f2709f0f8bc4ba781d427f20d2490be4767f9a8990ec48"
+    },
+    {
+      "path": "lab/out/sys-control-candidate-20261006/zero-root-object-scan.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/sys-control-candidate-20261006/zero-root-object-scan.stderr.txt",
+      "bytes": 280,
+      "sha256": "0b8aaa07a0beea578db8627882bd6a6ad509461ceecabd5a64a18f6dcd279f1a"
+    },
+    {
+      "path": "lab/out/sys-control-candidate-20261006/zero-root-object-scan.stdout.txt",
+      "bytes": 22,
+      "sha256": "43b4733169d6e007aeb99a8ddd34a5c1c256dd2d71bd958ddcc72f09a9cae4e9"
+    }
+  ]
+}
