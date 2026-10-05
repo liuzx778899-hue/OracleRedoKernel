@@ -1,5 +1,7 @@
 # OracleRedoKernel 当前状态
 
+最新：[V3完整SYS获取候选](DELIVERY_W5_DICTIONARY_BASELINE_V3_20261006.md)：6b68786/kernel97dd395f/290、adaptere095822b/22；V3完整布局/六SYS行/三index identity+DBA已实现，实际新SCN2533047/SHA518c0f90及独立230字段/三个索引/业务基线零差异。旧V2三完整IUD字节不变，原/擦marker历史拒绝不变，V3也未解除历史门禁。219双SHA/旧204未变；首次IND$权限ORA-00942拒绝无快照，owned lab补SELECT/FLASHBACK属配置实验，不当生产零侵入证明；无业务DDL/DML/目标动作/产品换装。接续COMPLETE_SYS_HISTORY完整SYS行/三索引lifecycle、新V3之后历史raw正功能/产品获取账HTTP。原goal active，跨窗/采集/独立目标/矩阵/评审现场发布未过，Codex最后查。
+
 最新：[三SYS复合索引pair](DELIVERY_W5_DICTIONARY_INDEX_PAIR_20261006.md)：646841d/kernelc8586fcb/286；冻结十index pair/native parent/rowid一致，十二合法checksum raw scan0/pair1/stdout0。普通单列入口不放宽，旧静态actual V2三完整IUD输出字节一致，原/擦marker历史V2拒绝原因不变。204双SHA/旧169未变；SCN2522819索引地址只读研究，不回填V2authority。0源变更/目标动作/产品构建，产品仍efd068f/737。接续TRUSTED_SYS_HISTORY新版可信布局/角色获取、完整SYS行与三索引生命周期、新baseline后历史DML正功能；原goal active，跨窗/采集/独立目标/矩阵/评审现场发布未过，Codex最后查。
 
 最新：[cluster正逆pair/三SYS列索引](DELIVERY_W5_CLUSTER_PAIR_20261006.md)：b3455f0/kernelcca25465/282、lab9ab3410；八TAB$/COL$ pair完整UndoHeader XID/current UBA/role/table/block/slot/op/extent与冻结native一致，foreign L不当当前身份。九合法checksum raw scan0/pair1/stdout0；旧96class不变。全22原始节点中的十index复合key/rowid native一致，角色I_COL1/2/3(48/49/50)晚只读研究，I_COL2 rowid内嵌/外部data省略，现普通单列key不能放行。169双SHA/旧98未变，比较器keydata/bitmap失败保全，0源变更/目标动作/新产品HTTP。接续DICTIONARY_COMPOSITE_INDEX完整三索引依赖和新版可信获取，parent/历史DML尚未授权，原goal active，跨窗/采集/独立目标/评审现场发布未过，Codex最后查。

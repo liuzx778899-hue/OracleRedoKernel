@@ -1,8 +1,8 @@
 """Changed ordinary index code: frozen complete DML and historical refusal impact only."""
-import hashlib,json,subprocess
+import hashlib,json,subprocess,sys
 from pathlib import Path
 R=Path(__file__).resolve().parent.parent
-O=R/'lab/out/dictionary-index-pair-20261006'
+O=Path(sys.argv[1]) if len(sys.argv)>1 else R/'lab/out/dictionary-index-pair-20261006'
 assert not (O/'impact-proof.json').exists()
 (O/'executed-impact-driver.py').write_bytes(Path(__file__).read_bytes())
 cases=[]

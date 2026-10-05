@@ -1,3 +1,9 @@
+# 最新接续：三SYS复合索引pair
+
+最新以V3完整SYS候选为准：6b68786/kernel97dd395fd958c0fbb71a5442dead3f5d27bf8aeeefb6f9d3bacc884cfd861bb4/290，adaptere095822b/22。O=lab/out/dictionary-baseline-candidate-20261006，Q=lab/out/sys-full-baseline-research-20261006；actual new-v3-r2.snapshot SCN2533047/SHA518c0f90，六完整SYS行230字段/三index身份地址/业务基线独立零差异，219双SHA/旧204未变。首次IND$权限缺失拒绝零快照，owned lab ORKACQ_20261005补IND$ SELECT/FLASHBACK；配置实验不当生产零侵入证明，无业务DDL/DML/目标动作。旧V2三IUD字节相同、历史原/擦marker仍拒绝；新V3也没有历史重放/事件权限或产品获取账。P仍efd068f/737/旧672，不重跑未变化产品，PR#13待评审。接续DISPATCH_W5_COMPLETE_SYS_HISTORY_20261006完整SYS/control/三index生命周期、新baseline后历史DML正功能/产品实际获取账与HTTP。旧seq66/67不重放，完整原goal/automation继续，跨窗/采集租约/独立目标/矩阵压力断电/评审现场发布未过，Codex所有Oracle完成后查。下面此前条目仅历史。
+
+646841d/kernelc8586fcb/286，详见DELIVERY_W5_DICTIONARY_INDEX_PAIR_20261006.md及STATUS。O=lab/out/dictionary-index-pair-20261006，十index pair/十二合法checksum语义反例通过；旧静态actual V2三完整IUD字节不变、历史原/擦markerV2拒绝原因为DICT_WRITE2522903/object75185不变。204双SHA、旧169不变，无源变更/目标动作/产品构建。三index身份及SCN2522819地址仅只读研究，不回填旧V2权限。接续DISPATCH_W5_TRUSTED_SYS_HISTORY_20261006新版可信获取、完整SYS像/三index lifecycle与新baseline后历史正功能。seq66/67已结束禁止重放；P仍efd068f/737旧kernel672，PR#13 draft待评审。原完整goal active/automation保留，跨窗/正式采集/独立目标/扩展环境矩阵/现场发布继续，Codex卡顿全部Oracle完成后查。以下历史入口仅保留。
+
 # 精简 chat 主线交接（2026-10-05）
 
 最新：[cluster pair/三SYS列索引](DELIVERY_W5_CLUSTER_PAIR_20261006.md)：b3455f0/kernelcca2546568837c9af03a2ff19aa85eec21d53c81bc5168d06decf2287924d6d0/282、lab9ab3410，O=lab/out/sys-cluster-pair-20261006；八pair及九合法checksum错slot/tab/UBA/fullXID/gen等scan0/pair1/stdout0，旧96class不变。十索引原始key/rowid与native0差异；不仅I_COL1/2，还I_COL3 logical/data50/50，原SYS三index依赖48/49/50均需覆盖。I_COL2三component含rowid、外部data省略；I_COL1/3两component+外部rowid；普通IndexUndoPair单component不支持。当前角色查询只研究，原V2无可信SYS index/gen，不可晚authority回填。169双SHA/旧98未变、比较器r1keydata/bitmap失败保全、0源变更/目标动作/新产品。接续DISPATCH_W5_DICTIONARY_COMPOSITE_INDEX_20261006新typed三index/key pair与明确新版可信获取，再新SCN后新raw历史DML正功能。旧66/67闭合不重放，原goal active/automation保留，Codex所有Oracle完成后查。
@@ -78,6 +84,3 @@ StreamHouse checkout D:/work/vibecode/StreamHouse 共享只读，有他人 dirty
 Java17 D:/work/Java/jdk-17.0.7；Maven D:/work/Java/apache-maven-3.9.11/bin/mvn.cmd，要显式 JAVA_HOME/PATH17（默认8）。Python C:/Users/Administrator/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/python.exe。实验脚本命令 rc 和输出均写 lab/out。
 
 旧chat goal active 是长期原目标，不误标完成；新chat接续同目标。自动化 oracle-redo 应迁到新chat，保持原每小时频率及安静通知策略。禁止Luna；额度不足封存SHA/原文/下一步，恢复空闲后接续。不要同时派两chat改共享仓库。
-# 最新接续：三SYS复合索引pair
-
-646841d/kernelc8586fcb/286，详见DELIVERY_W5_DICTIONARY_INDEX_PAIR_20261006.md及STATUS。O=lab/out/dictionary-index-pair-20261006，十index pair/十二合法checksum语义反例通过；旧静态actual V2三完整IUD字节不变、历史原/擦markerV2拒绝原因为DICT_WRITE2522903/object75185不变。204双SHA、旧169不变，无源变更/目标动作/产品构建。三index身份及SCN2522819地址仅只读研究，不回填旧V2权限。接续DISPATCH_W5_TRUSTED_SYS_HISTORY_20261006新版可信获取、完整SYS像/三index lifecycle与新baseline后历史正功能。seq66/67已结束禁止重放；P仍efd068f/737旧kernel672，PR#13 draft待评审。原完整goal active/automation保留，跨窗/正式采集/独立目标/扩展环境矩阵/现场发布继续，Codex卡顿全部Oracle完成后查。以下历史入口仅保留。
