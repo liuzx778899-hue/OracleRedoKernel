@@ -27,7 +27,7 @@ proof=json.loads((N/'historical-row-proof.json').read_text());negative=json.load
 assert proof['kernel_sha256']==negative['kernel_sha256']==sha(N/'kernel.jar')
 files=[]
 for p in sorted(N.rglob('*')):
-    if not p.is_file() or 'secret' in p.name.lower():continue
+    if not p.is_file() or 'secret' in p.name.lower() or p.name.startswith('seal-driver.'):continue
     a=sha(p);assert a==sha(p);files.append(dict(path=str(p.relative_to(R)).replace('\\','/'),bytes=p.stat().st_size,sha256=a))
 out=dict(kernel_code_commit=subprocess.check_output(['git','rev-parse','HEAD'],cwd=R).decode().strip(),kernel_sha256=sha(N/'kernel.jar'),kernel_tests=counts,historical_business_rows=proof,business_negatives=negative,impact=json.loads((N/'impact-proof.json').read_text()),previous_374_unchanged=True,double_sha256_verified=True,source_actions=0,target_actions=0,product_rebuilt=False,site_accepted=False,release_accepted=False,files_count=len(files),files=files)
 dest.write_text(json.dumps(out,indent=2));print(json.dumps(dict(kernel_code_commit=out['kernel_code_commit'],kernel_sha256=out['kernel_sha256'],kernel_tests=counts,files=len(files),previous_374_unchanged=True)))

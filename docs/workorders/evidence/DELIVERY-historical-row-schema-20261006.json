@@ -177,7 +177,7 @@
   "product_rebuilt": false,
   "site_accepted": false,
   "release_accepted": false,
-  "files_count": 188,
+  "files_count": 189,
   "files": [
     {
       "path": "lab/out/historical-row-schema-candidate-20261006/actual-historical-batch-r1.command.json",
@@ -620,6 +620,11 @@
       "sha256": "2acca3c03575371bb513d716cef64f55920fb24257de84c427287df08e08d88d"
     },
     {
+      "path": "lab/out/historical-row-schema-candidate-20261006/failed-preliminary-seal.json",
+      "bytes": 50724,
+      "sha256": "c770029fc29bb3474978de9e2e143d16084923ad6bbcae5125dd94399801fa98"
+    },
+    {
       "path": "lab/out/historical-row-schema-candidate-20261006/historical-erased-markers.command.json",
       "bytes": 800,
       "sha256": "06d0aeb88d860336859912e3d1e057e8243fc62aeb36d3f0947b463502ade626"
@@ -1050,14 +1055,9 @@
       "sha256": "261b66344ff1adf924d139514bd2dd78b548d82d790ca85ea5129abf2d8e7b57"
     },
     {
-      "path": "lab/out/historical-row-schema-candidate-20261006/seal-driver.stderr.txt",
-      "bytes": 0,
-      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
-    },
-    {
-      "path": "lab/out/historical-row-schema-candidate-20261006/seal-driver.stdout.txt",
-      "bytes": 0,
-      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      "path": "lab/out/historical-row-schema-candidate-20261006/seal-postcheck-failure.json",
+      "bytes": 454,
+      "sha256": "eff324c5c5a40253d1013f47057ac4b64030903635bf6573da1abaab15d99ad4"
     },
     {
       "path": "lab/out/historical-row-schema-candidate-20261006/sealed-ArchivedDictionaryHistory.java",
@@ -1095,9 +1095,14 @@
       "sha256": "73c50dd60b4bd6315e1e5c94fd253e56b797accbff226c31f875fd2e2452a762"
     },
     {
+      "path": "lab/out/historical-row-schema-candidate-20261006/sealed-repair_historical_row_seal19.py",
+      "bytes": 1825,
+      "sha256": "27cf15b0a5acfb692f28f9694e4c2da640a48d438cac5d148f371b9bc0c6885a"
+    },
+    {
       "path": "lab/out/historical-row-schema-candidate-20261006/sealed-seal_historical_row_schema19.py",
-      "bytes": 2878,
-      "sha256": "0fc663ef0c0a326056ccbc07aca94bbceb6b1d90398ac4c41cecd8e089444760"
+      "bytes": 2915,
+      "sha256": "1a550e8f792b7b73254c4515649c26afe95c72c56ff1b5698a81189f8852eb7d"
     },
     {
       "path": "lab/out/historical-row-schema-candidate-20261006/sealed-TransactionEnd.java",
@@ -1119,5 +1124,7 @@
       "bytes": 6148,
       "sha256": "e2bf94153d6e78ac3ff211b66e80e11267cfc3e1d4e38b51f3fe3cd92e4c3761"
     }
-  ]
+  ],
+  "sealer_open_log_excluded": true,
+  "preliminary_seal_failure_preserved": true
 }

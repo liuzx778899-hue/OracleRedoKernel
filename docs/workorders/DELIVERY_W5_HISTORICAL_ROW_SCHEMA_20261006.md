@@ -1,6 +1,6 @@
 # W5 实际历史 schema 完整业务行交付
 
-代码 `9e720110101579a57979e5e7a9384d0f5d0a7ad8`，kernel SHA256 `3ccca289e717f7fd8f188af30c8625baea2577640fbac7b2ff1c3ae384346e55`；299 测试，0 failure/error/skipped。[封存清单](evidence/DELIVERY-historical-row-schema-20261006.json)含188文件双SHA，上一374项逐项未变。候选 `lab/out/historical-row-schema-candidate-20261006`；原日志和秘密不入Git。
+代码 `9e720110101579a57979e5e7a9384d0f5d0a7ad8`，kernel SHA256 `3ccca289e717f7fd8f189af30c8625baea2577640fbac7b2ff1c3ae384346e55`；299 测试，0 failure/error/skipped。[封存清单](evidence/DELIVERY-historical-row-schema-20261006.json)含189文件双SHA，上一374项逐项未变。候选 `lab/out/historical-row-schema-candidate-20261006`；原日志和秘密不入Git。
 
 ## 完整业务功能结果
 
@@ -24,5 +24,7 @@ Timeline私有raw factory构造，与完整baseline/source/input headers绑定�
 首轮完整事件实际拒绝 `UNSUPPORTED_TRANSACTION_END_EXTENSION` 已保全。seq69 native ext=0的opaque tail word0x0b00是新增窄profile，未推测其含义；extension/CRC/ext/tail身份仍检查，单测及真实合法checksum0x0a00反例拒绝。首轮业务篡改定位失败因record跨block头，保留失败driver/日志后只修虚拟record到physical偏移映射，无源实验重放。
 
 ## 下一验收
+
+封存后复核发现初始manifest包含仍打开的sealer stdout，写入结束后该日志SHA变化。保留初始manifest和失败差异，只排除sealer自身运行日志、更新封存脚本及189项清单；修复后全部SHA匹配。代码、输入、事件与测试制品未变化，未重复功能轮次。
 
 本轮0源业务/配置变更、0目标动作、无产品构建/换装。当前StreamHouse产品仍旧efd068f/737，V3获取候选未纳入产品获取账；历史事件尚未进入HTTP/target/checkpoint/ACK。[接续执行单](DISPATCH_W5_HISTORICAL_PRODUCT_20261006.md)。独立目标、活动跨窗、正式采集租约、环境/类型/压力断电、评审/现场/发布全部继续待证。原完整goal active；所有Oracle任务完成后才查Codex卡顿。
