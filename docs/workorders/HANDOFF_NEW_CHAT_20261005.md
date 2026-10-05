@@ -1,5 +1,8 @@
 # 精简 chat 主线交接（2026-10-05）
 
+最新：[可信字典锚点代码候选](DELIVERY_W5_DICTIONARY_ANCHOR_CANDIDATE_20261005.md)：V2同SCN角色/位置/历史列及raw逻辑角色屏障已实现；kernel265、adapter21通过。实际既有只读账号SYS获取ORA-00942拒绝/连接关闭/未签发快照；编译重名失败源码与日志保全。仅代码/单位回归/权限负例，不算真实V2获取、marker擦除关闭或产品HTTP通过；无grant/源DML/目标动作，旧seq52—57不重放。继续TRUSTED_DICTIONARY_ANCHORS派单，goal active。
+
+
 最新：marker覆盖缺口未关闭，详见STATUS/DELIVERY_W5_SCHEMA_COVERAGE_GAP_20261005。kernelbb0225bc/260补未知24.x，24.0拒绝，0.0擦除仍rc0/2事件；新制品尚无产品/HTTP，不挪用旧735。原SCN SYS ASOF六个锚点及raw六条写入/四条同XID新COL$关联/native零差异，只作事后尺子，不补旧V1为authority。下一单DISPATCH_W5_TRUSTED_DICTIONARY_ANCHORS_20261005：先实际fresh同SCN锚点获取/格式/权限/获取账，再新raw和产品前拒绝；无新源/目标动作，旧seq52—57及源事务严禁重放，goal已核active，automation保留，独立评审/现场发布未通过。
 
 最新：历史schema真实ABA反例及raw marker屏障候选已交付，详见STATUS/DELIVERY_W5_HISTORICAL_SCHEMA_BARRIER_20261005。kernel9275ab90/259；产品e4d3aa9/735，实际认证HTTP两次拒绝且target/ledger/CP/ACK零推进。新T_SCHEMA_BARRIER_20261005、seq56/57、ADD/DROP后两笔UPDATE源事务已关闭，禁止重放；baseline SCN2501884，源码/制品/失败及原始错误事件保全，helper已停止。仅有限24.1屏障，不算完整历史字典/现场/发布；下一单DISPATCH_W5_SCHEMA_COVERAGE_20261005，marker缺失/未知字典关联、跨窗历史及V731三库NEW/UPGRADE仍待证。目标未完成，automation保留；goal工具usageLimited与当前额度恢复状态分别记录，不人工改状态。以下旧交接仅历史。

@@ -59,4 +59,43 @@ class FrozenHeapBaselineTest {
         var h=new ArchivedRedo.Header("00",512,1,1276717861,0x13000000L,1,26,1245693159,1920977,2282718,2283114,1);
         assertEquals("SNAPSHOT_REDO_SOURCE_MISMATCH",assertThrows(RedoException.class,()->snapshot.requireSource(h)).getMessage());
     }
+    String dictionarySample() {
+        return sample().replace("ORK_HEAP_SNAPSHOT_V1","ORK_HEAP_SNAPSHOT_V2")
+                .replace("ROW|73076", """
+                        DICT_ROLE|BEFORE|SYS|OBJ$|18|18
+                        DICT_ROLE|BEFORE|SYS|TAB$|4|2
+                        DICT_ROLE|BEFORE|SYS|COL$|21|2
+                        DICT_ANCHOR|OBJ$|73073|18|1|29640|24
+                        DICT_ANCHOR|OBJ$|73074|18|1|29640|25
+                        DICT_ANCHOR|TAB$|73073|2|1|35216|7
+                        DICT_ANCHOR|COL$|73073|2|1|35216|49
+                        DICT_ANCHOR|COL$|73073|2|1|35216|50
+                        DICT_ANCHOR|COL$|73073|2|1|35216|51
+                        DICT_COLUMN|1|1|ID|2|2|0
+                        DICT_COLUMN|2|2|TXT|1|0|0
+                        DICT_COLUMN|3|3|NOTE|1|0|17179869216
+                        ROW|73076""")
+                .replace("SOURCE_AFTER|", """
+                        DICT_ROLE|AFTER|SYS|OBJ$|18|18
+                        DICT_ROLE|AFTER|SYS|TAB$|4|2
+                        DICT_ROLE|AFTER|SYS|COL$|21|2
+                        SOURCE_AFTER|""");
+    }
+    @Test void sameDataObjectStillKeepsDistinctDictionaryRolesAndImmutableAnchors() throws Exception {
+        var s=read(dictionarySample());assertEquals(6,s.dictionaryAnchors().size());
+        assertEquals(4,s.dictionaryAnchors().get(2).dictionary().logicalObject());
+        assertEquals(21,s.dictionaryAnchors().get(3).dictionary().logicalObject());
+        assertEquals(2,s.dictionaryAnchors().get(2).key().dataObjectId());
+        assertThrows(UnsupportedOperationException.class,()->s.dictionaryAnchors().clear());
+        assertTrue(read(sample()).dictionaryAnchors().isEmpty());
+    }
+    @Test void trustedDictionaryWithMissingDuplicateWrongTargetOrHistoricalColumnsRefuses() throws Exception {
+        String v=dictionarySample(),anchor="DICT_ANCHOR|COL$|73073|2|1|35216|51\n";
+        for(String invalid:new String[]{v.replace(anchor,""),v.replace(anchor,anchor+anchor),
+                v.replace("TAB$|73073|2","TAB$|73074|2"),v.replace("COL$|73073|2","COL$|73073|18"),
+                v.replace("DICT_COLUMN|2|2|TXT|1|0|0","DICT_COLUMN|2|2|TXT|1|2|0"),
+                v.replace("DICT_ROLE|AFTER|SYS|TAB$|4|2","DICT_ROLE|AFTER|SYS|TAB$|4|3"),
+                v.replace("DICT_ROLE|BEFORE|SYS|COL$|21|2","DICT_ROLE|BEFORE|SYS|COL$|4|2")})
+            assertThrows(RedoException.class,()->read(invalid));
+    }
 }

@@ -50,6 +50,16 @@ public final class OracleSnapshotAcquirer {
     }
     /** Owns/closes a fresh source connection. No credentials, SQL truth, dump or mutable receipt is accepted as approval. */
     public Acquisition acquire(Connection fresh,Scope scope,OracleBatchEvidence.Source expected) throws Exception {
+        return acquire(fresh,scope,expected,false);
+    }
+    /** Same-SCN SYS anchors from this source connection, not an externally supplied dictionary receipt. */
+    public Acquisition acquireDictionaryBound(Connection fresh,Scope scope,OracleBatchEvidence.Source expected) throws Exception {
+        return acquire(fresh,scope,expected,true);
+    }
+    private static String dictionaryRole(Connection c,String name) throws SQLException {
+        return one(c,"select owner||'|'||object_name||'|'||object_id||'|'||data_object_id from dba_objects where owner='SYS' and object_name='"+name+"' and object_type='TABLE'");
+    }
+    private Acquisition acquire(Connection fresh,Scope scope,OracleBatchEvidence.Source expected,boolean dictionary) throws Exception {
         try(var c=fresh) {
             if(!c.getAutoCommit())throw new SQLException("SNAPSHOT_FRESH_CONNECTION_REQUIRED");
             if(expected==null || expected.compatibility()!=0x13000000L)throw new SQLException("SNAPSHOT_EXPECTED_SOURCE_REQUIRED");
@@ -77,13 +87,38 @@ public final class OracleSnapshotAcquirer {
             String count=one(c,"select count(*) from "+table+" as of scn "+scn);
             if(!count.equals(Integer.toString(rows.size())) || !heap.equals(role(c,scope,scope.table(),"TABLE")) || !index.equals(role(c,scope,scope.index(),"INDEX"))
                     || !before.equals(columns(c,scope)) || !src.equals(source(c)) || !container.equals(pdb(c)))throw new SQLException("SNAPSHOT_ACQUISITION_CHANGED");
-            var out=new StringBuilder("FORMAT|ORK_HEAP_SNAPSHOT_V1\nSOURCE|").append(src).append("\nPDB|").append(container).append("\nCHARSET|AL32UTF8\nSNAPSHOT_SCN|").append(scn).append('\n');
+            var roles=new ArrayList<String>();var dictionaryFrames=new ArrayList<String>();
+            if(dictionary) {
+                long heapId=Long.parseLong(heap.split("\\|")[2]),indexId=Long.parseLong(index.split("\\|")[2]);
+                for(String name:List.of("OBJ$","TAB$","COL$")) {
+                    roles.add(dictionaryRole(c,name));
+                    var anchors=query(c,"select 'DICT_ANCHOR|"+name+"|'||obj#||'|'||dbms_rowid.rowid_object(rowid)||'|'||dbms_rowid.rowid_relative_fno(rowid)||'|'||dbms_rowid.rowid_block_number(rowid)||'|'||dbms_rowid.rowid_row_number(rowid) from SYS."+name+" as of scn "+scn+" where obj#"+(name.equals("OBJ$")?" in ("+heapId+","+indexId+")":"="+heapId)+" order by obj#,rowid");
+                    int expectedCount=name.equals("OBJ$")?2:name.equals("TAB$")?1:before.size();
+                    if(anchors.size()!=expectedCount)throw new SQLException("SNAPSHOT_DICTIONARY_ANCHOR_COVERAGE");
+                    dictionaryFrames.addAll(anchors);
+                }
+                var historicalColumns=query(c,"select 'DICT_COLUMN|'||intcol#||'|'||segcol#||'|'||name||'|'||type#||'|'||null$||'|'||property from SYS.COL$ as of scn "+scn+" where obj#="+heapId+" order by segcol#");
+                var wantedColumns=new ArrayList<String>();
+                for(String col:before) {
+                    var f=col.split("\\|",-1);wantedColumns.add("DICT_COLUMN|"+f[1]+"|"+f[0]+"|"+f[2]+"|"+(f[3].equals("NUMBER")?2:1)+"|"+(f[4].equals("Y")?0:2)+"|"+(f[5].equals("YES")?17179869216L:0));
+                }
+                if(!historicalColumns.equals(wantedColumns))throw new SQLException("SNAPSHOT_HISTORICAL_COLUMNS_MISMATCH");
+                dictionaryFrames.addAll(historicalColumns);
+                for(int i=0;i<roles.size();i++)if(!roles.get(i).equals(dictionaryRole(c,List.of("OBJ$","TAB$","COL$").get(i))))throw new SQLException("SNAPSHOT_DICTIONARY_ROLE_CHANGED");
+                if(!heap.equals(role(c,scope,scope.table(),"TABLE")) || !index.equals(role(c,scope,scope.index(),"INDEX"))
+                        || !before.equals(columns(c,scope)) || !src.equals(source(c)) || !container.equals(pdb(c)))throw new SQLException("SNAPSHOT_DICTIONARY_ACQUISITION_CHANGED");
+            }
+            String format=dictionary?"ORK_HEAP_SNAPSHOT_V2":"ORK_HEAP_SNAPSHOT_V1";
+            var out=new StringBuilder("FORMAT|").append(format).append("\nSOURCE|").append(src).append("\nPDB|").append(container).append("\nCHARSET|AL32UTF8\nSNAPSHOT_SCN|").append(scn).append('\n');
             out.append("HEAP|BEFORE|").append(heap).append("\nINDEX|BEFORE|").append(index).append('\n');
             for(String col:before)out.append("COLUMN|BEFORE|").append(col).append('\n');
+            for(String dict:roles)out.append("DICT_ROLE|BEFORE|").append(dict).append('\n');
+            for(String frame:dictionaryFrames)out.append(frame).append('\n');
             for(String row:rows)out.append(row).append('\n');
             out.append("ROW_COUNT|").append(count).append("\nHEAP|AFTER|").append(heap).append("\nINDEX|AFTER|").append(index).append('\n');
             for(String col:before)out.append("COLUMN|AFTER|").append(col).append('\n');
-            out.append("SOURCE_AFTER|").append(src).append("\nEND|ORK_HEAP_SNAPSHOT_V1\n");
+            for(String dict:roles)out.append("DICT_ROLE|AFTER|").append(dict).append('\n');
+            out.append("SOURCE_AFTER|").append(src).append("\nEND|").append(format).append('\n');
             return new Acquisition(out.toString().getBytes(StandardCharsets.US_ASCII),scn);
         }
     }

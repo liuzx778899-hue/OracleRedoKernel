@@ -17,6 +17,8 @@ final class HistoricalSchemaBarrier {
     static void requireUnchanged(RedoRecords.Record record,FrozenHeapBaseline.Snapshot snapshot) throws RedoException {
         if(record.containerUid()!=snapshot.source().containerUid() || record.scn()<=snapshot.scn()) return;
         for(var vector:record.vectors()) {
+            if(vector.containerId()==snapshot.source().containerId() && vector.opcodeMajor()==5 && vector.opcodeMinor()==1
+                    && !snapshot.dictionaryAnchors().isEmpty()) requireDictionaryUnchanged(record,vector,snapshot);
             if(vector.containerId()!=snapshot.source().containerId() || vector.opcodeMajor()!=24) continue;
             if(vector.opcodeMinor()!=1) throw new RedoException("UNSUPPORTED_HISTORICAL_SCHEMA_MARKER_OPCODE");
             var fields=vector.fields();
@@ -32,5 +34,25 @@ final class HistoricalSchemaBarrier {
                         && Arrays.equals(fields.get(9),role.name().getBytes(StandardCharsets.UTF_8))))
                     throw new RedoException("HISTORICAL_SCHEMA_BARRIER:scn="+record.scn()+":object="+role.logicalObject());
         }
+    }
+    private static void requireDictionaryUnchanged(RedoRecords.Record record,RedoRecords.Vector vector,
+                                                    FrozenHeapBaseline.Snapshot snapshot) throws RedoException {
+        var fields=vector.fields();
+        if(fields.size()<2 || fields.get(0).length!=20 || fields.get(1).length<24)
+            throw new RedoException("UNREADABLE_DICTIONARY_UNDO_SCOPE");
+        long logical=u32(fields.get(1),0),data=u32(fields.get(1),4);
+        var anchors=snapshot.dictionaryAnchors().stream().filter(a->a.dictionary().logicalObject()==logical).toList();
+        if(anchors.isEmpty()) return;
+        if(data!=anchors.get(0).dictionary().dataObject() || u32(fields.get(1),8)!=0)
+            throw new RedoException("DICTIONARY_UNDO_GENERATION_CONFLICT");
+        if(fields.size()<4 || fields.get(3).length<12) throw new RedoException("UNSUPPORTED_DICTIONARY_ROW_PROFILE");
+        byte[] kdo=fields.get(3);int op=kdo[10]&255,slotAt;
+        if(op==5 && (kdo.length==29 || kdo.length==30)) slotAt=20;
+        else if(op==3 && kdo.length==20) slotAt=16;
+        else if(op==2 && ((kdo.length==49 && (kdo[16]&255)==0x2c) || (kdo.length==52 && (kdo[16]&255)==0x6c))) slotAt=42;
+        else throw new RedoException("UNSUPPORTED_DICTIONARY_ROW_PROFILE");
+        var key=new ArchivedHeapRows.RowKey(data,u32(kdo,0),u16(kdo,slotAt));
+        for(var anchor:anchors) if(anchor.key().equals(key))
+            throw new RedoException("TARGET_DICTIONARY_WRITE_REQUIRES_HISTORY:scn="+record.scn()+":object="+anchor.targetObject());
     }
 }

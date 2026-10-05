@@ -51,4 +51,35 @@ class HistoricalSchemaBarrierTest {
         var e=assertThrows(RedoException.class,()->HistoricalSchemaBarrier.requireUnchanged(record(2501918,677737149,unknown),snapshot));
         assertEquals("UNSUPPORTED_HISTORICAL_SCHEMA_MARKER_OPCODE",e.getMessage());
     }
+    FrozenHeapBaseline.Snapshot anchored() {
+        return new FrozenHeapBaseline.Snapshot(snapshot.sha256(),snapshot.source(),snapshot.scn(),snapshot.heap(),snapshot.index(),
+                snapshot.columns(),snapshot.rows(),List.of(new FrozenHeapBaseline.DictionaryAnchor(
+                new FrozenHeapBaseline.ObjectRole("SYS","TAB$",4,2),74695,new ArchivedHeapRows.RowKey(2,0x00408990L,7))));
+    }
+    RedoRecords.Vector dictionaryWrite(int slot,long logical,long data) {
+        byte[] metadata=new byte[24],kdo=new byte[29];
+        java.nio.ByteBuffer.wrap(metadata).order(java.nio.ByteOrder.LITTLE_ENDIAN).putInt((int)logical).putInt((int)data);
+        java.nio.ByteBuffer.wrap(kdo).order(java.nio.ByteOrder.LITTLE_ENDIAN).putInt(0x00408990);
+        kdo[10]=5;kdo[20]=(byte)slot;
+        return new RedoRecords.Vector(5,1,0,0,0,0,0,3,new ArrayList<>(List.of(new byte[20],metadata,new byte[0],kdo)));
+    }
+    @Test void anchoredDictionaryWriteRefusesWithoutAnySchemaMarker() {
+        var e=assertThrows(RedoException.class,()->HistoricalSchemaBarrier.requireUnchanged(
+                record(2501918,677737149,dictionaryWrite(7,4,2)),anchored()));
+        assertEquals("TARGET_DICTIONARY_WRITE_REQUIRES_HISTORY:scn=2501918:object=74695",e.getMessage());
+    }
+    @Test void sameClusterDataDoesNotTurnAnotherLogicalRoleOrRowIntoTargetDdl() throws Exception {
+        HistoricalSchemaBarrier.requireUnchanged(record(2501918,677737149,dictionaryWrite(7,21,2)),anchored());
+        HistoricalSchemaBarrier.requireUnchanged(record(2501918,677737149,dictionaryWrite(8,4,2)),anchored());
+        HistoricalSchemaBarrier.requireUnchanged(record(2501884,677737149,dictionaryWrite(7,4,2)),anchored());
+        HistoricalSchemaBarrier.requireUnchanged(record(2501918,677737150,dictionaryWrite(7,4,2)),anchored());
+        HistoricalSchemaBarrier.requireUnchanged(record(2501918,677737149,dictionaryWrite(7,4,2)),snapshot);
+    }
+    @Test void trustedDictionaryGenerationConflictAndUnknownRowProfileRefuse() {
+        assertEquals("DICTIONARY_UNDO_GENERATION_CONFLICT",assertThrows(RedoException.class,()->
+                HistoricalSchemaBarrier.requireUnchanged(record(2501918,677737149,dictionaryWrite(7,4,3)),anchored())).getMessage());
+        var v=dictionaryWrite(8,4,2);v.fields().get(3)[10]=99;
+        assertEquals("UNSUPPORTED_DICTIONARY_ROW_PROFILE",assertThrows(RedoException.class,()->
+                HistoricalSchemaBarrier.requireUnchanged(record(2501918,677737149,v),anchored())).getMessage());
+    }
 }

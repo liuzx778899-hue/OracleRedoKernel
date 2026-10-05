@@ -16,8 +16,15 @@ import java.util.Map;
 public final class FrozenHeapBaseline {
     public record ObjectRole(String owner,String name,long logicalObject,long dataObject) {}
     public record PhysicalColumn(int segment,int internal,String name,String type,boolean nullable,boolean hidden) {}
+    public record DictionaryAnchor(ObjectRole dictionary,long targetObject,ArchivedHeapRows.RowKey key) {}
     public record Snapshot(String sha256,ArchivedHeapRows.Source source,long scn,ObjectRole heap,ObjectRole index,
-                           List<PhysicalColumn> columns,Map<ArchivedHeapRows.RowKey,List<ArchivedHeapRows.Cell>> rows) {
+                           List<PhysicalColumn> columns,Map<ArchivedHeapRows.RowKey,List<ArchivedHeapRows.Cell>> rows,
+                           List<DictionaryAnchor> dictionaryAnchors) {
+        public Snapshot { dictionaryAnchors=List.copyOf(dictionaryAnchors); }
+        public Snapshot(String sha256,ArchivedHeapRows.Source source,long scn,ObjectRole heap,ObjectRole index,
+                        List<PhysicalColumn> columns,Map<ArchivedHeapRows.RowKey,List<ArchivedHeapRows.Cell>> rows) {
+            this(sha256,source,scn,heap,index,columns,rows,List.of());
+        }
         public void requireSource(ArchivedRedo.Header header) throws RedoException {
             if (!source.equals(ArchivedHeapRows.Source.of(header,source.containerUid(),source.containerId())))
                 throw new RedoException("SNAPSHOT_REDO_SOURCE_MISMATCH");
@@ -39,7 +46,9 @@ public final class FrozenHeapBaseline {
         for (byte b:bytes) if (b<0) throw new RedoException("UNSUPPORTED_SNAPSHOT_TEXT_ENCODING");
         try {
             var input=new Input(new String(bytes,StandardCharsets.US_ASCII));
-            input.exact("FORMAT|ORK_HEAP_SNAPSHOT_V1");
+            boolean dictionary=!input.lines.isEmpty() && input.lines.get(0).equals("FORMAT|ORK_HEAP_SNAPSHOT_V2");
+            String format=dictionary ? "ORK_HEAP_SNAPSHOT_V2" : "ORK_HEAP_SNAPSHOT_V1";
+            input.exact("FORMAT|"+format);
             var sourceFields=input.take("SOURCE",7);var pdb=input.take("PDB",4);identifier(pdb[3]);
             input.exact("CHARSET|AL32UTF8");long scn=positive(input.take("SNAPSHOT_SCN",2)[1]);
             if (!sourceFields[6].equals("19.0.0")) throw new RedoException("UNSUPPORTED_SNAPSHOT_COMPATIBILITY");
@@ -61,6 +70,41 @@ public final class FrozenHeapBaseline {
             }
             if (columns.isEmpty() || columns.size()>255 || columns.stream().map(PhysicalColumn::name).distinct().count()!=columns.size())
                 throw new RedoException("SNAPSHOT_COLUMN_COVERAGE_MISMATCH");
+            var dictionaryRoles=new ArrayList<ObjectRole>();var anchors=new ArrayList<DictionaryAnchor>();
+            if(dictionary) {
+                for(String name:List.of("OBJ$","TAB$","COL$")) {
+                    var dict=role(input.take("DICT_ROLE",6),"BEFORE");
+                    if(!dict.owner().equals("SYS") || !dict.name().equals(name)
+                            || dict.logicalObject()==heap.logicalObject() || dict.logicalObject()==index.logicalObject()
+                            || dict.dataObject()==heap.dataObject() || dict.dataObject()==index.dataObject())
+                        throw new RedoException("SNAPSHOT_DICTIONARY_ROLE_MISMATCH");
+                    dictionaryRoles.add(dict);
+                }
+                if(dictionaryRoles.stream().map(ObjectRole::logicalObject).distinct().count()!=3
+                        || dictionaryRoles.get(0).logicalObject()!=dictionaryRoles.get(0).dataObject()
+                        || dictionaryRoles.get(1).dataObject()!=dictionaryRoles.get(2).dataObject()
+                        || dictionaryRoles.get(0).dataObject()==dictionaryRoles.get(1).dataObject())
+                    throw new RedoException("SNAPSHOT_DICTIONARY_GENERATION_MISMATCH");
+                var keys=new java.util.HashSet<String>();
+                while(input.peek("DICT_ANCHOR")) {
+                    var a=input.take("DICT_ANCHOR",7);var dict=dictionaryRoles.stream().filter(d->d.name().equals(a[1])).findFirst()
+                            .orElseThrow(()->new RedoException("SNAPSHOT_DICTIONARY_ANCHOR_ROLE"));
+                    long target=positive(a[2]),dataObject=positive(a[3]),file=positive(a[4]),block=positive(a[5]);int slot=Integer.parseInt(a[6]);
+                    if(dataObject!=dict.dataObject() || file>1023 || block>=0x400000L || slot<0 || slot>65535
+                            || (target!=heap.logicalObject() && (!dict.name().equals("OBJ$") || target!=index.logicalObject()))
+                            || !keys.add(file+":"+block+":"+slot))
+                        throw new RedoException("SNAPSHOT_DICTIONARY_ANCHOR_SCOPE");
+                    anchors.add(new DictionaryAnchor(dict,target,new ArchivedHeapRows.RowKey(dataObject,(file<<22)|block,slot)));
+                }
+                for(var dict:dictionaryRoles) {
+                    var selected=anchors.stream().filter(a->a.dictionary().equals(dict)).toList();
+                    int expected=dict.name().equals("OBJ$") ? 2 : dict.name().equals("TAB$") ? 1 : columns.size();
+                    if(selected.size()!=expected || (dict.name().equals("OBJ$") && selected.stream().map(DictionaryAnchor::targetObject).distinct().count()!=2))
+                        throw new RedoException("SNAPSHOT_DICTIONARY_ANCHOR_COVERAGE");
+                }
+                for(var c:columns) input.exact("DICT_COLUMN|"+c.internal()+"|"+c.segment()+"|"+c.name()+"|"
+                        +(c.type().equals("NUMBER")?2:1)+"|"+(c.nullable()?0:2)+"|"+(c.hidden()?17179869216L:0));
+            }
             var rows=new HashMap<ArchivedHeapRows.RowKey,List<ArchivedHeapRows.Cell>>();
             while (input.peek("ROW")) {
                 var row=input.take("ROW",columns.size()+5);long dataObject=positive(row[1]),file=positive(row[2]),block=positive(row[3]);int slot=Integer.parseInt(row[4]);
@@ -80,9 +124,10 @@ public final class FrozenHeapBaseline {
             if (!heap.equals(role(input.take("HEAP",6),"AFTER")) || !index.equals(role(input.take("INDEX",6),"AFTER")))
                 throw new RedoException("SNAPSHOT_OBJECT_GENERATION_CHANGED_DURING_QUERY");
             for (var c:before) input.exact("COLUMN|AFTER|"+c);
+            for(var dict:dictionaryRoles) input.exact("DICT_ROLE|AFTER|SYS|"+dict.name()+"|"+dict.logicalObject()+"|"+dict.dataObject());
             input.exact("SOURCE_AFTER|"+String.join("|",java.util.Arrays.copyOfRange(sourceFields,1,sourceFields.length)));
-            input.exact("END|ORK_HEAP_SNAPSHOT_V1");if (input.at!=input.lines.size()) throw new RedoException("SNAPSHOT_UNEXPECTED_TRAILING_OUTPUT");
-            return new Snapshot(digest,source,scn,heap,index,List.copyOf(columns),Map.copyOf(rows));
+            input.exact("END|"+format);if (input.at!=input.lines.size()) throw new RedoException("SNAPSHOT_UNEXPECTED_TRAILING_OUTPUT");
+            return new Snapshot(digest,source,scn,heap,index,List.copyOf(columns),Map.copyOf(rows),anchors);
         } catch (IllegalArgumentException | ArithmeticException e) {throw new RedoException("MALFORMED_SNAPSHOT_FIELD");}
     }
     private static ObjectRole role(String[] fields,String phase) throws RedoException {

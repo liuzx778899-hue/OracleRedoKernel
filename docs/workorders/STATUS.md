@@ -1,5 +1,8 @@
 # OracleRedoKernel 当前状态
 
+最新：[可信字典锚点代码候选](DELIVERY_W5_DICTIONARY_ANCHOR_CANDIDATE_20261005.md)：V2同SCN角色/位置/历史列及raw逻辑角色屏障已实现；kernel265、adapter21通过。实际既有只读账号SYS获取ORA-00942拒绝/连接关闭/未签发快照；编译重名失败源码与日志保全。仅代码/单位回归/权限负例，不算真实V2获取、marker擦除关闭或产品HTTP通过；无grant/源DML/目标动作，旧seq52—57不重放。继续TRUSTED_DICTIONARY_ANCHORS派单，goal active。
+
+
 更新：2026-10-05（Asia/Shanghai）。用户授权自主论证、实现、专属实验验证，主攻解析；禁止 Luna。目标仍进行中，不是全流程验收完成。
 
 ## 六列状态
