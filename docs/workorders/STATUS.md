@@ -1,5 +1,8 @@
 # OracleRedoKernel 当前状态
 
+最新：[媒体标记/结束扩展与有限反例](DELIVERY_W5_DICTIONARY_END_PROFILES_20261006.md)：kernel444630a4/269通过，原始V2及DERIVED擦除均按SYS目标写入拒绝/0输出；去锚点诊断对照2事件复现ADD后漏EXTRA=NULL。native三完整图4/0/4及两结束identity/tail/ext零差异，三目标tail/slot/container派生结构通过语义拒绝，mixed/empty字节不变。292非secret双SHA，旧236文件未变；错误range offset/比较器/负例选点原文保全，0源/目标动作。仅有限19.3窄profile，不给一般历史权限，新产品/HTTP未验证，P0整体未闭合；接续V2_CONTROL_RUNTIME_20261006，goal active。
+
+
 最新：[实际V2字典获取与新raw](DELIVERY_W5_DICTIONARY_ANCHOR_REAL_20261006.md)：SCN2509388六锚点/历史列与独立ASOF零差异；新seq59/60及ADD/DROP两事务已闭合，捕获/归档零差异。原始batch因未知24.4 rc1/stdout0；DERIVED擦除三条schema-family后V2按目标SYS写入拒绝，native六锚点写/四同XID新COL$位置零差异。去锚点诊断对照因两真实5.4 extension拒绝，未证明本轮两错误事件，P0整体未闭合。失败保全/只读补收尾/源动作不重放，NO/NO/旧表保留；无新目标/产品HTTP/部署。接续DICTIONARY_END_PROFILES_20261006，goal active。
 
 

@@ -20,6 +20,19 @@ final class HistoricalSchemaBarrier {
             if(vector.containerId()==snapshot.source().containerId() && vector.opcodeMajor()==5 && vector.opcodeMinor()==1
                     && !snapshot.dictionaryAnchors().isEmpty()) requireDictionaryUnchanged(record,vector,snapshot);
             if(vector.containerId()!=snapshot.source().containerId() || vector.opcodeMajor()!=24) continue;
+            if(vector.opcodeMinor()==4) {
+                var fields=vector.fields();
+                byte[] header=java.util.HexFormat.of().parseHex("28230000000000000000000072000c00");
+                if(record.validity()!=5 || record.vectors().size()!=1 || vector.blockClass()!=0 || vector.file()!=0
+                        || vector.dba()!=0 || vector.scn()!=0 || vector.sequence()!=0 || fields.size()!=2
+                        || !Arrays.equals(fields.get(0),header) || fields.get(1).length!=16)
+                    throw new RedoException("UNSUPPORTED_MEDIA_RECOVERY_MARKER_PROFILE");
+                byte[] range=fields.get(1);long first=u32(range,0),last=u32(range,8);
+                if(u16(range,4)!=0x8000 || u16(range,12)!=0x8000 || u16(range,6)!=0 || u16(range,14)!=0
+                        || first>last || last-first>1 || last>=record.scn())
+                    throw new RedoException("UNSUPPORTED_MEDIA_RECOVERY_MARKER_RANGE");
+                continue;
+            }
             if(vector.opcodeMinor()!=1) throw new RedoException("UNSUPPORTED_HISTORICAL_SCHEMA_MARKER_OPCODE");
             var fields=vector.fields();
             // Independently observed on CREATE/GRANT/ADD/DROP in seq56/57.

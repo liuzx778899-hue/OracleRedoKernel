@@ -51,6 +51,25 @@ class HistoricalSchemaBarrierTest {
         var e=assertThrows(RedoException.class,()->HistoricalSchemaBarrier.requireUnchanged(record(2501918,677737149,unknown),snapshot));
         assertEquals("UNSUPPORTED_HISTORICAL_SCHEMA_MARKER_OPCODE",e.getMessage());
     }
+    RedoRecords.Vector mediaMarker() {
+        return new RedoRecords.Vector(24,4,0,0,0,0,0,3,List.of(
+                HexFormat.of().parseHex("28230000000000000000000072000c00"),HexFormat.of().parseHex("6d4a2600008000006e4a260000800000")));
+    }
+    RedoRecords.Record mediaRecord(RedoRecords.Vector... vectors) {
+        return new RedoRecords.Record(144,16,140,5,2509423,1,677737149,List.of(vectors));
+    }
+    @Test void nativeObservedStandaloneMediaMarkerIsNotAnObjectSchemaMarker() throws Exception {
+        HistoricalSchemaBarrier.requireUnchanged(mediaRecord(mediaMarker()),snapshot);
+    }
+    @Test void mediaMarkerCannotHideOtherVectorsOrUnknownHeaderOrScnRange() {
+        assertThrows(RedoException.class,()->HistoricalSchemaBarrier.requireUnchanged(mediaRecord(mediaMarker(),marker()),snapshot));
+        for(int field:new int[]{0,1}) {
+            var v=mediaMarker();v.fields().get(field)[0]^=1;
+            assertThrows(RedoException.class,()->HistoricalSchemaBarrier.requireUnchanged(mediaRecord(v),snapshot));
+        }
+        var v=mediaMarker();v.fields().get(1)[4]=1;
+        assertThrows(RedoException.class,()->HistoricalSchemaBarrier.requireUnchanged(mediaRecord(v),snapshot));
+    }
     FrozenHeapBaseline.Snapshot anchored() {
         return new FrozenHeapBaseline.Snapshot(snapshot.sha256(),snapshot.source(),snapshot.scn(),snapshot.heap(),snapshot.index(),
                 snapshot.columns(),snapshot.rows(),List.of(new FrozenHeapBaseline.DictionaryAnchor(

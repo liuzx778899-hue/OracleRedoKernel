@@ -60,6 +60,31 @@ class TransactionMarkersTest {
         assertThrows(RedoException.class,()->TransactionEnd.decode(vector(6,
                 "0c00000051040000000000000900000002000000","ea44c16a")));
     }
+    RedoRecords.Vector emptyExtension(boolean ext) {
+        return ext?vector(4,"1d00000063020000000000000900000012000000","de004002c8002f000100b40e00000000",
+                "0100000001000000b9c7c36a000000000000000000000000","b9c7c36a"):
+                vector(4,"020000007e020000000000000900000012000000","87004002ff00350000006c0700000000",
+                "000000000000000075c7c36a000000000000000000000000","75c7c36a");
+    }
+    @Test void observedEmptyCommitExtensionsKeepTheirActualTailAndIdentity() throws Exception {
+        for(boolean ext:new boolean[]{false,true}) {
+            var v=emptyExtension(ext);var end=TransactionEnd.decode(v);assertFalse(end.rolledBack());
+            assertEquals(ext?29:2,end.slot());assertEquals(ext?611:638,end.sequence());
+            assertEquals(new HeapRowPatch.Uba(ext?0x024000deL:0x02400087L,ext?200:255,ext?47:53),TransactionEnd.undoTail(v));
+        }
+    }
+    @Test void emptyCommitExtensionCannotMixTailExtTimestampOrReservedFields() {
+        for(boolean ext:new boolean[]{false,true}) {
+            for(int offset:new int[]{0,4,8,12,16,20}) {
+                var v=emptyExtension(ext);v.fields().get(2)[offset]^=1;
+                assertThrows(RedoException.class,()->TransactionEnd.decode(v));
+            }
+            var v=emptyExtension(ext);v.fields().get(1)[8]^=1;
+            assertThrows(RedoException.class,()->TransactionEnd.decode(v));
+            var r=emptyExtension(ext);r.fields().get(0)[16]=0x14;
+            assertThrows(RedoException.class,()->TransactionEnd.decode(r));
+        }
+    }
     @Test void refusesMissingUserUndoDoneAndWrongBeginWrap() {
         assertThrows(RedoException.class,()->UndoCompensation.decode(vector(6,
                 "401d0100401d010005000000000000000b01052300006d04020d0000","9010200002000000")));
