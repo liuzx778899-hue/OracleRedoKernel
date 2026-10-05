@@ -1,0 +1,14 @@
+"""Seal unresolved semantic failure and independent dictionary associations; no acceptance upgrade."""
+import hashlib,json,subprocess
+from pathlib import Path
+R=Path(__file__).resolve().parent.parent;O=R/'lab/out/schema-coverage-gap-20261005';sha=lambda p:hashlib.sha256(p.read_bytes()).hexdigest()
+fixed=json.loads((O/'fixed-proof.json').read_text());association=json.loads((O/'dictionary-association-proof.json').read_text())
+assert fixed['marker_erasure_gap_remains'] and fixed['results'][1]['events']==2
+assert len(association['raw_selected_rows'])==6 and len(association['unanchored_rows_same_XID'])==4 and not association['native_mismatches']
+sources=[R/'src/main/java/com/streamhouse/oracle/HistoricalSchemaBarrier.java',R/'src/test/java/com/streamhouse/oracle/HistoricalSchemaBarrierTest.java']+[R/'lab'/n for n in ['derive_schema_gap19.py','inspect_schema_dictionary19.py','compare_schema_dictionary19.py','seal_schema_coverage_gap19.py']]
+(O/'sealed-source-snapshot.json').write_text(json.dumps(dict(timing='after execution; does not replace earlier execution pins',source_commit=subprocess.check_output(['git','rev-parse','HEAD'],cwd=R).decode().strip(),files={str(p.relative_to(R)):sha(p) for p in sources}),indent=2))
+subprocess.run(['C:/Users/Administrator/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/python.exe',R/'lab/seal_oracle_http_evidence.py','schema-coverage-gap-20261005'],check=True)
+seal=json.loads((O/'seal.json').read_text());items={i['path']:i for i in seal['files']}
+for item in seal['files']:assert sha(O/item['path'])==item['sha256']
+manifest=dict(root_code_commit=subprocess.check_output(['git','rev-parse','HEAD'],cwd=R).decode().strip(),kernel_sha256=fixed['kernel_sha256'],tests=fixed['tests'],derived_only=True,original_kernel_unknown_and_erasure_both_rc0_events2=True,fixed_unknown_rc1_stdout0=True,erasure_still_rc0_events2=True,P0_historical_coverage_accepted=False,SQL_ASOF_scn=2501884,SQL_anchors=6,raw_anchored_writes=6,linked_new_dictionary_rows=4,native_position_mismatches=0,SQL_truth_not_authority=True,source_DDL_DML_actions=0,target_actions=0,new_product_or_HTTP_verified=False,independent_review='PENDING',nonsecret_files=len(seal['files']),two_SHA_reads_equal=True,seal_sha256=sha(O/'seal.json'),files=[items[n] for n in ['gap-proof.json','fixed-proof.json','dictionary-association-proof.json','dictionary-anchors-baseline.stdout.txt','dictionary-anchors-current.stdout.txt','dictionary-comparator-first-failure.txt','failed-native-cluster-slot-comparison.json','erased-semantic.stdout.txt','fixed-erased.stdout.txt','fixed-unknown-family.stderr.txt']])
+(R/'docs/workorders/evidence/DELIVERY-schema-coverage-gap-20261005.json').write_text(json.dumps(manifest,indent=2));print('UNRESOLVED_SCHEMA_GAP_EVIDENCE_SEALED|'+str(len(seal['files'])))

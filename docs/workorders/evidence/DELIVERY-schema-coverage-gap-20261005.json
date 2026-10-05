@@ -1,0 +1,80 @@
+{
+  "root_code_commit": "44c346cff1f55422cf09c9cd7202cb93b89deeb3",
+  "kernel_sha256": "bb0225bc0819ca11c0465cff0cd0ab270178bc820f693c845f5fe94372e609a2",
+  "tests": {
+    "tests": 260,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0
+  },
+  "derived_only": true,
+  "original_kernel_unknown_and_erasure_both_rc0_events2": true,
+  "fixed_unknown_rc1_stdout0": true,
+  "erasure_still_rc0_events2": true,
+  "P0_historical_coverage_accepted": false,
+  "SQL_ASOF_scn": 2501884,
+  "SQL_anchors": 6,
+  "raw_anchored_writes": 6,
+  "linked_new_dictionary_rows": 4,
+  "native_position_mismatches": 0,
+  "SQL_truth_not_authority": true,
+  "source_DDL_DML_actions": 0,
+  "target_actions": 0,
+  "new_product_or_HTTP_verified": false,
+  "independent_review": "PENDING",
+  "nonsecret_files": 190,
+  "two_SHA_reads_equal": true,
+  "seal_sha256": "10480ca8a12517c32e96202357e45125c6b8901cc66e14bba44ba3e59d6c7c8b",
+  "files": [
+    {
+      "path": "gap-proof.json",
+      "bytes": 590,
+      "sha256": "1183f9f6cb5285abdfc145ee1474bc670c65477005d9bda99e01944f54d547d9"
+    },
+    {
+      "path": "fixed-proof.json",
+      "bytes": 459,
+      "sha256": "30d634ad26d400d4d37ef7505860022419732d79bf0e406c658301a18958a913"
+    },
+    {
+      "path": "dictionary-association-proof.json",
+      "bytes": 3784,
+      "sha256": "e940aadafb5d3805c014f31b3357d8b0560716afa8a9f6a074657396814b77f7"
+    },
+    {
+      "path": "dictionary-anchors-baseline.stdout.txt",
+      "bytes": 265,
+      "sha256": "128ba7fb5926cb5401776f3da734277756d3bc6bc9996ce98afb679ecbb2e11c"
+    },
+    {
+      "path": "dictionary-anchors-current.stdout.txt",
+      "bytes": 259,
+      "sha256": "21f8b5ad5ada030b796dd1a33fc5bb768f2fdcf0965f190f249ce563214414e4"
+    },
+    {
+      "path": "dictionary-comparator-first-failure.txt",
+      "bytes": 367,
+      "sha256": "2a85f10740df07cbb19b2dc7b5507b5132b2f0d25dfe269ecec3950a2ddae266"
+    },
+    {
+      "path": "failed-native-cluster-slot-comparison.json",
+      "bytes": 5628,
+      "sha256": "06478d63ad2b643d3498389f53be8285224369d1a795481e85a05750ad138c94"
+    },
+    {
+      "path": "erased-semantic.stdout.txt",
+      "bytes": 1364,
+      "sha256": "3619c287f18cebb43f21a36246512d3cf706a4c8ca7ccb4631af1ce61c7ade1c"
+    },
+    {
+      "path": "fixed-erased.stdout.txt",
+      "bytes": 1364,
+      "sha256": "3619c287f18cebb43f21a36246512d3cf706a4c8ca7ccb4631af1ce61c7ade1c"
+    },
+    {
+      "path": "fixed-unknown-family.stderr.txt",
+      "bytes": 745,
+      "sha256": "5636033fd6195e9617d91deb190a8479050fa03a16bf20f5e7af1d08a8979128"
+    }
+  ]
+}
