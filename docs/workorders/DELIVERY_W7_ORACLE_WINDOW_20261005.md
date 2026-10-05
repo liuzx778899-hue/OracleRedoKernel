@@ -1,0 +1,13 @@
+# W7 类型化固定范围消费窗口（checkpoint前置接口）
+
+运行时8eae1ba07178ed3974411688dec9b87f9e9ecfbf，实验4f104cf2dd29ca6a609cdd10327cd9d4b1353e54。kernel SHA ea9f58c629d39fb1a1c15dddd72b74322581a641c8fb6fa252fad43bc4e39d51，adapter SHA ee0ff207193b6fa66b151a515676a0357f2c8b4295d836e749a29729e53824a6；SPI93e451fe…不变。[双次SHA清单](evidence/DELIVERY-oracle-window-20261005.json)。本轮新独立m2由原缓存复制，原私有仓库与全局m2不覆盖。
+
+批次既有摘要绑定index leaf，但返回对象没有保留它。内核仅新增只读leaf字段/访问器（私有构造器从原验证参数保存），未改变解析或摘要规则；消费层无需猜测index范围。新增独立adapter OracleConsumptionWindow.from(CapturedHeapBatch)，构造器私有，保留不可变已验证capture及固定source/schema/baseline/SCN/leaf范围。位置为closedSequence/closedBlocks/endExclusiveScn，不是commit SCN、源库全局消费点或target提交证明。
+
+relativeTo检查完整固定范围及共同原始关闭代际范围，判定SAME_RANGE、EXTENDS_PREFIX、COVERED_PREFIX。不同观察metadata摘要不虚构前沿前进；不同起点、闭合覆盖变化、sequence/SCN缺口、空覆盖拒绝。首次限定从同一可信baseline保留的前缀窗口，不支持任意活跃事务跨窗。COVERED_PREFIX必须由后续checkpoint保持较大前沿；本接口本身不落盘、不写target、不发ACK、不删除raw。
+
+由于内核API和模块代码本轮有变，在新仓重建：内核245测试、adapter11测试均零失败/错误/跳过（模块原5+新增6范围测试）。冻结原40—41/40—42实际factory输出：前缀seq41、7块、endExclusive2366749；完整seq42、9块、endExclusive2366759；leaf50332059=0x0300019b，batch摘要86cd8a04…/b6658e92…与旧已验收两批一致。闭合位置对原采集receipt/native已验证输入零差异。
+
+实际原始输入判定扩展/覆盖/同范围通过，capture列表不可变；仅对实验snapshot增加空行并授予新的实验摘要，解析仍成立，但消费范围因baseline获取摘要改变拒绝ORACLE_WINDOW_SCOPE_CHANGED。这个派生授权只证明范围拒绝，不认证生产来源。新jar完整三事件输出与旧输出逐字节一致，public events仍rc1/stdout0。全程只读本地冻结文件，0源/目标数据库动作、0强杀轮次重跑。
+
+尚未实现持久checkpoint、消费文件独占、ACK/checkpoint相互恢复、半写保全及其实际消费者SIGKILL。不把接口/编译/测试当完整链路验收。下一步按[checkpoint执行包](DISPATCH_W7_CONSUMER_CHECKPOINT_20261005.md)，用此私有factory窗口绑定旧/新输入，再接实际target核验和消费状态原子落盘。任意活跃窗口/生产可信历史字典/实时高压/ASM/独立目标实例/全产品部署现场发布仍待证。

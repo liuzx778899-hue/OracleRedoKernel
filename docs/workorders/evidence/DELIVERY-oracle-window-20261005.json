@@ -1,0 +1,688 @@
+{
+  "runtime_commit": "8eae1ba07178ed3974411688dec9b87f9e9ecfbf",
+  "lab_commit": "4f104cf2dd29ca6a609cdd10327cd9d4b1353e54",
+  "runtime_sources_unchanged_after_build": true,
+  "executed_source_lf_normalized_equal_archive": true,
+  "sha256_checked_twice": true,
+  "prior_raw_inputs_manifest": "docs/workorders/evidence/DELIVERY-oracle-target-20261005.json",
+  "build": {
+    "runtime_commit": "8eae1ba07178ed3974411688dec9b87f9e9ecfbf",
+    "kernel_tests": {
+      "tests": 245,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "adapter_tests": {
+      "tests": 11,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "kernel_sha256": "ea9f58c629d39fb1a1c15dddd72b74322581a641c8fb6fa252fad43bc4e39d51",
+    "adapter_sha256": "ee0ff207193b6fa66b151a515676a0357f2c8b4295d836e749a29729e53824a6",
+    "spi_sha256": "93e451fe6c16c665cbdc5b5471a9879cd0a01ec7699a5d9666068dc14c2f8523",
+    "private_maven": true,
+    "old_repository_unchanged": true,
+    "checkpoint_implemented": false
+  },
+  "actual_window": {
+    "window_relationships": [
+      "EXTENDS_PREFIX",
+      "COVERED_PREFIX",
+      "SAME_RANGE"
+    ],
+    "original_three_event_output_bytes_equal": true,
+    "retained_leaf": 50332059,
+    "baseline_acquisition_drift_refused": true,
+    "capture_list_immutable": true,
+    "range_matches_original_native_verified_inputs": true,
+    "source_actions": 0,
+    "target_actions": 0,
+    "public_events_stdout": 0,
+    "checkpoint_implemented": false,
+    "retention_accepted": false
+  },
+  "files": [
+    {
+      "path": "lab/build_oracle_window.py",
+      "bytes": 2490,
+      "sha256": "ca7884cad63692040edd136d40a16a31aafba90ade3e11dfa8d9d763535b3108"
+    },
+    {
+      "path": "lab/OracleWindowProbe.java",
+      "bytes": 2151,
+      "sha256": "71245721c871f6400f7cbfa0b02a1648dce57e7a532eb3cf757955c658ae4186"
+    },
+    {
+      "path": "lab/out/closed-follow-20261005/capture/receipt.json",
+      "bytes": 1246,
+      "sha256": "c3cae64250393c627003b0db9b5308c3121a7dcac2e56836a348c8b56326ee3d"
+    },
+    {
+      "path": "lab/out/oracle-window-20261005/classes/OracleWindowProbe.class",
+      "bytes": 3601,
+      "sha256": "6863253ef4b850aa0af4426dfa73e7e826201c2581b474433fe285d0ee16f92e"
+    },
+    {
+      "path": "lab/out/oracle-window-20261005/compile-window-probe.command.json",
+      "bytes": 502,
+      "sha256": "ed0bc7520abbfb13e5a335c0f3db921cc564457a34f2b5a651023ba513b3dbdc"
+    },
+    {
+      "path": "lab/out/oracle-window-20261005/compile-window-probe.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/oracle-window-20261005/compile-window-probe.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle-window-20261005/compile-window-probe.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle-window-20261005/complete-events-regression.command.json",
+      "bytes": 944,
+      "sha256": "1bac7b0048f897ea0e607b7f682c13cc371584232f5b1b73e53907b56bf386e2"
+    },
+    {
+      "path": "lab/out/oracle-window-20261005/complete-events-regression.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/oracle-window-20261005/complete-events-regression.stderr.txt",
+      "bytes": 92,
+      "sha256": "6533aac2d8b7e5c04cab91a8b3b2a79346fedbe8129383fddb9d6cf67d9cc37e"
+    },
+    {
+      "path": "lab/out/oracle-window-20261005/complete-events-regression.stdout.txt",
+      "bytes": 1929,
+      "sha256": "e78a54688cf849fdf94061a7d2cdce2e4c5f84afd319b3cd21cda6987735eabd"
+    },
+    {
+      "path": "lab/out/oracle-window-20261005/derived-snapshot.txt",
+      "bytes": 755,
+      "sha256": "35e6e4825272680607046c2d1198db1cfde5d30e4cb6630a054936a77fa0ed9c"
+    },
+    {
+      "path": "lab/out/oracle-window-20261005/executed-source/build_oracle_window.py",
+      "bytes": 2490,
+      "sha256": "ca7884cad63692040edd136d40a16a31aafba90ade3e11dfa8d9d763535b3108"
+    },
+    {
+      "path": "lab/out/oracle-window-20261005/executed-source/OracleWindowProbe.java",
+      "bytes": 2151,
+      "sha256": "71245721c871f6400f7cbfa0b02a1648dce57e7a532eb3cf757955c658ae4186"
+    },
+    {
+      "path": "lab/out/oracle-window-20261005/executed-source/verify_oracle_window.py",
+      "bytes": 3768,
+      "sha256": "cee1e0067fd1f25e98a26c7d61aedea7df4244fe878dc7a7c36d35bd4c0ac219"
+    },
+    {
+      "path": "lab/out/oracle-window-20261005/lab-source-tree.zip",
+      "bytes": 2524922,
+      "sha256": "cad56b406a1040f6e60fdf826132728e41464435268c7dbc37fc6f8d4cb9e75f"
+    },
+    {
+      "path": "lab/out/oracle-window-20261005/proof.json",
+      "bytes": 470,
+      "sha256": "220a98cc31a595d79a558874aa512a24f34c197bd21bb28b9e3d8f2d886e3a51"
+    },
+    {
+      "path": "lab/out/oracle-window-20261005/public-events.command.json",
+      "bytes": 242,
+      "sha256": "6c6f102fabdd0b023dfda8634c397e9ff61b4813b525cdcd426ce35938e0b8af"
+    },
+    {
+      "path": "lab/out/oracle-window-20261005/public-events.rc.txt",
+      "bytes": 1,
+      "sha256": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b"
+    },
+    {
+      "path": "lab/out/oracle-window-20261005/public-events.stderr.txt",
+      "bytes": 342,
+      "sha256": "36b57d6b6fe27deb0e7f8ae92f5b4908d7bcbb8e57feeb3d1507f7aa871776a3"
+    },
+    {
+      "path": "lab/out/oracle-window-20261005/public-events.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle-window-20261005/raw-window.command.json",
+      "bytes": 1228,
+      "sha256": "2252164196aeb64d409aacb8e74c69281c8509443f5a37bfc455782c38598930"
+    },
+    {
+      "path": "lab/out/oracle-window-20261005/raw-window.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/oracle-window-20261005/raw-window.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle-window-20261005/raw-window.stdout.txt",
+      "bytes": 288,
+      "sha256": "e712d50d95188233d4b56ccc89ac5c914f80ba0337aaf6bebc1e3dae36dd05b5"
+    },
+    {
+      "path": "lab/out/release-oracle-window-20261005/adapter-tests/2026-10-05T10-18-08_400.dumpstream",
+      "bytes": 355,
+      "sha256": "7d12660e5fa959c156db91437fa0fd17fd0d1569772c45561e4f8c9ab74daef5"
+    },
+    {
+      "path": "lab/out/release-oracle-window-20261005/adapter-tests/com.streamhouse.engines.oracle.OracleBatchProjectionTest.txt",
+      "bytes": 366,
+      "sha256": "527d30a62977e7ab5fb5f662ca4c47f814644ff6079d71ecef0ad831572434f0"
+    },
+    {
+      "path": "lab/out/release-oracle-window-20261005/adapter-tests/com.streamhouse.engines.oracle.OracleConsumptionWindowTest.txt",
+      "bytes": 370,
+      "sha256": "0fcafa0258430dcef34a2cd2009f722591843db97167579bb7afebab59e534ad"
+    },
+    {
+      "path": "lab/out/release-oracle-window-20261005/adapter-tests/TEST-com.streamhouse.engines.oracle.OracleBatchProjectionTest.xml",
+      "bytes": 12193,
+      "sha256": "73485865b163559b8b566fcc6037cd2f815de309dc8195afeef904e2d08d466d"
+    },
+    {
+      "path": "lab/out/release-oracle-window-20261005/adapter-tests/TEST-com.streamhouse.engines.oracle.OracleConsumptionWindowTest.xml",
+      "bytes": 12323,
+      "sha256": "912802833b20f8e542fa1e561bb9f9daaf7a0600d68de5853eed989095b69b38"
+    },
+    {
+      "path": "lab/out/release-oracle-window-20261005/adapter.command.json",
+      "bytes": 304,
+      "sha256": "183dac8ca496f226565d8ce4935a1b9018e6e849fbf77463f22f6429033bb1fc"
+    },
+    {
+      "path": "lab/out/release-oracle-window-20261005/adapter.jar",
+      "bytes": 24910,
+      "sha256": "ee0ff207193b6fa66b151a515676a0357f2c8b4295d836e749a29729e53824a6"
+    },
+    {
+      "path": "lab/out/release-oracle-window-20261005/adapter.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/release-oracle-window-20261005/adapter.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/release-oracle-window-20261005/adapter.stdout.txt",
+      "bytes": 3144,
+      "sha256": "5761f7423477c81f9d17e3057e19624b346d85ffe8e4583e7293b10f97b4e5bb"
+    },
+    {
+      "path": "lab/out/release-oracle-window-20261005/kernel-tests/2026-10-05T10-17-37_537.dumpstream",
+      "bytes": 355,
+      "sha256": "5bce3be4d476ea13031dd2b8b825eff9c5054040e56086ab8a650877755dd9a2"
+    },
+    {
+      "path": "lab/out/release-oracle-window-20261005/kernel-tests/com.streamhouse.oracle.ArchivedCompensationAssociationsTest.txt",
+      "bytes": 372,
+      "sha256": "0f1d56db8f7b1e4ba2a893eca18a488b59773f810b0a7d48839a7b76d3f9e7b2"
+    },
+    {
+      "path": "lab/out/release-oracle-window-20261005/kernel-tests/com.streamhouse.oracle.ArchivedCompensationInventoryTest.txt",
+      "bytes": 366,
+      "sha256": "16015723c4bc37cc9c5e5e6c5e52d7a27f20cf1333d3c44b7c8e2b923536697e"
+    },
+    {
+      "path": "lab/out/release-oracle-window-20261005/kernel-tests/com.streamhouse.oracle.ArchivedHeapRowsTest.txt",
+      "bytes": 340,
+      "sha256": "6bcc453806056bc83437bb9de067beee76e97a32daec95bffb28f17ceae54b5d"
+    },
+    {
+      "path": "lab/out/release-oracle-window-20261005/kernel-tests/com.streamhouse.oracle.ArchivedIndexLeafInventoryTest.txt",
+      "bytes": 360,
+      "sha256": "cbdf2251c0f24cf30dec7b6c3a71ccec28a168f8d1bb0f87fc261993f7ddb343"
+    },
+    {
+      "path": "lab/out/release-oracle-window-20261005/kernel-tests/com.streamhouse.oracle.ArchivedObjectTransactionsTest.txt",
+      "bytes": 360,
+      "sha256": "f1217de0d449e4dd4b56f5738a4a212375598aa73d048e613215678724137b03"
+    },
+    {
+      "path": "lab/out/release-oracle-window-20261005/kernel-tests/com.streamhouse.oracle.ArchivedPhysicalTransactionsTest.txt",
+      "bytes": 364,
+      "sha256": "2c5d08254242f260b9945e3d3ea9d4056ec1198f0d0ea88513a98c06f13bddda"
+    },
+    {
+      "path": "lab/out/release-oracle-window-20261005/kernel-tests/com.streamhouse.oracle.ArchivedRedoTest.txt",
+      "bytes": 332,
+      "sha256": "d344da8e31ef0a678efcdb6a3f8bcb3f33504ea53cc9a0ef834d719ac79f8175"
+    },
+    {
+      "path": "lab/out/release-oracle-window-20261005/kernel-tests/com.streamhouse.oracle.ArchivedUndoInventoryTest.txt",
+      "bytes": 350,
+      "sha256": "78c8b566f8e974c447aee9514c9b81a7779ac0e14bcada1e588c37e3d55aff4b"
+    },
+    {
+      "path": "lab/out/release-oracle-window-20261005/kernel-tests/com.streamhouse.oracle.BeginCompensationTest.txt",
+      "bytes": 342,
+      "sha256": "f392047cbeac6b851c2ab89b3461d780ef2af4aec8f3f432e3cb97ef3454e344"
+    },
+    {
+      "path": "lab/out/release-oracle-window-20261005/kernel-tests/com.streamhouse.oracle.CapturedHeapBatchTest.txt",
+      "bytes": 342,
+      "sha256": "e20e87d3ea2c2890cb0915ceaff1580f44cb434986c7b93c54348d7bca6d11a5"
+    },
+    {
+      "path": "lab/out/release-oracle-window-20261005/kernel-tests/com.streamhouse.oracle.CaptureJournalTest.txt",
+      "bytes": 336,
+      "sha256": "56588f66d8d04ae264f6d47a7546ac7fad5ea38f1df9026d64b37c4461f6d4a0"
+    },
+    {
+      "path": "lab/out/release-oracle-window-20261005/kernel-tests/com.streamhouse.oracle.CrossCompensationTest.txt",
+      "bytes": 342,
+      "sha256": "67eb52b1bbfc92adafa77006782a05becb76e0ca02572c6e860cf4a7ec763c16"
+    },
+    {
+      "path": "lab/out/release-oracle-window-20261005/kernel-tests/com.streamhouse.oracle.EmptyHeapCleanoutTest.txt",
+      "bytes": 342,
+      "sha256": "13320847d6ba0a1aa22a572090e4b63231645ee71116f65be619268445723a08"
+    },
+    {
+      "path": "lab/out/release-oracle-window-20261005/kernel-tests/com.streamhouse.oracle.FrozenHeapBaselineTest.txt",
+      "bytes": 344,
+      "sha256": "cee46082d81052eb50106db4a403d466284c5754237159f40d7cf1c9b2e64260"
+    },
+    {
+      "path": "lab/out/release-oracle-window-20261005/kernel-tests/com.streamhouse.oracle.HeapCleanoutCTest.txt",
+      "bytes": 334,
+      "sha256": "4e2cd84cd0868d1fe3714c4a2f9bac48fef3ef9a903ba51d5d30cb95a2d60c83"
+    },
+    {
+      "path": "lab/out/release-oracle-window-20261005/kernel-tests/com.streamhouse.oracle.HeapCompensationTest.txt",
+      "bytes": 340,
+      "sha256": "b35c52d9df9ba02d73e98cef6e86c647a03273e592ebb0be29ebcd626ac4e936"
+    },
+    {
+      "path": "lab/out/release-oracle-window-20261005/kernel-tests/com.streamhouse.oracle.HeapIndexScopeTest.txt",
+      "bytes": 336,
+      "sha256": "64f051355b6d6ca876b6eb91e4ab3fb88d1621bacb6516872fb6897f57e92f43"
+    },
+    {
+      "path": "lab/out/release-oracle-window-20261005/kernel-tests/com.streamhouse.oracle.HeapLockTest.txt",
+      "bytes": 324,
+      "sha256": "a5908e040d42700557200eb2404b805bad26e6e89ea516235231ef116474b6e1"
+    },
+    {
+      "path": "lab/out/release-oracle-window-20261005/kernel-tests/com.streamhouse.oracle.HeapRowPatchTest.txt",
+      "bytes": 332,
+      "sha256": "70bb08f9c9a1c34f1fc3e57e1d8b90ea32cf81601cd181073d256cc14517ba4e"
+    },
+    {
+      "path": "lab/out/release-oracle-window-20261005/kernel-tests/com.streamhouse.oracle.HeapTailExtentTest.txt",
+      "bytes": 336,
+      "sha256": "06e951945f6cd858dec16be8afb010c0fb32f58fc934b7986b9af4387f1f0677"
+    },
+    {
+      "path": "lab/out/release-oracle-window-20261005/kernel-tests/com.streamhouse.oracle.HeapUndoPairTest.txt",
+      "bytes": 332,
+      "sha256": "bc24ecfe9d482ca3277bb6ef89c8e508ff38b910aa60df4d40f322904f592633"
+    },
+    {
+      "path": "lab/out/release-oracle-window-20261005/kernel-tests/com.streamhouse.oracle.IndexCompensationTest.txt",
+      "bytes": 342,
+      "sha256": "04ef164b4a5823d91cfefdf2e9fe65ee58a44709de14c594c6520ecaba46dcaa"
+    },
+    {
+      "path": "lab/out/release-oracle-window-20261005/kernel-tests/com.streamhouse.oracle.IndexLeafPositionsTest.txt",
+      "bytes": 345,
+      "sha256": "bd0bf9f02e7cc19f99f1bfb420230b82c5586924af6779478504bb600e376727"
+    },
+    {
+      "path": "lab/out/release-oracle-window-20261005/kernel-tests/com.streamhouse.oracle.IndexPositionReplayTest.txt",
+      "bytes": 346,
+      "sha256": "a321c37831304026147cc8cc1a5d3725761edef3eb85885ca0961bd7638ccce0"
+    },
+    {
+      "path": "lab/out/release-oracle-window-20261005/kernel-tests/com.streamhouse.oracle.IndexRestoreCompensationTest.txt",
+      "bytes": 356,
+      "sha256": "5db6bfffd7ccf2feeb8e827d8aaec10c0c88a08af497ee733a897e10c1f064d7"
+    },
+    {
+      "path": "lab/out/release-oracle-window-20261005/kernel-tests/com.streamhouse.oracle.IndexUndoPairTest.txt",
+      "bytes": 334,
+      "sha256": "441541f8f616ab3089e3a7b2549720e4540d238c66b1062a413b4d91001e8093"
+    },
+    {
+      "path": "lab/out/release-oracle-window-20261005/kernel-tests/com.streamhouse.oracle.Kdom2MarkerThreeTest.txt",
+      "bytes": 340,
+      "sha256": "7c0d13cfeb6ac2bb4932063b09396d09a2eef5acf08d111466910b041402e1af"
+    },
+    {
+      "path": "lab/out/release-oracle-window-20261005/kernel-tests/com.streamhouse.oracle.Kdom2UpdateTest.txt",
+      "bytes": 331,
+      "sha256": "26c48315a88e0f31e965ef7c89c967a694bd6fe55552e0c035942ce46571e0d5"
+    },
+    {
+      "path": "lab/out/release-oracle-window-20261005/kernel-tests/com.streamhouse.oracle.KtbZInsertTest.txt",
+      "bytes": 328,
+      "sha256": "fc81df374c3218597423b5af951e4543699b93a9cd59b37fd9b9cf7996e7391c"
+    },
+    {
+      "path": "lab/out/release-oracle-window-20261005/kernel-tests/com.streamhouse.oracle.KtbZRollbackTest.txt",
+      "bytes": 333,
+      "sha256": "0476aec776be378b7d98af8bada8226389b8e349335bc768d3aa46baf184fb77"
+    },
+    {
+      "path": "lab/out/release-oracle-window-20261005/kernel-tests/com.streamhouse.oracle.OracleScalarsTest.txt",
+      "bytes": 334,
+      "sha256": "954c9d1457560cb85eb18476e05333799d9f9d1e6a95079d5f06fb3d84911d40"
+    },
+    {
+      "path": "lab/out/release-oracle-window-20261005/kernel-tests/com.streamhouse.oracle.SingleEntryBlockCleanoutTest.txt",
+      "bytes": 356,
+      "sha256": "8958a073dec2654a5993ca281f47ce655ec0a83af9528e777bf602823ef45ca9"
+    },
+    {
+      "path": "lab/out/release-oracle-window-20261005/kernel-tests/com.streamhouse.oracle.TransactionLifecycleTest.txt",
+      "bytes": 349,
+      "sha256": "6e4a9170e5f0982d9ee90abfe6cc7ce836ba9ebc531760058e1db5aed0c4ea0b"
+    },
+    {
+      "path": "lab/out/release-oracle-window-20261005/kernel-tests/com.streamhouse.oracle.TransactionMarkersTest.txt",
+      "bytes": 344,
+      "sha256": "290327af2249ccabff63ef0b03b7d79ba3e49641ee5735aad3a11251852ca53e"
+    },
+    {
+      "path": "lab/out/release-oracle-window-20261005/kernel-tests/com.streamhouse.oracle.TransactionStartTest.txt",
+      "bytes": 340,
+      "sha256": "e92ee41cc2c93870e2f08698855ee582416d51567acd74b075467852d50c60a7"
+    },
+    {
+      "path": "lab/out/release-oracle-window-20261005/kernel-tests/com.streamhouse.oracle.UndoBlockAdvanceTest.txt",
+      "bytes": 340,
+      "sha256": "6e7cc1f5b7468ab417e03218494d18f901b4037491aeace969f50f9c992458de"
+    },
+    {
+      "path": "lab/out/release-oracle-window-20261005/kernel-tests/com.streamhouse.oracle.UndoChainTest.txt",
+      "bytes": 326,
+      "sha256": "38cd433af0aa575c7b5a230fb0e762013c7ee0590e8271a94cfad0a40fa2c68a"
+    },
+    {
+      "path": "lab/out/release-oracle-window-20261005/kernel-tests/com.streamhouse.oracle.UndoHeaderTest.txt",
+      "bytes": 328,
+      "sha256": "4a0cfb3783b18d5496c50f18a4e385cd14ee44b52f83fe988d88ac98e696536e"
+    },
+    {
+      "path": "lab/out/release-oracle-window-20261005/kernel-tests/com.streamhouse.oracle.UndoHeadUpdateTest.txt",
+      "bytes": 336,
+      "sha256": "2688f618ef5a615450b62cd4e4e18d87babc2eff416f3184fcc65efcda333a3c"
+    },
+    {
+      "path": "lab/out/release-oracle-window-20261005/kernel-tests/com.streamhouse.oracle.UndoHistoryTest.txt",
+      "bytes": 330,
+      "sha256": "01c6897427815e4751a3c6000cbca4127f247fbb127db257499f2524bd37eb47"
+    },
+    {
+      "path": "lab/out/release-oracle-window-20261005/kernel-tests/com.streamhouse.oracle.UndoRowPatchTest.txt",
+      "bytes": 332,
+      "sha256": "ee9ce6a2bdedaa8d6db074fda38ed4aafc0d21b57d94a3881e4d8c2563eb0171"
+    },
+    {
+      "path": "lab/out/release-oracle-window-20261005/kernel-tests/TEST-com.streamhouse.oracle.ArchivedCompensationAssociationsTest.xml",
+      "bytes": 11875,
+      "sha256": "730181627d4370323437b44185affaca2b22e7c0568ba110a72fa9df400f66d9"
+    },
+    {
+      "path": "lab/out/release-oracle-window-20261005/kernel-tests/TEST-com.streamhouse.oracle.ArchivedCompensationInventoryTest.xml",
+      "bytes": 11493,
+      "sha256": "25892d8fcc3aec5e1d35e824d376147405b3fae871c66f7278353686129e9ba3"
+    },
+    {
+      "path": "lab/out/release-oracle-window-20261005/kernel-tests/TEST-com.streamhouse.oracle.ArchivedHeapRowsTest.xml",
+      "bytes": 11129,
+      "sha256": "7195d5124d0712cd03378f1a2fc62aca095fa2b622a64b3442a7850544869d68"
+    },
+    {
+      "path": "lab/out/release-oracle-window-20261005/kernel-tests/TEST-com.streamhouse.oracle.ArchivedIndexLeafInventoryTest.xml",
+      "bytes": 11631,
+      "sha256": "0e39b4cd354bcd8290e6cf30c379f821134281fc43f27b7ff22eb7d0b3b7819c"
+    },
+    {
+      "path": "lab/out/release-oracle-window-20261005/kernel-tests/TEST-com.streamhouse.oracle.ArchivedObjectTransactionsTest.xml",
+      "bytes": 11472,
+      "sha256": "e451567677f87b26ea954d338636973d16bf673e482e78a3ee9feb439d4c9283"
+    },
+    {
+      "path": "lab/out/release-oracle-window-20261005/kernel-tests/TEST-com.streamhouse.oracle.ArchivedPhysicalTransactionsTest.xml",
+      "bytes": 11315,
+      "sha256": "e44a4553333deca48071904ceea29f9b99256395dcceb42a7762bd626e06954f"
+    },
+    {
+      "path": "lab/out/release-oracle-window-20261005/kernel-tests/TEST-com.streamhouse.oracle.ArchivedRedoTest.xml",
+      "bytes": 11965,
+      "sha256": "6805d541dffa75099c919831fff48bd7a0e39a9d7f44408a9448bef1b3cdddf0"
+    },
+    {
+      "path": "lab/out/release-oracle-window-20261005/kernel-tests/TEST-com.streamhouse.oracle.ArchivedUndoInventoryTest.xml",
+      "bytes": 11278,
+      "sha256": "055479f06423695eda4eee1f390e3d87e486ef57bff3cb932596f8158041aef4"
+    },
+    {
+      "path": "lab/out/release-oracle-window-20261005/kernel-tests/TEST-com.streamhouse.oracle.BeginCompensationTest.xml",
+      "bytes": 11384,
+      "sha256": "98c0c8b1bf9060f6f9c4c2f588699f7ea3d0b33e7cd3e798c32a5baf8e0ac1be"
+    },
+    {
+      "path": "lab/out/release-oracle-window-20261005/kernel-tests/TEST-com.streamhouse.oracle.CapturedHeapBatchTest.xml",
+      "bytes": 11314,
+      "sha256": "f785ee59cc851e3d33c75972323ad4ce23e411ec0b084ab104cee0d7407fdddd"
+    },
+    {
+      "path": "lab/out/release-oracle-window-20261005/kernel-tests/TEST-com.streamhouse.oracle.CaptureJournalTest.xml",
+      "bytes": 11227,
+      "sha256": "7fc5cdda100b845cf84e4c6903f3f98390261b3127ea4b3f9d1b1f528fc4fe50"
+    },
+    {
+      "path": "lab/out/release-oracle-window-20261005/kernel-tests/TEST-com.streamhouse.oracle.CrossCompensationTest.xml",
+      "bytes": 11382,
+      "sha256": "fb8f770ce68ac1519ccffe0662acea7f75957be7898548a09c193284751594b0"
+    },
+    {
+      "path": "lab/out/release-oracle-window-20261005/kernel-tests/TEST-com.streamhouse.oracle.EmptyHeapCleanoutTest.xml",
+      "bytes": 10858,
+      "sha256": "8fc860e266df2e838bf024db8d5b83a894e673c5cb09bc79c90572af54c5ab1d"
+    },
+    {
+      "path": "lab/out/release-oracle-window-20261005/kernel-tests/TEST-com.streamhouse.oracle.FrozenHeapBaselineTest.xml",
+      "bytes": 11162,
+      "sha256": "4bf3426d6f611a7f5a74ffe9e930d5b7a63da3b36393f5b55880ca0bd10fa9f5"
+    },
+    {
+      "path": "lab/out/release-oracle-window-20261005/kernel-tests/TEST-com.streamhouse.oracle.HeapCleanoutCTest.xml",
+      "bytes": 10952,
+      "sha256": "8e0b595a01e9714980100c4721684e2254fc886de27c730b35d4d31cbe64a661"
+    },
+    {
+      "path": "lab/out/release-oracle-window-20261005/kernel-tests/TEST-com.streamhouse.oracle.HeapCompensationTest.xml",
+      "bytes": 11653,
+      "sha256": "a0ae02953a65c8de38281d08cf9e56e49dc8614cbc348cd037462a89453cdac0"
+    },
+    {
+      "path": "lab/out/release-oracle-window-20261005/kernel-tests/TEST-com.streamhouse.oracle.HeapIndexScopeTest.xml",
+      "bytes": 11149,
+      "sha256": "2b99d0bd447ea7ff78fb6a931ad1ed2335c62a061d22fc373f87ff55a025ac3e"
+    },
+    {
+      "path": "lab/out/release-oracle-window-20261005/kernel-tests/TEST-com.streamhouse.oracle.HeapLockTest.xml",
+      "bytes": 10817,
+      "sha256": "5c3acba72b7f5987649e4457320fbeb5c6c3dbf66b26a600d96a0fc43fbd7f7f"
+    },
+    {
+      "path": "lab/out/release-oracle-window-20261005/kernel-tests/TEST-com.streamhouse.oracle.HeapRowPatchTest.xml",
+      "bytes": 11425,
+      "sha256": "9cb3f4ac8b3afce52b660391b765e10d5f4739b9393cd467619a5b2747fe74f7"
+    },
+    {
+      "path": "lab/out/release-oracle-window-20261005/kernel-tests/TEST-com.streamhouse.oracle.HeapTailExtentTest.xml",
+      "bytes": 11241,
+      "sha256": "168a39a1b35fe00d8ffdc9ee87cd586b3ff8e7d2f416d3dd262a5bce8c5591bb"
+    },
+    {
+      "path": "lab/out/release-oracle-window-20261005/kernel-tests/TEST-com.streamhouse.oracle.HeapUndoPairTest.xml",
+      "bytes": 11341,
+      "sha256": "94e5e9bd19c5eb190df59466b7c89d39b9d632c85af4749492e85658f8361055"
+    },
+    {
+      "path": "lab/out/release-oracle-window-20261005/kernel-tests/TEST-com.streamhouse.oracle.IndexCompensationTest.xml",
+      "bytes": 11270,
+      "sha256": "925cef79456fd4d6c833b98e1dde40818b79a401016c257497c28a5a3ee770c9"
+    },
+    {
+      "path": "lab/out/release-oracle-window-20261005/kernel-tests/TEST-com.streamhouse.oracle.IndexLeafPositionsTest.xml",
+      "bytes": 11962,
+      "sha256": "31d1cc332d06a9b802d99aaf7fce8beb35d3b522d29f48a29328509eb5a76664"
+    },
+    {
+      "path": "lab/out/release-oracle-window-20261005/kernel-tests/TEST-com.streamhouse.oracle.IndexPositionReplayTest.xml",
+      "bytes": 11213,
+      "sha256": "1f8fa87cd635070ca337a1a12e9c65989f9ef47ad2ca89ea912aa54397beed9d"
+    },
+    {
+      "path": "lab/out/release-oracle-window-20261005/kernel-tests/TEST-com.streamhouse.oracle.IndexRestoreCompensationTest.xml",
+      "bytes": 11434,
+      "sha256": "d47887c9f2315f9753924f4b396f1b3a1a49d5cb7047760f2aaebe0602bb0c7f"
+    },
+    {
+      "path": "lab/out/release-oracle-window-20261005/kernel-tests/TEST-com.streamhouse.oracle.IndexUndoPairTest.xml",
+      "bytes": 11720,
+      "sha256": "baa06d3f86356d9e534efd4ff7b411f2f2bb11a2fb3fdf73482a70d3de702bbc"
+    },
+    {
+      "path": "lab/out/release-oracle-window-20261005/kernel-tests/TEST-com.streamhouse.oracle.Kdom2MarkerThreeTest.xml",
+      "bytes": 10830,
+      "sha256": "2e6d8abb85f6becdcdcfe48fa01337a3a55b096daba4a7dc32488d062e09b086"
+    },
+    {
+      "path": "lab/out/release-oracle-window-20261005/kernel-tests/TEST-com.streamhouse.oracle.Kdom2UpdateTest.xml",
+      "bytes": 11873,
+      "sha256": "781b95d173fdac7aab5c6eaba29392862249eb4ecd5232c79cc5b8dc9442ec9c"
+    },
+    {
+      "path": "lab/out/release-oracle-window-20261005/kernel-tests/TEST-com.streamhouse.oracle.KtbZInsertTest.xml",
+      "bytes": 10952,
+      "sha256": "dde113f2fb6155bfc8bbca6f33d074d954427cd09b69c2e91fb882741b4254b1"
+    },
+    {
+      "path": "lab/out/release-oracle-window-20261005/kernel-tests/TEST-com.streamhouse.oracle.KtbZRollbackTest.xml",
+      "bytes": 12011,
+      "sha256": "7601e078e98a3f5763bf1ee8dec3014a4aa9c5d0bc5fdfc0a37d7ef1e6aca4aa"
+    },
+    {
+      "path": "lab/out/release-oracle-window-20261005/kernel-tests/TEST-com.streamhouse.oracle.OracleScalarsTest.xml",
+      "bytes": 11170,
+      "sha256": "14a49fdf39289e414dfe52cd60b8b3d796d113e82090f0d43a4fbaf820b23159"
+    },
+    {
+      "path": "lab/out/release-oracle-window-20261005/kernel-tests/TEST-com.streamhouse.oracle.SingleEntryBlockCleanoutTest.xml",
+      "bytes": 10868,
+      "sha256": "4208af706e46d26d0fb47e57425f39935117887e9db03a070a38498e6b0afce1"
+    },
+    {
+      "path": "lab/out/release-oracle-window-20261005/kernel-tests/TEST-com.streamhouse.oracle.TransactionLifecycleTest.xml",
+      "bytes": 12478,
+      "sha256": "165ecb0cd129add3328cf211b89ddeda1d36e30bf2ddb25e03c6e79e67bfc395"
+    },
+    {
+      "path": "lab/out/release-oracle-window-20261005/kernel-tests/TEST-com.streamhouse.oracle.TransactionMarkersTest.xml",
+      "bytes": 11661,
+      "sha256": "716a1f80ede623741acefddb074bf1abd0cc6c773653493972af1b8ef988beab"
+    },
+    {
+      "path": "lab/out/release-oracle-window-20261005/kernel-tests/TEST-com.streamhouse.oracle.TransactionStartTest.xml",
+      "bytes": 11618,
+      "sha256": "505e30a8ffe0f83c0b01e4d7433b4e57c58ad7f5e67956de96e06ead549a194f"
+    },
+    {
+      "path": "lab/out/release-oracle-window-20261005/kernel-tests/TEST-com.streamhouse.oracle.UndoBlockAdvanceTest.xml",
+      "bytes": 11236,
+      "sha256": "52884d6561daee607777861a22e86594f9ae0a474ddc7605523fdc5365ba3edb"
+    },
+    {
+      "path": "lab/out/release-oracle-window-20261005/kernel-tests/TEST-com.streamhouse.oracle.UndoChainTest.xml",
+      "bytes": 11345,
+      "sha256": "2924edc21fba4a7db96ad0792b05d1ba47d10178ff99ed6ab8a0428085329742"
+    },
+    {
+      "path": "lab/out/release-oracle-window-20261005/kernel-tests/TEST-com.streamhouse.oracle.UndoHeaderTest.xml",
+      "bytes": 10920,
+      "sha256": "955f12d014c216a9985c2a71349eea8a0991b6d53ead3996f1e4fea16d64c1bb"
+    },
+    {
+      "path": "lab/out/release-oracle-window-20261005/kernel-tests/TEST-com.streamhouse.oracle.UndoHeadUpdateTest.xml",
+      "bytes": 11392,
+      "sha256": "fc1c86bb51ec7b906bf3ae62c5561f7fcb673546587b6079a6e91768c799ef09"
+    },
+    {
+      "path": "lab/out/release-oracle-window-20261005/kernel-tests/TEST-com.streamhouse.oracle.UndoHistoryTest.xml",
+      "bytes": 11660,
+      "sha256": "47c8c1ef6f23dbd78aa8677951a0d700595106c271a13779ba25e301084dbed6"
+    },
+    {
+      "path": "lab/out/release-oracle-window-20261005/kernel-tests/TEST-com.streamhouse.oracle.UndoRowPatchTest.xml",
+      "bytes": 11197,
+      "sha256": "31cab2b0d66eeacfcac2189eb77c9df58b0127cacdd874ee96949ecee2dfc909"
+    },
+    {
+      "path": "lab/out/release-oracle-window-20261005/kernel.command.json",
+      "bytes": 265,
+      "sha256": "57712d22bcb58f156abe2f62c882baf192ca8b22e0f1fddb08263ece024925a0"
+    },
+    {
+      "path": "lab/out/release-oracle-window-20261005/kernel.jar",
+      "bytes": 188826,
+      "sha256": "ea9f58c629d39fb1a1c15dddd72b74322581a641c8fb6fa252fad43bc4e39d51"
+    },
+    {
+      "path": "lab/out/release-oracle-window-20261005/kernel.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/release-oracle-window-20261005/kernel.stderr.txt",
+      "bytes": 301,
+      "sha256": "a73235e74b7212a667f3c9a6209ea0afe89e0cb01c372b4298f0f1a5e284ba49"
+    },
+    {
+      "path": "lab/out/release-oracle-window-20261005/kernel.stdout.txt",
+      "bytes": 10675,
+      "sha256": "7c6a6d8bca93641d7e883406faeaff0468f4fff8e59ae4b98fbe75232f7b0e0d"
+    },
+    {
+      "path": "lab/out/release-oracle-window-20261005/proof.json",
+      "bytes": 633,
+      "sha256": "9a8e7cf279927c809ed5ad5095e83fb85ffef156c16b2e0ad85a40d1719824ac"
+    },
+    {
+      "path": "lab/out/release-oracle-window-20261005/source-tree.zip",
+      "bytes": 2520707,
+      "sha256": "e0a8e8b1ba4f8c391f835d7deceb6e8685ea86fb789128d908dc81fcba1b3f54"
+    },
+    {
+      "path": "lab/out/release-oracle-window-20261005/spi.jar",
+      "bytes": 13901,
+      "sha256": "93e451fe6c16c665cbdc5b5471a9879cd0a01ec7699a5d9666068dc14c2f8523"
+    },
+    {
+      "path": "lab/verify_oracle_window.py",
+      "bytes": 3768,
+      "sha256": "cee1e0067fd1f25e98a26c7d61aedea7df4244fe878dc7a7c36d35bd4c0ac219"
+    }
+  ]
+}
