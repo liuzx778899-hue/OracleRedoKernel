@@ -1,5 +1,7 @@
 # OracleRedoKernel 当前状态
 
+最新：[归档自主SYS历史候选](DELIVERY_W5_SYS_HISTORY_KERNEL_20261006.md)：a3fb674/kernel58a6e56e/295，raw自主完整三SYS事务22original、764值独立0差异；archive/actual capture/擦marker输出字节一致，11整入口反例rc1/stdout0，旧V2静态三IUD不变/历史仍拒绝。227双SHA/旧220未变，选择无关SYS与parent检查失败保全，0源/目标/产品动作。旧SCN V3仍synthetic诊断，真实晚V3拒绝；不当历史DML/现场发布。接续NEW_V3_HISTORY_RAW实际新baseline后新日志正功能，再业务时点schema与产品V3账/HTTP。原全goal active，Codex最后查。
+
 最新：[SYS完整历史/OBJ$候选](DELIVERY_W5_SYS_FULL_HISTORY_RESEARCH_20261006.md)：b65ade5/kernelf78ad0f9/292，scoped OBJ$九列30字节URP已实现，普通heap不放宽；十一行pair/十index/一控制22original完整处置，三个commit SCN完整764值及三index lifecycle诊断0差异、四比较反例检出。七合法checksum raw scan0/pair1/stdout0；旧V2静态三IUD字节不变/历史拒绝不变。220双SHA/旧219未变，profile/跨块定位失败原文保全；0业务/配置/目标/产品动作。仅诊断行史、IRP尾NULL假设仍无生产authority；接续SYS_HISTORY_KERNEL自主完整覆盖/可信V3历史入口，再新SCN后历史DML正功能与产品获取账HTTP。原goal active，跨窗/采集/独立目标/矩阵/评审现场发布未过，Codex最后查。
 
 最新：[V3完整SYS获取候选](DELIVERY_W5_DICTIONARY_BASELINE_V3_20261006.md)：6b68786/kernel97dd395f/290、adaptere095822b/22；V3完整布局/六SYS行/三index identity+DBA已实现，实际新SCN2533047/SHA518c0f90及独立230字段/三个索引/业务基线零差异。旧V2三完整IUD字节不变，原/擦marker历史拒绝不变，V3也未解除历史门禁。219双SHA/旧204未变；首次IND$权限ORA-00942拒绝无快照，owned lab补SELECT/FLASHBACK属配置实验，不当生产零侵入证明；无业务DDL/DML/目标动作/产品换装。接续COMPLETE_SYS_HISTORY完整SYS行/三索引lifecycle、新V3之后历史raw正功能/产品获取账HTTP。原goal active，跨窗/采集/独立目标/矩阵/评审现场发布未过，Codex最后查。

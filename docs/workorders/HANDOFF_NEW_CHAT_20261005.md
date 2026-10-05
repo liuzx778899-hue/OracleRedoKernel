@@ -1,3 +1,8 @@
+# 最新接续：真实新V3后历史raw
+
+最新：[归档自主SYS历史候选](DELIVERY_W5_SYS_HISTORY_KERNEL_20261006.md)：a3fb674/kernel58a6e56e/295，raw自主完整三SYS事务22original、764值独立0差异；archive/actual capture/擦marker输出字节一致，11整入口反例rc1/stdout0，旧V2静态三IUD不变/历史仍拒绝。227双SHA/旧220未变，选择无关SYS与parent检查失败保全，0源/目标/产品动作。旧SCN V3仍synthetic诊断，真实晚V3拒绝；不当历史DML/现场发布。接续NEW_V3_HISTORY_RAW实际新baseline后新日志正功能，再业务时点schema与产品V3账/HTTP。原全goal active，Codex最后查。
+O=lab/out/sys-history-kernel-candidate-20261006，history-proof-r3.json为最终诊断；295模块通过，kernel58a6e56ef7844bb58da94e06f5ae98fe7a63b2f347b60f02ffa071a095812ade。首失败日志/修复/比较真值保全。actual新V3 SCN2533047不能填旧seq66/67；下一单DISPATCH_W5_NEW_V3_HISTORY_RAW_20261006。原源事务不可重放，P仍efd068f/737/旧672，adaptere095822b/22旧件不重构，PR#13待评审。原完整goal/automation继续。
+
 # 最新接续：三SYS复合索引pair
 
 最新接续SYS历史内核：b65ade5/kernelf78ad0f997ae81a6096c8380b0462532dcdcaf23d40eae0385e86e7637f98c36/292，详见DELIVERY_W5_SYS_FULL_HISTORY_RESEARCH_20261006.md与STATUS。O=lab/out/sys-full-history-research-20261006，N=lab/out/sys-object-history-candidate-20261006；十一行pair+十index+一控制全22original，三个旧commit SCN完整764值/三index lifecycle诊断0差异，四比较反例检出；七合法checksum raw scan0/pair1/stdout0，普通heap不放宽，旧V2三IUD不漂移/历史拒绝不变。220双SHA/旧219不变，旧30字节profile失败和定位器跨块Assertion原文保留，0源业务/配置/目标/产品动作。仅研究算法，旧SCN字段和IRP32/36尾NULL假设没有生产authority。接续DISPATCH_W5_SYS_HISTORY_KERNEL_20261006自主完整original/control/row/index历史入口，再新的V3获取后新raw历史正功能/产品获取账HTTP。实际V3新SCN2533047晚于seq66/67，旧源事务不可重放/不能晚回填。P仍efd068f/737/旧672/PR#13 draft待评审，adapter仍e095822b/22旧候选未重构。原全goal/automation继续，Codex所有Oracle完成后查。下列旧入口仅保留历史。
