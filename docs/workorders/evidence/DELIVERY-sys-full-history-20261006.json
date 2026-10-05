@@ -1,0 +1,1303 @@
+{
+  "files_count": 220,
+  "double_sha256_verified": true,
+  "previous_219_unchanged": true,
+  "kernel_code_commit": "b65ade5",
+  "kernel_sha256": "f78ad0f997ae81a6096c8380b0462532dcdcaf23d40eae0385e86e7637f98c36",
+  "kernel_tests": [
+    292,
+    0,
+    0,
+    0
+  ],
+  "full_row_replay": {
+    "commits": [
+      {
+        "xid": "10.18.2272",
+        "scn": 2522904,
+        "originals": 6,
+        "row_pairs": 3,
+        "index_pairs": 3,
+        "controls": 0,
+        "full_rows": 7,
+        "values": 267,
+        "independent_differences": 0
+      },
+      {
+        "xid": "3.30.705",
+        "scn": 2522911,
+        "originals": 10,
+        "row_pairs": 5,
+        "index_pairs": 4,
+        "controls": 1,
+        "full_rows": 7,
+        "values": 267,
+        "independent_differences": 0
+      },
+      {
+        "xid": "3.26.705",
+        "scn": 2522937,
+        "originals": 6,
+        "row_pairs": 3,
+        "index_pairs": 3,
+        "controls": 0,
+        "full_rows": 6,
+        "values": 230,
+        "independent_differences": 0
+      }
+    ],
+    "comparator_negatives": [
+      {
+        "name": "missing-index",
+        "detected": true,
+        "reason": "complete three-index lifecycle mismatch"
+      },
+      {
+        "name": "wrong-parent",
+        "detected": true,
+        "reason": ""
+      },
+      {
+        "name": "wrong-before",
+        "detected": true,
+        "reason": "((66, 6706, 16, 2), 'TAB$', 26)"
+      },
+      {
+        "name": "missing-row",
+        "detected": true,
+        "reason": "2522904"
+      }
+    ],
+    "all_originals": 22,
+    "rows": 11,
+    "indexes": 10,
+    "controls": 1,
+    "independent_values": 764,
+    "history_authority": false,
+    "events": 0,
+    "tail_is_observed_diagnostic_hypothesis": true
+  },
+  "raw_negatives": {
+    "cases": [
+      {
+        "name": "wrong-bitmap",
+        "raw_offset": 6470,
+        "changed_offsets": [
+          6158,
+          6470
+        ],
+        "structure_rc": 0,
+        "pair_rc": 1,
+        "events": 0,
+        "reason": "Exception in thread \"main\" com.streamhouse.oracle.RedoException: UNSUPPORTED_DICTIONARY_OBJECT_UPDATE_PROFILE"
+      },
+      {
+        "name": "wrong-current-full-XID",
+        "raw_offset": 6384,
+        "changed_offsets": [
+          6158,
+          6384
+        ],
+        "structure_rc": 0,
+        "pair_rc": 1,
+        "events": 0,
+        "reason": "Exception in thread \"main\" com.streamhouse.oracle.RedoException: ROW_UNDO_OPERATION_POSITION_OR_XID_MISMATCH"
+      },
+      {
+        "name": "wrong-UBA",
+        "raw_offset": 6388,
+        "changed_offsets": [
+          6158,
+          6388
+        ],
+        "structure_rc": 0,
+        "pair_rc": 1,
+        "events": 0,
+        "reason": "Exception in thread \"main\" com.streamhouse.oracle.RedoException: MISSING_ROW_UNDO_UBA"
+      },
+      {
+        "name": "wrong-logical",
+        "raw_offset": 6136,
+        "changed_offsets": [
+          5646,
+          6136
+        ],
+        "structure_rc": 0,
+        "pair_rc": 1,
+        "events": 0,
+        "reason": "Exception in thread \"main\" com.streamhouse.oracle.RedoException: UNKNOWN_RESEARCH_SYS_ORIGINAL"
+      },
+      {
+        "name": "wrong-generation",
+        "raw_offset": 6140,
+        "changed_offsets": [
+          5646,
+          6140
+        ],
+        "structure_rc": 0,
+        "pair_rc": 1,
+        "events": 0,
+        "reason": "Exception in thread \"main\" com.streamhouse.oracle.RedoException: SYS_ROW_GENERATION_MISMATCH"
+      },
+      {
+        "name": "wrong-table",
+        "raw_offset": 6463,
+        "changed_offsets": [
+          6159,
+          6463
+        ],
+        "structure_rc": 0,
+        "pair_rc": 1,
+        "events": 0,
+        "reason": "Exception in thread \"main\" com.streamhouse.oracle.RedoException: UNSUPPORTED_DICTIONARY_OBJECT_UPDATE_PROFILE"
+      },
+      {
+        "name": "wrong-inverse-column-map",
+        "raw_offset": 6240,
+        "changed_offsets": [
+          6158,
+          6240
+        ],
+        "structure_rc": 0,
+        "pair_rc": 1,
+        "events": 0,
+        "reason": "Exception in thread \"main\" com.streamhouse.oracle.RedoException: ROW_UNDO_CHANGED_COLUMN_SET_MISMATCH"
+      }
+    ],
+    "kernel_sha256": "f78ad0f997ae81a6096c8380b0462532dcdcaf23d40eae0385e86e7637f98c36",
+    "business_ddl_dml": 0,
+    "target_actions": 0
+  },
+  "impact": {
+    "cases": [
+      {
+        "name": "implicit-tail-complete-batch",
+        "rc": 0,
+        "complete_events": 3,
+        "output_byte_equal": true
+      },
+      {
+        "name": "actual-v2-batch",
+        "rc": 1,
+        "events": 0,
+        "reason": "Exception in thread \"main\" com.streamhouse.oracle.RedoException: TARGET_DICTIONARY_WRITE_REQUIRES_HISTORY:scn=2522903:object=75185"
+      },
+      {
+        "name": "erased-v2-batch",
+        "rc": 1,
+        "events": 0,
+        "reason": "Exception in thread \"main\" com.streamhouse.oracle.RedoException: TARGET_DICTIONARY_WRITE_REQUIRES_HISTORY:scn=2522903:object=75185"
+      }
+    ],
+    "source_actions": 0,
+    "target_actions": 0,
+    "product_rebuilt": false
+  },
+  "business_ddl_dml": 0,
+  "source_config_changes": 0,
+  "target_actions": 0,
+  "history_authority": false,
+  "product_rebuilt": false,
+  "files": [
+    {
+      "path": "lab/out/sys-full-history-research-20261006/2522904/partial-results.txt",
+      "bytes": 21504,
+      "sha256": "300f460ac8d8f085ed5981468e4cc07b0c347fbec24e5ed2b31eb650a5b9fa25"
+    },
+    {
+      "path": "lab/out/sys-full-history-research-20261006/2522904/research-query.sql",
+      "bytes": 5145,
+      "sha256": "f6013e5a48009bbc6572374f431ce797b48b7b8395307cf4d46234422bf551b6"
+    },
+    {
+      "path": "lab/out/sys-full-history-research-20261006/2522911/partial-results.txt",
+      "bytes": 21395,
+      "sha256": "b7ccc589ab295a2915a8d4affe897a836d2298d343e4c238d68e4a5170fef29f"
+    },
+    {
+      "path": "lab/out/sys-full-history-research-20261006/2522911/research-query.sql",
+      "bytes": 5145,
+      "sha256": "098f6b41c8bbe06a663f79fd8217c60ec90024111f127e26020f90f47ff015da"
+    },
+    {
+      "path": "lab/out/sys-full-history-research-20261006/2522937/partial-results.txt",
+      "bytes": 18986,
+      "sha256": "24f7d8f0b9e6c360623f32f576f53562aa66ee95112bb8a00e9607062b66d3f1"
+    },
+    {
+      "path": "lab/out/sys-full-history-research-20261006/2522937/research-query.sql",
+      "bytes": 5145,
+      "sha256": "2f7c84f5b3d757c7f29254ae24a772548fb70a450351ec0d055a69f104083895"
+    },
+    {
+      "path": "lab/out/sys-full-history-research-20261006/classes/SysDictionaryBaselineResearchProbe$Column.class",
+      "bytes": 1749,
+      "sha256": "29f90583c3d48604fe49bf825f6d228ebddd705966df49a07ef3e1ae26cb4ae2"
+    },
+    {
+      "path": "lab/out/sys-full-history-research-20261006/classes/SysDictionaryBaselineResearchProbe.class",
+      "bytes": 8416,
+      "sha256": "691a4cd4c1afd1731b63add3d1cbfb104f11fdc576f330503df7249b30a4e906"
+    },
+    {
+      "path": "lab/out/sys-full-history-research-20261006/classes/SysDictionaryRowPairsProbe.class",
+      "bytes": 10510,
+      "sha256": "d4e72c7b7eb8b2b6aa5077c745a26749bb458c1a8f278c9f251143a5d6959bc4"
+    },
+    {
+      "path": "lab/out/sys-full-history-research-20261006/compile-row-pairs-r2.command.json",
+      "bytes": 358,
+      "sha256": "978f6957d4de9135b337bbb89c6be8d2b661058d695b445f5e3f9d097f8d8872"
+    },
+    {
+      "path": "lab/out/sys-full-history-research-20261006/compile-row-pairs-r2.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/sys-full-history-research-20261006/compile-row-pairs-r2.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/sys-full-history-research-20261006/compile-row-pairs-r2.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/sys-full-history-research-20261006/compile-row-pairs.command.json",
+      "bytes": 351,
+      "sha256": "226d1d65f2f21f240c61e5a50c69171f6686828ae620cb54873ca2fdad99c6d7"
+    },
+    {
+      "path": "lab/out/sys-full-history-research-20261006/compile-row-pairs.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/sys-full-history-research-20261006/compile-row-pairs.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/sys-full-history-research-20261006/compile-row-pairs.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/sys-full-history-research-20261006/compile.command.json",
+      "bytes": 250,
+      "sha256": "ab6a74ce8a21b432d4fcc369e080bd4e59f676493e6cc6d97341175db935dd0e"
+    },
+    {
+      "path": "lab/out/sys-full-history-research-20261006/compile.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/sys-full-history-research-20261006/compile.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/sys-full-history-research-20261006/compile.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/sys-full-history-research-20261006/DERIVED-object-wrong-bitmap.dbf",
+      "bytes": 11776,
+      "sha256": "91ea8ff860eae2baf64269620ac6123c2f86e0ca8c0588e9110293f536e7ccf4"
+    },
+    {
+      "path": "lab/out/sys-full-history-research-20261006/DERIVED-object-wrong-current-full-XID.dbf",
+      "bytes": 11776,
+      "sha256": "1beddc01dbb808bff542349992f040323e0a42bfc0d06d1ce3e88f31910e059a"
+    },
+    {
+      "path": "lab/out/sys-full-history-research-20261006/DERIVED-object-wrong-generation.dbf",
+      "bytes": 11776,
+      "sha256": "95094104bea307a6b4ca1812e62935c9763f9588fcde430ad6707cf972621134"
+    },
+    {
+      "path": "lab/out/sys-full-history-research-20261006/DERIVED-object-wrong-inverse-column-map.dbf",
+      "bytes": 11776,
+      "sha256": "5dc809da7723123577cd95787b45f8d9606b56a897c4d10d01e045509ef0533c"
+    },
+    {
+      "path": "lab/out/sys-full-history-research-20261006/DERIVED-object-wrong-logical.dbf",
+      "bytes": 11776,
+      "sha256": "3a183ced2dd41b099e63da6e228991cfef88d0db69e0bd6832a7bbec410ac44b"
+    },
+    {
+      "path": "lab/out/sys-full-history-research-20261006/DERIVED-object-wrong-table.dbf",
+      "bytes": 11776,
+      "sha256": "487d56e4cbf05e9b8f67fbd6e882bc08b59975d3f03ab0ce7dd300fa154aa6c1"
+    },
+    {
+      "path": "lab/out/sys-full-history-research-20261006/DERIVED-object-wrong-UBA.dbf",
+      "bytes": 11776,
+      "sha256": "11d52859986d8742e6f0ea5c59a3edc489d756a3f71b6916f39a10514f55af3d"
+    },
+    {
+      "path": "lab/out/sys-full-history-research-20261006/executed-build-obj-fixture.py",
+      "bytes": 662,
+      "sha256": "e748935d52b3a488b8bd33ff39df0598daf176f2b21378a2cd9448790e965178"
+    },
+    {
+      "path": "lab/out/sys-full-history-research-20261006/executed-full-row-replay-driver.py",
+      "bytes": 7574,
+      "sha256": "0f898e6dcd6a9fb2cf48b6b2fc74fd28745f5b3601e418e197b35ba91679b611"
+    },
+    {
+      "path": "lab/out/sys-full-history-research-20261006/executed-history-driver.py",
+      "bytes": 2285,
+      "sha256": "68cc03261997b710f00fe9182b9084456d85bd4be3a6dc1bf603f2ef7a8ad846"
+    },
+    {
+      "path": "lab/out/sys-full-history-research-20261006/executed-history-probe.java",
+      "bytes": 5014,
+      "sha256": "c6e49c728883abbafd26e95c539fed10c30117ccbc7240b1fdbed31cae04920e"
+    },
+    {
+      "path": "lab/out/sys-full-history-research-20261006/executed-obj-shape-driver.py",
+      "bytes": 1461,
+      "sha256": "70bcd0f53f2752c8cc34bbc6e97746c5ee150c8543164b704699be6fe46864fe"
+    },
+    {
+      "path": "lab/out/sys-full-history-research-20261006/executed-object-raw-negative-driver-r2.py",
+      "bytes": 3048,
+      "sha256": "b2eb8a11367fc945d15e8f927c65a366c75aa9ecf40002551fa7ceb2b45309bb"
+    },
+    {
+      "path": "lab/out/sys-full-history-research-20261006/executed-object-raw-negative-driver.py",
+      "bytes": 2668,
+      "sha256": "5b1f4d36a85a2d49517c06c94773f4d09d62bee1f9f3e065e35a68b0e824cdf0"
+    },
+    {
+      "path": "lab/out/sys-full-history-research-20261006/executed-row-pair-driver-r2.py",
+      "bytes": 1964,
+      "sha256": "4b74d9632f74778c456ae37a13324eee206ceda4f67d51be7cfa0ce10e453b20"
+    },
+    {
+      "path": "lab/out/sys-full-history-research-20261006/executed-row-pair-driver.py",
+      "bytes": 1948,
+      "sha256": "de2aa17332a1ea16c99c9d73cd27df37960d7c65d6f1e309850619c65962ada5"
+    },
+    {
+      "path": "lab/out/sys-full-history-research-20261006/executed-row-pair-probe-r2.java",
+      "bytes": 3711,
+      "sha256": "6f99ac41f4dbde22451176838598e52d28c0ba4a5bac64096a950f53e60ae95d"
+    },
+    {
+      "path": "lab/out/sys-full-history-research-20261006/executed-row-pair-probe.java",
+      "bytes": 3677,
+      "sha256": "cf6a586e0dbc65c18bcfe2d1d6339689a322d0fb4238c4923e42cdfa2107bcd2"
+    },
+    {
+      "path": "lab/out/sys-full-history-research-20261006/full-history-query-proof.json",
+      "bytes": 525,
+      "sha256": "19ee473345db7f06e17a500d65f3f8feea16c993ee1a7d719910d425a4f40790"
+    },
+    {
+      "path": "lab/out/sys-full-history-research-20261006/full-row-replay-proof.json",
+      "bytes": 1419,
+      "sha256": "1a353dfc262b9ddcceabb26033ad1e5cf94d66043dd4b36be45ab28446a8da21"
+    },
+    {
+      "path": "lab/out/sys-full-history-research-20261006/full-sys-2522904.command.json",
+      "bytes": 499,
+      "sha256": "f827025442fbc946fdd157466fbdb5c4957f32e593a121393359cfb054b62809"
+    },
+    {
+      "path": "lab/out/sys-full-history-research-20261006/full-sys-2522904.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/sys-full-history-research-20261006/full-sys-2522904.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/sys-full-history-research-20261006/full-sys-2522904.stdout.txt",
+      "bytes": 21504,
+      "sha256": "300f460ac8d8f085ed5981468e4cc07b0c347fbec24e5ed2b31eb650a5b9fa25"
+    },
+    {
+      "path": "lab/out/sys-full-history-research-20261006/full-sys-2522911.command.json",
+      "bytes": 499,
+      "sha256": "cd33854bf6f3a894ce1181d9f535ba37daeb396886fb64fdb79b8fcff961c09d"
+    },
+    {
+      "path": "lab/out/sys-full-history-research-20261006/full-sys-2522911.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/sys-full-history-research-20261006/full-sys-2522911.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/sys-full-history-research-20261006/full-sys-2522911.stdout.txt",
+      "bytes": 21395,
+      "sha256": "b7ccc589ab295a2915a8d4affe897a836d2298d343e4c238d68e4a5170fef29f"
+    },
+    {
+      "path": "lab/out/sys-full-history-research-20261006/full-sys-2522937.command.json",
+      "bytes": 499,
+      "sha256": "547d2136eebdbbd50db5254b12dedf91a5f20d2e300aaf02e7581ec315a42509"
+    },
+    {
+      "path": "lab/out/sys-full-history-research-20261006/full-sys-2522937.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/sys-full-history-research-20261006/full-sys-2522937.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/sys-full-history-research-20261006/full-sys-2522937.stdout.txt",
+      "bytes": 18986,
+      "sha256": "24f7d8f0b9e6c360623f32f576f53562aa66ee95112bb8a00e9607062b66d3f1"
+    },
+    {
+      "path": "lab/out/sys-full-history-research-20261006/kernel.jar",
+      "bytes": 230313,
+      "sha256": "97dd395fd958c0fbb71a5442dead3f5d27bf8aeeefb6f9d3bacc884cfd861bb4"
+    },
+    {
+      "path": "lab/out/sys-full-history-research-20261006/mutation-locator-failure-r1.txt",
+      "bytes": 742,
+      "sha256": "74634fc1827c962463f8e2d56d843c2ae1cd615774f57c1f08d88ec6d0a31440"
+    },
+    {
+      "path": "lab/out/sys-full-history-research-20261006/native-obj-row-records.txt",
+      "bytes": 6570,
+      "sha256": "21c6f8cf116f15f9b91db0af36e4e0021aed3a20257c0547f9bbcdd7a4b94adb"
+    },
+    {
+      "path": "lab/out/sys-full-history-research-20261006/new-kernel.jar",
+      "bytes": 232828,
+      "sha256": "f78ad0f997ae81a6096c8380b0462532dcdcaf23d40eae0385e86e7637f98c36"
+    },
+    {
+      "path": "lab/out/sys-full-history-research-20261006/obj-row-shapes.json",
+      "bytes": 4055,
+      "sha256": "e2647c5dc82abf0b27f3ff04fdc8a4ee8840e609be76e15ae9a4673049c138e9"
+    },
+    {
+      "path": "lab/out/sys-full-history-research-20261006/object-full-r1.rc.txt",
+      "bytes": 3,
+      "sha256": "13bf7b3039c63bf5a50491fa3cfd8eb4e699d1ba1436315aef9cbe5711530354"
+    },
+    {
+      "path": "lab/out/sys-full-history-research-20261006/object-full-r1.stderr.txt",
+      "bytes": 301,
+      "sha256": "a73235e74b7212a667f3c9a6209ea0afe89e0cb01c372b4298f0f1a5e284ba49"
+    },
+    {
+      "path": "lab/out/sys-full-history-research-20261006/object-full-r1.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/sys-full-history-research-20261006/object-raw-negative-proof.json",
+      "bytes": 2484,
+      "sha256": "c2747d108782bb983771b98fbb6df9e2ccaba56a74cd05b0be5cf12414d138f1"
+    },
+    {
+      "path": "lab/out/sys-full-history-research-20261006/object-targeted-r1.rc.txt",
+      "bytes": 3,
+      "sha256": "13bf7b3039c63bf5a50491fa3cfd8eb4e699d1ba1436315aef9cbe5711530354"
+    },
+    {
+      "path": "lab/out/sys-full-history-research-20261006/object-targeted-r1.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/sys-full-history-research-20261006/object-targeted-r1.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/sys-full-history-research-20261006/object-wrong-bitmap-pair.command.json",
+      "bytes": 612,
+      "sha256": "4786a8b273a19d0668015585a1c3b95d07b285042e03793878be767d1a96800d"
+    },
+    {
+      "path": "lab/out/sys-full-history-research-20261006/object-wrong-bitmap-pair.rc.txt",
+      "bytes": 1,
+      "sha256": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b"
+    },
+    {
+      "path": "lab/out/sys-full-history-research-20261006/object-wrong-bitmap-pair.stderr.txt",
+      "bytes": 873,
+      "sha256": "ce1b07ff818adeab4641c9a815bdd2d0b920a18f98de165ca55b3a630cf50db1"
+    },
+    {
+      "path": "lab/out/sys-full-history-research-20261006/object-wrong-bitmap-pair.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/sys-full-history-research-20261006/object-wrong-bitmap-scan.command.json",
+      "bytes": 310,
+      "sha256": "e842f317e72dbdd93d69a0b9d0631c5e7d3b8ebfa6571bc3edd15b17d73d3dd4"
+    },
+    {
+      "path": "lab/out/sys-full-history-research-20261006/object-wrong-bitmap-scan.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/sys-full-history-research-20261006/object-wrong-bitmap-scan.stderr.txt",
+      "bytes": 276,
+      "sha256": "9753ce952b96935decc22a1726047232d9ea838d8e73826cec770c04195ea4fc"
+    },
+    {
+      "path": "lab/out/sys-full-history-research-20261006/object-wrong-bitmap-scan.stdout.txt",
+      "bytes": 22,
+      "sha256": "43b4733169d6e007aeb99a8ddd34a5c1c256dd2d71bd958ddcc72f09a9cae4e9"
+    },
+    {
+      "path": "lab/out/sys-full-history-research-20261006/object-wrong-current-full-XID-pair.command.json",
+      "bytes": 622,
+      "sha256": "3f83d8db42bb9a4dd85d2a7e4fc54c6bfefefb5c4f98c8a131832767ea888dd8"
+    },
+    {
+      "path": "lab/out/sys-full-history-research-20261006/object-wrong-current-full-XID-pair.rc.txt",
+      "bytes": 1,
+      "sha256": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b"
+    },
+    {
+      "path": "lab/out/sys-full-history-research-20261006/object-wrong-current-full-XID-pair.stderr.txt",
+      "bytes": 643,
+      "sha256": "7c6463c36ade92bef0bc6925bc0d945e29b25c80244f7862be0a981de48a4f97"
+    },
+    {
+      "path": "lab/out/sys-full-history-research-20261006/object-wrong-current-full-XID-pair.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/sys-full-history-research-20261006/object-wrong-current-full-XID-scan.command.json",
+      "bytes": 320,
+      "sha256": "4a6ef664e8b92b8d98fc9b55a5e69c761e6960a40e29f1458940423bde3ae882"
+    },
+    {
+      "path": "lab/out/sys-full-history-research-20261006/object-wrong-current-full-XID-scan.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/sys-full-history-research-20261006/object-wrong-current-full-XID-scan.stderr.txt",
+      "bytes": 276,
+      "sha256": "763165d89ff0d4bf787b615489eb3b8864f399f528dac1543b7e92e4b3354948"
+    },
+    {
+      "path": "lab/out/sys-full-history-research-20261006/object-wrong-current-full-XID-scan.stdout.txt",
+      "bytes": 22,
+      "sha256": "43b4733169d6e007aeb99a8ddd34a5c1c256dd2d71bd958ddcc72f09a9cae4e9"
+    },
+    {
+      "path": "lab/out/sys-full-history-research-20261006/object-wrong-generation-pair.command.json",
+      "bytes": 616,
+      "sha256": "feeddb6f5dd8c664ebda3debc56bbb69d951ad13dab1f3d269c01dd710e7feac"
+    },
+    {
+      "path": "lab/out/sys-full-history-research-20261006/object-wrong-generation-pair.rc.txt",
+      "bytes": 1,
+      "sha256": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b"
+    },
+    {
+      "path": "lab/out/sys-full-history-research-20261006/object-wrong-generation-pair.stderr.txt",
+      "bytes": 383,
+      "sha256": "c0b7911bec0069b16aebfc6d2e35039aaefb1d39131006bf7569dab123a034c9"
+    },
+    {
+      "path": "lab/out/sys-full-history-research-20261006/object-wrong-generation-pair.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/sys-full-history-research-20261006/object-wrong-generation-scan.command.json",
+      "bytes": 314,
+      "sha256": "930db699275fa8e1cd55360de6a239b79db190b01aa12f4af77d49dfc6f606ea"
+    },
+    {
+      "path": "lab/out/sys-full-history-research-20261006/object-wrong-generation-scan.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/sys-full-history-research-20261006/object-wrong-generation-scan.stderr.txt",
+      "bytes": 276,
+      "sha256": "5f14279e1fe4ce1cb1c953036f228095d8c81626b9ba1c7d27adf7ab02481216"
+    },
+    {
+      "path": "lab/out/sys-full-history-research-20261006/object-wrong-generation-scan.stdout.txt",
+      "bytes": 22,
+      "sha256": "43b4733169d6e007aeb99a8ddd34a5c1c256dd2d71bd958ddcc72f09a9cae4e9"
+    },
+    {
+      "path": "lab/out/sys-full-history-research-20261006/object-wrong-inverse-column-map-pair.command.json",
+      "bytes": 624,
+      "sha256": "1ad80a790e5065dc5611aefdccd181af3c17759cb3c3bc538a7ff6d56df83cb4"
+    },
+    {
+      "path": "lab/out/sys-full-history-research-20261006/object-wrong-inverse-column-map-pair.rc.txt",
+      "bytes": 1,
+      "sha256": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b"
+    },
+    {
+      "path": "lab/out/sys-full-history-research-20261006/object-wrong-inverse-column-map-pair.stderr.txt",
+      "bytes": 636,
+      "sha256": "dd12077294d60c06c35be9182e79c9edbdaa161b936892b6136ebeb3951be6ab"
+    },
+    {
+      "path": "lab/out/sys-full-history-research-20261006/object-wrong-inverse-column-map-pair.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/sys-full-history-research-20261006/object-wrong-inverse-column-map-scan.command.json",
+      "bytes": 322,
+      "sha256": "788fe69df456264b490c9e5ca98092cd496f24b17a51a1b6a865a3e70d6400ca"
+    },
+    {
+      "path": "lab/out/sys-full-history-research-20261006/object-wrong-inverse-column-map-scan.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/sys-full-history-research-20261006/object-wrong-inverse-column-map-scan.stderr.txt",
+      "bytes": 276,
+      "sha256": "0edf9a831ca720a74a2bae69193bc34dbf9352561b45b31d7d2c222e31b981e3"
+    },
+    {
+      "path": "lab/out/sys-full-history-research-20261006/object-wrong-inverse-column-map-scan.stdout.txt",
+      "bytes": 22,
+      "sha256": "43b4733169d6e007aeb99a8ddd34a5c1c256dd2d71bd958ddcc72f09a9cae4e9"
+    },
+    {
+      "path": "lab/out/sys-full-history-research-20261006/object-wrong-logical-pair.command.json",
+      "bytes": 613,
+      "sha256": "8a47c90c59505ecfb348611b453a7093cdf3d48b1c8167f168a79d4a9acd2b57"
+    },
+    {
+      "path": "lab/out/sys-full-history-research-20261006/object-wrong-logical-pair.rc.txt",
+      "bytes": 1,
+      "sha256": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b"
+    },
+    {
+      "path": "lab/out/sys-full-history-research-20261006/object-wrong-logical-pair.stderr.txt",
+      "bytes": 385,
+      "sha256": "fc45593372f2c52c82f7fddad42bff65873860983844fb23e308c3f28d3f6580"
+    },
+    {
+      "path": "lab/out/sys-full-history-research-20261006/object-wrong-logical-pair.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/sys-full-history-research-20261006/object-wrong-logical-scan.command.json",
+      "bytes": 311,
+      "sha256": "e23d12d1e1ddd1f801e99ec72df3c9348c0d9e71da29fe34cecc4153d54d82e9"
+    },
+    {
+      "path": "lab/out/sys-full-history-research-20261006/object-wrong-logical-scan.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/sys-full-history-research-20261006/object-wrong-logical-scan.stderr.txt",
+      "bytes": 276,
+      "sha256": "75eaabbbacdc639f7c0941ca5efe3ac1f7bf8d07f25a1ccac2126a8caceca16b"
+    },
+    {
+      "path": "lab/out/sys-full-history-research-20261006/object-wrong-logical-scan.stdout.txt",
+      "bytes": 22,
+      "sha256": "43b4733169d6e007aeb99a8ddd34a5c1c256dd2d71bd958ddcc72f09a9cae4e9"
+    },
+    {
+      "path": "lab/out/sys-full-history-research-20261006/object-wrong-table-pair.command.json",
+      "bytes": 611,
+      "sha256": "fdca7881b91575bee13c27ee282c6652611ee5b4c1a98f55ada9e6576c86555b"
+    },
+    {
+      "path": "lab/out/sys-full-history-research-20261006/object-wrong-table-pair.rc.txt",
+      "bytes": 1,
+      "sha256": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b"
+    },
+    {
+      "path": "lab/out/sys-full-history-research-20261006/object-wrong-table-pair.stderr.txt",
+      "bytes": 873,
+      "sha256": "ce1b07ff818adeab4641c9a815bdd2d0b920a18f98de165ca55b3a630cf50db1"
+    },
+    {
+      "path": "lab/out/sys-full-history-research-20261006/object-wrong-table-pair.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/sys-full-history-research-20261006/object-wrong-table-scan.command.json",
+      "bytes": 309,
+      "sha256": "367b8dbdcdf88b1faef21dbb1492be9fea850780728d60e484516f1368b18ca4"
+    },
+    {
+      "path": "lab/out/sys-full-history-research-20261006/object-wrong-table-scan.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/sys-full-history-research-20261006/object-wrong-table-scan.stderr.txt",
+      "bytes": 276,
+      "sha256": "535a1cecd8c66d59ae1bbec09391a5f9c1454874947fef895cf73d2a542032cf"
+    },
+    {
+      "path": "lab/out/sys-full-history-research-20261006/object-wrong-table-scan.stdout.txt",
+      "bytes": 22,
+      "sha256": "43b4733169d6e007aeb99a8ddd34a5c1c256dd2d71bd958ddcc72f09a9cae4e9"
+    },
+    {
+      "path": "lab/out/sys-full-history-research-20261006/object-wrong-UBA-pair.command.json",
+      "bytes": 609,
+      "sha256": "730900a62ee80fe0ebb2a2fc232739463d99b93e75ed36c6116478a2b8bdcd2a"
+    },
+    {
+      "path": "lab/out/sys-full-history-research-20261006/object-wrong-UBA-pair.rc.txt",
+      "bytes": 1,
+      "sha256": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b"
+    },
+    {
+      "path": "lab/out/sys-full-history-research-20261006/object-wrong-UBA-pair.stderr.txt",
+      "bytes": 620,
+      "sha256": "c80e8acc59ddbf5abe7950b83debd6eae29c6867721c3a3c6a258e60d2533341"
+    },
+    {
+      "path": "lab/out/sys-full-history-research-20261006/object-wrong-UBA-pair.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/sys-full-history-research-20261006/object-wrong-UBA-scan.command.json",
+      "bytes": 307,
+      "sha256": "93ad6ccfdb59ddf93702c40eec835ffc4ab0bab98e9ee2032d28af2654a59962"
+    },
+    {
+      "path": "lab/out/sys-full-history-research-20261006/object-wrong-UBA-scan.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/sys-full-history-research-20261006/object-wrong-UBA-scan.stderr.txt",
+      "bytes": 276,
+      "sha256": "2a8c0932c0ec229bb2d4f729b73ae7cf7a242edefeaf63c531a3f134d1cbef20"
+    },
+    {
+      "path": "lab/out/sys-full-history-research-20261006/object-wrong-UBA-scan.stdout.txt",
+      "bytes": 22,
+      "sha256": "43b4733169d6e007aeb99a8ddd34a5c1c256dd2d71bd958ddcc72f09a9cae4e9"
+    },
+    {
+      "path": "lab/out/sys-full-history-research-20261006/ojdbc8.jar",
+      "bytes": 4210517,
+      "sha256": "a66d27a14f3adee484427cc4de008af85a5c3e78e2e3285a4dba1277332978a5"
+    },
+    {
+      "path": "lab/out/sys-full-history-research-20261006/row-classes-r2/SysDictionaryRowPairsProbe.class",
+      "bytes": 10705,
+      "sha256": "69cc311083bf4336ee2529922380fed038fcbdb4e2d2d3a2e8cb6c82c4a33141"
+    },
+    {
+      "path": "lab/out/sys-full-history-research-20261006/row-pair-query-proof.json",
+      "bytes": 407,
+      "sha256": "2864da9c0ce77b25988e1cc0f825ea6683817d1bbcfc26b933a4c8d655d799da"
+    },
+    {
+      "path": "lab/out/sys-full-history-research-20261006/row-pairs-66-10.18.2272.command.json",
+      "bytes": 586,
+      "sha256": "04ce5cf648be1066c0fbe9eeeadcb11946250e6b76cc404977cf15a20e1f4bfb"
+    },
+    {
+      "path": "lab/out/sys-full-history-research-20261006/row-pairs-66-10.18.2272.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/sys-full-history-research-20261006/row-pairs-66-10.18.2272.stderr.txt",
+      "bytes": 87,
+      "sha256": "8b1f15daeb7c7f02b3796aede78b798864dcd5302e102ef4435f6609363bd09c"
+    },
+    {
+      "path": "lab/out/sys-full-history-research-20261006/row-pairs-66-10.18.2272.stdout.txt",
+      "bytes": 7165,
+      "sha256": "e4bc1b1a57a0aeb615e22df490b0fca18a49667acfb8b316923235c124393d82"
+    },
+    {
+      "path": "lab/out/sys-full-history-research-20261006/row-pairs-66-3.30.705.command.json",
+      "bytes": 584,
+      "sha256": "dc40434f18971affd96799d975e868a5aeebe9d5ebe8736f2f16b98832bc57b4"
+    },
+    {
+      "path": "lab/out/sys-full-history-research-20261006/row-pairs-66-3.30.705.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/sys-full-history-research-20261006/row-pairs-66-3.30.705.stderr.txt",
+      "bytes": 87,
+      "sha256": "8b1f15daeb7c7f02b3796aede78b798864dcd5302e102ef4435f6609363bd09c"
+    },
+    {
+      "path": "lab/out/sys-full-history-research-20261006/row-pairs-66-3.30.705.stdout.txt",
+      "bytes": 11546,
+      "sha256": "353013cdca6de9c91e45db231d7c3805ab329a965831c1c932f513f2c5f5ffab"
+    },
+    {
+      "path": "lab/out/sys-full-history-research-20261006/row-pairs-67-3.26.705.command.json",
+      "bytes": 584,
+      "sha256": "78af14bdc98652ab79d13fd823dc55378cc4dbbac6044a683aaa0fa168605851"
+    },
+    {
+      "path": "lab/out/sys-full-history-research-20261006/row-pairs-67-3.26.705.rc.txt",
+      "bytes": 1,
+      "sha256": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b"
+    },
+    {
+      "path": "lab/out/sys-full-history-research-20261006/row-pairs-67-3.26.705.stderr.txt",
+      "bytes": 598,
+      "sha256": "8194e0b7bd978b334868cd203951f187caee05b2dd951d18cdb9b03bb7141ae3"
+    },
+    {
+      "path": "lab/out/sys-full-history-research-20261006/row-pairs-67-3.26.705.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/sys-full-history-research-20261006/row-pairs-r2-66-10.18.2272.command.json",
+      "bytes": 593,
+      "sha256": "b95fa2d5a605a2ce1ec786f8a1e3eea2f128b8b789a3f0a0cbc98e5bc53a0c09"
+    },
+    {
+      "path": "lab/out/sys-full-history-research-20261006/row-pairs-r2-66-10.18.2272.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/sys-full-history-research-20261006/row-pairs-r2-66-10.18.2272.stderr.txt",
+      "bytes": 87,
+      "sha256": "8b1f15daeb7c7f02b3796aede78b798864dcd5302e102ef4435f6609363bd09c"
+    },
+    {
+      "path": "lab/out/sys-full-history-research-20261006/row-pairs-r2-66-10.18.2272.stdout.txt",
+      "bytes": 7165,
+      "sha256": "e4bc1b1a57a0aeb615e22df490b0fca18a49667acfb8b316923235c124393d82"
+    },
+    {
+      "path": "lab/out/sys-full-history-research-20261006/row-pairs-r2-66-3.30.705.command.json",
+      "bytes": 591,
+      "sha256": "e72b1d29151df2942306bbe1fbbe39fbbc5ca705d47b57ffed7dcf71f4bd0f17"
+    },
+    {
+      "path": "lab/out/sys-full-history-research-20261006/row-pairs-r2-66-3.30.705.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/sys-full-history-research-20261006/row-pairs-r2-66-3.30.705.stderr.txt",
+      "bytes": 87,
+      "sha256": "8b1f15daeb7c7f02b3796aede78b798864dcd5302e102ef4435f6609363bd09c"
+    },
+    {
+      "path": "lab/out/sys-full-history-research-20261006/row-pairs-r2-66-3.30.705.stdout.txt",
+      "bytes": 11546,
+      "sha256": "353013cdca6de9c91e45db231d7c3805ab329a965831c1c932f513f2c5f5ffab"
+    },
+    {
+      "path": "lab/out/sys-full-history-research-20261006/row-pairs-r2-67-3.26.705.command.json",
+      "bytes": 591,
+      "sha256": "a14aa9339abb4a9ccba52be4fb2ed1a672eb082a9a769c6f9a0554a83eb3e1b1"
+    },
+    {
+      "path": "lab/out/sys-full-history-research-20261006/row-pairs-r2-67-3.26.705.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/sys-full-history-research-20261006/row-pairs-r2-67-3.26.705.stderr.txt",
+      "bytes": 87,
+      "sha256": "8b1f15daeb7c7f02b3796aede78b798864dcd5302e102ef4435f6609363bd09c"
+    },
+    {
+      "path": "lab/out/sys-full-history-research-20261006/row-pairs-r2-67-3.26.705.stdout.txt",
+      "bytes": 7205,
+      "sha256": "51012fc1240ea59f70c3aca3c24936f2949297bd1728595957032d7218916420"
+    },
+    {
+      "path": "lab/out/sys-object-history-candidate-20261006/executed-impact-driver.py",
+      "bytes": 1680,
+      "sha256": "5d9142375c3ee03c2d140335b7176248f178f1246388f8b165927ff063a3133e"
+    },
+    {
+      "path": "lab/out/sys-object-history-candidate-20261006/impact-actual-v2-batch.command.json",
+      "bytes": 800,
+      "sha256": "dffff4a001ae00f41005797bbefc7fc529ea3c5e20a930b6cba7f09ed2300327"
+    },
+    {
+      "path": "lab/out/sys-object-history-candidate-20261006/impact-actual-v2-batch.rc.txt",
+      "bytes": 1,
+      "sha256": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b"
+    },
+    {
+      "path": "lab/out/sys-object-history-candidate-20261006/impact-actual-v2-batch.stderr.txt",
+      "bytes": 879,
+      "sha256": "5f0a59718c15a231fa883e225f7f5f03c99679921c795c92faf7f7247e682081"
+    },
+    {
+      "path": "lab/out/sys-object-history-candidate-20261006/impact-actual-v2-batch.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/sys-object-history-candidate-20261006/impact-erased-v2-batch.command.json",
+      "bytes": 778,
+      "sha256": "e3977b706f2ecd7f32a47064e245e0b6bce57b5a91f77324229d2ae1e1f0af51"
+    },
+    {
+      "path": "lab/out/sys-object-history-candidate-20261006/impact-erased-v2-batch.rc.txt",
+      "bytes": 1,
+      "sha256": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b"
+    },
+    {
+      "path": "lab/out/sys-object-history-candidate-20261006/impact-erased-v2-batch.stderr.txt",
+      "bytes": 879,
+      "sha256": "5f0a59718c15a231fa883e225f7f5f03c99679921c795c92faf7f7247e682081"
+    },
+    {
+      "path": "lab/out/sys-object-history-candidate-20261006/impact-erased-v2-batch.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/sys-object-history-candidate-20261006/impact-implicit-tail-complete-batch.command.json",
+      "bytes": 941,
+      "sha256": "2cf4f0cafa84fcd28ed3b19f35dafaaee28ac16704e8830da865c1309123a858"
+    },
+    {
+      "path": "lab/out/sys-object-history-candidate-20261006/impact-implicit-tail-complete-batch.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/sys-object-history-candidate-20261006/impact-implicit-tail-complete-batch.stderr.txt",
+      "bytes": 92,
+      "sha256": "6533aac2d8b7e5c04cab91a8b3b2a79346fedbe8129383fddb9d6cf67d9cc37e"
+    },
+    {
+      "path": "lab/out/sys-object-history-candidate-20261006/impact-implicit-tail-complete-batch.stdout.txt",
+      "bytes": 1628,
+      "sha256": "125a0d0c9704821ef44e3742ea64d62bfa49c51b21bfa1ba3fae589a8ae8a057"
+    },
+    {
+      "path": "lab/out/sys-object-history-candidate-20261006/impact-proof.json",
+      "bytes": 713,
+      "sha256": "81cb21459b1296c35462540d04446889f789c81f18f9af780d871d76724c1cb5"
+    },
+    {
+      "path": "lab/out/sys-object-history-candidate-20261006/kernel-reports/TEST-com.streamhouse.oracle.ArchivedCompensationAssociationsTest.xml",
+      "bytes": 11102,
+      "sha256": "15722d0b2f6d90733251aebf78adec99ba9ead61eb4f06842f47428a8e8af4bc"
+    },
+    {
+      "path": "lab/out/sys-object-history-candidate-20261006/kernel-reports/TEST-com.streamhouse.oracle.ArchivedCompensationInventoryTest.xml",
+      "bytes": 10724,
+      "sha256": "421fc41b124f8266afe2e281221b05b845fb125db3afaf3c161fc51550e52c36"
+    },
+    {
+      "path": "lab/out/sys-object-history-candidate-20261006/kernel-reports/TEST-com.streamhouse.oracle.ArchivedHeapRowsTest.xml",
+      "bytes": 10667,
+      "sha256": "40a24ddce526b17f70e7079d15d971ce172843a2382ab08b615046c4f2de6906"
+    },
+    {
+      "path": "lab/out/sys-object-history-candidate-20261006/kernel-reports/TEST-com.streamhouse.oracle.ArchivedIndexLeafInventoryTest.xml",
+      "bytes": 10861,
+      "sha256": "618a481a2769b2f7a002a19ece54d1d3a8139011035a114ca242a37bbbcfbcae"
+    },
+    {
+      "path": "lab/out/sys-object-history-candidate-20261006/kernel-reports/TEST-com.streamhouse.oracle.ArchivedObjectTransactionsTest.xml",
+      "bytes": 10703,
+      "sha256": "43fab5981afb6ee155159754206d641bf74af65e2d61bf9f0b050614502fc5e3"
+    },
+    {
+      "path": "lab/out/sys-object-history-candidate-20261006/kernel-reports/TEST-com.streamhouse.oracle.ArchivedPhysicalTransactionsTest.xml",
+      "bytes": 11491,
+      "sha256": "60040baf919d278621a2b19072e861c24e7ace77e578bd4b42af8c796784c2ee"
+    },
+    {
+      "path": "lab/out/sys-object-history-candidate-20261006/kernel-reports/TEST-com.streamhouse.oracle.ArchivedRedoTest.xml",
+      "bytes": 11196,
+      "sha256": "b31da6c2094f53955f0ca1a500150def51181c3569590a0d894d774aac932e0e"
+    },
+    {
+      "path": "lab/out/sys-object-history-candidate-20261006/kernel-reports/TEST-com.streamhouse.oracle.ArchivedUndoInventoryTest.xml",
+      "bytes": 10508,
+      "sha256": "54c083ff9c36a0d27fd3051de0abfff2b951886f95bbacf40b60801fa0a4b8a8"
+    },
+    {
+      "path": "lab/out/sys-object-history-candidate-20261006/kernel-reports/TEST-com.streamhouse.oracle.BeginCompensationTest.xml",
+      "bytes": 10614,
+      "sha256": "4244c581eacfbde40cb6bb84afb64efce91d6dfb0e145d940bea85e08baff3b7"
+    },
+    {
+      "path": "lab/out/sys-object-history-candidate-20261006/kernel-reports/TEST-com.streamhouse.oracle.CapturedHeapBatchTest.xml",
+      "bytes": 10544,
+      "sha256": "cefedbe85d10263054a0eefb606421412880f5f5a69d78b10b32c93f788f5b22"
+    },
+    {
+      "path": "lab/out/sys-object-history-candidate-20261006/kernel-reports/TEST-com.streamhouse.oracle.CaptureJournalTest.xml",
+      "bytes": 10458,
+      "sha256": "c4f8ddd725216f1f5b7001d14582a9cf96b551dc915766c0a7c828b7fff2c26d"
+    },
+    {
+      "path": "lab/out/sys-object-history-candidate-20261006/kernel-reports/TEST-com.streamhouse.oracle.ClusterRowPatchTest.xml",
+      "bytes": 10251,
+      "sha256": "358bffd7e08100d974136bf2cc3a17bcdbf4693caddde9200c5b8ad4f11b3dc5"
+    },
+    {
+      "path": "lab/out/sys-object-history-candidate-20261006/kernel-reports/TEST-com.streamhouse.oracle.ClusterUndoPairTest.xml",
+      "bytes": 10366,
+      "sha256": "7f5bb977069b276e752d3c48ad56a02225ed5aa63eea2e16464534d8752b7ea1"
+    },
+    {
+      "path": "lab/out/sys-object-history-candidate-20261006/kernel-reports/TEST-com.streamhouse.oracle.CrossCompensationTest.xml",
+      "bytes": 10612,
+      "sha256": "0dc74ef48c177625247be8270f24f7287db2a960c0ef8851ca18b16de945eee7"
+    },
+    {
+      "path": "lab/out/sys-object-history-candidate-20261006/kernel-reports/TEST-com.streamhouse.oracle.DictionaryBaselineTest.xml",
+      "bytes": 10422,
+      "sha256": "341bf067a6e52d1a7d11774d1bd38bb96f0440682430028c08334558110eac7e"
+    },
+    {
+      "path": "lab/out/sys-object-history-candidate-20261006/kernel-reports/TEST-com.streamhouse.oracle.DictionaryIndexUndoPairTest.xml",
+      "bytes": 10428,
+      "sha256": "077123e3fcf0bdc9e1e381cc57509753697cc51d0e04200aab01508a84e3b554"
+    },
+    {
+      "path": "lab/out/sys-object-history-candidate-20261006/kernel-reports/TEST-com.streamhouse.oracle.DictionaryObjectUndoPairTest.xml",
+      "bytes": 10117,
+      "sha256": "d548605d7421fe693a42a391f906aea5f8afd9561a8567542e2ecd1e2ec1dba3"
+    },
+    {
+      "path": "lab/out/sys-object-history-candidate-20261006/kernel-reports/TEST-com.streamhouse.oracle.EmptyHeapCleanoutTest.xml",
+      "bytes": 10088,
+      "sha256": "070c006608258241ca32c4a39f8c92158a274100f6dbbe50332c441b73192a3c"
+    },
+    {
+      "path": "lab/out/sys-object-history-candidate-20261006/kernel-reports/TEST-com.streamhouse.oracle.FrozenHeapBaselineTest.xml",
+      "bytes": 10720,
+      "sha256": "8dca31d2cb6e82ce987b96991180cf14d309766eae241c7f1a2fc50f28aba8f1"
+    },
+    {
+      "path": "lab/out/sys-object-history-candidate-20261006/kernel-reports/TEST-com.streamhouse.oracle.HeapCleanoutCTest.xml",
+      "bytes": 10182,
+      "sha256": "d322a9714e9d6fdc5b8178fe472e947978e964a2d7d7d9dc17783c0949f50043"
+    },
+    {
+      "path": "lab/out/sys-object-history-candidate-20261006/kernel-reports/TEST-com.streamhouse.oracle.HeapCompensationTest.xml",
+      "bytes": 10883,
+      "sha256": "332a32c9daece7ae0b05b456c703ae4668647ffe08e31cf796cbe5d9169404e1"
+    },
+    {
+      "path": "lab/out/sys-object-history-candidate-20261006/kernel-reports/TEST-com.streamhouse.oracle.HeapIndexScopeTest.xml",
+      "bytes": 10379,
+      "sha256": "a8fd49180875dbf581d592d091a81de1dddda728c9673953b39aff10c3377124"
+    },
+    {
+      "path": "lab/out/sys-object-history-candidate-20261006/kernel-reports/TEST-com.streamhouse.oracle.HeapLockTest.xml",
+      "bytes": 10047,
+      "sha256": "cb6d192e81c99460b8c44f4fcf48d2f3bc3b1e1e207bd7975e1700a43f3c64f6"
+    },
+    {
+      "path": "lab/out/sys-object-history-candidate-20261006/kernel-reports/TEST-com.streamhouse.oracle.HeapRowPatchTest.xml",
+      "bytes": 10652,
+      "sha256": "6722f17b9008f852e4770f882dc58fca9b539fee77227769486edbefc466a0de"
+    },
+    {
+      "path": "lab/out/sys-object-history-candidate-20261006/kernel-reports/TEST-com.streamhouse.oracle.HeapTailExtentTest.xml",
+      "bytes": 10760,
+      "sha256": "988056c7d3e9d939203594d2e52a376ee4a7137dceea8554fb36d966c2b1c709"
+    },
+    {
+      "path": "lab/out/sys-object-history-candidate-20261006/kernel-reports/TEST-com.streamhouse.oracle.HeapUndoPairTest.xml",
+      "bytes": 10571,
+      "sha256": "3d4490bc65787a85dfbdb9a7053138b31483d3099a0e584455c538fc314f40cd"
+    },
+    {
+      "path": "lab/out/sys-object-history-candidate-20261006/kernel-reports/TEST-com.streamhouse.oracle.HistoricalSchemaBarrierTest.xml",
+      "bytes": 11461,
+      "sha256": "e4946169f9ccd48c19e99de9be81c9221fc4cc1c6ac5ed12e4b69d2d0acf9a8d"
+    },
+    {
+      "path": "lab/out/sys-object-history-candidate-20261006/kernel-reports/TEST-com.streamhouse.oracle.IndexCompensationTest.xml",
+      "bytes": 10500,
+      "sha256": "5990cb1f3dde5c386609144c0dd0f346a0f67cd688428cb8c8771ef825b40d82"
+    },
+    {
+      "path": "lab/out/sys-object-history-candidate-20261006/kernel-reports/TEST-com.streamhouse.oracle.IndexLeafPositionsTest.xml",
+      "bytes": 11189,
+      "sha256": "21bacf961f1901f534ab12c58a075ca11124b750d16b69e282730be159dae9dc"
+    },
+    {
+      "path": "lab/out/sys-object-history-candidate-20261006/kernel-reports/TEST-com.streamhouse.oracle.IndexPositionReplayTest.xml",
+      "bytes": 10435,
+      "sha256": "9083ad9505b2b40e4af80d9d256e33a0b2dfd1fca374f655b7fe5b32f0fa1720"
+    },
+    {
+      "path": "lab/out/sys-object-history-candidate-20261006/kernel-reports/TEST-com.streamhouse.oracle.IndexRestoreCompensationTest.xml",
+      "bytes": 10659,
+      "sha256": "b8748f7ed812ef2641dfd8da35e14f01aed38e8ddee233bcd3fa9300297d132d"
+    },
+    {
+      "path": "lab/out/sys-object-history-candidate-20261006/kernel-reports/TEST-com.streamhouse.oracle.IndexUndoPairTest.xml",
+      "bytes": 10940,
+      "sha256": "80a8967a0089a74e207bf507190d9ca657525480c51e19bbb82c42debfcfba59"
+    },
+    {
+      "path": "lab/out/sys-object-history-candidate-20261006/kernel-reports/TEST-com.streamhouse.oracle.Kdom2MarkerThreeTest.xml",
+      "bytes": 10060,
+      "sha256": "73d7e92a695479e0718a2e9116f467eae8763caf97009e8a7695de13dec6dc06"
+    },
+    {
+      "path": "lab/out/sys-object-history-candidate-20261006/kernel-reports/TEST-com.streamhouse.oracle.Kdom2UpdateTest.xml",
+      "bytes": 11094,
+      "sha256": "68e0bdc6d8a48b59e36e8f3c238029af71c4bfc772e107dbea58e42bdf060e47"
+    },
+    {
+      "path": "lab/out/sys-object-history-candidate-20261006/kernel-reports/TEST-com.streamhouse.oracle.KtbZInsertTest.xml",
+      "bytes": 10181,
+      "sha256": "5ee732d79f8662fd266245af944d7855918ea583e1d88ce37b0c73ed42a2c3af"
+    },
+    {
+      "path": "lab/out/sys-object-history-candidate-20261006/kernel-reports/TEST-com.streamhouse.oracle.KtbZRollbackTest.xml",
+      "bytes": 11233,
+      "sha256": "1056e1bee7334c06877f070f8094cb667e83b5cb57e91695b8f51c9f1a6100a5"
+    },
+    {
+      "path": "lab/out/sys-object-history-candidate-20261006/kernel-reports/TEST-com.streamhouse.oracle.OracleScalarsTest.xml",
+      "bytes": 10399,
+      "sha256": "4ada8f0b4c5a6d56faa0041a66e89855bcbc05a66e3764769b64801b6023bfe7"
+    },
+    {
+      "path": "lab/out/sys-object-history-candidate-20261006/kernel-reports/TEST-com.streamhouse.oracle.SingleEntryBlockCleanoutTest.xml",
+      "bytes": 10098,
+      "sha256": "f7c70653a626054cf05f215354cd6486f5b765989d251d54b726006541cefea7"
+    },
+    {
+      "path": "lab/out/sys-object-history-candidate-20261006/kernel-reports/TEST-com.streamhouse.oracle.TransactionLifecycleTest.xml",
+      "bytes": 11704,
+      "sha256": "6c8a19348b042dc67728dcf30c5d912545333ebc0559479c27f6b010f5f8c9b4"
+    },
+    {
+      "path": "lab/out/sys-object-history-candidate-20261006/kernel-reports/TEST-com.streamhouse.oracle.TransactionMarkersTest.xml",
+      "bytes": 11190,
+      "sha256": "7facacfe95ff95910c06053a0f8085143862ec64c40699c3a0b31f3e2cd3a4ff"
+    },
+    {
+      "path": "lab/out/sys-object-history-candidate-20261006/kernel-reports/TEST-com.streamhouse.oracle.TransactionStartTest.xml",
+      "bytes": 10840,
+      "sha256": "8155b70fb5c461865af83cbf9d9706e6bd70759d3abe91475fd82e307d244da7"
+    },
+    {
+      "path": "lab/out/sys-object-history-candidate-20261006/kernel-reports/TEST-com.streamhouse.oracle.UndoBlockAdvanceTest.xml",
+      "bytes": 10465,
+      "sha256": "c3e054e37b23617eb770a3c482ef53850a9a9953e8359023c40c55979588d7ee"
+    },
+    {
+      "path": "lab/out/sys-object-history-candidate-20261006/kernel-reports/TEST-com.streamhouse.oracle.UndoChainTest.xml",
+      "bytes": 10575,
+      "sha256": "c9dd8b95c01e519ccdf3f522b28a84d372072741085dcc73e8b39036876bbe42"
+    },
+    {
+      "path": "lab/out/sys-object-history-candidate-20261006/kernel-reports/TEST-com.streamhouse.oracle.UndoControlRootTest.xml",
+      "bytes": 10356,
+      "sha256": "b113dea9aae33f64e41d0eb73b32938c2bd4fddf7be6962566bb2fb548e8178a"
+    },
+    {
+      "path": "lab/out/sys-object-history-candidate-20261006/kernel-reports/TEST-com.streamhouse.oracle.UndoHeaderTest.xml",
+      "bytes": 10148,
+      "sha256": "9b7222492fb3a89f18996995326a0d4cd68c49f73b974afb1b8dccbe87bd8e86"
+    },
+    {
+      "path": "lab/out/sys-object-history-candidate-20261006/kernel-reports/TEST-com.streamhouse.oracle.UndoHeadUpdateTest.xml",
+      "bytes": 10620,
+      "sha256": "3925963bba1dc6b9039541122354b55c0a557e3533cd9d64905626136b9b216c"
+    },
+    {
+      "path": "lab/out/sys-object-history-candidate-20261006/kernel-reports/TEST-com.streamhouse.oracle.UndoHistoryTest.xml",
+      "bytes": 11047,
+      "sha256": "b362cea226f39a9eb1b82cecc0d5a1f0823f1dec34a05678f4c46c79bf0909c4"
+    },
+    {
+      "path": "lab/out/sys-object-history-candidate-20261006/kernel-reports/TEST-com.streamhouse.oracle.UndoRowPatchTest.xml",
+      "bytes": 10428,
+      "sha256": "758e0ce1c40d0dcdf2c66866475ea2c29e5ae4e74fefdb253e33a1703c2296d2"
+    },
+    {
+      "path": "lab/out/sys-object-history-candidate-20261006/kernel.jar",
+      "bytes": 232828,
+      "sha256": "f78ad0f997ae81a6096c8380b0462532dcdcaf23d40eae0385e86e7637f98c36"
+    },
+    {
+      "path": "lab/out/sys-object-history-candidate-20261006/sealed-build_sys_object_test_fixture19.py",
+      "bytes": 662,
+      "sha256": "e748935d52b3a488b8bd33ff39df0598daf176f2b21378a2cd9448790e965178"
+    },
+    {
+      "path": "lab/out/sys-object-history-candidate-20261006/sealed-research_sys_full_history19.py",
+      "bytes": 2285,
+      "sha256": "68cc03261997b710f00fe9182b9084456d85bd4be3a6dc1bf603f2ef7a8ad846"
+    },
+    {
+      "path": "lab/out/sys-object-history-candidate-20261006/sealed-research_sys_obj_shapes19.py",
+      "bytes": 1461,
+      "sha256": "70bcd0f53f2752c8cc34bbc6e97746c5ee150c8543164b704699be6fe46864fe"
+    },
+    {
+      "path": "lab/out/sys-object-history-candidate-20261006/sealed-research_sys_row_pairs19.py",
+      "bytes": 1964,
+      "sha256": "4b74d9632f74778c456ae37a13324eee206ceda4f67d51be7cfa0ce10e453b20"
+    },
+    {
+      "path": "lab/out/sys-object-history-candidate-20261006/sealed-seal_sys_full_history19.py",
+      "bytes": 2386,
+      "sha256": "dc2aa5aba5942a1dedc881d8b4b68a10c656235ca62c6c82e7e5a723986a16a1"
+    },
+    {
+      "path": "lab/out/sys-object-history-candidate-20261006/sealed-SysDictionaryRowPairsProbe.java",
+      "bytes": 3711,
+      "sha256": "6f99ac41f4dbde22451176838598e52d28c0ba4a5bac64096a950f53e60ae95d"
+    },
+    {
+      "path": "lab/out/sys-object-history-candidate-20261006/sealed-verify_dictionary_index_impact19.py",
+      "bytes": 1680,
+      "sha256": "5d9142375c3ee03c2d140335b7176248f178f1246388f8b165927ff063a3133e"
+    },
+    {
+      "path": "lab/out/sys-object-history-candidate-20261006/sealed-verify_sys_full_row_replay19.py",
+      "bytes": 7574,
+      "sha256": "0f898e6dcd6a9fb2cf48b6b2fc74fd28745f5b3601e418e197b35ba91679b611"
+    },
+    {
+      "path": "lab/out/sys-object-history-candidate-20261006/sealed-verify_sys_object_raw_negatives19.py",
+      "bytes": 3048,
+      "sha256": "b2eb8a11367fc945d15e8f927c65a366c75aa9ecf40002551fa7ceb2b45309bb"
+    }
+  ]
+}
