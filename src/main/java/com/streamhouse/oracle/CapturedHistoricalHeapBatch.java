@@ -19,6 +19,7 @@ public final class CapturedHistoricalHeapBatch {
     public ArchivedHeapRows.Source source(){return snapshot.source();}
     public String baselineSha256(){return snapshot.sha256();}
     public long baselineScn(){return snapshot.scn();}
+    public CapturedHeapBatch.Schema baselineSchema(){return new CapturedHeapBatch.Schema(snapshot.heap(),snapshot.index(),snapshot.columns(),CapturedHeapBatch.schemaDigest(snapshot));}
     public List<CaptureJournal.Source> captures(){return captures;}
     public List<Event> events(){return events;}
     public String sha256(){return sha256;}
