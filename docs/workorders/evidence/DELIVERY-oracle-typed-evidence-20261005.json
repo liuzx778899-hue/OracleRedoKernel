@@ -1,0 +1,1025 @@
+{
+  "release": {
+    "product_commit": "ddff6aef9a84af1fdac5eed5bc02591dae9df2ea",
+    "product_tests": {
+      "tests": 704,
+      "errors": 0,
+      "failures": 0,
+      "skipped": 0
+    },
+    "product_reports": [
+      {
+        "path": "server\\streamhouse-alert\\target\\surefire-reports\\TEST-com.streamhouse.alert.mapper.AlertMapperXmlParseTest.xml",
+        "sha256": "fb0588d7d33b294e6dd75c77928f3e06193e59ade3daace8e750b97d30803bf7"
+      },
+      {
+        "path": "server\\streamhouse-alert\\target\\surefire-reports\\TEST-com.streamhouse.alert.service.AckServiceTest.xml",
+        "sha256": "0e8753ce8d9548646f38931c52d763e41f048f13fcf28f095cc0e137bff48391"
+      },
+      {
+        "path": "server\\streamhouse-alert\\target\\surefire-reports\\TEST-com.streamhouse.alert.service.AlertQueryServiceTest.xml",
+        "sha256": "8d3b8f3aa3a05631199a7a40e240d99f22e9cff31aef9122998ee9ddfc5af82d"
+      },
+      {
+        "path": "server\\streamhouse-alert\\target\\surefire-reports\\TEST-com.streamhouse.alert.service.AlertRuleEngineTest.xml",
+        "sha256": "0ef88e003d738afe88fdd43e371fe2b7141798ad3d5c46a0abc374b93e893dac"
+      },
+      {
+        "path": "server\\streamhouse-alert\\target\\surefire-reports\\TEST-com.streamhouse.alert.service.AlertServiceTest.xml",
+        "sha256": "1ad162a1455098ad66b706af6585f08da8ed1bfaa0e3cbc0393aa95bed66db6d"
+      },
+      {
+        "path": "server\\streamhouse-alert\\target\\surefire-reports\\TEST-com.streamhouse.alert.service.ChannelConfigCodecTest.xml",
+        "sha256": "5b5b62a4dad201e9a13d6cbeca4fa7128f8fbf75d4d7e08c1345bbfb0d317fdb"
+      },
+      {
+        "path": "server\\streamhouse-alert\\target\\surefire-reports\\TEST-com.streamhouse.alert.service.SmtpSenderTest.xml",
+        "sha256": "ad255eb63dbcf9b01665421af7c3cf0638e885d97585e420c45a49a1f336b1de"
+      },
+      {
+        "path": "server\\streamhouse-alert\\target\\surefire-reports\\TEST-com.streamhouse.alert.service.WecomWebhookSenderTest.xml",
+        "sha256": "b1dcb812538d604683382093291d0195d2a0fee416e4c79b409a072ad1b2b026"
+      },
+      {
+        "path": "server\\streamhouse-app\\target\\surefire-reports\\TEST-com.streamhouse.app.appdb.AppTargetMapperXmlParseTest.xml",
+        "sha256": "e7009ce874de43f98a9dc5e58deb7a3498de7ded99c89408e8dec321675091fd"
+      },
+      {
+        "path": "server\\streamhouse-app\\target\\surefire-reports\\TEST-com.streamhouse.app.auth.AgentTokenInterceptorB64InteropTest.xml",
+        "sha256": "90fd706262a60bafb47629cf04edda51e4865abb44c9dc0ae7dc4b410cc7e44d"
+      },
+      {
+        "path": "server\\streamhouse-app\\target\\surefire-reports\\TEST-com.streamhouse.app.auth.AgentTokenInterceptorTest.xml",
+        "sha256": "dcfedb7a011f6f49e7a5ebcbc953095353dd3d88cb187c1eee28e81ddc611530"
+      },
+      {
+        "path": "server\\streamhouse-app\\target\\surefire-reports\\TEST-com.streamhouse.app.auth.AuthControllerTest.xml",
+        "sha256": "d683aee92a7b624c7d7d56bdf65637216d3d9b584b13dde0c62287af964478c6"
+      },
+      {
+        "path": "server\\streamhouse-app\\target\\surefire-reports\\TEST-com.streamhouse.app.auth.CredentialCipherTest.xml",
+        "sha256": "e81ea0ba0b5cd245d7545cee1580c152078a952c859c71d86ec267a0930f8105"
+      },
+      {
+        "path": "server\\streamhouse-app\\target\\surefire-reports\\TEST-com.streamhouse.app.auth.TokenServiceTest.xml",
+        "sha256": "dcbc22a341bb3aef60d8e053a6378d292207de2a649592aed879bef201da9ca2"
+      },
+      {
+        "path": "server\\streamhouse-app\\target\\surefire-reports\\TEST-com.streamhouse.app.baseline.BaselineCredentialServiceTest.xml",
+        "sha256": "2727e217015935c6594e195a7d4ffa58e0c25ea83324153513affdeb17d189cc"
+      },
+      {
+        "path": "server\\streamhouse-app\\target\\surefire-reports\\TEST-com.streamhouse.app.baseline.BaselineDecodeGuardTest.xml",
+        "sha256": "3088a3835d0bed4876739dd4a228e65c86b697e3d122cf7b75a20d9dd7bf5572"
+      },
+      {
+        "path": "server\\streamhouse-app\\target\\surefire-reports\\TEST-com.streamhouse.app.config.JacksonLongAsStringConfigTest.xml",
+        "sha256": "21b20141fba0e0824a99b0f46e4e450f12143f6ed65c636aaa94f3b70b1f8229"
+      },
+      {
+        "path": "server\\streamhouse-app\\target\\surefire-reports\\TEST-com.streamhouse.app.conn.ConnectionOpsServiceTest.xml",
+        "sha256": "d9ec1e0602da635e4d9ab374b91207502968fedb7538ab9574c97a568059397d"
+      },
+      {
+        "path": "server\\streamhouse-app\\target\\surefire-reports\\TEST-com.streamhouse.app.conn.SysPartmapFallbackTest.xml",
+        "sha256": "35400b1df76c6c12842c4da0d4e2c1ce180175e20c55406f925b0d4f7bfc4f1f"
+      },
+      {
+        "path": "server\\streamhouse-app\\target\\surefire-reports\\TEST-com.streamhouse.app.deploy.DeployServiceTest.xml",
+        "sha256": "fbaaf1fb6c0c9c75159616b84d350860a400e2dbde89c088673f211304a3fb65"
+      },
+      {
+        "path": "server\\streamhouse-app\\target\\surefire-reports\\TEST-com.streamhouse.app.heartbeat.HeartbeatServiceTest.xml",
+        "sha256": "b452244f8691b4e07daaec4e39ce84aec28bd39520ff9d6d9a97b62ff9cdb71d"
+      },
+      {
+        "path": "server\\streamhouse-app\\target\\surefire-reports\\TEST-com.streamhouse.app.machine.MachineAdminServiceTest.xml",
+        "sha256": "7902fc70d70d10c6ccc716b119e8839811c3457170375c27c59fd602f5c4b65b"
+      },
+      {
+        "path": "server\\streamhouse-app\\target\\surefire-reports\\TEST-com.streamhouse.app.machine.MachineSourceServiceTest.xml",
+        "sha256": "fb9f3b076ca579fb16724944b47382b33ac503b808231d8d5acbe29eb951c8da"
+      },
+      {
+        "path": "server\\streamhouse-app\\target\\surefire-reports\\TEST-com.streamhouse.app.pipeline.AutoConsumeSchedulerTest.xml",
+        "sha256": "535f4c0208394a7ead46b25bb31e17611f3ef58df9c7dc9c947ef9eeaa3f56c6"
+      },
+      {
+        "path": "server\\streamhouse-app\\target\\surefire-reports\\TEST-com.streamhouse.app.pipeline.PipelineRunServiceTest.xml",
+        "sha256": "2de6bf063ffdf4fce706d1ae30866415ed9e6da7a7c63c34c14b52640d53d3eb"
+      },
+      {
+        "path": "server\\streamhouse-app\\target\\surefire-reports\\TEST-com.streamhouse.app.pipeline.WindowAdminServiceTest.xml",
+        "sha256": "b4c8542e3627a32ee0ac73d219a286e8d43e0c36750508b4ccc288c46153946d"
+      },
+      {
+        "path": "server\\streamhouse-app\\target\\surefire-reports\\TEST-com.streamhouse.app.port.CodetableDecodeContextProviderTest.xml",
+        "sha256": "d33c9349f462a57eb9e064182c78710dc4185f4ae071e0f1ec3a3e7b8c1b9de4"
+      },
+      {
+        "path": "server\\streamhouse-app\\target\\surefire-reports\\TEST-com.streamhouse.app.port.FileCodetableFileWriterTest.xml",
+        "sha256": "67a79df4a8c6ff3121fe3c81e6380619d549574d329adac71186fb51bfd2ed78"
+      },
+      {
+        "path": "server\\streamhouse-app\\target\\surefire-reports\\TEST-com.streamhouse.app.port.FnDblogOfficialChannelPortTest.xml",
+        "sha256": "e6f71d5c4b2fa0044fc865f04f175b1de76b8f27571802a95f3ddbd4b3dc2490"
+      },
+      {
+        "path": "server\\streamhouse-app\\target\\surefire-reports\\TEST-com.streamhouse.app.port.GatewayWindowSourceTest.xml",
+        "sha256": "80662311c44f7463fa1f0bea3509a13876ce5f7cf9e9e60b0f2b6b273f0bc470"
+      },
+      {
+        "path": "server\\streamhouse-app\\target\\surefire-reports\\TEST-com.streamhouse.app.port.KernelTargetApplyPortTest.xml",
+        "sha256": "b15492d8dbae1b65550e226e60cba32bb320dcff787335c25e358fb501511e53"
+      },
+      {
+        "path": "server\\streamhouse-app\\target\\surefire-reports\\TEST-com.streamhouse.app.port.OdsEnrichedTargetApplyPortTest.xml",
+        "sha256": "79d0ab0cd381382bf1b0ca80d9590809af97feb5f19c63ddc537991a6890b6fc"
+      },
+      {
+        "path": "server\\streamhouse-app\\target\\surefire-reports\\TEST-com.streamhouse.app.port.OdsMappingEngineTest.xml",
+        "sha256": "87c62159c4d78618a7b5aa01dcc9f55fec926f545408d6c11ac3d5797ef40de2"
+      },
+      {
+        "path": "server\\streamhouse-app\\target\\surefire-reports\\TEST-com.streamhouse.app.port.RowValueDecoderTest.xml",
+        "sha256": "026fc7a3781a22a69c4eb7c802d792915508d5faddc45a01ca4b4f4878f9eb9c"
+      },
+      {
+        "path": "server\\streamhouse-app\\target\\surefire-reports\\TEST-com.streamhouse.app.stream.CrossProcessFileLockTest.xml",
+        "sha256": "acaee7c526770a648b5b094daef892de5bb50bd8efa2d8197994639f66e784ee"
+      },
+      {
+        "path": "server\\streamhouse-app\\target\\surefire-reports\\TEST-com.streamhouse.app.stream.StageBVerifyServiceTest.xml",
+        "sha256": "6c79f5f2047c95e528f3472f8e8765f3485dbd1daebc6669e57b6ac096fe1599"
+      },
+      {
+        "path": "server\\streamhouse-app\\target\\surefire-reports\\TEST-com.streamhouse.app.stream.StreamFileServiceTest.xml",
+        "sha256": "fd08fae251701e8ebd816dd9cd7842de318c50fff14bf9590c00cef02bcc0269"
+      },
+      {
+        "path": "server\\streamhouse-app\\target\\surefire-reports\\TEST-com.streamhouse.app.stream.StreamMapperXmlParseTest.xml",
+        "sha256": "9a1182505a30912cdc62385aa342b471fe625fdd0bca12db0a6384b25d3abc24"
+      },
+      {
+        "path": "server\\streamhouse-app\\target\\surefire-reports\\TEST-com.streamhouse.app.target.TargetMappingServiceTest.xml",
+        "sha256": "7de7f47c1a06640cac7da06db5c91818edddf0ef9706e35c98980e897166d70a"
+      },
+      {
+        "path": "server\\streamhouse-app\\target\\surefire-reports\\TEST-com.streamhouse.app.target.TargetServiceTest.xml",
+        "sha256": "0247b7a420c41fb37f631dca2d2f452096a24f2b327df5a0e2f86fd97e14db7f"
+      },
+      {
+        "path": "server\\streamhouse-app\\target\\surefire-reports\\TEST-com.streamhouse.app.web.BaselineControllerTest.xml",
+        "sha256": "a6edd2b8395f24c3420967fb6def28fb09ebeb142a56651e252714a26fa964df"
+      },
+      {
+        "path": "server\\streamhouse-app\\target\\surefire-reports\\TEST-com.streamhouse.app.web.DeleteEndpointsControllerTest.xml",
+        "sha256": "ba0e8e7cba339b6a2524ebfe91fccd441a4f52cc1f36153c8209934c3bd982d4"
+      },
+      {
+        "path": "server\\streamhouse-app\\target\\surefire-reports\\TEST-com.streamhouse.app.web.PipelineControllerTest.xml",
+        "sha256": "c91b9cd54f401e88f08575fcc76b3626a8dc275639f4de678dd8797829d1bbf9"
+      },
+      {
+        "path": "server\\streamhouse-app\\target\\surefire-reports\\TEST-com.streamhouse.app.web.StreamGatewayControllerCodecTest.xml",
+        "sha256": "ace600c7fbd31627c313d55ac4c66ee2436956d75b8bfb70eeba4a41d50f3c18"
+      },
+      {
+        "path": "server\\streamhouse-app\\target\\surefire-reports\\TEST-com.streamhouse.app.web.UnquarantineAuditTest.xml",
+        "sha256": "7b18065921398f70c247ca47e1952a43afc7193d0c58c7c318ba7c7a3856d76b"
+      },
+      {
+        "path": "server\\streamhouse-codetable\\target\\surefire-reports\\TEST-com.streamhouse.codetable.mapper.CodetableMapperXmlParseTest.xml",
+        "sha256": "af5e259a8321859ab9d2c9218db49af06611d695303fb56a5f6cd4844d194ff0"
+      },
+      {
+        "path": "server\\streamhouse-codetable\\target\\surefire-reports\\TEST-com.streamhouse.codetable.service.CoverageGuardTest.xml",
+        "sha256": "314deea6ec59df0c6d3b375ce01e2c49a4b112a1bd1270b865e307b2e47dee53"
+      },
+      {
+        "path": "server\\streamhouse-codetable\\target\\surefire-reports\\TEST-com.streamhouse.codetable.service.DriftPatrolServiceTest.xml",
+        "sha256": "14db9aea8e38cfe66e9f78b7319a11d087dedb4a4f7d5458559faf6cf535c503"
+      },
+      {
+        "path": "server\\streamhouse-codetable\\target\\surefire-reports\\TEST-com.streamhouse.codetable.service.ReimportServiceTest.xml",
+        "sha256": "347ba251d0697937627cc1dd821c8ca2931a5062a1f15b6b29b1fcbbf8133ba6"
+      },
+      {
+        "path": "server\\streamhouse-codetable\\target\\surefire-reports\\TEST-com.streamhouse.codetable.service.StructureFingerprintTest.xml",
+        "sha256": "cb48ed15d4e21f085c38ac70c49a42aa55079e5d16de8330bbcf64ffbe2663ce"
+      },
+      {
+        "path": "server\\streamhouse-common\\target\\surefire-reports\\TEST-com.streamhouse.common.DialectTest.xml",
+        "sha256": "8ec47d01b094854bbcb98fd813fb9c0d3ed364c2a0cb88c81f989a9c50decf6a"
+      },
+      {
+        "path": "server\\streamhouse-common\\target\\surefire-reports\\TEST-com.streamhouse.common.Sha256Test.xml",
+        "sha256": "27fc1df69ad2388a91fb69b39fbcb30ac346d4bbc608676ad50c5f23a08b8d4d"
+      },
+      {
+        "path": "server\\streamhouse-common\\target\\surefire-reports\\TEST-com.streamhouse.common.SnowflakeIdTest.xml",
+        "sha256": "8725098257a0aa933f6f1d59d3abe7b6e0364555afd0d898e692f2e8569d3a80"
+      },
+      {
+        "path": "server\\streamhouse-engine-sqlserver\\target\\surefire-reports\\TEST-com.streamhouse.engines.sqlserver.SqlServerConnectorTest.xml",
+        "sha256": "df503e7e55b37e0204ac53e5781afa71ac219e96f59067ef44f83917f10fa170"
+      },
+      {
+        "path": "server\\streamhouse-engine-sqlserver\\target\\surefire-reports\\TEST-com.streamhouse.engines.sqlserver.VerifyCliAssemblerTest.xml",
+        "sha256": "1b725a2c03aacf4b93ea8021a1ed51e3d6c253f0c9f58be78bf91ff791594bbb"
+      },
+      {
+        "path": "server\\streamhouse-gateway\\target\\surefire-reports\\TEST-com.streamhouse.gateway.mapper.MapperXmlParseTest.xml",
+        "sha256": "53065785f3fb20e2e52684a372e808e085a7a1d64d2b3003cdaec8fd9295adb5"
+      },
+      {
+        "path": "server\\streamhouse-gateway\\target\\surefire-reports\\TEST-com.streamhouse.gateway.service.AgentMetricsServiceTest.xml",
+        "sha256": "ed063cb6da55111f1d38dbaff87da18f1ce2a84682e117e99f62217970a05401"
+      },
+      {
+        "path": "server\\streamhouse-gateway\\target\\surefire-reports\\TEST-com.streamhouse.gateway.service.ContinuityCheckerTest.xml",
+        "sha256": "d46389906b69f8ca488b0ee82fda5e07bcbf06663f3247c801f7a9a12100d2c5"
+      },
+      {
+        "path": "server\\streamhouse-gateway\\target\\surefire-reports\\TEST-com.streamhouse.gateway.service.MachineServiceTest.xml",
+        "sha256": "e93050c8b156fc02e1d9f896b022e808270c44f4876da6f3a8133304dfb1982c"
+      },
+      {
+        "path": "server\\streamhouse-gateway\\target\\surefire-reports\\TEST-com.streamhouse.gateway.service.TransferChunkServiceTest.xml",
+        "sha256": "fd99a553b16345dcfc8eb4007e4c78979ed262fc9dd264d883c1304b4ba007cb"
+      },
+      {
+        "path": "server\\streamhouse-gateway\\target\\surefire-reports\\TEST-com.streamhouse.gateway.service.WindowIngestServiceTest.xml",
+        "sha256": "f40de7dc60fd03ae9a9ab03f6d6c34c9ab9159341c370a796a816f3578f696c1"
+      },
+      {
+        "path": "server\\streamhouse-gateway\\target\\surefire-reports\\TEST-com.streamhouse.gateway.web.MachineBindingGuardTest.xml",
+        "sha256": "3622e52370a352ad1170e490118652bb05cc53a58d5cd01f766ac42b41f66790"
+      },
+      {
+        "path": "server\\streamhouse-gateway\\target\\surefire-reports\\TEST-com.streamhouse.gateway.web.TransferControllerFlatOffsetNumericTest.xml",
+        "sha256": "0a18e3a26761c59055aace74a2e15b2b1813f62b580a5df78bb79027c7904f32"
+      },
+      {
+        "path": "server\\streamhouse-pipeline\\target\\surefire-reports\\TEST-com.streamhouse.pipeline.mapper.PipelineMapperXmlParseTest.xml",
+        "sha256": "27834ea35246b4f781f0ac56b063585ba0309fab96c498ce9e9baade2fa59ebd"
+      },
+      {
+        "path": "server\\streamhouse-pipeline\\target\\surefire-reports\\TEST-com.streamhouse.pipeline.service.DecodeBatchServiceTest.xml",
+        "sha256": "5d7f286f0d239c9fc8069f2d404cddb91e798cd48807c948925f3d584cb152e7"
+      },
+      {
+        "path": "server\\streamhouse-pipeline\\target\\surefire-reports\\TEST-com.streamhouse.pipeline.service.PipelineFacadeTest.xml",
+        "sha256": "868cd7ba583876e8138911140aa3f0af9d4d4b7919daf9e435bbe135f7330fd1"
+      },
+      {
+        "path": "server\\streamhouse-pipeline\\target\\surefire-reports\\TEST-com.streamhouse.pipeline.service.PublishGateTest.xml",
+        "sha256": "affcf70fef5a9536881792f1b7eeadebf61b36beb222d8698c5cfc3e2d042b76"
+      },
+      {
+        "path": "server\\streamhouse-pipeline\\target\\surefire-reports\\TEST-com.streamhouse.pipeline.service.TaskStateMachineTest.xml",
+        "sha256": "4b7295b27b5a23e19e48432b23947863ef238779d5e6ad29e760b089058bb6b8"
+      },
+      {
+        "path": "server\\streamhouse-pipeline\\target\\surefire-reports\\TEST-com.streamhouse.pipeline.service.WatermarkGateTest.xml",
+        "sha256": "9087a100d1ad75ef99fbf60d7800db3b37fa34e3290bac30244c926efe7ec6e1"
+      },
+      {
+        "path": "server\\streamhouse-recon\\target\\surefire-reports\\TEST-com.streamhouse.recon.mapper.ReconMapperXmlParseTest.xml",
+        "sha256": "283d14d5b7dd007246799a02c6d3bac4f82182e3c146faf43534701e7f153da0"
+      },
+      {
+        "path": "server\\streamhouse-recon\\target\\surefire-reports\\TEST-com.streamhouse.recon.service.CloseBatchServiceTest.xml",
+        "sha256": "cb7d375fff5ff93494c71bbab859bf63d4b3f4d3c1c42476817ae72530044551"
+      },
+      {
+        "path": "server\\streamhouse-recon\\target\\surefire-reports\\TEST-com.streamhouse.recon.service.Dt3ReconServiceTest.xml",
+        "sha256": "799c332c78422fb14474ca6d92268b5bc49139da2ce708573f0c34f6a48ce707"
+      },
+      {
+        "path": "server\\streamhouse-recon\\target\\surefire-reports\\TEST-com.streamhouse.recon.service.GapClassifierTest.xml",
+        "sha256": "64486017274c842505ff6eb548a86685e853e830fcf7a5e5dc74bf99a481a4b4"
+      },
+      {
+        "path": "server\\streamhouse-recon\\target\\surefire-reports\\TEST-com.streamhouse.recon.service.ReconQueryServiceTest.xml",
+        "sha256": "dc96ce32e2452cedb8a3690a82a6f00e2cf4a2be110b40f60d45455f818d4e92"
+      },
+      {
+        "path": "server\\streamhouse-recovery\\target\\surefire-reports\\TEST-com.streamhouse.recovery.mapper.RecoveryMapperXmlParseTest.xml",
+        "sha256": "2c1a86edb4096af91f8b8e5b3081ac318e222a605a7ff40820d466df03fe0e1f"
+      },
+      {
+        "path": "server\\streamhouse-recovery\\target\\surefire-reports\\TEST-com.streamhouse.recovery.service.ExceptFinalVerifierTest.xml",
+        "sha256": "596bd2c04b9f853f36166897c9d645d05d96c8d254da63b25cf997ffdbad572a"
+      },
+      {
+        "path": "server\\streamhouse-recovery\\target\\surefire-reports\\TEST-com.streamhouse.recovery.service.FullLoadPlannerTest.xml",
+        "sha256": "e37da25f9a09cdc10566401f3800a0cc21564576c2052f0f0e944b67e424d720"
+      },
+      {
+        "path": "server\\streamhouse-recovery\\target\\surefire-reports\\TEST-com.streamhouse.recovery.service.LocatorGuardServiceTest.xml",
+        "sha256": "b0505551d74e14ae386f43910bfd1eec29d925d2ca435d6c6edf0d999b3b2867"
+      },
+      {
+        "path": "server\\streamhouse-recovery\\target\\surefire-reports\\TEST-com.streamhouse.recovery.service.RecoveryFacadeTest.xml",
+        "sha256": "9e280e8a15d263b236e1065a6b66021ddddc24f5c9d1f3478bd0cf65a881faf0"
+      },
+      {
+        "path": "server\\streamhouse-recovery\\target\\surefire-reports\\TEST-com.streamhouse.recovery.service.ResnatchServiceTest.xml",
+        "sha256": "ef94cc4572e71a77f586cfc1c959f405c9a50c107fc9189cdbda80fac6192b0a"
+      },
+      {
+        "path": "server\\streamhouse-recovery\\target\\surefire-reports\\TEST-com.streamhouse.recovery.service.UpsertSqlBuilderTest.xml",
+        "sha256": "1e16b97c288028f8f18f7e1f6538282bf6b7ca4a2c0c5335a557c0ccc77ad296"
+      },
+      {
+        "path": "server\\streamhouse-recovery\\target\\surefire-reports\\TEST-com.streamhouse.recovery.service.WatermarkReplayServiceTest.xml",
+        "sha256": "543447fde624cf62a27c97eac20406cb35c79d0f4460dcc732295da1e00690fd"
+      },
+      {
+        "path": "server\\streamhouse-spi\\target\\surefire-reports\\TEST-com.streamhouse.spi.ConnectorRegistryTest.xml",
+        "sha256": "26a695cdc3ecacd647b1d0bd1dd8744bf2e9c636bb49d314b08867758aa25c30"
+      }
+    ],
+    "adapter_tests": {
+      "tests": 16,
+      "errors": 0,
+      "failures": 0,
+      "skipped": 0
+    },
+    "kernel_version": "0.1.0-bounded-foreign-begin-r2",
+    "spi_version": "0.1.0-oracle-evidence-ddff6ae",
+    "kernel_sha256": "960954207b626be4d19db547ce2a9e3c5245075e84edb7196935ba3c0489c55e",
+    "spi_sha256": "fb9c443ba88e49b656d97a4bd881c31a3c9fef305bf9d5a503c13364ed940b95",
+    "adapter_sha256": "dfcfe38b4516e548c67e56f20b22b8dc3505066d43ca13148c81059d1c167183",
+    "kernel_tests_rerun": false,
+    "public_oracle_decoder_enabled": false,
+    "independent_review": "PENDING"
+  },
+  "verification": {
+    "cases": [
+      {
+        "case": "SNON",
+        "events": 2,
+        "typed_fields_zero_differences": true
+      },
+      {
+        "case": "SNUL",
+        "events": 2,
+        "typed_fields_zero_differences": true
+      },
+      {
+        "case": "SMIX",
+        "events": 3,
+        "typed_fields_zero_differences": true
+      },
+      {
+        "case": "EMPT",
+        "events": 0,
+        "typed_fields_zero_differences": true
+      }
+    ],
+    "comparator_refusals": [
+      "source",
+      "position",
+      "payload",
+      "capture"
+    ],
+    "legacy_projection_byte_equal": true,
+    "source_target_actions": 0,
+    "real_product_control_database_used": false,
+    "trusted_registry_accepted": false,
+    "public_oracle_decoder_enabled": false,
+    "full_product_site_release_accepted": false
+  },
+  "capacity": {
+    "checked": [
+      {
+        "case": "SNON",
+        "sequence": 44,
+        "capacity_blocks": 409601
+      },
+      {
+        "case": "SNON",
+        "sequence": 45,
+        "capacity_blocks": 409601
+      },
+      {
+        "case": "SNUL",
+        "sequence": 46,
+        "capacity_blocks": 409601
+      },
+      {
+        "case": "SNUL",
+        "sequence": 47,
+        "capacity_blocks": 409601
+      },
+      {
+        "case": "SMIX",
+        "sequence": 48,
+        "capacity_blocks": 409601
+      },
+      {
+        "case": "SMIX",
+        "sequence": 49,
+        "capacity_blocks": 409601
+      },
+      {
+        "case": "SMIX",
+        "sequence": 50,
+        "capacity_blocks": 409601
+      },
+      {
+        "case": "EMPT",
+        "sequence": 51,
+        "capacity_blocks": 409601
+      }
+    ]
+  },
+  "legacy": {
+    "old_4_and_5_argument_bytecode_linked": true,
+    "legacy_evidence_is_null": true,
+    "windows_line_ending_comparison_repaired": true
+  },
+  "failed_adapter_compile_preserved": true,
+  "failed_outer_legacy_comparison_preserved": true,
+  "files": [
+    {
+      "path": "lab/out/release-oracle-typed-evidence-20261005/adapter-tests/2026-10-05T13-52-44_836.dumpstream",
+      "bytes": 363,
+      "sha256": "a76a4fcd5d8e8909edcd51205ad6a1ce7d2f2d7057b10165dcc13484fda4c112"
+    },
+    {
+      "path": "lab/out/release-oracle-typed-evidence-20261005/adapter-tests/com.streamhouse.engines.oracle.OracleBatchProjectionTest.txt",
+      "bytes": 366,
+      "sha256": "9432c6fab067498ad895c07c8ecb1dfdab421fa951419f11ff6e5fee976a3556"
+    },
+    {
+      "path": "lab/out/release-oracle-typed-evidence-20261005/adapter-tests/com.streamhouse.engines.oracle.OracleConsumerCheckpointTest.txt",
+      "bytes": 372,
+      "sha256": "bde78ffc1bb528b4766c8228d6a5cd3b9115842a2884a7d2eddd342bc4e368f7"
+    },
+    {
+      "path": "lab/out/release-oracle-typed-evidence-20261005/adapter-tests/com.streamhouse.engines.oracle.OracleConsumptionWindowTest.txt",
+      "bytes": 370,
+      "sha256": "5e0871bbcaddda0bc6e03c67075689feeb704bd02f72ebece9ed29f4068ec988"
+    },
+    {
+      "path": "lab/out/release-oracle-typed-evidence-20261005/adapter-tests/TEST-com.streamhouse.engines.oracle.OracleBatchProjectionTest.xml",
+      "bytes": 12729,
+      "sha256": "e078920ca89b6153856877b10b5d24a9ebe3160c560915e82854e4617da4ee06"
+    },
+    {
+      "path": "lab/out/release-oracle-typed-evidence-20261005/adapter-tests/TEST-com.streamhouse.engines.oracle.OracleConsumerCheckpointTest.xml",
+      "bytes": 12454,
+      "sha256": "df850d19a59d6621a51637310e9cf5dfbb0a3fb15f588e590b286fd06a300221"
+    },
+    {
+      "path": "lab/out/release-oracle-typed-evidence-20261005/adapter-tests/TEST-com.streamhouse.engines.oracle.OracleConsumptionWindowTest.xml",
+      "bytes": 12706,
+      "sha256": "e90737b8df2d18c34161fcfe71ee198d04a36479ecec0050c4a7036146ce227d"
+    },
+    {
+      "path": "lab/out/release-oracle-typed-evidence-20261005/adapter-verify-r2.command.json",
+      "bytes": 432,
+      "sha256": "940ef492341a019729cebcf55f6387d7a948a61907c3ca5f1bdf112994f06b1e"
+    },
+    {
+      "path": "lab/out/release-oracle-typed-evidence-20261005/adapter-verify-r2.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/release-oracle-typed-evidence-20261005/adapter-verify-r2.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/release-oracle-typed-evidence-20261005/adapter-verify-r2.stdout.txt",
+      "bytes": 3040,
+      "sha256": "f42a831f9c92a233c4fc46655b9505ed422a3112fa7ce02e52ea3ef7843c41ac"
+    },
+    {
+      "path": "lab/out/release-oracle-typed-evidence-20261005/adapter-verify.command.json",
+      "bytes": 432,
+      "sha256": "940ef492341a019729cebcf55f6387d7a948a61907c3ca5f1bdf112994f06b1e"
+    },
+    {
+      "path": "lab/out/release-oracle-typed-evidence-20261005/adapter-verify.rc.txt",
+      "bytes": 1,
+      "sha256": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b"
+    },
+    {
+      "path": "lab/out/release-oracle-typed-evidence-20261005/adapter-verify.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/release-oracle-typed-evidence-20261005/adapter-verify.stdout.txt",
+      "bytes": 2580,
+      "sha256": "f8dacab10a65a9d4293fffbe5bc01eb62967201a2ee79de8fd9538f5e5a2d416"
+    },
+    {
+      "path": "lab/out/release-oracle-typed-evidence-20261005/adapter.jar",
+      "bytes": 38738,
+      "sha256": "dfcfe38b4516e548c67e56f20b22b8dc3505066d43ca13148c81059d1c167183"
+    },
+    {
+      "path": "lab/out/release-oracle-typed-evidence-20261005/executed-first-driver.py",
+      "bytes": 3425,
+      "sha256": "e0096f7e77e21e1d17d4ffb8f07466ecf2d6ae88ed5741f5c2e9ba05b04e4dd7"
+    },
+    {
+      "path": "lab/out/release-oracle-typed-evidence-20261005/failed-OracleBatchProjection.java",
+      "bytes": 7014,
+      "sha256": "49952bee9260bf117b82238bffe415399e92f14faeaf019c8109fb1635191552"
+    },
+    {
+      "path": "lab/out/release-oracle-typed-evidence-20261005/install-private-spi.command.json",
+      "bytes": 634,
+      "sha256": "cf26ceda1ef0b9198fe2a06cd081d2ab7b7d8e7bb2ebdacee5e0a1c30bcf0d16"
+    },
+    {
+      "path": "lab/out/release-oracle-typed-evidence-20261005/install-private-spi.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/release-oracle-typed-evidence-20261005/install-private-spi.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/release-oracle-typed-evidence-20261005/install-private-spi.stdout.txt",
+      "bytes": 2830,
+      "sha256": "438f9e598c7c8329bb173773bd5da6eb281113ad11ee9639d81b25fc11375acd"
+    },
+    {
+      "path": "lab/out/release-oracle-typed-evidence-20261005/kernel.jar",
+      "bytes": 191778,
+      "sha256": "960954207b626be4d19db547ce2a9e3c5245075e84edb7196935ba3c0489c55e"
+    },
+    {
+      "path": "lab/out/release-oracle-typed-evidence-20261005/product-reactor-verify.command.json",
+      "bytes": 482,
+      "sha256": "28110a6cb268ed60a1020b35e3f498da38bd57d2019fb75ea26020d89a554219"
+    },
+    {
+      "path": "lab/out/release-oracle-typed-evidence-20261005/product-reactor-verify.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/release-oracle-typed-evidence-20261005/product-reactor-verify.stderr.txt",
+      "bytes": 3126,
+      "sha256": "f3351d7bf37cbf96afb4d0c6dbd8bc7aa74f11a1a7217f9697871b79ef980f04"
+    },
+    {
+      "path": "lab/out/release-oracle-typed-evidence-20261005/product-reactor-verify.stdout.txt",
+      "bytes": 71831,
+      "sha256": "2cf7e2bc2ef9f6bacff21a8985e7c12f6d26f2464aaabcb11f5bc4ab6e62b160"
+    },
+    {
+      "path": "lab/out/release-oracle-typed-evidence-20261005/proof.json",
+      "bytes": 19967,
+      "sha256": "b5375461d5d2627181837c5f45b867188e4c9f208fec03b7668484567a2cd3ed"
+    },
+    {
+      "path": "lab/out/release-oracle-typed-evidence-20261005/spi.jar",
+      "bytes": 26503,
+      "sha256": "fb9c443ba88e49b656d97a4bd881c31a3c9fef305bf9d5a503c13364ed940b95"
+    },
+    {
+      "path": "lab/out/oracle-typed-evidence-20261005/capacity-proof.json",
+      "bytes": 776,
+      "sha256": "9a41c751bb073803733a76102fc2e3ca133cbca0877cfa7ff31bfbfe37517bec"
+    },
+    {
+      "path": "lab/out/oracle-typed-evidence-20261005/capture-derived.json",
+      "bytes": 3256,
+      "sha256": "c7287b89445fa85e44c539d6d1016cf2c9d44817fa13ba530adcc167c15754fd"
+    },
+    {
+      "path": "lab/out/oracle-typed-evidence-20261005/classes/OracleDmlCheckpointWorker.class",
+      "bytes": 6852,
+      "sha256": "3c1fa5ce4a89de714301052876e9a852923304e8ca0c73d139ba3985cd504e56"
+    },
+    {
+      "path": "lab/out/oracle-typed-evidence-20261005/classes/OracleProjectionProbe.class",
+      "bytes": 9697,
+      "sha256": "fa999df167a701dbf4abb8c0afd949ac9fcdec8e25e7d3a8e4f9193c20d971fc"
+    },
+    {
+      "path": "lab/out/oracle-typed-evidence-20261005/classes/OracleTypedEvidenceProbe$1.class",
+      "bytes": 2911,
+      "sha256": "167bca115becf70255d9643e425e745b5347fb9123d45aa32be78eb7c6634197"
+    },
+    {
+      "path": "lab/out/oracle-typed-evidence-20261005/classes/OracleTypedEvidenceProbe$2.class",
+      "bytes": 2011,
+      "sha256": "a80ebda945e23f93aeea520b0d750de8036867191f0138e9df6aae25cfbc5dc6"
+    },
+    {
+      "path": "lab/out/oracle-typed-evidence-20261005/classes/OracleTypedEvidenceProbe$3.class",
+      "bytes": 1211,
+      "sha256": "732e898db3d30d1c66ef8933faa4d4b2f2acfbef03d4b58380791a1b5c30577d"
+    },
+    {
+      "path": "lab/out/oracle-typed-evidence-20261005/classes/OracleTypedEvidenceProbe.class",
+      "bytes": 9986,
+      "sha256": "2a6685124c62c4c5362f863841922f054da1b9f63973e7be57189e4dd4e0d041"
+    },
+    {
+      "path": "lab/out/oracle-typed-evidence-20261005/compile-against-old-spi.command.json",
+      "bytes": 328,
+      "sha256": "64008ad4295dc30af532e433982544ac1f4f5c6013aa17c195fc7c7ecd4e170d"
+    },
+    {
+      "path": "lab/out/oracle-typed-evidence-20261005/compile-against-old-spi.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/oracle-typed-evidence-20261005/compile-against-old-spi.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle-typed-evidence-20261005/compile-against-old-spi.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle-typed-evidence-20261005/compile.command.json",
+      "bytes": 8217,
+      "sha256": "797c23589a757a425ed7fd36264f59c235d67ee8ebc7ed2bedc92c8407ed90a6"
+    },
+    {
+      "path": "lab/out/oracle-typed-evidence-20261005/compile.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/oracle-typed-evidence-20261005/compile.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle-typed-evidence-20261005/compile.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle-typed-evidence-20261005/EMPT-typed.command.json",
+      "bytes": 8258,
+      "sha256": "7bcb14dce7f466aa0f4b76695b929eeb086c7ce3abc67e77026f4a184ec7a962"
+    },
+    {
+      "path": "lab/out/oracle-typed-evidence-20261005/EMPT-typed.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/oracle-typed-evidence-20261005/EMPT-typed.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle-typed-evidence-20261005/EMPT-typed.stdout.txt",
+      "bytes": 1388,
+      "sha256": "f81c7b9f459977b1a7ce7008cea3d2c51b347729f49fc12b0a960f4b893f2ec0"
+    },
+    {
+      "path": "lab/out/oracle-typed-evidence-20261005/failed-legacy-verifier.py",
+      "bytes": 1085,
+      "sha256": "4d0e2387759030ae37f4b06c19a61bfd9734d12aa011d8b76855d04f9695ac32"
+    },
+    {
+      "path": "lab/out/oracle-typed-evidence-20261005/legacy-classes/OracleLegacyDecodeResultProbe.class",
+      "bytes": 1808,
+      "sha256": "06758a41619e7b8dde6b5b07eebe361b666a8cbf195cc2da6ccc5bb4f3b141e9"
+    },
+    {
+      "path": "lab/out/oracle-typed-evidence-20261005/legacy-first-driver.failure.txt",
+      "bytes": 606,
+      "sha256": "6b6c023e1e322a5a681c9f3c861229a47885c7613b58b614be8fb92667697532"
+    },
+    {
+      "path": "lab/out/oracle-typed-evidence-20261005/legacy-proof.json",
+      "bytes": 128,
+      "sha256": "42c8c1e38b63b5b3a71316bd8f5054ebf80cf35dfd37ef557d37285867ae10dc"
+    },
+    {
+      "path": "lab/out/oracle-typed-evidence-20261005/payload-derived.json",
+      "bytes": 3256,
+      "sha256": "d2cb473115709a384144c688cc441717cb9eac0042341f383867d10bede20d07"
+    },
+    {
+      "path": "lab/out/oracle-typed-evidence-20261005/position-derived.json",
+      "bytes": 3256,
+      "sha256": "bc0775d2a64c24a4ab4e16a5679d5756aa3ff9519688b64b2da9658d3606674c"
+    },
+    {
+      "path": "lab/out/oracle-typed-evidence-20261005/proof.json",
+      "bytes": 781,
+      "sha256": "022df0f130039162807c017be6da2b216d699aaff3481330ec5af3b8e115769a"
+    },
+    {
+      "path": "lab/out/oracle-typed-evidence-20261005/run-against-new-spi.command.json",
+      "bytes": 274,
+      "sha256": "0911d863649e92f7bce4fe0c32ab4bdda1249bbf6232decd138450bb28da41a5"
+    },
+    {
+      "path": "lab/out/oracle-typed-evidence-20261005/run-against-new-spi.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/oracle-typed-evidence-20261005/run-against-new-spi.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle-typed-evidence-20261005/run-against-new-spi.stdout.txt",
+      "bytes": 32,
+      "sha256": "c4d2f9b22d9800c5ef380feff5f74979546009b1c57ef56c1c4b472c3f808e89"
+    },
+    {
+      "path": "lab/out/oracle-typed-evidence-20261005/SMIX-legacy-inspect.command.json",
+      "bytes": 8755,
+      "sha256": "5800445e09577a84c4b8bd1ff0be1f9d60cface6fcbd6425c6e1d265e59dd5e5"
+    },
+    {
+      "path": "lab/out/oracle-typed-evidence-20261005/SMIX-legacy-inspect.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/oracle-typed-evidence-20261005/SMIX-legacy-inspect.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle-typed-evidence-20261005/SMIX-legacy-inspect.stdout.txt",
+      "bytes": 2810,
+      "sha256": "adf30795e6fb9851dbad78bf5e79d2a80ff495f65447d8e6082c803a6a6b178b"
+    },
+    {
+      "path": "lab/out/oracle-typed-evidence-20261005/SMIX-typed.command.json",
+      "bytes": 8638,
+      "sha256": "3487693432654521f1c3768af1ae11110e8a675384a838ecb7bc4f989b839031"
+    },
+    {
+      "path": "lab/out/oracle-typed-evidence-20261005/SMIX-typed.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/oracle-typed-evidence-20261005/SMIX-typed.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle-typed-evidence-20261005/SMIX-typed.stdout.txt",
+      "bytes": 3018,
+      "sha256": "6ddeb24aa8e45e5d24741b2b77ea571d60e15b2651370500e47ebc945bdef58b"
+    },
+    {
+      "path": "lab/out/oracle-typed-evidence-20261005/SNON-legacy-inspect.command.json",
+      "bytes": 8576,
+      "sha256": "aa4d744a0a9c557fdf1d0b1b4676638e9e8e028f49f07ef34bb1ac3fe0288fd6"
+    },
+    {
+      "path": "lab/out/oracle-typed-evidence-20261005/SNON-legacy-inspect.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/oracle-typed-evidence-20261005/SNON-legacy-inspect.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle-typed-evidence-20261005/SNON-legacy-inspect.stdout.txt",
+      "bytes": 1045,
+      "sha256": "9d7b1af497fc0033b6ec81fe172adbb07c3cef88d782af4dafc2ff9ce8df84e9"
+    },
+    {
+      "path": "lab/out/oracle-typed-evidence-20261005/SNON-typed.command.json",
+      "bytes": 8459,
+      "sha256": "f5575adec33114bddbfcabc42a437448b68b9ce80233e23b3da8104428f1322c"
+    },
+    {
+      "path": "lab/out/oracle-typed-evidence-20261005/SNON-typed.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/oracle-typed-evidence-20261005/SNON-typed.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle-typed-evidence-20261005/SNON-typed.stdout.txt",
+      "bytes": 2417,
+      "sha256": "70cd4def041c0777928f5f64c426fc53e21c9d8202ada85b0bf467cb6256309c"
+    },
+    {
+      "path": "lab/out/oracle-typed-evidence-20261005/SNUL-legacy-inspect.command.json",
+      "bytes": 8576,
+      "sha256": "cd8f39f583e3039d61c791cba5d50cd73d01d300696e0e17d0bc0bbc18d4e8be"
+    },
+    {
+      "path": "lab/out/oracle-typed-evidence-20261005/SNUL-legacy-inspect.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/oracle-typed-evidence-20261005/SNUL-legacy-inspect.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle-typed-evidence-20261005/SNUL-legacy-inspect.stdout.txt",
+      "bytes": 911,
+      "sha256": "415a65d616240c0114062890199aaf8d2d161a41c1048df2faed9127e577d8e4"
+    },
+    {
+      "path": "lab/out/oracle-typed-evidence-20261005/SNUL-typed.command.json",
+      "bytes": 8459,
+      "sha256": "c4925dec3c9007baa51fdedc209eaab780948c316dfad38338c844bd1fe92ef5"
+    },
+    {
+      "path": "lab/out/oracle-typed-evidence-20261005/SNUL-typed.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/oracle-typed-evidence-20261005/SNUL-typed.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle-typed-evidence-20261005/SNUL-typed.stdout.txt",
+      "bytes": 2405,
+      "sha256": "c4a982362ad8af1a9a6329a08fdcc827abee8e204547cd86339f252346c3aa15"
+    },
+    {
+      "path": "lab/out/oracle-typed-evidence-20261005/source-derived.json",
+      "bytes": 3256,
+      "sha256": "1ae28173a032532f9873a8d859a3247b4f316619cb9a45272c2630bab20045a1"
+    }
+  ],
+  "commands": [
+    {
+      "path": "lab/out/release-oracle-typed-evidence-20261005/adapter-verify-r2.rc.txt",
+      "rc": 0,
+      "stdout_bytes": 3040,
+      "stderr_bytes": 0
+    },
+    {
+      "path": "lab/out/release-oracle-typed-evidence-20261005/adapter-verify.rc.txt",
+      "rc": 1,
+      "stdout_bytes": 2580,
+      "stderr_bytes": 0
+    },
+    {
+      "path": "lab/out/release-oracle-typed-evidence-20261005/install-private-spi.rc.txt",
+      "rc": 0,
+      "stdout_bytes": 2830,
+      "stderr_bytes": 0
+    },
+    {
+      "path": "lab/out/release-oracle-typed-evidence-20261005/product-reactor-verify.rc.txt",
+      "rc": 0,
+      "stdout_bytes": 71831,
+      "stderr_bytes": 3126
+    },
+    {
+      "path": "lab/out/oracle-typed-evidence-20261005/compile-against-old-spi.rc.txt",
+      "rc": 0,
+      "stdout_bytes": 0,
+      "stderr_bytes": 0
+    },
+    {
+      "path": "lab/out/oracle-typed-evidence-20261005/compile.rc.txt",
+      "rc": 0,
+      "stdout_bytes": 0,
+      "stderr_bytes": 0
+    },
+    {
+      "path": "lab/out/oracle-typed-evidence-20261005/EMPT-typed.rc.txt",
+      "rc": 0,
+      "stdout_bytes": 1388,
+      "stderr_bytes": 0
+    },
+    {
+      "path": "lab/out/oracle-typed-evidence-20261005/run-against-new-spi.rc.txt",
+      "rc": 0,
+      "stdout_bytes": 32,
+      "stderr_bytes": 0
+    },
+    {
+      "path": "lab/out/oracle-typed-evidence-20261005/SMIX-legacy-inspect.rc.txt",
+      "rc": 0,
+      "stdout_bytes": 2810,
+      "stderr_bytes": 0
+    },
+    {
+      "path": "lab/out/oracle-typed-evidence-20261005/SMIX-typed.rc.txt",
+      "rc": 0,
+      "stdout_bytes": 3018,
+      "stderr_bytes": 0
+    },
+    {
+      "path": "lab/out/oracle-typed-evidence-20261005/SNON-legacy-inspect.rc.txt",
+      "rc": 0,
+      "stdout_bytes": 1045,
+      "stderr_bytes": 0
+    },
+    {
+      "path": "lab/out/oracle-typed-evidence-20261005/SNON-typed.rc.txt",
+      "rc": 0,
+      "stdout_bytes": 2417,
+      "stderr_bytes": 0
+    },
+    {
+      "path": "lab/out/oracle-typed-evidence-20261005/SNUL-legacy-inspect.rc.txt",
+      "rc": 0,
+      "stdout_bytes": 911,
+      "stderr_bytes": 0
+    },
+    {
+      "path": "lab/out/oracle-typed-evidence-20261005/SNUL-typed.rc.txt",
+      "rc": 0,
+      "stdout_bytes": 2405,
+      "stderr_bytes": 0
+    }
+  ],
+  "double_sha_equal": true,
+  "sources": [
+    {
+      "path": "integration/streamhouse-engine-oracle/pom.xml",
+      "sha256": "8edee3b015ee33cbe2c030c749eaeb5985932cfe7b56875be80c4122e7f78f5f"
+    },
+    {
+      "path": "integration/streamhouse-engine-oracle/src/main/java/com/streamhouse/engines/oracle/OracleBatchProjection.java",
+      "sha256": "495764c0a6d9779c836e4e26e26de0eccadcc6f2694b93b7c66d81868944e7fb"
+    },
+    {
+      "path": "lab/OracleTypedEvidenceProbe.java",
+      "sha256": "40f0ff39688ab677ba62831434c582592b5bada0c3d83dbdc391b90a9f962218"
+    },
+    {
+      "path": "lab/OracleLegacyDecodeResultProbe.java",
+      "sha256": "aecf0623ad377b0c38613c78c547b0c2baff91dd2ec61fded83ba07270e3a9cc"
+    },
+    {
+      "path": "lab/build_oracle_typed_evidence.py",
+      "sha256": "1e36988ced2fa728114f71dbb721dff1f35ab51bb6196574cde43da788e991fb"
+    },
+    {
+      "path": "lab/verify_oracle_typed_evidence.py",
+      "sha256": "7075c20a23147e2497b257fd83be771a5d3db168a47cc0ca535c4a1f143139d2"
+    },
+    {
+      "path": "lab/verify_typed_capacity.py",
+      "sha256": "1160f59e06b019e54fd88ace9afcb0374268261612bdea6995c91b964b1af38a"
+    },
+    {
+      "path": "lab/verify_legacy_typed_spi.py",
+      "sha256": "63ab3113ec864cc18c64b5d39d28501ef916a47fe005785120cdd24fe995cf8b"
+    },
+    {
+      "path": "lab/seal_oracle_typed_evidence.py",
+      "sha256": "09e447848871374b0ce28fd18c6bed7484d246c613d78981d84243934a5d4952"
+    }
+  ],
+  "product_sources": [
+    {
+      "path": "server/streamhouse-spi/src/main/java/com/streamhouse/spi/OracleBatchEvidence.java",
+      "sha256": "cdab9a967cf01719c6d29567c6950d084b0f6ed11cabe8af154231b23a7652f1"
+    },
+    {
+      "path": "server/streamhouse-spi/src/main/java/com/streamhouse/spi/CapDecoder.java",
+      "sha256": "0382be1cc418b528ab49623fdba361aecf1030a1ebcb1b2508e24fd3f74193f5"
+    },
+    {
+      "path": "server/streamhouse-pipeline/src/main/java/com/streamhouse/pipeline/service/DecodeBatchService.java",
+      "sha256": "c6d8461870ba42b70851587a8ff6029a9d90efb1be3314fe0a6060c59ea4be4c"
+    },
+    {
+      "path": "server/streamhouse-pipeline/src/main/java/com/streamhouse/pipeline/service/PipelineFacade.java",
+      "sha256": "7d4362f11abc00432e9f8dc7c69bbe9b8e7dc47032dedf6084715ca1cc7864bd"
+    },
+    {
+      "path": "server/streamhouse-pipeline/src/main/java/com/streamhouse/pipeline/service/PublishGateService.java",
+      "sha256": "ef355a4f89980dd0c3d7700b22edb6ff9a53a0f56ed4f3e4d2cd6f76a1a9668b"
+    }
+  ],
+  "prior_oracle_commit": "02c87a06cb0f9ab48175ffba1cec400e8cf563fa",
+  "independent_review": "PENDING",
+  "product_trusted_registry_accepted": false,
+  "public_oracle_decoder_enabled": false,
+  "deployment_site_release_accepted": false
+}

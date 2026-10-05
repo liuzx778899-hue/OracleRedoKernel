@@ -9,6 +9,7 @@ import com.streamhouse.oracle.OracleScalars;
 import com.streamhouse.oracle.RedoException;
 import com.streamhouse.oracle.TransactionLifecycle;
 import com.streamhouse.spi.EventEnvelope;
+import com.streamhouse.spi.OracleBatchEvidence;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -28,13 +29,16 @@ public final class OracleBatchProjection {
         private final ArchivedHeapRows.Source source;
         private final CapturedHeapBatch.Schema schema;
         private final List<Entry> entries;
-        private Batch(String inputBatchSha256,ArchivedHeapRows.Source source,CapturedHeapBatch.Schema schema,List<Entry> entries) {
+        private final OracleBatchEvidence evidence;
+        private Batch(String inputBatchSha256,ArchivedHeapRows.Source source,CapturedHeapBatch.Schema schema,List<Entry> entries,OracleBatchEvidence evidence) {
             this.inputBatchSha256=inputBatchSha256;this.source=source;this.schema=schema;this.entries=List.copyOf(entries);
+            this.evidence=evidence;
         }
         public String inputBatchSha256() {return inputBatchSha256;}
         public ArchivedHeapRows.Source source() {return source;}
         public CapturedHeapBatch.Schema schema() {return schema;}
         public List<Entry> entries() {return entries;}
+        public OracleBatchEvidence evidence() {return evidence;}
     }
     public static Batch project(CapturedHeapBatch input) throws RedoException {
         var entries=new ArrayList<Entry>();var ordinals=new HashMap<HeapRowPatch.Xid,Long>();
@@ -60,7 +64,28 @@ public final class OracleBatchProjection {
                     new EventEnvelope.Metadata("oracle-batch-sha256:"+input.sha256(),input.schema().sha256(),true,true));
             entries.add(new Entry(envelope,event.payloadSha256(),event.pairedUndoPosition(),event.transaction()));
         }
-        return new Batch(input.sha256(),input.source(),input.schema(),entries);
+        return new Batch(input.sha256(),input.source(),input.schema(),entries,evidence(input));
+    }
+    private static OracleBatchEvidence evidence(CapturedHeapBatch input) {
+        var s=input.source();var schema=input.schema();
+        var source=new OracleBatchEvidence.Source(s.dbid(),s.activationId(),s.compatibility(),s.thread(),
+                s.resetlogsId(),s.resetlogsScn(),s.containerUid(),s.containerId());
+        var captures=input.captures().stream().map(c->new OracleBatchEvidence.Capture(c.journalSha256(),
+                c.journalBytes(),c.capacityBlocks(),c.blocks(),c.sequence(),c.firstScn(),c.nextScn())).toList();
+        var heap=schema.heap();var index=schema.index();
+        var columns=schema.columns().stream().map(c->new OracleBatchEvidence.Column(c.segment(),c.internal(),
+                c.name(),c.type(),c.nullable(),c.hidden())).toList();
+        var events=input.events().stream().map(e->{
+            var t=e.transaction();var x=t.xid();var p=e.pairedUndoPosition();var k=e.rowKey();
+            return new OracleBatchEvidence.Event("oracle1:"+e.eventId(),e.payloadSha256(),
+                    new OracleBatchEvidence.Xid(x.usn(),x.slot(),x.sequence()),t.beginRecordScn(),t.endRecordScn(),
+                    t.rolledBack(),new OracleBatchEvidence.Position(p.archiveSequence(),p.block(),p.offset(),p.vector()),
+                    new OracleBatchEvidence.RowKey(k.dataObjectId(),k.dba(),k.slot()));
+        }).toList();
+        return new OracleBatchEvidence(source,captures,input.baselineSha256(),input.baselineScn(),schema.sha256(),
+                new OracleBatchEvidence.ObjectRef(heap.owner(),heap.name(),heap.logicalObject(),heap.dataObject()),
+                new OracleBatchEvidence.ObjectRef(index.owner(),index.name(),index.logicalObject(),index.dataObject()),
+                columns,input.leaf(),input.sha256(),events);
     }
     static Map<String,Object> image(List<FrozenHeapBaseline.PhysicalColumn> columns,List<ArchivedHeapRows.Cell> cells) throws RedoException {
         if (cells.isEmpty()) return null;
