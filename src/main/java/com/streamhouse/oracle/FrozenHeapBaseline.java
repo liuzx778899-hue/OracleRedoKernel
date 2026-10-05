@@ -19,8 +19,12 @@ public final class FrozenHeapBaseline {
     public record DictionaryAnchor(ObjectRole dictionary,long targetObject,ArchivedHeapRows.RowKey key) {}
     public record Snapshot(String sha256,ArchivedHeapRows.Source source,long scn,ObjectRole heap,ObjectRole index,
                            List<PhysicalColumn> columns,Map<ArchivedHeapRows.RowKey,List<ArchivedHeapRows.Cell>> rows,
-                           List<DictionaryAnchor> dictionaryAnchors) {
+                           List<DictionaryAnchor> dictionaryAnchors,DictionaryBaseline dictionaryBaseline) {
         public Snapshot { dictionaryAnchors=List.copyOf(dictionaryAnchors); }
+        public Snapshot(String sha256,ArchivedHeapRows.Source source,long scn,ObjectRole heap,ObjectRole index,
+                        List<PhysicalColumn> columns,Map<ArchivedHeapRows.RowKey,List<ArchivedHeapRows.Cell>> rows,List<DictionaryAnchor> dictionaryAnchors) {
+            this(sha256,source,scn,heap,index,columns,rows,dictionaryAnchors,null);
+        }
         public Snapshot(String sha256,ArchivedHeapRows.Source source,long scn,ObjectRole heap,ObjectRole index,
                         List<PhysicalColumn> columns,Map<ArchivedHeapRows.RowKey,List<ArchivedHeapRows.Cell>> rows) {
             this(sha256,source,scn,heap,index,columns,rows,List.of());
@@ -46,8 +50,9 @@ public final class FrozenHeapBaseline {
         for (byte b:bytes) if (b<0) throw new RedoException("UNSUPPORTED_SNAPSHOT_TEXT_ENCODING");
         try {
             var input=new Input(new String(bytes,StandardCharsets.US_ASCII));
-            boolean dictionary=!input.lines.isEmpty() && input.lines.get(0).equals("FORMAT|ORK_HEAP_SNAPSHOT_V2");
-            String format=dictionary ? "ORK_HEAP_SNAPSHOT_V2" : "ORK_HEAP_SNAPSHOT_V1";
+            boolean history=!input.lines.isEmpty() && input.lines.get(0).equals("FORMAT|ORK_HEAP_SNAPSHOT_V3");
+            boolean dictionary=history || (!input.lines.isEmpty() && input.lines.get(0).equals("FORMAT|ORK_HEAP_SNAPSHOT_V2"));
+            String format=history?"ORK_HEAP_SNAPSHOT_V3":dictionary ? "ORK_HEAP_SNAPSHOT_V2" : "ORK_HEAP_SNAPSHOT_V1";
             input.exact("FORMAT|"+format);
             var sourceFields=input.take("SOURCE",7);var pdb=input.take("PDB",4);identifier(pdb[3]);
             input.exact("CHARSET|AL32UTF8");long scn=positive(input.take("SNAPSHOT_SCN",2)[1]);
@@ -105,6 +110,16 @@ public final class FrozenHeapBaseline {
                 for(var c:columns) input.exact("DICT_COLUMN|"+c.internal()+"|"+c.segment()+"|"+c.name()+"|"
                         +(c.type().equals("NUMBER")?2:1)+"|"+(c.nullable()?0:2)+"|"+(c.hidden()?17179869216L:0));
             }
+            DictionaryBaseline dictionaryBaseline=null;
+            if(history) {
+                var frames=new ArrayList<String>();
+                while(input.at<input.lines.size()) {
+                    String frame=input.lines.get(input.at++);frames.add(frame);
+                    if(frame.startsWith("DICT_HISTORY_END|"))break;
+                }
+                dictionaryBaseline=DictionaryBaseline.read(frames,anchors);
+                dictionaryBaseline.requireMetadata(heap,index,columns);
+            }
             var rows=new HashMap<ArchivedHeapRows.RowKey,List<ArchivedHeapRows.Cell>>();
             while (input.peek("ROW")) {
                 var row=input.take("ROW",columns.size()+5);long dataObject=positive(row[1]),file=positive(row[2]),block=positive(row[3]);int slot=Integer.parseInt(row[4]);
@@ -125,9 +140,10 @@ public final class FrozenHeapBaseline {
                 throw new RedoException("SNAPSHOT_OBJECT_GENERATION_CHANGED_DURING_QUERY");
             for (var c:before) input.exact("COLUMN|AFTER|"+c);
             for(var dict:dictionaryRoles) input.exact("DICT_ROLE|AFTER|SYS|"+dict.name()+"|"+dict.logicalObject()+"|"+dict.dataObject());
+            if(history)for(var dict:dictionaryBaseline.indexes())input.exact("DICT_INDEX|AFTER|"+dict.role().name()+"|"+dict.role().logicalObject()+"|"+dict.role().dataObject()+"|"+dict.indexDba());
             input.exact("SOURCE_AFTER|"+String.join("|",java.util.Arrays.copyOfRange(sourceFields,1,sourceFields.length)));
             input.exact("END|"+format);if (input.at!=input.lines.size()) throw new RedoException("SNAPSHOT_UNEXPECTED_TRAILING_OUTPUT");
-            return new Snapshot(digest,source,scn,heap,index,List.copyOf(columns),Map.copyOf(rows),anchors);
+            return new Snapshot(digest,source,scn,heap,index,List.copyOf(columns),Map.copyOf(rows),anchors,dictionaryBaseline);
         } catch (IllegalArgumentException | ArithmeticException e) {throw new RedoException("MALFORMED_SNAPSHOT_FIELD");}
     }
     private static ObjectRole role(String[] fields,String phase) throws RedoException {
@@ -138,10 +154,10 @@ public final class FrozenHeapBaseline {
         if (!text.matches("[0-9]+")) throw new RedoException("MALFORMED_SNAPSHOT_NUMBER");
         long value=Long.parseLong(text);if (value<=0) throw new RedoException("NONPOSITIVE_SNAPSHOT_NUMBER");return value;
     }
-    private static void identifier(String text) throws RedoException {
+    static void identifier(String text) throws RedoException {
         if (!text.matches("[A-Z][A-Z0-9_$#]{0,127}")) throw new RedoException("UNSUPPORTED_SNAPSHOT_IDENTIFIER");
     }
-    private static final class Input {
+    static final class Input {
         final List<String> lines;int at;
         Input(String text) {lines=text.lines().map(String::strip).filter(s->!s.isEmpty()).toList();}
         boolean peek(String label) {return at<lines.size() && lines.get(at).startsWith(label+"|");}

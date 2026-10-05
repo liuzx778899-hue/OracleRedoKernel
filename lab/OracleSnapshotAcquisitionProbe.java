@@ -13,9 +13,9 @@ public class OracleSnapshotAcquisitionProbe {
         var connection=DriverManager.getConnection(secret.get(2),secret.get(0),secret.get(1));
         if(mode.equals("old-transaction"))connection.setAutoCommit(false);
         try {
-            boolean dictionary=mode.equals("dictionary-normal");
+            boolean history=mode.equals("history-normal"),dictionary=history || mode.equals("dictionary-normal");
             var acquirer=new OracleSnapshotAcquirer();
-            var acquired=dictionary?acquirer.acquireDictionaryBound(connection,scope,expected):acquirer.acquire(connection,scope,expected);
+            var acquired=history?acquirer.acquireHistoryBound(connection,scope,expected):dictionary?acquirer.acquireDictionaryBound(connection,scope,expected):acquirer.acquire(connection,scope,expected);
             if(!mode.equals("normal") && !dictionary)throw new AssertionError("NEGATIVE_ACQUISITION_ACCEPTED");
             if(!connection.isClosed())throw new AssertionError("CONNECTION_NOT_CLOSED");
             byte[] first=acquired.snapshot(),changed=acquired.snapshot();changed[0]=0;
@@ -23,9 +23,10 @@ public class OracleSnapshotAcquisitionProbe {
             Files.write(output,first);var snapshot=FrozenHeapBaseline.read(output,acquired.sha256());
             if(snapshot.scn()!=acquired.scn() || !snapshot.heap().owner().equals(scope.owner()) || !snapshot.heap().name().equals(scope.table()) || !snapshot.index().name().equals(scope.index()))throw new AssertionError("ACQUISITION_IMPORT_SCOPE_MISMATCH");
             if(dictionary && snapshot.dictionaryAnchors().size()!=snapshot.columns().size()+3)throw new AssertionError("DICTIONARY_ANCHOR_COVERAGE");
+            if(history && (snapshot.dictionaryBaseline()==null || snapshot.dictionaryBaseline().rows().size()!=snapshot.dictionaryAnchors().size() || snapshot.dictionaryBaseline().indexes().size()!=3))throw new AssertionError("FULL_DICTIONARY_COVERAGE");
             System.out.println("ACQUIRED|"+name+"|"+acquired.scn()+"|"+acquired.sha256()+"|"+snapshot.columns().size()+"|"+snapshot.rows().size()+"|"+snapshot.columns().stream().filter(FrozenHeapBaseline.PhysicalColumn::hidden).count());
         } catch(SQLException ex) {
-            if(mode.equals("normal") || mode.equals("dictionary-normal"))throw ex;
+            if(mode.equals("normal") || mode.equals("dictionary-normal") || mode.equals("history-normal"))throw ex;
             if(Files.exists(output) || !connection.isClosed())throw new AssertionError("PARTIAL_ACQUISITION_OR_OPEN_CONNECTION");
             System.out.println("REFUSED|"+name+"|"+mode+"|"+ex.getErrorCode()+"|"+ex.getMessage().replace('\n',' '));
         }

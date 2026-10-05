@@ -107,4 +107,11 @@ class OracleSnapshotAcquirerTest {
             assertTrue(closed[0]);
         }
     }
+    @Test void historyAcquisitionCannotReplaceMissingScnRoleEvidenceWithCurrentIdentity() {
+        boolean[] closed={false};
+        var ex=assertThrows(SQLException.class,()->new OracleSnapshotAcquirer().acquireHistoryBound(
+                dictionaryConnection(closed,sql->sql.startsWith("select obj#||")?List.of():dictionaryRows(sql)),
+                new OracleSnapshotAcquirer.Scope("ORKLAB","T","I"),source));
+        assertEquals("DICTIONARY_ROLE_SCN_MISMATCH",ex.getMessage());assertTrue(closed[0]);
+    }
 }

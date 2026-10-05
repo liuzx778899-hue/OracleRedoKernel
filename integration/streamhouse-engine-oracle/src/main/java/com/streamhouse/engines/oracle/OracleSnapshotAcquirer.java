@@ -50,16 +50,21 @@ public final class OracleSnapshotAcquirer {
     }
     /** Owns/closes a fresh source connection. No credentials, SQL truth, dump or mutable receipt is accepted as approval. */
     public Acquisition acquire(Connection fresh,Scope scope,OracleBatchEvidence.Source expected) throws Exception {
-        return acquire(fresh,scope,expected,false);
+        return acquire(fresh,scope,expected,0);
     }
     /** Same-SCN SYS anchors from this source connection, not an externally supplied dictionary receipt. */
     public Acquisition acquireDictionaryBound(Connection fresh,Scope scope,OracleBatchEvidence.Source expected) throws Exception {
-        return acquire(fresh,scope,expected,true);
+        return acquire(fresh,scope,expected,1);
+    }
+    /** Complete same-SCN SYS rows/layout/index identities; publication still requires raw historical replay. */
+    public Acquisition acquireHistoryBound(Connection fresh,Scope scope,OracleBatchEvidence.Source expected) throws Exception {
+        return acquire(fresh,scope,expected,2);
     }
     private static String dictionaryRole(Connection c,String name) throws SQLException {
         return one(c,"select owner||'|'||object_name||'|'||object_id||'|'||data_object_id from dba_objects where owner='SYS' and object_name='"+name+"' and object_type='TABLE'");
     }
-    private Acquisition acquire(Connection fresh,Scope scope,OracleBatchEvidence.Source expected,boolean dictionary) throws Exception {
+    private Acquisition acquire(Connection fresh,Scope scope,OracleBatchEvidence.Source expected,int version) throws Exception {
+        boolean dictionary=version>0,history=version==2;
         try(var c=fresh) {
             if(!c.getAutoCommit())throw new SQLException("SNAPSHOT_FRESH_CONNECTION_REQUIRED");
             if(expected==null || expected.compatibility()!=0x13000000L)throw new SQLException("SNAPSHOT_EXPECTED_SOURCE_REQUIRED");
@@ -87,7 +92,7 @@ public final class OracleSnapshotAcquirer {
             String count=one(c,"select count(*) from "+table+" as of scn "+scn);
             if(!count.equals(Integer.toString(rows.size())) || !heap.equals(role(c,scope,scope.table(),"TABLE")) || !index.equals(role(c,scope,scope.index(),"INDEX"))
                     || !before.equals(columns(c,scope)) || !src.equals(source(c)) || !container.equals(pdb(c)))throw new SQLException("SNAPSHOT_ACQUISITION_CHANGED");
-            var roles=new ArrayList<String>();var dictionaryFrames=new ArrayList<String>();
+            var roles=new ArrayList<String>();var dictionaryFrames=new ArrayList<String>();OracleDictionaryAcquisition.Result historical=null;
             if(dictionary) {
                 long heapId=Long.parseLong(heap.split("\\|")[2]),indexId=Long.parseLong(index.split("\\|")[2]);
                 for(String name:List.of("OBJ$","TAB$","COL$")) {
@@ -104,11 +109,15 @@ public final class OracleSnapshotAcquirer {
                 }
                 if(!historicalColumns.equals(wantedColumns))throw new SQLException("SNAPSHOT_HISTORICAL_COLUMNS_MISMATCH");
                 dictionaryFrames.addAll(historicalColumns);
+                if(history) {
+                    historical=OracleDictionaryAcquisition.acquire(c,scn,roles,dictionaryFrames.stream().filter(f->f.startsWith("DICT_ANCHOR|")).toList());
+                    dictionaryFrames.addAll(historical.frames());
+                }
                 for(int i=0;i<roles.size();i++)if(!roles.get(i).equals(dictionaryRole(c,List.of("OBJ$","TAB$","COL$").get(i))))throw new SQLException("SNAPSHOT_DICTIONARY_ROLE_CHANGED");
                 if(!heap.equals(role(c,scope,scope.table(),"TABLE")) || !index.equals(role(c,scope,scope.index(),"INDEX"))
                         || !before.equals(columns(c,scope)) || !src.equals(source(c)) || !container.equals(pdb(c)))throw new SQLException("SNAPSHOT_DICTIONARY_ACQUISITION_CHANGED");
             }
-            String format=dictionary?"ORK_HEAP_SNAPSHOT_V2":"ORK_HEAP_SNAPSHOT_V1";
+            String format=history?"ORK_HEAP_SNAPSHOT_V3":dictionary?"ORK_HEAP_SNAPSHOT_V2":"ORK_HEAP_SNAPSHOT_V1";
             var out=new StringBuilder("FORMAT|").append(format).append("\nSOURCE|").append(src).append("\nPDB|").append(container).append("\nCHARSET|AL32UTF8\nSNAPSHOT_SCN|").append(scn).append('\n');
             out.append("HEAP|BEFORE|").append(heap).append("\nINDEX|BEFORE|").append(index).append('\n');
             for(String col:before)out.append("COLUMN|BEFORE|").append(col).append('\n');
@@ -118,6 +127,7 @@ public final class OracleSnapshotAcquirer {
             out.append("ROW_COUNT|").append(count).append("\nHEAP|AFTER|").append(heap).append("\nINDEX|AFTER|").append(index).append('\n');
             for(String col:before)out.append("COLUMN|AFTER|").append(col).append('\n');
             for(String dict:roles)out.append("DICT_ROLE|AFTER|").append(dict).append('\n');
+            if(history)for(String frame:historical.after())out.append(frame).append('\n');
             out.append("SOURCE_AFTER|").append(src).append("\nEND|").append(format).append('\n');
             return new Acquisition(out.toString().getBytes(StandardCharsets.US_ASCII),scn);
         }
