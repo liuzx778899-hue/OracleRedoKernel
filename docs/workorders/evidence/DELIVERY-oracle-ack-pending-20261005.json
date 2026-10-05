@@ -1,0 +1,38 @@
+{
+  "build": {
+    "commit": "dc185655c0eb01d746fc4b4a7a8f1130b8ebfebf",
+    "tests": {
+      "tests": 728,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "app_sha256": "a05e5c65755149b048125803c0445efc13cea39aff803ad02778a055706da95e",
+    "kernel_tests_rerun": false
+  },
+  "proof": {
+    "actual_http_initial_and_empty_queue_ack_failures": 2,
+    "published_count_preserved": true,
+    "task_failed_until_ack_recovered": true,
+    "healthy_recovery_and_done_repeat": true,
+    "new_batch_count": 1,
+    "target_events": 3,
+    "all_target_intermediate_images_and_checkpoint_ack_zero_differences": true,
+    "ack_sha256": "cf55de5a8c395164642cb77d29fb70daef725ce1609b09b131d6a984f9e4d977",
+    "comparator_refusals": [
+      "false-unpublished",
+      "false-done",
+      "wrong-source"
+    ],
+    "source_actions_replayed": false,
+    "site_accepted": false,
+    "release_accepted": false
+  },
+  "seal_files": 125,
+  "seal_sha256": "c8020fff28407c85ec2704e7ca5e311fb24ace8680c304a26ad80d5f536c12dd",
+  "review": "PENDING",
+  "deployment": "OWNED_LAB_ONLY",
+  "site": "NOT_VERIFIED",
+  "release": "NOT_STARTED",
+  "pull_request": "https://github.com/liuzx778899-hue/StreamHouse/pull/9"
+}
