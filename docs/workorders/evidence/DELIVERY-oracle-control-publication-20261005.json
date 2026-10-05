@@ -1,0 +1,30 @@
+{
+  "product_commit": "24ae9e036fcf7a854a3e54e4c21f537d62c1cc85",
+  "tests": {
+    "tests": 711,
+    "errors": 0,
+    "failures": 0,
+    "skipped": 0
+  },
+  "matrix_cases": 24,
+  "audit": {
+    "real_select_exports": 24,
+    "all_control_and_checkpoint_fields_zero_differences": true,
+    "comparator_refusals": [
+      "ledger-source",
+      "checkpoint-source",
+      "receipt-count"
+    ],
+    "facade_accepted": false,
+    "site_accepted": false
+  },
+  "concurrency": "two threads, same JVM, real database source lock",
+  "facade_accepted": false,
+  "ack_accepted": false,
+  "independent_review": "PENDING",
+  "excluded": "secret filenames and m2; private evidence remains ignored",
+  "local_seal_path": "lab/out/oracle-control-publication-20261005/seal.json",
+  "local_seal_sha256": "a123f428fb95b8373f95f9405c8d63c76a7d000e74e9be69afa5022b18ffb73d",
+  "file_count": 205,
+  "matrix_proof_sha256": "31a69ce5aa400eb3e3f6bf8bfe4d38c5ba948876e14653a1f941c2d011ff2a31"
+}

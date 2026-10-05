@@ -18,6 +18,9 @@
 
 ## 当前证据
 
+最新：[控制事务与独立核验](DELIVERY_W6_CONTROL_PUBLICATION_20261005.md)。产品完整代码树24ae9e0/711项0失败0错误0跳过；三库NEW/UPG四组24项实际checkpoint SQL后故障全回滚、真实来源锁双线程单次发布及重复0通过；纯JDBC独立查询24组账本/状态/完整CP/目标凭证零差异，三比较反例拒绝。205文件双SHA；首次编译/审计依赖失败保全，仅补失败，无源业务/配置/既有目标变化。完整Facade、控制提交后ACK、跨进程恢复、独立目标实例/生产字典待证；独立评审PENDING，现场/发布未通过，goal active。
+
+
 最新：[实际commit后核验失败窗口](DELIVERY_W6_POSTCOMMIT_PROOF_20261005.md)。复用8de94aae adapter/16不重跑，四新专属目标首次应用2/2/3/0；实际commit后查询不可用均rc1/stdout0，无CP/tmp/ACK，恢复/重复0且全target快照不变；独立中间像/成员/凭证/CP/ACK四组零差异，三比较反例检出。空批比较器错切片失败保全，只补只读比较；源业务/NO/NO/原旧表不变，helpers退出。完整产品Facade控制事务/并发/独立目标实例待证，现场发布未通过，goal active。
 
 最新：[独立只读commit核验](DELIVERY_W6_READONLY_COMMIT_PROOF_20261005.md)。adapter实现2d03896/16测试；一条SELECT一致性视图验证真实target/source/schema/batch/成员/完整像。四冻结组2/2/3/0通过、44查询结果篡改拒绝，四已发布CP/ACK缺commit拒绝且原字节保持，健康恢复/重复零DML、实际目标快照不变。首轮新目录反例编排失败保全；产品Facade及新apply后核验失败窗口仍待证，公开gate拒绝，goal active。
