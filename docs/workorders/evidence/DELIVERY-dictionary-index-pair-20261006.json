@@ -1,0 +1,1299 @@
+{
+  "files_count": 204,
+  "double_sha256_verified": true,
+  "previous_169_unchanged": true,
+  "kernel_code_commit": "646841d",
+  "tests": [
+    286,
+    0,
+    0,
+    0
+  ],
+  "proof": {
+    "kernel_sha256": "c8586fcb25ff60296f020b5d627cec58ee522182feead245469386b38e1f3292",
+    "pairs": [
+      {
+        "position": [
+          66,
+          6708,
+          104,
+          1
+        ],
+        "xid": "10.18.2272",
+        "index": "I_COL1",
+        "parent_object": 75185,
+        "row_dba": 4229540,
+        "row_slot": 51,
+        "native_key_rowid_differences": 0
+      },
+      {
+        "position": [
+          66,
+          6709,
+          16,
+          1
+        ],
+        "xid": "10.18.2272",
+        "index": "I_COL2",
+        "parent_object": 75185,
+        "row_dba": 4229540,
+        "row_slot": 51,
+        "native_key_rowid_differences": 0
+      },
+      {
+        "position": [
+          66,
+          6709,
+          284,
+          1
+        ],
+        "xid": "10.18.2272",
+        "index": "I_COL3",
+        "parent_object": 75185,
+        "row_dba": 4229540,
+        "row_slot": 51,
+        "native_key_rowid_differences": 0
+      },
+      {
+        "position": [
+          66,
+          6714,
+          64,
+          1
+        ],
+        "xid": "3.30.705",
+        "index": "I_COL1",
+        "parent_object": 75185,
+        "row_dba": 4229540,
+        "row_slot": 51,
+        "native_key_rowid_differences": 0
+      },
+      {
+        "position": [
+          66,
+          6714,
+          344,
+          1
+        ],
+        "xid": "3.30.705",
+        "index": "I_COL1",
+        "parent_object": 75185,
+        "row_dba": 4229540,
+        "row_slot": 51,
+        "native_key_rowid_differences": 0
+      },
+      {
+        "position": [
+          66,
+          6718,
+          260,
+          1
+        ],
+        "xid": "3.30.705",
+        "index": "I_COL2",
+        "parent_object": 75185,
+        "row_dba": 4229540,
+        "row_slot": 51,
+        "native_key_rowid_differences": 0
+      },
+      {
+        "position": [
+          66,
+          6719,
+          16,
+          1
+        ],
+        "xid": "3.30.705",
+        "index": "I_COL2",
+        "parent_object": 75185,
+        "row_dba": 4229540,
+        "row_slot": 51,
+        "native_key_rowid_differences": 0
+      },
+      {
+        "position": [
+          67,
+          7,
+          256,
+          1
+        ],
+        "xid": "3.26.705",
+        "index": "I_COL1",
+        "parent_object": 75185,
+        "row_dba": 4229540,
+        "row_slot": 51,
+        "native_key_rowid_differences": 0
+      },
+      {
+        "position": [
+          67,
+          8,
+          108,
+          1
+        ],
+        "xid": "3.26.705",
+        "index": "I_COL2",
+        "parent_object": 75185,
+        "row_dba": 4229540,
+        "row_slot": 51,
+        "native_key_rowid_differences": 0
+      },
+      {
+        "position": [
+          67,
+          8,
+          448,
+          1
+        ],
+        "xid": "3.26.705",
+        "index": "I_COL3",
+        "parent_object": 75185,
+        "row_dba": 4229540,
+        "row_slot": 51,
+        "native_key_rowid_differences": 0
+      }
+    ],
+    "faults": [
+      {
+        "name": "mismatched-key",
+        "structure_rc": 0,
+        "pair_rc": 1,
+        "events": 0,
+        "reason": "Exception in thread \"main\" com.streamhouse.oracle.RedoException: INDEX_UNDO_OPERATION_BLOCK_ITL_XID_OR_KEY_MISMATCH"
+      },
+      {
+        "name": "bad-component",
+        "structure_rc": 0,
+        "pair_rc": 1,
+        "events": 0,
+        "reason": "Exception in thread \"main\" com.streamhouse.oracle.RedoException: UNSUPPORTED_DICTIONARY_INDEX_COMPONENT"
+      },
+      {
+        "name": "short-rowid",
+        "structure_rc": 0,
+        "pair_rc": 1,
+        "events": 0,
+        "reason": "Exception in thread \"main\" com.streamhouse.oracle.RedoException: UNSUPPORTED_DICTIONARY_INDEX_ROWID_STORAGE"
+      },
+      {
+        "name": "wrong-current-UBA",
+        "structure_rc": 0,
+        "pair_rc": 1,
+        "events": 0,
+        "reason": "Exception in thread \"main\" com.streamhouse.oracle.RedoException: MISSING_INDEX_UNDO_UBA"
+      },
+      {
+        "name": "wrong-current-full-XID",
+        "structure_rc": 0,
+        "pair_rc": 1,
+        "events": 0,
+        "reason": "Exception in thread \"main\" com.streamhouse.oracle.RedoException: INDEX_UNDO_OPERATION_BLOCK_ITL_XID_OR_KEY_MISMATCH"
+      },
+      {
+        "name": "wrong-logical",
+        "structure_rc": 0,
+        "pair_rc": 1,
+        "events": 0,
+        "reason": "Exception in thread \"main\" com.streamhouse.oracle.RedoException: DICTIONARY_INDEX_GENERATION_OR_INDEX_DBA_MISMATCH"
+      },
+      {
+        "name": "wrong-generation",
+        "structure_rc": 0,
+        "pair_rc": 1,
+        "events": 0,
+        "reason": "Exception in thread \"main\" com.streamhouse.oracle.RedoException: DICTIONARY_INDEX_GENERATION_OR_INDEX_DBA_MISMATCH"
+      },
+      {
+        "name": "wrong-index-address",
+        "structure_rc": 0,
+        "pair_rc": 1,
+        "events": 0,
+        "reason": "Exception in thread \"main\" com.streamhouse.oracle.RedoException: DICTIONARY_INDEX_GENERATION_OR_INDEX_DBA_MISMATCH"
+      },
+      {
+        "name": "wrong-row-size",
+        "structure_rc": 0,
+        "pair_rc": 1,
+        "events": 0,
+        "reason": "Exception in thread \"main\" com.streamhouse.oracle.RedoException: INDEX_LEAF_ROW_SIZE_MISMATCH"
+      },
+      {
+        "name": "wrong-container",
+        "structure_rc": 0,
+        "pair_rc": 1,
+        "events": 0,
+        "reason": "Exception in thread \"main\" com.streamhouse.oracle.RedoException: RESEARCH_DICTIONARY_INDEX_PAIR_COVERAGE"
+      },
+      {
+        "name": "wrong-wrap",
+        "structure_rc": 0,
+        "pair_rc": 1,
+        "events": 0,
+        "reason": "Exception in thread \"main\" com.streamhouse.oracle.RedoException: UNDO_INVENTORY_METADATA_LINK_MISMATCH"
+      },
+      {
+        "name": "missing-forward",
+        "structure_rc": 0,
+        "pair_rc": 1,
+        "events": 0,
+        "reason": "Exception in thread \"main\" com.streamhouse.oracle.RedoException: RESEARCH_DICTIONARY_INDEX_PAIR_COVERAGE"
+      }
+    ],
+    "source_actions": 0,
+    "events": 0,
+    "index_scope_is_research_only": true,
+    "parent_history_authority": false,
+    "V3_acquisition": false,
+    "product_rebuilt": false
+  },
+  "impact": {
+    "cases": [
+      {
+        "name": "implicit-tail-complete-batch",
+        "rc": 0,
+        "complete_events": 3,
+        "output_byte_equal": true
+      },
+      {
+        "name": "actual-v2-batch",
+        "rc": 1,
+        "events": 0,
+        "reason": "Exception in thread \"main\" com.streamhouse.oracle.RedoException: TARGET_DICTIONARY_WRITE_REQUIRES_HISTORY:scn=2522903:object=75185"
+      },
+      {
+        "name": "erased-v2-batch",
+        "rc": 1,
+        "events": 0,
+        "reason": "Exception in thread \"main\" com.streamhouse.oracle.RedoException: TARGET_DICTIONARY_WRITE_REQUIRES_HISTORY:scn=2522903:object=75185"
+      }
+    ],
+    "source_actions": 0,
+    "target_actions": 0,
+    "product_rebuilt": false
+  },
+  "source_actions": 0,
+  "target_actions": 0,
+  "product_rebuilt": false,
+  "files": [
+    {
+      "path": "lab/out/dictionary-index-pair-20261006/bad-component-pair.command.json",
+      "bytes": 704,
+      "sha256": "4bca437dab702cd735c2a80bb7058289f90e2e2c55c51bff72e835e2df128603"
+    },
+    {
+      "path": "lab/out/dictionary-index-pair-20261006/bad-component-pair.rc.txt",
+      "bytes": 1,
+      "sha256": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b"
+    },
+    {
+      "path": "lab/out/dictionary-index-pair-20261006/bad-component-pair.stderr.txt",
+      "bytes": 887,
+      "sha256": "8b1a7f28148dd371331169123900754777a7688772a89befb182d0eb8585b4cc"
+    },
+    {
+      "path": "lab/out/dictionary-index-pair-20261006/bad-component-pair.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/dictionary-index-pair-20261006/bad-component-scan.command.json",
+      "bytes": 292,
+      "sha256": "4ebda09e8fc7097dc83a6787991c5463ee52cb03b7e0407a1dc35a2ffa0c1c29"
+    },
+    {
+      "path": "lab/out/dictionary-index-pair-20261006/bad-component-scan.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/dictionary-index-pair-20261006/bad-component-scan.stderr.txt",
+      "bytes": 280,
+      "sha256": "46328f29f2800b61324a889e68e7db32d25934ccbd21ef1f27bdf2b5ad257271"
+    },
+    {
+      "path": "lab/out/dictionary-index-pair-20261006/bad-component-scan.stdout.txt",
+      "bytes": 22,
+      "sha256": "43b4733169d6e007aeb99a8ddd34a5c1c256dd2d71bd958ddcc72f09a9cae4e9"
+    },
+    {
+      "path": "lab/out/dictionary-index-pair-20261006/classes/DictionaryIndexPairsProbe$Scope.class",
+      "bytes": 1642,
+      "sha256": "e7e7c043c06613ba5731b03f8d1bef09d3f9bf703ecced1acf1e37d60f91c267"
+    },
+    {
+      "path": "lab/out/dictionary-index-pair-20261006/classes/DictionaryIndexPairsProbe.class",
+      "bytes": 9722,
+      "sha256": "8479077426a65d6e6b7bdc82ba185a6dbd2a9b87506a204acae2a4c428aa4416"
+    },
+    {
+      "path": "lab/out/dictionary-index-pair-20261006/compile.command.json",
+      "bytes": 338,
+      "sha256": "1b835859e01dfc703cc5d4679152c7c7216495ad2497801c77390f730e18f4c4"
+    },
+    {
+      "path": "lab/out/dictionary-index-pair-20261006/compile.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/dictionary-index-pair-20261006/compile.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/dictionary-index-pair-20261006/compile.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/dictionary-index-pair-20261006/DERIVED-bad-component.dbf",
+      "bytes": 3446272,
+      "sha256": "13aa73adf3ceddfef8fef960acfee2342f653b539c8d7632745063f158bd7cb3"
+    },
+    {
+      "path": "lab/out/dictionary-index-pair-20261006/DERIVED-mismatched-key.dbf",
+      "bytes": 3446272,
+      "sha256": "95e71d8cf42b8877e4bee26f1ccf98589fac27d517e5c284221902d047b4970f"
+    },
+    {
+      "path": "lab/out/dictionary-index-pair-20261006/DERIVED-missing-forward.dbf",
+      "bytes": 3446272,
+      "sha256": "daf08d9b18453efd0d465be31c20d345bc9f4dcb27c34b7dabf15fef4f4fadce"
+    },
+    {
+      "path": "lab/out/dictionary-index-pair-20261006/DERIVED-short-rowid.dbf",
+      "bytes": 3446272,
+      "sha256": "4bbf785f216c3c091f68d24ac3920c25b9c94e121ce32a6b3b7b16f4c37adfcd"
+    },
+    {
+      "path": "lab/out/dictionary-index-pair-20261006/DERIVED-wrong-container.dbf",
+      "bytes": 3446272,
+      "sha256": "db62c7e377a6bc724d5026923cbf53a704f196658beaacd1a3817d8110803be1"
+    },
+    {
+      "path": "lab/out/dictionary-index-pair-20261006/DERIVED-wrong-current-full-XID.dbf",
+      "bytes": 3446272,
+      "sha256": "353d9fc2ef32614a2a151f411c136199cc6fee7d87a6fedc98befc48bbd1dcba"
+    },
+    {
+      "path": "lab/out/dictionary-index-pair-20261006/DERIVED-wrong-current-UBA.dbf",
+      "bytes": 3446272,
+      "sha256": "4d13c7812d5c2539b908d8cb1f731a4acaa5f6cbe527b189c83e386a28caa7fe"
+    },
+    {
+      "path": "lab/out/dictionary-index-pair-20261006/DERIVED-wrong-generation.dbf",
+      "bytes": 3446272,
+      "sha256": "689e803b19b01566e31a80b2ec3a05031172447fe5d763ebe2b14afec274164a"
+    },
+    {
+      "path": "lab/out/dictionary-index-pair-20261006/DERIVED-wrong-index-address.dbf",
+      "bytes": 3446272,
+      "sha256": "7174ab621b1f85758d83fabc4369a6fb15f4434fdff7160080a5e2a817ea8831"
+    },
+    {
+      "path": "lab/out/dictionary-index-pair-20261006/DERIVED-wrong-logical.dbf",
+      "bytes": 3446272,
+      "sha256": "e8fcfcc7a3ee9eb22af944262d67d22ea0bda7996d6dd2f2f4dd6d60754b1e7d"
+    },
+    {
+      "path": "lab/out/dictionary-index-pair-20261006/DERIVED-wrong-row-size.dbf",
+      "bytes": 3446272,
+      "sha256": "8e575fcfc2731170ca61d78663ede9019a149f61e348bc77fe43e39cbd49f5ff"
+    },
+    {
+      "path": "lab/out/dictionary-index-pair-20261006/DERIVED-wrong-wrap.dbf",
+      "bytes": 3446272,
+      "sha256": "9c5709152eb44ce2b9627b6b1d8feb4b1e759eaec6bd0ae9b2b1375760849aff"
+    },
+    {
+      "path": "lab/out/dictionary-index-pair-20261006/executed-driver.py",
+      "bytes": 5944,
+      "sha256": "ed1a2b980574af2103b3c930d325ea80974de552b5bad9a6d8d2f061e2f568b9"
+    },
+    {
+      "path": "lab/out/dictionary-index-pair-20261006/executed-impact-driver.py",
+      "bytes": 1634,
+      "sha256": "95df02f31713616156049b3fe1726e254b8bf9c5963db00afce77ed6e64c9be8"
+    },
+    {
+      "path": "lab/out/dictionary-index-pair-20261006/execution-pin.json",
+      "bytes": 1335,
+      "sha256": "035d55633ded413079037efafa5bed87a99352cb3a0a793169345414f54c6342"
+    },
+    {
+      "path": "lab/out/dictionary-index-pair-20261006/full-build-r1.log",
+      "bytes": 11220,
+      "sha256": "0ce21b5a5f5dd4913b12bb0e050caf3c8d6b796ea354b2110e48604404ab0ddf"
+    },
+    {
+      "path": "lab/out/dictionary-index-pair-20261006/full-build-r1.rc.txt",
+      "bytes": 3,
+      "sha256": "13bf7b3039c63bf5a50491fa3cfd8eb4e699d1ba1436315aef9cbe5711530354"
+    },
+    {
+      "path": "lab/out/dictionary-index-pair-20261006/impact-actual-v2-batch.command.json",
+      "bytes": 831,
+      "sha256": "26776e195fa83f437c73513c793c595282d0c8b94ff3bc311224c91a1dc671c5"
+    },
+    {
+      "path": "lab/out/dictionary-index-pair-20261006/impact-actual-v2-batch.rc.txt",
+      "bytes": 1,
+      "sha256": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b"
+    },
+    {
+      "path": "lab/out/dictionary-index-pair-20261006/impact-actual-v2-batch.stderr.txt",
+      "bytes": 879,
+      "sha256": "5f0a59718c15a231fa883e225f7f5f03c99679921c795c92faf7f7247e682081"
+    },
+    {
+      "path": "lab/out/dictionary-index-pair-20261006/impact-actual-v2-batch.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/dictionary-index-pair-20261006/impact-erased-v2-batch.command.json",
+      "bytes": 809,
+      "sha256": "2bf1471587c55e0b9e6847b3b9addc3314ef9ec12c37ac9bcd2a7c20e6de6061"
+    },
+    {
+      "path": "lab/out/dictionary-index-pair-20261006/impact-erased-v2-batch.rc.txt",
+      "bytes": 1,
+      "sha256": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b"
+    },
+    {
+      "path": "lab/out/dictionary-index-pair-20261006/impact-erased-v2-batch.stderr.txt",
+      "bytes": 879,
+      "sha256": "5f0a59718c15a231fa883e225f7f5f03c99679921c795c92faf7f7247e682081"
+    },
+    {
+      "path": "lab/out/dictionary-index-pair-20261006/impact-erased-v2-batch.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/dictionary-index-pair-20261006/impact-implicit-tail-complete-batch.command.json",
+      "bytes": 972,
+      "sha256": "09a6e6078e255ea7e1889bbcf07415d0bbfeca1f957ac36baccf092ace8f00a2"
+    },
+    {
+      "path": "lab/out/dictionary-index-pair-20261006/impact-implicit-tail-complete-batch.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/dictionary-index-pair-20261006/impact-implicit-tail-complete-batch.stderr.txt",
+      "bytes": 92,
+      "sha256": "6533aac2d8b7e5c04cab91a8b3b2a79346fedbe8129383fddb9d6cf67d9cc37e"
+    },
+    {
+      "path": "lab/out/dictionary-index-pair-20261006/impact-implicit-tail-complete-batch.stdout.txt",
+      "bytes": 1628,
+      "sha256": "125a0d0c9704821ef44e3742ea64d62bfa49c51b21bfa1ba3fae589a8ae8a057"
+    },
+    {
+      "path": "lab/out/dictionary-index-pair-20261006/impact-proof.json",
+      "bytes": 713,
+      "sha256": "81cb21459b1296c35462540d04446889f789c81f18f9af780d871d76724c1cb5"
+    },
+    {
+      "path": "lab/out/dictionary-index-pair-20261006/independent-index-address.command.json",
+      "bytes": 90,
+      "sha256": "6095ca5a9605c02acb9b77ba5ea4d19487ab938e2e51045704dedb495bc394d5"
+    },
+    {
+      "path": "lab/out/dictionary-index-pair-20261006/independent-index-address.execution-pin.json",
+      "bytes": 117,
+      "sha256": "bf666e77c9abf025e40051172cc88736a51c7a651e36e1c812ef0a7fc2f77286"
+    },
+    {
+      "path": "lab/out/dictionary-index-pair-20261006/independent-index-address.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/dictionary-index-pair-20261006/independent-index-address.sql",
+      "bytes": 374,
+      "sha256": "92b4b4bee6896c3b29c47bcffd80088bac4770f8d9a5674b225723fc72ad8d98"
+    },
+    {
+      "path": "lab/out/dictionary-index-pair-20261006/independent-index-address.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/dictionary-index-pair-20261006/independent-index-address.stdout.txt",
+      "bytes": 93,
+      "sha256": "61481b081b7f1da883f719de63731e73bff2e92174e1ca2b1ea3a581b81b2c4c"
+    },
+    {
+      "path": "lab/out/dictionary-index-pair-20261006/kernel.jar",
+      "bytes": 217785,
+      "sha256": "c8586fcb25ff60296f020b5d627cec58ee522182feead245469386b38e1f3292"
+    },
+    {
+      "path": "lab/out/dictionary-index-pair-20261006/mismatched-key-pair.command.json",
+      "bytes": 705,
+      "sha256": "9fca16d29e7e7a8e8e15775ee537e526610f9a25fe059918886cbc1d036aeaef"
+    },
+    {
+      "path": "lab/out/dictionary-index-pair-20261006/mismatched-key-pair.rc.txt",
+      "bytes": 1,
+      "sha256": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b"
+    },
+    {
+      "path": "lab/out/dictionary-index-pair-20261006/mismatched-key-pair.stderr.txt",
+      "bytes": 643,
+      "sha256": "203dcbf235426f29e63ee020761ead50715d74cf112527b52111dc62a9c978d5"
+    },
+    {
+      "path": "lab/out/dictionary-index-pair-20261006/mismatched-key-pair.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/dictionary-index-pair-20261006/mismatched-key-scan.command.json",
+      "bytes": 293,
+      "sha256": "35b32f22e3616d880dcf3718edcd8158d437c5e9ad6a4f5a214cb53e6b277e40"
+    },
+    {
+      "path": "lab/out/dictionary-index-pair-20261006/mismatched-key-scan.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/dictionary-index-pair-20261006/mismatched-key-scan.stderr.txt",
+      "bytes": 280,
+      "sha256": "81e0f7482d3be53dd24258134d07433c6e370dfca30a11720f415a23a0627e12"
+    },
+    {
+      "path": "lab/out/dictionary-index-pair-20261006/mismatched-key-scan.stdout.txt",
+      "bytes": 22,
+      "sha256": "43b4733169d6e007aeb99a8ddd34a5c1c256dd2d71bd958ddcc72f09a9cae4e9"
+    },
+    {
+      "path": "lab/out/dictionary-index-pair-20261006/missing-forward-pair.command.json",
+      "bytes": 706,
+      "sha256": "4e251adf43d2a7f5cd2a65f82d07ec44196c8531a2472865f8db9cdc78a1a975"
+    },
+    {
+      "path": "lab/out/dictionary-index-pair-20261006/missing-forward-pair.rc.txt",
+      "bytes": 1,
+      "sha256": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b"
+    },
+    {
+      "path": "lab/out/dictionary-index-pair-20261006/missing-forward-pair.stderr.txt",
+      "bytes": 391,
+      "sha256": "17dfe1265af1d3c5d17b8e91e2de43279f980a8c4727e712e699da7787522469"
+    },
+    {
+      "path": "lab/out/dictionary-index-pair-20261006/missing-forward-pair.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/dictionary-index-pair-20261006/missing-forward-scan.command.json",
+      "bytes": 294,
+      "sha256": "0e8f0a9f49fda4eb263bc2ed3647156e6098c9c5daa393de508fb33bd4879877"
+    },
+    {
+      "path": "lab/out/dictionary-index-pair-20261006/missing-forward-scan.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/dictionary-index-pair-20261006/missing-forward-scan.stderr.txt",
+      "bytes": 280,
+      "sha256": "8ce7e2a04572d5b49755055fd3c8fd83aaaee04c9de2ab50ddb23bb09128f605"
+    },
+    {
+      "path": "lab/out/dictionary-index-pair-20261006/missing-forward-scan.stdout.txt",
+      "bytes": 22,
+      "sha256": "43b4733169d6e007aeb99a8ddd34a5c1c256dd2d71bd958ddcc72f09a9cae4e9"
+    },
+    {
+      "path": "lab/out/dictionary-index-pair-20261006/pair-66-10.18.2272.command.json",
+      "bytes": 693,
+      "sha256": "6c2be638439efc6bc5dd3f6b84b263395e6fc401d5d3cfa0a81724e0b7ec19c1"
+    },
+    {
+      "path": "lab/out/dictionary-index-pair-20261006/pair-66-10.18.2272.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/dictionary-index-pair-20261006/pair-66-10.18.2272.stderr.txt",
+      "bytes": 91,
+      "sha256": "eb5e804ed1b474ee9caa3c7113380fe431a57da566fdd31096c4f3038feebd45"
+    },
+    {
+      "path": "lab/out/dictionary-index-pair-20261006/pair-66-10.18.2272.stdout.txt",
+      "bytes": 515,
+      "sha256": "783d04771aee8ae191290fe2ee16c1c0c9c6b05e3df00870a2748ec5155fb23c"
+    },
+    {
+      "path": "lab/out/dictionary-index-pair-20261006/pair-66-3.30.705.command.json",
+      "bytes": 691,
+      "sha256": "01a248762204e0b7dc48c06036d09503ebbb20969786c324e92eb3f3f4b088d5"
+    },
+    {
+      "path": "lab/out/dictionary-index-pair-20261006/pair-66-3.30.705.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/dictionary-index-pair-20261006/pair-66-3.30.705.stderr.txt",
+      "bytes": 91,
+      "sha256": "eb5e804ed1b474ee9caa3c7113380fe431a57da566fdd31096c4f3038feebd45"
+    },
+    {
+      "path": "lab/out/dictionary-index-pair-20261006/pair-66-3.30.705.stdout.txt",
+      "bytes": 675,
+      "sha256": "533cb32b2f0dbed39f5acc52e74eb266ed0d41c198483ae101817d27a6ed8c78"
+    },
+    {
+      "path": "lab/out/dictionary-index-pair-20261006/pair-67-3.26.705.command.json",
+      "bytes": 691,
+      "sha256": "df7de31f9af0fcb8fe53b3dbebc5f7522ac080c1038a80f629be3f7721c052b1"
+    },
+    {
+      "path": "lab/out/dictionary-index-pair-20261006/pair-67-3.26.705.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/dictionary-index-pair-20261006/pair-67-3.26.705.stderr.txt",
+      "bytes": 91,
+      "sha256": "eb5e804ed1b474ee9caa3c7113380fe431a57da566fdd31096c4f3038feebd45"
+    },
+    {
+      "path": "lab/out/dictionary-index-pair-20261006/pair-67-3.26.705.stdout.txt",
+      "bytes": 480,
+      "sha256": "ace2885f73c3d4f228bd72ebe3b5e4d53c5f6f14351db9fa8d6c36138d27431e"
+    },
+    {
+      "path": "lab/out/dictionary-index-pair-20261006/proof.json",
+      "bytes": 5957,
+      "sha256": "1d80e494ff3bdea71f075c36a643fe3ea6baf0e25a8d2d5858005b147ef7bbbc"
+    },
+    {
+      "path": "lab/out/dictionary-index-pair-20261006/sealed-DictionaryIndexPairsProbe.java",
+      "bytes": 3487,
+      "sha256": "1a4608b5a544a80c04ca4b543e6d01c70f8854881a0e283cabf67afa7c6f5f27"
+    },
+    {
+      "path": "lab/out/dictionary-index-pair-20261006/sealed-seal_dictionary_index_pair19.py",
+      "bytes": 1918,
+      "sha256": "5adda1e336aef30059450a38a0f90de384871b659cd269da812cd7f27b0db4b7"
+    },
+    {
+      "path": "lab/out/dictionary-index-pair-20261006/sealed-verify_dictionary_index_impact19.py",
+      "bytes": 1634,
+      "sha256": "95df02f31713616156049b3fe1726e254b8bf9c5963db00afce77ed6e64c9be8"
+    },
+    {
+      "path": "lab/out/dictionary-index-pair-20261006/sealed-verify_dictionary_index_pairs19.py",
+      "bytes": 5944,
+      "sha256": "ed1a2b980574af2103b3c930d325ea80974de552b5bad9a6d8d2f061e2f568b9"
+    },
+    {
+      "path": "lab/out/dictionary-index-pair-20261006/short-rowid-pair.command.json",
+      "bytes": 702,
+      "sha256": "6cfbf21f53c95b49c5504cd065a397749028b75eefde1206fc00285944f5ced3"
+    },
+    {
+      "path": "lab/out/dictionary-index-pair-20261006/short-rowid-pair.rc.txt",
+      "bytes": 1,
+      "sha256": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b"
+    },
+    {
+      "path": "lab/out/dictionary-index-pair-20261006/short-rowid-pair.stderr.txt",
+      "bytes": 805,
+      "sha256": "60fab5cfdfb9448deca4d535794868c58ddd5994db1021162af646f395faadc2"
+    },
+    {
+      "path": "lab/out/dictionary-index-pair-20261006/short-rowid-pair.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/dictionary-index-pair-20261006/short-rowid-scan.command.json",
+      "bytes": 290,
+      "sha256": "dfb8a8270e7c8fce202145a7982daaf52c89edbf081118040e9586877339069e"
+    },
+    {
+      "path": "lab/out/dictionary-index-pair-20261006/short-rowid-scan.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/dictionary-index-pair-20261006/short-rowid-scan.stderr.txt",
+      "bytes": 280,
+      "sha256": "59c9a0d83d2606a259601f306263a327408c2b5b76ceddbd770a3c5526fc1a9b"
+    },
+    {
+      "path": "lab/out/dictionary-index-pair-20261006/short-rowid-scan.stdout.txt",
+      "bytes": 22,
+      "sha256": "43b4733169d6e007aeb99a8ddd34a5c1c256dd2d71bd958ddcc72f09a9cae4e9"
+    },
+    {
+      "path": "lab/out/dictionary-index-pair-20261006/targeted-r1.log",
+      "bytes": 2310,
+      "sha256": "7ba73e0c77720b2d091e60f3f9304949d82e0af88d29df2744dd75b85c39b0f9"
+    },
+    {
+      "path": "lab/out/dictionary-index-pair-20261006/targeted-r1.rc.txt",
+      "bytes": 3,
+      "sha256": "13bf7b3039c63bf5a50491fa3cfd8eb4e699d1ba1436315aef9cbe5711530354"
+    },
+    {
+      "path": "lab/out/dictionary-index-pair-20261006/TEST-com.streamhouse.oracle.ArchivedCompensationAssociationsTest.xml",
+      "bytes": 11105,
+      "sha256": "cb4b6f8501a8ce015d679b3e32ce012daaaa8287c75a59bc29020ed4d1c9fd91"
+    },
+    {
+      "path": "lab/out/dictionary-index-pair-20261006/TEST-com.streamhouse.oracle.ArchivedCompensationInventoryTest.xml",
+      "bytes": 10724,
+      "sha256": "6f5149f135452c900b17198888678e862e4e25bc11d26dbd90979f9705ec2681"
+    },
+    {
+      "path": "lab/out/dictionary-index-pair-20261006/TEST-com.streamhouse.oracle.ArchivedHeapRowsTest.xml",
+      "bytes": 10666,
+      "sha256": "50d5d0665f1936a8f00f30e9981799781f2f65f28312a848ccb0f70a3a84ba91"
+    },
+    {
+      "path": "lab/out/dictionary-index-pair-20261006/TEST-com.streamhouse.oracle.ArchivedIndexLeafInventoryTest.xml",
+      "bytes": 10861,
+      "sha256": "768c2daf01b4a5103ac854fdf792074db4705620251375493bed1d856b414277"
+    },
+    {
+      "path": "lab/out/dictionary-index-pair-20261006/TEST-com.streamhouse.oracle.ArchivedObjectTransactionsTest.xml",
+      "bytes": 10704,
+      "sha256": "b8e804a5680ce48aaf0e9b8ebbc78286f420978f1bc32286a2b0438333345961"
+    },
+    {
+      "path": "lab/out/dictionary-index-pair-20261006/TEST-com.streamhouse.oracle.ArchivedPhysicalTransactionsTest.xml",
+      "bytes": 11492,
+      "sha256": "27064f3e3b498e70682add1254ffc609307f25ccdf2849ba6172d56e1d7e8c5a"
+    },
+    {
+      "path": "lab/out/dictionary-index-pair-20261006/TEST-com.streamhouse.oracle.ArchivedRedoTest.xml",
+      "bytes": 11196,
+      "sha256": "bd05a7b62371f1df586a2c9c5c4eb76ea529baf45146b562414e37759d8cce5c"
+    },
+    {
+      "path": "lab/out/dictionary-index-pair-20261006/TEST-com.streamhouse.oracle.ArchivedUndoInventoryTest.xml",
+      "bytes": 10508,
+      "sha256": "3245e6bf3b08abfa97160de8fe0400da5385d65d55107eacf495c1c445910c10"
+    },
+    {
+      "path": "lab/out/dictionary-index-pair-20261006/TEST-com.streamhouse.oracle.BeginCompensationTest.xml",
+      "bytes": 10614,
+      "sha256": "84c7496a8534e93656dd306201a6391eb4743afa7d6e6ee5215c8ac229ccdf3d"
+    },
+    {
+      "path": "lab/out/dictionary-index-pair-20261006/TEST-com.streamhouse.oracle.CapturedHeapBatchTest.xml",
+      "bytes": 10544,
+      "sha256": "dea7b4592e71d2a5471ff4990d611181bde0af9de91ac7a26cf3ae8958af0dfc"
+    },
+    {
+      "path": "lab/out/dictionary-index-pair-20261006/TEST-com.streamhouse.oracle.CaptureJournalTest.xml",
+      "bytes": 10457,
+      "sha256": "996b29856a0a62f6b12fcba4af8587595cfd41c69eeab9c3f18cbfcf7e4ebd30"
+    },
+    {
+      "path": "lab/out/dictionary-index-pair-20261006/TEST-com.streamhouse.oracle.ClusterRowPatchTest.xml",
+      "bytes": 10251,
+      "sha256": "56965e52dbd33821c3c2883df3d7648b909c3aa5337230699bc0b5ab11704f9f"
+    },
+    {
+      "path": "lab/out/dictionary-index-pair-20261006/TEST-com.streamhouse.oracle.ClusterUndoPairTest.xml",
+      "bytes": 10364,
+      "sha256": "990b7b25b75da47d77f4cc42137bb24f26f3a898f67a8efa53c6ce72db430d21"
+    },
+    {
+      "path": "lab/out/dictionary-index-pair-20261006/TEST-com.streamhouse.oracle.CrossCompensationTest.xml",
+      "bytes": 10610,
+      "sha256": "2880961f17746216b7ea73006932b370622ecf6e3417d0bba8f6dfac5b0c93e7"
+    },
+    {
+      "path": "lab/out/dictionary-index-pair-20261006/TEST-com.streamhouse.oracle.DictionaryIndexUndoPairTest.xml",
+      "bytes": 10428,
+      "sha256": "4e7f515cc19f50cb6b19d4f45e21548e4e6a594d3f20344182aa14c3b408c139"
+    },
+    {
+      "path": "lab/out/dictionary-index-pair-20261006/TEST-com.streamhouse.oracle.EmptyHeapCleanoutTest.xml",
+      "bytes": 10088,
+      "sha256": "68ddc783197e1dd5640863164ac2fb90412e36a1f4bcbd7580001229c1e0b987"
+    },
+    {
+      "path": "lab/out/dictionary-index-pair-20261006/TEST-com.streamhouse.oracle.FrozenHeapBaselineTest.xml",
+      "bytes": 10720,
+      "sha256": "b49a40b1c7a4c8cea51b7dc43b88dd6a50274593073bd287d732f28c7dc85b2a"
+    },
+    {
+      "path": "lab/out/dictionary-index-pair-20261006/TEST-com.streamhouse.oracle.HeapCleanoutCTest.xml",
+      "bytes": 10182,
+      "sha256": "ec23ced04d3db9c763abde7263041c26d346824dff950bb661bc399ccacfd45a"
+    },
+    {
+      "path": "lab/out/dictionary-index-pair-20261006/TEST-com.streamhouse.oracle.HeapCompensationTest.xml",
+      "bytes": 10879,
+      "sha256": "e73b57a1dcd299c1a85631a19b95548ae8afc802eb370d600fde4205acb17232"
+    },
+    {
+      "path": "lab/out/dictionary-index-pair-20261006/TEST-com.streamhouse.oracle.HeapIndexScopeTest.xml",
+      "bytes": 10379,
+      "sha256": "5fd4931d29db9194b84d1bdf84697df2cd8c5b99f7d57e6bdcee88e80e336c18"
+    },
+    {
+      "path": "lab/out/dictionary-index-pair-20261006/TEST-com.streamhouse.oracle.HeapLockTest.xml",
+      "bytes": 10047,
+      "sha256": "26975c4eb3d7e251a8f7271dbe09d7034038accf9dcb45a1c7dfc5aa33b5c0d7"
+    },
+    {
+      "path": "lab/out/dictionary-index-pair-20261006/TEST-com.streamhouse.oracle.HeapRowPatchTest.xml",
+      "bytes": 10655,
+      "sha256": "7cedf632f9eb733429cc63a7bf87774bb7184c3a5b5c39c5f3705a045481bb70"
+    },
+    {
+      "path": "lab/out/dictionary-index-pair-20261006/TEST-com.streamhouse.oracle.HeapTailExtentTest.xml",
+      "bytes": 10762,
+      "sha256": "241edc2be129c09b1285eb9a6a302fe2411810cad7bd5b236fa46414b222cf58"
+    },
+    {
+      "path": "lab/out/dictionary-index-pair-20261006/TEST-com.streamhouse.oracle.HeapUndoPairTest.xml",
+      "bytes": 10571,
+      "sha256": "e4df870be26b6f1e54b4984f1376a239a35077b9c638b04d5035c03c9fef2aaf"
+    },
+    {
+      "path": "lab/out/dictionary-index-pair-20261006/TEST-com.streamhouse.oracle.HistoricalSchemaBarrierTest.xml",
+      "bytes": 11451,
+      "sha256": "3993d9042396196753b12cfbd5936f0c18c8386ed796b9f39298b9bab8c65681"
+    },
+    {
+      "path": "lab/out/dictionary-index-pair-20261006/TEST-com.streamhouse.oracle.IndexCompensationTest.xml",
+      "bytes": 10498,
+      "sha256": "138ba3df5c3f950b23cac9b41205efcc07e901c0a57f1c5b2b3997b8da6fe7f3"
+    },
+    {
+      "path": "lab/out/dictionary-index-pair-20261006/TEST-com.streamhouse.oracle.IndexLeafPositionsTest.xml",
+      "bytes": 11188,
+      "sha256": "fbac929985a8b8af9cf0d12ffeb3c44ae6380461a9b7a0ce122a25510c7509f9"
+    },
+    {
+      "path": "lab/out/dictionary-index-pair-20261006/TEST-com.streamhouse.oracle.IndexPositionReplayTest.xml",
+      "bytes": 10439,
+      "sha256": "4b50b432ef85f7d6d04fe3bdca294611542c635bcd5a4b418738f21567689dd8"
+    },
+    {
+      "path": "lab/out/dictionary-index-pair-20261006/TEST-com.streamhouse.oracle.IndexRestoreCompensationTest.xml",
+      "bytes": 10660,
+      "sha256": "ff964b7e482327c17412cbe267511af0ad5d55a59ccf8082f647759405ef203c"
+    },
+    {
+      "path": "lab/out/dictionary-index-pair-20261006/TEST-com.streamhouse.oracle.IndexUndoPairTest.xml",
+      "bytes": 10948,
+      "sha256": "a6b3fbcd650f7aaf7804e38e0c78a4dfe050faee96c8b3a16a4c68db3fea1e60"
+    },
+    {
+      "path": "lab/out/dictionary-index-pair-20261006/TEST-com.streamhouse.oracle.Kdom2MarkerThreeTest.xml",
+      "bytes": 10059,
+      "sha256": "ca9d006604843ea25a2d97a6925eab6c80b9ebe5349800198f036c577a70dbb2"
+    },
+    {
+      "path": "lab/out/dictionary-index-pair-20261006/TEST-com.streamhouse.oracle.Kdom2UpdateTest.xml",
+      "bytes": 11103,
+      "sha256": "19af332f43eced494b7422a4e02160c8aeb702b72f9bac87e36cd93b1d214648"
+    },
+    {
+      "path": "lab/out/dictionary-index-pair-20261006/TEST-com.streamhouse.oracle.KtbZInsertTest.xml",
+      "bytes": 10181,
+      "sha256": "ed5499a25f8131f3897582d598601551c14f1fbca92825f403295ad3932524d2"
+    },
+    {
+      "path": "lab/out/dictionary-index-pair-20261006/TEST-com.streamhouse.oracle.KtbZRollbackTest.xml",
+      "bytes": 11233,
+      "sha256": "f6b2aad03202ad07adb2c774281c72d21254022bd86609612d931b2c8382b504"
+    },
+    {
+      "path": "lab/out/dictionary-index-pair-20261006/TEST-com.streamhouse.oracle.OracleScalarsTest.xml",
+      "bytes": 10395,
+      "sha256": "031c63736aa10e3a2721df591851906fd03be92f3b263442e7afff6d8bc73916"
+    },
+    {
+      "path": "lab/out/dictionary-index-pair-20261006/TEST-com.streamhouse.oracle.SingleEntryBlockCleanoutTest.xml",
+      "bytes": 10098,
+      "sha256": "456f7d12663913d41fc1f05a2f9f7692b67b013d07d0d930e81a84783d55f2eb"
+    },
+    {
+      "path": "lab/out/dictionary-index-pair-20261006/TEST-com.streamhouse.oracle.TransactionLifecycleTest.xml",
+      "bytes": 11704,
+      "sha256": "2c2a00c516f6f8c8b15f9f1cdcd5aa27c465286c7814acd6b0b8031f50174dd1"
+    },
+    {
+      "path": "lab/out/dictionary-index-pair-20261006/TEST-com.streamhouse.oracle.TransactionMarkersTest.xml",
+      "bytes": 11190,
+      "sha256": "d346c498aa60bbf68278bea8b587c16bd081b5f751c8b57b700024228fe9cca4"
+    },
+    {
+      "path": "lab/out/dictionary-index-pair-20261006/TEST-com.streamhouse.oracle.TransactionStartTest.xml",
+      "bytes": 10843,
+      "sha256": "1a66c8103d711b208264b86b019b3428cec13c90737ac82c8561e1bdc3b6d352"
+    },
+    {
+      "path": "lab/out/dictionary-index-pair-20261006/TEST-com.streamhouse.oracle.UndoBlockAdvanceTest.xml",
+      "bytes": 10464,
+      "sha256": "960106282c719f6cd560db9ab2ae0bdb49f1af718e8a41bec3b65c88203c7259"
+    },
+    {
+      "path": "lab/out/dictionary-index-pair-20261006/TEST-com.streamhouse.oracle.UndoChainTest.xml",
+      "bytes": 10570,
+      "sha256": "fb060adb4e5b92c17c268857a00159f3d098637ac8259a1daf781f079d759b48"
+    },
+    {
+      "path": "lab/out/dictionary-index-pair-20261006/TEST-com.streamhouse.oracle.UndoControlRootTest.xml",
+      "bytes": 10356,
+      "sha256": "7dabc0b4f865ac02447012ceba87a24cd078e70ae7c67240ed20f7e694c44711"
+    },
+    {
+      "path": "lab/out/dictionary-index-pair-20261006/TEST-com.streamhouse.oracle.UndoHeaderTest.xml",
+      "bytes": 10146,
+      "sha256": "7483b72506333910b1303f1657830ead39e959a3f648f0ec109a0448c9ba82bd"
+    },
+    {
+      "path": "lab/out/dictionary-index-pair-20261006/TEST-com.streamhouse.oracle.UndoHeadUpdateTest.xml",
+      "bytes": 10622,
+      "sha256": "201b8480bcabb82ce497a58735f69b122864706f025e9a54333a8e39ea72bc3d"
+    },
+    {
+      "path": "lab/out/dictionary-index-pair-20261006/TEST-com.streamhouse.oracle.UndoHistoryTest.xml",
+      "bytes": 11047,
+      "sha256": "623006bb6ccf0d6b39e0a21ea8c1bf79351029bc7c72803f66de3f95ad305f7c"
+    },
+    {
+      "path": "lab/out/dictionary-index-pair-20261006/TEST-com.streamhouse.oracle.UndoRowPatchTest.xml",
+      "bytes": 10428,
+      "sha256": "6faad5ed89cdce36deb4b62c3db7ab20b519e222ca790d360cc218a1d4b21874"
+    },
+    {
+      "path": "lab/out/dictionary-index-pair-20261006/wrong-container-pair.command.json",
+      "bytes": 706,
+      "sha256": "0d13a8b9158176b19b418bd5346b2790220992a0012617d8065d44b54e816915"
+    },
+    {
+      "path": "lab/out/dictionary-index-pair-20261006/wrong-container-pair.rc.txt",
+      "bytes": 1,
+      "sha256": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b"
+    },
+    {
+      "path": "lab/out/dictionary-index-pair-20261006/wrong-container-pair.stderr.txt",
+      "bytes": 391,
+      "sha256": "17dfe1265af1d3c5d17b8e91e2de43279f980a8c4727e712e699da7787522469"
+    },
+    {
+      "path": "lab/out/dictionary-index-pair-20261006/wrong-container-pair.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/dictionary-index-pair-20261006/wrong-container-scan.command.json",
+      "bytes": 294,
+      "sha256": "937145daefbb0e1994c32d9d092be12d5d60006a813a9934c23336ec9a9ebd29"
+    },
+    {
+      "path": "lab/out/dictionary-index-pair-20261006/wrong-container-scan.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/dictionary-index-pair-20261006/wrong-container-scan.stderr.txt",
+      "bytes": 280,
+      "sha256": "015b60d99dd39bab51a53b050255cdaa6ca15b793b7f416d1e7e2f85e8f82b8d"
+    },
+    {
+      "path": "lab/out/dictionary-index-pair-20261006/wrong-container-scan.stdout.txt",
+      "bytes": 22,
+      "sha256": "43b4733169d6e007aeb99a8ddd34a5c1c256dd2d71bd958ddcc72f09a9cae4e9"
+    },
+    {
+      "path": "lab/out/dictionary-index-pair-20261006/wrong-current-full-XID-pair.command.json",
+      "bytes": 713,
+      "sha256": "16893e9e5488cc42dd57142a638495c0cbb68f5b679351f8eb8bc92a13b80e9c"
+    },
+    {
+      "path": "lab/out/dictionary-index-pair-20261006/wrong-current-full-XID-pair.rc.txt",
+      "bytes": 1,
+      "sha256": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b"
+    },
+    {
+      "path": "lab/out/dictionary-index-pair-20261006/wrong-current-full-XID-pair.stderr.txt",
+      "bytes": 643,
+      "sha256": "203dcbf235426f29e63ee020761ead50715d74cf112527b52111dc62a9c978d5"
+    },
+    {
+      "path": "lab/out/dictionary-index-pair-20261006/wrong-current-full-XID-pair.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/dictionary-index-pair-20261006/wrong-current-full-XID-scan.command.json",
+      "bytes": 301,
+      "sha256": "c6d5e4e21496ef236a01119a942702067d10ad6e348064b905e1cd08773ad776"
+    },
+    {
+      "path": "lab/out/dictionary-index-pair-20261006/wrong-current-full-XID-scan.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/dictionary-index-pair-20261006/wrong-current-full-XID-scan.stderr.txt",
+      "bytes": 280,
+      "sha256": "91c645b55071e385288776e8befe17cffd1dc8efbb11e1719872dfe18fda86d0"
+    },
+    {
+      "path": "lab/out/dictionary-index-pair-20261006/wrong-current-full-XID-scan.stdout.txt",
+      "bytes": 22,
+      "sha256": "43b4733169d6e007aeb99a8ddd34a5c1c256dd2d71bd958ddcc72f09a9cae4e9"
+    },
+    {
+      "path": "lab/out/dictionary-index-pair-20261006/wrong-current-UBA-pair.command.json",
+      "bytes": 708,
+      "sha256": "3a039bb30c371ebb1c6823e52002240d5437154fea2f7cd992b8a6e5eb000acc"
+    },
+    {
+      "path": "lab/out/dictionary-index-pair-20261006/wrong-current-UBA-pair.rc.txt",
+      "bytes": 1,
+      "sha256": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b"
+    },
+    {
+      "path": "lab/out/dictionary-index-pair-20261006/wrong-current-UBA-pair.stderr.txt",
+      "bytes": 615,
+      "sha256": "6d75f53c708b87c7c452c6d5e8320279dffb02142e825ce4b41c7988660bf155"
+    },
+    {
+      "path": "lab/out/dictionary-index-pair-20261006/wrong-current-UBA-pair.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/dictionary-index-pair-20261006/wrong-current-UBA-scan.command.json",
+      "bytes": 296,
+      "sha256": "23662c9da7d9b387b3da5a520853e8ae56702ec76f63b2c7d5905484ae5564aa"
+    },
+    {
+      "path": "lab/out/dictionary-index-pair-20261006/wrong-current-UBA-scan.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/dictionary-index-pair-20261006/wrong-current-UBA-scan.stderr.txt",
+      "bytes": 280,
+      "sha256": "8e186a3adf145a90523a17eb9e9224015fa3bd72e4428ee0211ec548d938ff81"
+    },
+    {
+      "path": "lab/out/dictionary-index-pair-20261006/wrong-current-UBA-scan.stdout.txt",
+      "bytes": 22,
+      "sha256": "43b4733169d6e007aeb99a8ddd34a5c1c256dd2d71bd958ddcc72f09a9cae4e9"
+    },
+    {
+      "path": "lab/out/dictionary-index-pair-20261006/wrong-generation-pair.command.json",
+      "bytes": 707,
+      "sha256": "5c502edd53ded0a39ec02f9c0e6946ac7a76a9ace8929a92cb613d24b8ceb109"
+    },
+    {
+      "path": "lab/out/dictionary-index-pair-20261006/wrong-generation-pair.rc.txt",
+      "bytes": 1,
+      "sha256": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b"
+    },
+    {
+      "path": "lab/out/dictionary-index-pair-20261006/wrong-generation-pair.stderr.txt",
+      "bytes": 491,
+      "sha256": "10e1bdfb9dad863ecb35297105f47293e3d98f9b616aba07653f216dc9ae2155"
+    },
+    {
+      "path": "lab/out/dictionary-index-pair-20261006/wrong-generation-pair.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/dictionary-index-pair-20261006/wrong-generation-scan.command.json",
+      "bytes": 295,
+      "sha256": "be7de92c27f24aaafbdd5891266ab810454a24b80902d3a8e44c264de1c67144"
+    },
+    {
+      "path": "lab/out/dictionary-index-pair-20261006/wrong-generation-scan.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/dictionary-index-pair-20261006/wrong-generation-scan.stderr.txt",
+      "bytes": 280,
+      "sha256": "0902d1be139020363131472d5c271f24c01a50025365adb1860301a3f035d449"
+    },
+    {
+      "path": "lab/out/dictionary-index-pair-20261006/wrong-generation-scan.stdout.txt",
+      "bytes": 22,
+      "sha256": "43b4733169d6e007aeb99a8ddd34a5c1c256dd2d71bd958ddcc72f09a9cae4e9"
+    },
+    {
+      "path": "lab/out/dictionary-index-pair-20261006/wrong-index-address-pair.command.json",
+      "bytes": 710,
+      "sha256": "f5003b78ff1e3e86497ba8033983ce8f3183d5ade888e7fa8f7edd77040e7c96"
+    },
+    {
+      "path": "lab/out/dictionary-index-pair-20261006/wrong-index-address-pair.rc.txt",
+      "bytes": 1,
+      "sha256": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b"
+    },
+    {
+      "path": "lab/out/dictionary-index-pair-20261006/wrong-index-address-pair.stderr.txt",
+      "bytes": 491,
+      "sha256": "10e1bdfb9dad863ecb35297105f47293e3d98f9b616aba07653f216dc9ae2155"
+    },
+    {
+      "path": "lab/out/dictionary-index-pair-20261006/wrong-index-address-pair.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/dictionary-index-pair-20261006/wrong-index-address-scan.command.json",
+      "bytes": 298,
+      "sha256": "89494831efdf698253872f11606326688b4c1a9cc7f59cea1eea9910f3f4aedd"
+    },
+    {
+      "path": "lab/out/dictionary-index-pair-20261006/wrong-index-address-scan.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/dictionary-index-pair-20261006/wrong-index-address-scan.stderr.txt",
+      "bytes": 280,
+      "sha256": "864bc64d6d3893cd241396cdd73bc388ba2db45f19a8d81e4fb383669904da95"
+    },
+    {
+      "path": "lab/out/dictionary-index-pair-20261006/wrong-index-address-scan.stdout.txt",
+      "bytes": 22,
+      "sha256": "43b4733169d6e007aeb99a8ddd34a5c1c256dd2d71bd958ddcc72f09a9cae4e9"
+    },
+    {
+      "path": "lab/out/dictionary-index-pair-20261006/wrong-logical-pair.command.json",
+      "bytes": 704,
+      "sha256": "90502422db5a146612486a6fb910edc26a8f952c4f32f7cb85f49a248020131f"
+    },
+    {
+      "path": "lab/out/dictionary-index-pair-20261006/wrong-logical-pair.rc.txt",
+      "bytes": 1,
+      "sha256": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b"
+    },
+    {
+      "path": "lab/out/dictionary-index-pair-20261006/wrong-logical-pair.stderr.txt",
+      "bytes": 491,
+      "sha256": "10e1bdfb9dad863ecb35297105f47293e3d98f9b616aba07653f216dc9ae2155"
+    },
+    {
+      "path": "lab/out/dictionary-index-pair-20261006/wrong-logical-pair.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/dictionary-index-pair-20261006/wrong-logical-scan.command.json",
+      "bytes": 292,
+      "sha256": "683eb5fce8f76585c66a18e5296bcbd34a20b495ee31a83e26bd35c80e6709be"
+    },
+    {
+      "path": "lab/out/dictionary-index-pair-20261006/wrong-logical-scan.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/dictionary-index-pair-20261006/wrong-logical-scan.stderr.txt",
+      "bytes": 280,
+      "sha256": "2ddd2d960028dd417fe8c99fb2a30a497aec526b9ee041017beb2c46228092a2"
+    },
+    {
+      "path": "lab/out/dictionary-index-pair-20261006/wrong-logical-scan.stdout.txt",
+      "bytes": 22,
+      "sha256": "43b4733169d6e007aeb99a8ddd34a5c1c256dd2d71bd958ddcc72f09a9cae4e9"
+    },
+    {
+      "path": "lab/out/dictionary-index-pair-20261006/wrong-row-size-pair.command.json",
+      "bytes": 705,
+      "sha256": "ac38ddb4c557b03304fc6d2872dfa32067098416277db7240ffda864f2ff39b6"
+    },
+    {
+      "path": "lab/out/dictionary-index-pair-20261006/wrong-row-size-pair.rc.txt",
+      "bytes": 1,
+      "sha256": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b"
+    },
+    {
+      "path": "lab/out/dictionary-index-pair-20261006/wrong-row-size-pair.stderr.txt",
+      "bytes": 699,
+      "sha256": "f2c50beb04eae3db37d7dbc08dc58f98a9d6452f3c3db707f6ff8fd8dcf2f3fa"
+    },
+    {
+      "path": "lab/out/dictionary-index-pair-20261006/wrong-row-size-pair.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/dictionary-index-pair-20261006/wrong-row-size-scan.command.json",
+      "bytes": 293,
+      "sha256": "1163c3501def6716481bf78f6a20a1aa677ed7755dc7bcff409cb93f72dd0fcd"
+    },
+    {
+      "path": "lab/out/dictionary-index-pair-20261006/wrong-row-size-scan.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/dictionary-index-pair-20261006/wrong-row-size-scan.stderr.txt",
+      "bytes": 280,
+      "sha256": "610f01a7fa14d7f67a20a0bd5385ab13d976bdeb36f7853d7ab79e6346dfc374"
+    },
+    {
+      "path": "lab/out/dictionary-index-pair-20261006/wrong-row-size-scan.stdout.txt",
+      "bytes": 22,
+      "sha256": "43b4733169d6e007aeb99a8ddd34a5c1c256dd2d71bd958ddcc72f09a9cae4e9"
+    },
+    {
+      "path": "lab/out/dictionary-index-pair-20261006/wrong-wrap-pair.command.json",
+      "bytes": 701,
+      "sha256": "22aaf890161ba60598857d2e30fae62b23cb8ca7aeb1f5c6f86a3a3ecb73b95b"
+    },
+    {
+      "path": "lab/out/dictionary-index-pair-20261006/wrong-wrap-pair.rc.txt",
+      "bytes": 1,
+      "sha256": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b"
+    },
+    {
+      "path": "lab/out/dictionary-index-pair-20261006/wrong-wrap-pair.stderr.txt",
+      "bytes": 645,
+      "sha256": "c022f81fa898dae49581fc08762934a6e5606c225f43b3c863967990f0d66bb0"
+    },
+    {
+      "path": "lab/out/dictionary-index-pair-20261006/wrong-wrap-pair.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/dictionary-index-pair-20261006/wrong-wrap-scan.command.json",
+      "bytes": 289,
+      "sha256": "2a049e0c21c4bdc2737e7370dcd0c031a9ee0a54abe998eef88a285fa571e5d9"
+    },
+    {
+      "path": "lab/out/dictionary-index-pair-20261006/wrong-wrap-scan.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/dictionary-index-pair-20261006/wrong-wrap-scan.stderr.txt",
+      "bytes": 280,
+      "sha256": "f342ddd57eefb276a33a9567adbd3796f113349d406a2b49ca7f9aace4d52117"
+    },
+    {
+      "path": "lab/out/dictionary-index-pair-20261006/wrong-wrap-scan.stdout.txt",
+      "bytes": 22,
+      "sha256": "43b4733169d6e007aeb99a8ddd34a5c1c256dd2d71bd958ddcc72f09a9cae4e9"
+    }
+  ]
+}
