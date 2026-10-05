@@ -13,10 +13,12 @@
 | W4 事务/回滚 | 进行中：有序history/覆盖/heap+index补偿、同源完整XID归属及有源位置重放 | 通过：203测试；seq21—24自主发现基线/A/B共12物理图；自主对象头关联；seq19—24六位置、seq21—24有限双上下文完整图与拒绝证据；九笔旧图及六批长heap证据保留 | 进行中：有界自主物理入口已交付；完整控制/页维护/跨块关联/恢复待证；不当通用生产能力 | 未开始 | 待证 | 未开始 |
 | W5 SCN字典/基线 | 进行中：extent/完整行、ASOF/回执/typed世代，有限cleanout、闭合图live选择、commit SCN重放及LKR独立LOCK节点 | 通过：233测试制品；seq37—39真实锁等待三完整行/native/四SQL零差异；seq36 rollback-only及seq33—35旧批次空结果，既有并发/行证据保留；生产可信交接/历史字典待证 | 进行中：有限不同行并发、全/部分回滚、空批次、真实锁等待但redo事务窗口串行通过；活跃同key重叠/相同commit SCN支持/无目标静默/多savepoint/跨块/初始恢复/历史schema待证 | 未开始 | 待证 | 未开始 |
 | W6 StreamHouse接入 | 进行中：独立Oracle adapter及JDBC目标原子凭证；公开decoder拒绝 | 通过：内核245保留、模块5、三真实SIGKILL rc137、四同批重复0新增、六拒绝、三fresh目标六像零差异；有界两旧一新跨批2+1及重复0；任意窗口/可信schema待证 | 通过有限raw→内核→SPI→专属Oracle目标commit/ACK；同实例跨schema，完整产品pipeline/独立目标实例待证 | 未开始 | 待证 | 未开始 |
-| W7 online采集 | 进行中：关闭代际多member跟踪/回执审计/独占重启续接；共用capture输入接完整图/行 | 通过：原40—42重启追加43/9161归档数据块零差异；两真实collector SIGKILL/完整尾恢复与半帧保全拒绝/11反例；既有240测试及图/行保留；实时/高压复用/断电/Windows/ASM待证 | 通过有限关闭批次与collector重启：journal→record/vector→typed事务→可信baseline完整UPDATE；有限既有target commit→checkpoint/ACK恢复通过；跨批活跃状态/生产字典/新DML后checkpoint及实际崩溃待证，有关闭延迟 | 未开始 | 待证 | 未开始 |
+| W7 online采集 | 进行中：关闭代际多member跟踪/回执审计/独占重启续接；共用capture输入接完整图/行 | 通过：原40—42重启追加43/9161归档数据块零差异；两真实collector SIGKILL/完整尾恢复与半帧保全拒绝/11反例；既有240测试及图/行保留；实时/高压复用/断电/Windows/ASM待证 | 通过有限关闭批次与collector重启：journal→record/vector→typed事务→可信baseline完整UPDATE；有限既有target commit→checkpoint/ACK恢复通过；有限新DML→checkpoint/ACK及四消费者强杀通过（两文件边界lab插桩）；跨批活跃状态/生产字典/断电/生产现场待证，有关闭延迟 | 未开始 | 待证 | 未开始 |
 | W8-W11 扩展类型/LOB/RAC/ASM/TDE | 未开始 | 待证 | 未开始 | 未开始 | 待证 | 未开始 |
 
 ## 当前证据
+
+最新：[新DML/checkpoint四处消费者强杀](DELIVERY_W7_ORACLE_CHECKPOINT_CRASH_20261005.md)，生产ec3b430不变/labb241002，[清单](evidence/DELIVERY-oracle-checkpoint-crash-20261005.json)。专属新target25表，正常未插桩prefix2+full1/两重复0；四实际client SIGKILL wait137：commit前回滚0/0/0后恢复3，commit后、tmp.force后、checkpoint目录force后恢复各0，全部再次消费0；tmp原字节retained/checkpoint后原字节保留补ACK，第二进程独占拒绝。两文件边界lab-only插桩记录前后class SHA，原jar不变、正常/恢复不插桩；15/245轮次不重跑。五当前target六完整像/成员/凭证及checkpoint全部scope/capture位置字段独立零差异，三个重算checksum比较反例检出，source业务/日志配置无变、LGWR5601/helper退出。不是独立目标实例/无插桩现场/断电证明；缺历史输入与已发布target损坏继续补负门禁，再Oracle SPI/生产可信字典。raw删除/全产品/部署现场发布未通过。
 
 最新：[消费checkpoint实现与既有目标恢复](DELIVERY_W7_ORACLE_CHECKPOINT_20261005.md)，运行时ec3b430/labdeabf27，[清单](evidence/DELIVERY-oracle-checkpoint-20261005.json)。新adapter6f06247e…/15测试，kernel ea9f58c6…/245保留、SPI不变；消费全生命周期文件独占、可信原始窗口registry、实际target完整凭证验证后checkpoint/每批ACK。真实Linux/Oracle既有MIXD commit恢复42/9/end2366759、旧前缀不回退/文件byte稳定；完整temp核验恢复并retained保全、合法落后prefix追回42；四坏temp/checkpoint/ACK/unknown输入反例stdout0/原文件SHA集合不变。目标完整SQL快照不变、0新增DML/0源动作，LGWR5601/helper退出。新DML→checkpoint/四处实际SIGKILL/跨进程锁/缺历史raw仍未验收，文件派生不冒充强杀；下一步专属新target有限2+1及崩溃矩阵。raw删除/全产品/现场/发布未通过。
 

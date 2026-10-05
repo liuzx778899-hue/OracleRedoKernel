@@ -10,6 +10,8 @@ checkpoint保存目标owner/prefix/targetId、已提交批列表、固定范围s
 
 固定范围窗口关系保证前缀重放不回退；同range不同观察摘要不虚构位置前进。所有完整已提交注册批重新验证后才计算最大前缀覆盖。未知起点、range缺口及scope漂移拒绝。
 
-临时文件CREATE_NEW、force、原子replace、目录force。已有完整checkpoint.tmp或ACK.tmp先严格解码/对输入和target核验，成功后原子改名retained-UUID保留；半写、错误checksum、错误target/范围/成员等拒绝且原文件保留。此恢复不代表断电认证。新DML、各落盘边界真实SIGKILL仍需独立实验。
+临时文件CREATE_NEW、force、原子replace、目录force。已有完整checkpoint.tmp或ACK.tmp先严格解码/对输入和target核验，成功后原子改名retained-UUID保留；半写、错误checksum、错误target/范围/成员等拒绝且原文件保留。此恢复不代表断电认证。专属新target prefix2+full1及四边界客户端SIGKILL已有限通过；两文件force边界使用lab-only插桩，正常/恢复不插桩；独立生产现场及断电待证。
 
 当前实际证据：目标MIXD既有完整两批commit恢复、前沿42不回退、完整temp恢复保留、旧前缀checkpoint从注册目标commit追回42、四文件反例拒绝保全。完整产品pipeline、生产trusted dictionary、任意活跃窗口、实时capture、raw retention、部署/现场/发布仍未通过。
+
+最新证据：W7 checkpoint crash交付新增目标DML/四真实client kill137/跨进程锁/五当前target独立对账，见 docs/workorders/DELIVERY_W7_ORACLE_CHECKPOINT_CRASH_20261005.md。缺历史输入/旧target已发布状态损坏、全产品/现场/发布继续独立验收。
