@@ -1,0 +1,46 @@
+{
+  "local_seal_path": "lab/out/oracle-readonly-receipt-20261005/seal.json",
+  "local_seal_sha256": "6c1d10b73184a13705166c67656ff05ae7a3625cec5627c98f3c78ec100318bd",
+  "files": 104,
+  "proof": {
+    "cases": [
+      {
+        "case": "SNON",
+        "stdout": "READ_ONLY_RECEIPT_VERIFIED|SNON|2|12|NO_DML|REPEAT_ZERO"
+      },
+      {
+        "case": "SNUL",
+        "stdout": "READ_ONLY_RECEIPT_VERIFIED|SNUL|2|12|NO_DML|REPEAT_ZERO"
+      },
+      {
+        "case": "SMIX",
+        "stdout": "READ_ONLY_RECEIPT_VERIFIED|SMIX|3|12|NO_DML|REPEAT_ZERO"
+      },
+      {
+        "case": "EMPT",
+        "stdout": "READ_ONLY_RECEIPT_VERIFIED|EMPT|0|8|NO_DML|REPEAT_ZERO"
+      }
+    ],
+    "target_snapshot_unchanged": true,
+    "target_business_dml": 0,
+    "source_business_dml": 0,
+    "result_corruptions": 44,
+    "checkpoint_missing_commit_refusals": 4,
+    "new_consumers_recover_existing_commit_only": true,
+    "public_oracle_enabled": false,
+    "product_facade_not_executed": true
+  },
+  "build": {
+    "tests": {
+      "tests": 16,
+      "errors": 0,
+      "failures": 0,
+      "skipped": 0
+    },
+    "adapter_sha256": "8de94aae373dba947624e5b34413fc16bfcd23e2480e48a8e47686dc32d76704",
+    "kernel_sha256": "960954207b626be4d19db547ce2a9e3c5245075e84edb7196935ba3c0489c55e",
+    "spi_sha256": "fb9c443ba88e49b656d97a4bd881c31a3c9fef305bf9d5a503c13364ed940b95",
+    "kernel_tests_rerun": false
+  },
+  "independent_review": "PENDING"
+}

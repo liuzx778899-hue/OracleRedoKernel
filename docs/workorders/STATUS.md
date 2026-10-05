@@ -18,6 +18,8 @@
 
 ## 当前证据
 
+最新：[独立只读commit核验](DELIVERY_W6_READONLY_COMMIT_PROOF_20261005.md)。adapter实现2d03896/16测试；一条SELECT一致性视图验证真实target/source/schema/batch/成员/完整像。四冻结组2/2/3/0通过、44查询结果篡改拒绝，四已发布CP/ACK缺commit拒绝且原字节保持，健康恢复/重复零DML、实际目标快照不变。首轮新目录反例编排失败保全；产品Facade及新apply后核验失败窗口仍待证，公开gate拒绝，goal active。
+
 最新：[有界可信registry交付](DELIVERY_W6_REGISTRY_20261005.md)。产品完整树9d65d58，707项测试通过；MySQL/SQLServer/Oracle新建与升级四冻结组24/24通过，真实绑定及拒绝记录落库、ledger0；仍ORACLE_ATOMIC_TARGET_NOT_ACCEPTED，公开decoder未开放。181文件双SHA安全摘要，首轮Oracle密码长度及全局V728冲突失败保留；目标提交顺序/完整产品/独立目标实例/生产字典/C++现场与发布待证，评审PENDING，goal active。
 
 最新：[typed evidence与未绑定拒绝](DELIVERY_W6_TYPED_EVIDENCE_20261005.md)。产品代码ddff6ae完整提交树clean verify 704项0失败0错误0跳过，docs f43b66b/草稿PR#3（依赖#2）待独立评审；SPI fb9c443b…绑定私仓坐标，adapter dfcfe38b…/16通过，kernel96095420…复用/254不重跑。四冻结组2/2/3/0事件typed字段及8capture容量独立零差异、JSON roundtrip/三legacy投影不变、四比较反例拒绝；实际product classes/fake Mapper链确认typed到gate，未绑定Oracle含空批次拒绝、账本/target0、checkpoint/消费状态不动，options不能授权公开decoder。编译key误用及Windows换行比较失败源码/原文保留，仅补失败；85文件/14命令双SHA。可信registry/引擎guard未接通，Facade目标前推进checkpoint的顺序尚需Oracle专属真实修复，[接续P0派单](DISPATCH_W6_TRUSTED_REGISTRY_TARGET_ORDER_20261005.md)，完整产品/历史字典/跨窗/C++现场/发布待证，goal active。

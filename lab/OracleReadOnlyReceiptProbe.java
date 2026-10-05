@@ -51,6 +51,13 @@ public class OracleReadOnlyReceiptProbe {
             catch (SQLException expected) {rejected++;}
         }
         Files.createDirectory(out);Path failed=Files.createDirectory(out.resolve("failed"));
+        Path healthy=Files.createDirectory(out.resolve("healthy"));
+        var connections=(OracleConsumerCheckpoint.Connections)()->{try {return guarded(secret,0);}catch(Exception e){throw new SQLException(e);}};
+        var consumer=new OracleConsumerCheckpoint();var result=consumer.consume(healthy,target,()->List.of(input),input.sha256(),connections);
+        if(result.newApplications()!=0) throw new AssertionError("TARGET_DML_REPLAYED");
+        byte[] checkpoint=Files.readAllBytes(healthy.resolve("checkpoint"));
+        Files.copy(healthy.resolve("checkpoint"),failed.resolve("checkpoint"));
+        Files.copy(healthy.resolve(input.sha256()+".ack"),failed.resolve(input.sha256()+".ack"));
         try {
             new OracleConsumerCheckpoint().consume(failed,target,()->List.of(input),input.sha256(),()->{
                 try {return guarded(secret,4);}catch (Exception e){throw new SQLException(e);}
@@ -58,12 +65,8 @@ public class OracleReadOnlyReceiptProbe {
         } catch (SQLException expected) {
             if (!expected.getMessage().equals("ORACLE_TARGET_ACK_WITHOUT_COMMIT")) throw expected;
         }
-        if (Files.exists(failed.resolve("checkpoint")) || Files.list(failed).anyMatch(p->p.getFileName().toString().endsWith(".ack"))) throw new AssertionError("FAILED_PROOF_ADVANCED_STATE");
-        Path healthy=Files.createDirectory(out.resolve("healthy"));
-        var connections=(OracleConsumerCheckpoint.Connections)()->{try {return guarded(secret,0);}catch(Exception e){throw new SQLException(e);}};
-        var consumer=new OracleConsumerCheckpoint();var result=consumer.consume(healthy,target,()->List.of(input),input.sha256(),connections);
-        if(result.newApplications()!=0) throw new AssertionError("TARGET_DML_REPLAYED");
-        byte[] checkpoint=Files.readAllBytes(healthy.resolve("checkpoint"));
+        if (!Arrays.equals(checkpoint,Files.readAllBytes(failed.resolve("checkpoint")))
+                || !Arrays.equals(Files.readAllBytes(healthy.resolve(input.sha256()+".ack")),Files.readAllBytes(failed.resolve(input.sha256()+".ack")))) throw new AssertionError("FAILED_PROOF_ADVANCED_STATE");
         if(consumer.consume(healthy,target,()->List.of(input),input.sha256(),connections).newApplications()!=0
                 || !Arrays.equals(checkpoint,Files.readAllBytes(healthy.resolve("checkpoint")))) throw new AssertionError("REPEAT_ADVANCED_STATE");
         System.out.println("READ_ONLY_RECEIPT_VERIFIED|"+prefix+"|"+receipt.events()+"|"+rejected+"|NO_DML|REPEAT_ZERO");
