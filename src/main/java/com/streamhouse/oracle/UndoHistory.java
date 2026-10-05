@@ -24,9 +24,14 @@ public final class UndoHistory {
         healthy();
         if (next>=inventory.entries().size() || !inventory.entries().get(next).equals(entry)) refuse("UNDO_HISTORY_INPUT_ORDER_OR_COVERAGE_MISMATCH");
         var h=entry.identity();var address=h.uba();
+        var control=inventory.controlRoot();
+        boolean allocationOnly=control!=null && h.equals(control.allocationBegin());
+        boolean rowRoot=control!=null && h.equals(control.rowRoot());
         if (nodes.containsKey(address)) refuse("UNDO_HISTORY_ADDRESS_REUSE_UNSUPPORTED");
         if (h.beginsTransaction()) {
             if (next!=0 || head!=null) refuse("UNDO_HISTORY_BEGIN_MISMATCH");
+        } else if(rowRoot) {
+            if(next!=1 || head!=null) refuse("UNDO_HISTORY_NON_ROW_ROOT_ORDER_MISMATCH");
         } else {
             if (head==null) refuse("UNDO_HISTORY_MISSING_ACTIVE_PREDECESSOR");
             if (entry.previousDba()==0) {
@@ -34,7 +39,7 @@ public final class UndoHistory {
                 if (!explicit.equals(head)) refuse("UNDO_HISTORY_SAME_BLOCK_HEAD_MISMATCH");
             } else if (entry.rci()!=0 || entry.previousDba()!=head.dba()) refuse("UNDO_HISTORY_CROSS_BLOCK_HEAD_MISMATCH");
         }
-        var previous=head;nodes.put(address,new Node(entry,previous));head=address;allocated=address;next++;
+        var previous=head;nodes.put(address,new Node(entry,previous));if(!allocationOnly) head=address;allocated=address;next++;
         return previous;
     }
 

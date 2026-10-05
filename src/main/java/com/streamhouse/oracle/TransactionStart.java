@@ -15,7 +15,9 @@ public record TransactionStart(long segmentDba, int slot, long sequence, HeapRow
         int flags=u16(b,16);
         boolean observedFirstRecord=flags==0x4a && u16(b,2)==0 && (b[14]&255)==1
                 && b[15]==0 && u16(b,18)==176 && u32(b,20)==0;
-        if ((flags!=0x52 && flags!=0x452 && !observedFirstRecord) || u32(b,24)!=0 || u32(b,28)!=0)
+        boolean observedControlBegin=flags==0x51 && u16(b,2)==0 && (b[14]&255)>0
+                && b[15]==0 && u16(b,18)==80 && b[20]==0;
+        if ((flags!=0x52 && flags!=0x452 && !observedFirstRecord && !observedControlBegin) || u32(b,24)!=0 || u32(b,28)!=0)
             throw new RedoException("UNSUPPORTED_TRANSACTION_START_FLAGS_OR_PARENT");
         return new TransactionStart(vector.dba(),u16(b,0),u32(b,4),
                 new HeapRowPatch.Uba(u32(b,8),u16(b,12),b[14]&255),flags,u32(fields.get(1),0),vector.containerId());
@@ -39,6 +41,18 @@ public record TransactionStart(long segmentDba, int slot, long sequence, HeapRow
         if (match==null) throw new RedoException("MISSING_TRANSACTION_BEGIN_UBA");
         if (!match.beginsTransaction() || match.xid().slot()!=slot || match.xid().sequence()!=sequence)
             throw new RedoException("TRANSACTION_BEGIN_IDENTITY_MISMATCH");
+        if (flags==0x51) {
+            var begin=match;
+            var v=record.vectors().stream().filter(u->u.containerId()==containerId && u.opcodeMajor()==5
+                    && u.opcodeMinor()==1 && u.dba()==uba.dba() && u.fields().size()==2
+                    && u.fields().get(0).length==20 && u16(u.fields().get(0),16)==uba.sequence()
+                    && (u.fields().get(0)[18]&255)==uba.record()).findFirst();
+            if (begin.objectId()!=0 || begin.dataObjectId()!=0 || begin.tablespace()!=0 || v.isEmpty()
+                    || v.get().fields().get(1)[16]!=5 || v.get().fields().get(1)[17]!=7)
+                throw new RedoException("NON_ROW_TRANSACTION_BEGIN_PROFILE_MISMATCH");
+            if (u16(v.get().fields().get(0),0)!=80)
+                throw new RedoException("NON_ROW_TRANSACTION_BEGIN_SIZE_MISMATCH");
+        }
         return match.xid();
     }
 }

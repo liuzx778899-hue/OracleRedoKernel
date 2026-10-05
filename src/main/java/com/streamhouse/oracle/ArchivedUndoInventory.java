@@ -13,10 +13,12 @@ public final class ArchivedUndoInventory {
     private final List<ArchivedRedo.Header> sources;
     private final List<Entry> entries;
     private final long containerUid,containerId;
+    private final UndoControlRoot controlRoot;
 
-    private ArchivedUndoInventory(List<ArchivedRedo.Header> sources,List<Entry> entries,long containerUid,long containerId) {
+    private ArchivedUndoInventory(List<ArchivedRedo.Header> sources,List<Entry> entries,long containerUid,long containerId,UndoControlRoot controlRoot) {
         this.sources=List.copyOf(sources);this.entries=List.copyOf(entries);
         this.containerUid=containerUid;this.containerId=containerId;
+        this.controlRoot=controlRoot;
     }
 
     /** Owns the complete record traversal; callers cannot certify a supplied vector subset. */
@@ -27,6 +29,7 @@ public final class ArchivedUndoInventory {
         if (archives.isEmpty()) throw new RedoException("NO_ARCHIVE_INPUT");
         var continuity=new TransactionLifecycle();
         var sources=new ArrayList<ArchivedRedo.Header>();var entries=new ArrayList<Entry>();
+        TransactionStart[] controlStart={null};UndoControlRoot[] root={null};
         for (var path:archives) {
             var header=path.header();continuity.archive(header);
             path.visit(header,record->{
@@ -46,8 +49,14 @@ public final class ArchivedUndoInventory {
                     if (undo.uba().record()==0 || (metadata[18]&255)!=xid.slot())
                         throw new RedoException("UNDO_INVENTORY_ADDRESS_OR_SLOT_MISMATCH");
                     long previous=u32(metadata,12);int rci=metadata[19]&255;
+                    boolean nonRowBegin=undo.beginsTransaction() && metadata[16]==5 && metadata[17]==7;
+                    boolean firstRoot=controlStart[0]!=null && entries.size()==1;
+                    if(nonRowBegin) {
+                        if(!entries.isEmpty()) throw new RedoException("NON_ROW_BEGIN_NOT_FIRST_IN_INVENTORY");
+                        controlStart[0]=UndoControlRoot.begin(record,vector);
+                    } else if(firstRoot) root[0]=UndoControlRoot.bind(controlStart[0],entries.get(0).identity(),record,vector);
                     if (undo.beginsTransaction() ? previous!=0 || rci!=0 || u16(metadata,22)!=1
-                            : u16(metadata,22)!=(xid.sequence()&0xffff) || (previous==0 ? rci==0 : rci!=0))
+                            : u16(metadata,22)!=(xid.sequence()&0xffff) || (!firstRoot && (previous==0 ? rci==0 : rci!=0)))
                         throw new RedoException("UNDO_INVENTORY_METADATA_LINK_MISMATCH");
                     entries.add(new Entry(new Position(header.sequence(),record.block(),record.offset(),index+1),undo,
                             metadata[16]&255,metadata[17]&255,previous,rci));
@@ -57,13 +66,15 @@ public final class ArchivedUndoInventory {
             sources.add(header);
         }
         if (entries.isEmpty()) throw new RedoException("TARGET_UNDO_NOT_FOUND");
-        return new ArchivedUndoInventory(sources,entries,containerUid,containerId);
+        if(controlStart[0]!=null && root[0]==null) throw new RedoException("NON_ROW_BEGIN_WITHOUT_FIRST_ROOT");
+        return new ArchivedUndoInventory(sources,entries,containerUid,containerId,root[0]);
     }
 
     public List<ArchivedRedo.Header> sources() { return sources; }
     public List<Entry> entries() { return entries; }
     public long containerUid() { return containerUid; }
     public long containerId() { return containerId; }
+    public UndoControlRoot controlRoot() { return controlRoot; }
 
     /** Exact position/order coverage only; a pass does not prove links, commit, or surviving effects. */
     public void requireCompleteSelection(List<Position> selected) throws RedoException {
