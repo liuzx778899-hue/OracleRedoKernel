@@ -1,5 +1,7 @@
 # 精简 chat 主线交接（2026-10-05）
 
+最新接续以STATUS入口为准：本chat已交付实际获取账关联新raw完整DML，产品996cfd5/735，源新fixtureT_ACQUIRED_DML_20261005及seq52—54三事务均已结束，严禁重放。raw/完整图/行/目标/控制/ACK及应用重启有限通过；collector观察超时host rc未知原文保全，仅只读取证续接。helper已停止。下一单DISPATCH_W5_HISTORICAL_SCHEMA_BARRIER_20261005，历史DDL/ABA和V731三库新建/升级仍待证，目标active。下面保留原交接历史，不再当最新待办。
+
 用户明确要求新开 chat，继续原 Oracle Direct Redo 零侵入 + StreamHouse 全流程目标；解析优先、自主决策、禁止 Luna。旧 chat 在交接后不并行修改共享 checkout。目标仍未完成，不把结构、安全拒绝、有界实验当现场或发布通过。先读 AGENTS.md、STATUS.md 和本文件；STATUS 六列表部分计数是历史时点，以最新交付和实际制品为准。
 
 ## 立即收尾：混合/全回滚交付
