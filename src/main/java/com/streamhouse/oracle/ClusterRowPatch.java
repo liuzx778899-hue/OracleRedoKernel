@@ -24,11 +24,19 @@ public final class ClusterRowPatch {
         HeapRowPatch.Kind kind;HeapRowPatch.RowExtent extent=null;Integer keyIndex=null,lockTo=null;int slot;
         if(op==2) {
             int count=k[18]&255;keyIndex=k[19]&255;
-            if(tableNumber!=5 || k[16]!=0x6c || count<1 || count>dictionaryColumns || fields.size()!=count+2
+            if(tableNumber!=5 || k[16]!=0x6c || count!=32 || count>dictionaryColumns || fields.size()!=count+2
                     || keyIndex==0 || k[45]!=0)
                 throw new RedoException("UNSUPPORTED_CLUSTER_INSERT_ROWPIECE");
             kind=HeapRowPatch.Kind.INSERT;slot=u16(k,42);
-            for(int i=0;i<count;i++)columns.set(i,value(fields.get(i+2)));
+            int rowSize=4+count;
+            for(int i=0;i<count;i++) {
+                byte[] cell=fields.get(i+2);
+                if(((k[45+i/8] >>> (i%8))&1)!=(cell.length==0?1:0))
+                    throw new RedoException("CLUSTER_INSERT_NULL_BITMAP_MISMATCH");
+                rowSize+=cell.length;columns.set(i,value(cell));
+            }
+            if(k[49]!=0 || k[50]!=0 || k[51]!=0 || rowSize!=u16(k,40))
+                throw new RedoException("UNSUPPORTED_CLUSTER_INSERT_COMPLETE_SIZE");
             extent=new HeapRowPatch.RowExtent(count,count,-1,u16(k,40));
         } else if(op==5) {
             int stored=k[22]&255,count=k[23]&255;

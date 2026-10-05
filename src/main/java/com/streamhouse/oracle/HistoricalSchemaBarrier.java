@@ -20,26 +20,11 @@ final class HistoricalSchemaBarrier {
             if(vector.containerId()==snapshot.source().containerId() && vector.opcodeMajor()==5 && vector.opcodeMinor()==1
                     && !snapshot.dictionaryAnchors().isEmpty()) requireDictionaryUnchanged(record,vector,snapshot);
             if(vector.containerId()!=snapshot.source().containerId() || vector.opcodeMajor()!=24) continue;
-            if(vector.opcodeMinor()==4) {
-                var fields=vector.fields();
-                byte[] header=java.util.HexFormat.of().parseHex("28230000000000000000000072000c00");
-                if(record.validity()!=5 || record.vectors().size()!=1 || vector.blockClass()!=0 || vector.file()!=0
-                        || vector.dba()!=0 || vector.scn()!=0 || vector.sequence()!=0 || fields.size()!=2
-                        || !Arrays.equals(fields.get(0),header) || fields.get(1).length!=16)
-                    throw new RedoException("UNSUPPORTED_MEDIA_RECOVERY_MARKER_PROFILE");
-                byte[] range=fields.get(1);long first=u32(range,0),last=u32(range,8);
-                if(u16(range,4)!=0x8000 || u16(range,12)!=0x8000 || u16(range,6)!=0 || u16(range,14)!=0
-                        || first>last || last-first>1 || last>=record.scn())
-                    throw new RedoException("UNSUPPORTED_MEDIA_RECOVERY_MARKER_RANGE");
-                continue;
-            }
-            if(vector.opcodeMinor()!=1) throw new RedoException("UNSUPPORTED_HISTORICAL_SCHEMA_MARKER_OPCODE");
+            requireMarkerProfile(record,vector);
+            if(vector.opcodeMinor()==4)continue;
             var fields=vector.fields();
             // Independently observed on CREATE/GRANT/ADD/DROP in seq56/57.
             // SQL text in field 7 is deliberately not interpreted or used as authority.
-            if(fields.size()!=46 || fields.get(0).length!=24 || u32(fields.get(0),0)!=0x2ee0
-                    || fields.get(3).length!=12 || fields.get(11).length!=4)
-                throw new RedoException("UNSUPPORTED_HISTORICAL_SCHEMA_MARKER");
             long object=u32(fields.get(3),4),affected=u32(fields.get(11),0);
             for(var role:java.util.List.of(snapshot.heap(),snapshot.index()))
                 if(object==role.logicalObject() || affected==role.logicalObject()
@@ -47,6 +32,22 @@ final class HistoricalSchemaBarrier {
                         && Arrays.equals(fields.get(9),role.name().getBytes(StandardCharsets.UTF_8))))
                     throw new RedoException("HISTORICAL_SCHEMA_BARRIER:scn="+record.scn()+":object="+role.logicalObject());
         }
+    }
+    /** Profile only; callers must separately bind target scope and complete SYS history. */
+    static void requireMarkerProfile(RedoRecords.Record record,RedoRecords.Vector vector)throws RedoException {
+        var fields=vector.fields();
+        if(vector.opcodeMajor()!=24)throw new RedoException("NOT_SCHEMA_FAMILY_MARKER");
+        if(vector.opcodeMinor()==1) {
+            if(fields.size()!=46 || fields.get(0).length!=24 || u32(fields.get(0),0)!=0x2ee0 || fields.get(3).length!=12 || fields.get(11).length!=4)
+                throw new RedoException("UNSUPPORTED_HISTORICAL_SCHEMA_MARKER");
+        } else if(vector.opcodeMinor()==4) {
+            if(record.validity()!=5 || record.vectors().size()!=1 || vector.blockClass()!=0 || vector.file()!=0 || vector.dba()!=0 || vector.scn()!=0 || vector.sequence()!=0
+                    || fields.size()!=2 || !Arrays.equals(fields.get(0),java.util.HexFormat.of().parseHex("28230000000000000000000072000c00")) || fields.get(1).length!=16)
+                throw new RedoException("UNSUPPORTED_MEDIA_RECOVERY_MARKER_PROFILE");
+            byte[] range=fields.get(1);long first=u32(range,0),last=u32(range,8);
+            if(u16(range,4)!=0x8000 || u16(range,12)!=0x8000 || u16(range,6)!=0 || u16(range,14)!=0 || first>last || last-first>1 || last>=record.scn())
+                throw new RedoException("UNSUPPORTED_MEDIA_RECOVERY_MARKER_RANGE");
+        } else throw new RedoException("UNSUPPORTED_HISTORICAL_SCHEMA_MARKER_OPCODE");
     }
     private static void requireDictionaryUnchanged(RedoRecords.Record record,RedoRecords.Vector vector,
                                                     FrozenHeapBaseline.Snapshot snapshot) throws RedoException {

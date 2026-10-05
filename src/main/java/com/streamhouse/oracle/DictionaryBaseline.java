@@ -39,11 +39,11 @@ public record DictionaryBaseline(Map<String,Layout> layouts,List<Index> indexes,
         }
         throw new RedoException("DICTIONARY_METADATA_COLUMN_MISSING");
     }
-    private long number(Row row,String name)throws RedoException {
+    long number(Row row,String name)throws RedoException {
         try{return OracleScalars.number(value(row,name)).longValueExact();}
         catch(ArithmeticException e){throw new RedoException("DICTIONARY_METADATA_INTEGER_REQUIRED");}
     }
-    private String text(Row row,String name)throws RedoException{return OracleScalars.varchar2(value(row,name),"AL32UTF8");}
+    String text(Row row,String name)throws RedoException{return OracleScalars.varchar2(value(row,name),"AL32UTF8");}
     static DictionaryBaseline read(List<String> lines,List<FrozenHeapBaseline.DictionaryAnchor> anchors) throws RedoException {
         var input=new FrozenHeapBaseline.Input(String.join("\n",lines));var layouts=new LinkedHashMap<String,Layout>();
         input.exact("DICT_HISTORY_BEGIN|1");
