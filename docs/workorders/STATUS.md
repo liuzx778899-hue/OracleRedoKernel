@@ -1,5 +1,7 @@
 # OracleRedoKernel 当前状态
 
+最新：[历史schema证据协议/产品兼容候选](DELIVERY_W5_HISTORICAL_SCHEMA_PROTOCOL_20261006.md)：e5477a6/kernel240c2250/299、adapter35340779/24、SPI53b84d18/8；P代码8cc33b1/743完整通过/product18f49be4，真实嵌入仍672f01bc/9516d4f9而非新历史候选。基线3列与逐事件4→3列DTO/完整字段/JSON往返及重复/擦marker一致，摘要仍c23904a9；错摘要/交换/裁列整入口rc1/stdout0，旧V2三IUD全部旧字段/envelope SHA相同。241双SHA/旧75+189不变；P注册关联拒绝/旧存储兼容通过，0源/目标/服务换装。历史decoder/可信V3获取回执登记/target receipt控制CPACK尚未接通，禁止晚SCN回填68/69。PR#13 draft依赖#12评审PENDING，原goal active，所有其它全量门禁待证，Codex最后查。
+
 最新：[历史逐schema投影候选](DELIVERY_W5_HISTORICAL_PROJECTION_20261006.md)：fd0a254/adapter446e5a9b/24；冻结实际V3/68—69两完整UPDATE投影4→3列，hidden NOTE/EXTRA_V3 NULL保留，raw ID/payload/位置/XID/SCN/schema/完整像一致。schema序列摘要c23904a9，重复字节相同/擦marker事件及序列摘要相同；三个比较反例检出、两个完整投影拒绝rc1/stdout0，旧V2静态三IUD完整JSON相同。75双SHA/旧189未变，Maven参数/Jackson依赖首失败保全；0源/目标/StreamHouse代码变更，无产品HTTP/CPACK。P仍efd068f/737/PR#13待评审，接续HISTORICAL_PRODUCT升级SPI有序schema证据/可信获取注册/发布/目标commit控制CP ACK，现旧单schema协议不能直接接新Batch。原全goal active、其它全量门禁待证，Codex最后查。
 
 最新：[实际历史schema完整业务行](DELIVERY_W5_HISTORICAL_ROW_SCHEMA_20261006.md)：9e72011/kernel3ccca289/299；实际V3 SCN2536302后冻结68/69两UPDATE自主完整历史入口通过，SCN2536404/2536423列数4→3，隐藏NOTE anchor与新增EXTRA_V3 NULL保留，native正逆/XID/位置/SCN及独立阶段SQL0差异。重复字节一致，擦四marker事件/schema/ID/payload不变；七SYS+四业务合法checksum完整入口rc1/stdout0，四比较器反例检出，旧V2三IUD/历史拒绝不变。189双SHA/旧374不变，首次end拒绝与跨block定位失败保全。0源变更/目标/产品动作；接续HISTORICAL_PRODUCT逐事件schema账/HTTP/target CP ACK，产品仍旧efd068f/737。原完整goal active，跨窗/采集/独立目标/矩阵/评审现场发布未过，Codex最后查。
