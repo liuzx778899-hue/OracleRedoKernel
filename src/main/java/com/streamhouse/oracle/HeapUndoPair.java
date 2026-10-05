@@ -6,8 +6,14 @@ import static com.streamhouse.oracle.HeapRowPatch.*;
 /** Exact same-record forward / inverse association, not complete row images or CDC events. */
 public record HeapUndoPair(long containerUid,long containerId,Patch forward,UndoRowPatch undo) {
     public static HeapUndoPair bind(RedoRecords.Record record,RedoRecords.Vector row,int columns) throws RedoException {
+        return bind(record,row,columns,false);
+    }
+    static HeapUndoPair bindDictionaryObject(RedoRecords.Record record,RedoRecords.Vector row,int columns) throws RedoException {
+        return bind(record,row,columns,true);
+    }
+    private static HeapUndoPair bind(RedoRecords.Record record,RedoRecords.Vector row,int columns,boolean dictionaryObject) throws RedoException {
         if (!record.vectors().contains(row)) throw new RedoException("ROW_VECTOR_NOT_IN_RECORD");
-        var p=new HeapRowPatch().decode(row,columns);
+        var decoder=new HeapRowPatch();var p=dictionaryObject?decoder.decodeDictionaryObject(row,columns):decoder.decode(row,columns);
         if (p.xtype()!=1 || p.uba()==null) throw new RedoException("NOT_FORWARD_ROW_UNDO_REFERENCE");
         UndoRowPatch match=null;
         int rowMatches=0;
@@ -15,7 +21,7 @@ public record HeapUndoPair(long containerUid,long containerId,Patch forward,Undo
             if (v.containerId()!=row.containerId()) continue;
             if (v.opcodeMajor()==11 && (v.opcodeMinor()==2 || v.opcodeMinor()==3 || v.opcodeMinor()==4 || v.opcodeMinor()==5)
                     && v.dba()==row.dba()) {
-                var other=new HeapRowPatch().decode(v,columns);
+                var other=dictionaryObject?decoder.decodeDictionaryObject(v,columns):decoder.decode(v,columns);
                 if (other.xtype()==1 && p.uba().equals(other.uba())) rowMatches++;
             }
             if (v.opcodeMajor()!=5 || v.opcodeMinor()!=1 || v.dba()!=p.uba().dba()) continue;
@@ -24,7 +30,7 @@ public record HeapUndoPair(long containerUid,long containerId,Patch forward,Undo
             byte[] b=v.fields().get(0);
             if (u16(b,16)!=p.uba().sequence() || (b[18]&255)!=p.uba().record()) continue;
             if (match!=null) throw new RedoException("AMBIGUOUS_ROW_UNDO_UBA");
-            match=UndoRowPatch.decode(v,columns);
+            match=UndoRowPatch.decode(v,columns,dictionaryObject);
         }
         if (rowMatches!=1) throw new RedoException("AMBIGUOUS_FORWARD_ROW_UBA");
         if (match==null) throw new RedoException("MISSING_ROW_UNDO_UBA");

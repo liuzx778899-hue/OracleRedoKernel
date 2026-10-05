@@ -25,6 +25,12 @@ public final class HeapRowPatch {
     }
 
     public Patch decode(RedoRecords.Vector vector, int dictionaryColumns) throws RedoException {
+        return decode(vector,dictionaryColumns,false);
+    }
+    Patch decodeDictionaryObject(RedoRecords.Vector vector,int columns) throws RedoException {
+        return decode(vector,columns,true);
+    }
+    private Patch decode(RedoRecords.Vector vector,int dictionaryColumns,boolean dictionaryObject) throws RedoException {
         if (vector.opcodeMajor() != 11 || (vector.opcodeMinor() != 2
                 && vector.opcodeMinor() != 3 && vector.opcodeMinor() != 4 && vector.opcodeMinor() != 5))
             throw new RedoException("UNSUPPORTED_HEAP_OPCODE");
@@ -61,12 +67,15 @@ public final class HeapRowPatch {
         }
         else throw new RedoException("UNSUPPORTED_KTB_OPERATION");
         Uba uba=ubaOffset < 0 ? null : new Uba(u32(ktb,ubaOffset),u16(ktb,ubaOffset+4),ktb[ubaOffset+6]&255);
-        var row=decodeKdo(fields,vector.opcodeMinor(),vector.dba(),dictionaryColumns);
+        var row=decodeKdo(fields,vector.opcodeMinor(),vector.dba(),dictionaryColumns,dictionaryObject);
         return new Patch(row.kind(),row.dba(),row.slot(),row.xtype(),xid,uba,row.columns(),row.extent(),row.lockTo());
     }
 
     /** Shared physical KDO decoding. Undo KTB does not describe the current transaction identity. */
     static Patch decodeKdo(List<byte[]> fields,int op,long dba,int dictionaryColumns) throws RedoException {
+        return decodeKdo(fields,op,dba,dictionaryColumns,false);
+    }
+    static Patch decodeKdo(List<byte[]> fields,int op,long dba,int dictionaryColumns,boolean dictionaryObject) throws RedoException {
         if (dictionaryColumns < 1 || dictionaryColumns > 255)
             throw new RedoException("UNSUPPORTED_HEAP_COLUMN_COUNT");
         if (fields.size()<2 || (op!=2 && op!=3 && op!=4 && op!=5))
@@ -74,9 +83,15 @@ public final class HeapRowPatch {
         byte[] kdo=fields.get(1);
         boolean packed=op==5 && kdo.length==28 && ((kdo[11]&255)==0x81 || (kdo[11]&255)==0x82);
         boolean tail=op==5 && kdo.length==28 && (kdo[11]&255)==1 && (kdo[23]&255)==0;
-        int expectedKdo=op == 2 ? 49 : op == 3 || op == 4 ? 20 : packed || tail ? 28 : 29;
+        boolean sysNine=dictionaryObject && dictionaryColumns==37 && op==5 && kdo.length==30 && (kdo[23]&255)==9;
+        int expectedKdo=sysNine?30:op == 2 ? 49 : op == 3 || op == 4 ? 20 : packed || tail ? 28 : 29;
         if (kdo.length != expectedKdo || (kdo[10]&255) != op || u32(kdo,0) != dba)
             throw new RedoException("UNSUPPORTED_KDO_LAYOUT_OR_BLOCK");
+        if(dictionaryObject && (dictionaryColumns!=37 || op!=5 || packed || tail || kdo[11]!=1 || kdo[12]!=1 || kdo[13]!=0
+                || u16(kdo,14)!=0 || kdo[16]!=0x2c || (kdo[17]!=0 && kdo[17]!=1) || kdo[18]!=0 || kdo[19]!=0
+                || !java.util.List.of(6,8,9).contains(kdo[23]&255) || u16(kdo,26)!=(sysNine?0x20:0x10)
+                || kdo[28]!=0 || (sysNine && kdo[29]!=0)))
+            throw new RedoException("UNSUPPORTED_DICTIONARY_OBJECT_UPDATE_PROFILE");
         int xtype=(kdo[11]&255)&(packed ? 0x7f : 0xff);
         if (xtype != 1 && xtype != 2) throw new RedoException("UNSUPPORTED_KDO_XTYPE");
         List<Column> columns=new ArrayList<>();

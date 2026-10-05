@@ -6,6 +6,9 @@ import static com.streamhouse.oracle.RedoBytes.*;
 public record UndoRowPatch(UndoHeader identity, HeapRowPatch.Patch inverse,
                            long previousDba,int predecessorRecord,int wrap) {
     public static UndoRowPatch decode(RedoRecords.Vector vector,int dictionaryColumns) throws RedoException {
+        return decode(vector,dictionaryColumns,false);
+    }
+    static UndoRowPatch decode(RedoRecords.Vector vector,int dictionaryColumns,boolean dictionaryObject) throws RedoException {
         var identity=UndoHeader.decode(vector);
         var fields=vector.fields();
         if (fields.size()<4 || fields.get(3).length<12)
@@ -17,7 +20,7 @@ public record UndoRowPatch(UndoHeader identity, HeapRowPatch.Patch inverse,
         if (ktb.length==0 || !((ktb[0]==3 && ktb.length==8) || (ktb[0]==2 && ktb.length==16)
                 || (ktb[0]==4 && ktb.length==32)))
             throw new RedoException("UNSUPPORTED_UNDO_KTB_LAYOUT");
-        var inverse=HeapRowPatch.decodeKdo(fields.subList(2,fields.size()),kdo[10]&255,u32(kdo,0),dictionaryColumns);
+        var inverse=HeapRowPatch.decodeKdo(fields.subList(2,fields.size()),kdo[10]&255,u32(kdo,0),dictionaryColumns,dictionaryObject);
         return new UndoRowPatch(identity,inverse,u32(ktubu,12),ktubu[19]&255,u16(ktubu,22));
     }
 }
