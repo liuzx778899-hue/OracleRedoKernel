@@ -18,6 +18,8 @@
 
 ## 当前证据
 
+最新：[实际获取可信控制账候选](DELIVERY_W5_ACQUISITION_CONTROLLER_20261005.md)。产品ded59ab/733项全通过、adapter50feffa8；专属Oracle控制库实际认证HTTP获取SCN2484139/ACQUIRED_ONLY，重启字段一致、固定SCN独立DUMP所有值/位置/metadata零差异。注入/截断/半文件/authority/SCN/schema/登记SQL故障拒绝，孤儿保留、账仍1/绑定0/事件0；168非secret文件双SHA，失败原文保留。源业务/NO/NO/旧表不变，helper停止。三库新建/升级、Windows/存储/多writer、历史DDL/ABA及新基线后新raw完整DML未通过；评审PENDING，公开生产门禁仍关闭，goal active。
+
 最新：[adapter真实只读源快照获取](DELIVERY_W5_SOURCE_ACQUISITION_20261005.md)。代码83cb49f/模块19全通过，新adapter50feffa8，kernel/SPI复用；三个既有表真实固定SCN2480910/15/20获取并由原内核导入，独立DUMP全部值字节/NULL/隐藏物理列/rowid/source/schema零差异，四实库拒绝无快照/连接关闭。源码/制品/probe执行前SHA与1872文件双SHA（含m2缓存）；只为专属实验新建只读账号/权限，不算生产零配置；源业务/NO/NO/旧表不变，helpers退出。三SCN晚于旧captures，禁止用新快照重建旧DML；没有新事件/目标写入。产品adapter仍旧坐标，可信控制器/持久authority/历史DDL/ABA/leaf/跨窗等待证，评审PENDING，goal active；接续DISPATCH_W5_TRUSTED_ACQUISITION_CONTROLLER_20261005。
 
 最新：[已提交、ACK待恢复事实](DELIVERY_W6_ACK_PENDING_20261005.md)。代码dc18565完整提交树728项全通过；只有目标核验/控制成功后ACK失败返回绑定task/batch/source/window的类型结果，错身份不采信。专属新控制/目标实际HTTP首次ACK冲突与FAILED空待办重复失败，两次审计FAILED且published=1/ACK_PENDING；保全冲突后恢复DONE、唯一批次不增、目标完整中间像/成员/CP/ACK零差异、DONE重复不变、三比较反例检出。125文件双SHA、HTTPdriver执行前封存；首轮编译失败保留。源业务/NO/NO/旧表不变，helper正常停止。评审PENDING；DONE异常恢复状态表达、生产字典/租约/跨窗/C++/独立目标/其他方言/现场发布仍待证，goal active。

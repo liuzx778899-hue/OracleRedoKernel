@@ -26,7 +26,7 @@ elif action=='start':
  (O/'runtime-pin.json').write_text(json.dumps(dict(commit=proof['commit'],app_sha256=proof['app_sha256'],container=NAME,scope='oracle-acquisition-controller',port=37218,control=USER,source_business_dml=0,target_writes=0),indent=2))
  args=['docker','run','-d','--name',NAME,'--label','owner=OracleRedoKernel','--label','scope=oracle-acquisition-controller','--user','0','--network','container:'+S,'--workdir','/evidence','--env-file',str(O/'runtime.secret.env'),'--mount','type=bind,source='+str(O)+',target=/evidence','--entrypoint','java','flink:1.18-java17','-Xmx1536m','-jar','/evidence/application.jar'];record('start',args)
 elif action in ['acquire','verify','inject','unauthorized']:
- data=dict(sourceId='oracle-acquired-SMIX') if action=='acquire' else (dict(sourceId='oracle-acquired-SMIX',authority='client') if action=='inject' else None)
+ data=dict(sourceId='oracle-acquired-SMIX') if action in ['acquire','unauthorized'] else (dict(sourceId='oracle-acquired-SMIX',authority='client') if action=='inject' else None)
  path='/oracle/acquisitions'+('/'+(O/'acquisition-id.txt').read_text() if action=='verify' else '')
  name=sys.argv[2] if len(sys.argv)>2 else action
  remote="""import json,urllib.request,urllib.error
