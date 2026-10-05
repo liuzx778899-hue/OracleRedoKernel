@@ -1,0 +1,63 @@
+{
+  "code_commit": "83cb49f92d8ba07f87f81000cd813afe5707397c",
+  "build": {
+    "tests": {
+      "tests": 19,
+      "errors": 0,
+      "failures": 0,
+      "skipped": 0
+    },
+    "adapter_sha256": "50feffa8494a9225e48a8886752b071918e9ae50d3373c0952c6add398cb3b35",
+    "kernel_sha256": "960954207b626be4d19db547ce2a9e3c5245075e84edb7196935ba3c0489c55e",
+    "spi_sha256": "fb9c443ba88e49b656d97a4bd881c31a3c9fef305bf9d5a503c13364ed940b95",
+    "kernel_tests_rerun": false
+  },
+  "proof": {
+    "cases": [
+      {
+        "case": "SNON",
+        "scn": 2480910,
+        "sha256": "fbde75fed7e2a43007465dfcf222b878b4b5a93067f84131ac0ab482eb603445",
+        "rows": 1,
+        "columns": 3,
+        "all_source_schema_row_position_and_dump_bytes_zero_differences": true
+      },
+      {
+        "case": "SNUL",
+        "scn": 2480915,
+        "sha256": "8eff9693a1a34b09fa24b37d136e0d38d06eea4d97aa6b4fbd1239832ef331e0",
+        "rows": 1,
+        "columns": 3,
+        "all_source_schema_row_position_and_dump_bytes_zero_differences": true
+      },
+      {
+        "case": "SMIX",
+        "scn": 2480920,
+        "sha256": "f0e18e2f8d4c3499cc862a4c0de15540f41343ab95a0e620e563d627c0eb033f",
+        "rows": 1,
+        "columns": 3,
+        "all_source_schema_row_position_and_dump_bytes_zero_differences": true
+      }
+    ],
+    "real_refusals": [
+      "wrong-source",
+      "old-transaction",
+      "wrong-index",
+      "missing-table-read"
+    ],
+    "source_business_dml": 0,
+    "source_business_ddl": 0,
+    "logging_changes": 0,
+    "source_restart": 0,
+    "dedicated_read_account_created": true,
+    "historical_dictionary_accepted": false,
+    "registry_publication_accepted": false,
+    "site_accepted": false
+  },
+  "seal_files": 1872,
+  "seal_sha256": "28c849980fec82f75a241dbaf7fa676e0aff396b1884b81a87c124b45b5f487a",
+  "review": "PENDING",
+  "product_adapter_not_replaced": true,
+  "site": "NOT_VERIFIED",
+  "release": "NOT_STARTED"
+}

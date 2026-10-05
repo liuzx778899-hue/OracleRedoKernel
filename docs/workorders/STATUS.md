@@ -18,6 +18,8 @@
 
 ## 当前证据
 
+最新：[adapter真实只读源快照获取](DELIVERY_W5_SOURCE_ACQUISITION_20261005.md)。代码83cb49f/模块19全通过，新adapter50feffa8，kernel/SPI复用；三个既有表真实固定SCN2480910/15/20获取并由原内核导入，独立DUMP全部值字节/NULL/隐藏物理列/rowid/source/schema零差异，四实库拒绝无快照/连接关闭。源码/制品/probe执行前SHA与1872文件双SHA（含m2缓存）；只为专属实验新建只读账号/权限，不算生产零配置；源业务/NO/NO/旧表不变，helpers退出。三SCN晚于旧captures，禁止用新快照重建旧DML；没有新事件/目标写入。产品adapter仍旧坐标，可信控制器/持久authority/历史DDL/ABA/leaf/跨窗等待证，评审PENDING，goal active；接续DISPATCH_W5_TRUSTED_ACQUISITION_CONTROLLER_20261005。
+
 最新：[已提交、ACK待恢复事实](DELIVERY_W6_ACK_PENDING_20261005.md)。代码dc18565完整提交树728项全通过；只有目标核验/控制成功后ACK失败返回绑定task/batch/source/window的类型结果，错身份不采信。专属新控制/目标实际HTTP首次ACK冲突与FAILED空待办重复失败，两次审计FAILED且published=1/ACK_PENDING；保全冲突后恢复DONE、唯一批次不增、目标完整中间像/成员/CP/ACK零差异、DONE重复不变、三比较反例检出。125文件双SHA、HTTPdriver执行前封存；首轮编译失败保留。源业务/NO/NO/旧表不变，helper正常停止。评审PENDING；DONE异常恢复状态表达、生产字典/租约/跨窗/C++/独立目标/其他方言/现场发布仍待证，goal active。
 
 最新：[实际HTTP混合DML与两处进程强杀](DELIVERY_W6_HTTP_CRASH_20261005.md)。审计修复411cd64完整提交树724项全通过；同件专属服务认证HTTP，真实目标INSERT等待时SIGKILL137/目标0，目标三事件commit后控制窗口UPDATE等待时SIGKILL137/目标3保留控制回滚；重启HTTP恢复DONE，完整目标中间像/成员/账本/CP/ACK零差异、DONE重复字节不变、三比较反例检出。15+266文件双SHA，源业务/NO/NO/旧表不变，混合helper正常停止。首次SQLPlus长行rc0实际失败、NOWAIT正确拒绝、脚本/观察失败保留；lab源码SHA执行后封存不冒充执行前。独立评审PENDING；生产字典/租约/活跃跨窗/C++/独立目标/其他控制方言HTTP/现场发布及ACK失败published口径仍待证，goal active。
