@@ -20,6 +20,40 @@ class HeapTailExtentTest {
                 hex("020db77100000000a3294002f5002600"),hex("9301000392010003fa120501020000002c021200000003010700000000"),hex("0200"),hex("736563726574")));
     }
     RedoRecords.Record record(RedoRecords.Vector... v) {return new RedoRecords.Record(11164,16,1024,1,2282705,1,677737149,List.of(v));}
+    // Actual seq62:6686:76 changes 4/8, NULL trailing TXT becomes the eight-byte v2-after.
+    RedoRecords.Vector addedRow() {
+        return new RedoRecords.Vector(11,5,1,12,50341438,2517235,1,3,List.of(
+                hex("020d64006400650023264002c3001600"),hex("3e2600033a260003fa120501010000002c01b900000002010900000000"),hex("0100"),hex("76322d6166746572")));
+    }
+    RedoRecords.Vector addedUndo() {
+        return new RedoRecords.Vector(5,1,20,11,37758499,2517235,2,3,List.of(
+                hex("5000d8172200320002000d0066020000c3001600"),hex("0a2501000a25010005000000000000000b010d1500006602"),
+                hex("020d5acc69006e0023264002c3001400"),hex("3e2600033a260003fa120501010000002c01b90000000100f7ff0000"),new byte[0]));
+    }
+    @Test void bindsObservedUnmappedInverseTailToExactAddedValue() throws Exception {
+        var row=addedRow();var undo=addedUndo();var pair=HeapUndoPair.bind(record(undo,row),row,3);
+        assertEquals(new HeapRowPatch.RowExtent(1,0,1,-9),pair.undo().inverse().extent());
+        assertTrue(pair.undo().inverse().columns().stream().allMatch(c->c.state()==HeapRowPatch.State.ABSENT));
+        var before=List.of(new ArchivedHeapRows.Cell(HeapRowPatch.State.VALUE,"c10c"),
+                new ArchivedHeapRows.Cell(HeapRowPatch.State.NULL,""),new ArchivedHeapRows.Cell(HeapRowPatch.State.NULL,""));
+        var after=ArchivedHeapRows.apply(pair,before,3);
+        assertEquals("76322d6166746572",after.get(1).hex());assertEquals(before.get(2),after.get(2));
+    }
+    @Test void unmappedTailRequiresObservedShapeAndOppositeSingleColumnGrowth() {
+        for (int mode=0;mode<9;mode++) {
+            var row=addedRow();var undo=addedUndo();
+            if (mode==0)undo.fields().get(3)[26]=1;
+            if (mode==1)undo.fields().get(3)[24]=0;
+            if (mode==2)undo.fields().get(3)[22]=2;
+            if (mode==3)undo.fields().get(3)[11]=2;
+            if (mode==4)row.fields().get(2)[0]=0;
+            if (mode==5)row.fields().get(1)[22]=3;
+            if (mode==6)row.fields().get(1)[24]=8;
+            if (mode==7)undo.fields().get(0)[18]^=1;
+            int columns=mode==8 ? 2 : 3;
+            assertThrows(RedoException.class,()->HeapUndoPair.bind(record(undo,row),row,columns));
+        }
+    }
     @Test void rawTailMarkerDoesNotTurnAbsentIntoNull() throws Exception {
         var p=new HeapRowPatch().decode(row(),3);assertEquals(new HeapRowPatch.RowExtent(2,0,2,-7),p.extent());
         assertTrue(p.columns().stream().allMatch(c->c.state()==HeapRowPatch.State.ABSENT));

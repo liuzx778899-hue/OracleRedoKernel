@@ -110,8 +110,12 @@ public final class HeapRowPatch {
             if ((kdo[16]&255) != 0x2c || stored<1 || stored>dictionaryColumns)
                 throw new RedoException("UNSUPPORTED_UPDATE_ROWPIECE");
             if (tail) {
-                if (stored>=dictionaryColumns || fields.size()!=4 || fields.get(2).length!=2
-                        || u16(fields.get(2),0)!=stored || fields.get(3).length!=0 || u16(kdo,26)!=1 || delta>=0)
+                boolean mapped=fields.size()==4 && fields.get(2).length==2
+                        && u16(fields.get(2),0)==stored && fields.get(3).length==0 && u16(kdo,26)==1;
+                // Actual seq62 inverse URP: ncol1/nnew0, empty map, marker0; pairing proves the removed column.
+                boolean unmapped=dictionaryColumns==3 && stored==1 && fields.size()==3
+                        && fields.get(2).length==0 && u16(kdo,26)==0;
+                if (stored>=dictionaryColumns || (!mapped && !unmapped) || delta>=0)
                     throw new RedoException("UNSUPPORTED_UPDATE_TAIL_MARKER");
                 extent=new RowExtent(stored,0,stored,delta);
             } else {
