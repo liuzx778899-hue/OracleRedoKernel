@@ -12,11 +12,13 @@
 | W3 基础行/类型 | 进行中：scalar + pair + KDOM2单列扩展值 | 通过：18pair/302长值patch；完整行待证 | 进行中：物理配对；字典/基线待证 | 未开始 | 待证 | 未开始 |
 | W4 事务/回滚 | 进行中：有序history/覆盖/heap+index补偿、同源完整XID归属及有源位置重放 | 通过：203测试；seq21—24自主发现基线/A/B共12物理图；自主对象头关联；seq19—24六位置、seq21—24有限双上下文完整图与拒绝证据；九笔旧图及六批长heap证据保留 | 进行中：有界自主物理入口已交付；完整控制/页维护/跨块关联/恢复待证；不当通用生产能力 | 未开始 | 待证 | 未开始 |
 | W5 SCN字典/基线 | 进行中：extent/完整行、ASOF/回执/typed世代，有限cleanout、闭合图live选择、commit SCN重放及LKR独立LOCK节点 | 通过：233测试制品；seq37—39真实锁等待三完整行/native/四SQL零差异；seq36 rollback-only及seq33—35旧批次空结果，既有并发/行证据保留；生产可信交接/历史字典待证 | 进行中：有限不同行并发、全/部分回滚、空批次、真实锁等待但redo事务窗口串行通过；活跃同key重叠/相同commit SCN支持/无目标静默/多savepoint/跨块/初始恢复/历史schema待证 | 未开始 | 待证 | 未开始 |
-| W6 StreamHouse接入 | 进行中：独立Oracle adapter及JDBC目标原子凭证；公开decoder拒绝 | 通过：内核245保留、模块5、三真实SIGKILL rc137、四同批重复0新增、六拒绝、三fresh目标六像零差异；跨批/窗口/可信schema待证 | 通过有限raw→内核→SPI→专属Oracle目标commit/ACK；同实例跨schema，完整产品pipeline/独立目标实例待证 | 未开始 | 待证 | 未开始 |
+| W6 StreamHouse接入 | 进行中：独立Oracle adapter及JDBC目标原子凭证；公开decoder拒绝 | 通过：内核245保留、模块5、三真实SIGKILL rc137、四同批重复0新增、六拒绝、三fresh目标六像零差异；有界两旧一新跨批2+1及重复0；任意窗口/可信schema待证 | 通过有限raw→内核→SPI→专属Oracle目标commit/ACK；同实例跨schema，完整产品pipeline/独立目标实例待证 | 未开始 | 待证 | 未开始 |
 | W7 online采集 | 进行中：关闭代际多member跟踪/回执审计/独占重启续接；共用capture输入接完整图/行 | 通过：原40—42重启追加43/9161归档数据块零差异；两真实collector SIGKILL/完整尾恢复与半帧保全拒绝/11反例；既有240测试及图/行保留；实时/高压复用/断电/Windows/ASM待证 | 通过有限关闭批次与collector重启：journal→record/vector→typed事务→可信baseline完整UPDATE；跨批活跃状态/生产字典/消费checkpoint/目标ACK待证，有关闭延迟 | 未开始 | 待证 | 未开始 |
 | W8-W11 扩展类型/LOB/RAC/ASM/TDE | 未开始 | 待证 | 未开始 | 未开始 | 待证 | 未开始 |
 
 ## 当前证据
+
+最新：[有界跨批与两旧一新目标凭证](DELIVERY_W6_ORACLE_OVERLAP_20261005.md)，lab557195d/0baea8e，[清单](evidence/DELIVERY-oracle-overlap-20261005.json)。生产模块/245及5测试制品不变、强杀不重跑；metadata-only派生14749帧redo未变，3EVENT/ROW完全一致，新batch在POST0新增/重复0，当前3/6/2及原ACK不变，三比较反例检出。原始40—41先2新增、40—42重叠两旧一新仅1新增，两批重复各0；专属新MIXD五表当前3审计/5成员/2凭证、六完整像及原SQL零差异，两ACK核验。原目标POST旧3/3/1为历史时点；当前MIXD健康。源业务/日志配置无变、LGWR5601保留/helper退出；同实例目标DDL不是生产零数据库配置证明。下一步消费checkpoint/元数据成员实际拒绝与恢复；任意活跃窗口/生产字典/公开decoder/全产品/部署/现场/发布待证。
 
 最新：[真实Oracle目标提交与ACK恢复](DELIVERY_W6_ORACLE_TARGET_20261005.md)，模块6a6ce3e、lab937705b、jar8103c262…，[清单](evidence/DELIVERY-oracle-target-20261005.json)。专属同实例新目标schema/35表，五表原子DML/审计/成员/提交凭证后ACK；三客户端SIGKILL rc137、四同批重复0新增、六实际拒绝；三fresh恢复目标完整六像/凭证/ACK零差异，四独立比较拒绝。NORM最后有意污染，只引用破坏前快照，不当当前健康。密码长度及CRLF失败保留，仅续未执行项；口令排除哈希和提交。源业务DML/日志配置无变、LGWR5601不变、helper已退出；目标实验DDL不是生产零数据库配置证明。模块5测试/内核245保留；公开decoder、全产品接入/部署/现场/发布仍未通过。下一步不同/重叠批次去重与成员，再消费checkpoint及Oracle窗口/可信历史字典。
 

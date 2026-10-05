@@ -1,0 +1,709 @@
+{
+  "lab_source_commit": "0baea8ea98b8ed1a0d043d53fad7a0f6841726c9",
+  "rebatch_initial_source_commit": "557195d",
+  "module_unchanged_from_runtime": "6a6ce3e8361d8c036b3da68efa24effdbb6a07f8",
+  "prior_artifacts_pinned_by": "docs/workorders/evidence/DELIVERY-oracle-target-20261005.json",
+  "sources": [
+    {
+      "path": "lab/run_oracle_rebatch19.py",
+      "executed_bytes_equal_archive": false,
+      "lf_normalized_content_equal": true
+    },
+    {
+      "path": "lab/run_oracle_overlap19.py",
+      "executed_bytes_equal_archive": false,
+      "lf_normalized_content_equal": true
+    }
+  ],
+  "sha256_checked_twice": true,
+  "rebatch": {
+    "derived_metadata_only": true,
+    "raw_payload_frames_unchanged": 14749,
+    "event_and_payload_and_row_output_equal": true,
+    "old_batch": "b6658e92d88d4a910a5a4b4870189b6ba8fa4d30873ff715f08e35dd3d15aeb8",
+    "new_batch": "c5df2745552bf04d635608c46e10e89ec7df2f3db8e55b7ecb09abc5057805a0",
+    "actual_target_applications": 3,
+    "actual_target_members": 6,
+    "actual_target_commits": 2,
+    "new_batch_dml": 0,
+    "repeat_new_batch_dml": 0,
+    "independent_source_sql_audit_mismatches": 0,
+    "comparator_counterexamples": 3,
+    "old_ack_bytes_unchanged": true,
+    "source_dml": 0,
+    "source_config_changes": 0,
+    "real_partial_overlap_window_accepted": false,
+    "checkpoint_accepted": false
+  },
+  "overlap": {
+    "raw_journals_unchanged": true,
+    "prefix_events": 2,
+    "full_events": 3,
+    "new_dml_first": 2,
+    "new_dml_overlap": 1,
+    "new_dml_repeats": [
+      0,
+      0
+    ],
+    "target_event_audits": 3,
+    "target_members": 5,
+    "target_commits": 2,
+    "prefix_batch": "86cd8a04438d7c82eb97b5e32dcb86c37b45fbd42c6cd33ab7b94416b69b9b31",
+    "full_batch": "b6658e92d88d4a910a5a4b4870189b6ba8fa4d30873ff715f08e35dd3d15aeb8",
+    "independent_source_sql_images_mismatches": 0,
+    "prefix_ack_unchanged_after_full": true,
+    "new_owned_target_tables": 5,
+    "source_dml": 0,
+    "source_config_changes": 0,
+    "arbitrary_window_live_state_accepted": false,
+    "checkpoint_accepted": false,
+    "product_pipeline_accepted": false
+  },
+  "files": [
+    {
+      "path": "lab/out/oracle-overlap-20261005/apply-overlap-full.command.json",
+      "bytes": 1063,
+      "sha256": "8b827724da6c7070fc36b634ac13ff31ea332040a820dbeb02f8307ac21f7468"
+    },
+    {
+      "path": "lab/out/oracle-overlap-20261005/apply-overlap-full.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/oracle-overlap-20261005/apply-overlap-full.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle-overlap-20261005/apply-overlap-full.stdout.txt",
+      "bytes": 197,
+      "sha256": "6aeef151be59c15683b60b93f6cf9908203d6b202a94bb2d127a7efa57add13d"
+    },
+    {
+      "path": "lab/out/oracle-overlap-20261005/apply-prefix.command.json",
+      "bytes": 970,
+      "sha256": "3c1c24f21e2900d0b6900e4254978b94877c21128b65d33ae4f7c37a0d381dd7"
+    },
+    {
+      "path": "lab/out/oracle-overlap-20261005/apply-prefix.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/oracle-overlap-20261005/apply-prefix.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle-overlap-20261005/apply-prefix.stdout.txt",
+      "bytes": 197,
+      "sha256": "46dbe38498762c14fa0cd0d97ff39417e4ea9ed343463705ac084ee5034649a8"
+    },
+    {
+      "path": "lab/out/oracle-overlap-20261005/driver-warning.retained.txt",
+      "bytes": 193,
+      "sha256": "ad9cff6c1435aaef7e95952c9dbf00f96e1f4f54f6bf144eeaf5720f8331216a"
+    },
+    {
+      "path": "lab/out/oracle-overlap-20261005/executed-source/run_oracle_overlap19.py",
+      "bytes": 7852,
+      "sha256": "4799ea1ec9c147cb43ef05388a022ee7c3e0c53e3fbf61775ff773da72196d58"
+    },
+    {
+      "path": "lab/out/oracle-overlap-20261005/full.ack",
+      "bytes": 185,
+      "sha256": "6eecfd0635774b1a123d9ced680efefeb798c84759e000948e479988c1060ae8"
+    },
+    {
+      "path": "lab/out/oracle-overlap-20261005/helpers-exited.command.json",
+      "bytes": 84,
+      "sha256": "24da90eaa1185f7b31e15c79c79ab31ac1b939652212fd477190fd1f582c4e10"
+    },
+    {
+      "path": "lab/out/oracle-overlap-20261005/helpers-exited.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/oracle-overlap-20261005/helpers-exited.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle-overlap-20261005/helpers-exited.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle-overlap-20261005/lab-source-tree.zip",
+      "bytes": 2500671,
+      "sha256": "72d2bfc4c15e24a0887d5c1aca451298f71ff2d1ecb8c732c28abc05a98b1b61"
+    },
+    {
+      "path": "lab/out/oracle-overlap-20261005/lgwr.command.json",
+      "bytes": 72,
+      "sha256": "5d77e97a9d24b8b78fa660b1f56aef6da8907f54d94e4f2f71a1439fe005529b"
+    },
+    {
+      "path": "lab/out/oracle-overlap-20261005/lgwr.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/oracle-overlap-20261005/lgwr.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle-overlap-20261005/lgwr.stdout.txt",
+      "bytes": 15,
+      "sha256": "5a63875a5c70e29cc03476c9d138c821b04e46ee91792c9808cb46ab10595b3a"
+    },
+    {
+      "path": "lab/out/oracle-overlap-20261005/no-existing-helper.command.json",
+      "bytes": 84,
+      "sha256": "24da90eaa1185f7b31e15c79c79ab31ac1b939652212fd477190fd1f582c4e10"
+    },
+    {
+      "path": "lab/out/oracle-overlap-20261005/no-existing-helper.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/oracle-overlap-20261005/no-existing-helper.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle-overlap-20261005/no-existing-helper.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle-overlap-20261005/prefix-state.command.json",
+      "bytes": 90,
+      "sha256": "6095ca5a9605c02acb9b77ba5ea4d19487ab938e2e51045704dedb495bc394d5"
+    },
+    {
+      "path": "lab/out/oracle-overlap-20261005/prefix-state.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/oracle-overlap-20261005/prefix-state.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle-overlap-20261005/prefix-state.stdout.txt",
+      "bytes": 1146,
+      "sha256": "3b0bf041df2ee740cef2c718b8d70c0e407cf74a851a5cb9b0a5841fc21d484e"
+    },
+    {
+      "path": "lab/out/oracle-overlap-20261005/prefix-two-kernel.command.json",
+      "bytes": 748,
+      "sha256": "a7442b47db38fa7b47599ee4684a0dc736f9f4e7ac2b5afd3f8625b87ef09cb8"
+    },
+    {
+      "path": "lab/out/oracle-overlap-20261005/prefix-two-kernel.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/oracle-overlap-20261005/prefix-two-kernel.stderr.txt",
+      "bytes": 92,
+      "sha256": "ce511e42b23b08e4a15ac25db8d83201116a09d2fae5909aa19a9cecdfdb3964"
+    },
+    {
+      "path": "lab/out/oracle-overlap-20261005/prefix-two-kernel.stdout.txt",
+      "bytes": 1415,
+      "sha256": "9eb368ea5cbb9e866241eff44ce411b2c61faa417c410aec911e2712919dc8c4"
+    },
+    {
+      "path": "lab/out/oracle-overlap-20261005/prefix.ack",
+      "bytes": 185,
+      "sha256": "d4fe198ca76412d6575a7f82698a09226cbe0dc9dc467ea7f2ac5b4d1c958c8c"
+    },
+    {
+      "path": "lab/out/oracle-overlap-20261005/proof.json",
+      "bytes": 724,
+      "sha256": "ea129ec430ee73b0ab1ecf7afe56ae7b13d0eee3d4aef9ebef2640b92f5bae6b"
+    },
+    {
+      "path": "lab/out/oracle-overlap-20261005/repeat-overlap-full.command.json",
+      "bytes": 1063,
+      "sha256": "8b827724da6c7070fc36b634ac13ff31ea332040a820dbeb02f8307ac21f7468"
+    },
+    {
+      "path": "lab/out/oracle-overlap-20261005/repeat-overlap-full.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/oracle-overlap-20261005/repeat-overlap-full.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle-overlap-20261005/repeat-overlap-full.stdout.txt",
+      "bytes": 197,
+      "sha256": "336ee4598c38eecd645138795ee2e961afff6daf8479d54667365c002e4283e4"
+    },
+    {
+      "path": "lab/out/oracle-overlap-20261005/repeat-prefix-after-full.command.json",
+      "bytes": 970,
+      "sha256": "3c1c24f21e2900d0b6900e4254978b94877c21128b65d33ae4f7c37a0d381dd7"
+    },
+    {
+      "path": "lab/out/oracle-overlap-20261005/repeat-prefix-after-full.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/oracle-overlap-20261005/repeat-prefix-after-full.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle-overlap-20261005/repeat-prefix-after-full.stdout.txt",
+      "bytes": 197,
+      "sha256": "291d9084645b27268436a6fb65fe711a23d7c97918c75d684f1187c62a3fed0c"
+    },
+    {
+      "path": "lab/out/oracle-overlap-20261005/source-after.command.json",
+      "bytes": 90,
+      "sha256": "6095ca5a9605c02acb9b77ba5ea4d19487ab938e2e51045704dedb495bc394d5"
+    },
+    {
+      "path": "lab/out/oracle-overlap-20261005/source-after.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/oracle-overlap-20261005/source-after.sql",
+      "bytes": 354,
+      "sha256": "940e5cf5bfecb3a3734f707531f8c2a790a91b417002bb3c88ebeb2be2e1166e"
+    },
+    {
+      "path": "lab/out/oracle-overlap-20261005/source-after.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle-overlap-20261005/source-after.stdout.txt",
+      "bytes": 74,
+      "sha256": "43aff26048c42de27bde314320934237b29f382a0361b6618f38b4d2e9a33a5f"
+    },
+    {
+      "path": "lab/out/oracle-overlap-20261005/source-before.command.json",
+      "bytes": 90,
+      "sha256": "6095ca5a9605c02acb9b77ba5ea4d19487ab938e2e51045704dedb495bc394d5"
+    },
+    {
+      "path": "lab/out/oracle-overlap-20261005/source-before.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/oracle-overlap-20261005/source-before.sql",
+      "bytes": 354,
+      "sha256": "940e5cf5bfecb3a3734f707531f8c2a790a91b417002bb3c88ebeb2be2e1166e"
+    },
+    {
+      "path": "lab/out/oracle-overlap-20261005/source-before.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle-overlap-20261005/source-before.stdout.txt",
+      "bytes": 74,
+      "sha256": "43aff26048c42de27bde314320934237b29f382a0361b6618f38b4d2e9a33a5f"
+    },
+    {
+      "path": "lab/out/oracle-overlap-20261005/source-owner.command.json",
+      "bytes": 107,
+      "sha256": "6cc60bfdc53919bf5068bdcbf30ec5c8b4e38feaebc9cbc53db9992eff5a6357"
+    },
+    {
+      "path": "lab/out/oracle-overlap-20261005/source-owner.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/oracle-overlap-20261005/source-owner.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle-overlap-20261005/source-owner.stdout.txt",
+      "bytes": 25,
+      "sha256": "0a713b1fc68700ddfe68d6757c3a323c2b2a06f3c595b5513399d6b6771b1823"
+    },
+    {
+      "path": "lab/out/oracle-overlap-20261005/target-five-table-setup.command.json",
+      "bytes": 90,
+      "sha256": "6095ca5a9605c02acb9b77ba5ea4d19487ab938e2e51045704dedb495bc394d5"
+    },
+    {
+      "path": "lab/out/oracle-overlap-20261005/target-five-table-setup.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/oracle-overlap-20261005/target-five-table-setup.sql",
+      "bytes": 1345,
+      "sha256": "b2208101ab256e5934acabe82fc8365b39f5830efad5ecdbfb50260412aa859e"
+    },
+    {
+      "path": "lab/out/oracle-overlap-20261005/target-five-table-setup.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle-overlap-20261005/target-five-table-setup.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle-overlap-20261005/target-fresh.command.json",
+      "bytes": 90,
+      "sha256": "6095ca5a9605c02acb9b77ba5ea4d19487ab938e2e51045704dedb495bc394d5"
+    },
+    {
+      "path": "lab/out/oracle-overlap-20261005/target-fresh.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/oracle-overlap-20261005/target-fresh.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle-overlap-20261005/target-fresh.stdout.txt",
+      "bytes": 2080,
+      "sha256": "af15e76bf58b1303e8878f4f9b0a836b2591a6e68ce465290e242b68072afea3"
+    },
+    {
+      "path": "lab/out/oracle-overlap-20261005/target-preflight.command.json",
+      "bytes": 90,
+      "sha256": "6095ca5a9605c02acb9b77ba5ea4d19487ab938e2e51045704dedb495bc394d5"
+    },
+    {
+      "path": "lab/out/oracle-overlap-20261005/target-preflight.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/oracle-overlap-20261005/target-preflight.sql",
+      "bytes": 361,
+      "sha256": "0ae81b4e0dbd973307c08a7a0c8c4e46600d1b12bf2679c166b7c3ef757cd343"
+    },
+    {
+      "path": "lab/out/oracle-overlap-20261005/target-preflight.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle-overlap-20261005/target-preflight.stdout.txt",
+      "bytes": 27,
+      "sha256": "10927a6b3cf779af80987957738274ca08887a153ababc1b1f77d160341b07c4"
+    },
+    {
+      "path": "lab/out/oracle-rebatch-20261005/apply-new-batch.command.json",
+      "bytes": 1071,
+      "sha256": "98c3be1273d9628d596421e938f9fe6a34e7810b44194192ebff23b2f1695adc"
+    },
+    {
+      "path": "lab/out/oracle-rebatch-20261005/apply-new-batch.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/oracle-rebatch-20261005/apply-new-batch.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle-rebatch-20261005/apply-new-batch.stdout.txt",
+      "bytes": 197,
+      "sha256": "79376016efd20a7258bf5893a9b735cbb68f7f735505a69dc71010e1b6bbf271"
+    },
+    {
+      "path": "lab/out/oracle-rebatch-20261005/executed-source/run_oracle_rebatch19.py",
+      "bytes": 7867,
+      "sha256": "b9d293a543d769f7b384ef621adf634452d5cc6866b75573424b70e49345d1b2"
+    },
+    {
+      "path": "lab/out/oracle-rebatch-20261005/helpers-exited.command.json",
+      "bytes": 84,
+      "sha256": "695274e5b323389c21ce642d0264f6be3e9a825dc7b00e6fcfa119098f661599"
+    },
+    {
+      "path": "lab/out/oracle-rebatch-20261005/helpers-exited.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/oracle-rebatch-20261005/helpers-exited.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle-rebatch-20261005/helpers-exited.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle-rebatch-20261005/lgwr.command.json",
+      "bytes": 72,
+      "sha256": "5d77e97a9d24b8b78fa660b1f56aef6da8907f54d94e4f2f71a1439fe005529b"
+    },
+    {
+      "path": "lab/out/oracle-rebatch-20261005/lgwr.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/oracle-rebatch-20261005/lgwr.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle-rebatch-20261005/lgwr.stdout.txt",
+      "bytes": 15,
+      "sha256": "5a63875a5c70e29cc03476c9d138c821b04e46ee91792c9808cb46ab10595b3a"
+    },
+    {
+      "path": "lab/out/oracle-rebatch-20261005/missing-event.json",
+      "bytes": 60,
+      "sha256": "c628d8493e2cadc0e4abf373573115ae77edb8e410c436cf08d719725de43c8e"
+    },
+    {
+      "path": "lab/out/oracle-rebatch-20261005/missing-member.json",
+      "bytes": 60,
+      "sha256": "c628d8493e2cadc0e4abf373573115ae77edb8e410c436cf08d719725de43c8e"
+    },
+    {
+      "path": "lab/out/oracle-rebatch-20261005/missing-receipt.json",
+      "bytes": 60,
+      "sha256": "c628d8493e2cadc0e4abf373573115ae77edb8e410c436cf08d719725de43c8e"
+    },
+    {
+      "path": "lab/out/oracle-rebatch-20261005/new-batch-kernel.command.json",
+      "bytes": 911,
+      "sha256": "9ad02bdf658da111f9ef678c883fa0f67b4facdf1be5589c33b38ce2dc2c04f0"
+    },
+    {
+      "path": "lab/out/oracle-rebatch-20261005/new-batch-kernel.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/oracle-rebatch-20261005/new-batch-kernel.stderr.txt",
+      "bytes": 92,
+      "sha256": "6533aac2d8b7e5c04cab91a8b3b2a79346fedbe8129383fddb9d6cf67d9cc37e"
+    },
+    {
+      "path": "lab/out/oracle-rebatch-20261005/new-batch-kernel.stdout.txt",
+      "bytes": 1929,
+      "sha256": "bfe4312fcc12951ec3e21ac9d191d67ade1005bf595f27e9ebd8958db1b97777"
+    },
+    {
+      "path": "lab/out/oracle-rebatch-20261005/no-existing-helper.command.json",
+      "bytes": 90,
+      "sha256": "b53f6a2a5fcb65f9566800bb54ef5b930530b892371c5e4d4e7d5eadd4ea37bd"
+    },
+    {
+      "path": "lab/out/oracle-rebatch-20261005/no-existing-helper.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/oracle-rebatch-20261005/no-existing-helper.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle-rebatch-20261005/no-existing-helper.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle-rebatch-20261005/no-existing-rebatch-helper.command.json",
+      "bytes": 84,
+      "sha256": "695274e5b323389c21ce642d0264f6be3e9a825dc7b00e6fcfa119098f661599"
+    },
+    {
+      "path": "lab/out/oracle-rebatch-20261005/no-existing-rebatch-helper.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/oracle-rebatch-20261005/no-existing-rebatch-helper.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle-rebatch-20261005/no-existing-rebatch-helper.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle-rebatch-20261005/proof.json",
+      "bytes": 704,
+      "sha256": "3f0db5a8f11210ba3e94d015fc509e36d8c435eecea61cb0e26e8051fb46bf62"
+    },
+    {
+      "path": "lab/out/oracle-rebatch-20261005/rebatch.ack",
+      "bytes": 185,
+      "sha256": "73d48a7de1fca49691c9be3ede91089272091e7afa9e8cc765fdc13105774e16"
+    },
+    {
+      "path": "lab/out/oracle-rebatch-20261005/repeat-new-batch.command.json",
+      "bytes": 1071,
+      "sha256": "98c3be1273d9628d596421e938f9fe6a34e7810b44194192ebff23b2f1695adc"
+    },
+    {
+      "path": "lab/out/oracle-rebatch-20261005/repeat-new-batch.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/oracle-rebatch-20261005/repeat-new-batch.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle-rebatch-20261005/repeat-new-batch.stdout.txt",
+      "bytes": 197,
+      "sha256": "79376016efd20a7258bf5893a9b735cbb68f7f735505a69dc71010e1b6bbf271"
+    },
+    {
+      "path": "lab/out/oracle-rebatch-20261005/sequence-40.oracap",
+      "bytes": 12728172,
+      "sha256": "4e833f8eaafe4360716c1c468def6ceeeeb901ef0e3e3b7fd2724879198a118d"
+    },
+    {
+      "path": "lab/out/oracle-rebatch-20261005/source-after.command.json",
+      "bytes": 90,
+      "sha256": "6095ca5a9605c02acb9b77ba5ea4d19487ab938e2e51045704dedb495bc394d5"
+    },
+    {
+      "path": "lab/out/oracle-rebatch-20261005/source-after.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/oracle-rebatch-20261005/source-after.sql",
+      "bytes": 354,
+      "sha256": "940e5cf5bfecb3a3734f707531f8c2a790a91b417002bb3c88ebeb2be2e1166e"
+    },
+    {
+      "path": "lab/out/oracle-rebatch-20261005/source-after.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle-rebatch-20261005/source-after.stdout.txt",
+      "bytes": 74,
+      "sha256": "43aff26048c42de27bde314320934237b29f382a0361b6618f38b4d2e9a33a5f"
+    },
+    {
+      "path": "lab/out/oracle-rebatch-20261005/source-before.command.json",
+      "bytes": 90,
+      "sha256": "6095ca5a9605c02acb9b77ba5ea4d19487ab938e2e51045704dedb495bc394d5"
+    },
+    {
+      "path": "lab/out/oracle-rebatch-20261005/source-before.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/oracle-rebatch-20261005/source-before.sql",
+      "bytes": 354,
+      "sha256": "940e5cf5bfecb3a3734f707531f8c2a790a91b417002bb3c88ebeb2be2e1166e"
+    },
+    {
+      "path": "lab/out/oracle-rebatch-20261005/source-before.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle-rebatch-20261005/source-before.stdout.txt",
+      "bytes": 74,
+      "sha256": "43aff26048c42de27bde314320934237b29f382a0361b6618f38b4d2e9a33a5f"
+    },
+    {
+      "path": "lab/out/oracle-rebatch-20261005/source-owner.command.json",
+      "bytes": 107,
+      "sha256": "6cc60bfdc53919bf5068bdcbf30ec5c8b4e38feaebc9cbc53db9992eff5a6357"
+    },
+    {
+      "path": "lab/out/oracle-rebatch-20261005/source-owner.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/oracle-rebatch-20261005/source-owner.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle-rebatch-20261005/source-owner.stdout.txt",
+      "bytes": 25,
+      "sha256": "0a713b1fc68700ddfe68d6757c3a323c2b2a06f3c595b5513399d6b6771b1823"
+    },
+    {
+      "path": "lab/out/oracle-rebatch-20261005/target-before.command.json",
+      "bytes": 90,
+      "sha256": "6095ca5a9605c02acb9b77ba5ea4d19487ab938e2e51045704dedb495bc394d5"
+    },
+    {
+      "path": "lab/out/oracle-rebatch-20261005/target-before.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/oracle-rebatch-20261005/target-before.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle-rebatch-20261005/target-before.stdout.txt",
+      "bytes": 1603,
+      "sha256": "19b0419ab5b0cb2ba903a081f266bebfd6b00eb6678af9a79be98e2ee299a91b"
+    },
+    {
+      "path": "lab/out/oracle-rebatch-20261005/target-fresh.command.json",
+      "bytes": 90,
+      "sha256": "6095ca5a9605c02acb9b77ba5ea4d19487ab938e2e51045704dedb495bc394d5"
+    },
+    {
+      "path": "lab/out/oracle-rebatch-20261005/target-fresh.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/oracle-rebatch-20261005/target-fresh.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle-rebatch-20261005/target-fresh.stdout.txt",
+      "bytes": 2232,
+      "sha256": "27fad7cbab0a9007098887126a63fe82b105e3e89ef70900a700d540ef3658d8"
+    },
+    {
+      "path": "lab/run_oracle_overlap19.py",
+      "bytes": 7852,
+      "sha256": "4799ea1ec9c147cb43ef05388a022ee7c3e0c53e3fbf61775ff773da72196d58"
+    },
+    {
+      "path": "lab/run_oracle_rebatch19.py",
+      "bytes": 7867,
+      "sha256": "b9d293a543d769f7b384ef621adf634452d5cc6866b75573424b70e49345d1b2"
+    }
+  ]
+}

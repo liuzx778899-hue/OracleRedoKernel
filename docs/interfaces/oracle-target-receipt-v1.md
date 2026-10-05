@@ -6,7 +6,7 @@
 
 SOURCE_BINDING 绑定 DBID、activation、compatibility、thread、resetlogs time/SCN、PDB UID/container ID 八项十进制身份。IDENT 用 FOR UPDATE NOWAIT 独占；目标/source/schema 必须一致。该协议不认证恶意管理员复制的控制表。
 
-新事件执行完整 before CAS，匹配数必须为1。DML、全局事件审计、批内有序成员及提交凭证同一事务提交后返回 CommitReceipt；newApplications 是本次统计，不参与 ACK 身份。旧批次须核对凭证全部字段、每个事件内容及每个成员次序，不能只看最终行。代码区分全局事件与批成员；不同或重叠批次尚未实证验收。当前实际验证三条 UPDATE；通用 INSERT/DELETE、扩展类型和大值待证。
+新事件执行完整 before CAS，匹配数必须为1。DML、全局事件审计、批内有序成员及提交凭证同一事务提交后返回 CommitReceipt；newApplications 是本次统计，不参与 ACK 身份。旧批次须核对凭证全部字段、每个事件内容及每个成员次序，不能只看最终行。代码区分全局事件与批成员；同redo更换观察元数据的不同批次，以及原始40—41/40—42两旧一新闭合窗口重叠已有限实证（见 W6 overlap 交付）；任意窗口活跃状态未验收。当前实际验证三条 UPDATE；通用 INSERT/DELETE、扩展类型和大值待证。
 
 消费 ACK 只在提交凭证返回后写入：UTF-8、LF 单行 ORK_ORACLE_TARGET_ACK_V1|targetID|batchSHA|schemaSHA|events，末尾换行。实验消费者使用临时文件 force、原子替换、目录 force。已有 ACK 必须逐字节一致；requireExistingCommit=true 而目标无凭证时拒绝 ORACLE_TARGET_ACK_WITHOUT_COMMIT，不执行 DML 掩盖超前 ACK。
 
