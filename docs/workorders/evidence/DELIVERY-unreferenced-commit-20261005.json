@@ -1,0 +1,568 @@
+{
+  "runtime_lab_commit": "69256c97b4a271ff16ba2c59c38a4ac588deb777",
+  "input_manifest": "docs/workorders/evidence/RESEARCH-null-dml-capture-20261005.json",
+  "kernel_sha256": "2bcea2cb214aea301788a098bc4b19dab8e3b982695b26cb8e79952aafa959af",
+  "tests": 249,
+  "sha256_checked_twice": true,
+  "proof": {
+    "physical_transactions": 3,
+    "original_nodes": 6,
+    "compensated_nodes": 0,
+    "live_nodes": 6,
+    "native_physical_zero_differences": true,
+    "raw_refusals": 6,
+    "null_complete_rows_accepted": false,
+    "new_source_actions": 0,
+    "kernel_sha256": "2bcea2cb214aea301788a098bc4b19dab8e3b982695b26cb8e79952aafa959af"
+  },
+  "prior_batches_output_byte_equal": true,
+  "rollback_only_empty": true,
+  "actual_cross_baseline_refused": true,
+  "public_events_refused": true,
+  "six_raw_refusals_structure_scan_passed": true,
+  "native_comparator_missing_live_detected": true,
+  "source_seal": [
+    {
+      "path": "src/main/java/com/streamhouse/oracle/ArchivedPhysicalTransactions.java",
+      "actual_source_sha256": "4a78af20ea7eb89060d78fae5f04afad1f1359a7a159864d83d90f88c13a640f",
+      "git_blob_sha256": "711befeccb36473b7f215765eeb04c6924e1c033b99407542ff1b10e3a3d1755",
+      "lf_normalized_equal": true
+    },
+    {
+      "path": "src/main/java/com/streamhouse/oracle/UndoHistory.java",
+      "actual_source_sha256": "dd17dba7cc9a713fac256add458ba7fe4e32afca38fc819294ef7c1052da984a",
+      "git_blob_sha256": "dd17dba7cc9a713fac256add458ba7fe4e32afca38fc819294ef7c1052da984a",
+      "lf_normalized_equal": true
+    },
+    {
+      "path": "src/test/java/com/streamhouse/oracle/ArchivedPhysicalTransactionsTest.java",
+      "actual_source_sha256": "1b4a427b38f8ebfed0e082f509fecec4d04b196a108ca5d6a14c4a07c2ab53eb",
+      "git_blob_sha256": "1b4a427b38f8ebfed0e082f509fecec4d04b196a108ca5d6a14c4a07c2ab53eb",
+      "lf_normalized_equal": true
+    },
+    {
+      "path": "src/test/java/com/streamhouse/oracle/UndoHistoryTest.java",
+      "actual_source_sha256": "7e6f96b46678d18b00e357081e570c37fd4c0087252b5b95ac75a07c57ca3709",
+      "git_blob_sha256": "7e6f96b46678d18b00e357081e570c37fd4c0087252b5b95ac75a07c57ca3709",
+      "lf_normalized_equal": true
+    },
+    {
+      "path": "lab/verify_unreferenced_commit.py",
+      "actual_source_sha256": "eb2483ee70ac866aa4d297695bfe9a710eca8533d1e1aac8aae1d7941a6895fc",
+      "git_blob_sha256": "eb2483ee70ac866aa4d297695bfe9a710eca8533d1e1aac8aae1d7941a6895fc",
+      "lf_normalized_equal": true
+    }
+  ],
+  "files": [
+    {
+      "path": "lab/out/unreferenced-commit-20261005/build.command.json",
+      "bytes": 65,
+      "sha256": "6331d95251a0f2a93bd915416a190f270d6e65c5795d0039e81975404fc163dc"
+    },
+    {
+      "path": "lab/out/unreferenced-commit-20261005/build.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/unreferenced-commit-20261005/build.stderr.txt",
+      "bytes": 301,
+      "sha256": "a73235e74b7212a667f3c9a6209ea0afe89e0cb01c372b4298f0f1a5e284ba49"
+    },
+    {
+      "path": "lab/out/unreferenced-commit-20261005/build.stdout.txt",
+      "bytes": 9944,
+      "sha256": "35e832ae7a5a58f7f02c9f92117e015f89ec592fa7f6e14f37fcc2125ed849ec"
+    },
+    {
+      "path": "lab/out/unreferenced-commit-20261005/capture-physical.command.json",
+      "bytes": 798,
+      "sha256": "a0271d5108d5349fc8a44855be1e09d34283832d76224ff21ad990dfd5779db5"
+    },
+    {
+      "path": "lab/out/unreferenced-commit-20261005/capture-physical.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/unreferenced-commit-20261005/capture-physical.stderr.txt",
+      "bytes": 629,
+      "sha256": "4ccd23c6891c2529db5499cbd15330c3ece69437e37958da5b0e3503d2d3209c"
+    },
+    {
+      "path": "lab/out/unreferenced-commit-20261005/capture-physical.stdout.txt",
+      "bytes": 492,
+      "sha256": "84efdbc07fa5f50c9b20fe84e9d837d55f6b68e945c833e0d5b84942893b0485"
+    },
+    {
+      "path": "lab/out/unreferenced-commit-20261005/complete-null-rows-still-refused.command.json",
+      "bytes": 778,
+      "sha256": "7b88f4950cdfcdd19f1046ce3954ad7049772836830f93fb4b5b83080a9c2c33"
+    },
+    {
+      "path": "lab/out/unreferenced-commit-20261005/complete-null-rows-still-refused.rc.txt",
+      "bytes": 1,
+      "sha256": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b"
+    },
+    {
+      "path": "lab/out/unreferenced-commit-20261005/complete-null-rows-still-refused.stderr.txt",
+      "bytes": 469,
+      "sha256": "20d80f5a72202c7ba55b7492e6aa4efe21bd1188e2b7655b7f3b63d0076e57d8"
+    },
+    {
+      "path": "lab/out/unreferenced-commit-20261005/complete-null-rows-still-refused.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/unreferenced-commit-20261005/cross-baseline.command.json",
+      "bytes": 664,
+      "sha256": "ae8fc46e1309a7e7875c7d289ac861e9a53b92f28de0d2b38d6ef4a1bec164a3"
+    },
+    {
+      "path": "lab/out/unreferenced-commit-20261005/cross-baseline.rc.txt",
+      "bytes": 1,
+      "sha256": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b"
+    },
+    {
+      "path": "lab/out/unreferenced-commit-20261005/cross-baseline.stderr.txt",
+      "bytes": 780,
+      "sha256": "0b2aa653a5587895ccb32a5ea1e9104d6c1b3e10e4eb38760638a83f73052bcf"
+    },
+    {
+      "path": "lab/out/unreferenced-commit-20261005/cross-baseline.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/unreferenced-commit-20261005/kernel.jar",
+      "bytes": 190489,
+      "sha256": "2bcea2cb214aea301788a098bc4b19dab8e3b982695b26cb8e79952aafa959af"
+    },
+    {
+      "path": "lab/out/unreferenced-commit-20261005/missing-heap-undo-scan.command.json",
+      "bytes": 251,
+      "sha256": "f4c4f92f67819c7f80bf29916d15737abc2ca1e5f492f60c43645bd474853ae9"
+    },
+    {
+      "path": "lab/out/unreferenced-commit-20261005/missing-heap-undo-scan.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/unreferenced-commit-20261005/missing-heap-undo-scan.stderr.txt",
+      "bytes": 274,
+      "sha256": "277d0917722f89ebee56b21c868e083eab4482a3ca217cb4f565f8d194c6a7cd"
+    },
+    {
+      "path": "lab/out/unreferenced-commit-20261005/missing-heap-undo-scan.stdout.txt",
+      "bytes": 22,
+      "sha256": "43b4733169d6e007aeb99a8ddd34a5c1c256dd2d71bd958ddcc72f09a9cae4e9"
+    },
+    {
+      "path": "lab/out/unreferenced-commit-20261005/missing-heap-undo.command.json",
+      "bytes": 655,
+      "sha256": "be6f3a832bbc2c2e1c49284c287f1c136597067290154ef867341dc4123b2c58"
+    },
+    {
+      "path": "lab/out/unreferenced-commit-20261005/missing-heap-undo.dbf",
+      "bytes": 3584,
+      "sha256": "6d289d03f598164897bbe21cc33923d4d58908f381eee42f74ab5d9b840349e2"
+    },
+    {
+      "path": "lab/out/unreferenced-commit-20261005/missing-heap-undo.rc.txt",
+      "bytes": 1,
+      "sha256": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b"
+    },
+    {
+      "path": "lab/out/unreferenced-commit-20261005/missing-heap-undo.stderr.txt",
+      "bytes": 1362,
+      "sha256": "cfd2cc1c6f6f52f408a832a710ca3f4ff3ccb634a011a3edb979e16fb298c234"
+    },
+    {
+      "path": "lab/out/unreferenced-commit-20261005/missing-heap-undo.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/unreferenced-commit-20261005/missing-live.output.txt",
+      "bytes": 464,
+      "sha256": "7b78b446bc1172078e22822d56afae6750b10fb06e7be8d11403e3ff4a4be417"
+    },
+    {
+      "path": "lab/out/unreferenced-commit-20261005/missing-start-scan.command.json",
+      "bytes": 247,
+      "sha256": "9fe50554ca1a221f7575fa3c1253b8df310f7715f5ad6e67038825b78de2d861"
+    },
+    {
+      "path": "lab/out/unreferenced-commit-20261005/missing-start-scan.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/unreferenced-commit-20261005/missing-start-scan.stderr.txt",
+      "bytes": 274,
+      "sha256": "b89f9ee1f28274c768f837bb70629f0a068e38fa82623a746c632304241fd768"
+    },
+    {
+      "path": "lab/out/unreferenced-commit-20261005/missing-start-scan.stdout.txt",
+      "bytes": 22,
+      "sha256": "43b4733169d6e007aeb99a8ddd34a5c1c256dd2d71bd958ddcc72f09a9cae4e9"
+    },
+    {
+      "path": "lab/out/unreferenced-commit-20261005/missing-start.command.json",
+      "bytes": 651,
+      "sha256": "1f7ded713869aca943837b557be522aa9279eaed7dc08bbfc21b873043c6d7c4"
+    },
+    {
+      "path": "lab/out/unreferenced-commit-20261005/missing-start.dbf",
+      "bytes": 3584,
+      "sha256": "b72879f99ecaf6daed2f70253f90ee6988f8e2ba337eb1e9f403dd6233a5f4b7"
+    },
+    {
+      "path": "lab/out/unreferenced-commit-20261005/missing-start.rc.txt",
+      "bytes": 1,
+      "sha256": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b"
+    },
+    {
+      "path": "lab/out/unreferenced-commit-20261005/missing-start.stderr.txt",
+      "bytes": 1194,
+      "sha256": "419fa6573c1b2563d674747565e575ca16e36dc4eff8cd79d8f19bd88613975e"
+    },
+    {
+      "path": "lab/out/unreferenced-commit-20261005/missing-start.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/unreferenced-commit-20261005/native-missing-live.command.json",
+      "bytes": 481,
+      "sha256": "e72a7b123c5e940244dbe2ffc5030d0c91aaa89626c738611f9e20890956ffa2"
+    },
+    {
+      "path": "lab/out/unreferenced-commit-20261005/native-missing-live.rc.txt",
+      "bytes": 1,
+      "sha256": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b"
+    },
+    {
+      "path": "lab/out/unreferenced-commit-20261005/native-missing-live.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/unreferenced-commit-20261005/native-missing-live.stdout.txt",
+      "bytes": 416,
+      "sha256": "084170cd05aeca5764cd752a69d0b4bd736180e4b93816119612bec053f883b3"
+    },
+    {
+      "path": "lab/out/unreferenced-commit-20261005/native-physical.command.json",
+      "bytes": 485,
+      "sha256": "d842472485c3f2944bd209a55cb19d9b73519150e944f8a7306cbd0b1de74d45"
+    },
+    {
+      "path": "lab/out/unreferenced-commit-20261005/native-physical.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/unreferenced-commit-20261005/native-physical.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/unreferenced-commit-20261005/native-physical.stdout.txt",
+      "bytes": 265,
+      "sha256": "5f4c252e7194bf86c1e61df133569ce73f692d07b74df63e202e6e23305131ed"
+    },
+    {
+      "path": "lab/out/unreferenced-commit-20261005/old-nonnull-batch.command.json",
+      "bytes": 778,
+      "sha256": "0022d9a22ad6bde93b25f8cd50195588d76d7dd1409df2d4a6095183dd61d28e"
+    },
+    {
+      "path": "lab/out/unreferenced-commit-20261005/old-nonnull-batch.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/unreferenced-commit-20261005/old-nonnull-batch.stderr.txt",
+      "bytes": 92,
+      "sha256": "ce511e42b23b08e4a15ac25db8d83201116a09d2fae5909aa19a9cecdfdb3964"
+    },
+    {
+      "path": "lab/out/unreferenced-commit-20261005/old-nonnull-batch.stdout.txt",
+      "bytes": 1286,
+      "sha256": "57ae81c4fee496d73caa8f5492fcbc76cb2ece185dd1c424343ba2416cf0287d"
+    },
+    {
+      "path": "lab/out/unreferenced-commit-20261005/old-update-batch.command.json",
+      "bytes": 942,
+      "sha256": "a0fa130dd0f549034abef9aed31bfe17d83cf91023df39c738b30478a75bda72"
+    },
+    {
+      "path": "lab/out/unreferenced-commit-20261005/old-update-batch.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/unreferenced-commit-20261005/old-update-batch.stderr.txt",
+      "bytes": 92,
+      "sha256": "6533aac2d8b7e5c04cab91a8b3b2a79346fedbe8129383fddb9d6cf67d9cc37e"
+    },
+    {
+      "path": "lab/out/unreferenced-commit-20261005/old-update-batch.stdout.txt",
+      "bytes": 1929,
+      "sha256": "e78a54688cf849fdf94061a7d2cdce2e4c5f84afd319b3cd21cda6987735eabd"
+    },
+    {
+      "path": "lab/out/unreferenced-commit-20261005/proof.json",
+      "bytes": 329,
+      "sha256": "013e7ddab6dea6567fdcbc43a71c16d4c16f4774524e56047532b5dc83a84617"
+    },
+    {
+      "path": "lab/out/unreferenced-commit-20261005/public-events.command.json",
+      "bytes": 243,
+      "sha256": "16cb906d2a59d9becd54f01c49be8e6fd86e1d98fcdd382a76bbc9e35252533b"
+    },
+    {
+      "path": "lab/out/unreferenced-commit-20261005/public-events.rc.txt",
+      "bytes": 1,
+      "sha256": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b"
+    },
+    {
+      "path": "lab/out/unreferenced-commit-20261005/public-events.stderr.txt",
+      "bytes": 342,
+      "sha256": "a1a7a37b083b379a559f9fff4e96012efaccaa94dcdd82bcd70fb475de06e37c"
+    },
+    {
+      "path": "lab/out/unreferenced-commit-20261005/public-events.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/unreferenced-commit-20261005/referenced-without-tail-scan.command.json",
+      "bytes": 257,
+      "sha256": "c04bf8209ef2a0e470fcfbf3f1cd8d5848e09a253bbedb824a7d6e95cae09e78"
+    },
+    {
+      "path": "lab/out/unreferenced-commit-20261005/referenced-without-tail-scan.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/unreferenced-commit-20261005/referenced-without-tail-scan.stderr.txt",
+      "bytes": 274,
+      "sha256": "125d6da9f91e3abf37332a627d70dfdbdc7e9050f58c89a79d645da8f609c7f1"
+    },
+    {
+      "path": "lab/out/unreferenced-commit-20261005/referenced-without-tail-scan.stdout.txt",
+      "bytes": 22,
+      "sha256": "43b4733169d6e007aeb99a8ddd34a5c1c256dd2d71bd958ddcc72f09a9cae4e9"
+    },
+    {
+      "path": "lab/out/unreferenced-commit-20261005/referenced-without-tail.command.json",
+      "bytes": 661,
+      "sha256": "9be40fa4d24edd932996e546b30b05dae246746978d5283459f2a15f2b5bfbe1"
+    },
+    {
+      "path": "lab/out/unreferenced-commit-20261005/referenced-without-tail.dbf",
+      "bytes": 3584,
+      "sha256": "f4c0beb15e51b2675a868ce7290ed82aedb15748ed30e5ea9e5badb16c0f86a1"
+    },
+    {
+      "path": "lab/out/unreferenced-commit-20261005/referenced-without-tail.rc.txt",
+      "bytes": 1,
+      "sha256": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b"
+    },
+    {
+      "path": "lab/out/unreferenced-commit-20261005/referenced-without-tail.stderr.txt",
+      "bytes": 867,
+      "sha256": "553f20ee1e8a8b8e8c0980f009cfd03c3921b5365c2de84be7a36cb32298bfcb"
+    },
+    {
+      "path": "lab/out/unreferenced-commit-20261005/referenced-without-tail.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/unreferenced-commit-20261005/rollback-only.command.json",
+      "bytes": 551,
+      "sha256": "659757aa109fd416ea03a4a1b2daf876b326a35a197b6d9738d23f732da381b1"
+    },
+    {
+      "path": "lab/out/unreferenced-commit-20261005/rollback-only.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/unreferenced-commit-20261005/rollback-only.stderr.txt",
+      "bytes": 117,
+      "sha256": "fad499ba131b02f5c4827f1b8607e3da6d6ed7d8808604b340c4576c9d81cad5"
+    },
+    {
+      "path": "lab/out/unreferenced-commit-20261005/rollback-only.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/unreferenced-commit-20261005/sealed-ArchivedPhysicalTransactions.java",
+      "bytes": 16188,
+      "sha256": "4a78af20ea7eb89060d78fae5f04afad1f1359a7a159864d83d90f88c13a640f"
+    },
+    {
+      "path": "lab/out/unreferenced-commit-20261005/sealed-ArchivedPhysicalTransactionsTest.java",
+      "bytes": 6988,
+      "sha256": "1b4a427b38f8ebfed0e082f509fecec4d04b196a108ca5d6a14c4a07c2ab53eb"
+    },
+    {
+      "path": "lab/out/unreferenced-commit-20261005/sealed-UndoHistory.java",
+      "bytes": 5862,
+      "sha256": "dd17dba7cc9a713fac256add458ba7fe4e32afca38fc819294ef7c1052da984a"
+    },
+    {
+      "path": "lab/out/unreferenced-commit-20261005/sealed-UndoHistoryTest.java",
+      "bytes": 8649,
+      "sha256": "7e6f96b46678d18b00e357081e570c37fd4c0087252b5b95ac75a07c57ca3709"
+    },
+    {
+      "path": "lab/out/unreferenced-commit-20261005/sealed-verify_unreferenced_commit.py",
+      "bytes": 3685,
+      "sha256": "eb2483ee70ac866aa4d297695bfe9a710eca8533d1e1aac8aae1d7941a6895fc"
+    },
+    {
+      "path": "lab/out/unreferenced-commit-20261005/unknown-end-flags-scan.command.json",
+      "bytes": 251,
+      "sha256": "4efd9c95a83ed8daf6250aa06d46af34f74e4f305f3a1cbbaefd09829878b89b"
+    },
+    {
+      "path": "lab/out/unreferenced-commit-20261005/unknown-end-flags-scan.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/unreferenced-commit-20261005/unknown-end-flags-scan.stderr.txt",
+      "bytes": 274,
+      "sha256": "60f65b780720ead4632778d186928d3b482ad02e8db43ea126dfa7cdf10ce9ab"
+    },
+    {
+      "path": "lab/out/unreferenced-commit-20261005/unknown-end-flags-scan.stdout.txt",
+      "bytes": 22,
+      "sha256": "43b4733169d6e007aeb99a8ddd34a5c1c256dd2d71bd958ddcc72f09a9cae4e9"
+    },
+    {
+      "path": "lab/out/unreferenced-commit-20261005/unknown-end-flags.command.json",
+      "bytes": 655,
+      "sha256": "c0b808cd3d8496dfcc7c7f574ec6f281e5f6e1aced051818cd2afafb93534df3"
+    },
+    {
+      "path": "lab/out/unreferenced-commit-20261005/unknown-end-flags.dbf",
+      "bytes": 3584,
+      "sha256": "ea6d8e4efb644fa16483a550a3991a52ed06536f65aec4ec933320dbc1448316"
+    },
+    {
+      "path": "lab/out/unreferenced-commit-20261005/unknown-end-flags.rc.txt",
+      "bytes": 1,
+      "sha256": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b"
+    },
+    {
+      "path": "lab/out/unreferenced-commit-20261005/unknown-end-flags.stderr.txt",
+      "bytes": 1343,
+      "sha256": "0c6a897554efabffe11567739751a65a0f5dc0b075e83cab0f671e50dd2022c1"
+    },
+    {
+      "path": "lab/out/unreferenced-commit-20261005/unknown-end-flags.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/unreferenced-commit-20261005/wrong-predecessor-scan.command.json",
+      "bytes": 251,
+      "sha256": "b5f4824708259d95e803f703de7d068cca3d20ebb1276a354d3401c73e5bce3f"
+    },
+    {
+      "path": "lab/out/unreferenced-commit-20261005/wrong-predecessor-scan.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/unreferenced-commit-20261005/wrong-predecessor-scan.stderr.txt",
+      "bytes": 274,
+      "sha256": "6c798aa01a63ddfdfa7d38ebf2f9df1d057a5d6de9a63acbb90402412061bc18"
+    },
+    {
+      "path": "lab/out/unreferenced-commit-20261005/wrong-predecessor-scan.stdout.txt",
+      "bytes": 22,
+      "sha256": "43b4733169d6e007aeb99a8ddd34a5c1c256dd2d71bd958ddcc72f09a9cae4e9"
+    },
+    {
+      "path": "lab/out/unreferenced-commit-20261005/wrong-predecessor.command.json",
+      "bytes": 655,
+      "sha256": "43613c8701156e7c59dafeb6600f29b9007aeee6477eb1aba11faac48d456c4a"
+    },
+    {
+      "path": "lab/out/unreferenced-commit-20261005/wrong-predecessor.dbf",
+      "bytes": 3584,
+      "sha256": "ed5f7ebb092f62e688f8d2a7a8f5f651f49a003a6ac6414a4a1b380d6baea82b"
+    },
+    {
+      "path": "lab/out/unreferenced-commit-20261005/wrong-predecessor.rc.txt",
+      "bytes": 1,
+      "sha256": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b"
+    },
+    {
+      "path": "lab/out/unreferenced-commit-20261005/wrong-predecessor.stderr.txt",
+      "bytes": 1259,
+      "sha256": "ba9fe496a2e0f880a0b66314d6850ac0b50166a9bf79b1b8268af5882c51c6bf"
+    },
+    {
+      "path": "lab/out/unreferenced-commit-20261005/wrong-predecessor.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/unreferenced-commit-20261005/wrong-slot-scan.command.json",
+      "bytes": 244,
+      "sha256": "942a3ca678e62a7a9fb543aaeaa6df9d03fb4b67e070ae8352832f503e40ca0c"
+    },
+    {
+      "path": "lab/out/unreferenced-commit-20261005/wrong-slot-scan.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/unreferenced-commit-20261005/wrong-slot-scan.stderr.txt",
+      "bytes": 274,
+      "sha256": "b96fd12b70efe1bff82bb448e5c7f2cbedb909b8490592025afd6cc5f761d1df"
+    },
+    {
+      "path": "lab/out/unreferenced-commit-20261005/wrong-slot-scan.stdout.txt",
+      "bytes": 22,
+      "sha256": "43b4733169d6e007aeb99a8ddd34a5c1c256dd2d71bd958ddcc72f09a9cae4e9"
+    },
+    {
+      "path": "lab/out/unreferenced-commit-20261005/wrong-slot.command.json",
+      "bytes": 648,
+      "sha256": "dfab9a217b77981ded81e6568d11fd79f73a5d865cefa7a066e4cc60034a1cb7"
+    },
+    {
+      "path": "lab/out/unreferenced-commit-20261005/wrong-slot.dbf",
+      "bytes": 3584,
+      "sha256": "be5304310dae6c036b33c1ca8ac948de6c8b9e3c8874f4d0ba6d1e56f6211973"
+    },
+    {
+      "path": "lab/out/unreferenced-commit-20261005/wrong-slot.rc.txt",
+      "bytes": 1,
+      "sha256": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b"
+    },
+    {
+      "path": "lab/out/unreferenced-commit-20261005/wrong-slot.stderr.txt",
+      "bytes": 1047,
+      "sha256": "f26a33962f03196dd028d3c9806b9c405aa669a2e2f7dae65d2aa0a877145be5"
+    },
+    {
+      "path": "lab/out/unreferenced-commit-20261005/wrong-slot.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ]
+}
