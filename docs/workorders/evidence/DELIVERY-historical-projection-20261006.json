@@ -1,0 +1,427 @@
+{
+  "code_commit": "fd0a254ca0659f7443926b56c2c37592dd4399a2",
+  "build": {
+    "adapter_sha256": "446e5a9b42c9324f5242df72e255cda0acf36f8179628af80dce7f41415e7778",
+    "tests": [
+      24,
+      0,
+      0,
+      0
+    ],
+    "kernel_sha256": "3ccca289e717f7fd8f188af30c8625baea2577640fbac7b2ff1c3ae384346e55",
+    "product_rebuilt": false,
+    "target_actions": 0
+  },
+  "projection": {
+    "adapter_sha256": "446e5a9b42c9324f5242df72e255cda0acf36f8179628af80dce7f41415e7778",
+    "kernel_sha256": "3ccca289e717f7fd8f188af30c8625baea2577640fbac7b2ff1c3ae384346e55",
+    "complete_projected_events": 2,
+    "per_event_schema_columns": [
+      4,
+      3
+    ],
+    "schema_sequence_sha256": "c23904a9efaed17aaf82a68d8d88478dcf84d89804c14376b6c29aa9f077a2e4",
+    "raw_id_payload_position_xid_scn_equal": true,
+    "full_before_after_equal": true,
+    "hidden_note_and_added_null_preserved": true,
+    "repeat_byte_equal": true,
+    "erased_marker_events_schema_sequence_equal": true,
+    "batch_capture_binding_changes_with_input": true,
+    "comparator_counterexamples": 3,
+    "complete_projection_refusals": [
+      "business-wrong-business-before",
+      "DERIVED-history-wrong-generation-complete-events"
+    ],
+    "static_v2_projection_json_equal": true,
+    "source_actions": 0,
+    "target_actions": 0,
+    "product_http": false,
+    "checkpoint_ack": false
+  },
+  "previous_189_unchanged": true,
+  "double_sha256_verified": true,
+  "source_actions": 0,
+  "target_actions": 0,
+  "product_rebuilt": false,
+  "http_accepted": false,
+  "checkpoint_ack_accepted": false,
+  "release_accepted": false,
+  "files_count": 75,
+  "files": [
+    {
+      "path": "lab/out/historical-product-candidate-20261006/actual-historical-projection.command.json",
+      "bytes": 1017,
+      "sha256": "3eb428316b41846f586164d761b056aaa09f6c6eaee3464211423050550d79ac"
+    },
+    {
+      "path": "lab/out/historical-product-candidate-20261006/actual-historical-projection.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/historical-product-candidate-20261006/actual-historical-projection.stderr.txt",
+      "bytes": 78,
+      "sha256": "86464730c09651f6f3af9f4dc1ef3a6c44c158abf82bcd5cbeb8322e9a541864"
+    },
+    {
+      "path": "lab/out/historical-product-candidate-20261006/actual-historical-projection.stdout.txt",
+      "bytes": 1518,
+      "sha256": "6baa4bf1db8b03f405cc38c936ed72a501df8868481fc9e37aaaf074c10fbb0e"
+    },
+    {
+      "path": "lab/out/historical-product-candidate-20261006/adapter-full-build.command.json",
+      "bytes": 317,
+      "sha256": "c266998faac8f5ef2ad6e0b5aea5fb78419338383e9852777b298a20ee67ee58"
+    },
+    {
+      "path": "lab/out/historical-product-candidate-20261006/adapter-full-build.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/historical-product-candidate-20261006/adapter-full-build.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/historical-product-candidate-20261006/adapter-full-build.stdout.txt",
+      "bytes": 3494,
+      "sha256": "be8fb6bf90b476c6b6ae26e2c330c8f29a1e18bb1e83f98a1e82d668b4cac515"
+    },
+    {
+      "path": "lab/out/historical-product-candidate-20261006/adapter-reports/TEST-com.streamhouse.engines.oracle.OracleBatchProjectionTest.xml",
+      "bytes": 11714,
+      "sha256": "7610ac2b60fd14e8381268ad1aa426b9be1445c7062c4692e75fcc680bebd72c"
+    },
+    {
+      "path": "lab/out/historical-product-candidate-20261006/adapter-reports/TEST-com.streamhouse.engines.oracle.OracleConsumerCheckpointTest.xml",
+      "bytes": 11442,
+      "sha256": "bd68214b8513417ed187ce01915211e070528096e17b89cd2cbfaae8d357af71"
+    },
+    {
+      "path": "lab/out/historical-product-candidate-20261006/adapter-reports/TEST-com.streamhouse.engines.oracle.OracleConsumptionWindowTest.xml",
+      "bytes": 11693,
+      "sha256": "153578a8a84b50cec710d8f38d62a65a09830d13c04558e5bb01247f573cbf5d"
+    },
+    {
+      "path": "lab/out/historical-product-candidate-20261006/adapter-reports/TEST-com.streamhouse.engines.oracle.OracleHistoricalBatchProjectionTest.xml",
+      "bytes": 11191,
+      "sha256": "247823a0910b3896030200821274c1e2cefb5550d40f76763dd425ee9ef46695"
+    },
+    {
+      "path": "lab/out/historical-product-candidate-20261006/adapter-reports/TEST-com.streamhouse.engines.oracle.OracleSnapshotAcquirerTest.xml",
+      "bytes": 11794,
+      "sha256": "40764cc40ca51fe10ad8bc4b4a59d102fb2195ac8cf38209ef8bd3c4c44bd08e"
+    },
+    {
+      "path": "lab/out/historical-product-candidate-20261006/adapter.jar",
+      "bytes": 60415,
+      "sha256": "446e5a9b42c9324f5242df72e255cda0acf36f8179628af80dce7f41415e7778"
+    },
+    {
+      "path": "lab/out/historical-product-candidate-20261006/build-driver.rc.txt",
+      "bytes": 3,
+      "sha256": "13bf7b3039c63bf5a50491fa3cfd8eb4e699d1ba1436315aef9cbe5711530354"
+    },
+    {
+      "path": "lab/out/historical-product-candidate-20261006/build-driver.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/historical-product-candidate-20261006/build-driver.stdout.txt",
+      "bytes": 112,
+      "sha256": "d1fd7bc326b2144ca6a3df3ca38f0814d0589a85d3bd967ba8ea4262acba4bf9"
+    },
+    {
+      "path": "lab/out/historical-product-candidate-20261006/classes/OracleHistoricalProjectionProbe.class",
+      "bytes": 6573,
+      "sha256": "64bbe0f5512a661488be991eeacb34101d8e7d8e55cf60408f16545ebae620d6"
+    },
+    {
+      "path": "lab/out/historical-product-candidate-20261006/compile-historical-projection.command.json",
+      "bytes": 629,
+      "sha256": "b4677f9c52af09fd8993948198846a8bd677aac8f4d0acdafd23e0688b18f158"
+    },
+    {
+      "path": "lab/out/historical-product-candidate-20261006/compile-historical-projection.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/historical-product-candidate-20261006/compile-historical-projection.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/historical-product-candidate-20261006/compile-historical-projection.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/historical-product-candidate-20261006/erased-historical-projection.command.json",
+      "bytes": 995,
+      "sha256": "53c9c37de5add81942f738b5fe7d2c1406e97c75d648a676b13017c0e77cc902"
+    },
+    {
+      "path": "lab/out/historical-product-candidate-20261006/erased-historical-projection.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/historical-product-candidate-20261006/erased-historical-projection.stderr.txt",
+      "bytes": 78,
+      "sha256": "86464730c09651f6f3af9f4dc1ef3a6c44c158abf82bcd5cbeb8322e9a541864"
+    },
+    {
+      "path": "lab/out/historical-product-candidate-20261006/erased-historical-projection.stdout.txt",
+      "bytes": 1518,
+      "sha256": "1a198a3d22087c3f1fa8d1a7a67eb705315fc92cc9c42ac9c36866814d7e5ab4"
+    },
+    {
+      "path": "lab/out/historical-product-candidate-20261006/executed-projection-build-driver.py",
+      "bytes": 2704,
+      "sha256": "6f5f68104a22f5d404451f963182d78970b7848bf39b2011b6398f4d2ef241fe"
+    },
+    {
+      "path": "lab/out/historical-product-candidate-20261006/executed-projection-driver.py",
+      "bytes": 5005,
+      "sha256": "2963396a6269e7f2a141a8ad9f0f7085aebeef741564c32f4a70bb8a9f1827bf"
+    },
+    {
+      "path": "lab/out/historical-product-candidate-20261006/failed-projection-driver-r1.py",
+      "bytes": 4654,
+      "sha256": "7a6ee5c59bde75ee1920538abc60c1796162a8a4f515abda82665f60b5b0b93c"
+    },
+    {
+      "path": "lab/out/historical-product-candidate-20261006/historical-projection-proof.json",
+      "bytes": 959,
+      "sha256": "94906c918f007aa856a57cba5f760fbdf861e252ec0983d333e1b397a9332e0c"
+    },
+    {
+      "path": "lab/out/historical-product-candidate-20261006/install-kernel-r2.command.json",
+      "bytes": 474,
+      "sha256": "2ddab1948f94db4fb7d1de9e9f665f9700ece5dba942ddb7d46072561d2dcf99"
+    },
+    {
+      "path": "lab/out/historical-product-candidate-20261006/install-kernel-r2.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/historical-product-candidate-20261006/install-kernel-r2.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/historical-product-candidate-20261006/install-kernel-r2.stdout.txt",
+      "bytes": 1242,
+      "sha256": "fe3141458b6c5918481bbb919eb81efc36d2edbb9e7c3aa635601534f3528767"
+    },
+    {
+      "path": "lab/out/historical-product-candidate-20261006/install-kernel.rc.txt",
+      "bytes": 3,
+      "sha256": "f1b2f662800122bed0ff255693df89c4487fbdcf453d3524a42d4ec20c3d9c04"
+    },
+    {
+      "path": "lab/out/historical-product-candidate-20261006/install-kernel.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/historical-product-candidate-20261006/install-kernel.stdout.txt",
+      "bytes": 1778,
+      "sha256": "c91b02a9d10b3254ac0f2faccd9a4e6759c8d852e6d3508e5d1ed6431c2fbd9d"
+    },
+    {
+      "path": "lab/out/historical-product-candidate-20261006/install-spi-r2.command.json",
+      "bytes": 460,
+      "sha256": "fd1e83b3081185fd22aa10bf790342becca44f76f534dc7eb9268dcc887d7d6c"
+    },
+    {
+      "path": "lab/out/historical-product-candidate-20261006/install-spi-r2.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/historical-product-candidate-20261006/install-spi-r2.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/historical-product-candidate-20261006/install-spi-r2.stdout.txt",
+      "bytes": 1214,
+      "sha256": "f2494c440f102b92ea7b5b6c2ecf08d496c42063421e60d86f893a4105315bf1"
+    },
+    {
+      "path": "lab/out/historical-product-candidate-20261006/projection-build-proof.json",
+      "bytes": 285,
+      "sha256": "8ef1858bc1598c3f9addd4383cee5d1f87d49bb8f6c118f507b839690af36dd5"
+    },
+    {
+      "path": "lab/out/historical-product-candidate-20261006/projection-driver-r2.rc.txt",
+      "bytes": 3,
+      "sha256": "13bf7b3039c63bf5a50491fa3cfd8eb4e699d1ba1436315aef9cbe5711530354"
+    },
+    {
+      "path": "lab/out/historical-product-candidate-20261006/projection-driver-r2.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/historical-product-candidate-20261006/projection-driver-r2.stdout.txt",
+      "bytes": 874,
+      "sha256": "a2f0ec39725bc2fb5edc4b260be865605fc5952494c0b5702885adaccf9e3bfc"
+    },
+    {
+      "path": "lab/out/historical-product-candidate-20261006/projection-driver.rc.txt",
+      "bytes": 3,
+      "sha256": "f1b2f662800122bed0ff255693df89c4487fbdcf453d3524a42d4ec20c3d9c04"
+    },
+    {
+      "path": "lab/out/historical-product-candidate-20261006/projection-driver.stderr.txt",
+      "bytes": 1134,
+      "sha256": "8070588cb1db37c75a6389bed59eed3c7a09ff188d9eb6399ffed4434726d082"
+    },
+    {
+      "path": "lab/out/historical-product-candidate-20261006/projection-driver.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/historical-product-candidate-20261006/projection-refusal-business-wrong-business-before.command.json",
+      "bytes": 1049,
+      "sha256": "96ecfc25e51d888befcbb0736688101071e093316fcec7e4c04333f1b562baa5"
+    },
+    {
+      "path": "lab/out/historical-product-candidate-20261006/projection-refusal-business-wrong-business-before.rc.txt",
+      "bytes": 1,
+      "sha256": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b"
+    },
+    {
+      "path": "lab/out/historical-product-candidate-20261006/projection-refusal-business-wrong-business-before.stderr.txt",
+      "bytes": 518,
+      "sha256": "11680483186b33dfe55cd3f3fe91ac9a50af089f6a046018c42299b0e153de0d"
+    },
+    {
+      "path": "lab/out/historical-product-candidate-20261006/projection-refusal-business-wrong-business-before.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/historical-product-candidate-20261006/projection-refusal-DERIVED-history-wrong-generation-complete-events.command.json",
+      "bytes": 1043,
+      "sha256": "9732fbab84217c1a47ca5e4e4e1a559c600936f09621c6ebf1f07cbe821e4938"
+    },
+    {
+      "path": "lab/out/historical-product-candidate-20261006/projection-refusal-DERIVED-history-wrong-generation-complete-events.rc.txt",
+      "bytes": 1,
+      "sha256": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b"
+    },
+    {
+      "path": "lab/out/historical-product-candidate-20261006/projection-refusal-DERIVED-history-wrong-generation-complete-events.stderr.txt",
+      "bytes": 665,
+      "sha256": "7bd2cd0286fd717cf14a618d16e1899b9290a12c7725c8e7065e0f586e2f0495"
+    },
+    {
+      "path": "lab/out/historical-product-candidate-20261006/projection-refusal-DERIVED-history-wrong-generation-complete-events.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/historical-product-candidate-20261006/repeat-historical-projection.command.json",
+      "bytes": 1017,
+      "sha256": "3eb428316b41846f586164d761b056aaa09f6c6eaee3464211423050550d79ac"
+    },
+    {
+      "path": "lab/out/historical-product-candidate-20261006/repeat-historical-projection.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/historical-product-candidate-20261006/repeat-historical-projection.stderr.txt",
+      "bytes": 78,
+      "sha256": "86464730c09651f6f3af9f4dc1ef3a6c44c158abf82bcd5cbeb8322e9a541864"
+    },
+    {
+      "path": "lab/out/historical-product-candidate-20261006/repeat-historical-projection.stdout.txt",
+      "bytes": 1518,
+      "sha256": "6baa4bf1db8b03f405cc38c936ed72a501df8868481fc9e37aaaf074c10fbb0e"
+    },
+    {
+      "path": "lab/out/historical-product-candidate-20261006/sealed-build_historical_projection19.py",
+      "bytes": 2704,
+      "sha256": "6f5f68104a22f5d404451f963182d78970b7848bf39b2011b6398f4d2ef241fe"
+    },
+    {
+      "path": "lab/out/historical-product-candidate-20261006/sealed-OracleBatchProjection.java",
+      "bytes": 7273,
+      "sha256": "71460fb85385f5451387a2057892b90abd44abe7ada51a0966319fb5fb9d79fc"
+    },
+    {
+      "path": "lab/out/historical-product-candidate-20261006/sealed-OracleHistoricalBatchProjection.java",
+      "bytes": 2470,
+      "sha256": "4a45f230607db41e212ba85dd91f98f42c2b624d67ff7ee91fb17c091b059882"
+    },
+    {
+      "path": "lab/out/historical-product-candidate-20261006/sealed-OracleHistoricalBatchProjectionTest.java",
+      "bytes": 3743,
+      "sha256": "9c29c1c62d9a766aeb548a9c4b0c75c5091f38530e50983103dd1249fc360e3c"
+    },
+    {
+      "path": "lab/out/historical-product-candidate-20261006/sealed-OracleHistoricalProjectionProbe.java",
+      "bytes": 2406,
+      "sha256": "5c9bf3a5f3db386b9f727295b42de3127d938427de71c3b63be30bc7566aa839"
+    },
+    {
+      "path": "lab/out/historical-product-candidate-20261006/sealed-seal_historical_projection19.py",
+      "bytes": 2470,
+      "sha256": "40aa311d8c9952c8104a532a2e3c596ae9ea5ffec364ef28f019f7dbde5409ef"
+    },
+    {
+      "path": "lab/out/historical-product-candidate-20261006/sealed-verify_historical_projection19.py",
+      "bytes": 5005,
+      "sha256": "2963396a6269e7f2a141a8ad9f0f7085aebeef741564c32f4a70bb8a9f1827bf"
+    },
+    {
+      "path": "lab/out/historical-product-candidate-20261006/static-v2-projection-impact-r2.command.json",
+      "bytes": 1642,
+      "sha256": "fcac28f84c5c6f10b2a9a70887cc3f04b5de8654ed2e3646bf60c1b470020794"
+    },
+    {
+      "path": "lab/out/historical-product-candidate-20261006/static-v2-projection-impact-r2.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/historical-product-candidate-20261006/static-v2-projection-impact-r2.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/historical-product-candidate-20261006/static-v2-projection-impact-r2.stdout.txt",
+      "bytes": 5007,
+      "sha256": "783b88cf76a8620d0bdfbf1493c1fa98f888f5311b2c7600e72dc3154f4ededd"
+    },
+    {
+      "path": "lab/out/historical-product-candidate-20261006/static-v2-projection-impact.command.json",
+      "bytes": 1280,
+      "sha256": "aa7f809d6afcdb183142082a19f6aec09d6a475d3a7829f8a182c61039fdbeaa"
+    },
+    {
+      "path": "lab/out/historical-product-candidate-20261006/static-v2-projection-impact.rc.txt",
+      "bytes": 1,
+      "sha256": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b"
+    },
+    {
+      "path": "lab/out/historical-product-candidate-20261006/static-v2-projection-impact.stderr.txt",
+      "bytes": 538,
+      "sha256": "9732c8abfc85bcecd5e1d8f8125488761dcaf3b7194543f6954db9d99d9d3345"
+    },
+    {
+      "path": "lab/out/historical-product-candidate-20261006/static-v2-projection-impact.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ]
+}

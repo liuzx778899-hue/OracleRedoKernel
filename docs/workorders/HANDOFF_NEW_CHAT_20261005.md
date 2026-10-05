@@ -1,3 +1,7 @@
+# 最新接续：历史投影之后的产品协议
+
+fd0a254/adapter446e5a9b42c9324f5242df72e255cda0acf36f8179628af80dce7f41415e7778/24，kernel仍3ccca289/299不重构。见DELIVERY_W5_HISTORICAL_PROJECTION_20261006与STATUS，N=lab/out/historical-product-candidate-20261006，75双SHA/旧189不变。实际历史2事件投影schema4→3，NOTE隐藏/EXTRA_V3 NULL及raw id/payload/XID/SCN/位置/完整像0差异，schema有序关联摘要c23904a9，重复和擦marker相符；三比较反例检出、两个投影完整拒绝rc1/stdout0，旧静态三IUD完整JSON相同。首次Maven点号参数截断/Jackson缺依赖原文保留，仅修未通过项不重复通过轮次。0源/配置/目标/StreamHouse代码动作；P仍旧efd068f/737，实际V3获取账和历史事件HTTP/目标commit控制CPACK未验收。下一步按DISPATCH_W5_HISTORICAL_PRODUCT_20261006升级私有P SPI有序逐事件schema/可信注册获取账/发布门禁，以及窗口target receipt/control CP ACK统一恢复绑定；不能强转新历史Batch为旧fixed Batch或只留最终schema。源68/69 ADD/DROP/2UPDATE已结束禁止重放；旧封存不改。原完整goal和automation继续，活动跨窗/C++捕获租约/独立目标/类型环境高压断电/独立评审现场发布未过，Codex所有Oracle目标做完才查。下面旧接续保留历史。
+
 # 最新接续：历史完整业务行进入产品
 
 9e720110101579a57979e5e7a9384d0f5d0a7ad8/kernel3ccca289e717f7fd8f188af30c8625baea2577640fbac7b2ff1c3ae384346e55/299，见DELIVERY_W5_HISTORICAL_ROW_SCHEMA_20261006与STATUS。N=lab/out/historical-row-schema-candidate-20261006，189双SHA、旧374未变。实际V3/68—69两UPDATE完整before/after与逐事件schema通过；4列EXTRA_V3 NULL→3列，隐藏NOTE anchor，native/阶段SQL/XID/record SCN/位置0差异。重复稳定、擦marker事件/schema/id/payload一致；七SYS+四业务complete-factory拒绝rc1/stdout0，旧静态V2三IUD与历史拒绝不变。首end扩展拒绝/业务跨block定位失败已保留，无源/配置/目标动作。源ADD/DROP禁止重放；O=lab/out/v3-historical-raw-20261006原374不改。新kernel只候选，StreamHouse P仍旧efd068f/737及PR#13待评审，actual V3获取账/逐事件schema/HTTP/目标原子提交/控制CP ACK尚未验收，下一单DISPATCH_W5_HISTORICAL_PRODUCT_20261006。原完整goal/automation继续，活动跨窗/C++采集租约/独立目标/类型环境高压断电/评审现场发布待证，全部Oracle完成后查Codex。以下旧入口仅历史。
