@@ -166,7 +166,7 @@ public final class ArchivedPhysicalTransactions {
                     if (v.opcodeMajor()!=5) throw new RedoException("UNSUPPORTED_PHYSICAL_CONTROL_OPCODE");
                     if (v.opcodeMinor()==2) {
                         state.observeSlotControl(r,v);
-                        if (!starts.contains(i)) throw new RedoException("UNSUPPORTED_PHYSICAL_NONBEGIN_SLOT_CONTROL");
+                        if (!starts.contains(i)) requireForeignBegin(r,v,scope,owners,recordAt);
                     } else if (v.opcodeMinor()!=1 && v.opcodeMinor()!=4 && v.opcodeMinor()!=6 && v.opcodeMinor()!=11)
                         throw new RedoException("UNSUPPORTED_PHYSICAL_CONTROL_OPCODE");
                 }
@@ -198,6 +198,26 @@ public final class ArchivedPhysicalTransactions {
         return new Result(found.sources(),contexts.stream().filter(c->!c.coveredByBaseline).map(c->c.result).toList());
     }
     private static boolean heap(RedoRecords.Vector v) {return v.opcodeMajor()==11 && (v.opcodeMinor()==2 || v.opcodeMinor()==3 || v.opcodeMinor()==4 || v.opcodeMinor()==5);}
+    private static void requireForeignBegin(RedoRecords.Record record,RedoRecords.Vector vector,HeapIndexScope scope,
+                                           java.util.Map<HeapRowPatch.Xid,Context> owners,ArchivedUndoInventory.Position at) throws RedoException {
+        var start=TransactionStart.decode(vector);var xid=start.bindBegin(record);
+        if (owners.values().stream().anyMatch(c->c.inWindow(at) && c.segment==start.segmentDba()
+                && c.discovered.xid().slot()==start.slot()))
+            throw new RedoException("TRANSACTION_SLOT_REASSIGNED_WHILE_ACTIVE");
+        if (owners.containsKey(xid)) throw new RedoException("UNBOUND_TARGET_BEGIN_CONTROL");
+        var roles=scope.generations();int controls=0;
+        for (var candidate:record.vectors()) {
+            if (candidate.containerId()!=vector.containerId()) continue;
+            if (candidate.opcodeMajor()==5 && candidate.opcodeMinor()==2 && candidate.dba()==vector.dba()
+                    && TransactionStart.decode(candidate).uba().equals(start.uba())) controls++;
+            if (candidate.opcodeMajor()!=5 || candidate.opcodeMinor()!=1 || candidate.dba()!=start.uba().dba()) continue;
+            var undo=UndoHeader.decode(candidate);if (!undo.uba().equals(start.uba())) continue;
+            if (roles.containsKey(undo.objectId()) || roles.containsValue(undo.objectId())
+                    || roles.containsKey(undo.dataObjectId()) || roles.containsValue(undo.dataObjectId()))
+                throw new RedoException("FOREIGN_BEGIN_INTERSECTS_TARGET_SCOPE");
+        }
+        if (controls!=1) throw new RedoException("AMBIGUOUS_FOREIGN_BEGIN_CONTROL");
+    }
     private static ArchivedUndoInventory.Position position(ArchivedRedo.Header h,RedoRecords.Record r,int i) {return new ArchivedUndoInventory.Position(h.sequence(),r.block(),r.offset(),i+1);}
     private static void requireSource(ArchivedObjectTransactions found,int i,ArchivedRedo.Header h) throws RedoException {
         if (!found.sources().get(i).equals(h)) throw new RedoException("PHYSICAL_TRANSACTION_SOURCE_CHANGED");

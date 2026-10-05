@@ -68,6 +68,40 @@ class ArchivedPhysicalTransactionsTest {
         f.records.record(raw,3,120,entries);seal(raw,1536);
         assertEquals("UNSUPPORTED_INDEX_FORWARD_OPCODE",assertThrows(RedoException.class,()->read(raw,leaf,677737149)).getMessage());
     }
+    List<RedoRecords.Vector> foreignBegin(int slot) {
+        var xid=new HeapRowPatch.Xid(10,slot,1106);var entries=new ArrayList<>(insert(xid,0x02402cc0L,0x02400110L,2));
+        var undo=entries.get(1);put(undo.fields().get(1),0,720,4);put(undo.fields().get(1),4,720,4);
+        return List.of(entries.get(0),undo);
+    }
+    byte[] withForeignBegin(List<RedoRecords.Vector> controls) {
+        var raw=java.util.Arrays.copyOf(fixture(),7*512);put(raw,24,6,4);put(raw,668,7,4);
+        f.records.record(raw,4,125,controls);
+        f.records.record(raw,5,130,List.of(end(b,0x02402cbfL,0x02400120L)));
+        f.records.record(raw,6,140,List.of(end(a,0x02402cbeL,0x02400110L)));
+        for(int i=0;i<raw.length;i+=512)seal(raw,i);return raw;
+    }
+    @Test void exactForeignBeginOnActiveSegmentDoesNotBecomeTargetHistory() throws Exception {
+        var raw=withForeignBegin(foreignBegin(4));
+        assertEquals(List.of(a,b),read(raw,leaf,677737149).transactions().stream().map(t->t.identity().xid()).toList());
+    }
+    @Test void foreignBeginCannotReassignActiveSlotOrLoseItsExactUndo() {
+        for (boolean collision:List.of(true,false)) {
+            var foreign=foreignBegin(collision?12:4);var raw=withForeignBegin(collision?foreign:List.of(foreign.get(0)));
+            assertEquals(collision?"TRANSACTION_SLOT_REASSIGNED_WHILE_ACTIVE":"MISSING_TRANSACTION_BEGIN_UBA",
+                    assertThrows(RedoException.class,()->read(raw,leaf,677737149)).getMessage());
+        }
+    }
+    @Test void duplicateForeignBeginAndTargetRoleCannotBeExcluded() {
+        var foreign=foreignBegin(4);
+        assertEquals("AMBIGUOUS_FOREIGN_BEGIN_CONTROL",assertThrows(RedoException.class,
+                ()->read(withForeignBegin(List.of(foreign.get(0),foreign.get(0),foreign.get(1))),leaf,677737149)).getMessage());
+        put(foreign.get(1).fields().get(1),4,73024,4);
+        assertThrows(RedoException.class,()->read(withForeignBegin(foreign),leaf,677737149));
+        var sameSlot=foreignBegin(12);put(sameSlot.get(0).fields().get(0),4,a.sequence(),4);
+        put(sameSlot.get(1).fields().get(0),8,2,2);put(sameSlot.get(1).fields().get(0),12,a.sequence(),4);
+        assertEquals("TRANSACTION_SLOT_REASSIGNED_WHILE_ACTIVE",assertThrows(RedoException.class,
+                ()->read(withForeignBegin(sameSlot),leaf,677737149)).getMessage());
+    }
     ArchivedPhysicalTransactions.Result verified(byte[] raw,long scn) throws Exception {
         put(raw,512+52,1,4);put(raw,512+160,1,4);put(raw,512+164,1,4);seal(raw,512);
         var path=dir.resolve("verified-archive.dbf");Files.write(path,raw);var h=new ArchivedRedo().scan(path);
