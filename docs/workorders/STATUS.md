@@ -60,7 +60,7 @@
 
 最新：[历史覆盖缺口/SYS关联](DELIVERY_W5_SCHEMA_COVERAGE_GAP_20261005.md)：seq56/57两组opcode变异DERIVED结构通过、原9275ab90均rc0/2事件；新kernelbb0225bc/260补未知24.x，24.0派生rc1/stdout0、静态混合字节一致，0.0擦除仍rc0/2事件，P0未关闭。原SCN ASOF六个SYS位置、raw六条OBJ$/TAB$写入及四条同XID COL$新行/native位置零差异，仅独立尺子，不是新authority。失败保全，无源/目标动作、无新产品/HTTP，旧735不当新制品测试。下一单DISPATCH_W5_TRUSTED_DICTIONARY_ANCHORS_20261005；历史字典/现场发布/独立评审待证，goal已核active，automation保留。
 
-最新：[历史schema真实ABA反例与raw屏障候选](DELIVERY_W5_HISTORICAL_SCHEMA_BARRIER_20261005.md)。新专属seq56/57、SCN2501894基线后ADD nullable→稀疏UPDATE→DROP恢复→UPDATE，首尾列/对象代际一致，旧内核rc0输出2个三列事件、第一事件漏EXTRA=NULL；原失败保留。新kernel9275ab90/259项通过，同raw rc1/stdout0；受影响混合/空batch冻结结果字节不变，无源重放。产品e4d3aa9/735完整构建通过，实际认证HTTP首次/恢复两批REFUSED/event0，原因精确字节核验；新目标/ledger/CP/ACK零推进，窗口PENDING，三比较反例检出，helper停止，NO/NO/旧表保持。仅19.3已观测24.1 raw marker有限屏障，缺失marker/未知字典/跨窗schema完整覆盖、现场/发布仍待证；独立评审PENDING。两笔源事务及seq56/57已关闭，严禁重放。接续DISPATCH_W5_SCHEMA_COVERAGE_20261005；长期目标未完成，automation保留，goal工具仍usageLimited而实际额度已恢复，未擅改goal状态。
+最新：[历史schema真实ABA反例与raw屏障候选](DELIVERY_W5_HISTORICAL_SCHEMA_BARRIER_20261005.md)。新专属seq56/57、SCN2501884基线后ADD nullable→稀疏UPDATE→DROP恢复→UPDATE，首尾列/对象代际一致，旧内核rc0输出2个三列事件、第一事件漏EXTRA=NULL；原失败保留。新kernel9275ab90/259项通过，同raw rc1/stdout0；受影响混合/空batch冻结结果字节不变，无源重放。产品e4d3aa9/735完整构建通过，实际认证HTTP首次/恢复两批REFUSED/event0，原因精确字节核验；新目标/ledger/CP/ACK零推进，窗口PENDING，三比较反例检出，helper停止，NO/NO/旧表保持。仅19.3已观测24.1 raw marker有限屏障，缺失marker/未知字典/跨窗schema完整覆盖、现场/发布仍待证；独立评审PENDING。两笔源事务及seq56/57已关闭，严禁重放。接续DISPATCH_W5_SCHEMA_COVERAGE_20261005；长期目标未完成，automation保留，goal工具仍usageLimited而实际额度已恢复，未擅改goal状态。
 
 最新：[实际获取账关联新raw完整DML](DELIVERY_W5_ACQUIRED_NEW_DML_20261005.md)。产品996cfd5/735项全通过；actual acquisitionId/SCN2495684→新seq52—54，native四图11/4/7及三完整中间像/SQL/基线DUMP零差异，两回滚0事件。实际HTTP坏authority目标前拒绝/目标0，恢复同task DONE/新专属目标三事件commit→控制CP→持久ACK全字段独立一致，重复及应用重启无新增/核验字节稳定、异步3 DONE/1 FAILED实库审计。284非secret文件双SHA，collector超时host rc未知/leaf探针失败/SQL换行分别保全，不重放源事务。helper停止/旧表及NO/NO保持。静态独占fixture有限范围，历史DDL/ABA、三库新增迁移、跨窗/C++/独立目标/现场发布待证，评审PENDING，goal active；接续DISPATCH_W5_HISTORICAL_SCHEMA_BARRIER_20261005。
 
@@ -273,7 +273,7 @@
 
 最新：[起点身份绑定反馈](DELIVERY_W4_BEGIN_20261004.md)，源码0b36846，[封存清单](evidence/DELIVERY-0b36846.json)。36项测试0失败0跳过；11个目标表5.2与唯一同record5.1 begin精确UBA绑定，dump零差异。结束/补偿链、跨归档连续性及W5仍待证。
 
-最新W4：[结束/补偿字段反馈](DELIVERY_W4_MARKERS_20261004.md)，源码b189709，[封存清单](evidence/DELIVERY-b189709.json)。30项测试0失败0跳过；同件jar对86条5.4、5条5.6、2条5.11与dump零差异。5.11 wrap1不等于事务sequence；commit vector可能位于undo vector之前。没有事务关联或CDC验收。
+最新W4：[结束/补偿字段反馈](DELIVERY_W4_MARKERS_20261004.md)，源码b188709，[封存清单](evidence/DELIVERY-b188709.json)。30项测试0失败0跳过；同件jar对86条5.4、5条5.6、2条5.11与dump零差异。5.11 wrap1不等于事务sequence；commit vector可能位于undo vector之前。没有事务关联或CDC验收。
 
 最新进展：[W3首轮反馈](DELIVERY_W3_PATCH_20261004.md)，已推送ea709ae；[同提交树清单](evidence/DELIVERY-ea709ae.json)。24项测试0失败0跳过；同19c seq8/9的21个物理patch/45个出现列、18个undo header与dump零差异。KTB L为旧ITL、XR补偿可恢复旧UBA，不能据此猜当前事务。完整CDC仍零发布，W4/W5继续。
 

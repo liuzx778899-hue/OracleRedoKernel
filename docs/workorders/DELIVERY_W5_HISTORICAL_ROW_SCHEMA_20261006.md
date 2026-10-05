@@ -1,6 +1,6 @@
 # W5 实际历史 schema 完整业务行交付
 
-代码 `9e720110101579a57979e5e7a9384d0f5d0a7ad8`，kernel SHA256 `3ccca289e717f7fd8f189af30c8625baea2577640fbac7b2ff1c3ae384346e55`；299 测试，0 failure/error/skipped。[封存清单](evidence/DELIVERY-historical-row-schema-20261006.json)含189文件双SHA，上一374项逐项未变。候选 `lab/out/historical-row-schema-candidate-20261006`；原日志和秘密不入Git。
+代码 `9e720110101579a57979e5e7a9384d0f5d0a7ad8`，kernel SHA256 `3ccca289e717f7fd8f188af30c8625baea2577640fbac7b2ff1c3ae384346e55`；299 测试，0 failure/error/skipped。[封存清单](evidence/DELIVERY-historical-row-schema-20261006.json)含189文件双SHA，上一374项逐项未变。候选 `lab/out/historical-row-schema-candidate-20261006`；原日志和秘密不入Git。
 
 ## 完整业务功能结果
 

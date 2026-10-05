@@ -1,6 +1,6 @@
 # 最新接续：历史完整业务行进入产品
 
-9e720110101579a57979e5e7a9384d0f5d0a7ad8/kernel3ccca289e717f7fd8f189af30c8625baea2577640fbac7b2ff1c3ae384346e55/299，见DELIVERY_W5_HISTORICAL_ROW_SCHEMA_20261006与STATUS。N=lab/out/historical-row-schema-candidate-20261006，189双SHA、旧374未变。实际V3/68—69两UPDATE完整before/after与逐事件schema通过；4列EXTRA_V3 NULL→3列，隐藏NOTE anchor，native/阶段SQL/XID/record SCN/位置0差异。重复稳定、擦marker事件/schema/id/payload一致；七SYS+四业务complete-factory拒绝rc1/stdout0，旧静态V2三IUD与历史拒绝不变。首end扩展拒绝/业务跨block定位失败已保留，无源/配置/目标动作。源ADD/DROP禁止重放；O=lab/out/v3-historical-raw-20261006原374不改。新kernel只候选，StreamHouse P仍旧efd068f/737及PR#13待评审，actual V3获取账/逐事件schema/HTTP/目标原子提交/控制CP ACK尚未验收，下一单DISPATCH_W5_HISTORICAL_PRODUCT_20261006。原完整goal/automation继续，活动跨窗/C++采集租约/独立目标/类型环境高压断电/评审现场发布待证，全部Oracle完成后查Codex。以下旧入口仅历史。
+9e720110101579a57979e5e7a9384d0f5d0a7ad8/kernel3ccca289e717f7fd8f188af30c8625baea2577640fbac7b2ff1c3ae384346e55/299，见DELIVERY_W5_HISTORICAL_ROW_SCHEMA_20261006与STATUS。N=lab/out/historical-row-schema-candidate-20261006，189双SHA、旧374未变。实际V3/68—69两UPDATE完整before/after与逐事件schema通过；4列EXTRA_V3 NULL→3列，隐藏NOTE anchor，native/阶段SQL/XID/record SCN/位置0差异。重复稳定、擦marker事件/schema/id/payload一致；七SYS+四业务complete-factory拒绝rc1/stdout0，旧静态V2三IUD与历史拒绝不变。首end扩展拒绝/业务跨block定位失败已保留，无源/配置/目标动作。源ADD/DROP禁止重放；O=lab/out/v3-historical-raw-20261006原374不改。新kernel只候选，StreamHouse P仍旧efd068f/737及PR#13待评审，actual V3获取账/逐事件schema/HTTP/目标原子提交/控制CP ACK尚未验收，下一单DISPATCH_W5_HISTORICAL_PRODUCT_20261006。原完整goal/automation继续，活动跨窗/C++采集租约/独立目标/类型环境高压断电/评审现场发布待证，全部Oracle完成后查Codex。以下旧入口仅历史。
 
 # 最新接续：时点schema完整业务事件
 
@@ -52,7 +52,7 @@ O=lab/out/sys-history-kernel-candidate-20261006，history-proof-r3.json为最终
 
 最新：marker覆盖缺口未关闭，详见STATUS/DELIVERY_W5_SCHEMA_COVERAGE_GAP_20261005。kernelbb0225bc/260补未知24.x，24.0拒绝，0.0擦除仍rc0/2事件；新制品尚无产品/HTTP，不挪用旧735。原SCN SYS ASOF六个锚点及raw六条写入/四条同XID新COL$关联/native零差异，只作事后尺子，不补旧V1为authority。下一单DISPATCH_W5_TRUSTED_DICTIONARY_ANCHORS_20261005：先实际fresh同SCN锚点获取/格式/权限/获取账，再新raw和产品前拒绝；无新源/目标动作，旧seq52—57及源事务严禁重放，goal已核active，automation保留，独立评审/现场发布未通过。
 
-最新：历史schema真实ABA反例及raw marker屏障候选已交付，详见STATUS/DELIVERY_W5_HISTORICAL_SCHEMA_BARRIER_20261005。kernel9275ab90/259；产品e4d3aa9/735，实际认证HTTP两次拒绝且target/ledger/CP/ACK零推进。新T_SCHEMA_BARRIER_20261005、seq56/57、ADD/DROP后两笔UPDATE源事务已关闭，禁止重放；baseline SCN2501894，源码/制品/失败及原始错误事件保全，helper已停止。仅有限24.1屏障，不算完整历史字典/现场/发布；下一单DISPATCH_W5_SCHEMA_COVERAGE_20261005，marker缺失/未知字典关联、跨窗历史及V731三库NEW/UPGRADE仍待证。目标未完成，automation保留；goal工具usageLimited与当前额度恢复状态分别记录，不人工改状态。以下旧交接仅历史。
+最新：历史schema真实ABA反例及raw marker屏障候选已交付，详见STATUS/DELIVERY_W5_HISTORICAL_SCHEMA_BARRIER_20261005。kernel9275ab90/259；产品e4d3aa9/735，实际认证HTTP两次拒绝且target/ledger/CP/ACK零推进。新T_SCHEMA_BARRIER_20261005、seq56/57、ADD/DROP后两笔UPDATE源事务已关闭，禁止重放；baseline SCN2501884，源码/制品/失败及原始错误事件保全，helper已停止。仅有限24.1屏障，不算完整历史字典/现场/发布；下一单DISPATCH_W5_SCHEMA_COVERAGE_20261005，marker缺失/未知字典关联、跨窗历史及V731三库NEW/UPGRADE仍待证。目标未完成，automation保留；goal工具usageLimited与当前额度恢复状态分别记录，不人工改状态。以下旧交接仅历史。
 
 最新接续以STATUS入口为准：本chat已交付实际获取账关联新raw完整DML，产品996cfd5/735，源新fixtureT_ACQUIRED_DML_20261005及seq52—54三事务均已结束，严禁重放。raw/完整图/行/目标/控制/ACK及应用重启有限通过；collector观察超时host rc未知原文保全，仅只读取证续接。helper已停止。下一单DISPATCH_W5_HISTORICAL_SCHEMA_BARRIER_20261005，历史DDL/ABA和V731三库新建/升级仍待证，目标active。下面保留原交接历史，不再当最新待办。
 
