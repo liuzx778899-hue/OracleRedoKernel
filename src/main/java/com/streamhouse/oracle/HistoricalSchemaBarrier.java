@@ -17,7 +17,8 @@ final class HistoricalSchemaBarrier {
     static void requireUnchanged(RedoRecords.Record record,FrozenHeapBaseline.Snapshot snapshot) throws RedoException {
         if(record.containerUid()!=snapshot.source().containerUid() || record.scn()<=snapshot.scn()) return;
         for(var vector:record.vectors()) {
-            if(vector.containerId()!=snapshot.source().containerId() || vector.opcodeMajor()!=24 || vector.opcodeMinor()!=1) continue;
+            if(vector.containerId()!=snapshot.source().containerId() || vector.opcodeMajor()!=24) continue;
+            if(vector.opcodeMinor()!=1) throw new RedoException("UNSUPPORTED_HISTORICAL_SCHEMA_MARKER_OPCODE");
             var fields=vector.fields();
             // Independently observed on CREATE/GRANT/ADD/DROP in seq56/57.
             // SQL text in field 7 is deliberately not interpreted or used as authority.

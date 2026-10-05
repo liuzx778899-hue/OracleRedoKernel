@@ -46,4 +46,9 @@ class HistoricalSchemaBarrierTest {
         var e=assertThrows(RedoException.class,()->HistoricalSchemaBarrier.requireUnchanged(record(2501918,677737149,v),snapshot));
         assertEquals("UNSUPPORTED_HISTORICAL_SCHEMA_MARKER",e.getMessage());
     }
+    @Test void unknownSchemaFamilyOpcodeCannotBeSilentlyExcluded() {
+        var v=marker();var unknown=new RedoRecords.Vector(24,0,0,0,0,0,0,3,v.fields());
+        var e=assertThrows(RedoException.class,()->HistoricalSchemaBarrier.requireUnchanged(record(2501918,677737149,unknown),snapshot));
+        assertEquals("UNSUPPORTED_HISTORICAL_SCHEMA_MARKER_OPCODE",e.getMessage());
+    }
 }
