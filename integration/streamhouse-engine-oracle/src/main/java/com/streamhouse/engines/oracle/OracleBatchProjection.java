@@ -42,8 +42,14 @@ public final class OracleBatchProjection {
     }
     public static Batch project(CapturedHeapBatch input) throws RedoException {
         var entries=new ArrayList<Entry>();var ordinals=new HashMap<HeapRowPatch.Xid,Long>();
-        var columns=input.schema().columns();
         for (var event:input.events()) {
+            entries.add(projectEntry(input.schema(),event,input.sha256(),ordinals));
+        }
+        return new Batch(input.sha256(),input.source(),input.schema(),entries,evidence(input));
+    }
+    static Entry projectEntry(CapturedHeapBatch.Schema schema,CapturedHeapBatch.Event event,String batchSha256,
+                              Map<HeapRowPatch.Xid,Long> ordinals) throws RedoException {
+            var columns=schema.columns();
             var before=image(columns,event.before());var after=image(columns,event.after());
             var changed=new ArrayList<String>();
             for (int i=0;i<columns.size();i++) if (event.before().isEmpty() || event.after().isEmpty()
@@ -57,14 +63,12 @@ public final class OracleBatchProjection {
             };
             var envelope=new EventEnvelope("oracle1:"+event.eventId(),
                     new EventEnvelope.Source(null,null,null,null),
-                    new EventEnvelope.TableRef(input.schema().heap().owner(),input.schema().heap().name()),operation,
+                    new EventEnvelope.TableRef(schema.heap().owner(),schema.heap().name()),operation,
                     // These legacy fields require SQL Server LSNs. Oracle positions remain typed below.
                     new EventEnvelope.TransactionRef("oracle-xid:"+x.usn()+"."+x.slot()+"."+x.sequence(),null,null,null,sequence),
                     before,after,List.copyOf(changed),
-                    new EventEnvelope.Metadata("oracle-batch-sha256:"+input.sha256(),input.schema().sha256(),true,true));
-            entries.add(new Entry(envelope,event.payloadSha256(),event.pairedUndoPosition(),event.transaction()));
-        }
-        return new Batch(input.sha256(),input.source(),input.schema(),entries,evidence(input));
+                    new EventEnvelope.Metadata("oracle-batch-sha256:"+batchSha256,schema.sha256(),true,true));
+            return new Entry(envelope,event.payloadSha256(),event.pairedUndoPosition(),event.transaction());
     }
     private static OracleBatchEvidence evidence(CapturedHeapBatch input) {
         var s=input.source();var schema=input.schema();
