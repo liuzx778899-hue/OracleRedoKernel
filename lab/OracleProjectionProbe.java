@@ -45,6 +45,7 @@ public class OracleProjectionProbe {
         System.err.println("bounded_projection="+projected.entries().size()+";public_decoder_success=false;target_ack=false;legacy_lsn=null;commitAt=unavailable");
     }
     static String image(Map<String,Object> values) {
+        if (values==null) return "";
         var cells=new ArrayList<String>();
         for (var entry:values.entrySet()) {
             Object v=entry.getValue();String encoded;

@@ -95,7 +95,8 @@ public final class OracleTargetBatchWriter {
         }
     }
     private static void applyRow(Connection conn,Target target,EventEnvelope event) throws SQLException {
-        var before=event.before();var after=event.after();var args=new ArrayList<Object>();String sql;
+        Map<String,Object> before=event.before()==null ? Map.of() : event.before();
+        Map<String,Object> after=event.after()==null ? Map.of() : event.after();var args=new ArrayList<Object>();String sql;
         for (var name:before.keySet()) identifier(name);for (var name:after.keySet()) identifier(name);
         if (event.operation()==EventEnvelope.Operation.INSERT) {
             sql="insert into "+target.table("ROWS")+"("+String.join(",",after.keySet())+") values("
@@ -114,6 +115,7 @@ public final class OracleTargetBatchWriter {
         }
     }
     private static String image(Map<String,Object> values) {
+        if (values==null) return "";
         var fields=new ArrayList<String>();for (var e:values.entrySet()) {
             Object v=e.getValue();String value=v==null ? "NULL" : v instanceof BigDecimal n ? "NUMBER:"+n.toPlainString()
                     : "VARCHAR2:"+Base64.getUrlEncoder().withoutPadding().encodeToString(((String)v).getBytes(StandardCharsets.UTF_8));

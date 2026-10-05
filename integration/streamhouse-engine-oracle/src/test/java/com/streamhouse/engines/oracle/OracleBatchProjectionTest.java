@@ -18,6 +18,11 @@ class OracleBatchProjectionTest {
     final FrozenHeapBaseline.PhysicalColumn id=new FrozenHeapBaseline.PhysicalColumn(1,1,"ID","NUMBER",false,false);
     final FrozenHeapBaseline.PhysicalColumn note=new FrozenHeapBaseline.PhysicalColumn(2,2,"NOTE","VARCHAR2",true,true);
     ArchivedHeapRows.Cell value(String hex) {return new ArchivedHeapRows.Cell(HeapRowPatch.State.VALUE,hex);}
+    @Test void absentImageIsNullWhileSqlNullRemainsInPresentImage() throws Exception {
+        assertNull(OracleBatchProjection.image(List.of(id,note),List.of()));
+        var present=OracleBatchProjection.image(List.of(note),List.of(new ArchivedHeapRows.Cell(HeapRowPatch.State.NULL,"")));
+        assertTrue(present.containsKey("NOTE"));assertNull(present.get("NOTE"));
+    }
     @Test void retainsExactNumberSqlNullAndHiddenPhysicalColumn() throws Exception {
         var image=OracleBatchProjection.image(List.of(id,note),List.of(value("c10c"),new ArchivedHeapRows.Cell(HeapRowPatch.State.NULL,"")));
         assertEquals(new BigDecimal("11"),image.get("ID"));assertTrue(image.containsKey("NOTE"));assertNull(image.get("NOTE"));

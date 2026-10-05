@@ -1,0 +1,2110 @@
+{
+  "prior_commit": "7a3589c0208e4ec855b773e1a418c76c89b8f0e8",
+  "gate_reproduction": {
+    "product_head": "67bfb7751d032dc8e47f7599ccb9919a1cff7d58",
+    "gate_actual_source_sha256": "62e96b4b038dcb6805a9b57a326e44b75e2715d63a65f7e54911c9b3f38bfb75",
+    "compiled_actual_gate_sha256": "16b52a3dfd7453c72df42211d66b925a8fb7c1157e8e87a89fa08530a1a3a4b8",
+    "product_boot_dependencies_sha256": "323a9b34d2c8a31362e279675b4a5f508feb61b028332030d42999fea96bde2c",
+    "cases": [
+      {
+        "case": "nonnull",
+        "rc": 1,
+        "stdout_bytes": 0,
+        "actual_gate_null_lsn_exception": true
+      },
+      {
+        "case": "null",
+        "rc": 1,
+        "stdout_bytes": 0,
+        "actual_gate_null_lsn_exception": true
+      },
+      {
+        "case": "mixed",
+        "rc": 1,
+        "stdout_bytes": 0,
+        "actual_gate_null_lsn_exception": true
+      }
+    ],
+    "product_checkout_modified": false,
+    "product_deployed": false,
+    "new_source_or_target_actions": 0,
+    "full_product_accepted": false
+  },
+  "release": {
+    "adapter_sha256": "c98b1a3735c11331a83dce6e601ccdf2b971b9605cb4a8046b3f10f971ed9e1c",
+    "kernel_sha256": "960954207b626be4d19db547ce2a9e3c5245075e84edb7196935ba3c0489c55e",
+    "spi_sha256": "93e451fe6c16c665cbdc5b5471a9879cd0a01ec7699a5d9666068dc14c2f8523",
+    "kernel_version": "0.1.0-bounded-foreign-begin-r2",
+    "adapter_tests": {
+      "tests": 16,
+      "errors": 0,
+      "failures": 0,
+      "skipped": 0
+    },
+    "kernel_tests_rerun": false,
+    "full_product_accepted": false
+  },
+  "sides": {
+    "sides": [
+      "SIDE|oracle1:0fe9d78dd3b4ea93bfc7921feb3363ad60f0df41632cff98eaee63e7e8b74391|e58183e989f3b87a77289d93e4fa3300adbc7c40eff82b5b5c68e02f6bd6ada9|INSERT|true|false|0",
+      "SIDE|oracle1:c50f6f24775fa6b7db1d044f8c8e4d0f8fb00af1eb7b75058091c7e5c061504f|33a2cc5b40b65d9650e724c1c93197e3d7e9e2bfbb5777f44a22f50e1ec3ecdf|DELETE|false|true|0",
+      "SIDE|oracle1:5b8ad556d540afbadc64cc1b59939360e59efc4a7071834c6c071f78a0f30ef1|f5b8ef85d3f0ec4cafa08d186a7a1d40b3bf7bf80918d2f119e022aff4f3e4b6|INSERT|true|false|2",
+      "SIDE|oracle1:9d8922e452b40b27e547f3883e7f441005a63559a6cd26ac3729b8fcb719f805|9ec13491900af57c039068f34624c47ece884f2dedbcb0d9d463649def2fd1d0|DELETE|false|true|2",
+      "SIDE|oracle1:9baa761c09ba5d719954b57a72d1c77b3e27aadfbf9d8e877913bcec6acf2188|d153ea4aa46aa9f2bd3999a7e9dee8b0773ddc2c58d0b920af27a95b6db28afa|INSERT|true|false|0",
+      "SIDE|oracle1:f716ab6728e73b1c01f44b26ce834dfbf3ccb3f3c659dc92cda0a521b1c2ba2b|1e61c841895885d3e37008ca89cb68d911525447a0374f04d815d13f4e274c0f|UPDATE|false|false|0",
+      "SIDE|oracle1:ac0d032d342d072f25a83fd9b6659891e0dc31ca7ebb90f8180c62ae79c4fb1e|c0f3a6e1245a8b3b8121238482d3f1b117159fa7f378ebf7a5b546299814b9f3|DELETE|false|true|0"
+    ],
+    "projection_byte_equal": true,
+    "driver_sources": [
+      {
+        "source": "lab\\run_oracle_dml_target.py",
+        "sha256": "84c4634f7d1baf0ba085d20bc4ba01fbb76b418193825eaa6332c5bd683171a6",
+        "executed_sha256": "fb2ad091ff5aba0fdb70d5ae9ee427211a9e7dc1b9c7793bdaaba5dca303013e"
+      },
+      {
+        "source": "lab\\verify_oracle_dml_target.py",
+        "sha256": "6f4d2a1dd18a7f924308433dd05914743446cd5dc39f2cbb07864235d3799f1e",
+        "executed_sha256": "9d5d5c42b5820df2f0c4eccea316ec2a35918f29b44f9bb5a1094827cfc26f98"
+      }
+    ],
+    "adapter_sha256": "c98b1a3735c11331a83dce6e601ccdf2b971b9605cb4a8046b3f10f971ed9e1c",
+    "source_dml": 0,
+    "product_gate_accepted": false
+  },
+  "target": {
+    "results": [
+      {
+        "prefix": "SNON",
+        "new_applications": [
+          1,
+          1
+        ],
+        "repeats_all_zero": true
+      },
+      {
+        "prefix": "SNUL",
+        "new_applications": [
+          1,
+          1
+        ],
+        "repeats_all_zero": true
+      },
+      {
+        "prefix": "SMIX",
+        "new_applications": [
+          3,
+          0,
+          0
+        ],
+        "repeats_all_zero": true
+      }
+    ],
+    "target_mid_update_failure_atomic_rollback": true,
+    "fault_resume_new_applications": 3,
+    "source_dml": 0,
+    "source_config_changes": 0,
+    "owned_new_target_tables": 20,
+    "standalone_49_50_refused": true,
+    "independent_verification_pending": true
+  },
+  "independent": {
+    "independent_targets": [
+      {
+        "target": "SNON",
+        "complete_images": 4,
+        "members": 3,
+        "receipts": 2,
+        "checkpoint_fields_zero_differences": true
+      },
+      {
+        "target": "SNUL",
+        "complete_images": 4,
+        "members": 3,
+        "receipts": 2,
+        "checkpoint_fields_zero_differences": true
+      },
+      {
+        "target": "SMIX",
+        "complete_images": 6,
+        "members": 9,
+        "receipts": 3,
+        "checkpoint_fields_zero_differences": true
+      },
+      {
+        "target": "SFAIL",
+        "complete_images": 6,
+        "members": 3,
+        "receipts": 1,
+        "checkpoint_fields_zero_differences": true
+      }
+    ],
+    "comparator_refusals": [
+      {
+        "case": "missing-update",
+        "reason": "complete intermediate images / operations"
+      },
+      {
+        "case": "wrong-operation",
+        "reason": "complete intermediate images / operations"
+      },
+      {
+        "case": "member-order",
+        "reason": "ordered batch members"
+      }
+    ],
+    "full_source_dml_replayed": false,
+    "standalone_rollback_empty_batch_accepted": false,
+    "rollback_prefix_new_applications": [
+      3,
+      0,
+      0
+    ],
+    "product_pipeline_accepted": false,
+    "site_accepted": false,
+    "release_accepted": false
+  },
+  "sources": [
+    {
+      "path": "integration/streamhouse-engine-oracle/src/main/java/com/streamhouse/engines/oracle/OracleBatchProjection.java",
+      "actual_source_sha256": "d5b14c5f9e04e42b2dea05deef560819fb1462f9f43f4964708b4951795e28a0"
+    },
+    {
+      "path": "integration/streamhouse-engine-oracle/src/main/java/com/streamhouse/engines/oracle/OracleTargetBatchWriter.java",
+      "actual_source_sha256": "acb92d793c05aa4e0cd5278f541936f5648779c9791394b1bbfb600357790892"
+    },
+    {
+      "path": "integration/streamhouse-engine-oracle/src/test/java/com/streamhouse/engines/oracle/OracleBatchProjectionTest.java",
+      "actual_source_sha256": "250487cd585daaba4afdd5c25cd973301beaf52a5a178a6ea0b536dbf74a933b"
+    },
+    {
+      "path": "lab/OracleProjectionProbe.java",
+      "actual_source_sha256": "4bd6addc8a767dc6b5f238a726b84613f49972dc07935432353bc56c19484a2a"
+    },
+    {
+      "path": "lab/OracleEnvelopeSidesProbe.java",
+      "actual_source_sha256": "cbd258bd4658bb32d7234227b63ccfb5b662120195686c2765c2580cd963283e"
+    },
+    {
+      "path": "lab/OracleProductGateProbe.java",
+      "actual_source_sha256": "f09f8f17fca8579b21aef2e1f2e2b0328f6a84a65ad83b21ccb88d2c8dae3986"
+    },
+    {
+      "path": "lab/build_oracle_null_sides.py",
+      "actual_source_sha256": "77be0b794a2ff8f4a19d616aec2583d265af56f60670c653022af73af452d765"
+    },
+    {
+      "path": "lab/reproduce_oracle_product_gate.py",
+      "actual_source_sha256": "e04fb4f618ee3f9c3c9e02d884281b317f5de7eb71ab8b25966fff9e60bec73c"
+    },
+    {
+      "path": "lab/verify_oracle_null_sides.py",
+      "actual_source_sha256": "4b98eef509e0ceb6af553a8283bdc43c3770e21a7f1c6a53f05fa87b0c733f54"
+    },
+    {
+      "path": "lab/seal_oracle_null_sides.py",
+      "actual_source_sha256": "a636c95347d1412202a94d4aac347148bc09e845df35e4126d60b69558f14441"
+    }
+  ],
+  "files": [
+    {
+      "path": "lab/out/oracle-product-gate-20261005/classes/com/streamhouse/pipeline/service/PublishGateService$1.class",
+      "bytes": 906,
+      "sha256": "b6fdac7488cfac06f7ba3046cdcd2ca39f2a6156f878d6b315de7d335fcc06ff"
+    },
+    {
+      "path": "lab/out/oracle-product-gate-20261005/classes/com/streamhouse/pipeline/service/PublishGateService$GateOutcome.class",
+      "bytes": 2201,
+      "sha256": "d08936cbfa8fb7297dabe02050706f8d9973c81102fe8be1e38c0232fb6ba62f"
+    },
+    {
+      "path": "lab/out/oracle-product-gate-20261005/classes/com/streamhouse/pipeline/service/PublishGateService.class",
+      "bytes": 13432,
+      "sha256": "16b52a3dfd7453c72df42211d66b925a8fb7c1157e8e87a89fa08530a1a3a4b8"
+    },
+    {
+      "path": "lab/out/oracle-product-gate-20261005/classes/OracleProductGateProbe.class",
+      "bytes": 3550,
+      "sha256": "ea5aaf51c263f07f5fb0a51782a3bdb443c74e592738f66d0d53fb91a8ecec59"
+    },
+    {
+      "path": "lab/out/oracle-product-gate-20261005/compile-actual-gate.command.json",
+      "bytes": 7821,
+      "sha256": "350f01cb02d96488271fb0b540d96d913cb8867590d64e2ca96ffa3e0c8f9401"
+    },
+    {
+      "path": "lab/out/oracle-product-gate-20261005/compile-actual-gate.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/oracle-product-gate-20261005/compile-actual-gate.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle-product-gate-20261005/compile-actual-gate.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle-product-gate-20261005/mixed-actual-product-gate.command.json",
+      "bytes": 8225,
+      "sha256": "eea8dcb12cf80cadbcae0fb719a0dbdd0a6ead03d9833972f4ba2c9c624633e3"
+    },
+    {
+      "path": "lab/out/oracle-product-gate-20261005/mixed-actual-product-gate.rc.txt",
+      "bytes": 1,
+      "sha256": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b"
+    },
+    {
+      "path": "lab/out/oracle-product-gate-20261005/mixed-actual-product-gate.stderr.txt",
+      "bytes": 1117,
+      "sha256": "89922b387e54142b25c5732ac1e20c55dba7f56c9556a448b262219a9b2e2317"
+    },
+    {
+      "path": "lab/out/oracle-product-gate-20261005/mixed-actual-product-gate.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle-product-gate-20261005/nonnull-actual-product-gate.command.json",
+      "bytes": 8047,
+      "sha256": "1edcf14079b0c7dba22ea32a2a6fb46f9102d6d2c60084e306ec9d7d88236b7c"
+    },
+    {
+      "path": "lab/out/oracle-product-gate-20261005/nonnull-actual-product-gate.rc.txt",
+      "bytes": 1,
+      "sha256": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b"
+    },
+    {
+      "path": "lab/out/oracle-product-gate-20261005/nonnull-actual-product-gate.stderr.txt",
+      "bytes": 1117,
+      "sha256": "d7add419d53648e32431c0c633e9fc0fcecc828c00304c58918fe3485bc5d3ff"
+    },
+    {
+      "path": "lab/out/oracle-product-gate-20261005/nonnull-actual-product-gate.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle-product-gate-20261005/null-actual-product-gate.command.json",
+      "bytes": 8047,
+      "sha256": "51bb5133b4f02fa67bbeb49d207e96e88a0d21e207ed39b7699e6f8a3bff8261"
+    },
+    {
+      "path": "lab/out/oracle-product-gate-20261005/null-actual-product-gate.rc.txt",
+      "bytes": 1,
+      "sha256": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b"
+    },
+    {
+      "path": "lab/out/oracle-product-gate-20261005/null-actual-product-gate.stderr.txt",
+      "bytes": 1117,
+      "sha256": "d632f4d2dde5e2dabddeef68552e055e7a3bd4bdba8b6acf7b7e3f58db29d997"
+    },
+    {
+      "path": "lab/out/oracle-product-gate-20261005/null-actual-product-gate.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle-product-gate-20261005/proof.json",
+      "bytes": 918,
+      "sha256": "dddaa274b0fc06316f8cdecbff7609461daf01371d7cd804c4b5486c20f1591d"
+    },
+    {
+      "path": "lab/out/release-oracle-null-sides-20261005/adapter.command.json",
+      "bytes": 366,
+      "sha256": "9a6e123321e5f57df4878073f114dfa69e86905306bced47a8283c01598c86af"
+    },
+    {
+      "path": "lab/out/release-oracle-null-sides-20261005/adapter.jar",
+      "bytes": 36937,
+      "sha256": "c98b1a3735c11331a83dce6e601ccdf2b971b9605cb4a8046b3f10f971ed9e1c"
+    },
+    {
+      "path": "lab/out/release-oracle-null-sides-20261005/adapter.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/release-oracle-null-sides-20261005/adapter.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/release-oracle-null-sides-20261005/adapter.stdout.txt",
+      "bytes": 3198,
+      "sha256": "0aa30e83819f752b79f033443fc0dc20daa52883d44422136b8aaf7bf051df55"
+    },
+    {
+      "path": "lab/out/release-oracle-null-sides-20261005/kernel.jar",
+      "bytes": 191778,
+      "sha256": "960954207b626be4d19db547ce2a9e3c5245075e84edb7196935ba3c0489c55e"
+    },
+    {
+      "path": "lab/out/release-oracle-null-sides-20261005/proof.json",
+      "bytes": 489,
+      "sha256": "e0f01269edc6315416631fd6e6d0ad2620c09a8250c42831eaa5385463c3dc55"
+    },
+    {
+      "path": "lab/out/release-oracle-null-sides-20261005/spi.jar",
+      "bytes": 13901,
+      "sha256": "93e451fe6c16c665cbdc5b5471a9879cd0a01ec7699a5d9666068dc14c2f8523"
+    },
+    {
+      "path": "lab/out/release-oracle-null-sides-20261005/tests/2026-10-05T13-16-22_113.dumpstream",
+      "bytes": 359,
+      "sha256": "0109ddf489418a5bcd5e0019b1f2f70396ea3fd462c91c83f2806e0f5d46ee32"
+    },
+    {
+      "path": "lab/out/release-oracle-null-sides-20261005/tests/com.streamhouse.engines.oracle.OracleBatchProjectionTest.txt",
+      "bytes": 366,
+      "sha256": "13f9e607edfc82c9b538698432d074e39c58967f13091f0f9edb04edc73377a3"
+    },
+    {
+      "path": "lab/out/release-oracle-null-sides-20261005/tests/com.streamhouse.engines.oracle.OracleConsumerCheckpointTest.txt",
+      "bytes": 372,
+      "sha256": "e3a227b38caaec0dd03ef429a633db3c382e55a6df0aeba293066829b18c6331"
+    },
+    {
+      "path": "lab/out/release-oracle-null-sides-20261005/tests/com.streamhouse.engines.oracle.OracleConsumptionWindowTest.txt",
+      "bytes": 370,
+      "sha256": "b9624827d138cd10b8725eeab2bc6729e1aabbc20612216a818924a9d9c0b6b6"
+    },
+    {
+      "path": "lab/out/release-oracle-null-sides-20261005/tests/TEST-com.streamhouse.engines.oracle.OracleBatchProjectionTest.xml",
+      "bytes": 12582,
+      "sha256": "94e5798cf08e3003ec8b42d0ac9fea98a3b436601abba5c3f976c8e207da4710"
+    },
+    {
+      "path": "lab/out/release-oracle-null-sides-20261005/tests/TEST-com.streamhouse.engines.oracle.OracleConsumerCheckpointTest.xml",
+      "bytes": 12309,
+      "sha256": "e039df6e5d32044600eb07e10daf16a3497a89b5c9334194f65a369086f17493"
+    },
+    {
+      "path": "lab/out/release-oracle-null-sides-20261005/tests/TEST-com.streamhouse.engines.oracle.OracleConsumptionWindowTest.xml",
+      "bytes": 12559,
+      "sha256": "2e4060a95bfebe4a88fe4d629128c13cb9ab8e6eec4423676d3643ffaa941ea9"
+    },
+    {
+      "path": "lab/out/oracle-null-sides-target-20261005/adapter.jar",
+      "bytes": 36937,
+      "sha256": "c98b1a3735c11331a83dce6e601ccdf2b971b9605cb4a8046b3f10f971ed9e1c"
+    },
+    {
+      "path": "lab/out/oracle-null-sides-target-20261005/classes/OracleDmlCheckpointWorker.class",
+      "bytes": 6852,
+      "sha256": "3c1fa5ce4a89de714301052876e9a852923304e8ca0c73d139ba3985cd504e56"
+    },
+    {
+      "path": "lab/out/oracle-null-sides-target-20261005/classes/OracleEnvelopeSidesProbe.class",
+      "bytes": 4205,
+      "sha256": "c05996ba1c226cfa2179ad8fcf26f09fa511209e90d51db1bc0acbfe8f12fe0b"
+    },
+    {
+      "path": "lab/out/oracle-null-sides-target-20261005/classes/OracleProjectionProbe.class",
+      "bytes": 9697,
+      "sha256": "fa999df167a701dbf4abb8c0afd949ac9fcdec8e25e7d3a8e4f9193c20d971fc"
+    },
+    {
+      "path": "lab/out/oracle-null-sides-target-20261005/compile.command.json",
+      "bytes": 864,
+      "sha256": "5235cf04727c03b4ebadba1c5cb894139df4f03e348f32faf7c490dfc1435556"
+    },
+    {
+      "path": "lab/out/oracle-null-sides-target-20261005/compile.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/oracle-null-sides-target-20261005/compile.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle-null-sides-target-20261005/compile.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle-null-sides-target-20261005/config.json",
+      "bytes": 4117,
+      "sha256": "80d81b02afb439b88de71497073beeb995642e284daea94591cbb2faa61ffbbe"
+    },
+    {
+      "path": "lab/out/oracle-null-sides-target-20261005/helpers-exited.command.json",
+      "bytes": 94,
+      "sha256": "82246e3ec9af02abf1ab3fdb050e829bf7a4227d26beed39895e50fbdf0be78c"
+    },
+    {
+      "path": "lab/out/oracle-null-sides-target-20261005/helpers-exited.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/oracle-null-sides-target-20261005/helpers-exited.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle-null-sides-target-20261005/helpers-exited.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle-null-sides-target-20261005/independent-proof.json",
+      "bytes": 1282,
+      "sha256": "c162a3c9f7a2003e62caede7c636d73c1fb21a08f13b4601f484c3c23978a818"
+    },
+    {
+      "path": "lab/out/oracle-null-sides-target-20261005/kernel.jar",
+      "bytes": 191778,
+      "sha256": "960954207b626be4d19db547ce2a9e3c5245075e84edb7196935ba3c0489c55e"
+    },
+    {
+      "path": "lab/out/oracle-null-sides-target-20261005/member-order-target-comparison.txt",
+      "bytes": 2618,
+      "sha256": "b7c07f932822e6da697c2e13fbeaafd53e445fb97fc8d486637ad3e3b14436e7"
+    },
+    {
+      "path": "lab/out/oracle-null-sides-target-20261005/missing-update-target-comparison.txt",
+      "bytes": 2321,
+      "sha256": "08bfa09c798027454551669f770fd86a8ac407dd3f905e8b0db7ba1c0f11749b"
+    },
+    {
+      "path": "lab/out/oracle-null-sides-target-20261005/ojdbc8.jar",
+      "bytes": 4210517,
+      "sha256": "a66d27a14f3adee484427cc4de008af85a5c3e78e2e3285a4dba1277332978a5"
+    },
+    {
+      "path": "lab/out/oracle-null-sides-target-20261005/owner.command.json",
+      "bytes": 107,
+      "sha256": "6cc60bfdc53919bf5068bdcbf30ec5c8b4e38feaebc9cbc53db9992eff5a6357"
+    },
+    {
+      "path": "lab/out/oracle-null-sides-target-20261005/owner.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/oracle-null-sides-target-20261005/owner.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle-null-sides-target-20261005/owner.stdout.txt",
+      "bytes": 25,
+      "sha256": "0a713b1fc68700ddfe68d6757c3a323c2b2a06f3c595b5513399d6b6771b1823"
+    },
+    {
+      "path": "lab/out/oracle-null-sides-target-20261005/run_oracle_dml_target.py",
+      "bytes": 6577,
+      "sha256": "fb2ad091ff5aba0fdb70d5ae9ee427211a9e7dc1b9c7793bdaaba5dca303013e"
+    },
+    {
+      "path": "lab/out/oracle-null-sides-target-20261005/SFAIL/68bdcaa731964f6dfdf2bba989bcef8bc5de399416a7bdd7728db1d15248b261.ack",
+      "bytes": 183,
+      "sha256": "1a4776d82f437e3fb11c1741b7ccc2e562d25f57bda3fa4b292052f30462948c"
+    },
+    {
+      "path": "lab/out/oracle-null-sides-target-20261005/SFAIL/checkpoint",
+      "bytes": 748,
+      "sha256": "51ec315dcff837e68f328e82c87faa66bf76187c02253e2737bfdcc8c5dd8373"
+    },
+    {
+      "path": "lab/out/oracle-null-sides-target-20261005/SFAIL/consumer.lock",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle-null-sides-target-20261005/SFAIL-final.command.json",
+      "bytes": 90,
+      "sha256": "6095ca5a9605c02acb9b77ba5ea4d19487ab938e2e51045704dedb495bc394d5"
+    },
+    {
+      "path": "lab/out/oracle-null-sides-target-20261005/SFAIL-final.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/oracle-null-sides-target-20261005/SFAIL-final.sql",
+      "bytes": 916,
+      "sha256": "f8ffafa08207b34e62384ad0af0030c0a2ff6774c79fa4522ad63ec3c88c8e92"
+    },
+    {
+      "path": "lab/out/oracle-null-sides-target-20261005/SFAIL-final.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle-null-sides-target-20261005/SFAIL-final.stdout.txt",
+      "bytes": 1390,
+      "sha256": "e489edc305b559c5bab395d1b60e3c111ce6bddae6c5433609088a6f1fb67d59"
+    },
+    {
+      "path": "lab/out/oracle-null-sides-target-20261005/SFAIL-remove-owned-check.command.json",
+      "bytes": 90,
+      "sha256": "6095ca5a9605c02acb9b77ba5ea4d19487ab938e2e51045704dedb495bc394d5"
+    },
+    {
+      "path": "lab/out/oracle-null-sides-target-20261005/SFAIL-remove-owned-check.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/oracle-null-sides-target-20261005/SFAIL-remove-owned-check.sql",
+      "bytes": 271,
+      "sha256": "c4711527a097f6559667d413052791ea426d4424ddd691da7a273f8c5b509f29"
+    },
+    {
+      "path": "lab/out/oracle-null-sides-target-20261005/SFAIL-remove-owned-check.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle-null-sides-target-20261005/SFAIL-remove-owned-check.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle-null-sides-target-20261005/SFAIL-repeat.command.json",
+      "bytes": 1118,
+      "sha256": "120a8bd583e97b58ccea094ab76bc19f1fbeb2fb160590dbb239bf63a99f2a6e"
+    },
+    {
+      "path": "lab/out/oracle-null-sides-target-20261005/SFAIL-repeat.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/oracle-null-sides-target-20261005/SFAIL-repeat.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle-null-sides-target-20261005/SFAIL-repeat.stdout.txt",
+      "bytes": 27,
+      "sha256": "c4daf82c330b2e7ac5062a6c83bee5eb23ed69764c4eb768e27e9bf5e11f7d5e"
+    },
+    {
+      "path": "lab/out/oracle-null-sides-target-20261005/SFAIL-resume.command.json",
+      "bytes": 1118,
+      "sha256": "120a8bd583e97b58ccea094ab76bc19f1fbeb2fb160590dbb239bf63a99f2a6e"
+    },
+    {
+      "path": "lab/out/oracle-null-sides-target-20261005/SFAIL-resume.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/oracle-null-sides-target-20261005/SFAIL-resume.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle-null-sides-target-20261005/SFAIL-resume.stdout.txt",
+      "bytes": 27,
+      "sha256": "a6658f3826f186c92f5b60fbb59a0c15f15ecf677a801289412785f5a5db0bb1"
+    },
+    {
+      "path": "lab/out/oracle-null-sides-target-20261005/SFAIL-rolled-back.command.json",
+      "bytes": 90,
+      "sha256": "6095ca5a9605c02acb9b77ba5ea4d19487ab938e2e51045704dedb495bc394d5"
+    },
+    {
+      "path": "lab/out/oracle-null-sides-target-20261005/SFAIL-rolled-back.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/oracle-null-sides-target-20261005/SFAIL-rolled-back.sql",
+      "bytes": 916,
+      "sha256": "f8ffafa08207b34e62384ad0af0030c0a2ff6774c79fa4522ad63ec3c88c8e92"
+    },
+    {
+      "path": "lab/out/oracle-null-sides-target-20261005/SFAIL-rolled-back.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle-null-sides-target-20261005/SFAIL-rolled-back.stdout.txt",
+      "bytes": 36,
+      "sha256": "ffb9040544a22dfe54295cad3a5f841067ed701ac79f8eaf5c40a0762b0fcd2c"
+    },
+    {
+      "path": "lab/out/oracle-null-sides-target-20261005/SFAIL-update-check-refused.command.json",
+      "bytes": 1118,
+      "sha256": "120a8bd583e97b58ccea094ab76bc19f1fbeb2fb160590dbb239bf63a99f2a6e"
+    },
+    {
+      "path": "lab/out/oracle-null-sides-target-20261005/SFAIL-update-check-refused.rc.txt",
+      "bytes": 1,
+      "sha256": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b"
+    },
+    {
+      "path": "lab/out/oracle-null-sides-target-20261005/SFAIL-update-check-refused.stderr.txt",
+      "bytes": 2182,
+      "sha256": "539cc16cf7d54facd4f50903887c360a041174e9d8735dac5ba12587a424c118"
+    },
+    {
+      "path": "lab/out/oracle-null-sides-target-20261005/SFAIL-update-check-refused.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle-null-sides-target-20261005/sides-proof.json",
+      "bytes": 1915,
+      "sha256": "9a52c543ccbb04293e69d23497b3338fc612af74a99241ff1bc1ed9cbfecbd02"
+    },
+    {
+      "path": "lab/out/oracle-null-sides-target-20261005/SMIX/1ae9e0125cf6f62da982b910375b862e2a60241a3e8b021b72c581c675e6fe60.ack",
+      "bytes": 182,
+      "sha256": "345b8e6e70f918049e3e0ede1165a5aa1952c61923bc17d3008a746ddb67ccfd"
+    },
+    {
+      "path": "lab/out/oracle-null-sides-target-20261005/SMIX/62bbd9abb895f484303b1e8a7c2fd63864ce276ce9b33902dbf9c2fa17483606.ack",
+      "bytes": 182,
+      "sha256": "708b86b2b529f89d6e4c8c16e5d8494d947e7306f89af824d3f9d34ca5bb83b9"
+    },
+    {
+      "path": "lab/out/oracle-null-sides-target-20261005/SMIX/68bdcaa731964f6dfdf2bba989bcef8bc5de399416a7bdd7728db1d15248b261.ack",
+      "bytes": 182,
+      "sha256": "76b58c0886077510e50027fe1c18c01c7d5cbc43ba82cdf3de6e1812ad284a0d"
+    },
+    {
+      "path": "lab/out/oracle-null-sides-target-20261005/SMIX/baseline/binding-command.json",
+      "bytes": 125,
+      "sha256": "92b11ce209b6f209002bbfe2fca241e2b4505dae9b02fa31abf42af2cce92a19"
+    },
+    {
+      "path": "lab/out/oracle-null-sides-target-20261005/SMIX/baseline/binding.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/oracle-null-sides-target-20261005/SMIX/baseline/binding.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle-null-sides-target-20261005/SMIX/baseline/binding.stdout.txt",
+      "bytes": 84,
+      "sha256": "663213c6ddff7be1e55f48031ca6e99d821fac874d4aa01eb41eb0ef08ee52b2"
+    },
+    {
+      "path": "lab/out/oracle-null-sides-target-20261005/SMIX/baseline/copy-query-command.json",
+      "bytes": 187,
+      "sha256": "f9d11fc30a2476d74ade67cf9d95abee829d7f4c98a6b70ce0804fb63e575a91"
+    },
+    {
+      "path": "lab/out/oracle-null-sides-target-20261005/SMIX/baseline/copy-query.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/oracle-null-sides-target-20261005/SMIX/baseline/copy-query.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle-null-sides-target-20261005/SMIX/baseline/copy-query.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle-null-sides-target-20261005/SMIX/baseline/receipt.json",
+      "bytes": 642,
+      "sha256": "d52b3822a2c24254a154d579d7ec06732fbb5486195a509afd34768f2c8613f2"
+    },
+    {
+      "path": "lab/out/oracle-null-sides-target-20261005/SMIX/baseline/snapshot-command.json",
+      "bytes": 157,
+      "sha256": "6824f8fa3937965748ceef987e67ee9a2c679f566ea7aad5c4649235e19e5098"
+    },
+    {
+      "path": "lab/out/oracle-null-sides-target-20261005/SMIX/baseline/snapshot.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/oracle-null-sides-target-20261005/SMIX/baseline/snapshot.sql",
+      "bytes": 3367,
+      "sha256": "93ac7c1ac32de75f3e7d8e0540161505bdb30dcb0a1cdc6d761f4dae830f027e"
+    },
+    {
+      "path": "lab/out/oracle-null-sides-target-20261005/SMIX/baseline/snapshot.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle-null-sides-target-20261005/SMIX/baseline/snapshot.stdout.txt",
+      "bytes": 735,
+      "sha256": "e5d52f81bf5845c363de8bc8722e990e2a5eebce3388ac8de87301edb98dcdba"
+    },
+    {
+      "path": "lab/out/oracle-null-sides-target-20261005/SMIX/checkpoint",
+      "bytes": 1550,
+      "sha256": "1b69c1755208fb237ea3aedb27f50371cf46d5cce3259aac522675084288e0ff"
+    },
+    {
+      "path": "lab/out/oracle-null-sides-target-20261005/SMIX/consumer.lock",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle-null-sides-target-20261005/SMIX/sequence-48.oracap",
+      "bytes": 7742956,
+      "sha256": "5b874a71b821307e2f3204b7424968ea19dcbb60d098e853a5c4357a82fb08eb"
+    },
+    {
+      "path": "lab/out/oracle-null-sides-target-20261005/SMIX/sequence-49.oracap",
+      "bytes": 8549,
+      "sha256": "0d748b2723aec1169e7fc28190ffe5d17fb9c4a0a70e3684ddd19e61b4396166"
+    },
+    {
+      "path": "lab/out/oracle-null-sides-target-20261005/SMIX/sequence-50.oracap",
+      "bytes": 14537,
+      "sha256": "2aba4b6578e4371b1e09d98c569acf5e445c325553fb74df05f97c422c4cc053"
+    },
+    {
+      "path": "lab/out/oracle-null-sides-target-20261005/SMIX-consume-1.command.json",
+      "bytes": 1116,
+      "sha256": "b264d1a1093e863be0ee55c3f100a4ed5791d748207c9057d3686792df4da802"
+    },
+    {
+      "path": "lab/out/oracle-null-sides-target-20261005/SMIX-consume-1.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/oracle-null-sides-target-20261005/SMIX-consume-1.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle-null-sides-target-20261005/SMIX-consume-1.stdout.txt",
+      "bytes": 29,
+      "sha256": "80e62e092379b63516353a2b519c4b385d54af8f85cafb4852e2a8d4203fa88d"
+    },
+    {
+      "path": "lab/out/oracle-null-sides-target-20261005/SMIX-consume-2.command.json",
+      "bytes": 1116,
+      "sha256": "29c51cb55255ddb49f64adf0b8974ca1a577af3422887b3e392aefc8371f9cfc"
+    },
+    {
+      "path": "lab/out/oracle-null-sides-target-20261005/SMIX-consume-2.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/oracle-null-sides-target-20261005/SMIX-consume-2.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle-null-sides-target-20261005/SMIX-consume-2.stdout.txt",
+      "bytes": 27,
+      "sha256": "3c89e208ba34c61dcc43d958142f9d28f72f1ba26946eba22b0e287dc091e355"
+    },
+    {
+      "path": "lab/out/oracle-null-sides-target-20261005/SMIX-consume-3.command.json",
+      "bytes": 1116,
+      "sha256": "276e30d1a84c6ead7a4b987a8d150a3a34127e0e10170f327d3ada4a6cfa5d90"
+    },
+    {
+      "path": "lab/out/oracle-null-sides-target-20261005/SMIX-consume-3.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/oracle-null-sides-target-20261005/SMIX-consume-3.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle-null-sides-target-20261005/SMIX-consume-3.stdout.txt",
+      "bytes": 27,
+      "sha256": "da3974bcc7e9d58a529f422b4cfd745e99ed071de51342371f1c1f8cce4f2e0d"
+    },
+    {
+      "path": "lab/out/oracle-null-sides-target-20261005/SMIX-final.command.json",
+      "bytes": 90,
+      "sha256": "6095ca5a9605c02acb9b77ba5ea4d19487ab938e2e51045704dedb495bc394d5"
+    },
+    {
+      "path": "lab/out/oracle-null-sides-target-20261005/SMIX-final.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/oracle-null-sides-target-20261005/SMIX-final.sql",
+      "bytes": 909,
+      "sha256": "d96eb121359afb28d7881b713648b34e70e7a8cd82874255710c320096790145"
+    },
+    {
+      "path": "lab/out/oracle-null-sides-target-20261005/SMIX-final.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle-null-sides-target-20261005/SMIX-final.stdout.txt",
+      "bytes": 2601,
+      "sha256": "d3441285d649b9a6632804f4316dadb989578c5ad4b285f854f162011478aeb1"
+    },
+    {
+      "path": "lab/out/oracle-null-sides-target-20261005/SMIX-inspect.command.json",
+      "bytes": 1408,
+      "sha256": "6db2216cb657c207ac720d4f0d769b9c5348b93f3512aef02d8ae0780706c3b3"
+    },
+    {
+      "path": "lab/out/oracle-null-sides-target-20261005/SMIX-inspect.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/oracle-null-sides-target-20261005/SMIX-inspect.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle-null-sides-target-20261005/SMIX-inspect.stdout.txt",
+      "bytes": 2810,
+      "sha256": "adf30795e6fb9851dbad78bf5e79d2a80ff495f65447d8e6082c803a6a6b178b"
+    },
+    {
+      "path": "lab/out/oracle-null-sides-target-20261005/SMIX-new-adapter-product-gate.command.json",
+      "bytes": 8235,
+      "sha256": "cf102a10b4dcaf2101c99b4654c425059011b5c54d7323e5a070ec4c1e8d28a7"
+    },
+    {
+      "path": "lab/out/oracle-null-sides-target-20261005/SMIX-new-adapter-product-gate.rc.txt",
+      "bytes": 1,
+      "sha256": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b"
+    },
+    {
+      "path": "lab/out/oracle-null-sides-target-20261005/SMIX-new-adapter-product-gate.stderr.txt",
+      "bytes": 1117,
+      "sha256": "89922b387e54142b25c5732ac1e20c55dba7f56c9556a448b262219a9b2e2317"
+    },
+    {
+      "path": "lab/out/oracle-null-sides-target-20261005/SMIX-new-adapter-product-gate.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle-null-sides-target-20261005/SMIX-repeat-1.command.json",
+      "bytes": 1116,
+      "sha256": "b264d1a1093e863be0ee55c3f100a4ed5791d748207c9057d3686792df4da802"
+    },
+    {
+      "path": "lab/out/oracle-null-sides-target-20261005/SMIX-repeat-1.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/oracle-null-sides-target-20261005/SMIX-repeat-1.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle-null-sides-target-20261005/SMIX-repeat-1.stdout.txt",
+      "bytes": 27,
+      "sha256": "da3974bcc7e9d58a529f422b4cfd745e99ed071de51342371f1c1f8cce4f2e0d"
+    },
+    {
+      "path": "lab/out/oracle-null-sides-target-20261005/SMIX-repeat-2.command.json",
+      "bytes": 1116,
+      "sha256": "29c51cb55255ddb49f64adf0b8974ca1a577af3422887b3e392aefc8371f9cfc"
+    },
+    {
+      "path": "lab/out/oracle-null-sides-target-20261005/SMIX-repeat-2.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/oracle-null-sides-target-20261005/SMIX-repeat-2.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle-null-sides-target-20261005/SMIX-repeat-2.stdout.txt",
+      "bytes": 27,
+      "sha256": "da3974bcc7e9d58a529f422b4cfd745e99ed071de51342371f1c1f8cce4f2e0d"
+    },
+    {
+      "path": "lab/out/oracle-null-sides-target-20261005/SMIX-repeat-3.command.json",
+      "bytes": 1116,
+      "sha256": "276e30d1a84c6ead7a4b987a8d150a3a34127e0e10170f327d3ada4a6cfa5d90"
+    },
+    {
+      "path": "lab/out/oracle-null-sides-target-20261005/SMIX-repeat-3.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/oracle-null-sides-target-20261005/SMIX-repeat-3.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle-null-sides-target-20261005/SMIX-repeat-3.stdout.txt",
+      "bytes": 27,
+      "sha256": "da3974bcc7e9d58a529f422b4cfd745e99ed071de51342371f1c1f8cce4f2e0d"
+    },
+    {
+      "path": "lab/out/oracle-null-sides-target-20261005/SMIX-sides.command.json",
+      "bytes": 1282,
+      "sha256": "e8c0b4caa3654c6d36351fd8786ab4595fc95e5135a2433bf5b59b71bd49dd85"
+    },
+    {
+      "path": "lab/out/oracle-null-sides-target-20261005/SMIX-sides.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/oracle-null-sides-target-20261005/SMIX-sides.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle-null-sides-target-20261005/SMIX-sides.stdout.txt",
+      "bytes": 490,
+      "sha256": "93db488fa7dc2ff6b08ce3476d99ee530798bc2ed08559af6502330ca53b9ee4"
+    },
+    {
+      "path": "lab/out/oracle-null-sides-target-20261005/SMIX-state-1.command.json",
+      "bytes": 90,
+      "sha256": "6095ca5a9605c02acb9b77ba5ea4d19487ab938e2e51045704dedb495bc394d5"
+    },
+    {
+      "path": "lab/out/oracle-null-sides-target-20261005/SMIX-state-1.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/oracle-null-sides-target-20261005/SMIX-state-1.sql",
+      "bytes": 909,
+      "sha256": "d96eb121359afb28d7881b713648b34e70e7a8cd82874255710c320096790145"
+    },
+    {
+      "path": "lab/out/oracle-null-sides-target-20261005/SMIX-state-1.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle-null-sides-target-20261005/SMIX-state-1.stdout.txt",
+      "bytes": 1389,
+      "sha256": "f10b25f9fb753fd2f09812e956374e8036cb7526995172599f969e7c7351a798"
+    },
+    {
+      "path": "lab/out/oracle-null-sides-target-20261005/SMIX-state-2.command.json",
+      "bytes": 90,
+      "sha256": "6095ca5a9605c02acb9b77ba5ea4d19487ab938e2e51045704dedb495bc394d5"
+    },
+    {
+      "path": "lab/out/oracle-null-sides-target-20261005/SMIX-state-2.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/oracle-null-sides-target-20261005/SMIX-state-2.sql",
+      "bytes": 909,
+      "sha256": "d96eb121359afb28d7881b713648b34e70e7a8cd82874255710c320096790145"
+    },
+    {
+      "path": "lab/out/oracle-null-sides-target-20261005/SMIX-state-2.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle-null-sides-target-20261005/SMIX-state-2.stdout.txt",
+      "bytes": 1995,
+      "sha256": "5034d0973df3e41c68067951b786b365e6ec946c6e882e24b445337ce0fe5ccb"
+    },
+    {
+      "path": "lab/out/oracle-null-sides-target-20261005/SMIX-state-3.command.json",
+      "bytes": 90,
+      "sha256": "6095ca5a9605c02acb9b77ba5ea4d19487ab938e2e51045704dedb495bc394d5"
+    },
+    {
+      "path": "lab/out/oracle-null-sides-target-20261005/SMIX-state-3.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/oracle-null-sides-target-20261005/SMIX-state-3.sql",
+      "bytes": 909,
+      "sha256": "d96eb121359afb28d7881b713648b34e70e7a8cd82874255710c320096790145"
+    },
+    {
+      "path": "lab/out/oracle-null-sides-target-20261005/SMIX-state-3.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle-null-sides-target-20261005/SMIX-state-3.stdout.txt",
+      "bytes": 2601,
+      "sha256": "d3441285d649b9a6632804f4316dadb989578c5ad4b285f854f162011478aeb1"
+    },
+    {
+      "path": "lab/out/oracle-null-sides-target-20261005/SNON/b9acad318945c458dc4b720a55cc65099e6c3cff061393b7562e93d73690617e.ack",
+      "bytes": 182,
+      "sha256": "84067ff8a582a54fd6f41cde498cd2f0cd6aaf35c5dd9c0ad0987b5f8e35a1d5"
+    },
+    {
+      "path": "lab/out/oracle-null-sides-target-20261005/SNON/baseline/binding-command.json",
+      "bytes": 125,
+      "sha256": "92b11ce209b6f209002bbfe2fca241e2b4505dae9b02fa31abf42af2cce92a19"
+    },
+    {
+      "path": "lab/out/oracle-null-sides-target-20261005/SNON/baseline/binding.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/oracle-null-sides-target-20261005/SNON/baseline/binding.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle-null-sides-target-20261005/SNON/baseline/binding.stdout.txt",
+      "bytes": 84,
+      "sha256": "663213c6ddff7be1e55f48031ca6e99d821fac874d4aa01eb41eb0ef08ee52b2"
+    },
+    {
+      "path": "lab/out/oracle-null-sides-target-20261005/SNON/baseline/copy-query-command.json",
+      "bytes": 186,
+      "sha256": "7db49e5bd6e8f87060ea6baf83aaa9fc30bd73ea327178e16afd24b93f2fe728"
+    },
+    {
+      "path": "lab/out/oracle-null-sides-target-20261005/SNON/baseline/copy-query.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/oracle-null-sides-target-20261005/SNON/baseline/copy-query.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle-null-sides-target-20261005/SNON/baseline/copy-query.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle-null-sides-target-20261005/SNON/baseline/receipt.json",
+      "bytes": 642,
+      "sha256": "22346e9ebace23fd784d61b6cf006fcc3dde25ab0165dd00d5e8b3d8e2494f7a"
+    },
+    {
+      "path": "lab/out/oracle-null-sides-target-20261005/SNON/baseline/snapshot-command.json",
+      "bytes": 157,
+      "sha256": "6824f8fa3937965748ceef987e67ee9a2c679f566ea7aad5c4649235e19e5098"
+    },
+    {
+      "path": "lab/out/oracle-null-sides-target-20261005/SNON/baseline/snapshot.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/oracle-null-sides-target-20261005/SNON/baseline/snapshot.sql",
+      "bytes": 3415,
+      "sha256": "332dadc3f198505831760064261c0a751563a9451181e8be67526ebdb51b6cc8"
+    },
+    {
+      "path": "lab/out/oracle-null-sides-target-20261005/SNON/baseline/snapshot.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle-null-sides-target-20261005/SNON/baseline/snapshot.stdout.txt",
+      "bytes": 747,
+      "sha256": "d88ee8211dd7c1cc65cb17b9983e7a86d18179939b9f8ffc4f2b3d3e53f5a3cd"
+    },
+    {
+      "path": "lab/out/oracle-null-sides-target-20261005/SNON/c0af4ecf1bc77a2bbebd7f481e96c5b7003e372f7724395dcf6c5c9cb2718141.ack",
+      "bytes": 182,
+      "sha256": "7b74704c9cb97f393a7858702b50f3766b3928f33408f6e8d81906d127218d1f"
+    },
+    {
+      "path": "lab/out/oracle-null-sides-target-20261005/SNON/checkpoint",
+      "bytes": 1048,
+      "sha256": "1f2804f205261159ac94c73f7b871d7fda6333a2a841ce4301f809e3cf4f4cc1"
+    },
+    {
+      "path": "lab/out/oracle-null-sides-target-20261005/SNON/consumer.lock",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle-null-sides-target-20261005/SNON/sequence-44.oracap",
+      "bytes": 193539716,
+      "sha256": "a7da3920c57981e00ed693f3b4fb44cce536240834f35c4b276dd8f1b095adcb"
+    },
+    {
+      "path": "lab/out/oracle-null-sides-target-20261005/SNON/sequence-45.oracap",
+      "bytes": 7692,
+      "sha256": "3ab7b526c15fb0970559f98e0c676c90a615049dffb6fe73d095c086a9d9b56f"
+    },
+    {
+      "path": "lab/out/oracle-null-sides-target-20261005/SNON-consume-1.command.json",
+      "bytes": 1011,
+      "sha256": "461683895b22f4b0ecfe2fc786db87e77c1ecaf5a481b9d416ccf9074dff91e4"
+    },
+    {
+      "path": "lab/out/oracle-null-sides-target-20261005/SNON-consume-1.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/oracle-null-sides-target-20261005/SNON-consume-1.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle-null-sides-target-20261005/SNON-consume-1.stdout.txt",
+      "bytes": 31,
+      "sha256": "43984e268b4edc396bd3f08ebac877970f80228c0fd9a584320c21ac26f305ca"
+    },
+    {
+      "path": "lab/out/oracle-null-sides-target-20261005/SNON-consume-2.command.json",
+      "bytes": 1011,
+      "sha256": "3784658237a3946b5089a55a0ac125535043a94641657ecb5f7a0636d45b6515"
+    },
+    {
+      "path": "lab/out/oracle-null-sides-target-20261005/SNON-consume-2.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/oracle-null-sides-target-20261005/SNON-consume-2.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle-null-sides-target-20261005/SNON-consume-2.stdout.txt",
+      "bytes": 26,
+      "sha256": "2df86168facb8b9574b3c0058ddbcc29b7118e2df28019190ebcaa1104e54cda"
+    },
+    {
+      "path": "lab/out/oracle-null-sides-target-20261005/SNON-final.command.json",
+      "bytes": 90,
+      "sha256": "6095ca5a9605c02acb9b77ba5ea4d19487ab938e2e51045704dedb495bc394d5"
+    },
+    {
+      "path": "lab/out/oracle-null-sides-target-20261005/SNON-final.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/oracle-null-sides-target-20261005/SNON-final.sql",
+      "bytes": 909,
+      "sha256": "313009a80b9f14ff0c2ccd5461549917ca2e44264df2da71f107e96d0de0555e"
+    },
+    {
+      "path": "lab/out/oracle-null-sides-target-20261005/SNON-final.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle-null-sides-target-20261005/SNON-final.stdout.txt",
+      "bytes": 1265,
+      "sha256": "285f4bea2712697b4c6f2e36c303929d3c9a2830bcf10ccb3143f41c66f7820e"
+    },
+    {
+      "path": "lab/out/oracle-null-sides-target-20261005/SNON-inspect.command.json",
+      "bytes": 1229,
+      "sha256": "6b58ff1fdc40cf8ab036f9fc85b41c1251ad32f9f64dd350588c85f3207df3f1"
+    },
+    {
+      "path": "lab/out/oracle-null-sides-target-20261005/SNON-inspect.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/oracle-null-sides-target-20261005/SNON-inspect.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle-null-sides-target-20261005/SNON-inspect.stdout.txt",
+      "bytes": 1045,
+      "sha256": "9d7b1af497fc0033b6ec81fe172adbb07c3cef88d782af4dafc2ff9ce8df84e9"
+    },
+    {
+      "path": "lab/out/oracle-null-sides-target-20261005/SNON-new-adapter-product-gate.command.json",
+      "bytes": 8056,
+      "sha256": "e4c6c24dc8d513f398c0268001fe224be4d5d19533bcf63d4eb2d6c6a5140d92"
+    },
+    {
+      "path": "lab/out/oracle-null-sides-target-20261005/SNON-new-adapter-product-gate.rc.txt",
+      "bytes": 1,
+      "sha256": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b"
+    },
+    {
+      "path": "lab/out/oracle-null-sides-target-20261005/SNON-new-adapter-product-gate.stderr.txt",
+      "bytes": 1117,
+      "sha256": "d7add419d53648e32431c0c633e9fc0fcecc828c00304c58918fe3485bc5d3ff"
+    },
+    {
+      "path": "lab/out/oracle-null-sides-target-20261005/SNON-new-adapter-product-gate.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle-null-sides-target-20261005/SNON-repeat-1.command.json",
+      "bytes": 1011,
+      "sha256": "461683895b22f4b0ecfe2fc786db87e77c1ecaf5a481b9d416ccf9074dff91e4"
+    },
+    {
+      "path": "lab/out/oracle-null-sides-target-20261005/SNON-repeat-1.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/oracle-null-sides-target-20261005/SNON-repeat-1.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle-null-sides-target-20261005/SNON-repeat-1.stdout.txt",
+      "bytes": 26,
+      "sha256": "442aa66ba59960c0bfc991a1beb0677c5c5f7913b45bf0b21756a4391513289f"
+    },
+    {
+      "path": "lab/out/oracle-null-sides-target-20261005/SNON-repeat-2.command.json",
+      "bytes": 1011,
+      "sha256": "3784658237a3946b5089a55a0ac125535043a94641657ecb5f7a0636d45b6515"
+    },
+    {
+      "path": "lab/out/oracle-null-sides-target-20261005/SNON-repeat-2.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/oracle-null-sides-target-20261005/SNON-repeat-2.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle-null-sides-target-20261005/SNON-repeat-2.stdout.txt",
+      "bytes": 26,
+      "sha256": "442aa66ba59960c0bfc991a1beb0677c5c5f7913b45bf0b21756a4391513289f"
+    },
+    {
+      "path": "lab/out/oracle-null-sides-target-20261005/SNON-sides.command.json",
+      "bytes": 1103,
+      "sha256": "65ceae84da58e6d294272372a3ae256d520d762b4c087ed8006bb8101b71f053"
+    },
+    {
+      "path": "lab/out/oracle-null-sides-target-20261005/SNON-sides.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/oracle-null-sides-target-20261005/SNON-sides.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle-null-sides-target-20261005/SNON-sides.stdout.txt",
+      "bytes": 326,
+      "sha256": "f0910a5a23dcd1edef7af3fda6cb0e35602fb7cee984f9636841eadf915851d5"
+    },
+    {
+      "path": "lab/out/oracle-null-sides-target-20261005/SNON-state-1.command.json",
+      "bytes": 90,
+      "sha256": "6095ca5a9605c02acb9b77ba5ea4d19487ab938e2e51045704dedb495bc394d5"
+    },
+    {
+      "path": "lab/out/oracle-null-sides-target-20261005/SNON-state-1.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/oracle-null-sides-target-20261005/SNON-state-1.sql",
+      "bytes": 909,
+      "sha256": "313009a80b9f14ff0c2ccd5461549917ca2e44264df2da71f107e96d0de0555e"
+    },
+    {
+      "path": "lab/out/oracle-null-sides-target-20261005/SNON-state-1.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle-null-sides-target-20261005/SNON-state-1.stdout.txt",
+      "bytes": 610,
+      "sha256": "7c3524720763adb0ad3331fa390a476ce901367a7660047bbc62ec67d434418f"
+    },
+    {
+      "path": "lab/out/oracle-null-sides-target-20261005/SNON-state-2.command.json",
+      "bytes": 90,
+      "sha256": "6095ca5a9605c02acb9b77ba5ea4d19487ab938e2e51045704dedb495bc394d5"
+    },
+    {
+      "path": "lab/out/oracle-null-sides-target-20261005/SNON-state-2.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/oracle-null-sides-target-20261005/SNON-state-2.sql",
+      "bytes": 909,
+      "sha256": "313009a80b9f14ff0c2ccd5461549917ca2e44264df2da71f107e96d0de0555e"
+    },
+    {
+      "path": "lab/out/oracle-null-sides-target-20261005/SNON-state-2.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle-null-sides-target-20261005/SNON-state-2.stdout.txt",
+      "bytes": 1265,
+      "sha256": "285f4bea2712697b4c6f2e36c303929d3c9a2830bcf10ccb3143f41c66f7820e"
+    },
+    {
+      "path": "lab/out/oracle-null-sides-target-20261005/SNUL/270a502c1b194aa51a565c3e4628804ace20a89eacc7dfb0bad9c14e1b8d2bda.ack",
+      "bytes": 182,
+      "sha256": "c0407a7b63d5326df43f80e5837ceacd1bc7e5ebd9bbd681782be518d7f8090b"
+    },
+    {
+      "path": "lab/out/oracle-null-sides-target-20261005/SNUL/a7d1ba7f0eb232113c6ede202ce85a41442b3858bf4a2b7eb49eaa978f660b3a.ack",
+      "bytes": 182,
+      "sha256": "f624e356a0a11eb4b9db19a3a2a841bd7c1a76a1e30da5e683eac59a968a1a29"
+    },
+    {
+      "path": "lab/out/oracle-null-sides-target-20261005/SNUL/baseline/binding-command.json",
+      "bytes": 125,
+      "sha256": "92b11ce209b6f209002bbfe2fca241e2b4505dae9b02fa31abf42af2cce92a19"
+    },
+    {
+      "path": "lab/out/oracle-null-sides-target-20261005/SNUL/baseline/binding.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/oracle-null-sides-target-20261005/SNUL/baseline/binding.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle-null-sides-target-20261005/SNUL/baseline/binding.stdout.txt",
+      "bytes": 84,
+      "sha256": "663213c6ddff7be1e55f48031ca6e99d821fac874d4aa01eb41eb0ef08ee52b2"
+    },
+    {
+      "path": "lab/out/oracle-null-sides-target-20261005/SNUL/baseline/copy-query-command.json",
+      "bytes": 186,
+      "sha256": "1890a66f1610af79b151133822a5dfc142df4d017f4d7d927b9936565a9c4d52"
+    },
+    {
+      "path": "lab/out/oracle-null-sides-target-20261005/SNUL/baseline/copy-query.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/oracle-null-sides-target-20261005/SNUL/baseline/copy-query.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle-null-sides-target-20261005/SNUL/baseline/copy-query.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle-null-sides-target-20261005/SNUL/baseline/receipt.json",
+      "bytes": 642,
+      "sha256": "0298dc657cd195a0b260a47c530e9ea44ac483dd277a3eb1dabb93f67be12390"
+    },
+    {
+      "path": "lab/out/oracle-null-sides-target-20261005/SNUL/baseline/snapshot-command.json",
+      "bytes": 157,
+      "sha256": "6824f8fa3937965748ceef987e67ee9a2c679f566ea7aad5c4649235e19e5098"
+    },
+    {
+      "path": "lab/out/oracle-null-sides-target-20261005/SNUL/baseline/snapshot.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/oracle-null-sides-target-20261005/SNUL/baseline/snapshot.sql",
+      "bytes": 3379,
+      "sha256": "35849d0608ab9e4b7a01c7465bec8c7e22aa10ad88164f6a6341600726bf866d"
+    },
+    {
+      "path": "lab/out/oracle-null-sides-target-20261005/SNUL/baseline/snapshot.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle-null-sides-target-20261005/SNUL/baseline/snapshot.stdout.txt",
+      "bytes": 737,
+      "sha256": "eb97c179652ecbd0ca9a276f4559a51e1f1fd51251f3683bea0bea19cd6be487"
+    },
+    {
+      "path": "lab/out/oracle-null-sides-target-20261005/SNUL/checkpoint",
+      "bytes": 1046,
+      "sha256": "d18665d3f2f54d13e3e3902fa1c8124cb67745c46ce16ba51a3c724e10bc68fd"
+    },
+    {
+      "path": "lab/out/oracle-null-sides-target-20261005/SNUL/consumer.lock",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle-null-sides-target-20261005/SNUL/sequence-46.oracap",
+      "bytes": 1660110,
+      "sha256": "5668457bf6bb6acf141d1e0100e829c178e40cf1b3e2351eab02e06a18e1b0d6"
+    },
+    {
+      "path": "lab/out/oracle-null-sides-target-20261005/SNUL/sequence-47.oracap",
+      "bytes": 5982,
+      "sha256": "2a01486526536cb15696030bb9d54ebee808ddf6a584393b965eb718ca421f57"
+    },
+    {
+      "path": "lab/out/oracle-null-sides-target-20261005/SNUL-consume-1.command.json",
+      "bytes": 1011,
+      "sha256": "ceace22f7a693256640f2facf24c29c11106b21b8eb435035fdd84c73114d5ea"
+    },
+    {
+      "path": "lab/out/oracle-null-sides-target-20261005/SNUL-consume-1.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/oracle-null-sides-target-20261005/SNUL-consume-1.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle-null-sides-target-20261005/SNUL-consume-1.stdout.txt",
+      "bytes": 29,
+      "sha256": "8d0b5c3a84e80185355b09c2f2f2f667439966f0c2bffdaf7fb4ede2ce5284a7"
+    },
+    {
+      "path": "lab/out/oracle-null-sides-target-20261005/SNUL-consume-2.command.json",
+      "bytes": 1011,
+      "sha256": "242f79221d06faf30e8631d7c4474137fc390aac73c09cbd68d53ef105bb8d42"
+    },
+    {
+      "path": "lab/out/oracle-null-sides-target-20261005/SNUL-consume-2.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/oracle-null-sides-target-20261005/SNUL-consume-2.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle-null-sides-target-20261005/SNUL-consume-2.stdout.txt",
+      "bytes": 26,
+      "sha256": "eeaca36cda4f798c3365a4ecd493de80ff18fcf4f21c1eb72b746949f7c1e80a"
+    },
+    {
+      "path": "lab/out/oracle-null-sides-target-20261005/SNUL-final.command.json",
+      "bytes": 90,
+      "sha256": "6095ca5a9605c02acb9b77ba5ea4d19487ab938e2e51045704dedb495bc394d5"
+    },
+    {
+      "path": "lab/out/oracle-null-sides-target-20261005/SNUL-final.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/oracle-null-sides-target-20261005/SNUL-final.sql",
+      "bytes": 909,
+      "sha256": "8a7d9fef4d647c9bd4478e6a2bc1510b0c7c2e43c9c375dc6fd33cf95a0560a9"
+    },
+    {
+      "path": "lab/out/oracle-null-sides-target-20261005/SNUL-final.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle-null-sides-target-20261005/SNUL-final.stdout.txt",
+      "bytes": 1178,
+      "sha256": "f773ddc3a26aa846920965e95422fb7ce0263c8eb029622e2028d9746550392e"
+    },
+    {
+      "path": "lab/out/oracle-null-sides-target-20261005/SNUL-inspect.command.json",
+      "bytes": 1229,
+      "sha256": "2d147da29f05f35c6d59809aae8429bfbe8d29abf55d122529c6e43841b7660b"
+    },
+    {
+      "path": "lab/out/oracle-null-sides-target-20261005/SNUL-inspect.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/oracle-null-sides-target-20261005/SNUL-inspect.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle-null-sides-target-20261005/SNUL-inspect.stdout.txt",
+      "bytes": 911,
+      "sha256": "415a65d616240c0114062890199aaf8d2d161a41c1048df2faed9127e577d8e4"
+    },
+    {
+      "path": "lab/out/oracle-null-sides-target-20261005/SNUL-new-adapter-product-gate.command.json",
+      "bytes": 8056,
+      "sha256": "a65aa9a4cfb90fa0178e4cbf09a567e17ceb13cec3659ddad39d62d484a295e0"
+    },
+    {
+      "path": "lab/out/oracle-null-sides-target-20261005/SNUL-new-adapter-product-gate.rc.txt",
+      "bytes": 1,
+      "sha256": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b"
+    },
+    {
+      "path": "lab/out/oracle-null-sides-target-20261005/SNUL-new-adapter-product-gate.stderr.txt",
+      "bytes": 1117,
+      "sha256": "d632f4d2dde5e2dabddeef68552e055e7a3bd4bdba8b6acf7b7e3f58db29d997"
+    },
+    {
+      "path": "lab/out/oracle-null-sides-target-20261005/SNUL-new-adapter-product-gate.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle-null-sides-target-20261005/SNUL-repeat-1.command.json",
+      "bytes": 1011,
+      "sha256": "ceace22f7a693256640f2facf24c29c11106b21b8eb435035fdd84c73114d5ea"
+    },
+    {
+      "path": "lab/out/oracle-null-sides-target-20261005/SNUL-repeat-1.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/oracle-null-sides-target-20261005/SNUL-repeat-1.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle-null-sides-target-20261005/SNUL-repeat-1.stdout.txt",
+      "bytes": 26,
+      "sha256": "24c545e585ae51f44004b7a419642453f13b017cce4ed93ac1dc3076bf13d7a7"
+    },
+    {
+      "path": "lab/out/oracle-null-sides-target-20261005/SNUL-repeat-2.command.json",
+      "bytes": 1011,
+      "sha256": "242f79221d06faf30e8631d7c4474137fc390aac73c09cbd68d53ef105bb8d42"
+    },
+    {
+      "path": "lab/out/oracle-null-sides-target-20261005/SNUL-repeat-2.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/oracle-null-sides-target-20261005/SNUL-repeat-2.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle-null-sides-target-20261005/SNUL-repeat-2.stdout.txt",
+      "bytes": 26,
+      "sha256": "24c545e585ae51f44004b7a419642453f13b017cce4ed93ac1dc3076bf13d7a7"
+    },
+    {
+      "path": "lab/out/oracle-null-sides-target-20261005/SNUL-sides.command.json",
+      "bytes": 1103,
+      "sha256": "00e273d2ff6566f1d78c8fc472233fa637a54303836285d603eca0f23b08cdd6"
+    },
+    {
+      "path": "lab/out/oracle-null-sides-target-20261005/SNUL-sides.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/oracle-null-sides-target-20261005/SNUL-sides.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle-null-sides-target-20261005/SNUL-sides.stdout.txt",
+      "bytes": 326,
+      "sha256": "a1da29a2afd25250b31d96e91a37019baaf383323ca8911e2ab135d7db2003bc"
+    },
+    {
+      "path": "lab/out/oracle-null-sides-target-20261005/SNUL-state-1.command.json",
+      "bytes": 90,
+      "sha256": "6095ca5a9605c02acb9b77ba5ea4d19487ab938e2e51045704dedb495bc394d5"
+    },
+    {
+      "path": "lab/out/oracle-null-sides-target-20261005/SNUL-state-1.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/oracle-null-sides-target-20261005/SNUL-state-1.sql",
+      "bytes": 909,
+      "sha256": "8a7d9fef4d647c9bd4478e6a2bc1510b0c7c2e43c9c375dc6fd33cf95a0560a9"
+    },
+    {
+      "path": "lab/out/oracle-null-sides-target-20261005/SNUL-state-1.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle-null-sides-target-20261005/SNUL-state-1.stdout.txt",
+      "bytes": 542,
+      "sha256": "5e3e9f7936844d29d7850c1fc0e7e47ab5118efbceb46e3dd6ba50d7429efdbc"
+    },
+    {
+      "path": "lab/out/oracle-null-sides-target-20261005/SNUL-state-2.command.json",
+      "bytes": 90,
+      "sha256": "6095ca5a9605c02acb9b77ba5ea4d19487ab938e2e51045704dedb495bc394d5"
+    },
+    {
+      "path": "lab/out/oracle-null-sides-target-20261005/SNUL-state-2.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/oracle-null-sides-target-20261005/SNUL-state-2.sql",
+      "bytes": 909,
+      "sha256": "8a7d9fef4d647c9bd4478e6a2bc1510b0c7c2e43c9c375dc6fd33cf95a0560a9"
+    },
+    {
+      "path": "lab/out/oracle-null-sides-target-20261005/SNUL-state-2.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle-null-sides-target-20261005/SNUL-state-2.stdout.txt",
+      "bytes": 1178,
+      "sha256": "f773ddc3a26aa846920965e95422fb7ce0263c8eb029622e2028d9746550392e"
+    },
+    {
+      "path": "lab/out/oracle-null-sides-target-20261005/source-after.command.json",
+      "bytes": 90,
+      "sha256": "6095ca5a9605c02acb9b77ba5ea4d19487ab938e2e51045704dedb495bc394d5"
+    },
+    {
+      "path": "lab/out/oracle-null-sides-target-20261005/source-after.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/oracle-null-sides-target-20261005/source-after.sql",
+      "bytes": 715,
+      "sha256": "fd0c93c4c963f298a24992840ba2dd2791f24cda6f5fe70cf79a0b6338508e13"
+    },
+    {
+      "path": "lab/out/oracle-null-sides-target-20261005/source-after.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle-null-sides-target-20261005/source-after.stdout.txt",
+      "bytes": 207,
+      "sha256": "3df82a8d765c828e41ffc6e9e69e66a96e2beb087d2fca934d05367119997708"
+    },
+    {
+      "path": "lab/out/oracle-null-sides-target-20261005/source-before.command.json",
+      "bytes": 90,
+      "sha256": "6095ca5a9605c02acb9b77ba5ea4d19487ab938e2e51045704dedb495bc394d5"
+    },
+    {
+      "path": "lab/out/oracle-null-sides-target-20261005/source-before.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/oracle-null-sides-target-20261005/source-before.sql",
+      "bytes": 715,
+      "sha256": "fd0c93c4c963f298a24992840ba2dd2791f24cda6f5fe70cf79a0b6338508e13"
+    },
+    {
+      "path": "lab/out/oracle-null-sides-target-20261005/source-before.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle-null-sides-target-20261005/source-before.stdout.txt",
+      "bytes": 207,
+      "sha256": "3df82a8d765c828e41ffc6e9e69e66a96e2beb087d2fca934d05367119997708"
+    },
+    {
+      "path": "lab/out/oracle-null-sides-target-20261005/spi.jar",
+      "bytes": 13901,
+      "sha256": "93e451fe6c16c665cbdc5b5471a9879cd0a01ec7699a5d9666068dc14c2f8523"
+    },
+    {
+      "path": "lab/out/oracle-null-sides-target-20261005/target-20-table-setup.command.json",
+      "bytes": 90,
+      "sha256": "6095ca5a9605c02acb9b77ba5ea4d19487ab938e2e51045704dedb495bc394d5"
+    },
+    {
+      "path": "lab/out/oracle-null-sides-target-20261005/target-20-table-setup.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/oracle-null-sides-target-20261005/target-20-table-setup.sql",
+      "bytes": 5010,
+      "sha256": "a7bf5b641945b470946ed668cf960a79eef16eca838023d234ea70e4e4cd5014"
+    },
+    {
+      "path": "lab/out/oracle-null-sides-target-20261005/target-20-table-setup.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle-null-sides-target-20261005/target-20-table-setup.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle-null-sides-target-20261005/target-preflight.command.json",
+      "bytes": 90,
+      "sha256": "6095ca5a9605c02acb9b77ba5ea4d19487ab938e2e51045704dedb495bc394d5"
+    },
+    {
+      "path": "lab/out/oracle-null-sides-target-20261005/target-preflight.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/oracle-null-sides-target-20261005/target-preflight.sql",
+      "bytes": 352,
+      "sha256": "b53ba9394b24c55a5e4f371509228b03a99b9688e571c6a9cb86cf920946fa12"
+    },
+    {
+      "path": "lab/out/oracle-null-sides-target-20261005/target-preflight.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/oracle-null-sides-target-20261005/target-preflight.stdout.txt",
+      "bytes": 8,
+      "sha256": "3796a939baa50b706c403c0cc7c84e1008d0b44ad59aa0bf163f81112dd46091"
+    },
+    {
+      "path": "lab/out/oracle-null-sides-target-20261005/target-proof.json",
+      "bytes": 698,
+      "sha256": "8b42570a3604447d552c9f4e2a0b9e47652331244a5c3ee2a0f13a74bafdeceb"
+    },
+    {
+      "path": "lab/out/oracle-null-sides-target-20261005/verify_oracle_dml_target.py",
+      "bytes": 5366,
+      "sha256": "9d5d5c42b5820df2f0c4eccea316ec2a35918f29b44f9bb5a1094827cfc26f98"
+    },
+    {
+      "path": "lab/out/oracle-null-sides-target-20261005/wrong-operation-target-comparison.txt",
+      "bytes": 2618,
+      "sha256": "bcd17d9a1d2df9aa1c491d8ca317e7939d9d8b55e01872f5e3020aede6c5e498"
+    }
+  ],
+  "commands": [
+    {
+      "path": "lab/out/oracle-product-gate-20261005/compile-actual-gate.rc.txt",
+      "rc": 0,
+      "stdout_bytes": 0,
+      "stderr_bytes": 0
+    },
+    {
+      "path": "lab/out/oracle-product-gate-20261005/mixed-actual-product-gate.rc.txt",
+      "rc": 1,
+      "stdout_bytes": 0,
+      "stderr_bytes": 1117
+    },
+    {
+      "path": "lab/out/oracle-product-gate-20261005/nonnull-actual-product-gate.rc.txt",
+      "rc": 1,
+      "stdout_bytes": 0,
+      "stderr_bytes": 1117
+    },
+    {
+      "path": "lab/out/oracle-product-gate-20261005/null-actual-product-gate.rc.txt",
+      "rc": 1,
+      "stdout_bytes": 0,
+      "stderr_bytes": 1117
+    },
+    {
+      "path": "lab/out/release-oracle-null-sides-20261005/adapter.rc.txt",
+      "rc": 0,
+      "stdout_bytes": 3198,
+      "stderr_bytes": 0
+    },
+    {
+      "path": "lab/out/oracle-null-sides-target-20261005/compile.rc.txt",
+      "rc": 0,
+      "stdout_bytes": 0,
+      "stderr_bytes": 0
+    },
+    {
+      "path": "lab/out/oracle-null-sides-target-20261005/helpers-exited.rc.txt",
+      "rc": 0,
+      "stdout_bytes": 0,
+      "stderr_bytes": 0
+    },
+    {
+      "path": "lab/out/oracle-null-sides-target-20261005/owner.rc.txt",
+      "rc": 0,
+      "stdout_bytes": 25,
+      "stderr_bytes": 0
+    },
+    {
+      "path": "lab/out/oracle-null-sides-target-20261005/SFAIL-final.rc.txt",
+      "rc": 0,
+      "stdout_bytes": 1390,
+      "stderr_bytes": 0
+    },
+    {
+      "path": "lab/out/oracle-null-sides-target-20261005/SFAIL-remove-owned-check.rc.txt",
+      "rc": 0,
+      "stdout_bytes": 0,
+      "stderr_bytes": 0
+    },
+    {
+      "path": "lab/out/oracle-null-sides-target-20261005/SFAIL-repeat.rc.txt",
+      "rc": 0,
+      "stdout_bytes": 27,
+      "stderr_bytes": 0
+    },
+    {
+      "path": "lab/out/oracle-null-sides-target-20261005/SFAIL-resume.rc.txt",
+      "rc": 0,
+      "stdout_bytes": 27,
+      "stderr_bytes": 0
+    },
+    {
+      "path": "lab/out/oracle-null-sides-target-20261005/SFAIL-rolled-back.rc.txt",
+      "rc": 0,
+      "stdout_bytes": 36,
+      "stderr_bytes": 0
+    },
+    {
+      "path": "lab/out/oracle-null-sides-target-20261005/SFAIL-update-check-refused.rc.txt",
+      "rc": 1,
+      "stdout_bytes": 0,
+      "stderr_bytes": 2182
+    },
+    {
+      "path": "lab/out/oracle-null-sides-target-20261005/SMIX-consume-1.rc.txt",
+      "rc": 0,
+      "stdout_bytes": 29,
+      "stderr_bytes": 0
+    },
+    {
+      "path": "lab/out/oracle-null-sides-target-20261005/SMIX-consume-2.rc.txt",
+      "rc": 0,
+      "stdout_bytes": 27,
+      "stderr_bytes": 0
+    },
+    {
+      "path": "lab/out/oracle-null-sides-target-20261005/SMIX-consume-3.rc.txt",
+      "rc": 0,
+      "stdout_bytes": 27,
+      "stderr_bytes": 0
+    },
+    {
+      "path": "lab/out/oracle-null-sides-target-20261005/SMIX-final.rc.txt",
+      "rc": 0,
+      "stdout_bytes": 2601,
+      "stderr_bytes": 0
+    },
+    {
+      "path": "lab/out/oracle-null-sides-target-20261005/SMIX-inspect.rc.txt",
+      "rc": 0,
+      "stdout_bytes": 2810,
+      "stderr_bytes": 0
+    },
+    {
+      "path": "lab/out/oracle-null-sides-target-20261005/SMIX-new-adapter-product-gate.rc.txt",
+      "rc": 1,
+      "stdout_bytes": 0,
+      "stderr_bytes": 1117
+    },
+    {
+      "path": "lab/out/oracle-null-sides-target-20261005/SMIX-repeat-1.rc.txt",
+      "rc": 0,
+      "stdout_bytes": 27,
+      "stderr_bytes": 0
+    },
+    {
+      "path": "lab/out/oracle-null-sides-target-20261005/SMIX-repeat-2.rc.txt",
+      "rc": 0,
+      "stdout_bytes": 27,
+      "stderr_bytes": 0
+    },
+    {
+      "path": "lab/out/oracle-null-sides-target-20261005/SMIX-repeat-3.rc.txt",
+      "rc": 0,
+      "stdout_bytes": 27,
+      "stderr_bytes": 0
+    },
+    {
+      "path": "lab/out/oracle-null-sides-target-20261005/SMIX-sides.rc.txt",
+      "rc": 0,
+      "stdout_bytes": 490,
+      "stderr_bytes": 0
+    },
+    {
+      "path": "lab/out/oracle-null-sides-target-20261005/SMIX-state-1.rc.txt",
+      "rc": 0,
+      "stdout_bytes": 1389,
+      "stderr_bytes": 0
+    },
+    {
+      "path": "lab/out/oracle-null-sides-target-20261005/SMIX-state-2.rc.txt",
+      "rc": 0,
+      "stdout_bytes": 1995,
+      "stderr_bytes": 0
+    },
+    {
+      "path": "lab/out/oracle-null-sides-target-20261005/SMIX-state-3.rc.txt",
+      "rc": 0,
+      "stdout_bytes": 2601,
+      "stderr_bytes": 0
+    },
+    {
+      "path": "lab/out/oracle-null-sides-target-20261005/SNON-consume-1.rc.txt",
+      "rc": 0,
+      "stdout_bytes": 31,
+      "stderr_bytes": 0
+    },
+    {
+      "path": "lab/out/oracle-null-sides-target-20261005/SNON-consume-2.rc.txt",
+      "rc": 0,
+      "stdout_bytes": 26,
+      "stderr_bytes": 0
+    },
+    {
+      "path": "lab/out/oracle-null-sides-target-20261005/SNON-final.rc.txt",
+      "rc": 0,
+      "stdout_bytes": 1265,
+      "stderr_bytes": 0
+    },
+    {
+      "path": "lab/out/oracle-null-sides-target-20261005/SNON-inspect.rc.txt",
+      "rc": 0,
+      "stdout_bytes": 1045,
+      "stderr_bytes": 0
+    },
+    {
+      "path": "lab/out/oracle-null-sides-target-20261005/SNON-new-adapter-product-gate.rc.txt",
+      "rc": 1,
+      "stdout_bytes": 0,
+      "stderr_bytes": 1117
+    },
+    {
+      "path": "lab/out/oracle-null-sides-target-20261005/SNON-repeat-1.rc.txt",
+      "rc": 0,
+      "stdout_bytes": 26,
+      "stderr_bytes": 0
+    },
+    {
+      "path": "lab/out/oracle-null-sides-target-20261005/SNON-repeat-2.rc.txt",
+      "rc": 0,
+      "stdout_bytes": 26,
+      "stderr_bytes": 0
+    },
+    {
+      "path": "lab/out/oracle-null-sides-target-20261005/SNON-sides.rc.txt",
+      "rc": 0,
+      "stdout_bytes": 326,
+      "stderr_bytes": 0
+    },
+    {
+      "path": "lab/out/oracle-null-sides-target-20261005/SNON-state-1.rc.txt",
+      "rc": 0,
+      "stdout_bytes": 610,
+      "stderr_bytes": 0
+    },
+    {
+      "path": "lab/out/oracle-null-sides-target-20261005/SNON-state-2.rc.txt",
+      "rc": 0,
+      "stdout_bytes": 1265,
+      "stderr_bytes": 0
+    },
+    {
+      "path": "lab/out/oracle-null-sides-target-20261005/SNUL-consume-1.rc.txt",
+      "rc": 0,
+      "stdout_bytes": 29,
+      "stderr_bytes": 0
+    },
+    {
+      "path": "lab/out/oracle-null-sides-target-20261005/SNUL-consume-2.rc.txt",
+      "rc": 0,
+      "stdout_bytes": 26,
+      "stderr_bytes": 0
+    },
+    {
+      "path": "lab/out/oracle-null-sides-target-20261005/SNUL-final.rc.txt",
+      "rc": 0,
+      "stdout_bytes": 1178,
+      "stderr_bytes": 0
+    },
+    {
+      "path": "lab/out/oracle-null-sides-target-20261005/SNUL-inspect.rc.txt",
+      "rc": 0,
+      "stdout_bytes": 911,
+      "stderr_bytes": 0
+    },
+    {
+      "path": "lab/out/oracle-null-sides-target-20261005/SNUL-new-adapter-product-gate.rc.txt",
+      "rc": 1,
+      "stdout_bytes": 0,
+      "stderr_bytes": 1117
+    },
+    {
+      "path": "lab/out/oracle-null-sides-target-20261005/SNUL-repeat-1.rc.txt",
+      "rc": 0,
+      "stdout_bytes": 26,
+      "stderr_bytes": 0
+    },
+    {
+      "path": "lab/out/oracle-null-sides-target-20261005/SNUL-repeat-2.rc.txt",
+      "rc": 0,
+      "stdout_bytes": 26,
+      "stderr_bytes": 0
+    },
+    {
+      "path": "lab/out/oracle-null-sides-target-20261005/SNUL-sides.rc.txt",
+      "rc": 0,
+      "stdout_bytes": 326,
+      "stderr_bytes": 0
+    },
+    {
+      "path": "lab/out/oracle-null-sides-target-20261005/SNUL-state-1.rc.txt",
+      "rc": 0,
+      "stdout_bytes": 542,
+      "stderr_bytes": 0
+    },
+    {
+      "path": "lab/out/oracle-null-sides-target-20261005/SNUL-state-2.rc.txt",
+      "rc": 0,
+      "stdout_bytes": 1178,
+      "stderr_bytes": 0
+    },
+    {
+      "path": "lab/out/oracle-null-sides-target-20261005/source-after.rc.txt",
+      "rc": 0,
+      "stdout_bytes": 207,
+      "stderr_bytes": 0
+    },
+    {
+      "path": "lab/out/oracle-null-sides-target-20261005/source-before.rc.txt",
+      "rc": 0,
+      "stdout_bytes": 207,
+      "stderr_bytes": 0
+    },
+    {
+      "path": "lab/out/oracle-null-sides-target-20261005/target-20-table-setup.rc.txt",
+      "rc": 0,
+      "stdout_bytes": 0,
+      "stderr_bytes": 0
+    },
+    {
+      "path": "lab/out/oracle-null-sides-target-20261005/target-preflight.rc.txt",
+      "rc": 0,
+      "stdout_bytes": 8,
+      "stderr_bytes": 0
+    }
+  ],
+  "sha256_checked_twice": true,
+  "full_product_site_release_accepted": false
+}

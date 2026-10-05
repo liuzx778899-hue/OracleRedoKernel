@@ -63,7 +63,7 @@ public final class OracleBatchProjection {
         return new Batch(input.sha256(),input.source(),input.schema(),entries);
     }
     static Map<String,Object> image(List<FrozenHeapBaseline.PhysicalColumn> columns,List<ArchivedHeapRows.Cell> cells) throws RedoException {
-        if (cells.isEmpty()) return Map.of();
+        if (cells.isEmpty()) return null;
         if (cells.size()!=columns.size()) throw new RedoException("ORACLE_IMAGE_COLUMN_COVERAGE");
         var image=new LinkedHashMap<String,Object>();
         for (int i=0;i<columns.size();i++) {

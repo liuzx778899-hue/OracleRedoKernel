@@ -6,6 +6,8 @@
 
 当前StreamHouse实际源码HEAD67bfb775…、SHA见空batch交付清单：EventEnvelope缺少Oracle typed source/position字段；PublishGateService.checkEnvelope要求v2:<hash>及server/database，SQL LSN列表用List.of（null会抛异常），INSERT before/DELETE after要求null。当前独立OracleBatchProjection的oracle1 ID、null源/LSN、空map与这些规则不一致。Java二进制链接成功和目标写入成功不等于产品语义gate通过。
 
+接续证据：[实际gate/空侧交付](DELIVERY_W6_NULL_SIDES_PRODUCT_GATE_20261005.md)。第1项已实际编译并用三组真实输入复现；第3项已做最小空侧修复及新目标验证。第2/4/5项仍待实施。产品checkEvents还有跨事件recordLsn排序检查，不能只修checkEnvelope；Oracle事件按commit顺序发布时，paired undo物理位置可能回退，不能将其塞进SQL LSN比较器。现有ClosedIdentity只有完整XID/container与begin/end record SCN，没有begin/end物理RBA；缺字段保持缺失，不从SCN伪造RBA。新契约须分别定义事务提交顺序与事件物理定位，精确绑定可信batch/schema/baseline，再由Oracle专属验证器审核；SQL Server分支维持原语义。
+
 ## P0 执行顺序及判据
 
 1. 在隔离目录冻结产品公开SPI/gate源码及必要binary，保留源码/制品SHA和实际HEAD。用真实冻结Oracle batch复现当前公开gate拒绝/异常，完整rc和原因落盘；不写共享checkout，不绕过public decoder。
