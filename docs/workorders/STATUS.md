@@ -1,5 +1,7 @@
 # OracleRedoKernel 当前状态
 
+最新：[V2新raw实际产品提交/重启](DELIVERY_W5_V2_DML_PRODUCT_RUNTIME_20261006.md)：产品efd068f/737通过、文档b2a754d/草稿PR#13待评审，实际V2 SCN2517052六锚点/列/基线值独立零差异。新672候选实际HTTP错authority目标前REFUSED/event0，恢复同task DONE/三完整IUD→目标commit→controlCP→持久ACK全字段独立一致；重复及同件重启核验字节不变。446非secret双SHA/旧197未变、安装参数失败保全；helper exited143、源事务不重放。仅有限静态DML产品链，历史/跨窗/正式采集/独立目标/现场发布仍待证，接续V2_HISTORICAL_PRODUCT派单，goal active。用户要求Codex卡顿排查放到整个Oracle目标完成后。
+
 最新：[V2新raw/NULL逆向尾列](DELIVERY_W5_V2_IMPLICIT_TAIL_20261006.md)：代码391eaf7/kernel672f01bc/271通过；实际V2 SCN2517052→新seq62—64三源事务已结束且禁止重放，capture/归档零差异。旧kernel未知NULL尾标记rc1/stdout0保全，窄profile+精确单列extent/长度配对后3完整IUD/两回滚0；native四图11/4/7及三中间像/SQL零差异，两个比较反例检出。197非secret双SHA。仅内核有界DML，本轮独立ASOF尚待补；旧737产品helper仍running/444，尚无新目标/CP/ACK。继续V2_NEW_RAW_RUNTIME派单私有制品接入与真实HTTP、historical拒绝；独立评审/现场发布待证，goal active。
 
 最新：[V2产品获取账与真实HTTP](DELIVERY_W5_V2_CONTROL_RUNTIME_20261006.md)：产品ea1975c/737通过、文档5f57c56/草稿PR#13已附属依赖#12；actual acquisitionId100631208685281280/SCN2514178六锚点、独立ASOF零差异。坏file/账缺anchors拒绝、恢复/重启持久字段及文件一致；ACQUIRED_ONLY/binding0/event0，0源DML/目标发布，helper exited143。109非secret双SHA，时间精度比较失败原文保全。新raw/目标CPACK/缺marker产品拒绝仍待证，不能用晚基线回填旧capture；接续V2_NEW_RAW_RUNTIME_20261006，P0整体未闭合，goal active。

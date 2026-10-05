@@ -1,0 +1,2397 @@
+{
+  "scope": "owned V2 new DML actual HTTP runtime; hashes only, no secret files",
+  "files_count": 446,
+  "double_sha256_verified": true,
+  "proof": {
+    "code_commit": "3f61c4dcb4d7b98d35466a039e777c6ffd08b49f",
+    "product": {
+      "commit": "efd068f776fd69641c2629d1b73e9c0f09cdc3f7",
+      "tests": {
+        "tests": 737,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      "app_sha256": "2db7106fecbb443c92b62a29e41e12dc74d71cdd099df30ad0af49b25b0f6d90",
+      "kernel_sha256": "672f01bc0c4a78856ce40af4de778bdca3fe881d3c46eb5de3fb069ff433302e",
+      "adapter_sha256": "9516d4f9029b88bcd7fd416137188c96d613b51b21286c969474cd40135ddc2f",
+      "reports": {
+        "server\\streamhouse-alert\\target\\surefire-reports\\TEST-com.streamhouse.alert.mapper.AlertMapperXmlParseTest.xml": "40cb3b1752eda0f8e1048fee887a73de554ae8e3e924942c2dddc250466b2b59",
+        "server\\streamhouse-alert\\target\\surefire-reports\\TEST-com.streamhouse.alert.service.AckServiceTest.xml": "de03630171620a56c34e13ef0ebac0fa68ac11e053a747700c73ecd2524e8601",
+        "server\\streamhouse-alert\\target\\surefire-reports\\TEST-com.streamhouse.alert.service.AlertQueryServiceTest.xml": "f4ef1f316bb100cea7620e6663d71838fd77d18133c083fd8e18955bbfda4d18",
+        "server\\streamhouse-alert\\target\\surefire-reports\\TEST-com.streamhouse.alert.service.AlertRuleEngineTest.xml": "6c90f3ceff3bc5bfc8ab3d503071a8f38eb45257c05cab2a6b1f4206414a73dc",
+        "server\\streamhouse-alert\\target\\surefire-reports\\TEST-com.streamhouse.alert.service.AlertServiceTest.xml": "aac7d9b37eb0bdd15d2cd83752b369fbb760fc8c78dd94407e7ee48d1e681075",
+        "server\\streamhouse-alert\\target\\surefire-reports\\TEST-com.streamhouse.alert.service.ChannelConfigCodecTest.xml": "24f7e782402ff61f145eeed6bc82d1349740c1e04a7c8d2011565339687a47a3",
+        "server\\streamhouse-alert\\target\\surefire-reports\\TEST-com.streamhouse.alert.service.SmtpSenderTest.xml": "57ea51d0ece6d307de129946e3ee57b4b4c62c59c4b85aa6598dcfb3ef4009ba",
+        "server\\streamhouse-alert\\target\\surefire-reports\\TEST-com.streamhouse.alert.service.WecomWebhookSenderTest.xml": "930f831fd21875940908b2624e71b0d1a9b2bb34a46b0bb88f6ea52de825edd4",
+        "server\\streamhouse-app\\target\\surefire-reports\\TEST-com.streamhouse.app.appdb.AppTargetMapperXmlParseTest.xml": "6b9d161a8456e6b4d4ec8b155858251057537509e00012158792281760d0b2fc",
+        "server\\streamhouse-app\\target\\surefire-reports\\TEST-com.streamhouse.app.auth.AgentTokenInterceptorB64InteropTest.xml": "4a748195f68ce458ce278c8fe86ca77583546b1e5346bfbd97baa07f0e462a30",
+        "server\\streamhouse-app\\target\\surefire-reports\\TEST-com.streamhouse.app.auth.AgentTokenInterceptorTest.xml": "9aaa9b7c831daf93c202227c8054d974d8878f748ad35d78e0fdd96acce91015",
+        "server\\streamhouse-app\\target\\surefire-reports\\TEST-com.streamhouse.app.auth.AuthControllerTest.xml": "6faad8e1963c7fcc859acece8e92bea3d4679e21a70f8d11883fd7613ebcc646",
+        "server\\streamhouse-app\\target\\surefire-reports\\TEST-com.streamhouse.app.auth.CredentialCipherTest.xml": "f065fe153718969a5549c07669b3a214b9c2ffc6840c031118fd81de97006e82",
+        "server\\streamhouse-app\\target\\surefire-reports\\TEST-com.streamhouse.app.auth.TokenServiceTest.xml": "29eb39999a792c045839855470aa25e4b77e047b77e7005a8134f2ee502802a6",
+        "server\\streamhouse-app\\target\\surefire-reports\\TEST-com.streamhouse.app.baseline.BaselineCredentialServiceTest.xml": "6d44872945f2658e0fefc2ba756a0a4d1a8ffa4d4ec1f25b2cc436212d7e6f1b",
+        "server\\streamhouse-app\\target\\surefire-reports\\TEST-com.streamhouse.app.baseline.BaselineDecodeGuardTest.xml": "daacb8c30925f0849589c4ca9ef24ab56addb99bbdac1b7197588c74ebe0bfc2",
+        "server\\streamhouse-app\\target\\surefire-reports\\TEST-com.streamhouse.app.baseline.OracleAcquisitionServiceTest.xml": "19b4bf2ac1a89cd93ae5d316b68c9785ec157f51fbb9332ba624572effdea711",
+        "server\\streamhouse-app\\target\\surefire-reports\\TEST-com.streamhouse.app.baseline.OracleInputBindingServiceTest.xml": "5ea2d532f3d961b070708ff13a442edf6fc257c93e7c02fe303f214944faa334",
+        "server\\streamhouse-app\\target\\surefire-reports\\TEST-com.streamhouse.app.config.JacksonLongAsStringConfigTest.xml": "2405285f8d76ba517f12e91269952ba817f2af57654d8515d15e49541a7b672b",
+        "server\\streamhouse-app\\target\\surefire-reports\\TEST-com.streamhouse.app.conn.ConnectionOpsServiceTest.xml": "fce8b156641fe4e9792963776092d97209750a0bb1411592b1c7a55874c4cbc0",
+        "server\\streamhouse-app\\target\\surefire-reports\\TEST-com.streamhouse.app.conn.SysPartmapFallbackTest.xml": "e0dcd3c85565c1e2553cdaedd8702dd00ea3e04ceae690e64c292a868fc24f81",
+        "server\\streamhouse-app\\target\\surefire-reports\\TEST-com.streamhouse.app.deploy.DeployServiceTest.xml": "e1f8feb423064649d08d43e34181897f6c2c35759d2f6253ca3159633c3d0a7b",
+        "server\\streamhouse-app\\target\\surefire-reports\\TEST-com.streamhouse.app.heartbeat.HeartbeatServiceTest.xml": "792eb748602a423e3370f56312058fae3e4ae6d3e8209e5d729c245d1fd94857",
+        "server\\streamhouse-app\\target\\surefire-reports\\TEST-com.streamhouse.app.machine.MachineAdminServiceTest.xml": "c6ec233574ea9e9f15d344e3ae511b6f8e480d7351cf1f80730b119ae6fe9365",
+        "server\\streamhouse-app\\target\\surefire-reports\\TEST-com.streamhouse.app.machine.MachineSourceServiceTest.xml": "63e3765599471137cd2831a6d3dd900d25f0454fc6b6d70c7b2292ca68a7cd64",
+        "server\\streamhouse-app\\target\\surefire-reports\\TEST-com.streamhouse.app.pipeline.AutoConsumeSchedulerTest.xml": "0bfcbd102efaf4605a1a6990d1bfd10e132876d7dad7bc6627ea64c61361cc31",
+        "server\\streamhouse-app\\target\\surefire-reports\\TEST-com.streamhouse.app.pipeline.PipelineRunServiceTest.xml": "5b86d45a64e091ad83342c7f359caac4df76cc755289a05cc323bb5b6e1c777e",
+        "server\\streamhouse-app\\target\\surefire-reports\\TEST-com.streamhouse.app.pipeline.WindowAdminServiceTest.xml": "c84d321a382835abfa8a9d5fb990b9e38463f3c5f84e853b1f93b8f38a7362bf",
+        "server\\streamhouse-app\\target\\surefire-reports\\TEST-com.streamhouse.app.port.CodetableDecodeContextProviderTest.xml": "8428680353cabe79d372f2613bc308dff2796fb7d8830ae2205f5d569f31188f",
+        "server\\streamhouse-app\\target\\surefire-reports\\TEST-com.streamhouse.app.port.FileCodetableFileWriterTest.xml": "d24d0825f579df764f9d782499306619d1468c6c2066f0bb518440e427f565d3",
+        "server\\streamhouse-app\\target\\surefire-reports\\TEST-com.streamhouse.app.port.FnDblogOfficialChannelPortTest.xml": "fc94d9af0c5c144f2f3be720f868970388a6910292cd31284a4f37065249cb97",
+        "server\\streamhouse-app\\target\\surefire-reports\\TEST-com.streamhouse.app.port.GatewayWindowSourceTest.xml": "5bb98f901e2c40c6a3b674bcc003f95ce59edd7bd510e2c6ba4f0c33a3746c77",
+        "server\\streamhouse-app\\target\\surefire-reports\\TEST-com.streamhouse.app.port.KernelTargetApplyPortTest.xml": "eefab593e52b2ba7d03c90909a6ebc4529923a1e60cefbbcd97d53472a96d71a",
+        "server\\streamhouse-app\\target\\surefire-reports\\TEST-com.streamhouse.app.port.OdsEnrichedTargetApplyPortTest.xml": "e015986748a10fc6f250165769f4bf378fe4d03990ead8aeee6e1602079f8ed6",
+        "server\\streamhouse-app\\target\\surefire-reports\\TEST-com.streamhouse.app.port.OdsMappingEngineTest.xml": "83f900f876f5ac09412c3850a5a08935ead66d5272ca9ffc17f31635675c988f",
+        "server\\streamhouse-app\\target\\surefire-reports\\TEST-com.streamhouse.app.port.OracleBoundedPublicationTest.xml": "5e3eeaf110a7f139f2415a5af95f4dbcbe5bf4735a8b055b343ddf98eb941a05",
+        "server\\streamhouse-app\\target\\surefire-reports\\TEST-com.streamhouse.app.port.OracleControlPublicationTest.xml": "c283dc5fb9b93e2c40fc610c9c4ce30915223afaa0b2bc20c28e37627dbea612",
+        "server\\streamhouse-app\\target\\surefire-reports\\TEST-com.streamhouse.app.port.RowValueDecoderTest.xml": "ea77b173be6a7f7febce7f463b37e04bb682241956de90a4fabf84412218dcf1",
+        "server\\streamhouse-app\\target\\surefire-reports\\TEST-com.streamhouse.app.stream.CrossProcessFileLockTest.xml": "a8101e979de1994bd4b626a31fe0b236c7b4223e0ebe4a669b1504a8d5ca47a3",
+        "server\\streamhouse-app\\target\\surefire-reports\\TEST-com.streamhouse.app.stream.StageBVerifyServiceTest.xml": "31c9018df02d4ebef52d800d9553748da79d82799bc47d5125d5985dda71aa45",
+        "server\\streamhouse-app\\target\\surefire-reports\\TEST-com.streamhouse.app.stream.StreamFileServiceTest.xml": "d10558ce09db7e266342a06d683f91a43af395225a59b12603729a7a07bd8220",
+        "server\\streamhouse-app\\target\\surefire-reports\\TEST-com.streamhouse.app.stream.StreamMapperXmlParseTest.xml": "8c3ce2e5bc56b60c58b85f0bc79d0ba76ea186c40afe13568d6aea8476fbf175",
+        "server\\streamhouse-app\\target\\surefire-reports\\TEST-com.streamhouse.app.target.TargetMappingServiceTest.xml": "797d325e2068752601e339e68dc86d0eb92c816cf9d32db309083541348c8e59",
+        "server\\streamhouse-app\\target\\surefire-reports\\TEST-com.streamhouse.app.target.TargetServiceTest.xml": "8a23ae8e58a6374c3487094765f7a86b6a7cd5ba5b93e4b3466d7902971c53d2",
+        "server\\streamhouse-app\\target\\surefire-reports\\TEST-com.streamhouse.app.web.BaselineControllerTest.xml": "08f84eb479f2159c236cf183351ae945b9df0792c92201b0db042beadb5767d4",
+        "server\\streamhouse-app\\target\\surefire-reports\\TEST-com.streamhouse.app.web.DeleteEndpointsControllerTest.xml": "dc50db6b5a5947b4ee236fd57d2c7cea84fdb862e18d382f2a1bc3437e145872",
+        "server\\streamhouse-app\\target\\surefire-reports\\TEST-com.streamhouse.app.web.PipelineControllerTest.xml": "e89d2904f228c5b4758008882bb91df6c247fda61b1d8840216eed5e2055775c",
+        "server\\streamhouse-app\\target\\surefire-reports\\TEST-com.streamhouse.app.web.StreamGatewayControllerCodecTest.xml": "e730147c9b8f47ffa74d38c7cef1b817e6a3c7fc3d39b53dc8474858ff416fe0",
+        "server\\streamhouse-app\\target\\surefire-reports\\TEST-com.streamhouse.app.web.UnquarantineAuditTest.xml": "88fdfe350764dcfc3a5f40beac62bd6749066134e3835e84d2f4a870cb10bf6e",
+        "server\\streamhouse-codetable\\target\\surefire-reports\\TEST-com.streamhouse.codetable.mapper.CodetableMapperXmlParseTest.xml": "0489a3126029d5a1b4b44d5ee48f23b79a87b5c07463b5bd2676c221fddfd259",
+        "server\\streamhouse-codetable\\target\\surefire-reports\\TEST-com.streamhouse.codetable.service.CoverageGuardTest.xml": "8d41d4b899fb83d9533211a5822d5893b88de95e2b72268718bf292d704c3e94",
+        "server\\streamhouse-codetable\\target\\surefire-reports\\TEST-com.streamhouse.codetable.service.DriftPatrolServiceTest.xml": "cea1e57556df3939bb94e7fb9edd73849b16fd7c77c1c37343c4c567598198aa",
+        "server\\streamhouse-codetable\\target\\surefire-reports\\TEST-com.streamhouse.codetable.service.ReimportServiceTest.xml": "235243cdfca7e037b1659cebac260bf293f6b19238e3234869ae1fe9f53126ff",
+        "server\\streamhouse-codetable\\target\\surefire-reports\\TEST-com.streamhouse.codetable.service.StructureFingerprintTest.xml": "5932286b88f78c7de59e352f92c5418175132fc58cc66609d84f017d4f3fb5bf",
+        "server\\streamhouse-common\\target\\surefire-reports\\TEST-com.streamhouse.common.DialectTest.xml": "ac29c0d01eaca866ad0c7c6e75cb8d50f7a805b44e7c208e88dac1a8f775fad2",
+        "server\\streamhouse-common\\target\\surefire-reports\\TEST-com.streamhouse.common.Sha256Test.xml": "13ec024fde5ebde05760da505c8e3f8b12bcc60a72fe4b2f82dccdfac81f2a89",
+        "server\\streamhouse-common\\target\\surefire-reports\\TEST-com.streamhouse.common.SnowflakeIdTest.xml": "879ee13fb6fa5691fc97364b83030ed1ea5e28f0369fd2ed0db0945f86b65378",
+        "server\\streamhouse-engine-sqlserver\\target\\surefire-reports\\TEST-com.streamhouse.engines.sqlserver.SqlServerConnectorTest.xml": "21ac7d71f21c72a6a9d7537883574e35f123a70ee3fdcf3fa6e774e52f9c6c0d",
+        "server\\streamhouse-engine-sqlserver\\target\\surefire-reports\\TEST-com.streamhouse.engines.sqlserver.VerifyCliAssemblerTest.xml": "724048c84bdd50ad3c5e5112a0a0ea16df732bf5d0c4f4e3b066431f0c2efd19",
+        "server\\streamhouse-gateway\\target\\surefire-reports\\TEST-com.streamhouse.gateway.mapper.MapperXmlParseTest.xml": "7a32f3fadc5a680c1541a1fbfe864cfb8f8878a809f4516b690d75bad15e16f4",
+        "server\\streamhouse-gateway\\target\\surefire-reports\\TEST-com.streamhouse.gateway.service.AgentMetricsServiceTest.xml": "dca601738d77fe483e6e5447be349e49e17f139e627ab4655cd7a907070d970c",
+        "server\\streamhouse-gateway\\target\\surefire-reports\\TEST-com.streamhouse.gateway.service.ContinuityCheckerTest.xml": "cb058a7a4ad9c72164930c7c04dbd0e5244ca1e79dd612dccabea9a4f9102ca0",
+        "server\\streamhouse-gateway\\target\\surefire-reports\\TEST-com.streamhouse.gateway.service.MachineServiceTest.xml": "c29ad881a926e00158f07eb5813d18ead33e68f4ebc237b7af601b5063737b8f",
+        "server\\streamhouse-gateway\\target\\surefire-reports\\TEST-com.streamhouse.gateway.service.TransferChunkServiceTest.xml": "96606ed2917291654a1ad96b7e4f595ac1ce72f36714d84b46d3b8118f116acf",
+        "server\\streamhouse-gateway\\target\\surefire-reports\\TEST-com.streamhouse.gateway.service.WindowIngestServiceTest.xml": "9295818f7814e5e922fde2fd6597db0ce2e597d9c9e518247ab462e566e6d06d",
+        "server\\streamhouse-gateway\\target\\surefire-reports\\TEST-com.streamhouse.gateway.web.MachineBindingGuardTest.xml": "629e0033c7c565e8ffd62e364c87e483b2b6b97284ffc27cf216945f7e4c6d3d",
+        "server\\streamhouse-gateway\\target\\surefire-reports\\TEST-com.streamhouse.gateway.web.TransferControllerFlatOffsetNumericTest.xml": "bfce71dc926b9970be39425c49a1162da4262cb789ece7a363db44bd7c1a9c5f",
+        "server\\streamhouse-pipeline\\target\\surefire-reports\\TEST-com.streamhouse.pipeline.mapper.PipelineMapperXmlParseTest.xml": "779abd1e860f0134dff212b093e0e4a3d1d54d77f8ca350224bc01cd1172166f",
+        "server\\streamhouse-pipeline\\target\\surefire-reports\\TEST-com.streamhouse.pipeline.service.DecodeBatchServiceTest.xml": "e371d1c58d8f9c274e7d85f99b915a7e38fe246746b7f1c599d42d5ff724a55d",
+        "server\\streamhouse-pipeline\\target\\surefire-reports\\TEST-com.streamhouse.pipeline.service.OracleFacadePublicationTest.xml": "82cdb1ebd456be139a45c4942604f900c707a048d19e1356064a57b59933b449",
+        "server\\streamhouse-pipeline\\target\\surefire-reports\\TEST-com.streamhouse.pipeline.service.PipelineFacadeTest.xml": "2612be312722838a2b793610b608597870c810323cd8ac700b009e6b6cbe5aaa",
+        "server\\streamhouse-pipeline\\target\\surefire-reports\\TEST-com.streamhouse.pipeline.service.PublishGateTest.xml": "f2aaadc21ae02e8515e16ab5cddb3366a7120433f78d9eff8e56fc1b90cae393",
+        "server\\streamhouse-pipeline\\target\\surefire-reports\\TEST-com.streamhouse.pipeline.service.TaskStateMachineTest.xml": "c43bd1d375f7897124e4ae10752dbab083248c3f2847989bc1de7764ed0ea653",
+        "server\\streamhouse-pipeline\\target\\surefire-reports\\TEST-com.streamhouse.pipeline.service.WatermarkGateTest.xml": "db3de16f85bee54b6fc17f9dea08d811b9f252cd2e01e05158b571989e4011de",
+        "server\\streamhouse-recon\\target\\surefire-reports\\TEST-com.streamhouse.recon.mapper.ReconMapperXmlParseTest.xml": "8c4dbbb5cf731a1354566630c7556a41859d217e7155a646e29938f7509da754",
+        "server\\streamhouse-recon\\target\\surefire-reports\\TEST-com.streamhouse.recon.service.CloseBatchServiceTest.xml": "f7c85ce6f8c18f33921194abafb3ed0ef508aeff655c744ac41e0e8f951a2178",
+        "server\\streamhouse-recon\\target\\surefire-reports\\TEST-com.streamhouse.recon.service.Dt3ReconServiceTest.xml": "b4acc3c05fb98ed5179a67f350ce5c1dbcd9e129bf7486786332830e50379f9c",
+        "server\\streamhouse-recon\\target\\surefire-reports\\TEST-com.streamhouse.recon.service.GapClassifierTest.xml": "472b7b5db901fe55904c71ea7f1d8f0e80a1b5371f0cf5f0a00602dc9847a638",
+        "server\\streamhouse-recon\\target\\surefire-reports\\TEST-com.streamhouse.recon.service.ReconQueryServiceTest.xml": "854fc690331b6dda7572027f3438d935b0712e79dd930734ce20683915832f32",
+        "server\\streamhouse-recovery\\target\\surefire-reports\\TEST-com.streamhouse.recovery.mapper.RecoveryMapperXmlParseTest.xml": "343f1afaceedfd4ebf11343e5bd4af11e6aa5f4014d673725d987c443235e035",
+        "server\\streamhouse-recovery\\target\\surefire-reports\\TEST-com.streamhouse.recovery.service.ExceptFinalVerifierTest.xml": "2373522a338d6b72b4cbd71b2990ab4ea1c0f6d8e7688156413aeb279522b184",
+        "server\\streamhouse-recovery\\target\\surefire-reports\\TEST-com.streamhouse.recovery.service.FullLoadPlannerTest.xml": "204b502ef0a1d97de16b47bbb3e2f4a0030b41a76ae5d1ec9da05edfb6e19f53",
+        "server\\streamhouse-recovery\\target\\surefire-reports\\TEST-com.streamhouse.recovery.service.LocatorGuardServiceTest.xml": "b2bec16cdc96954c0bd57b9b2dc59136e443b840d429a116db8fc1198b43dc09",
+        "server\\streamhouse-recovery\\target\\surefire-reports\\TEST-com.streamhouse.recovery.service.RecoveryFacadeTest.xml": "92d9f6e6626d916ed9981d243daff894c0cea925a2be423bdc7a2fe2ae113315",
+        "server\\streamhouse-recovery\\target\\surefire-reports\\TEST-com.streamhouse.recovery.service.ResnatchServiceTest.xml": "0221362b3253e50def856a0337970e9a96947c0bd6748e7b0ee762dea523bfbe",
+        "server\\streamhouse-recovery\\target\\surefire-reports\\TEST-com.streamhouse.recovery.service.UpsertSqlBuilderTest.xml": "38c11c5eda053f7c8fd4ca0ff6aa3571f1dd021fcacbfd7d269a83a307a129cd",
+        "server\\streamhouse-recovery\\target\\surefire-reports\\TEST-com.streamhouse.recovery.service.WatermarkReplayServiceTest.xml": "8504314baa461065a46fc1bb27732496e0011096c42fab0bfe493a5c08650290",
+        "server\\streamhouse-spi\\target\\surefire-reports\\TEST-com.streamhouse.spi.ConnectorRegistryTest.xml": "e312ca2dd51899c782a780b851a8b671d6a49738cf15ac3d2e3b75e30ac54c86"
+      },
+      "http_runtime_verified": false
+    },
+    "baseline": {
+      "acquisition_id": "100634385207877632",
+      "scn": 2517052,
+      "baseline_sha256": "a9fc1bb611424c3f59fb2c9ec5cd4ac15d576be0cf11c8eb334e01ab0d909e40",
+      "anchors": 6,
+      "columns": 3,
+      "rows": 1,
+      "differences": 0,
+      "source_actions": 0,
+      "post_source_seed_and_old_row_preserved": true,
+      "logging": "NO/NO",
+      "historical_dictionary_accepted": false
+    },
+    "publication": {
+      "events": 3,
+      "all_target_intermediate_images_members_receipt_control_checkpoint_ack_fields_zero_differences": true,
+      "wrong_acquisition_refused_before_target": true,
+      "repeat_zero_new_events_and_exact_bytes": true,
+      "negative_comparisons": [
+        "operation",
+        "checkpoint-source",
+        "ack"
+      ],
+      "ack_sha256": "fbc22f214e7fe1b609f5f81e15511fbd05948daa640c69f66c4c26d770639a7d",
+      "source_dml_replayed": false,
+      "independent_target_instance": false,
+      "historical_dictionary_accepted": false,
+      "site_accepted": false,
+      "release_accepted": false
+    },
+    "restart": {
+      "same_candidate_application_restarted": true,
+      "acquisition_exact": true,
+      "target_control_checkpoint_ack_exact_bytes_unchanged": true,
+      "ack_sha256": "fbc22f214e7fe1b609f5f81e15511fbd05948daa640c69f66c4c26d770639a7d",
+      "source_actions": 0
+    },
+    "helper": {
+      "Status": "exited",
+      "Running": false,
+      "Paused": false,
+      "Restarting": false,
+      "OOMKilled": false,
+      "Dead": false,
+      "Pid": 0,
+      "ExitCode": 143,
+      "Error": "",
+      "StartedAt": "2026-10-05T17:19:49.437456531Z",
+      "FinishedAt": "2026-10-05T17:20:40.579390575Z"
+    },
+    "prior_197_files_unchanged": true,
+    "source_retention_timing": "after execution; individual driver pins retained separately",
+    "historical_product_refusal_verified": false,
+    "goal_complete": false
+  },
+  "files": [
+    {
+      "path": "lab/out/v2-dml-capture-20261006/ack-before-repeat.bin",
+      "bytes": 3493,
+      "sha256": "fbc22f214e7fe1b609f5f81e15511fbd05948daa640c69f66c4c26d770639a7d"
+    },
+    {
+      "path": "lab/out/v2-dml-capture-20261006/ack.derived-publication.txt",
+      "bytes": 5677,
+      "sha256": "9c8d63b7b36639b4c112cc598164f93e0462c37b44332ff6b35ef859f55f59c0"
+    },
+    {
+      "path": "lab/out/v2-dml-capture-20261006/acks/6425684e9465bfa01dc80514cc71c7b7689b3e37bed4d1e154957d8052a50f0b.ack.json",
+      "bytes": 3493,
+      "sha256": "fbc22f214e7fe1b609f5f81e15511fbd05948daa640c69f66c4c26d770639a7d"
+    },
+    {
+      "path": "lab/out/v2-dml-capture-20261006/acks/6425684e9465bfa01dc80514cc71c7b7689b3e37bed4d1e154957d8052a50f0b.lock",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/v2-dml-capture-20261006/acquisition-id.txt",
+      "bytes": 18,
+      "sha256": "0c863900996ced4ac41c83f65f584e1d0ff36a67d4446c0fea41f11f2801d346"
+    },
+    {
+      "path": "lab/out/v2-dml-capture-20261006/acquisition-restore.command.json",
+      "bytes": 90,
+      "sha256": "6095ca5a9605c02acb9b77ba5ea4d19487ab938e2e51045704dedb495bc394d5"
+    },
+    {
+      "path": "lab/out/v2-dml-capture-20261006/acquisition-restore.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/v2-dml-capture-20261006/acquisition-restore.sql",
+      "bytes": 312,
+      "sha256": "283ecd036d55ada38d40366af22c6a072e4cfdbe430c02bc7028a82b46ebabaa"
+    },
+    {
+      "path": "lab/out/v2-dml-capture-20261006/acquisition-restore.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/v2-dml-capture-20261006/acquisition-restore.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/v2-dml-capture-20261006/acquisition-tamper.command.json",
+      "bytes": 90,
+      "sha256": "6095ca5a9605c02acb9b77ba5ea4d19487ab938e2e51045704dedb495bc394d5"
+    },
+    {
+      "path": "lab/out/v2-dml-capture-20261006/acquisition-tamper.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/v2-dml-capture-20261006/acquisition-tamper.sql",
+      "bytes": 306,
+      "sha256": "ff837f876cde8b5e55e63fd0e7ebb222c58ed333e31171cb43e35f3e96b29d75"
+    },
+    {
+      "path": "lab/out/v2-dml-capture-20261006/acquisition-tamper.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/v2-dml-capture-20261006/acquisition-tamper.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/v2-dml-capture-20261006/actual-published.command.json",
+      "bytes": 90,
+      "sha256": "6095ca5a9605c02acb9b77ba5ea4d19487ab938e2e51045704dedb495bc394d5"
+    },
+    {
+      "path": "lab/out/v2-dml-capture-20261006/actual-published.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/v2-dml-capture-20261006/actual-published.sql",
+      "bytes": 1674,
+      "sha256": "e06e30ddb5e524de6af5e3d1e5ff1b8e750a313fc5bbef1d38ada1570d783f3d"
+    },
+    {
+      "path": "lab/out/v2-dml-capture-20261006/actual-published.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/v2-dml-capture-20261006/actual-published.stdout.txt",
+      "bytes": 5656,
+      "sha256": "f62b5c5bb6c19e84b82e8b1da49f4320061e7078cebf6cc7e3161cf100d6bc08"
+    },
+    {
+      "path": "lab/out/v2-dml-capture-20261006/actual-repeat.command.json",
+      "bytes": 90,
+      "sha256": "6095ca5a9605c02acb9b77ba5ea4d19487ab938e2e51045704dedb495bc394d5"
+    },
+    {
+      "path": "lab/out/v2-dml-capture-20261006/actual-repeat.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/v2-dml-capture-20261006/actual-repeat.sql",
+      "bytes": 1674,
+      "sha256": "e06e30ddb5e524de6af5e3d1e5ff1b8e750a313fc5bbef1d38ada1570d783f3d"
+    },
+    {
+      "path": "lab/out/v2-dml-capture-20261006/actual-repeat.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/v2-dml-capture-20261006/actual-repeat.stdout.txt",
+      "bytes": 5656,
+      "sha256": "f62b5c5bb6c19e84b82e8b1da49f4320061e7078cebf6cc7e3161cf100d6bc08"
+    },
+    {
+      "path": "lab/out/v2-dml-capture-20261006/actual-restart-repeat.command.json",
+      "bytes": 90,
+      "sha256": "6095ca5a9605c02acb9b77ba5ea4d19487ab938e2e51045704dedb495bc394d5"
+    },
+    {
+      "path": "lab/out/v2-dml-capture-20261006/actual-restart-repeat.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/v2-dml-capture-20261006/actual-restart-repeat.sql",
+      "bytes": 1674,
+      "sha256": "e06e30ddb5e524de6af5e3d1e5ff1b8e750a313fc5bbef1d38ada1570d783f3d"
+    },
+    {
+      "path": "lab/out/v2-dml-capture-20261006/actual-restart-repeat.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/v2-dml-capture-20261006/actual-restart-repeat.stdout.txt",
+      "bytes": 5656,
+      "sha256": "f62b5c5bb6c19e84b82e8b1da49f4320061e7078cebf6cc7e3161cf100d6bc08"
+    },
+    {
+      "path": "lab/out/v2-dml-capture-20261006/actual-source-acquire.command.json",
+      "bytes": 68,
+      "sha256": "3db85b9ce9c292803929512f3544a8cdb53c7de4ff523465c28d15a36cd01ae0"
+    },
+    {
+      "path": "lab/out/v2-dml-capture-20261006/actual-source-acquire.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/v2-dml-capture-20261006/actual-source-acquire.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/v2-dml-capture-20261006/actual-source-acquire.stdout.txt",
+      "bytes": 2206,
+      "sha256": "d334521db27593ab88fd055865aa74876b6c048ebaafc6da14809434ae44c629"
+    },
+    {
+      "path": "lab/out/v2-dml-capture-20261006/after-672-replace-acquisition.command.json",
+      "bytes": 68,
+      "sha256": "3db85b9ce9c292803929512f3544a8cdb53c7de4ff523465c28d15a36cd01ae0"
+    },
+    {
+      "path": "lab/out/v2-dml-capture-20261006/after-672-replace-acquisition.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/v2-dml-capture-20261006/after-672-replace-acquisition.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/v2-dml-capture-20261006/after-672-replace-acquisition.stdout.txt",
+      "bytes": 2203,
+      "sha256": "697b4fcfa8336610bd1562e517d2ebdcfb5acb1d8793fde243f038aacb361c41"
+    },
+    {
+      "path": "lab/out/v2-dml-capture-20261006/application-672.jar",
+      "bytes": 35873419,
+      "sha256": "2db7106fecbb443c92b62a29e41e12dc74d71cdd099df30ad0af49b25b0f6d90"
+    },
+    {
+      "path": "lab/out/v2-dml-capture-20261006/application.jar",
+      "bytes": 35873234,
+      "sha256": "2eeeb5bc9c285a0e1ccdcd4e435f8bb68f2909e13e6b5a6ce5456af6fa3741be"
+    },
+    {
+      "path": "lab/out/v2-dml-capture-20261006/approved-acquired-binding.json",
+      "bytes": 4697,
+      "sha256": "7e8913d6e81d8e013b1adff4adc86e0efd91ba33e6d0f812318e073b350a6f61"
+    },
+    {
+      "path": "lab/out/v2-dml-capture-20261006/archive-62.dbf",
+      "bytes": 3427840,
+      "sha256": "f4839747323394bfa27909e84e2fcd74b2b38ec1ac4bec976065b4e9f53824f5"
+    },
+    {
+      "path": "lab/out/v2-dml-capture-20261006/archive-63.dbf",
+      "bytes": 8704,
+      "sha256": "ee5332e050273b0fb4d51479a9ad3633cb3d3c5b1528ce3dc06862a88a600a00"
+    },
+    {
+      "path": "lab/out/v2-dml-capture-20261006/archive-64.dbf",
+      "bytes": 14848,
+      "sha256": "e782e31b80c910430a902ea31b3dc3cbfa528b685b2027c80d199ed289b9f4c1"
+    },
+    {
+      "path": "lab/out/v2-dml-capture-20261006/baseline-reference.json",
+      "bytes": 272,
+      "sha256": "6d374de6ad5226403de85f228dede575dc334b6ef909ba0259a19c9b355f8129"
+    },
+    {
+      "path": "lab/out/v2-dml-capture-20261006/before-672-replace-acquisition.command.json",
+      "bytes": 68,
+      "sha256": "3db85b9ce9c292803929512f3544a8cdb53c7de4ff523465c28d15a36cd01ae0"
+    },
+    {
+      "path": "lab/out/v2-dml-capture-20261006/before-672-replace-acquisition.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/v2-dml-capture-20261006/before-672-replace-acquisition.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/v2-dml-capture-20261006/before-672-replace-acquisition.stdout.txt",
+      "bytes": 2203,
+      "sha256": "697b4fcfa8336610bd1562e517d2ebdcfb5acb1d8793fde243f038aacb361c41"
+    },
+    {
+      "path": "lab/out/v2-dml-capture-20261006/capture/receipt.json",
+      "bytes": 1247,
+      "sha256": "c810610e77924ce8dc368e3418dc7dd70d2b6c84e2dadd800244c300287c9284"
+    },
+    {
+      "path": "lab/out/v2-dml-capture-20261006/capture/sequence-62.oracap",
+      "bytes": 5734693,
+      "sha256": "900a6d92797f71ccfa125140a7f8ca6615082372c63a85bb464434016ee0c78c"
+    },
+    {
+      "path": "lab/out/v2-dml-capture-20261006/capture/sequence-62.receipt.json",
+      "bytes": 387,
+      "sha256": "f9d95a9fe566500f3e503f4fd56f9b0aa77736a39a3d7c1ce4225876850b3c46"
+    },
+    {
+      "path": "lab/out/v2-dml-capture-20261006/capture/sequence-63.oracap",
+      "bytes": 14540,
+      "sha256": "24b50c1420c7019e3b347c9947f01e4005a8d78d4112ee18fe8de87fcc17018d"
+    },
+    {
+      "path": "lab/out/v2-dml-capture-20261006/capture/sequence-63.receipt.json",
+      "bytes": 385,
+      "sha256": "ed9d6448b97cd61743bbcf41b367b3c37650990a8a92c3c8b7791c4a0ea6b8fb"
+    },
+    {
+      "path": "lab/out/v2-dml-capture-20261006/capture/sequence-64.oracap",
+      "bytes": 24804,
+      "sha256": "016afc4745b5b4f840ddce62f09ccf06ba8aff1c0d4653cb5bd25cdf4c6034a0"
+    },
+    {
+      "path": "lab/out/v2-dml-capture-20261006/capture/sequence-64.receipt.json",
+      "bytes": 385,
+      "sha256": "584c2c67c7dedba97e06e7c5afb0b6db1a70d0d8cd771d21141708376612c6a5"
+    },
+    {
+      "path": "lab/out/v2-dml-capture-20261006/capture/source.json",
+      "bytes": 477,
+      "sha256": "0a0aef414ac5bb90826571cd2f3a063fbe0b3c77da5f6a044346c7fbfce335ed"
+    },
+    {
+      "path": "lab/out/v2-dml-capture-20261006/capture/writer.lock",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/v2-dml-capture-20261006/capture-archive-62.command.json",
+      "bytes": 381,
+      "sha256": "a6489c5eedf46f7d30060537e6f0c57df2dc222831adc06b86275edab1c7bd30"
+    },
+    {
+      "path": "lab/out/v2-dml-capture-20261006/capture-archive-62.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/v2-dml-capture-20261006/capture-archive-62.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/v2-dml-capture-20261006/capture-archive-62.stdout.txt",
+      "bytes": 318,
+      "sha256": "8a61e4f1ec77e8c9a641e765b5556e96fd88432e66900df362c472eeefec4a07"
+    },
+    {
+      "path": "lab/out/v2-dml-capture-20261006/capture-archive-63.command.json",
+      "bytes": 381,
+      "sha256": "bd631f94cff99c9ebfc5187b7c082e0fc7e451a8c08f5865de9e0a2edd7d3345"
+    },
+    {
+      "path": "lab/out/v2-dml-capture-20261006/capture-archive-63.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/v2-dml-capture-20261006/capture-archive-63.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/v2-dml-capture-20261006/capture-archive-63.stdout.txt",
+      "bytes": 314,
+      "sha256": "db1b3ba77e4df84907d213768028fc7eca53359cabd1e67b3ad28389a9ad6bd0"
+    },
+    {
+      "path": "lab/out/v2-dml-capture-20261006/capture-archive-64.command.json",
+      "bytes": 381,
+      "sha256": "5c80e68412e7db3c0f7645bf2866c6444afbdd66b64323c7c1bf4ce662922637"
+    },
+    {
+      "path": "lab/out/v2-dml-capture-20261006/capture-archive-64.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/v2-dml-capture-20261006/capture-archive-64.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/v2-dml-capture-20261006/capture-archive-64.stdout.txt",
+      "bytes": 314,
+      "sha256": "a521d9c2a69713535809e5690af8623cbb012579b2a867abf99b094947731c99"
+    },
+    {
+      "path": "lab/out/v2-dml-capture-20261006/capture-driver-sha256-r2.txt",
+      "bytes": 64,
+      "sha256": "d5b97909eb9194005965b8447b96d247f6a3ba8cf1ddbcc9a3d8859bbfb44d6a"
+    },
+    {
+      "path": "lab/out/v2-dml-capture-20261006/capture-driver-sha256.txt",
+      "bytes": 64,
+      "sha256": "82f8b957674792c5fffe180eea6afdf08daafd56fabef64fbca4dc747a974f96"
+    },
+    {
+      "path": "lab/out/v2-dml-capture-20261006/capture-execution-started.txt",
+      "bytes": 35,
+      "sha256": "6dc64f9d8b9f4a773de481a00e1b93e06534234af24c7614f179977633137cd5"
+    },
+    {
+      "path": "lab/out/v2-dml-capture-20261006/capture-r2-execution-started.txt",
+      "bytes": 35,
+      "sha256": "6dc64f9d8b9f4a773de481a00e1b93e06534234af24c7614f179977633137cd5"
+    },
+    {
+      "path": "lab/out/v2-dml-capture-20261006/capture-r2.host.log",
+      "bytes": 37,
+      "sha256": "80f706e495d4fe43f03f059bab19b1f9639b0d63919a4aa3128a31672f8eed31"
+    },
+    {
+      "path": "lab/out/v2-dml-capture-20261006/capture-reference.json",
+      "bytes": 389,
+      "sha256": "d3c1632b5ac86453959cac6aa068b8a502c99c2371a9467abfb981480fbf6249"
+    },
+    {
+      "path": "lab/out/v2-dml-capture-20261006/checkpoint-source.derived-publication.txt",
+      "bytes": 5668,
+      "sha256": "b428147bc0b3cdd15ca7412b8fb2a98cc57d582323dd02c203789d2e87636003"
+    },
+    {
+      "path": "lab/out/v2-dml-capture-20261006/collector-host-pid.txt",
+      "bytes": 5,
+      "sha256": "0fa56d7c020cc7b79cc89002e49d81a07bf3e198f492e6a9d0a0eb109d5d55d9"
+    },
+    {
+      "path": "lab/out/v2-dml-capture-20261006/collector-r1-terminal.json",
+      "bytes": 222,
+      "sha256": "eea3785be4d88ed1a28a0552c2e3fe8a106f8c1922eb02d4c3487f6d27431773"
+    },
+    {
+      "path": "lab/out/v2-dml-capture-20261006/collector.command.json",
+      "bytes": 252,
+      "sha256": "9560a9deee402c6243a5d33a806b510a382a626e07d4d16687fd9cc600e5b194"
+    },
+    {
+      "path": "lab/out/v2-dml-capture-20261006/collector.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/v2-dml-capture-20261006/collector.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/v2-dml-capture-20261006/collector.stdout.txt",
+      "bytes": 518,
+      "sha256": "3c7a3dc14e270c0108ee62f9ee26e4838e1c36fcb29dc06c49b515a63fcbbfd3"
+    },
+    {
+      "path": "lab/out/v2-dml-capture-20261006/compare-publication-driver-r1.log",
+      "bytes": 66,
+      "sha256": "7ca1c34ecb66e5ba340d6cd40eb94eb0086f8785e4b064ca2c70cf9a3bdf0ec3"
+    },
+    {
+      "path": "lab/out/v2-dml-capture-20261006/compile-new-parser-probes.command.json",
+      "bytes": 779,
+      "sha256": "8b579d463a6d42c0d46d89eafce74093e2827a4a4291df8faa9c561a65def744"
+    },
+    {
+      "path": "lab/out/v2-dml-capture-20261006/compile-new-parser-probes.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/v2-dml-capture-20261006/compile-new-parser-probes.stderr.txt",
+      "bytes": 157,
+      "sha256": "25bbdae52326f1900d36c40e8b671558ad05dc579fa737c8d360b7b974df07d3"
+    },
+    {
+      "path": "lab/out/v2-dml-capture-20261006/compile-new-parser-probes.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/v2-dml-capture-20261006/control-once.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/v2-dml-capture-20261006/copy-archive-62.command.json",
+      "bytes": 196,
+      "sha256": "432adde05b0faa6e8c681de213f7b321d863d4bdcca5bf7c61d55e358c9c2949"
+    },
+    {
+      "path": "lab/out/v2-dml-capture-20261006/copy-archive-62.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/v2-dml-capture-20261006/copy-archive-62.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/v2-dml-capture-20261006/copy-archive-62.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/v2-dml-capture-20261006/copy-archive-63.command.json",
+      "bytes": 196,
+      "sha256": "6a05a66a0409ecb91183dde0d4d5996ded92ada1484c217e64ba119900a0344a"
+    },
+    {
+      "path": "lab/out/v2-dml-capture-20261006/copy-archive-63.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/v2-dml-capture-20261006/copy-archive-63.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/v2-dml-capture-20261006/copy-archive-63.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/v2-dml-capture-20261006/copy-archive-64.command.json",
+      "bytes": 196,
+      "sha256": "de78d6ed4afa436f86018b7d9a1a22470e898725a52af7f9ad996b467e2151f7"
+    },
+    {
+      "path": "lab/out/v2-dml-capture-20261006/copy-archive-64.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/v2-dml-capture-20261006/copy-archive-64.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/v2-dml-capture-20261006/copy-archive-64.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/v2-dml-capture-20261006/copy-capture.command.json",
+      "bytes": 153,
+      "sha256": "2a914f000f8a7c545e8654559a7082ca130bd9238b7f114667c49c8f3946f92a"
+    },
+    {
+      "path": "lab/out/v2-dml-capture-20261006/copy-capture.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/v2-dml-capture-20261006/copy-capture.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/v2-dml-capture-20261006/copy-capture.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/v2-dml-capture-20261006/copy-follow_closed_members.py.command.json",
+      "bytes": 184,
+      "sha256": "5dc99f6e98593581e78bdff540e74c1d4eee532a71a9359ad48af63b452ce1cb"
+    },
+    {
+      "path": "lab/out/v2-dml-capture-20261006/copy-follow_closed_members.py.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/v2-dml-capture-20261006/copy-follow_closed_members.py.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/v2-dml-capture-20261006/copy-follow_closed_members.py.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/v2-dml-capture-20261006/copy-independent-dump.command.json",
+      "bytes": 208,
+      "sha256": "a6225488cc2f7a80030efb02c882ddcda37e4f767e8c4ed8fc2f7b38b8861c67"
+    },
+    {
+      "path": "lab/out/v2-dml-capture-20261006/copy-independent-dump.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/v2-dml-capture-20261006/copy-independent-dump.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/v2-dml-capture-20261006/copy-independent-dump.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/v2-dml-capture-20261006/copy-resume_online_observation.py.command.json",
+      "bytes": 192,
+      "sha256": "9d16dcfdf53bcbb1435487021dcf628ab8447aff1c229919b8dcd83aed0de178"
+    },
+    {
+      "path": "lab/out/v2-dml-capture-20261006/copy-resume_online_observation.py.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/v2-dml-capture-20261006/copy-resume_online_observation.py.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/v2-dml-capture-20261006/copy-resume_online_observation.py.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/v2-dml-capture-20261006/DELETE_ROLLBACK-once.command.json",
+      "bytes": 90,
+      "sha256": "6095ca5a9605c02acb9b77ba5ea4d19487ab938e2e51045704dedb495bc394d5"
+    },
+    {
+      "path": "lab/out/v2-dml-capture-20261006/DELETE_ROLLBACK-once.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/v2-dml-capture-20261006/DELETE_ROLLBACK-once.sql",
+      "bytes": 1152,
+      "sha256": "3a4dc9b90545512c64e8a3b93b6266ffadfc0d2d2f27ac87d3d6e7b0dcdf1e75"
+    },
+    {
+      "path": "lab/out/v2-dml-capture-20261006/DELETE_ROLLBACK-once.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/v2-dml-capture-20261006/DELETE_ROLLBACK-once.stdout.txt",
+      "bytes": 124,
+      "sha256": "fe4c0a846859e2025aede4e63bf729d6837b37a81a856cf44f35f6140803728c"
+    },
+    {
+      "path": "lab/out/v2-dml-capture-20261006/dump.trc",
+      "bytes": 15698901,
+      "sha256": "3cd6a1631008a823061f1fcfe7e38af2a0e49b53116b0de1be3826d940fbf2c4"
+    },
+    {
+      "path": "lab/out/v2-dml-capture-20261006/enroll-actual-acquisition.command.json",
+      "bytes": 90,
+      "sha256": "6095ca5a9605c02acb9b77ba5ea4d19487ab938e2e51045704dedb495bc394d5"
+    },
+    {
+      "path": "lab/out/v2-dml-capture-20261006/enroll-actual-acquisition.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/v2-dml-capture-20261006/enroll-actual-acquisition.sql",
+      "bytes": 4118,
+      "sha256": "fcc33042806c86d18d7eabcc4a943473d6d126adcec16cb5605ea96f82d51c78"
+    },
+    {
+      "path": "lab/out/v2-dml-capture-20261006/enroll-actual-acquisition.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/v2-dml-capture-20261006/enroll-actual-acquisition.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/v2-dml-capture-20261006/executed-capture-driver-r2.py",
+      "bytes": 12609,
+      "sha256": "acd5907c9738769885388df09c9578de2572f23cf249f5c84c3e562f6f8dbdbd"
+    },
+    {
+      "path": "lab/out/v2-dml-capture-20261006/executed-capture-driver.py",
+      "bytes": 12325,
+      "sha256": "da030b46b2e1fd485f15e148b96f1bb303d85c8410791a90271effa361e152f1"
+    },
+    {
+      "path": "lab/out/v2-dml-capture-20261006/executed-follow_closed_members.py",
+      "bytes": 13579,
+      "sha256": "e2bace7d9309e06692270f2992e8b275a0cca2e71e4b5ddb281421943f5d15f5"
+    },
+    {
+      "path": "lab/out/v2-dml-capture-20261006/executed-prepare-driver.py",
+      "bytes": 12325,
+      "sha256": "da030b46b2e1fd485f15e148b96f1bb303d85c8410791a90271effa361e152f1"
+    },
+    {
+      "path": "lab/out/v2-dml-capture-20261006/executed-resume_online_observation.py",
+      "bytes": 8802,
+      "sha256": "fc0155f98ce9651c9f08a581ba28ccf8e8c98b4302d347b04570e005a8602f4b"
+    },
+    {
+      "path": "lab/out/v2-dml-capture-20261006/failed-capture-driver-r1.py",
+      "bytes": 12325,
+      "sha256": "da030b46b2e1fd485f15e148b96f1bb303d85c8410791a90271effa361e152f1"
+    },
+    {
+      "path": "lab/out/v2-dml-capture-20261006/failed-r1-collector-host-pid.txt",
+      "bytes": 5,
+      "sha256": "f9dcd0acefcbaaf339372ad60a47443936cc39dab02067126f84446bee9744a1"
+    },
+    {
+      "path": "lab/out/v2-dml-capture-20261006/failed-r1-collector.command.json",
+      "bytes": 258,
+      "sha256": "be3cc8d663d0040355e9b7950a9fccfffdd55dd0cc8edd850171d61004c8afbb"
+    },
+    {
+      "path": "lab/out/v2-dml-capture-20261006/failed-r1-collector.stderr.txt",
+      "bytes": 429,
+      "sha256": "4142e592c9ad550251495037c8333e0b7ef51cb397dc22e30552fc577778a1eb"
+    },
+    {
+      "path": "lab/out/v2-dml-capture-20261006/failed-r1-collector.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/v2-dml-capture-20261006/final-helper-state.json",
+      "bytes": 226,
+      "sha256": "2e43258d591298e112c836ddcc13b50aee7954a92afd13c2047aa8b95e0f48fd"
+    },
+    {
+      "path": "lab/out/v2-dml-capture-20261006/final-helper.stderr.log",
+      "bytes": 796,
+      "sha256": "5592a0b48ab3060103c104ba46fbfe46cb20dc39616ed7556c591c83fdc75b35"
+    },
+    {
+      "path": "lab/out/v2-dml-capture-20261006/final-helper.stdout.log",
+      "bytes": 7920,
+      "sha256": "3ebb351ea0119d05c4d164eb129d817f93ae236e05649a71916283e866a7ae49"
+    },
+    {
+      "path": "lab/out/v2-dml-capture-20261006/fixture-once.command.json",
+      "bytes": 90,
+      "sha256": "6095ca5a9605c02acb9b77ba5ea4d19487ab938e2e51045704dedb495bc394d5"
+    },
+    {
+      "path": "lab/out/v2-dml-capture-20261006/fixture-once.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/v2-dml-capture-20261006/fixture-once.sql",
+      "bytes": 565,
+      "sha256": "4727a220b48cef648390d4b8bcd9145981a9dadb48fbc79de51ce2886a5c6820"
+    },
+    {
+      "path": "lab/out/v2-dml-capture-20261006/fixture-once.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/v2-dml-capture-20261006/fixture-once.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/v2-dml-capture-20261006/implicit-tail-compare-missing-delete.command.json",
+      "bytes": 408,
+      "sha256": "9f90298da154149e61897d99e4194346e73bf9e9c1ce04f2f968f70d7862822f"
+    },
+    {
+      "path": "lab/out/v2-dml-capture-20261006/implicit-tail-compare-missing-delete.rc.txt",
+      "bytes": 1,
+      "sha256": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b"
+    },
+    {
+      "path": "lab/out/v2-dml-capture-20261006/implicit-tail-compare-missing-delete.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/v2-dml-capture-20261006/implicit-tail-compare-missing-delete.stdout.txt",
+      "bytes": 876,
+      "sha256": "137a7e03ed489b0858afc5e0768b494da97974046c6b28c7ef9823ba3095315d"
+    },
+    {
+      "path": "lab/out/v2-dml-capture-20261006/implicit-tail-compare-wrong-before.command.json",
+      "bytes": 406,
+      "sha256": "aace7f3ce85cbf07b7fdae9de561a2e050742cd4c721eaf9ead8a7c74a74a62d"
+    },
+    {
+      "path": "lab/out/v2-dml-capture-20261006/implicit-tail-compare-wrong-before.rc.txt",
+      "bytes": 1,
+      "sha256": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b"
+    },
+    {
+      "path": "lab/out/v2-dml-capture-20261006/implicit-tail-compare-wrong-before.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/v2-dml-capture-20261006/implicit-tail-compare-wrong-before.stdout.txt",
+      "bytes": 1025,
+      "sha256": "950f437dfa6786ae063ae7e48678f88a169088411321ac94090507f6e398d8c7"
+    },
+    {
+      "path": "lab/out/v2-dml-capture-20261006/implicit-tail-complete-batch.command.json",
+      "bytes": 976,
+      "sha256": "1d5f26800c3415aecb069c686f69e75ca36cbc0a82b95b63d4f4dcaef0518f69"
+    },
+    {
+      "path": "lab/out/v2-dml-capture-20261006/implicit-tail-complete-batch.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/v2-dml-capture-20261006/implicit-tail-complete-batch.stderr.txt",
+      "bytes": 92,
+      "sha256": "6533aac2d8b7e5c04cab91a8b3b2a79346fedbe8129383fddb9d6cf67d9cc37e"
+    },
+    {
+      "path": "lab/out/v2-dml-capture-20261006/implicit-tail-complete-batch.stdout.txt",
+      "bytes": 1628,
+      "sha256": "125a0d0c9704821ef44e3742ea64d62bfa49c51b21bfa1ba3fae589a8ae8a057"
+    },
+    {
+      "path": "lab/out/v2-dml-capture-20261006/implicit-tail-driver-r1.log",
+      "bytes": 43,
+      "sha256": "c2c13f979a36a2edd25e8682cbc6870c89b0a8208fd07c0b1f2e9f0b07cd81d5"
+    },
+    {
+      "path": "lab/out/v2-dml-capture-20261006/implicit-tail-execution-pin.json",
+      "bytes": 885,
+      "sha256": "b24342179ed04717a808992ce46f4a9ce1da6bed1aec76b3ebc52679fb328fda"
+    },
+    {
+      "path": "lab/out/v2-dml-capture-20261006/implicit-tail-full-r1.log",
+      "bytes": 10590,
+      "sha256": "0b3627022d6dd5ea533ebd32b5595331fccfed828c07c04b49901517249c6625"
+    },
+    {
+      "path": "lab/out/v2-dml-capture-20261006/implicit-tail-full-r1.rc.txt",
+      "bytes": 3,
+      "sha256": "13bf7b3039c63bf5a50491fa3cfd8eb4e699d1ba1436315aef9cbe5711530354"
+    },
+    {
+      "path": "lab/out/v2-dml-capture-20261006/implicit-tail-independent-rows.py",
+      "bytes": 5082,
+      "sha256": "cdbac63d96e4d622d087b45db0d5f229e426c570310a5671372e11fc1ee024ba"
+    },
+    {
+      "path": "lab/out/v2-dml-capture-20261006/implicit-tail-missing-delete.rows.txt",
+      "bytes": 1509,
+      "sha256": "fe67100e72167b8e66353e631c7fba1b0bfdf432bfdb80ed1b21e63bb46245cd"
+    },
+    {
+      "path": "lab/out/v2-dml-capture-20261006/implicit-tail-native-physical.command.json",
+      "bytes": 491,
+      "sha256": "e39475fd70282d391abf02d680a92d8c2119f28eff83823f8ad41a0fefe4acc8"
+    },
+    {
+      "path": "lab/out/v2-dml-capture-20261006/implicit-tail-native-physical.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/v2-dml-capture-20261006/implicit-tail-native-physical.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/v2-dml-capture-20261006/implicit-tail-native-physical.stdout.txt",
+      "bytes": 266,
+      "sha256": "b913500495cb9e5f03b1709cd8b73da1b177afe061a919ab2f1cc2a36140b7ba"
+    },
+    {
+      "path": "lab/out/v2-dml-capture-20261006/implicit-tail-native-rows.command.json",
+      "bytes": 410,
+      "sha256": "7e11be396a7cb77788731b92cf443d0ea727fdf03fece9edd847f9ed08b0bfe6"
+    },
+    {
+      "path": "lab/out/v2-dml-capture-20261006/implicit-tail-native-rows.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/v2-dml-capture-20261006/implicit-tail-native-rows.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/v2-dml-capture-20261006/implicit-tail-native-rows.stdout.txt",
+      "bytes": 115,
+      "sha256": "2261e6b339c0f2bf65bfcf9caf7d4341dd9fc541ee685690c98b47513a77cd59"
+    },
+    {
+      "path": "lab/out/v2-dml-capture-20261006/implicit-tail-physical.command.json",
+      "bytes": 987,
+      "sha256": "025d08f4ab27100cb682c6e16f98613f520e5c426c2d992188a74edcf6756549"
+    },
+    {
+      "path": "lab/out/v2-dml-capture-20261006/implicit-tail-physical.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/v2-dml-capture-20261006/implicit-tail-physical.stderr.txt",
+      "bytes": 907,
+      "sha256": "e9d9f6951700054a451b4b50a54b199fcc53ebaad0bbe7358e535fb9641d0b91"
+    },
+    {
+      "path": "lab/out/v2-dml-capture-20261006/implicit-tail-physical.stdout.txt",
+      "bytes": 897,
+      "sha256": "1614b362ce07de778d138d0755475e001dc2c710c0f91ad22bab70fd34fd0480"
+    },
+    {
+      "path": "lab/out/v2-dml-capture-20261006/implicit-tail-proof.json",
+      "bytes": 1350,
+      "sha256": "e99a1203ac672d8d6a3bce9dcddc60b5ede7a158abfc60eab1148368cf11b299"
+    },
+    {
+      "path": "lab/out/v2-dml-capture-20261006/implicit-tail-rows-driver-r1.log",
+      "bytes": 67,
+      "sha256": "a5430fdb361178eca9f084eb9eed3ab940a79b7ba08df502d6a8019ec15f5aa5"
+    },
+    {
+      "path": "lab/out/v2-dml-capture-20261006/implicit-tail-rows-pin.json",
+      "bytes": 252,
+      "sha256": "0d0ab4c6b68beb287def26388a65282ac452c434eea2c591c1a2849fb56eeffa"
+    },
+    {
+      "path": "lab/out/v2-dml-capture-20261006/implicit-tail-source-after-build/pom.xml",
+      "bytes": 1325,
+      "sha256": "2ce9476f25e347d5a5b9c3a8b27e317aded2cf000e453cc781f19be2833a15a6"
+    },
+    {
+      "path": "lab/out/v2-dml-capture-20261006/implicit-tail-source-after-build/src/main/java/com/streamhouse/oracle/ArchivedCompensationAssociations.java",
+      "bytes": 9348,
+      "sha256": "8b5f1db061fb394e2ab831dd9f142eb71ceb488e238e4ad93e8966230abfeb1a"
+    },
+    {
+      "path": "lab/out/v2-dml-capture-20261006/implicit-tail-source-after-build/src/main/java/com/streamhouse/oracle/ArchivedCompensationInventory.java",
+      "bytes": 6559,
+      "sha256": "5ad93ca9347f06df3d227a587fb320c092401648193be0020964257be6c62e04"
+    },
+    {
+      "path": "lab/out/v2-dml-capture-20261006/implicit-tail-source-after-build/src/main/java/com/streamhouse/oracle/ArchivedHeapRows.java",
+      "bytes": 14602,
+      "sha256": "99bcdd7c436e5432dd11c6e77713137dff34be130af06ff5a05411595c26d217"
+    },
+    {
+      "path": "lab/out/v2-dml-capture-20261006/implicit-tail-source-after-build/src/main/java/com/streamhouse/oracle/ArchivedIndexLeafInventory.java",
+      "bytes": 8262,
+      "sha256": "52d68f0249d2b72eeeb94392fd1c31cbc5bf89c2fe6d38285028a162657c61c3"
+    },
+    {
+      "path": "lab/out/v2-dml-capture-20261006/implicit-tail-source-after-build/src/main/java/com/streamhouse/oracle/ArchivedObjectTransactions.java",
+      "bytes": 5713,
+      "sha256": "8ec549d46fec2335f68bf33dde5bc8ea482bf65709413a9e15cff99e6114a892"
+    },
+    {
+      "path": "lab/out/v2-dml-capture-20261006/implicit-tail-source-after-build/src/main/java/com/streamhouse/oracle/ArchivedPhysicalTransactions.java",
+      "bytes": 17885,
+      "sha256": "a19b66b6ef2ba79a41e0c3515640a0c17b254dc51a1d051b1dcfa535b12cb73e"
+    },
+    {
+      "path": "lab/out/v2-dml-capture-20261006/implicit-tail-source-after-build/src/main/java/com/streamhouse/oracle/ArchivedRedo.java",
+      "bytes": 4000,
+      "sha256": "30280fa528fa901440fa89f1f930f5d03022b98e0ab78675552a6656d2265bfa"
+    },
+    {
+      "path": "lab/out/v2-dml-capture-20261006/implicit-tail-source-after-build/src/main/java/com/streamhouse/oracle/ArchivedUndoInventory.java",
+      "bytes": 4631,
+      "sha256": "202bb1d4150ada9757586818b982a75c26dc0cc2a7587191de34ed9ee5425f15"
+    },
+    {
+      "path": "lab/out/v2-dml-capture-20261006/implicit-tail-source-after-build/src/main/java/com/streamhouse/oracle/CapturedHeapBatch.java",
+      "bytes": 7562,
+      "sha256": "56e2fb752d16cfb99e3d8795eb293de7edaa34284fbd4d5106b5835b5bfadcd7"
+    },
+    {
+      "path": "lab/out/v2-dml-capture-20261006/implicit-tail-source-after-build/src/main/java/com/streamhouse/oracle/CaptureJournal.java",
+      "bytes": 5976,
+      "sha256": "da063eabf5240d0ea82e5bb242c0ed0639e9e4d7f8a744ec4b6cde4615e135c7"
+    },
+    {
+      "path": "lab/out/v2-dml-capture-20261006/implicit-tail-source-after-build/src/main/java/com/streamhouse/oracle/EmptyHeapCleanout.java",
+      "bytes": 907,
+      "sha256": "ba2957dadeb4f0808daf1d73494389c6190dd39eb632ee90c4700966df9c0cc0"
+    },
+    {
+      "path": "lab/out/v2-dml-capture-20261006/implicit-tail-source-after-build/src/main/java/com/streamhouse/oracle/FrozenHeapBaseline.java",
+      "bytes": 12449,
+      "sha256": "290acccd8b24c8393ff08d3912a1725b53c389097440f1879c66284cb2895dbc"
+    },
+    {
+      "path": "lab/out/v2-dml-capture-20261006/implicit-tail-source-after-build/src/main/java/com/streamhouse/oracle/HeapCompensation.java",
+      "bytes": 4765,
+      "sha256": "527431f80bf009072f7b0b31ca59cdc760c267882c9239d57f211501ecf46e2d"
+    },
+    {
+      "path": "lab/out/v2-dml-capture-20261006/implicit-tail-source-after-build/src/main/java/com/streamhouse/oracle/HeapIndexScope.java",
+      "bytes": 1026,
+      "sha256": "db9d2391cabee70f3421117402a601f40ab10748d8e2ac6daa0a34855fe90c87"
+    },
+    {
+      "path": "lab/out/v2-dml-capture-20261006/implicit-tail-source-after-build/src/main/java/com/streamhouse/oracle/HeapRowPatch.java",
+      "bytes": 9907,
+      "sha256": "2767e546917991cac823b7db63c5b374ae8c410171de761ff6be7f91ec5df2ad"
+    },
+    {
+      "path": "lab/out/v2-dml-capture-20261006/implicit-tail-source-after-build/src/main/java/com/streamhouse/oracle/HeapUndoPair.java",
+      "bytes": 4300,
+      "sha256": "a81eb46faacee6d0593787c8eb6386766060f4e3e41edf0c3a957564d13f5ff7"
+    },
+    {
+      "path": "lab/out/v2-dml-capture-20261006/implicit-tail-source-after-build/src/main/java/com/streamhouse/oracle/HistoricalSchemaBarrier.java",
+      "bytes": 5042,
+      "sha256": "b92a3830441f0b122a44c1a9c2ad9cc74171e8011ea9badd21fac06837de669f"
+    },
+    {
+      "path": "lab/out/v2-dml-capture-20261006/implicit-tail-source-after-build/src/main/java/com/streamhouse/oracle/IndexCompensation.java",
+      "bytes": 5447,
+      "sha256": "3b0439ab065fecfb6947948de2c7232a5984f6a488e65a2883022fb19bae8c1d"
+    },
+    {
+      "path": "lab/out/v2-dml-capture-20261006/implicit-tail-source-after-build/src/main/java/com/streamhouse/oracle/IndexLeafPositions.java",
+      "bytes": 8502,
+      "sha256": "7a6cfd02618cf57eca9e33680eaaaa2963b434e4a10a8fb7fabb5d3a40ae5402"
+    },
+    {
+      "path": "lab/out/v2-dml-capture-20261006/implicit-tail-source-after-build/src/main/java/com/streamhouse/oracle/IndexUndoPair.java",
+      "bytes": 6455,
+      "sha256": "936aa205c6bd6be1c210b86b5d28ea783a99844b760128b7cdbffafa03238f09"
+    },
+    {
+      "path": "lab/out/v2-dml-capture-20261006/implicit-tail-source-after-build/src/main/java/com/streamhouse/oracle/OracleScalars.java",
+      "bytes": 2978,
+      "sha256": "7b86196ca7c14978988acac8589c2aac653879d11b8315ba77e24cd1bc8f14be"
+    },
+    {
+      "path": "lab/out/v2-dml-capture-20261006/implicit-tail-source-after-build/src/main/java/com/streamhouse/oracle/RedoBatch.java",
+      "bytes": 2163,
+      "sha256": "aba5de59bb03164b879509ce0fc75fc337f22d60994e73e21bc125ffc1282208"
+    },
+    {
+      "path": "lab/out/v2-dml-capture-20261006/implicit-tail-source-after-build/src/main/java/com/streamhouse/oracle/RedoBytes.java",
+      "bytes": 405,
+      "sha256": "7eb9f814ff4b5363826e857f725f85e3aabfce7f73320ff20badd831fab8585a"
+    },
+    {
+      "path": "lab/out/v2-dml-capture-20261006/implicit-tail-source-after-build/src/main/java/com/streamhouse/oracle/RedoCli.java",
+      "bytes": 2285,
+      "sha256": "67ebd485ba291cee1aa491d4a020b6883a93195cc1f8eecc127ea174d02a2d2c"
+    },
+    {
+      "path": "lab/out/v2-dml-capture-20261006/implicit-tail-source-after-build/src/main/java/com/streamhouse/oracle/RedoException.java",
+      "bytes": 238,
+      "sha256": "db184019c79b416f0db42b8a75976e7bd5717077683c0d98931afca2ba0a3857"
+    },
+    {
+      "path": "lab/out/v2-dml-capture-20261006/implicit-tail-source-after-build/src/main/java/com/streamhouse/oracle/RedoRecords.java",
+      "bytes": 5634,
+      "sha256": "fa4c8aa1c9b4fc8dbe7136c9ebf44f603933ce10d0344ab21c0aceaa56b4e4ee"
+    },
+    {
+      "path": "lab/out/v2-dml-capture-20261006/implicit-tail-source-after-build/src/main/java/com/streamhouse/oracle/SingleEntryBlockCleanout.java",
+      "bytes": 1202,
+      "sha256": "7048a13578a622d482eb650fef09c23347597fa96a76b9d85306081a81c5bd4f"
+    },
+    {
+      "path": "lab/out/v2-dml-capture-20261006/implicit-tail-source-after-build/src/main/java/com/streamhouse/oracle/TransactionEnd.java",
+      "bytes": 2957,
+      "sha256": "fb603536d2d95e77ba99305b78806a39d84421ed951f725b834ae38ebffc4642"
+    },
+    {
+      "path": "lab/out/v2-dml-capture-20261006/implicit-tail-source-after-build/src/main/java/com/streamhouse/oracle/TransactionLifecycle.java",
+      "bytes": 11638,
+      "sha256": "3de1fa9c68a06c6817ea9c63cabae73d52a7c6c5918e50bf94b2cbac7c9e42a8"
+    },
+    {
+      "path": "lab/out/v2-dml-capture-20261006/implicit-tail-source-after-build/src/main/java/com/streamhouse/oracle/TransactionStart.java",
+      "bytes": 2598,
+      "sha256": "598e7c97a1134ac5a5e0b629b6073745b2fe55dfbe8c2264db4cf573b53a129e"
+    },
+    {
+      "path": "lab/out/v2-dml-capture-20261006/implicit-tail-source-after-build/src/main/java/com/streamhouse/oracle/UndoBlockAdvance.java",
+      "bytes": 1948,
+      "sha256": "fde6f6290302b861f710d705a4480c533af076f1f2a46830ae1f8c6f265390a8"
+    },
+    {
+      "path": "lab/out/v2-dml-capture-20261006/implicit-tail-source-after-build/src/main/java/com/streamhouse/oracle/UndoChain.java",
+      "bytes": 2943,
+      "sha256": "ac10b2077d943a4d3a32c9737b6a4a293ba9824a22fbb7955461eda8250705fa"
+    },
+    {
+      "path": "lab/out/v2-dml-capture-20261006/implicit-tail-source-after-build/src/main/java/com/streamhouse/oracle/UndoCompensation.java",
+      "bytes": 1812,
+      "sha256": "4a4cbceb4ce328b26c999c684b31c5c2259c41221fbcd3422be92d5f42c0521c"
+    },
+    {
+      "path": "lab/out/v2-dml-capture-20261006/implicit-tail-source-after-build/src/main/java/com/streamhouse/oracle/UndoHeader.java",
+      "bytes": 1270,
+      "sha256": "e0cc5706e664ed80f1ff3dff15e047df8b47945533792b2f6874a8dd40d7c968"
+    },
+    {
+      "path": "lab/out/v2-dml-capture-20261006/implicit-tail-source-after-build/src/main/java/com/streamhouse/oracle/UndoHeadUpdate.java",
+      "bytes": 1816,
+      "sha256": "0d540d99d1304a9b49982f89f4d83527fb0110292cd88b1944a83408938facee"
+    },
+    {
+      "path": "lab/out/v2-dml-capture-20261006/implicit-tail-source-after-build/src/main/java/com/streamhouse/oracle/UndoHistory.java",
+      "bytes": 5862,
+      "sha256": "dd17dba7cc9a713fac256add458ba7fe4e32afca38fc819294ef7c1052da984a"
+    },
+    {
+      "path": "lab/out/v2-dml-capture-20261006/implicit-tail-source-after-build/src/main/java/com/streamhouse/oracle/UndoLink.java",
+      "bytes": 1306,
+      "sha256": "fcd1826380ee3985f0d387a44bb4a493a7c89ad16b281211c939477857f0177d"
+    },
+    {
+      "path": "lab/out/v2-dml-capture-20261006/implicit-tail-source-after-build/src/main/java/com/streamhouse/oracle/UndoRowPatch.java",
+      "bytes": 1424,
+      "sha256": "62611559ae273bbf895cd8031d856756e47d1d070fc7eb232f62776f8d49134b"
+    },
+    {
+      "path": "lab/out/v2-dml-capture-20261006/implicit-tail-source-after-build/src/test/java/com/streamhouse/oracle/ArchivedCompensationAssociationsTest.java",
+      "bytes": 7503,
+      "sha256": "b000101d534b28d63ea976b15c1ef0b9cdeab174f2fd52ffebce249c9f7e6011"
+    },
+    {
+      "path": "lab/out/v2-dml-capture-20261006/implicit-tail-source-after-build/src/test/java/com/streamhouse/oracle/ArchivedCompensationInventoryTest.java",
+      "bytes": 5437,
+      "sha256": "ac9e060016477deddd0d12a64fb974305f0c65e0c2163e8a4956431c6115e20e"
+    },
+    {
+      "path": "lab/out/v2-dml-capture-20261006/implicit-tail-source-after-build/src/test/java/com/streamhouse/oracle/ArchivedHeapRowsTest.java",
+      "bytes": 5311,
+      "sha256": "d785c156c32f675d97fe66b529712c5928a2689073831fd93e16a41bb666447c"
+    },
+    {
+      "path": "lab/out/v2-dml-capture-20261006/implicit-tail-source-after-build/src/test/java/com/streamhouse/oracle/ArchivedIndexLeafInventoryTest.java",
+      "bytes": 6397,
+      "sha256": "1094efed0a87997f77bc1acaeca7b4785fe87c7aa114df1a3b26717422432443"
+    },
+    {
+      "path": "lab/out/v2-dml-capture-20261006/implicit-tail-source-after-build/src/test/java/com/streamhouse/oracle/ArchivedObjectTransactionsTest.java",
+      "bytes": 3062,
+      "sha256": "a47b38d94ccf627e7c51c32006297afec01bf2760cc24972dcdf2f54c9e6ec92"
+    },
+    {
+      "path": "lab/out/v2-dml-capture-20261006/implicit-tail-source-after-build/src/test/java/com/streamhouse/oracle/ArchivedPhysicalTransactionsTest.java",
+      "bytes": 9349,
+      "sha256": "a2272d06a6c7e1ca3dbf290c2a289125ea2fc2e64895139e87c24332e848bd5b"
+    },
+    {
+      "path": "lab/out/v2-dml-capture-20261006/implicit-tail-source-after-build/src/test/java/com/streamhouse/oracle/ArchivedRedoTest.java",
+      "bytes": 4277,
+      "sha256": "72f0fe5d89bc0781529383098d9427491ffb30b1191fe225966b0ec642638415"
+    },
+    {
+      "path": "lab/out/v2-dml-capture-20261006/implicit-tail-source-after-build/src/test/java/com/streamhouse/oracle/ArchivedUndoInventoryTest.java",
+      "bytes": 3797,
+      "sha256": "c10d9fea61aff6ab40e9312033215b50aa57830bebb2d3f6ce5ec2fdc59e7549"
+    },
+    {
+      "path": "lab/out/v2-dml-capture-20261006/implicit-tail-source-after-build/src/test/java/com/streamhouse/oracle/BeginCompensationTest.java",
+      "bytes": 5497,
+      "sha256": "42d3b3110629f2f8cd4526f881af2fd2ae5b81cb4c914087b6680cd68a187df1"
+    },
+    {
+      "path": "lab/out/v2-dml-capture-20261006/implicit-tail-source-after-build/src/test/java/com/streamhouse/oracle/CapturedHeapBatchTest.java",
+      "bytes": 5184,
+      "sha256": "d96e9820de7126f27a6c33dc80b5c936561fca383386804c24b5869911763a3c"
+    },
+    {
+      "path": "lab/out/v2-dml-capture-20261006/implicit-tail-source-after-build/src/test/java/com/streamhouse/oracle/CaptureJournalTest.java",
+      "bytes": 6501,
+      "sha256": "7957a4088bbe87284ae10f0c7b2b63448b72362b0269c00c2c76bac9219b5000"
+    },
+    {
+      "path": "lab/out/v2-dml-capture-20261006/implicit-tail-source-after-build/src/test/java/com/streamhouse/oracle/CrossCompensationTest.java",
+      "bytes": 4270,
+      "sha256": "0554c9a207b4313d5030138de6e3addef1e7c973dca4d4fd39325e8ebf78096c"
+    },
+    {
+      "path": "lab/out/v2-dml-capture-20261006/implicit-tail-source-after-build/src/test/java/com/streamhouse/oracle/EmptyHeapCleanoutTest.java",
+      "bytes": 1645,
+      "sha256": "061c219cd4e6cb6799e8075dcacc4c8bfe2de43fe7c017ce45204cd966a276e3"
+    },
+    {
+      "path": "lab/out/v2-dml-capture-20261006/implicit-tail-source-after-build/src/test/java/com/streamhouse/oracle/FrozenHeapBaselineTest.java",
+      "bytes": 7020,
+      "sha256": "2e743eeafcfb750574ae657cac4ab35c6c7a18e891a007fb2db7086b8544ff95"
+    },
+    {
+      "path": "lab/out/v2-dml-capture-20261006/implicit-tail-source-after-build/src/test/java/com/streamhouse/oracle/HeapCleanoutCTest.java",
+      "bytes": 2670,
+      "sha256": "a95f31d9564ae4bfde5a6b7bf9554296466be1dcbfcd60fc29a02e2e0a48a7f8"
+    },
+    {
+      "path": "lab/out/v2-dml-capture-20261006/implicit-tail-source-after-build/src/test/java/com/streamhouse/oracle/HeapCompensationTest.java",
+      "bytes": 5846,
+      "sha256": "98f6a742ae586a318a0081027c5da540105826b68c8fb61e3e5e9148f125dcb1"
+    },
+    {
+      "path": "lab/out/v2-dml-capture-20261006/implicit-tail-source-after-build/src/test/java/com/streamhouse/oracle/HeapIndexScopeTest.java",
+      "bytes": 3896,
+      "sha256": "2a38d172f9aec53051b2e241419f8ae6f69bec6bc08bcdbe11fa300de8c31700"
+    },
+    {
+      "path": "lab/out/v2-dml-capture-20261006/implicit-tail-source-after-build/src/test/java/com/streamhouse/oracle/HeapLockTest.java",
+      "bytes": 1212,
+      "sha256": "56880bdf0b38c0dfebfaad4fb4837aa9b21eb00348577852ce31020533eef7e5"
+    },
+    {
+      "path": "lab/out/v2-dml-capture-20261006/implicit-tail-source-after-build/src/test/java/com/streamhouse/oracle/HeapRowPatchTest.java",
+      "bytes": 3788,
+      "sha256": "8705be14ab92e24098def1e1cdf4e622f3bfccd3235af9fcb3137271f09dd7fc"
+    },
+    {
+      "path": "lab/out/v2-dml-capture-20261006/implicit-tail-source-after-build/src/test/java/com/streamhouse/oracle/HeapTailExtentTest.java",
+      "bytes": 6248,
+      "sha256": "c89cdbbdf1058d281ad7e7198ffdef317be1f049a72a555dac4af41a72952eaf"
+    },
+    {
+      "path": "lab/out/v2-dml-capture-20261006/implicit-tail-source-after-build/src/test/java/com/streamhouse/oracle/HeapUndoPairTest.java",
+      "bytes": 4109,
+      "sha256": "abd507fd13ac8a5ec1680d104c2ce04ba1790af2f3f5b5fee923b417cbfa5065"
+    },
+    {
+      "path": "lab/out/v2-dml-capture-20261006/implicit-tail-source-after-build/src/test/java/com/streamhouse/oracle/HistoricalSchemaBarrierTest.java",
+      "bytes": 7610,
+      "sha256": "e4ac81af245bff508e17d72337c3b0bc3ba7d552d1a9e792ac6cbef977f8e5f5"
+    },
+    {
+      "path": "lab/out/v2-dml-capture-20261006/implicit-tail-source-after-build/src/test/java/com/streamhouse/oracle/IndexCompensationTest.java",
+      "bytes": 5762,
+      "sha256": "a514eea53d9a5d5a275f92aa241ff32c5ae2ed679a0363603729bac87d0de8f4"
+    },
+    {
+      "path": "lab/out/v2-dml-capture-20261006/implicit-tail-source-after-build/src/test/java/com/streamhouse/oracle/IndexLeafPositionsTest.java",
+      "bytes": 7294,
+      "sha256": "b6274f2df4ea2dfd482b6880a0a5fc86775458a10518f093bb65e9e59bf03269"
+    },
+    {
+      "path": "lab/out/v2-dml-capture-20261006/implicit-tail-source-after-build/src/test/java/com/streamhouse/oracle/IndexPositionReplayTest.java",
+      "bytes": 2191,
+      "sha256": "09fe6cd9b4c6bfc54d740c19d0c24df4a9975d97ed151be7c22567bb43fe8fd0"
+    },
+    {
+      "path": "lab/out/v2-dml-capture-20261006/implicit-tail-source-after-build/src/test/java/com/streamhouse/oracle/IndexRestoreCompensationTest.java",
+      "bytes": 5392,
+      "sha256": "35b3067bba90ceac150af25f683c254e3478e3d56c4e84e4b33369a64201a852"
+    },
+    {
+      "path": "lab/out/v2-dml-capture-20261006/implicit-tail-source-after-build/src/test/java/com/streamhouse/oracle/IndexUndoPairTest.java",
+      "bytes": 5801,
+      "sha256": "7a247fe8eb3fd79ed8810caa7aedda9948eb355e7ffc1558f5f830d71576c750"
+    },
+    {
+      "path": "lab/out/v2-dml-capture-20261006/implicit-tail-source-after-build/src/test/java/com/streamhouse/oracle/Kdom2MarkerThreeTest.java",
+      "bytes": 2838,
+      "sha256": "b6f0320b65f764b33e0cbd7767fba04c102874b50df9cf372571e43c85d268ac"
+    },
+    {
+      "path": "lab/out/v2-dml-capture-20261006/implicit-tail-source-after-build/src/test/java/com/streamhouse/oracle/Kdom2UpdateTest.java",
+      "bytes": 5474,
+      "sha256": "70b2653ebb07d51acf54327bdb183e7ad1bec407736530068902bebc53de5b7a"
+    },
+    {
+      "path": "lab/out/v2-dml-capture-20261006/implicit-tail-source-after-build/src/test/java/com/streamhouse/oracle/KtbZInsertTest.java",
+      "bytes": 2102,
+      "sha256": "4dd7bbe785fa49ec6fc0d2062ab460adcb0c7da09aeefeed2d9129deb6a19b95"
+    },
+    {
+      "path": "lab/out/v2-dml-capture-20261006/implicit-tail-source-after-build/src/test/java/com/streamhouse/oracle/KtbZRollbackTest.java",
+      "bytes": 5589,
+      "sha256": "d94b7be171c7d05e5a0f2164e86ac2748ff8b85476ac35bd2edaec48a54d6d58"
+    },
+    {
+      "path": "lab/out/v2-dml-capture-20261006/implicit-tail-source-after-build/src/test/java/com/streamhouse/oracle/OracleScalarsTest.java",
+      "bytes": 1939,
+      "sha256": "d91574e8606470f0ae2eaafe0837493c1678cd832e798ce6f45b87af3371cbf1"
+    },
+    {
+      "path": "lab/out/v2-dml-capture-20261006/implicit-tail-source-after-build/src/test/java/com/streamhouse/oracle/SingleEntryBlockCleanoutTest.java",
+      "bytes": 1631,
+      "sha256": "88b4d2e4db276b67476c38ae3de91cc69d3ef684ccf09f8f8191c2713581a30b"
+    },
+    {
+      "path": "lab/out/v2-dml-capture-20261006/implicit-tail-source-after-build/src/test/java/com/streamhouse/oracle/TransactionLifecycleTest.java",
+      "bytes": 8495,
+      "sha256": "c59a5e046ae0a3a2e11f0d0b22ac10c2b922a13ca40e1d24e827ffbb7644f9a4"
+    },
+    {
+      "path": "lab/out/v2-dml-capture-20261006/implicit-tail-source-after-build/src/test/java/com/streamhouse/oracle/TransactionMarkersTest.java",
+      "bytes": 5796,
+      "sha256": "ec81d66a56778ebcf33a5ebc81fafa41d625bc0b3001f9893ab3b6bd896e175f"
+    },
+    {
+      "path": "lab/out/v2-dml-capture-20261006/implicit-tail-source-after-build/src/test/java/com/streamhouse/oracle/TransactionStartTest.java",
+      "bytes": 4508,
+      "sha256": "593c3dbe249019ae78ad360fb794000c9bc1b1c482764d05bcff58d17789be00"
+    },
+    {
+      "path": "lab/out/v2-dml-capture-20261006/implicit-tail-source-after-build/src/test/java/com/streamhouse/oracle/UndoBlockAdvanceTest.java",
+      "bytes": 3222,
+      "sha256": "350e957c65a0b153414fdf6e89ab3d9915f2af3b2dc341ea93311bb7f0166952"
+    },
+    {
+      "path": "lab/out/v2-dml-capture-20261006/implicit-tail-source-after-build/src/test/java/com/streamhouse/oracle/UndoChainTest.java",
+      "bytes": 4172,
+      "sha256": "bdb99d352d9a026749c5f8247866ae7ce180a32c45784930e4acdd4bf6c429db"
+    },
+    {
+      "path": "lab/out/v2-dml-capture-20261006/implicit-tail-source-after-build/src/test/java/com/streamhouse/oracle/UndoHeaderTest.java",
+      "bytes": 1688,
+      "sha256": "caf87ed9c17730154dbfe019c39ce9827eb26696789c7b2530f8c24047260888"
+    },
+    {
+      "path": "lab/out/v2-dml-capture-20261006/implicit-tail-source-after-build/src/test/java/com/streamhouse/oracle/UndoHeadUpdateTest.java",
+      "bytes": 4386,
+      "sha256": "3e1f0bb47883b23eae2ffd54868daaecd64fb1d5f27bd761e75f172b952c3da5"
+    },
+    {
+      "path": "lab/out/v2-dml-capture-20261006/implicit-tail-source-after-build/src/test/java/com/streamhouse/oracle/UndoHistoryTest.java",
+      "bytes": 8649,
+      "sha256": "7e6f96b46678d18b00e357081e570c37fd4c0087252b5b95ac75a07c57ca3709"
+    },
+    {
+      "path": "lab/out/v2-dml-capture-20261006/implicit-tail-source-after-build/src/test/java/com/streamhouse/oracle/UndoRowPatchTest.java",
+      "bytes": 3911,
+      "sha256": "15332d0d90addcb970f241e8cc7bb1b4a8bc75402ef00300edb527a5429c8652"
+    },
+    {
+      "path": "lab/out/v2-dml-capture-20261006/implicit-tail-source-after-build/v2_dml_capture19.py",
+      "bytes": 12609,
+      "sha256": "acd5907c9738769885388df09c9578de2572f23cf249f5c84c3e562f6f8dbdbd"
+    },
+    {
+      "path": "lab/out/v2-dml-capture-20261006/implicit-tail-source-after-build/verify_v2_dml_parser.py",
+      "bytes": 5873,
+      "sha256": "143afd186c140503423896190dc4dc02963fea0bb5cb359b97e9329ca6e8e1a6"
+    },
+    {
+      "path": "lab/out/v2-dml-capture-20261006/implicit-tail-source-after-build/verify_v2_implicit_tail.py",
+      "bytes": 1838,
+      "sha256": "de245f352f08da4c32bb67ba86a6387c5633d5db428a265690d503a9034dc148"
+    },
+    {
+      "path": "lab/out/v2-dml-capture-20261006/implicit-tail-source-after-build/verify_v2_implicit_tail_rows.py",
+      "bytes": 3394,
+      "sha256": "51b3160eafa4077cf20cd12610e0658dac84a911d139f339c472f096ee577955"
+    },
+    {
+      "path": "lab/out/v2-dml-capture-20261006/implicit-tail-typed-projection.command.json",
+      "bytes": 984,
+      "sha256": "03fc2ed679e2979a548bbd36adeb1e5ed5c001fff512e8ee1e64b8779e8bf795"
+    },
+    {
+      "path": "lab/out/v2-dml-capture-20261006/implicit-tail-typed-projection.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/v2-dml-capture-20261006/implicit-tail-typed-projection.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/v2-dml-capture-20261006/implicit-tail-typed-projection.stdout.txt",
+      "bytes": 5007,
+      "sha256": "783b88cf76a8620d0bdfbf1493c1fa98f888f5311b2c7600e72dc3154f4ededd"
+    },
+    {
+      "path": "lab/out/v2-dml-capture-20261006/implicit-tail-unit-r1.log",
+      "bytes": 2107,
+      "sha256": "1cc882bc0b6e2d639e6b1281797546d73e9189a9201e6b7ae818bacc5d830da8"
+    },
+    {
+      "path": "lab/out/v2-dml-capture-20261006/implicit-tail-unit-r1.rc.txt",
+      "bytes": 3,
+      "sha256": "13bf7b3039c63bf5a50491fa3cfd8eb4e699d1ba1436315aef9cbe5711530354"
+    },
+    {
+      "path": "lab/out/v2-dml-capture-20261006/implicit-tail-wrong-before.rows.txt",
+      "bytes": 1632,
+      "sha256": "58223769cc6c85a4c246e22b577c1fba4412a557960d32b9fc90302469ddc7c3"
+    },
+    {
+      "path": "lab/out/v2-dml-capture-20261006/independent-baseline-driver-r1.log",
+      "bytes": 332,
+      "sha256": "e2b82219f5cc1175082caa6d926ff99495fb6660c72e1635c61ea0f9d3e336c1"
+    },
+    {
+      "path": "lab/out/v2-dml-capture-20261006/independent-dump.command.json",
+      "bytes": 90,
+      "sha256": "6095ca5a9605c02acb9b77ba5ea4d19487ab938e2e51045704dedb495bc394d5"
+    },
+    {
+      "path": "lab/out/v2-dml-capture-20261006/independent-dump.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/v2-dml-capture-20261006/independent-dump.sql",
+      "bytes": 575,
+      "sha256": "61550ddf5429555e4dbcba76c4ec9ece72d5f732a1b548a3af68bf55a81af4c9"
+    },
+    {
+      "path": "lab/out/v2-dml-capture-20261006/independent-dump.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/v2-dml-capture-20261006/independent-dump.stdout.txt",
+      "bytes": 79,
+      "sha256": "dcaa4192e4eb5f0a96eced0dd18ac8f42d29c6063b3527eacad15be2bbd758ec"
+    },
+    {
+      "path": "lab/out/v2-dml-capture-20261006/independent-publication-proof.json",
+      "bytes": 578,
+      "sha256": "ab6a947f71d48ef8dda1a3b237460e98a80839073d62a231f549c686d3a03f44"
+    },
+    {
+      "path": "lab/out/v2-dml-capture-20261006/independent-v2-dml-baseline-proof.json",
+      "bytes": 366,
+      "sha256": "6f4ba09f7678dafe1faf2e38a74702d53ee26d289f3ab76213ed09ffca3628b8"
+    },
+    {
+      "path": "lab/out/v2-dml-capture-20261006/independent-v2-dml-baseline.command.json",
+      "bytes": 90,
+      "sha256": "6095ca5a9605c02acb9b77ba5ea4d19487ab938e2e51045704dedb495bc394d5"
+    },
+    {
+      "path": "lab/out/v2-dml-capture-20261006/independent-v2-dml-baseline.execution-pin.json",
+      "bytes": 254,
+      "sha256": "47191ac24239876ac464fb03d7b0b1c58e079e281f82f08d56a14851a8186609"
+    },
+    {
+      "path": "lab/out/v2-dml-capture-20261006/independent-v2-dml-baseline.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/v2-dml-capture-20261006/independent-v2-dml-baseline.sql",
+      "bytes": 1906,
+      "sha256": "14bf7a5ed8deaa224f68e9ffdf13edb36c1af00fca96b0ea0e840ff783c5f57e"
+    },
+    {
+      "path": "lab/out/v2-dml-capture-20261006/independent-v2-dml-baseline.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/v2-dml-capture-20261006/independent-v2-dml-baseline.stdout.txt",
+      "bytes": 567,
+      "sha256": "d89d689cb43c39e8052e2564142c03cee44f6f07a393bbdf09ded7678025f1b9"
+    },
+    {
+      "path": "lab/out/v2-dml-capture-20261006/INSERT_ROLLBACK-once.command.json",
+      "bytes": 90,
+      "sha256": "6095ca5a9605c02acb9b77ba5ea4d19487ab938e2e51045704dedb495bc394d5"
+    },
+    {
+      "path": "lab/out/v2-dml-capture-20261006/INSERT_ROLLBACK-once.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/v2-dml-capture-20261006/INSERT_ROLLBACK-once.sql",
+      "bytes": 1151,
+      "sha256": "0b618d93ec1e5748142a41153a5681fba2921ab96a4313c51638e7bcf668f8e9"
+    },
+    {
+      "path": "lab/out/v2-dml-capture-20261006/INSERT_ROLLBACK-once.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/v2-dml-capture-20261006/INSERT_ROLLBACK-once.stdout.txt",
+      "bytes": 210,
+      "sha256": "6214870999a8d7be4df83d269b9ba148dc34bb9a9e66750ff0efe3cb4938054a"
+    },
+    {
+      "path": "lab/out/v2-dml-capture-20261006/members.command.json",
+      "bytes": 90,
+      "sha256": "6095ca5a9605c02acb9b77ba5ea4d19487ab938e2e51045704dedb495bc394d5"
+    },
+    {
+      "path": "lab/out/v2-dml-capture-20261006/members.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/v2-dml-capture-20261006/members.sql",
+      "bytes": 301,
+      "sha256": "5bfbeec7528404bf6710d210174b2498f59e92267d66284a3467d9017e731767"
+    },
+    {
+      "path": "lab/out/v2-dml-capture-20261006/members.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/v2-dml-capture-20261006/members.stdout.txt",
+      "bytes": 143,
+      "sha256": "1fa745230deed506468fc74a5a0cb7e7e7a49307e407f29959daeeaa88d49b8e"
+    },
+    {
+      "path": "lab/out/v2-dml-capture-20261006/MIXED_COMMIT-once.command.json",
+      "bytes": 90,
+      "sha256": "6095ca5a9605c02acb9b77ba5ea4d19487ab938e2e51045704dedb495bc394d5"
+    },
+    {
+      "path": "lab/out/v2-dml-capture-20261006/MIXED_COMMIT-once.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/v2-dml-capture-20261006/MIXED_COMMIT-once.sql",
+      "bytes": 1729,
+      "sha256": "25111a8cb57ff73d53c6808597d828354159c1f28689e504627ccbc5b89ad2a7"
+    },
+    {
+      "path": "lab/out/v2-dml-capture-20261006/MIXED_COMMIT-once.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/v2-dml-capture-20261006/MIXED_COMMIT-once.stdout.txt",
+      "bytes": 308,
+      "sha256": "11d54e6f35f4eb73cbf6175ffc2f2cd41a30e7277cb33a6311f3faf444ac72e0"
+    },
+    {
+      "path": "lab/out/v2-dml-capture-20261006/new-complete-batch.command.json",
+      "bytes": 969,
+      "sha256": "67957026f30cb196acd20a2cdacfb60a3fc78805b12f1623ae62b49c1e03dc01"
+    },
+    {
+      "path": "lab/out/v2-dml-capture-20261006/new-complete-batch.rc.txt",
+      "bytes": 1,
+      "sha256": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b"
+    },
+    {
+      "path": "lab/out/v2-dml-capture-20261006/new-complete-batch.stderr.txt",
+      "bytes": 770,
+      "sha256": "c7c7e7363b083d8cf2333b8a4354ee8de6b419392f674fe3d9afdb10f2bc8d97"
+    },
+    {
+      "path": "lab/out/v2-dml-capture-20261006/new-complete-batch.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/v2-dml-capture-20261006/new-target-once.command.json",
+      "bytes": 90,
+      "sha256": "6095ca5a9605c02acb9b77ba5ea4d19487ab938e2e51045704dedb495bc394d5"
+    },
+    {
+      "path": "lab/out/v2-dml-capture-20261006/new-target-once.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/v2-dml-capture-20261006/new-target-once.sql",
+      "bytes": 1377,
+      "sha256": "c15475d81ae3507f79781487d59634db9391585f9ce17e3caf5b38fdea7c8212"
+    },
+    {
+      "path": "lab/out/v2-dml-capture-20261006/new-target-once.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/v2-dml-capture-20261006/new-target-once.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/v2-dml-capture-20261006/new-target-preflight.command.json",
+      "bytes": 90,
+      "sha256": "6095ca5a9605c02acb9b77ba5ea4d19487ab938e2e51045704dedb495bc394d5"
+    },
+    {
+      "path": "lab/out/v2-dml-capture-20261006/new-target-preflight.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/v2-dml-capture-20261006/new-target-preflight.sql",
+      "bytes": 309,
+      "sha256": "cd5d2529be33fa04a7e3a30fced235b0f189636ed616082d6d0084bf4d21b53b"
+    },
+    {
+      "path": "lab/out/v2-dml-capture-20261006/new-target-preflight.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/v2-dml-capture-20261006/new-target-preflight.stdout.txt",
+      "bytes": 9,
+      "sha256": "91c2be02c5c51959295ff2f8b724ccce3ccc5f0b0e39cf32a55f3df8b815a6a7"
+    },
+    {
+      "path": "lab/out/v2-dml-capture-20261006/operation.derived-publication.txt",
+      "bytes": 5677,
+      "sha256": "b5493ec38210f117cb170f2eb4624eb118cf60426afcaf251d6666353f8f28f8"
+    },
+    {
+      "path": "lab/out/v2-dml-capture-20261006/parser-driver-r1.host.log",
+      "bytes": 1333,
+      "sha256": "ea7c247d05110daf2b97dc30ac3c6683096df18f5dea5003ff8ec4c2c11231b4"
+    },
+    {
+      "path": "lab/out/v2-dml-capture-20261006/parser-execution-pin.json",
+      "bytes": 1199,
+      "sha256": "51b0e5472ee4c3e28344874d369fb26dbdb6c5a952191ab4309adaff830e507f"
+    },
+    {
+      "path": "lab/out/v2-dml-capture-20261006/preflight.command.json",
+      "bytes": 90,
+      "sha256": "6095ca5a9605c02acb9b77ba5ea4d19487ab938e2e51045704dedb495bc394d5"
+    },
+    {
+      "path": "lab/out/v2-dml-capture-20261006/preflight.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/v2-dml-capture-20261006/preflight.sql",
+      "bytes": 781,
+      "sha256": "535e630090eedce4e7f38c489ab7ce0fac32503f4c806950df431c8b80fddd5f"
+    },
+    {
+      "path": "lab/out/v2-dml-capture-20261006/preflight.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/v2-dml-capture-20261006/preflight.stdout.txt",
+      "bytes": 49,
+      "sha256": "63fc9659ac22432f4d9e9d260f928a2c24b21ee8dabe8fbd42abd3b0eeedb062"
+    },
+    {
+      "path": "lab/out/v2-dml-capture-20261006/prepare-driver-sha256.txt",
+      "bytes": 64,
+      "sha256": "82f8b957674792c5fffe180eea6afdf08daafd56fabef64fbca4dc747a974f96"
+    },
+    {
+      "path": "lab/out/v2-dml-capture-20261006/private-672-install-r1.log",
+      "bytes": 1782,
+      "sha256": "a590d0d4c560cd0477c9b5dc747768de480e204891852059c7d4900fe30a6cbd"
+    },
+    {
+      "path": "lab/out/v2-dml-capture-20261006/private-672-install-r1.rc.txt",
+      "bytes": 3,
+      "sha256": "f1b2f662800122bed0ff255693df89c4487fbdcf453d3524a42d4ec20c3d9c04"
+    },
+    {
+      "path": "lab/out/v2-dml-capture-20261006/private-672-install-r2.log",
+      "bytes": 1236,
+      "sha256": "32bb2fa4732870e97e684b6d417cb9b1018972a2d7e172283f06a991380f22b8"
+    },
+    {
+      "path": "lab/out/v2-dml-capture-20261006/private-672-install-r2.rc.txt",
+      "bytes": 3,
+      "sha256": "13bf7b3039c63bf5a50491fa3cfd8eb4e699d1ba1436315aef9cbe5711530354"
+    },
+    {
+      "path": "lab/out/v2-dml-capture-20261006/product-672-build-driver-r1.log",
+      "bytes": 408,
+      "sha256": "1bafb376ef563c38b1ab1d284688e393764204241601058227fc388df96a3500"
+    },
+    {
+      "path": "lab/out/v2-dml-capture-20261006/product-672-proof.json",
+      "bytes": 17227,
+      "sha256": "65b18bbb1e106df4f35c999957e7543675480f0904af023526bad8b4ac7c1ffd"
+    },
+    {
+      "path": "lab/out/v2-dml-capture-20261006/product-672-reactor.command.json",
+      "bytes": 618,
+      "sha256": "81ed1fe015765d66151a9492809aab8409648d4c9724c7c9e4ff88aa28e812f8"
+    },
+    {
+      "path": "lab/out/v2-dml-capture-20261006/product-672-reactor.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/v2-dml-capture-20261006/product-672-reactor.stderr.txt",
+      "bytes": 3270,
+      "sha256": "6ad68add6d3fd2b458859f92e06fbbc0971cb2d2db73ed7a644a7808134e27aa"
+    },
+    {
+      "path": "lab/out/v2-dml-capture-20261006/product-672-reactor.stdout.txt",
+      "bytes": 73526,
+      "sha256": "8a43a7b091953fa12df6b309e8f8f65d5b4f09927c171bed93300a1a27f5105a"
+    },
+    {
+      "path": "lab/out/v2-dml-capture-20261006/product-runtime-delivery-proof.json",
+      "bytes": 19360,
+      "sha256": "2a765eb224df5d805ddf1994d460e9e0f60c0a3e5eb88c336868516a6bb072e0"
+    },
+    {
+      "path": "lab/out/v2-dml-capture-20261006/product-runtime-sources-after-execution/build_v2_implicit_tail_product.py",
+      "bytes": 2738,
+      "sha256": "81e8732cfe6e369b03b6a97ccdec9dac6fb72fbb1864c436fe1b98c0c3dde144"
+    },
+    {
+      "path": "lab/out/v2-dml-capture-20261006/product-runtime-sources-after-execution/compare_v2_publication.py",
+      "bytes": 4505,
+      "sha256": "bbdf876f703ebe3a5d0050a9728b4b463d05cf6fcce2d1340044285ba6b314b9"
+    },
+    {
+      "path": "lab/out/v2-dml-capture-20261006/product-runtime-sources-after-execution/publish_v2_dml_http.py",
+      "bytes": 7343,
+      "sha256": "3f08e2873e6ad79a0788ddf5b61277d8ad397bbb9cee2ad003f460a506108519"
+    },
+    {
+      "path": "lab/out/v2-dml-capture-20261006/product-runtime-sources-after-execution/replace_v2_dml_product.py",
+      "bytes": 3523,
+      "sha256": "2f23b45b7a3afff15d1d8cafc8e72cece459ed09a020824a6fe4815bc9276935"
+    },
+    {
+      "path": "lab/out/v2-dml-capture-20261006/product-runtime-sources-after-execution/restart_v2_dml_http.py",
+      "bytes": 3283,
+      "sha256": "528f4c916d3bb0b00f77c778e6f3df6092f8f3ee2e4b65d4337acf5654917fca"
+    },
+    {
+      "path": "lab/out/v2-dml-capture-20261006/product-runtime-sources-after-execution/verify_v2_dml_baseline19.py",
+      "bytes": 4055,
+      "sha256": "943fba42eb9fd3555a753e99c7e3f284afc8d4daec1ec2a2c0225ac8fac08edb"
+    },
+    {
+      "path": "lab/out/v2-dml-capture-20261006/publication-driver-pin.json",
+      "bytes": 264,
+      "sha256": "f4772e2e1c12050a46139f1911d967b3b0f410884c96eed1afc452a3dd942c9b"
+    },
+    {
+      "path": "lab/out/v2-dml-capture-20261006/publish-prepare-driver-r1.log",
+      "bytes": 40,
+      "sha256": "713ef276ff5b429ed88f04e62d9be73359626a0cb0abffe6dd3dffda84ce8c83"
+    },
+    {
+      "path": "lab/out/v2-dml-capture-20261006/published-snapshot-driver-r1.log",
+      "bytes": 41,
+      "sha256": "9b09db65281de0ca7f14b32ff7976eb4bf26226006f4d71b5d75560c3889b9cd"
+    },
+    {
+      "path": "lab/out/v2-dml-capture-20261006/raw-index-leaf.command.json",
+      "bytes": 954,
+      "sha256": "90647a24f6bd4ef9bcc117e7f6bacd2d2fb6a2fb977f02f293fa17ecf8b4485c"
+    },
+    {
+      "path": "lab/out/v2-dml-capture-20261006/raw-index-leaf.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/v2-dml-capture-20261006/raw-index-leaf.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/v2-dml-capture-20261006/raw-index-leaf.stdout.txt",
+      "bytes": 15,
+      "sha256": "937291a49fa49034e95e0228f172b9b261db1bb60935ac293fcb76b3e094dff6"
+    },
+    {
+      "path": "lab/out/v2-dml-capture-20261006/ready.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/v2-dml-capture-20261006/ready.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/v2-dml-capture-20261006/ready.stdout.txt",
+      "bytes": 13,
+      "sha256": "62248ec5ae8cac91706d8c1fcae3c62f9708ba0ea369922c34153c013a9df38b"
+    },
+    {
+      "path": "lab/out/v2-dml-capture-20261006/rejected-before-target.command.json",
+      "bytes": 90,
+      "sha256": "6095ca5a9605c02acb9b77ba5ea4d19487ab938e2e51045704dedb495bc394d5"
+    },
+    {
+      "path": "lab/out/v2-dml-capture-20261006/rejected-before-target.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/v2-dml-capture-20261006/rejected-before-target.sql",
+      "bytes": 1674,
+      "sha256": "e06e30ddb5e524de6af5e3d1e5ff1b8e750a313fc5bbef1d38ada1570d783f3d"
+    },
+    {
+      "path": "lab/out/v2-dml-capture-20261006/rejected-before-target.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/v2-dml-capture-20261006/rejected-before-target.stdout.txt",
+      "bytes": 589,
+      "sha256": "c4a00e8a5fec9b87a73a394df3e60c0a40a276ca50e8ee69d23279b7ccda226e"
+    },
+    {
+      "path": "lab/out/v2-dml-capture-20261006/rejected-snapshot-driver-r1.log",
+      "bytes": 41,
+      "sha256": "9b09db65281de0ca7f14b32ff7976eb4bf26226006f4d71b5d75560c3889b9cd"
+    },
+    {
+      "path": "lab/out/v2-dml-capture-20261006/repeat-driver-r1.log",
+      "bytes": 39,
+      "sha256": "f02ccf7de88215f5b0a64cabd9218a05c3739b9d8ce51f0bd649a70aa1db476a"
+    },
+    {
+      "path": "lab/out/v2-dml-capture-20261006/repeat-snapshot-driver-r1.log",
+      "bytes": 41,
+      "sha256": "9b09db65281de0ca7f14b32ff7976eb4bf26226006f4d71b5d75560c3889b9cd"
+    },
+    {
+      "path": "lab/out/v2-dml-capture-20261006/repeat-v2-DML.command.json",
+      "bytes": 68,
+      "sha256": "3db85b9ce9c292803929512f3544a8cdb53c7de4ff523465c28d15a36cd01ae0"
+    },
+    {
+      "path": "lab/out/v2-dml-capture-20261006/repeat-v2-DML.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/v2-dml-capture-20261006/repeat-v2-DML.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/v2-dml-capture-20261006/repeat-v2-DML.stdout.txt",
+      "bytes": 4112,
+      "sha256": "33ffa8bf8ddd37fce8570206144561fde479d39b077dd91a65c3c4fce66d2f4a"
+    },
+    {
+      "path": "lab/out/v2-dml-capture-20261006/replace-672-driver-r1.log",
+      "bytes": 51,
+      "sha256": "8fba4058e239a8f8f3cc4cf1e088b16deb2ad68435bc41cf533403fd1e8c92fa"
+    },
+    {
+      "path": "lab/out/v2-dml-capture-20261006/replace-672-execution-pin.json",
+      "bytes": 436,
+      "sha256": "f0ec6aa51a8716c7d56ec38cf6158de8b6d16f7d9946a1c374908a04bc3e478d"
+    },
+    {
+      "path": "lab/out/v2-dml-capture-20261006/replace-672-proof.json",
+      "bytes": 381,
+      "sha256": "48a922f9ed0f22e9cdbe589d981b24915b6795fd8aad3434937721bbb48a155e"
+    },
+    {
+      "path": "lab/out/v2-dml-capture-20261006/restart-672-acquisition.command.json",
+      "bytes": 68,
+      "sha256": "3db85b9ce9c292803929512f3544a8cdb53c7de4ff523465c28d15a36cd01ae0"
+    },
+    {
+      "path": "lab/out/v2-dml-capture-20261006/restart-672-acquisition.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/v2-dml-capture-20261006/restart-672-acquisition.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/v2-dml-capture-20261006/restart-672-acquisition.stdout.txt",
+      "bytes": 2203,
+      "sha256": "697b4fcfa8336610bd1562e517d2ebdcfb5acb1d8793fde243f038aacb361c41"
+    },
+    {
+      "path": "lab/out/v2-dml-capture-20261006/restart-672-app-sha.command.json",
+      "bytes": 94,
+      "sha256": "5a1aa22a5e8c5e1045a6bd760dc030e949b961e31b08b7f197ff2571b9af5764"
+    },
+    {
+      "path": "lab/out/v2-dml-capture-20261006/restart-672-app-sha.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/v2-dml-capture-20261006/restart-672-app-sha.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/v2-dml-capture-20261006/restart-672-app-sha.stdout.txt",
+      "bytes": 96,
+      "sha256": "439143313994478c5e0f0dd875f8b43fcfcd53ceaf16c46b6b642cab32925d1f"
+    },
+    {
+      "path": "lab/out/v2-dml-capture-20261006/restart-672-execution-pin.json",
+      "bytes": 336,
+      "sha256": "c8e839d76baa68111c275100e633ef54c44ea350ffb8eb7c2df0f7c8a811518c"
+    },
+    {
+      "path": "lab/out/v2-dml-capture-20261006/restart-672-repeat-driver.command.json",
+      "bytes": 213,
+      "sha256": "28b963ccce028a6677a56127839e1a2aad6e23e2d8027ddbe09e7c133c6e8dfa"
+    },
+    {
+      "path": "lab/out/v2-dml-capture-20261006/restart-672-repeat-driver.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/v2-dml-capture-20261006/restart-672-repeat-driver.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/v2-dml-capture-20261006/restart-672-repeat-driver.stdout.txt",
+      "bytes": 39,
+      "sha256": "f02ccf7de88215f5b0a64cabd9218a05c3739b9d8ce51f0bd649a70aa1db476a"
+    },
+    {
+      "path": "lab/out/v2-dml-capture-20261006/restart-672-snapshot-driver.command.json",
+      "bytes": 215,
+      "sha256": "188477af94ce266487760412116e4f3302485ff7ef7ed392af9e1fc51271bc52"
+    },
+    {
+      "path": "lab/out/v2-dml-capture-20261006/restart-672-snapshot-driver.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/v2-dml-capture-20261006/restart-672-snapshot-driver.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/v2-dml-capture-20261006/restart-672-snapshot-driver.stdout.txt",
+      "bytes": 41,
+      "sha256": "9b09db65281de0ca7f14b32ff7976eb4bf26226006f4d71b5d75560c3889b9cd"
+    },
+    {
+      "path": "lab/out/v2-dml-capture-20261006/restart-672-start.command.json",
+      "bytes": 49,
+      "sha256": "ab8cf5ce4cc292aac6b41146f27c03b0bff204de1f4499bf383551c1a464140b"
+    },
+    {
+      "path": "lab/out/v2-dml-capture-20261006/restart-672-start.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/v2-dml-capture-20261006/restart-672-start.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/v2-dml-capture-20261006/restart-672-start.stdout.txt",
+      "bytes": 27,
+      "sha256": "409e5022efd05c9296034205d23e73000bfcd99c08b3e64ceaddac42113cb007"
+    },
+    {
+      "path": "lab/out/v2-dml-capture-20261006/restart-672-stop.command.json",
+      "bytes": 48,
+      "sha256": "68eecceff959724987cd980b85171ebd79678d13125fed9c8f05923a7cea1801"
+    },
+    {
+      "path": "lab/out/v2-dml-capture-20261006/restart-672-stop.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/v2-dml-capture-20261006/restart-672-stop.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/v2-dml-capture-20261006/restart-672-stop.stdout.txt",
+      "bytes": 27,
+      "sha256": "409e5022efd05c9296034205d23e73000bfcd99c08b3e64ceaddac42113cb007"
+    },
+    {
+      "path": "lab/out/v2-dml-capture-20261006/restart-driver-r1.log",
+      "bytes": 37,
+      "sha256": "a32c5dc75476c11ccd381d8de2bea71ece9a784761dfd84c39931e2274f78090"
+    },
+    {
+      "path": "lab/out/v2-dml-capture-20261006/restart-repeat-proof.json",
+      "bytes": 255,
+      "sha256": "90ea27cd432fb4edf3bdf0d69920edc2ed70d77142f43055e3e2733780e43d6a"
+    },
+    {
+      "path": "lab/out/v2-dml-capture-20261006/restart-repeat-v2-DML.command.json",
+      "bytes": 68,
+      "sha256": "3db85b9ce9c292803929512f3544a8cdb53c7de4ff523465c28d15a36cd01ae0"
+    },
+    {
+      "path": "lab/out/v2-dml-capture-20261006/restart-repeat-v2-DML.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/v2-dml-capture-20261006/restart-repeat-v2-DML.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/v2-dml-capture-20261006/restart-repeat-v2-DML.stdout.txt",
+      "bytes": 4112,
+      "sha256": "33ffa8bf8ddd37fce8570206144561fde479d39b077dd91a65c3c4fce66d2f4a"
+    },
+    {
+      "path": "lab/out/v2-dml-capture-20261006/restore-driver-r1.log",
+      "bytes": 40,
+      "sha256": "4499d2bb2b78366967c9654ee6a06a6743eac51a7a9143ff31aa5d3f1ccbd59c"
+    },
+    {
+      "path": "lab/out/v2-dml-capture-20261006/resume-driver-r1.log",
+      "bytes": 39,
+      "sha256": "f02ccf7de88215f5b0a64cabd9218a05c3739b9d8ce51f0bd649a70aa1db476a"
+    },
+    {
+      "path": "lab/out/v2-dml-capture-20261006/resume-v2-DML.command.json",
+      "bytes": 68,
+      "sha256": "3db85b9ce9c292803929512f3544a8cdb53c7de4ff523465c28d15a36cd01ae0"
+    },
+    {
+      "path": "lab/out/v2-dml-capture-20261006/resume-v2-DML.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/v2-dml-capture-20261006/resume-v2-DML.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/v2-dml-capture-20261006/resume-v2-DML.stdout.txt",
+      "bytes": 281,
+      "sha256": "e67cd19689b7ad950a3c36352fc9a1a946ee43ee368d978d1197c88f081f8e32"
+    },
+    {
+      "path": "lab/out/v2-dml-capture-20261006/retain-old-444-helper.command.json",
+      "bytes": 87,
+      "sha256": "1cb8ec4662e01162e0363863402fc66d4eaf3df5f96f59e011cc1f06595c31fa"
+    },
+    {
+      "path": "lab/out/v2-dml-capture-20261006/retain-old-444-helper.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/v2-dml-capture-20261006/retain-old-444-helper.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/v2-dml-capture-20261006/retain-old-444-helper.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/v2-dml-capture-20261006/running-672-app-sha.command.json",
+      "bytes": 94,
+      "sha256": "5a1aa22a5e8c5e1045a6bd760dc030e949b961e31b08b7f197ff2571b9af5764"
+    },
+    {
+      "path": "lab/out/v2-dml-capture-20261006/running-672-app-sha.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/v2-dml-capture-20261006/running-672-app-sha.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/v2-dml-capture-20261006/running-672-app-sha.stdout.txt",
+      "bytes": 96,
+      "sha256": "439143313994478c5e0f0dd875f8b43fcfcd53ceaf16c46b6b642cab32925d1f"
+    },
+    {
+      "path": "lab/out/v2-dml-capture-20261006/runtime-pin.json",
+      "bytes": 17015,
+      "sha256": "03d842dd29151328c1a4c9cd27303a18be36226f22fb98d4eb988676d4f7c09f"
+    },
+    {
+      "path": "lab/out/v2-dml-capture-20261006/sha-follow_closed_members.py.command.json",
+      "bytes": 92,
+      "sha256": "dbdb9015ba83a64b0a20bf1cb271f63db119562a1ebbd285d9dbdf7fd74dbce9"
+    },
+    {
+      "path": "lab/out/v2-dml-capture-20261006/sha-follow_closed_members.py.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/v2-dml-capture-20261006/sha-follow_closed_members.py.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/v2-dml-capture-20261006/sha-follow_closed_members.py.stdout.txt",
+      "bytes": 96,
+      "sha256": "53d31d012ec02254e27276febf0cd35763e2bce0c95798306444d5cb885e0b5c"
+    },
+    {
+      "path": "lab/out/v2-dml-capture-20261006/sha-resume_online_observation.py.command.json",
+      "bytes": 96,
+      "sha256": "ef3bc819083687a32a8d62b6a5586c3242857308b6397466a52d407bf940bc30"
+    },
+    {
+      "path": "lab/out/v2-dml-capture-20261006/sha-resume_online_observation.py.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/v2-dml-capture-20261006/sha-resume_online_observation.py.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/v2-dml-capture-20261006/sha-resume_online_observation.py.stdout.txt",
+      "bytes": 100,
+      "sha256": "9869644bd729ff10aa54cd1c9cdaefe0e4dae9c1d8b21a3443a1d779a05675c0"
+    },
+    {
+      "path": "lab/out/v2-dml-capture-20261006/snapshots/100634385207877632.snapshot",
+      "bytes": 1210,
+      "sha256": "a9fc1bb611424c3f59fb2c9ec5cd4ac15d576be0cf11c8eb334e01ab0d909e40"
+    },
+    {
+      "path": "lab/out/v2-dml-capture-20261006/start-672-helper.command.json",
+      "bytes": 560,
+      "sha256": "ceb2f54bd5616cdae908c6c7a0a4714c774092dc6f9aa42fe3af5bfee5dec9ff"
+    },
+    {
+      "path": "lab/out/v2-dml-capture-20261006/start-672-helper.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/v2-dml-capture-20261006/start-672-helper.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/v2-dml-capture-20261006/start-672-helper.stdout.txt",
+      "bytes": 65,
+      "sha256": "17a06cc9f7f1ad63fbe5afc2423e071eb020d3739838caaf91a7aa8836b67ed6"
+    },
+    {
+      "path": "lab/out/v2-dml-capture-20261006/start.command.json",
+      "bytes": 556,
+      "sha256": "6e12d14e3debe08dcb8cd884df1441eb53b2333e621719fffaa3f44bacd1a0ef"
+    },
+    {
+      "path": "lab/out/v2-dml-capture-20261006/start.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/v2-dml-capture-20261006/start.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/v2-dml-capture-20261006/start.stdout.txt",
+      "bytes": 65,
+      "sha256": "a172a7c463d1d856f7ac2b3a5dcc70d4a1119a0f6a02cf844935148e4fa529fd"
+    },
+    {
+      "path": "lab/out/v2-dml-capture-20261006/stop-accepted-672-helper.command.json",
+      "bytes": 48,
+      "sha256": "68eecceff959724987cd980b85171ebd79678d13125fed9c8f05923a7cea1801"
+    },
+    {
+      "path": "lab/out/v2-dml-capture-20261006/stop-accepted-672-helper.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/v2-dml-capture-20261006/stop-accepted-672-helper.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/v2-dml-capture-20261006/stop-accepted-672-helper.stdout.txt",
+      "bytes": 27,
+      "sha256": "409e5022efd05c9296034205d23e73000bfcd99c08b3e64ceaddac42113cb007"
+    },
+    {
+      "path": "lab/out/v2-dml-capture-20261006/stop-old-444-helper.command.json",
+      "bytes": 48,
+      "sha256": "68eecceff959724987cd980b85171ebd79678d13125fed9c8f05923a7cea1801"
+    },
+    {
+      "path": "lab/out/v2-dml-capture-20261006/stop-old-444-helper.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/v2-dml-capture-20261006/stop-old-444-helper.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/v2-dml-capture-20261006/stop-old-444-helper.stdout.txt",
+      "bytes": 27,
+      "sha256": "409e5022efd05c9296034205d23e73000bfcd99c08b3e64ceaddac42113cb007"
+    },
+    {
+      "path": "lab/out/v2-dml-capture-20261006/submit-acquired-DML.command.json",
+      "bytes": 68,
+      "sha256": "3db85b9ce9c292803929512f3544a8cdb53c7de4ff523465c28d15a36cd01ae0"
+    },
+    {
+      "path": "lab/out/v2-dml-capture-20261006/submit-acquired-DML.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/v2-dml-capture-20261006/submit-acquired-DML.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/v2-dml-capture-20261006/submit-acquired-DML.stdout.txt",
+      "bytes": 288,
+      "sha256": "884a4a548fb3ea7dc2147735b887e75de2a90508b2bd78c09a8c068ec704b49f"
+    },
+    {
+      "path": "lab/out/v2-dml-capture-20261006/submit-driver-r1.log",
+      "bytes": 39,
+      "sha256": "4cf0a12465209e5256ca1b415db371477e024ab389cc8f3b80d43336879bcf1b"
+    },
+    {
+      "path": "lab/out/v2-dml-capture-20261006/tamper-driver-r1.log",
+      "bytes": 39,
+      "sha256": "ddf40268011a21660336e2898194faf2067286fbba0a1d09e9fa97b079a2d1c0"
+    },
+    {
+      "path": "lab/out/v2-dml-capture-20261006/target-investigation-vectors.stderr.txt",
+      "bytes": 382,
+      "sha256": "bbeab0e182f907e067100ebac4912083bde62890f469026abe831c57ce36e09d"
+    },
+    {
+      "path": "lab/out/v2-dml-capture-20261006/target-investigation-vectors.stdout.txt",
+      "bytes": 4763460,
+      "sha256": "07c27e8b0af5b00d521868f0e25a8bde6b815158324ee4b00ef56d46185d0716"
+    },
+    {
+      "path": "lab/out/v2-dml-capture-20261006/target-update-native-62-6686-76.txt",
+      "bytes": 6054,
+      "sha256": "b172e81f3df8bf5aac9d5998052ce8af357923188e2c363d465d116f0380a4fe"
+    },
+    {
+      "path": "lab/out/v2-dml-capture-20261006/task-id.txt",
+      "bytes": 18,
+      "sha256": "0b6d6d155d41b39d6da1f1a498dfd4776a12561cbe0ed42e19b4ae5db831c2e1"
+    }
+  ]
+}
