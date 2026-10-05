@@ -1,5 +1,8 @@
 # OracleRedoKernel 当前状态
 
+最新：[V2产品获取账与真实HTTP](DELIVERY_W5_V2_CONTROL_RUNTIME_20261006.md)：产品ea1975c/737通过、文档5f57c56/草稿PR#13已附属依赖#12；actual acquisitionId100631208685281280/SCN2514178六锚点、独立ASOF零差异。坏file/账缺anchors拒绝、恢复/重启持久字段及文件一致；ACQUIRED_ONLY/binding0/event0，0源DML/目标发布，helper exited143。109非secret双SHA，时间精度比较失败原文保全。新raw/目标CPACK/缺marker产品拒绝仍待证，不能用晚基线回填旧capture；接续V2_NEW_RAW_RUNTIME_20261006，P0整体未闭合，goal active。
+
+
 最新：[媒体标记/结束扩展与有限反例](DELIVERY_W5_DICTIONARY_END_PROFILES_20261006.md)：kernel444630a4/269通过，原始V2及DERIVED擦除均按SYS目标写入拒绝/0输出；去锚点诊断对照2事件复现ADD后漏EXTRA=NULL。native三完整图4/0/4及两结束identity/tail/ext零差异，三目标tail/slot/container派生结构通过语义拒绝，mixed/empty字节不变。292非secret双SHA，旧236文件未变；错误range offset/比较器/负例选点原文保全，0源/目标动作。仅有限19.3窄profile，不给一般历史权限，新产品/HTTP未验证，P0整体未闭合；接续V2_CONTROL_RUNTIME_20261006，goal active。
 
 
