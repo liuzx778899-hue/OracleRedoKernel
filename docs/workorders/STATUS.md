@@ -18,6 +18,9 @@
 
 ## 当前证据
 
+最新：[Facade发布/恢复接线候选](DELIVERY_W6_FACADE_PUBLICATION_20261005.md)。143f78f完整提交树715项全通过；四新增编排单位测试证明Oracle不走旧SQL先checkpoint路径、ACK失败后空pending恢复不重复decode、恢复证明损坏拒绝。仅服务器端口接线，真实Oracle实现/目标首次提交+控制+持久ACK/跨进程恢复仍待证；公开decoder仍拒绝。上一单24项实际控制事务不重跑，评审PENDING，部署未开始/现场待证/发布未开始，goal active。
+
+
 最新：[控制事务与独立核验](DELIVERY_W6_CONTROL_PUBLICATION_20261005.md)。产品完整代码树24ae9e0/711项0失败0错误0跳过；三库NEW/UPG四组24项实际checkpoint SQL后故障全回滚、真实来源锁双线程单次发布及重复0通过；纯JDBC独立查询24组账本/状态/完整CP/目标凭证零差异，三比较反例拒绝。205文件双SHA；首次编译/审计依赖失败保全，仅补失败，无源业务/配置/既有目标变化。完整Facade、控制提交后ACK、跨进程恢复、独立目标实例/生产字典待证；独立评审PENDING，现场/发布未通过，goal active。
 
 

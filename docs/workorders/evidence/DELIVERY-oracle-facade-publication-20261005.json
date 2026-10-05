@@ -1,0 +1,28 @@
+{
+  "product_commit": "143f78f87037c0ad2e1613e8f7d00656f3a608f3",
+  "tests": {
+    "tests": 715,
+    "errors": 0,
+    "failures": 0,
+    "skipped": 0
+  },
+  "artifacts": [
+    {
+      "module": "streamhouse-app",
+      "sha256": "4a0947ce2fdee92af61580bf644cda9c9baf91dcccb1b3587cba78cb289290fc"
+    },
+    {
+      "module": "streamhouse-pipeline",
+      "sha256": "ee19fb1e971a177cd82a34cbd88392a907f049e23e0267b697d8ea50a2fe2a66"
+    },
+    {
+      "module": "streamhouse-spi",
+      "sha256": "f9d7338ca1bd9fb1082b39f9cd442d942fb8fa90d05415be7918967800304020"
+    }
+  ],
+  "real_facade_target_control_ack_accepted": false,
+  "independent_review": "PENDING",
+  "file_count": 93,
+  "local_seal_path": "lab/out/oracle-facade-publication-20261005/seal.json",
+  "local_seal_sha256": "97188544a6ca8e346255afdb1feb8c09ac2a2a761e69697eacbb741d5859ff66"
+}
