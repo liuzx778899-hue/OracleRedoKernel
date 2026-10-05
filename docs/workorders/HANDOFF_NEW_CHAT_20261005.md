@@ -1,5 +1,7 @@
 # 精简 chat 主线交接（2026-10-05）
 
+最新：[V2新raw/NULL逆向尾列](DELIVERY_W5_V2_IMPLICIT_TAIL_20261006.md)：391eaf7/kernel672f01bc/271通过，seq62—64新源三事务已结束禁止重放。旧444实际NULL inverse-tail失败保留，新kernel3完整IUD/回滚0，native11/4/7和三中间像/SQL零差异，197非secret双SHA。O=lab/out/v2-dml-capture-20261006，实际acquisitionId100634385207877632/SCN2517052/SHAa9fc1bb6；本轮独立ASOF尚待补。旧ea1975c/737/444 helper ork-oracle-v2-dml-20261006仍running(37222)，control ORKV2DML_20261006，尚无目标绑定/发布/CPACK。先补独立ASOF、私有672接isolated产品完整clean提交树全reactor、新application替ownedhelper并恢复同账，再同冻结输入实际HTTP→target→CPACK/重复重启；目标前缀V2DML、已配置targetId oracle-dml-V2DML-20261005保持身份。随后独立historical V2/raw/擦marker产品拒绝，原完整目标仍active，不停automation；仅内核有限通过不是完整DML/现场发布。
+
 最新：[V2产品获取账与真实HTTP](DELIVERY_W5_V2_CONTROL_RUNTIME_20261006.md)：产品ea1975c/737通过、文档5f57c56/草稿PR#13已附属依赖#12；actual acquisitionId100631208685281280/SCN2514178六锚点、独立ASOF零差异。坏file/账缺anchors拒绝、恢复/重启持久字段及文件一致；ACQUIRED_ONLY/binding0/event0，0源DML/目标发布，helper exited143。109非secret双SHA，时间精度比较失败原文保全。新raw/目标CPACK/缺marker产品拒绝仍待证，不能用晚基线回填旧capture；接续V2_NEW_RAW_RUNTIME_20261006，P0整体未闭合，goal active。
 
 
