@@ -28,10 +28,11 @@ public final class CapturedHeapBatch {
     private final List<CaptureJournal.Source> captures;
     private final List<Event> events;
     private final String sha256;
+    private final long leaf;
     private CapturedHeapBatch(FrozenHeapBaseline.Snapshot snapshot,Schema schema,List<CaptureJournal.Source> captures,
-                              List<Event> events,String sha256) {
+                              List<Event> events,String sha256,long leaf) {
         this.snapshot=snapshot;this.schema=schema;this.captures=List.copyOf(captures);
-        this.events=List.copyOf(events);this.sha256=sha256;
+        this.events=List.copyOf(events);this.sha256=sha256;this.leaf=leaf;
     }
     public ArchivedHeapRows.Source source() { return snapshot.source(); }
     public String baselineSha256() { return snapshot.sha256(); }
@@ -40,6 +41,7 @@ public final class CapturedHeapBatch {
     public List<CaptureJournal.Source> captures() { return captures; }
     public List<Event> events() { return events; }
     public String sha256() { return sha256; }
+    public long leaf() { return leaf; }
 
     public static CapturedHeapBatch read(List<CaptureJournal.Verified> captures,Path snapshotPath,
                                          String trustedAcquisitionSha256,long leaf) throws IOException {
@@ -73,7 +75,7 @@ public final class CapturedHeapBatch {
             for (var source:sources) text(out,source.journalSha256());
             out.writeInt(events.size());for (var event:events) {text(out,event.eventId());text(out,event.payloadSha256());}
         });
-        return new CapturedHeapBatch(snapshot,schema,sources,events,batch);
+        return new CapturedHeapBatch(snapshot,schema,sources,events,batch,leaf);
     }
     static String schemaDigest(FrozenHeapBaseline.Snapshot snapshot) {
         return hash(out->{
