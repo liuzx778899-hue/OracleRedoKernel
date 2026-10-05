@@ -45,7 +45,7 @@ public final class ArchivedHeapRows {
                 new HeapIndexScope.Generation(snapshot.index().logicalObject(),snapshot.index().dataObject()));
         var inputs=RedoBatch.archives(paths);
         return read(inputs,new Baseline(snapshot.source(),snapshot.scn(),snapshot.heap().logicalObject(),snapshot.columns().size(),snapshot.rows()),scope,leaf,
-                ArchivedPhysicalTransactions.readVerifiedBaseline(inputs,snapshotPath,trustedAcquisitionSha256,leaf));
+                ArchivedPhysicalTransactions.readVerifiedBaseline(inputs,snapshotPath,trustedAcquisitionSha256,leaf),snapshot.columns());
     }
     public static Result readCaptured(List<CaptureJournal.Verified> captures,Path snapshotPath,String trustedAcquisitionSha256,long leaf) throws IOException {
         var snapshot=FrozenHeapBaseline.read(snapshotPath,trustedAcquisitionSha256);
@@ -53,13 +53,14 @@ public final class ArchivedHeapRows {
                 new HeapIndexScope.Generation(snapshot.index().logicalObject(),snapshot.index().dataObject()));
         var inputs=RedoBatch.captures(captures);
         return read(inputs,new Baseline(snapshot.source(),snapshot.scn(),snapshot.heap().logicalObject(),snapshot.columns().size(),snapshot.rows()),scope,leaf,
-                ArchivedPhysicalTransactions.readVerifiedBaseline(inputs,snapshotPath,trustedAcquisitionSha256,leaf));
+                ArchivedPhysicalTransactions.readVerifiedBaseline(inputs,snapshotPath,trustedAcquisitionSha256,leaf),snapshot.columns());
     }
     private static Result read(RedoBatch paths,Baseline baseline,HeapIndexScope scope,long leaf) throws IOException {
         var source=baseline.source();
-        return read(paths,baseline,scope,leaf,ArchivedPhysicalTransactions.read(paths,source.containerUid(),source.containerId(),scope,leaf,baseline.columns()));
+        return read(paths,baseline,scope,leaf,ArchivedPhysicalTransactions.read(paths,source.containerUid(),source.containerId(),scope,leaf,baseline.columns()),null);
     }
-    private static Result read(RedoBatch paths,Baseline baseline,HeapIndexScope scope,long leaf,ArchivedPhysicalTransactions.Result physical) throws IOException {
+    private static Result read(RedoBatch paths,Baseline baseline,HeapIndexScope scope,long leaf,ArchivedPhysicalTransactions.Result physical,
+                               List<FrozenHeapBaseline.PhysicalColumn> schema) throws IOException {
         if (baseline.columns()<1 || baseline.columns()>255 || baseline.rows().entrySet().stream().anyMatch(e->
                 e.getKey().dataObjectId()!=scope.heap().dataObject() || e.getKey().dba()<=0 || e.getKey().slot()<0 || e.getValue().size()!=baseline.columns()))
             throw new RedoException("BASELINE_ROW_SCOPE_OR_COLUMNS_MISMATCH");
@@ -123,7 +124,7 @@ public final class ArchivedHeapRows {
                 throw new RedoException("UNSUPPORTED_ROW_REPLAY_OVERLAPPING_ROW_KEY");
         }
         for (var t:transactions) for (var p:pending.getOrDefault(t.identity().xid(),List.of())) {
-            var before=rows.get(p.key());var after=apply(p.pair(),before,baseline.columns());
+            var before=rows.get(p.key());var after=apply(p.pair(),before,baseline.columns(),schema);
             if (p.pair().forward().kind()==Kind.LOCK) continue;
             changes.add(new Change(p.position(),p.xid(),p.key(),p.pair().forward().kind(),before==null ? List.of() : before,after));
             if (after.isEmpty()) rows.remove(p.key());else rows.put(p.key(),after);
@@ -134,6 +135,9 @@ public final class ArchivedHeapRows {
     }
 
     static List<Cell> apply(HeapUndoPair pair,List<Cell> current,int columns) throws RedoException {
+        return apply(pair,current,columns,null);
+    }
+    static List<Cell> apply(HeapUndoPair pair,List<Cell> current,int columns,List<FrozenHeapBaseline.PhysicalColumn> schema) throws RedoException {
         var forward=pair.forward();var inverse=pair.undo().inverse();
         if (forward.kind()==Kind.LOCK) {
             if (current==null || current.size()!=columns || inverse.kind()!=Kind.LOCK
@@ -147,12 +151,7 @@ public final class ArchivedHeapRows {
             throw new RedoException("ROW_REPLAY_COLUMN_OR_EXTENT_MISSING");
         if (forward.kind()==Kind.INSERT) {
             if (current!=null) throw new RedoException("ROW_REPLAY_INSERT_OVER_EXISTING_ROW");
-            var inserted=new ArrayList<Cell>();
-            for (var c:forward.columns()) {
-                if (c.state()==State.ABSENT) throw new RedoException("ROW_REPLAY_INCOMPLETE_INSERT");
-                inserted.add(cell(c));
-            }
-            return List.copyOf(inserted);
+            return completeInsert(forward,columns,schema,"ROW_REPLAY_INCOMPLETE_INSERT");
         }
         if (current==null || current.size()!=columns) throw new RedoException("ROW_REPLAY_MISSING_BASELINE_ROW");
         var prior=inverse.extent();
@@ -160,7 +159,8 @@ public final class ArchivedHeapRows {
         for (int i=0;i<columns;i++) if (inverse.columns().get(i).state()!=State.ABSENT && !cell(inverse.columns().get(i)).equals(current.get(i)))
             throw new RedoException("ROW_REPLAY_BEFORE_VALUE_MISMATCH");
         if (forward.kind()==Kind.DELETE) {
-            if (inverse.columns().stream().anyMatch(c->c.state()==State.ABSENT)) throw new RedoException("ROW_REPLAY_INCOMPLETE_DELETE_INVERSE");
+            var restored=completeInsert(inverse,columns,schema,"ROW_REPLAY_INCOMPLETE_DELETE_INVERSE");
+            if (!restored.equals(current)) throw new RedoException("ROW_REPLAY_BEFORE_VALUE_MISMATCH");
             return List.of();
         }
         var after=new ArrayList<>(current);
@@ -169,6 +169,25 @@ public final class ArchivedHeapRows {
         if (removed>=0) after.set(removed,new Cell(State.NULL,""));
         if (stored(after)!=forward.extent().storedColumns()) throw new RedoException("ROW_REPLAY_AFTER_EXTENT_MISMATCH");
         return List.copyOf(after);
+    }
+    private static List<Cell> completeInsert(Patch patch,int columns,List<FrozenHeapBaseline.PhysicalColumn> schema,String incomplete) throws RedoException {
+        var image=new ArrayList<Cell>();var extent=patch.extent();
+        if (patch.kind()!=Kind.INSERT || extent==null || extent.storedColumns()<0 || extent.storedColumns()>columns
+                || extent.changedColumns()!=extent.storedColumns() || patch.columns().size()!=columns)
+            throw new RedoException(incomplete);
+        for (int i=0;i<columns;i++) {
+            var c=patch.columns().get(i);
+            if (c.state()==State.ABSENT) {
+                if (i<extent.storedColumns() || schema==null || schema.size()!=columns || !schema.get(i).nullable())
+                    throw new RedoException(incomplete);
+                image.add(new Cell(State.NULL,""));
+            } else {
+                if (i>=extent.storedColumns() || (schema!=null && c.state()==State.NULL && !schema.get(i).nullable()))
+                    throw new RedoException(incomplete);
+                image.add(cell(c));
+            }
+        }
+        return List.copyOf(image);
     }
     private static Cell cell(Column c) {return new Cell(c.state(),HexFormat.of().formatHex(c.bytes()));}
     private static int stored(List<Cell> row) {

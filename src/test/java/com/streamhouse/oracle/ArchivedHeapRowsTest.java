@@ -35,4 +35,35 @@ class ArchivedHeapRowsTest {
     @Test void missingBaselineRefusesBeforeReadingInput() {
         assertEquals("MISSING_COMPLETE_BASELINE",assertThrows(RedoException.class,()->ArchivedHeapRows.read(List.of(),null,73074,0x0300019bL)).getMessage());
     }
+    List<FrozenHeapBaseline.PhysicalColumn> nullableTail(boolean lastNullable) {
+        return List.of(new FrozenHeapBaseline.PhysicalColumn(1,1,"ID","NUMBER",false,false),
+                new FrozenHeapBaseline.PhysicalColumn(2,2,"TXT","VARCHAR2",true,false),
+                new FrozenHeapBaseline.PhysicalColumn(3,3,"NOTE","VARCHAR2",lastNullable,true));
+    }
+    HeapUndoPair omittedTail(boolean delete,int stored) throws Exception {
+        var original=tail();var absent=new Column(State.ABSENT,new byte[0]);
+        var insert=new Patch(Kind.INSERT,original.forward().dba(),original.forward().slot(),1,
+                original.forward().xid(),original.forward().uba(),List.of(new Column(State.VALUE,new byte[]{(byte)0xc1,12}),absent,absent),
+                new RowExtent(stored,stored,-1,6));
+        var drop=new Patch(Kind.DELETE,insert.dba(),insert.slot(),1,insert.xid(),insert.uba(),List.of(absent,absent,absent));
+        var undo=original.undo();
+        return new HeapUndoPair(original.containerUid(),original.containerId(),delete ? drop : insert,
+                new UndoRowPatch(undo.identity(),delete ? insert : drop,undo.previousDba(),undo.predecessorRecord(),undo.wrap()));
+    }
+    @Test void onlyTypedCompleteNullableTailCreatesNullImagesAndValidatesDeleteBefore() throws Exception {
+        var pair=omittedTail(false,1);var image=List.of(value("c10c"),new ArchivedHeapRows.Cell(State.NULL,""),new ArchivedHeapRows.Cell(State.NULL,""));
+        assertEquals(image,ArchivedHeapRows.apply(pair,null,3,nullableTail(true)));
+        assertEquals(State.ABSENT,pair.forward().columns().get(1).state());
+        assertEquals(List.of(),ArchivedHeapRows.apply(omittedTail(true,1),image,3,nullableTail(true)));
+        assertThrows(RedoException.class,()->ArchivedHeapRows.apply(pair,null,3));
+        assertThrows(RedoException.class,()->ArchivedHeapRows.apply(omittedTail(true,1),image,3));
+        assertEquals("ROW_REPLAY_BEFORE_EXTENT_MISMATCH",assertThrows(RedoException.class,
+                ()->ArchivedHeapRows.apply(omittedTail(true,1),baseline(),3,nullableTail(true))).getMessage());
+    }
+    @Test void nonnullableTailAndAbsentInsideStoredPrefixCannotBeFilled() throws Exception {
+        assertEquals("ROW_REPLAY_INCOMPLETE_INSERT",assertThrows(RedoException.class,
+                ()->ArchivedHeapRows.apply(omittedTail(false,1),null,3,nullableTail(false))).getMessage());
+        assertEquals("ROW_REPLAY_INCOMPLETE_INSERT",assertThrows(RedoException.class,
+                ()->ArchivedHeapRows.apply(omittedTail(false,2),null,3,nullableTail(true))).getMessage());
+    }
 }
