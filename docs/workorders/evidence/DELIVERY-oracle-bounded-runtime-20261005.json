@@ -1,0 +1,36 @@
+{
+  "product_commit": "1c6d75ec9485d0187872e8b4d1438bde3b09f76b",
+  "tests": {
+    "tests": 723,
+    "errors": 0,
+    "failures": 0,
+    "skipped": 0
+  },
+  "binary_artifacts": [
+    {
+      "group": "com.streamhouse",
+      "artifact": "streamhouse-engine-oracle",
+      "version": "0.1.0-readonly-8de94aae",
+      "sha256": "8de94aae373dba947624e5b34413fc16bfcd23e2480e48a8e47686dc32d76704"
+    },
+    {
+      "group": "com.streamhouse.oracle",
+      "artifact": "oracle-redo-kernel",
+      "version": "0.1.0-bounded-foreign-begin-r2",
+      "sha256": "960954207b626be4d19db547ce2a9e3c5245075e84edb7196935ba3c0489c55e"
+    }
+  ],
+  "bounded_java_facade_cases": 4,
+  "independent_comparator_refusals": 3,
+  "source_business_dml": 0,
+  "source_config_changed": false,
+  "recovery": "recreated Java instances; not process restart or SIGKILL",
+  "control_dialect": "Oracle new owned schema",
+  "target_instance": "same owned Oracle instance, separate schema",
+  "server_http_accepted": false,
+  "site_accepted": false,
+  "independent_review": "PENDING",
+  "file_count": 316,
+  "local_seal_path": "lab/out/oracle-bounded-runtime-20261005/seal.json",
+  "local_seal_sha256": "c56daa8d0ffdb0a66f97c864186026c8875987f1d08e8b1561631c1c47b70045"
+}
