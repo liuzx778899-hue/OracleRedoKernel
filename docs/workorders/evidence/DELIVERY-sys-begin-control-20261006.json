@@ -1,0 +1,536 @@
+{
+  "files_count": 34,
+  "double_sha256_verified": true,
+  "previous_146_unchanged": true,
+  "scope": "Frozen SYS control fields and clustered LKR ITL comparison only; no production support, graph or history authorization",
+  "code_commit": "640442374e5f24a10ae6f3c47bfe9160f62ac7b9",
+  "proof": {
+    "nodes": [
+      {
+        "position": [
+          66,
+          6712,
+          16,
+          2
+        ],
+        "xid": [
+          3,
+          30,
+          705
+        ],
+        "uba": [
+          37749054,
+          436,
+          32
+        ],
+        "logical": 0,
+        "data": 0,
+        "opcode": "5.7",
+        "previous_dba": 0,
+        "rci": 0,
+        "begin": true
+      },
+      {
+        "position": [
+          66,
+          6712,
+          296,
+          2
+        ],
+        "xid": [
+          3,
+          30,
+          705
+        ],
+        "uba": [
+          37749054,
+          436,
+          33
+        ],
+        "logical": 21,
+        "data": 2,
+        "opcode": "11.1",
+        "previous_dba": 0,
+        "rci": 0,
+        "begin": false
+      },
+      {
+        "position": [
+          66,
+          6713,
+          164,
+          1
+        ],
+        "xid": [
+          3,
+          30,
+          705
+        ],
+        "uba": [
+          37749054,
+          436,
+          34
+        ],
+        "logical": 21,
+        "data": 2,
+        "opcode": "11.1",
+        "previous_dba": 0,
+        "rci": 33,
+        "begin": false
+      },
+      {
+        "position": [
+          66,
+          6714,
+          64,
+          1
+        ],
+        "xid": [
+          3,
+          30,
+          705
+        ],
+        "uba": [
+          37749054,
+          436,
+          35
+        ],
+        "logical": 48,
+        "data": 48,
+        "opcode": "10.22",
+        "previous_dba": 0,
+        "rci": 34,
+        "begin": false
+      },
+      {
+        "position": [
+          66,
+          6714,
+          344,
+          1
+        ],
+        "xid": [
+          3,
+          30,
+          705
+        ],
+        "uba": [
+          37749054,
+          436,
+          36
+        ],
+        "logical": 48,
+        "data": 48,
+        "opcode": "10.22",
+        "previous_dba": 0,
+        "rci": 35,
+        "begin": false
+      },
+      {
+        "position": [
+          66,
+          6717,
+          16,
+          1
+        ],
+        "xid": [
+          3,
+          30,
+          705
+        ],
+        "uba": [
+          37749054,
+          436,
+          37
+        ],
+        "logical": 4,
+        "data": 2,
+        "opcode": "11.1",
+        "previous_dba": 0,
+        "rci": 36,
+        "begin": false
+      },
+      {
+        "position": [
+          66,
+          6717,
+          364,
+          1
+        ],
+        "xid": [
+          3,
+          30,
+          705
+        ],
+        "uba": [
+          37749054,
+          436,
+          38
+        ],
+        "logical": 21,
+        "data": 2,
+        "opcode": "11.1",
+        "previous_dba": 0,
+        "rci": 37,
+        "begin": false
+      },
+      {
+        "position": [
+          66,
+          6718,
+          260,
+          1
+        ],
+        "xid": [
+          3,
+          30,
+          705
+        ],
+        "uba": [
+          37749054,
+          436,
+          39
+        ],
+        "logical": 49,
+        "data": 49,
+        "opcode": "10.22",
+        "previous_dba": 0,
+        "rci": 38,
+        "begin": false
+      },
+      {
+        "position": [
+          66,
+          6719,
+          16,
+          1
+        ],
+        "xid": [
+          3,
+          30,
+          705
+        ],
+        "uba": [
+          37749054,
+          436,
+          40
+        ],
+        "logical": 49,
+        "data": 49,
+        "opcode": "10.22",
+        "previous_dba": 0,
+        "rci": 39,
+        "begin": false
+      },
+      {
+        "position": [
+          66,
+          6719,
+          260,
+          1
+        ],
+        "xid": [
+          3,
+          30,
+          705
+        ],
+        "uba": [
+          37749054,
+          436,
+          41
+        ],
+        "logical": 18,
+        "data": 18,
+        "opcode": "11.1",
+        "previous_dba": 0,
+        "rci": 40,
+        "begin": false
+      }
+    ],
+    "controls": [
+      {
+        "position": [
+          66,
+          6712,
+          16,
+          1
+        ],
+        "opcode": "5.2",
+        "segment": 37748896,
+        "slot": 30,
+        "sequence": 705,
+        "flags": 81,
+        "size": 80,
+        "fbi": 0,
+        "uba": [
+          37749054,
+          436,
+          32
+        ],
+        "fields": [
+          "1e000000c10200003e014002b4012000510050000085410e0000000000000000",
+          "bd726528"
+        ]
+      },
+      {
+        "position": [
+          66,
+          6712,
+          296,
+          1
+        ],
+        "opcode": "5.2",
+        "segment": 37748896,
+        "slot": 30,
+        "sequence": 0,
+        "flags": 2,
+        "size": 84,
+        "fbi": 240,
+        "uba": [
+          37749054,
+          436,
+          33
+        ],
+        "fields": [
+          "1e000000000000003e014002b401210002005400f0fb4a080000000000000000"
+        ]
+      },
+      {
+        "position": [
+          66,
+          6720,
+          236,
+          1
+        ],
+        "opcode": "5.4",
+        "segment": 37748896,
+        "slot": 30,
+        "sequence": 705,
+        "flags": 2,
+        "uba": [
+          37749054,
+          436,
+          41
+        ],
+        "fields": [
+          "1e000000c1020000000000000900000002000000",
+          "3e014002b40129000500a01000770000",
+          "ecddc36a"
+        ]
+      }
+    ],
+    "first_lock_context": [
+      {
+        "opcode": "5.1",
+        "xid": [
+          10,
+          18,
+          2272
+        ],
+        "uba": [
+          37749351,
+          283,
+          61
+        ],
+        "tabn": 5,
+        "slot": 51,
+        "to": 0
+      },
+      {
+        "opcode": "11.4",
+        "xid": [
+          3,
+          30,
+          705
+        ],
+        "uba": [
+          37749054,
+          436,
+          33
+        ],
+        "tabn": 5,
+        "slot": 51,
+        "to": 2
+      }
+    ],
+    "native_field_differences": 0,
+    "source_actions": 0,
+    "kernel_changed": false,
+    "events": 0,
+    "control_first_row_predecessor_proven": false,
+    "full_SYS_history_authorized": false,
+    "finding": "Non-row begin5.7 and later flags2 first-row head assignment are separate observations; rci0 does not establish an edge to begin UBA."
+  },
+  "files": [
+    {
+      "path": "lab/out/sys-begin-control-20261006/classes/SysControlResearchProbe.class",
+      "bytes": 5566,
+      "sha256": "92192592d36e1e7bd894ce5aca5e16f6479bb571642cefbed4ac59c668503f0d"
+    },
+    {
+      "path": "lab/out/sys-begin-control-20261006/compile.command.json",
+      "bytes": 332,
+      "sha256": "0782ee5cc201f1543f17168b470be5162da51c53cc8685aa7730c4d05681a108"
+    },
+    {
+      "path": "lab/out/sys-begin-control-20261006/compile.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/sys-begin-control-20261006/compile.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/sys-begin-control-20261006/compile.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/sys-begin-control-20261006/executed-driver.py",
+      "bytes": 6166,
+      "sha256": "700daf68e6421ed0107a69bf0af51c5b9b0a2f7dd81290728b4dfc52a4cb8927"
+    },
+    {
+      "path": "lab/out/sys-begin-control-20261006/execution-pin.json",
+      "bytes": 605,
+      "sha256": "157c6b856f5c605e086f3d1a7293bb22716d95ec4bdd3d11257894345747aef9"
+    },
+    {
+      "path": "lab/out/sys-begin-control-20261006/failed-driver-r1.py",
+      "bytes": 6166,
+      "sha256": "700daf68e6421ed0107a69bf0af51c5b9b0a2f7dd81290728b4dfc52a4cb8927"
+    },
+    {
+      "path": "lab/out/sys-begin-control-20261006/failed-probe-r1.java",
+      "bytes": 2876,
+      "sha256": "ecd2e918f20fbb95598826e8aa6d6c3611ad49ca6fc459fb9fd2f534106d4e4d"
+    },
+    {
+      "path": "lab/out/sys-begin-control-20261006/raw.command.json",
+      "bytes": 375,
+      "sha256": "9dbf574ee13610bb7afe6ce1f795166b05eace5e9d6abc41d0ca261812fb5334"
+    },
+    {
+      "path": "lab/out/sys-begin-control-20261006/raw.rc.txt",
+      "bytes": 1,
+      "sha256": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b"
+    },
+    {
+      "path": "lab/out/sys-begin-control-20261006/raw.stderr.txt",
+      "bytes": 229,
+      "sha256": "01d4fee1dcd3524079ebb3d656a08644ec5c9cfc938a11f78294af40bfcfbd07"
+    },
+    {
+      "path": "lab/out/sys-begin-control-20261006/raw.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/sys-begin-control-r2-20261006/classes/SysControlResearchProbe.class",
+      "bytes": 5797,
+      "sha256": "695d648534603f19aa1e037f15361be957b785b0f603a186b9212f36c65663fd"
+    },
+    {
+      "path": "lab/out/sys-begin-control-r2-20261006/committed-driver-not-reexecuted.py",
+      "bytes": 8721,
+      "sha256": "7cc31f9950b59ba735b6daae0082315d7cf106f8366ca76df626da999421652c"
+    },
+    {
+      "path": "lab/out/sys-begin-control-r2-20261006/committed-probe.java",
+      "bytes": 3179,
+      "sha256": "fa9ccf10c3b2a171c5bfd708edd81ac7f59d40b7e178f364ed5d9f174d88aed8"
+    },
+    {
+      "path": "lab/out/sys-begin-control-r2-20261006/comparison-driver-r2.py",
+      "bytes": 6531,
+      "sha256": "0178d0701fcefab5c1d90cfc3bba2c6a31137d1b88d3e7622bbe88c716052584"
+    },
+    {
+      "path": "lab/out/sys-begin-control-r2-20261006/comparison-driver-r3.py",
+      "bytes": 8447,
+      "sha256": "21b6775a7e0896dfc564ec4385ac0f40f7dfc91a6dfe84fcfb14e6bbffe9421d"
+    },
+    {
+      "path": "lab/out/sys-begin-control-r2-20261006/comparison-pin-r2.json",
+      "bytes": 605,
+      "sha256": "3a44dd40013437a9afec12cc28d69a1cd90912a6bba3b0cdacde0fd06c4aa7e1"
+    },
+    {
+      "path": "lab/out/sys-begin-control-r2-20261006/comparison-pin-r3.json",
+      "bytes": 605,
+      "sha256": "4da2f0cdf878696f803e418c13e2c8da3f4124f1f84095b226231e1efbeeaadf"
+    },
+    {
+      "path": "lab/out/sys-begin-control-r2-20261006/compile.command.json",
+      "bytes": 335,
+      "sha256": "bf3254cdff53c19119a768bee37e8c8cceae5ac60e77f10ce83a7afe67dde95e"
+    },
+    {
+      "path": "lab/out/sys-begin-control-r2-20261006/compile.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/sys-begin-control-r2-20261006/compile.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/sys-begin-control-r2-20261006/compile.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/sys-begin-control-r2-20261006/executed-driver.py",
+      "bytes": 6169,
+      "sha256": "473c03dcb118c5a33fb14d1c1c88e71795ac806863823753a032fe5604bc7908"
+    },
+    {
+      "path": "lab/out/sys-begin-control-r2-20261006/execution-pin.json",
+      "bytes": 605,
+      "sha256": "b9be9e70c25477402f7a6c351111e177222f4bdb65adbf496ebabf8198fbdf50"
+    },
+    {
+      "path": "lab/out/sys-begin-control-r2-20261006/native-selected-records.txt",
+      "bytes": 16534,
+      "sha256": "e3b820dc225690bf40af6653f4353ddeeac7e277ad558460c851fc0afbe57d5a"
+    },
+    {
+      "path": "lab/out/sys-begin-control-r2-20261006/proof.json",
+      "bytes": 5822,
+      "sha256": "962d24e6871e80620c25f7552e5396aca06f84db1f741f5d08af07297dd4a4be"
+    },
+    {
+      "path": "lab/out/sys-begin-control-r2-20261006/raw-records.json",
+      "bytes": 10876,
+      "sha256": "e0933ee2e0c1e242605d0fbaf86acb6c130f320cd7217a1aa3d33c9dbe94c4b9"
+    },
+    {
+      "path": "lab/out/sys-begin-control-r2-20261006/raw.command.json",
+      "bytes": 378,
+      "sha256": "94668ce131f24d84ebbbe296dcbc4bd97ca2f30c49c34613b863f782810624f7"
+    },
+    {
+      "path": "lab/out/sys-begin-control-r2-20261006/raw.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/sys-begin-control-r2-20261006/raw.stderr.txt",
+      "bytes": 65,
+      "sha256": "a9c260dc2a4fa67d854084943094a1f4bebf85845242aafafacbc03f45e0d6a6"
+    },
+    {
+      "path": "lab/out/sys-begin-control-r2-20261006/raw.stdout.txt",
+      "bytes": 5926,
+      "sha256": "8d3131ba5f3ddb197d7d28db05843a9a9f598dcdcaa9e1a85e846ed5d5b9ea03"
+    },
+    {
+      "path": "lab/out/sys-begin-control-r2-20261006/terminal-failures.txt",
+      "bytes": 2340,
+      "sha256": "7e0d44b7268e1ade6579a3fe8f3802893a237d948628a89f93d83291e41fedb4"
+    }
+  ]
+}
