@@ -1,0 +1,588 @@
+{
+  "runtime_and_lab_commit": "bed7fdb28187c214d8f5573b6bc5e9a3d2a74171",
+  "kernel_sha256": "58da93ea85f3246d5a48ae914a29e23aa84bc6ade02de619d01e64e4c51d7932",
+  "sha256_checked_twice": true,
+  "input_manifest": "docs/workorders/evidence/RESEARCH-full-dml-capture-20261005.json",
+  "tests": {
+    "full_before_two_new_cases": 245,
+    "targeted_after_two_new_cases": 7,
+    "failed_fixture_round_preserved": true
+  },
+  "proof": {
+    "kernel_sha256": "58da93ea85f3246d5a48ae914a29e23aa84bc6ade02de619d01e64e4c51d7932",
+    "generic_no_tail_refused": true,
+    "post_baseline_no_tail_refused": true,
+    "bad_receipt_and_source_refused": true,
+    "capture_archive_rows_equal": true,
+    "final_seed_state_equal": true,
+    "old_update_batch_output_byte_equal": true,
+    "new_source_actions": 0,
+    "full_dml_matrix_accepted": false
+  },
+  "independent_complete_images_zero_differences": 2,
+  "native_image_counterexamples_detected": 3,
+  "actual_cross_baseline_refused": true,
+  "late_before_refused": true,
+  "rollback_only_empty": true,
+  "public_events_refused": true,
+  "files": [
+    {
+      "path": "lab/out/baseline-physical-scope-20261005/actual-r2.command.json",
+      "bytes": 785,
+      "sha256": "8a93ca8b5e03f3e5e7c51c41cb2f7adccc759df2e3fb14b0532313aa74a9f44c"
+    },
+    {
+      "path": "lab/out/baseline-physical-scope-20261005/actual-r2.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/baseline-physical-scope-20261005/actual-r2.stderr.txt",
+      "bytes": 92,
+      "sha256": "ce511e42b23b08e4a15ac25db8d83201116a09d2fae5909aa19a9cecdfdb3964"
+    },
+    {
+      "path": "lab/out/baseline-physical-scope-20261005/actual-r2.stdout.txt",
+      "bytes": 1286,
+      "sha256": "57ae81c4fee496d73caa8f5492fcbc76cb2ece185dd1c424343ba2416cf0287d"
+    },
+    {
+      "path": "lab/out/baseline-physical-scope-20261005/actual.command.json",
+      "bytes": 782,
+      "sha256": "750e78a0edcd90e4305df8dc33d33b5e239920ebac22cdafcd898421b5cc8916"
+    },
+    {
+      "path": "lab/out/baseline-physical-scope-20261005/actual.rc.txt",
+      "bytes": 1,
+      "sha256": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b"
+    },
+    {
+      "path": "lab/out/baseline-physical-scope-20261005/actual.stderr.txt",
+      "bytes": 707,
+      "sha256": "d598d76d8050c2ef4cc1186d9485afb06249ad892f48f29622e3ac6664052b2f"
+    },
+    {
+      "path": "lab/out/baseline-physical-scope-20261005/actual.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/baseline-physical-scope-20261005/archive-parity.command.json",
+      "bytes": 635,
+      "sha256": "40c5583fe1c2dbec4122aeaacb8b940d6511a146a1eea215dc00477e61fdbb60"
+    },
+    {
+      "path": "lab/out/baseline-physical-scope-20261005/archive-parity.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/baseline-physical-scope-20261005/archive-parity.stderr.txt",
+      "bytes": 117,
+      "sha256": "a880fa025bcd86869ec6dc7ce5676b8cdced3bd1f8c95bd0145773aa33572182"
+    },
+    {
+      "path": "lab/out/baseline-physical-scope-20261005/archive-parity.stdout.txt",
+      "bytes": 307,
+      "sha256": "96da7237549c28671c8629a39ad9331309d7bee0f46f23013bd394423fd6c98b"
+    },
+    {
+      "path": "lab/out/baseline-physical-scope-20261005/bad-after.command.json",
+      "bytes": 358,
+      "sha256": "71db7eece2bf21a52873c5578a22fcab4c32e505fba9f7b49d604bdc65eef9c2"
+    },
+    {
+      "path": "lab/out/baseline-physical-scope-20261005/bad-after.output.txt",
+      "bytes": 1286,
+      "sha256": "3283e4f535e8571969a4db4d2f7f326c36c41f787bec209b31c3e3d234fd879d"
+    },
+    {
+      "path": "lab/out/baseline-physical-scope-20261005/bad-after.rc.txt",
+      "bytes": 1,
+      "sha256": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b"
+    },
+    {
+      "path": "lab/out/baseline-physical-scope-20261005/bad-after.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/baseline-physical-scope-20261005/bad-after.stdout.txt",
+      "bytes": 101,
+      "sha256": "45d8966ff6e2fdbcacbcbc530bf5deacaf1cee2461c2f52bdb2443803a637fbf"
+    },
+    {
+      "path": "lab/out/baseline-physical-scope-20261005/bad-operation.command.json",
+      "bytes": 362,
+      "sha256": "324c065638e18478fe9c381d7ebe63a65276d32a31d21f5feb1759764beb2bac"
+    },
+    {
+      "path": "lab/out/baseline-physical-scope-20261005/bad-operation.output.txt",
+      "bytes": 1286,
+      "sha256": "613b2800380505d407c0913cc9ac59b9b8a659807d923189ec3050c91f901649"
+    },
+    {
+      "path": "lab/out/baseline-physical-scope-20261005/bad-operation.rc.txt",
+      "bytes": 1,
+      "sha256": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b"
+    },
+    {
+      "path": "lab/out/baseline-physical-scope-20261005/bad-operation.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/baseline-physical-scope-20261005/bad-operation.stdout.txt",
+      "bytes": 119,
+      "sha256": "d1a7024faaaa16b99964e237ffc26795a2f4ba673fb7d511eea386058f9a809e"
+    },
+    {
+      "path": "lab/out/baseline-physical-scope-20261005/bad-slot.command.json",
+      "bytes": 357,
+      "sha256": "6081100451c00ca750a14513f762171c79ae1ebecfa964d3cccffdac1a505703"
+    },
+    {
+      "path": "lab/out/baseline-physical-scope-20261005/bad-slot.output.txt",
+      "bytes": 1286,
+      "sha256": "6d54525bb7026a7c57e896612848fbd9c88e67407fea4776513d81d9b9447197"
+    },
+    {
+      "path": "lab/out/baseline-physical-scope-20261005/bad-slot.rc.txt",
+      "bytes": 1,
+      "sha256": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b"
+    },
+    {
+      "path": "lab/out/baseline-physical-scope-20261005/bad-slot.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/baseline-physical-scope-20261005/bad-slot.stdout.txt",
+      "bytes": 101,
+      "sha256": "45d8966ff6e2fdbcacbcbc530bf5deacaf1cee2461c2f52bdb2443803a637fbf"
+    },
+    {
+      "path": "lab/out/baseline-physical-scope-20261005/before-seed.snapshot",
+      "bytes": 767,
+      "sha256": "4f69dc039ce78eaa2f0606af59c1db55008a44ace946767d3ecd149761e08fcc"
+    },
+    {
+      "path": "lab/out/baseline-physical-scope-20261005/build.command.json",
+      "bytes": 65,
+      "sha256": "6331d95251a0f2a93bd915416a190f270d6e65c5795d0039e81975404fc163dc"
+    },
+    {
+      "path": "lab/out/baseline-physical-scope-20261005/build.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/baseline-physical-scope-20261005/build.stderr.txt",
+      "bytes": 301,
+      "sha256": "a73235e74b7212a667f3c9a6209ea0afe89e0cb01c372b4298f0f1a5e284ba49"
+    },
+    {
+      "path": "lab/out/baseline-physical-scope-20261005/build.stdout.txt",
+      "bytes": 9944,
+      "sha256": "86e5fd8d238ad8e963b60505998065ab1b3ce8a7c6d7ede888be007c32d526ba"
+    },
+    {
+      "path": "lab/out/baseline-physical-scope-20261005/classes/CapturedRowsProbe.class",
+      "bytes": 8872,
+      "sha256": "57bcde3e46b87336ab7030b30c2650f413dcb3e64230a60e0c05532f93952aca"
+    },
+    {
+      "path": "lab/out/baseline-physical-scope-20261005/classes/PhysicalTransactionProbe.class",
+      "bytes": 6883,
+      "sha256": "b3f934cd32fc90e5058cb41ac487dc1237177a5547ecbbcaadbd135e553d1a9a"
+    },
+    {
+      "path": "lab/out/baseline-physical-scope-20261005/classes/VerifiedHeapRowsProbe.class",
+      "bytes": 4536,
+      "sha256": "08b822e0c969770b7df6180b95e50d80c0e1362a174d109bea15a67b8719c387"
+    },
+    {
+      "path": "lab/out/baseline-physical-scope-20261005/classes/VerifiedHeapStateProbe.class",
+      "bytes": 3615,
+      "sha256": "d7cdca87e5d2f843c3d53fff4735b1d9e53f8d123cfb8c35461d4bc32f7478ee"
+    },
+    {
+      "path": "lab/out/baseline-physical-scope-20261005/compile-gate-probes.command.json",
+      "bytes": 560,
+      "sha256": "836c1d973bf9501f83729ffc08d1e09218db2b759af9b2d157f52feb092e5265"
+    },
+    {
+      "path": "lab/out/baseline-physical-scope-20261005/compile-gate-probes.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/baseline-physical-scope-20261005/compile-gate-probes.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/baseline-physical-scope-20261005/compile-gate-probes.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/baseline-physical-scope-20261005/cross-baseline.command.json",
+      "bytes": 671,
+      "sha256": "cc319409cd7a8c675dba2f4c11447e6e66dbe0760ce71285cd0539139ada89b3"
+    },
+    {
+      "path": "lab/out/baseline-physical-scope-20261005/cross-baseline.rc.txt",
+      "bytes": 1,
+      "sha256": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b"
+    },
+    {
+      "path": "lab/out/baseline-physical-scope-20261005/cross-baseline.stderr.txt",
+      "bytes": 780,
+      "sha256": "0b2aa653a5587895ccb32a5ea1e9104d6c1b3e10e4eb38760638a83f73052bcf"
+    },
+    {
+      "path": "lab/out/baseline-physical-scope-20261005/cross-baseline.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/baseline-physical-scope-20261005/failed-test-fixture.java",
+      "bytes": 6754,
+      "sha256": "532c03d701ad572764598ee9df9ec4d463283ec21b24156bdcf22bf536d6a503"
+    },
+    {
+      "path": "lab/out/baseline-physical-scope-20261005/failed-tests.xml",
+      "bytes": 13044,
+      "sha256": "287b1d2ccaab3ae9543fa5c8c3523f4755f9834caaf1775564308a7c2056df3d"
+    },
+    {
+      "path": "lab/out/baseline-physical-scope-20261005/final-state.command.json",
+      "bytes": 802,
+      "sha256": "e61ee66b36de923ab632f7520d9847b9f9e6c404460e736a626fbe79b0f04e3c"
+    },
+    {
+      "path": "lab/out/baseline-physical-scope-20261005/final-state.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/baseline-physical-scope-20261005/final-state.stderr.txt",
+      "bytes": 644,
+      "sha256": "13b9d9c5c9378f47690273c1816e6f7674a14324617c961b48acad24e543bb7f"
+    },
+    {
+      "path": "lab/out/baseline-physical-scope-20261005/final-state.stdout.txt",
+      "bytes": 75,
+      "sha256": "55b0af0cd0b0d9d20ba5081da744ef88728323f3a77660b5a452f2077a619709"
+    },
+    {
+      "path": "lab/out/baseline-physical-scope-20261005/foreign-source.command.json",
+      "bytes": 786,
+      "sha256": "eae2cdc94d8993263e94f18806ecb3d707416b0efd866cefe8ec7106d03fa749"
+    },
+    {
+      "path": "lab/out/baseline-physical-scope-20261005/foreign-source.rc.txt",
+      "bytes": 1,
+      "sha256": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b"
+    },
+    {
+      "path": "lab/out/baseline-physical-scope-20261005/foreign-source.snapshot",
+      "bytes": 767,
+      "sha256": "dae89df3121a010992e0101ae391c846c87cad023e9fa1db22c4f87fd32b7f30"
+    },
+    {
+      "path": "lab/out/baseline-physical-scope-20261005/foreign-source.stderr.txt",
+      "bytes": 445,
+      "sha256": "8d51018f7f022441f2de9cd17aefb46b7935eda117d7b268de80cf62729cdf33"
+    },
+    {
+      "path": "lab/out/baseline-physical-scope-20261005/foreign-source.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/baseline-physical-scope-20261005/gate-proof.json",
+      "bytes": 399,
+      "sha256": "fdd32c9aab9af272239db82d59e044bed1a92a117816c687e06f5b4c63462a76"
+    },
+    {
+      "path": "lab/out/baseline-physical-scope-20261005/generic-no-tail.command.json",
+      "bytes": 805,
+      "sha256": "d4909eb2769967c97d505c72d695b6f3e86084e99960199a8fbd5c4d13065be1"
+    },
+    {
+      "path": "lab/out/baseline-physical-scope-20261005/generic-no-tail.rc.txt",
+      "bytes": 1,
+      "sha256": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b"
+    },
+    {
+      "path": "lab/out/baseline-physical-scope-20261005/generic-no-tail.stderr.txt",
+      "bytes": 727,
+      "sha256": "c1062c668302f1bd27056685112d2176d7323a8b434cda14231918297b76d518"
+    },
+    {
+      "path": "lab/out/baseline-physical-scope-20261005/generic-no-tail.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/baseline-physical-scope-20261005/kernel-r2.jar",
+      "bytes": 189760,
+      "sha256": "58da93ea85f3246d5a48ae914a29e23aa84bc6ade02de619d01e64e4c51d7932"
+    },
+    {
+      "path": "lab/out/baseline-physical-scope-20261005/kernel.jar",
+      "bytes": 188826,
+      "sha256": "ea9f58c629d39fb1a1c15dddd72b74322581a641c8fb6fa252fad43bc4e39d51"
+    },
+    {
+      "path": "lab/out/baseline-physical-scope-20261005/late-before.command.json",
+      "bytes": 961,
+      "sha256": "8b927e78b6feff6a5f56179af9e01e330635e18c023999558a408d05eaff7641"
+    },
+    {
+      "path": "lab/out/baseline-physical-scope-20261005/late-before.rc.txt",
+      "bytes": 1,
+      "sha256": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b"
+    },
+    {
+      "path": "lab/out/baseline-physical-scope-20261005/late-before.stderr.txt",
+      "bytes": 393,
+      "sha256": "de8d75e77f1b0ff44026b2552a3afa3d47249cccb96cebcf4288e868ede1eb98"
+    },
+    {
+      "path": "lab/out/baseline-physical-scope-20261005/late-before.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/baseline-physical-scope-20261005/native-sql-images.command.json",
+      "bytes": 358,
+      "sha256": "65dc05c9323026434f77a8db28d12bfe46c940f019e22e620819e61bfc34e4a6"
+    },
+    {
+      "path": "lab/out/baseline-physical-scope-20261005/native-sql-images.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/baseline-physical-scope-20261005/native-sql-images.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/baseline-physical-scope-20261005/native-sql-images.stdout.txt",
+      "bytes": 85,
+      "sha256": "aa1828c5c74d92b60d1dd2192117df3389ffb50ded86165935f30383750c32aa"
+    },
+    {
+      "path": "lab/out/baseline-physical-scope-20261005/new-regression-tests-r2.command.json",
+      "bytes": 105,
+      "sha256": "d52e444f5e2c26237aefaadcacea22a1275fb49e3197f279b43e4971aa09c505"
+    },
+    {
+      "path": "lab/out/baseline-physical-scope-20261005/new-regression-tests-r2.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/baseline-physical-scope-20261005/new-regression-tests-r2.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/baseline-physical-scope-20261005/new-regression-tests-r2.stdout.txt",
+      "bytes": 2048,
+      "sha256": "2313c47a0879c5bfb22af5ddcc520ca99235ad013606ff9a30aca82e9a1936c6"
+    },
+    {
+      "path": "lab/out/baseline-physical-scope-20261005/new-regression-tests.command.json",
+      "bytes": 105,
+      "sha256": "d52e444f5e2c26237aefaadcacea22a1275fb49e3197f279b43e4971aa09c505"
+    },
+    {
+      "path": "lab/out/baseline-physical-scope-20261005/new-regression-tests.rc.txt",
+      "bytes": 1,
+      "sha256": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b"
+    },
+    {
+      "path": "lab/out/baseline-physical-scope-20261005/new-regression-tests.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/baseline-physical-scope-20261005/new-regression-tests.stdout.txt",
+      "bytes": 5353,
+      "sha256": "ce186ebfa129d19da64033cc543c337c6456d1a2d7c063f62f84903de18b9a62"
+    },
+    {
+      "path": "lab/out/baseline-physical-scope-20261005/old-update-parity.command.json",
+      "bytes": 949,
+      "sha256": "94cea789a95413deb0b1db0d644d776470fef8b9ca200d26f4afe42030b933bc"
+    },
+    {
+      "path": "lab/out/baseline-physical-scope-20261005/old-update-parity.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/baseline-physical-scope-20261005/old-update-parity.stderr.txt",
+      "bytes": 92,
+      "sha256": "6533aac2d8b7e5c04cab91a8b3b2a79346fedbe8129383fddb9d6cf67d9cc37e"
+    },
+    {
+      "path": "lab/out/baseline-physical-scope-20261005/old-update-parity.stdout.txt",
+      "bytes": 1929,
+      "sha256": "e78a54688cf849fdf94061a7d2cdce2e4c5f84afd319b3cd21cda6987735eabd"
+    },
+    {
+      "path": "lab/out/baseline-physical-scope-20261005/public-events.command.json",
+      "bytes": 250,
+      "sha256": "aef1f6f3a9d3d8f71c8196a2dac2fd560116e6b645a7adc542a043034d70ff24"
+    },
+    {
+      "path": "lab/out/baseline-physical-scope-20261005/public-events.rc.txt",
+      "bytes": 1,
+      "sha256": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b"
+    },
+    {
+      "path": "lab/out/baseline-physical-scope-20261005/public-events.stderr.txt",
+      "bytes": 342,
+      "sha256": "4e54471966e07848c0b3dc75121b116fde2a1abe1019ef2dc108c645233f0c0e"
+    },
+    {
+      "path": "lab/out/baseline-physical-scope-20261005/public-events.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/baseline-physical-scope-20261005/rollback-only.command.json",
+      "bytes": 558,
+      "sha256": "c8eb3d36af8c732db2e0e5bc1ff7e5e5611cdf54c242589b9834d5e2ed0587b2"
+    },
+    {
+      "path": "lab/out/baseline-physical-scope-20261005/rollback-only.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/baseline-physical-scope-20261005/rollback-only.stderr.txt",
+      "bytes": 117,
+      "sha256": "fad499ba131b02f5c4827f1b8607e3da6d6ed7d8808604b340c4576c9d81cad5"
+    },
+    {
+      "path": "lab/out/baseline-physical-scope-20261005/rollback-only.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/baseline-physical-scope-20261005/sealed-ArchivedHeapRows.java",
+      "bytes": 13248,
+      "sha256": "b81a6fc636bcdd8901a9eec4658547e954fd5bd5556d8fe2294237628cc493b8"
+    },
+    {
+      "path": "lab/out/baseline-physical-scope-20261005/sealed-ArchivedPhysicalTransactions.java",
+      "bytes": 16020,
+      "sha256": "4c059143ca678f32aa8f984d16c1c46f6e034360d78f83c05646cee9494f9877"
+    },
+    {
+      "path": "lab/out/baseline-physical-scope-20261005/sealed-ArchivedPhysicalTransactionsTest.java",
+      "bytes": 6774,
+      "sha256": "b1dda61bd1cdc0a4a9081e26ee053d57c5c2d3849dac29f7c9ef63e4c0956399"
+    },
+    {
+      "path": "lab/out/baseline-physical-scope-20261005/sealed-CapturedHeapBatch.java",
+      "bytes": 7562,
+      "sha256": "56e2fb752d16cfb99e3d8795eb293de7edaa34284fbd4d5106b5835b5bfadcd7"
+    },
+    {
+      "path": "lab/out/baseline-physical-scope-20261005/sealed-compare_dml_capture_rows.py",
+      "bytes": 2094,
+      "sha256": "a0a372d073c0913c436b215c40e84b6711b7e55e698e4ee4006f53b56cc60209"
+    },
+    {
+      "path": "lab/out/baseline-physical-scope-20261005/sealed-verify_baseline_physical_scope.py",
+      "bytes": 4087,
+      "sha256": "e1452af2944848ccc4ee1027a4f95181c5f5cac6d1773234f13c7b1b79aaf656"
+    },
+    {
+      "path": "lab/out/baseline-physical-scope-20261005/selected-no-tail.command.json",
+      "bytes": 783,
+      "sha256": "83bf00ce79004a53720543cacd5041037a1d691bbe64093f25970d1d3884d505"
+    },
+    {
+      "path": "lab/out/baseline-physical-scope-20261005/selected-no-tail.rc.txt",
+      "bytes": 1,
+      "sha256": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b"
+    },
+    {
+      "path": "lab/out/baseline-physical-scope-20261005/selected-no-tail.stderr.txt",
+      "bytes": 715,
+      "sha256": "0d374a8cab1a12c6bc2ed493f9a3206ac78c35dac88d80ab1f9a095b76bdb2d5"
+    },
+    {
+      "path": "lab/out/baseline-physical-scope-20261005/selected-no-tail.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/baseline-physical-scope-20261005/wrong-receipt.command.json",
+      "bytes": 785,
+      "sha256": "941b1c3daa164208ebd3d9702880abcddb5ec6d55e60f7911181f8b4ef5e7599"
+    },
+    {
+      "path": "lab/out/baseline-physical-scope-20261005/wrong-receipt.rc.txt",
+      "bytes": 1,
+      "sha256": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b"
+    },
+    {
+      "path": "lab/out/baseline-physical-scope-20261005/wrong-receipt.stderr.txt",
+      "bytes": 318,
+      "sha256": "ba8269dc87c937d2a311f3873c6679ba84178bc8ddd70b694aeeaf76c071b10e"
+    },
+    {
+      "path": "lab/out/baseline-physical-scope-20261005/wrong-receipt.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "source_seal": [
+    {
+      "path": "src/main/java/com/streamhouse/oracle/ArchivedHeapRows.java",
+      "actual_source_bytes_sha256": "b81a6fc636bcdd8901a9eec4658547e954fd5bd5556d8fe2294237628cc493b8",
+      "git_blob_sha256": "ca0b228d2664470068f07bd1e63920eca76a548b23afa1040d786ee1abf71fd9",
+      "lf_normalized_equal": true
+    },
+    {
+      "path": "src/main/java/com/streamhouse/oracle/ArchivedPhysicalTransactions.java",
+      "actual_source_bytes_sha256": "4c059143ca678f32aa8f984d16c1c46f6e034360d78f83c05646cee9494f9877",
+      "git_blob_sha256": "4dec273f632ff89c00c050cc9642989c208404ca54b2d4583182faf8571c8b78",
+      "lf_normalized_equal": true
+    },
+    {
+      "path": "src/main/java/com/streamhouse/oracle/CapturedHeapBatch.java",
+      "actual_source_bytes_sha256": "56e2fb752d16cfb99e3d8795eb293de7edaa34284fbd4d5106b5835b5bfadcd7",
+      "git_blob_sha256": "eabaf503981fbe204eb72d024b51d16fd9e0facf34792ca329d2297536777c1e",
+      "lf_normalized_equal": true
+    },
+    {
+      "path": "src/test/java/com/streamhouse/oracle/ArchivedPhysicalTransactionsTest.java",
+      "actual_source_bytes_sha256": "b1dda61bd1cdc0a4a9081e26ee053d57c5c2d3849dac29f7c9ef63e4c0956399",
+      "git_blob_sha256": "b1dda61bd1cdc0a4a9081e26ee053d57c5c2d3849dac29f7c9ef63e4c0956399",
+      "lf_normalized_equal": true
+    },
+    {
+      "path": "lab/verify_baseline_physical_scope.py",
+      "actual_source_bytes_sha256": "e1452af2944848ccc4ee1027a4f95181c5f5cac6d1773234f13c7b1b79aaf656",
+      "git_blob_sha256": "e1452af2944848ccc4ee1027a4f95181c5f5cac6d1773234f13c7b1b79aaf656",
+      "lf_normalized_equal": true
+    },
+    {
+      "path": "lab/compare_dml_capture_rows.py",
+      "actual_source_bytes_sha256": "a0a372d073c0913c436b215c40e84b6711b7e55e698e4ee4006f53b56cc60209",
+      "git_blob_sha256": "a0a372d073c0913c436b215c40e84b6711b7e55e698e4ee4006f53b56cc60209",
+      "lf_normalized_equal": true
+    }
+  ]
+}
