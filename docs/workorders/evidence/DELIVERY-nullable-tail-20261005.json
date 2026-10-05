@@ -1,0 +1,459 @@
+{
+  "runtime_lab_commit": "4f796910909cd6937e1ccb8d8d2b697eda176599",
+  "kernel_sha256": "a084218e5ebc9c4e3313cd84beba0c2bea4ff280a82f93fcf5890d2a0493f968",
+  "tests": 251,
+  "sha256_checked_twice": true,
+  "input_manifest": "docs/workorders/evidence/RESEARCH-null-dml-capture-20261005.json",
+  "proof": {
+    "complete_null_events": 2,
+    "archive_capture_equal": true,
+    "final_seed_equal": true,
+    "physical_parser_classes_unchanged": true,
+    "old_batches_output_byte_equal": true,
+    "plain_baseline_nonnullable_changed_receipt_late_before_refused": true,
+    "new_source_actions": 0,
+    "full_dml_matrix_accepted": false
+  },
+  "independent_native_sql_zero_differences": 2,
+  "comparator_refusals": 3,
+  "public_events_refused": true,
+  "source_seal": [
+    {
+      "path": "src/main/java/com/streamhouse/oracle/ArchivedHeapRows.java",
+      "actual_source_sha256": "99bcdd7c436e5432dd11c6e77713137dff34be130af06ff5a05411595c26d217",
+      "git_blob_sha256": "f45a67787a401efa436c8c819b1ea5e2929ce7d46a6962075beda39269d574cc",
+      "lf_normalized_equal": true
+    },
+    {
+      "path": "src/test/java/com/streamhouse/oracle/ArchivedHeapRowsTest.java",
+      "actual_source_sha256": "d785c156c32f675d97fe66b529712c5928a2689073831fd93e16a41bb666447c",
+      "git_blob_sha256": "d785c156c32f675d97fe66b529712c5928a2689073831fd93e16a41bb666447c",
+      "lf_normalized_equal": true
+    },
+    {
+      "path": "lab/PlainBaselineRowsProbe.java",
+      "actual_source_sha256": "437a55417783a8b243ee4b62f2f84fa64b8b25451451cd6599783577d42806c2",
+      "git_blob_sha256": "437a55417783a8b243ee4b62f2f84fa64b8b25451451cd6599783577d42806c2",
+      "lf_normalized_equal": true
+    },
+    {
+      "path": "lab/compare_nullable_tail_rows.py",
+      "actual_source_sha256": "3544fa118e53e237bed80d23e4a95c34a45b1dd3199aaa3b970367f14016a0a5",
+      "git_blob_sha256": "3544fa118e53e237bed80d23e4a95c34a45b1dd3199aaa3b970367f14016a0a5",
+      "lf_normalized_equal": true
+    },
+    {
+      "path": "lab/verify_nullable_tail.py",
+      "actual_source_sha256": "10e98a2430952d7aea3a5e1ceb7687fd8fe61b3cfe03e2276f676436bb81e85d",
+      "git_blob_sha256": "10e98a2430952d7aea3a5e1ceb7687fd8fe61b3cfe03e2276f676436bb81e85d",
+      "lf_normalized_equal": true
+    }
+  ],
+  "files": [
+    {
+      "path": "lab/out/nullable-tail-20261005/absent-after.command.json",
+      "bytes": 353,
+      "sha256": "265893f46eeb9a7926f7ac2ce78da098f6b2ea8c8aedf720198d0247def0d947"
+    },
+    {
+      "path": "lab/out/nullable-tail-20261005/absent-after.output.txt",
+      "bytes": 1178,
+      "sha256": "99018cd1def0fbc9e41c5ec7140d587ca541f479329e662de3524b895c844628"
+    },
+    {
+      "path": "lab/out/nullable-tail-20261005/absent-after.rc.txt",
+      "bytes": 1,
+      "sha256": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b"
+    },
+    {
+      "path": "lab/out/nullable-tail-20261005/absent-after.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/nullable-tail-20261005/absent-after.stdout.txt",
+      "bytes": 153,
+      "sha256": "5f8a8023f61a6f31bdbf28d87444488e57fe61c944fc5394efeff38f90495821"
+    },
+    {
+      "path": "lab/out/nullable-tail-20261005/actual.command.json",
+      "bytes": 772,
+      "sha256": "74018213c6339d919f16ec1616315d7d781f66f66a9cb82b32019bc7e6df8977"
+    },
+    {
+      "path": "lab/out/nullable-tail-20261005/actual.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/nullable-tail-20261005/actual.stderr.txt",
+      "bytes": 92,
+      "sha256": "ce511e42b23b08e4a15ac25db8d83201116a09d2fae5909aa19a9cecdfdb3964"
+    },
+    {
+      "path": "lab/out/nullable-tail-20261005/actual.stdout.txt",
+      "bytes": 1176,
+      "sha256": "8f6d5cae03964ef4e1a8a702ffff77fa0db37012575a062a60504f8dd0b67957"
+    },
+    {
+      "path": "lab/out/nullable-tail-20261005/archive-parity.command.json",
+      "bytes": 612,
+      "sha256": "fc2516979ec94201bb6e838ab7b12e6ff75af9b42df4b74a72541aca07f16212"
+    },
+    {
+      "path": "lab/out/nullable-tail-20261005/archive-parity.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/nullable-tail-20261005/archive-parity.stderr.txt",
+      "bytes": 117,
+      "sha256": "a880fa025bcd86869ec6dc7ce5676b8cdced3bd1f8c95bd0145773aa33572182"
+    },
+    {
+      "path": "lab/out/nullable-tail-20261005/archive-parity.stdout.txt",
+      "bytes": 201,
+      "sha256": "1ec14c58b8691ce67c258d248b792bdd3e6a7e93b134c0ec19b0d30d30d45d28"
+    },
+    {
+      "path": "lab/out/nullable-tail-20261005/build.command.json",
+      "bytes": 65,
+      "sha256": "6331d95251a0f2a93bd915416a190f270d6e65c5795d0039e81975404fc163dc"
+    },
+    {
+      "path": "lab/out/nullable-tail-20261005/build.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/nullable-tail-20261005/build.stderr.txt",
+      "bytes": 301,
+      "sha256": "a73235e74b7212a667f3c9a6209ea0afe89e0cb01c372b4298f0f1a5e284ba49"
+    },
+    {
+      "path": "lab/out/nullable-tail-20261005/build.stdout.txt",
+      "bytes": 9944,
+      "sha256": "a93687982445e9540afb676999cb419bfb3f46e9522df1724e0c4405d3d29619"
+    },
+    {
+      "path": "lab/out/nullable-tail-20261005/changed-receipt.command.json",
+      "bytes": 764,
+      "sha256": "010c190d225ee56b74ebe120ae871063ea9de00c00604f0c7f43b708954c268d"
+    },
+    {
+      "path": "lab/out/nullable-tail-20261005/changed-receipt.rc.txt",
+      "bytes": 1,
+      "sha256": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b"
+    },
+    {
+      "path": "lab/out/nullable-tail-20261005/changed-receipt.snapshot",
+      "bytes": 757,
+      "sha256": "162348cd5fe4290259bec61523f3aab4360eaff88ec95544227f197a552c32fb"
+    },
+    {
+      "path": "lab/out/nullable-tail-20261005/changed-receipt.stderr.txt",
+      "bytes": 318,
+      "sha256": "ba8269dc87c937d2a311f3873c6679ba84178bc8ddd70b694aeeaf76c071b10e"
+    },
+    {
+      "path": "lab/out/nullable-tail-20261005/changed-receipt.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/nullable-tail-20261005/classes/CapturedRowsProbe.class",
+      "bytes": 8872,
+      "sha256": "57bcde3e46b87336ab7030b30c2650f413dcb3e64230a60e0c05532f93952aca"
+    },
+    {
+      "path": "lab/out/nullable-tail-20261005/classes/PhysicalTransactionProbe.class",
+      "bytes": 6883,
+      "sha256": "b3f934cd32fc90e5058cb41ac487dc1237177a5547ecbbcaadbd135e553d1a9a"
+    },
+    {
+      "path": "lab/out/nullable-tail-20261005/classes/PlainBaselineRowsProbe.class",
+      "bytes": 2925,
+      "sha256": "60c7caab5cf911f9118499e7c983a571aea1bb838e30cd123e57f001de964a88"
+    },
+    {
+      "path": "lab/out/nullable-tail-20261005/classes/VerifiedHeapRowsProbe.class",
+      "bytes": 4536,
+      "sha256": "08b822e0c969770b7df6180b95e50d80c0e1362a174d109bea15a67b8719c387"
+    },
+    {
+      "path": "lab/out/nullable-tail-20261005/compile-probes.command.json",
+      "bytes": 537,
+      "sha256": "ec7047f098aca14e38f4e1800d46a4e486a074ee27ddf497210b638058ffe463"
+    },
+    {
+      "path": "lab/out/nullable-tail-20261005/compile-probes.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/nullable-tail-20261005/compile-probes.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/nullable-tail-20261005/compile-probes.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/nullable-tail-20261005/fake-value.command.json",
+      "bytes": 351,
+      "sha256": "9169defaf76b3135ae81c2097b5cb6cfd988711a0b0fa2a2bbd11a6239d17fc1"
+    },
+    {
+      "path": "lab/out/nullable-tail-20261005/fake-value.output.txt",
+      "bytes": 1179,
+      "sha256": "6e4aae15dc79f5066dc41a1228f1278b0eb5d070179f21350332f71924bfc5dd"
+    },
+    {
+      "path": "lab/out/nullable-tail-20261005/fake-value.rc.txt",
+      "bytes": 1,
+      "sha256": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b"
+    },
+    {
+      "path": "lab/out/nullable-tail-20261005/fake-value.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/nullable-tail-20261005/fake-value.stdout.txt",
+      "bytes": 153,
+      "sha256": "5f8a8023f61a6f31bdbf28d87444488e57fe61c944fc5394efeff38f90495821"
+    },
+    {
+      "path": "lab/out/nullable-tail-20261005/kernel.jar",
+      "bytes": 190922,
+      "sha256": "a084218e5ebc9c4e3313cd84beba0c2bea4ff280a82f93fcf5890d2a0493f968"
+    },
+    {
+      "path": "lab/out/nullable-tail-20261005/late-delete-before.command.json",
+      "bytes": 767,
+      "sha256": "9cea008b72653136be206bad6e8f6cf41eee8a4a2fc7d8f55fa799ff05ed8422"
+    },
+    {
+      "path": "lab/out/nullable-tail-20261005/late-delete-before.oracap",
+      "bytes": 5982,
+      "sha256": "78ffc2bbf8da5aa34dff54b29d3b50a99e9f3b8cf34f7cb6f66a5e0a3fe5da63"
+    },
+    {
+      "path": "lab/out/nullable-tail-20261005/late-delete-before.rc.txt",
+      "bytes": 1,
+      "sha256": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b"
+    },
+    {
+      "path": "lab/out/nullable-tail-20261005/late-delete-before.stderr.txt",
+      "bytes": 473,
+      "sha256": "e88447c7f006d03a846ebf8b58f9d3d80a4bc803299fee2fd2b86e8075564f1a"
+    },
+    {
+      "path": "lab/out/nullable-tail-20261005/late-delete-before.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/nullable-tail-20261005/missing-delete.command.json",
+      "bytes": 355,
+      "sha256": "3fef2e5789e873b2265a0cf1f6c5ff6d81191d4c0e385c0f3d82094f0987ae8c"
+    },
+    {
+      "path": "lab/out/nullable-tail-20261005/missing-delete.output.txt",
+      "bytes": 1176,
+      "sha256": "8e700115a7985635f9479c40554e0fb085cde41f763dfe06b700c075fa0b2b0a"
+    },
+    {
+      "path": "lab/out/nullable-tail-20261005/missing-delete.rc.txt",
+      "bytes": 1,
+      "sha256": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b"
+    },
+    {
+      "path": "lab/out/nullable-tail-20261005/missing-delete.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/nullable-tail-20261005/missing-delete.stdout.txt",
+      "bytes": 173,
+      "sha256": "8481dfd6a9707e7d2cd15595d3705b165e21a62ced9f757f7f5f009d04ba7736"
+    },
+    {
+      "path": "lab/out/nullable-tail-20261005/native-sql.command.json",
+      "bytes": 347,
+      "sha256": "5f5a61ffaf8251e5bca6759aa9da0dca9155f293b0cbb677ba7f5813fa6fffc5"
+    },
+    {
+      "path": "lab/out/nullable-tail-20261005/native-sql.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/nullable-tail-20261005/native-sql.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/nullable-tail-20261005/native-sql.stdout.txt",
+      "bytes": 139,
+      "sha256": "823f5df444de790aded6b00d0ef8bf3ee98e181289e95537ca4751f5e6e81d78"
+    },
+    {
+      "path": "lab/out/nullable-tail-20261005/nonnullable-tail.command.json",
+      "bytes": 765,
+      "sha256": "2f7eef686b57a72475e2879afad5515724e787517b2e021119b7ed3e620e212f"
+    },
+    {
+      "path": "lab/out/nullable-tail-20261005/nonnullable-tail.rc.txt",
+      "bytes": 1,
+      "sha256": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b"
+    },
+    {
+      "path": "lab/out/nullable-tail-20261005/nonnullable-tail.snapshot",
+      "bytes": 757,
+      "sha256": "fa22d59920d54a85e2d37a165de09a64a62ef12e517d138840054eab48518040"
+    },
+    {
+      "path": "lab/out/nullable-tail-20261005/nonnullable-tail.stderr.txt",
+      "bytes": 556,
+      "sha256": "5854e42a8c9d3ad17f5b8ac882aaadb25565bde03b749a5f57592861270a6ff4"
+    },
+    {
+      "path": "lab/out/nullable-tail-20261005/nonnullable-tail.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/nullable-tail-20261005/old-nonnull.command.json",
+      "bytes": 772,
+      "sha256": "eeb502e8f862e4e449e78c84ced729a6fd6a9b0718ababdf359c3540500a856e"
+    },
+    {
+      "path": "lab/out/nullable-tail-20261005/old-nonnull.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/nullable-tail-20261005/old-nonnull.stderr.txt",
+      "bytes": 92,
+      "sha256": "ce511e42b23b08e4a15ac25db8d83201116a09d2fae5909aa19a9cecdfdb3964"
+    },
+    {
+      "path": "lab/out/nullable-tail-20261005/old-nonnull.stdout.txt",
+      "bytes": 1286,
+      "sha256": "57ae81c4fee496d73caa8f5492fcbc76cb2ece185dd1c424343ba2416cf0287d"
+    },
+    {
+      "path": "lab/out/nullable-tail-20261005/old-update.command.json",
+      "bytes": 936,
+      "sha256": "5c8a01e7f3037b82a2f821e0b662f2ead3e1d9980ea31a9c6a47d4ff0983c2fe"
+    },
+    {
+      "path": "lab/out/nullable-tail-20261005/old-update.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/nullable-tail-20261005/old-update.stderr.txt",
+      "bytes": 92,
+      "sha256": "6533aac2d8b7e5c04cab91a8b3b2a79346fedbe8129383fddb9d6cf67d9cc37e"
+    },
+    {
+      "path": "lab/out/nullable-tail-20261005/old-update.stdout.txt",
+      "bytes": 1929,
+      "sha256": "e78a54688cf849fdf94061a7d2cdce2e4c5f84afd319b3cd21cda6987735eabd"
+    },
+    {
+      "path": "lab/out/nullable-tail-20261005/plain-baseline.command.json",
+      "bytes": 613,
+      "sha256": "47b4c42d9f8e6619ebae5f50c2fb8b9304d00065d04ba8796f40429c461f9fc9"
+    },
+    {
+      "path": "lab/out/nullable-tail-20261005/plain-baseline.rc.txt",
+      "bytes": 1,
+      "sha256": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b"
+    },
+    {
+      "path": "lab/out/nullable-tail-20261005/plain-baseline.stderr.txt",
+      "bytes": 554,
+      "sha256": "8015fa1538bc4f4e3bf744028a72cf199cbb502d5ea511174d058638e433f0a3"
+    },
+    {
+      "path": "lab/out/nullable-tail-20261005/plain-baseline.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/nullable-tail-20261005/proof.json",
+      "bytes": 325,
+      "sha256": "88380319844a642374519aacad338b4c0eac7767f0a26fd4345aabd73efab991"
+    },
+    {
+      "path": "lab/out/nullable-tail-20261005/public-events.command.json",
+      "bytes": 237,
+      "sha256": "3e76bd00448adfd8edeff8715c5f7c362e1fe53de0c4d658202cbdce82ff35b8"
+    },
+    {
+      "path": "lab/out/nullable-tail-20261005/public-events.rc.txt",
+      "bytes": 1,
+      "sha256": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b"
+    },
+    {
+      "path": "lab/out/nullable-tail-20261005/public-events.stderr.txt",
+      "bytes": 342,
+      "sha256": "a1a7a37b083b379a559f9fff4e96012efaccaa94dcdd82bcd70fb475de06e37c"
+    },
+    {
+      "path": "lab/out/nullable-tail-20261005/public-events.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/nullable-tail-20261005/sealed-ArchivedHeapRows.java",
+      "bytes": 14602,
+      "sha256": "99bcdd7c436e5432dd11c6e77713137dff34be130af06ff5a05411595c26d217"
+    },
+    {
+      "path": "lab/out/nullable-tail-20261005/sealed-ArchivedHeapRowsTest.java",
+      "bytes": 5311,
+      "sha256": "d785c156c32f675d97fe66b529712c5928a2689073831fd93e16a41bb666447c"
+    },
+    {
+      "path": "lab/out/nullable-tail-20261005/sealed-compare_nullable_tail_rows.py",
+      "bytes": 2071,
+      "sha256": "3544fa118e53e237bed80d23e4a95c34a45b1dd3199aaa3b970367f14016a0a5"
+    },
+    {
+      "path": "lab/out/nullable-tail-20261005/sealed-PlainBaselineRowsProbe.java",
+      "bytes": 643,
+      "sha256": "437a55417783a8b243ee4b62f2f84fa64b8b25451451cd6599783577d42806c2"
+    },
+    {
+      "path": "lab/out/nullable-tail-20261005/sealed-verify_nullable_tail.py",
+      "bytes": 5120,
+      "sha256": "10e98a2430952d7aea3a5e1ceb7687fd8fe61b3cfe03e2276f676436bb81e85d"
+    },
+    {
+      "path": "lab/out/nullable-tail-20261005/state.command.json",
+      "bytes": 779,
+      "sha256": "30d44c4658b5e5f334abd65188b96190f6e1a24243ca1e0b6f49156c259c92e0"
+    },
+    {
+      "path": "lab/out/nullable-tail-20261005/state.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/nullable-tail-20261005/state.stderr.txt",
+      "bytes": 640,
+      "sha256": "4668f0b573d01040b6598f20e616a265dd8831a2423577a7a7f3b8b81a20d934"
+    },
+    {
+      "path": "lab/out/nullable-tail-20261005/state.stdout.txt",
+      "bytes": 77,
+      "sha256": "0a22e6d986b65514837fcb80a9f81c8443df2d961329f065891e0a24780377e0"
+    }
+  ]
+}

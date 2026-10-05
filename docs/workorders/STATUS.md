@@ -18,6 +18,8 @@
 
 ## 当前证据
 
+最新：[可信nullable尾列完整NULL行](DELIVERY_W3_NULLABLE_TAIL_20261005.md)，生产/lab4f79691、kernela084218e…、251测试通过。物理解析class未变/ABSENT保留；仅可信实际schema下完整F/L INSERT/DELETE inverse省略nullable尾补NULL，普通Baseline不授权。冻结46/47两完整NULL事件native/SQL零差异、capture/archive及最终seed一致；普通Baseline/非nullable/错回执/重封晚DELETE before四拒绝stdout0，三比较反例检出，旧两非空DML/三UPDATE完整batch逐字节不变/public拒绝。0数据库动作/不重放源步骤；下一步同事务混合操作及INSERT/DELETE rollback capture，再新DML target/checkpoint，完整矩阵/产品/现场/发布待证。
+
 最新：[flags0无引用普通commit有限闭合](DELIVERY_W4_UNREFERENCED_COMMIT_20261005.md)，生产/lab69256c9、kernel2bcea2cb…、249测试通过。同块/无补偿/完整source生命周期与undo-marker覆盖才关闭，不伪造native tail；seq46/47三物理图6/0/6与native完整图零差异。六重封raw scan0/physical1/stdout0、缺LIVE比较反例检出；旧两非空DML与三UPDATE完整batch逐字节不变，rollback-only空/实际跨基线/public拒绝。generic合法flags0两字段现在受限支持，旧制品全缺tail拒绝不再作不变能力要求；flags2缺tail仍拒绝。完整NULL batch到达ROW_REPLAY_INCOMPLETE_INSERT、事件0，未认证NULL行；0源动作/旧操作不重放。下一步可信完整F/L rowpiece省略nullable尾列，混合/回滚capture/target/产品/现场/发布待证。
 
 最新研究：[尾列NULL capture失败正样本](RESEARCH_W3_NULL_CAPTURE_20261005.md)，生产 bed7fdb/58da93ea…不改，新driver9f7504e。专属新表一次INSERT11/NULL/NULL和DELETE，seq46/47共1939/7块与归档数据块零差异、raw唯一leaf50333107；完整batch rc1/stdout0/事件0。三raw/native结束记录零差异：实际baseline2423979，DELETE end2424017 flags0两字段无tail，明确在基线后；不能用旧基线过滤修复。两目标raw heap pair/native完整F/L cc1只ID、尾两列物理ABSENT而SQL为NULL，尚未转换为完整行。研究探针首次未筛外来对象失败原文/源码保全，修正只读归属后两pair通过；0源重放/生产测试不重跑。下一步先独立验证无引用commit闭合（不得伪造native tail），再可信完整行nullable省略；NULL/混合/回滚capture及target/产品/现场/发布待证。
