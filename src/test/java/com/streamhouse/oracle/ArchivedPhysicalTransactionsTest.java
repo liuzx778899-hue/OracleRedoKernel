@@ -86,12 +86,16 @@ class ArchivedPhysicalTransactionsTest {
         var raw=fixture();var e=f.end(b,0x02400120L);put(e.fields().get(0),16,0,4);
         f.records.record(raw,4,130,List.of(e));seal(raw,2048);return raw;
     }
-    @Test void verifiedBaselineCoversOldNoTailButGenericAndLaterSelectionRefuse() throws Exception {
+    @Test void verifiedBaselineCoversOldNoTailAndOrdinaryCommitClosesItsOwnedHistory() throws Exception {
         assertTrue(verified(noTailFixture(),150).transactions().isEmpty());
+        assertEquals(2,read(noTailFixture(),leaf,677737149).transactions().size());
+        assertEquals(2,verified(noTailFixture(),105).transactions().size());
+    }
+    @Test void missingTailInReferencedCommitLayoutStillRefuses() {
+        var raw=noTailFixture();var e=f.end(b,0x02400120L);put(e.fields().get(0),16,2,4);
+        f.records.record(raw,4,130,List.of(e));seal(raw,2048);
         assertEquals("TRANSACTION_END_HAS_NO_UNDO_TAIL_REFERENCE",assertThrows(RedoException.class,
-                ()->read(noTailFixture(),leaf,677737149)).getMessage());
-        assertEquals("TRANSACTION_END_HAS_NO_UNDO_TAIL_REFERENCE",assertThrows(RedoException.class,
-                ()->verified(noTailFixture(),105)).getMessage());
+                ()->read(raw,leaf,677737149)).getMessage());
     }
     @Test void baselineCannotHideCrossingOrMissingOldLifecycleEnd() {
         assertEquals("BASELINE_CROSSES_TRANSACTION_BOUNDARY",assertThrows(RedoException.class,

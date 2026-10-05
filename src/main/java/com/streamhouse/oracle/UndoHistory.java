@@ -57,6 +57,24 @@ public final class UndoHistory {
         return new Result(inventory.entries(),List.copyOf(live),List.copyOf(compensated),allocated,head);
     }
     /** Caller must verify the end through its source-bound lifecycle and complete compensation input. No native tail is asserted. */
+    Result closeCommitWithoutNativeTail(TransactionLifecycle.ClosedIdentity identity) throws RedoException {
+        healthy();
+        if (inventory.entries().isEmpty() || identity.rolledBack()
+                || !identity.xid().equals(inventory.entries().get(0).identity().xid())
+                || identity.containerUid()!=inventory.containerUid() || identity.containerId()!=inventory.containerId())
+            refuse("UNDO_HISTORY_COMMIT_IDENTITY_MISMATCH");
+        if (next!=inventory.entries().size()) refuse("UNDO_HISTORY_INCOMPLETE_ORIGINAL_INPUT");
+        var first=inventory.entries().get(0).identity().uba();
+        if (!compensated.isEmpty() || head==null || !head.equals(allocated)
+                || inventory.entries().stream().anyMatch(e->e.identity().uba().dba()!=first.dba()
+                    || e.identity().uba().sequence()!=first.sequence()))
+            refuse("UNDO_HISTORY_UNREFERENCED_COMMIT_SCOPE_UNSUPPORTED");
+        var live=new ArrayList<ArchivedUndoInventory.Entry>();
+        for (var at=head;at!=null;at=nodes.get(at).predecessor()) live.add(nodes.get(at).entry());
+        closed=true;
+        return new Result(inventory.entries(),List.copyOf(live),List.of(),allocated,head);
+    }
+    /** Caller must verify the rollback through its source-bound lifecycle and complete compensation input. */
     public Result closeRollback(TransactionLifecycle.ClosedIdentity identity) throws RedoException {
         healthy();
         if (!identity.rolledBack() || !identity.xid().equals(inventory.entries().get(0).identity().xid())

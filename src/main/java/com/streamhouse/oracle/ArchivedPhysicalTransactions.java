@@ -181,7 +181,9 @@ public final class ArchivedPhysicalTransactions {
                     }
                     if (snapshot!=null && end.beginRecordScn()<=snapshot.scn())
                         throw new RedoException("BASELINE_CROSSES_TRANSACTION_BOUNDARY");
-                    var result=end.rolledBack() ? c.graph.closeRollback(end) : c.graph.close(TransactionEnd.undoTail(v));
+                    var result=end.rolledBack() ? c.graph.closeRollback(end)
+                            : v.fields().size()==2 && TransactionEnd.decode(v).flags()==0
+                                ? c.graph.closeCommitWithoutNativeTail(end) : c.graph.close(TransactionEnd.undoTail(v));
                     c.result=new Transaction(end,List.copyOf(c.operations),result);
                 }
             });

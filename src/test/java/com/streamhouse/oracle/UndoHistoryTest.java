@@ -83,6 +83,20 @@ class UndoHistoryTest {
         assertEquals(input.entries().get(4).identity().uba(),result.allocationTail());
         assertEquals("UNDO_HISTORY_ALREADY_CLOSED",assertThrows(RedoException.class,()->h.closeRollback(rollback(9,3,1133,true))).getMessage());
     }
+    @Test void unreferencedCommitCannotHideMissingNodesCompensationOrForeignIdentity() throws Exception {
+        var input=inventory();var end=rollback(9,3,1133,false);var partial=new UndoHistory(input);
+        partial.append(input.entries().get(0));
+        assertEquals("UNDO_HISTORY_INCOMPLETE_ORIGINAL_INPUT",assertThrows(RedoException.class,
+                ()->partial.closeCommitWithoutNativeTail(end)).getMessage());
+        assertEquals("UNDO_HISTORY_ALREADY_REFUSED",assertThrows(RedoException.class,
+                ()->partial.closeCommitWithoutNativeTail(end)).getMessage());
+        assertEquals("UNDO_HISTORY_UNREFERENCED_COMMIT_SCOPE_UNSUPPORTED",assertThrows(RedoException.class,
+                ()->fullyUndone(input).closeCommitWithoutNativeTail(end)).getMessage());
+        for (var foreign:List.of(rollback(10,3,1133,false),rollback(9,4,1133,false),
+                rollback(9,3,1134,false),rollback(9,3,1133,true)))
+            assertEquals("UNDO_HISTORY_COMMIT_IDENTITY_MISMATCH",assertThrows(RedoException.class,
+                    ()->new UndoHistory(input).closeCommitWithoutNativeTail(foreign)).getMessage());
+    }
     @Test void rollbackRequiresFullIdentityContainerAndRollbackDisposition() throws Exception {
         var input=inventory();
         for (var identity:List.of(rollback(8,3,1133,true),rollback(9,4,1133,true),rollback(9,3,1133+65536,true),rollback(9,3,1133,false))) {
