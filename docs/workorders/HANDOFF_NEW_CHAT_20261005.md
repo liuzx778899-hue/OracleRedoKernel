@@ -1,3 +1,7 @@
+# 最新接续：历史完整业务行进入产品
+
+9e720110101579a57979e5e7a9384d0f5d0a7ad8/kernel3ccca289e717f7fd8f188af30c8625baea2577640fbac7b2ff1c3ae384346e55/299，见DELIVERY_W5_HISTORICAL_ROW_SCHEMA_20261006与STATUS。N=lab/out/historical-row-schema-candidate-20261006，188双SHA、旧374未变。实际V3/68—69两UPDATE完整before/after与逐事件schema通过；4列EXTRA_V3 NULL→3列，隐藏NOTE anchor，native/阶段SQL/XID/record SCN/位置0差异。重复稳定、擦marker事件/schema/id/payload一致；七SYS+四业务complete-factory拒绝rc1/stdout0，旧静态V2三IUD与历史拒绝不变。首end扩展拒绝/业务跨block定位失败已保留，无源/配置/目标动作。源ADD/DROP禁止重放；O=lab/out/v3-historical-raw-20261006原374不改。新kernel只候选，StreamHouse P仍旧efd068f/737及PR#13待评审，actual V3获取账/逐事件schema/HTTP/目标原子提交/控制CP ACK尚未验收，下一单DISPATCH_W5_HISTORICAL_PRODUCT_20261006。原完整goal/automation继续，活动跨窗/C++采集租约/独立目标/类型环境高压断电/评审现场发布待证，全部Oracle完成后查Codex。以下旧入口仅历史。
+
 # 最新接续：时点schema完整业务事件
 
 最新：[实际新V3后SYS历史](DELIVERY_W5_NEW_V3_HISTORY_RAW_20261006.md)：c9f340d/kerneld7ee0dfd/296，actual V3 SCN2536302/SHA226c9322完整230字段/三index/基线独立0差异，新seq68/69 ADD EXTRA_V3/DROP与两UPDATE已结束禁止重放，capture归档34029/14块0差异。三SYS commit2536394/6401/6419完整22节点/764值native与ASOF0差异，归档/capture/擦四marker历史字节一致，七合法checksum raw scan0/history1/stdout0；旧V2静态三IUD/历史拒绝不变。374双SHA/旧227不变，ckix239窄profile正逆绑定，首拒绝/预检NOTE误判/编译/定位失败保留。仅真实有界SYS历史，不当业务历史DML/产品现场发布；0配置/目标/产品动作，collector terminal0。接续HISTORICAL_ROW_SCHEMA时点schema完整事件与产品V3账HTTP。原goal active，Codex最后查。
