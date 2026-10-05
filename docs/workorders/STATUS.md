@@ -1,5 +1,8 @@
 # OracleRedoKernel 当前状态
 
+最新：[实际V2字典获取与新raw](DELIVERY_W5_DICTIONARY_ANCHOR_REAL_20261006.md)：SCN2509388六锚点/历史列与独立ASOF零差异；新seq59/60及ADD/DROP两事务已闭合，捕获/归档零差异。原始batch因未知24.4 rc1/stdout0；DERIVED擦除三条schema-family后V2按目标SYS写入拒绝，native六锚点写/四同XID新COL$位置零差异。去锚点诊断对照因两真实5.4 extension拒绝，未证明本轮两错误事件，P0整体未闭合。失败保全/只读补收尾/源动作不重放，NO/NO/旧表保留；无新目标/产品HTTP/部署。接续DICTIONARY_END_PROFILES_20261006，goal active。
+
+
 最新：[可信字典锚点代码候选](DELIVERY_W5_DICTIONARY_ANCHOR_CANDIDATE_20261005.md)：V2同SCN角色/位置/历史列及raw逻辑角色屏障已实现；kernel265、adapter21通过。实际既有只读账号SYS获取ORA-00942拒绝/连接关闭/未签发快照；编译重名失败源码与日志保全。仅代码/单位回归/权限负例，不算真实V2获取、marker擦除关闭或产品HTTP通过；无grant/源DML/目标动作，旧seq52—57不重放。继续TRUSTED_DICTIONARY_ANCHORS派单，goal active。
 
 
