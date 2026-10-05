@@ -18,6 +18,8 @@
 
 ## 当前证据
 
+最新：[历史schema真实ABA反例与raw屏障候选](DELIVERY_W5_HISTORICAL_SCHEMA_BARRIER_20261005.md)。新专属seq56/57、SCN2501884基线后ADD nullable→稀疏UPDATE→DROP恢复→UPDATE，首尾列/对象代际一致，旧内核rc0输出2个三列事件、第一事件漏EXTRA=NULL；原失败保留。新kernel9275ab90/259项通过，同raw rc1/stdout0；受影响混合/空batch冻结结果字节不变，无源重放。产品e4d3aa9/735完整构建通过，实际认证HTTP首次/恢复两批REFUSED/event0，原因精确字节核验；新目标/ledger/CP/ACK零推进，窗口PENDING，三比较反例检出，helper停止，NO/NO/旧表保持。仅19.3已观测24.1 raw marker有限屏障，缺失marker/未知字典/跨窗schema完整覆盖、现场/发布仍待证；独立评审PENDING。两笔源事务及seq56/57已关闭，严禁重放。接续DISPATCH_W5_SCHEMA_COVERAGE_20261005；长期目标未完成，automation保留，goal工具仍usageLimited而实际额度已恢复，未擅改goal状态。
+
 最新：[实际获取账关联新raw完整DML](DELIVERY_W5_ACQUIRED_NEW_DML_20261005.md)。产品996cfd5/735项全通过；actual acquisitionId/SCN2495684→新seq52—54，native四图11/4/7及三完整中间像/SQL/基线DUMP零差异，两回滚0事件。实际HTTP坏authority目标前拒绝/目标0，恢复同task DONE/新专属目标三事件commit→控制CP→持久ACK全字段独立一致，重复及应用重启无新增/核验字节稳定、异步3 DONE/1 FAILED实库审计。284非secret文件双SHA，collector超时host rc未知/leaf探针失败/SQL换行分别保全，不重放源事务。helper停止/旧表及NO/NO保持。静态独占fixture有限范围，历史DDL/ABA、三库新增迁移、跨窗/C++/独立目标/现场发布待证，评审PENDING，goal active；接续DISPATCH_W5_HISTORICAL_SCHEMA_BARRIER_20261005。
 
 最新：[实际获取可信控制账候选](DELIVERY_W5_ACQUISITION_CONTROLLER_20261005.md)。产品ded59ab/733项全通过、adapter50feffa8；专属Oracle控制库实际认证HTTP获取SCN2484139/ACQUIRED_ONLY，重启字段一致、固定SCN独立DUMP所有值/位置/metadata零差异。注入/截断/半文件/authority/SCN/schema/登记SQL故障拒绝，孤儿保留、账仍1/绑定0/事件0；168非secret文件双SHA，失败原文保留。源业务/NO/NO/旧表不变，helper停止。三库新建/升级、Windows/存储/多writer、历史DDL/ABA及新基线后新raw完整DML未通过；评审PENDING，公开生产门禁仍关闭，goal active。

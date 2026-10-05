@@ -1,5 +1,7 @@
 # 精简 chat 主线交接（2026-10-05）
 
+最新：历史schema真实ABA反例及raw marker屏障候选已交付，详见STATUS/DELIVERY_W5_HISTORICAL_SCHEMA_BARRIER_20261005。kernel9275ab90/259；产品e4d3aa9/735，实际认证HTTP两次拒绝且target/ledger/CP/ACK零推进。新T_SCHEMA_BARRIER_20261005、seq56/57、ADD/DROP后两笔UPDATE源事务已关闭，禁止重放；baseline SCN2501884，源码/制品/失败及原始错误事件保全，helper已停止。仅有限24.1屏障，不算完整历史字典/现场/发布；下一单DISPATCH_W5_SCHEMA_COVERAGE_20261005，marker缺失/未知字典关联、跨窗历史及V731三库NEW/UPGRADE仍待证。目标未完成，automation保留；goal工具usageLimited与当前额度恢复状态分别记录，不人工改状态。以下旧交接仅历史。
+
 最新接续以STATUS入口为准：本chat已交付实际获取账关联新raw完整DML，产品996cfd5/735，源新fixtureT_ACQUIRED_DML_20261005及seq52—54三事务均已结束，严禁重放。raw/完整图/行/目标/控制/ACK及应用重启有限通过；collector观察超时host rc未知原文保全，仅只读取证续接。helper已停止。下一单DISPATCH_W5_HISTORICAL_SCHEMA_BARRIER_20261005，历史DDL/ABA和V731三库新建/升级仍待证，目标active。下面保留原交接历史，不再当最新待办。
 
 用户明确要求新开 chat，继续原 Oracle Direct Redo 零侵入 + StreamHouse 全流程目标；解析优先、自主决策、禁止 Luna。旧 chat 在交接后不并行修改共享 checkout。目标仍未完成，不把结构、安全拒绝、有界实验当现场或发布通过。先读 AGENTS.md、STATUS.md 和本文件；STATUS 六列表部分计数是历史时点，以最新交付和实际制品为准。

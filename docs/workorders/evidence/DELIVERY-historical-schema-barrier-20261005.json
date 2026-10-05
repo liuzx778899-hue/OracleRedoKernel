@@ -1,0 +1,98 @@
+{
+  "root_code_commit": "f24a881420969c1d2c1540e439b6a8d3b934791a",
+  "product_code_commit": "e4d3aa97624b108d81a86f19a818998e2e94cda7",
+  "product_delivery_commit": "f5f73feab2859ab4879bc721b48e2e8c85fd8805",
+  "pull_request": "https://github.com/liuzx778899-hue/StreamHouse/pull/12",
+  "kernel_sha256": "9275ab9062413ae7fa88ac3a147337fbe1cc1d9b1c7add834f374c401a9570c1",
+  "app_sha256": "879d6698b27c0fb58935d59f905850d0b8e4ea2a34c149e40102a4b58a5265f6",
+  "kernel_tests": {
+    "tests": 259,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0
+  },
+  "product_tests": {
+    "tests": 735,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0
+  },
+  "baseline_scn": 2501884,
+  "baseline_sha256": "6498d7223c2e5383facc9e3f848f22dd8cb3272460cf7c50b20a29d34d5379d5",
+  "real_schema_ABA": true,
+  "old_kernel_events": 2,
+  "old_first_event_columns": 3,
+  "SQL_truth_columns": 4,
+  "fixed_kernel_rc": 1,
+  "fixed_kernel_stdout_bytes": 0,
+  "actual_HTTP_refusals": 2,
+  "target_ledger_CP_ACK_zero_advance": true,
+  "source_actions_replayed": false,
+  "independent_review": "PENDING",
+  "site_or_release_accepted": false,
+  "nonsecret_files": 443,
+  "double_SHA_equal": true,
+  "seal_sha256": "b17d03dffb7bf0c5ae6336f1446316a9a5db884bfde5dc613fb6d5ce2289fd6c",
+  "files": [
+    {
+      "path": "delivery-proof.json",
+      "bytes": 22734,
+      "sha256": "12d79f4b71b001091506a8bb3cdd27d0aa9eea9da90caaacc8dd3644227c88f0"
+    },
+    {
+      "path": "fix-proof.json",
+      "bytes": 594,
+      "sha256": "74438226c62ebb45ef617c9df18e5bae56fca81b9d0cfaa0a6d98b3566c9266b"
+    },
+    {
+      "path": "initial.snapshot.txt",
+      "bytes": 764,
+      "sha256": "6498d7223c2e5383facc9e3f848f22dd8cb3272460cf7c50b20a29d34d5379d5"
+    },
+    {
+      "path": "capture/sequence-56.oracap",
+      "bytes": 114554,
+      "sha256": "305d707cc78b2344abd166483e9d33636926ac16f8f6d77a5a0451e1a9ce1254"
+    },
+    {
+      "path": "capture/sequence-57.oracap",
+      "bytes": 18814,
+      "sha256": "ae0d6e58eb10bd85415d0f7e46424e3ccea88393d9fcb89bb78fd92ac2cc07c3"
+    },
+    {
+      "path": "old-schema-batch.stdout.txt",
+      "bytes": 1364,
+      "sha256": "9ea533529b86177cf7e35019bb657332646abfc12c21dad8a3e36fe171c5bcd6"
+    },
+    {
+      "path": "fixed-schema-batch.stderr.txt",
+      "bytes": 752,
+      "sha256": "aa01b9c2bd916507605ad890d5d7fae23e1767cb266e65c3a5d5c25c865d51d4"
+    },
+    {
+      "path": "http-refusal-reasons-exact.stdout.txt",
+      "bytes": 352,
+      "sha256": "d05f6b8a650806ec3102744bae326b84bae82fcddfd359370af98759d4061e6d"
+    },
+    {
+      "path": "http-repeat-after.stdout.txt",
+      "bytes": 207,
+      "sha256": "c62380da1de3a188d0ef4e4427d18aa0623a0b0ec3c0998cc0c073701a107acd"
+    },
+    {
+      "path": "kernel-build.stdout.txt",
+      "bytes": 1022,
+      "sha256": "f1830c0bb9f266573909f630205c55735756d668cb3edfb616fae955a288bba0"
+    },
+    {
+      "path": "kernel-build-r2.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "executed-http-start-driver.py",
+      "bytes": 9418,
+      "sha256": "6eb5e48f695dc352717595a99e014e1f604b642be8a0246d2f42e6ddd94d1c2e"
+    }
+  ]
+}
