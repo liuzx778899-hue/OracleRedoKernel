@@ -1,0 +1,1188 @@
+{
+  "files_count": 169,
+  "double_sha256_verified": true,
+  "previous_98_unchanged": true,
+  "kernel_code_commit": "b3455f0",
+  "tests": [
+    282,
+    0,
+    0,
+    0
+  ],
+  "scope": "Eight frozen clustered row pairs, nine semantic negatives and ten composite index key research entries; no trusted index parent/history authority",
+  "proof": {
+    "kernel_sha256": "cca2546568837c9af03a2ff19aa85eec21d53c81bc5168d06decf2287924d6d0",
+    "old_classes_unchanged": 96,
+    "pairs": [
+      {
+        "position": [
+          66,
+          6706,
+          16,
+          2
+        ],
+        "xid": "10.18.2272",
+        "role": "TAB$",
+        "slot": 3,
+        "current_uba": [
+          37749351,
+          283,
+          60
+        ],
+        "native_differences": 0
+      },
+      {
+        "position": [
+          66,
+          6707,
+          76,
+          1
+        ],
+        "xid": "10.18.2272",
+        "role": "COL$",
+        "slot": 51,
+        "current_uba": [
+          37749351,
+          283,
+          61
+        ],
+        "native_differences": 0
+      },
+      {
+        "position": [
+          66,
+          6712,
+          296,
+          2
+        ],
+        "xid": "3.30.705",
+        "role": "COL$",
+        "slot": 51,
+        "current_uba": [
+          37749054,
+          436,
+          33
+        ],
+        "native_differences": 0
+      },
+      {
+        "position": [
+          66,
+          6713,
+          164,
+          1
+        ],
+        "xid": "3.30.705",
+        "role": "COL$",
+        "slot": 51,
+        "current_uba": [
+          37749054,
+          436,
+          34
+        ],
+        "native_differences": 0
+      },
+      {
+        "position": [
+          66,
+          6717,
+          16,
+          1
+        ],
+        "xid": "3.30.705",
+        "role": "TAB$",
+        "slot": 3,
+        "current_uba": [
+          37749054,
+          436,
+          37
+        ],
+        "native_differences": 0
+      },
+      {
+        "position": [
+          66,
+          6717,
+          364,
+          1
+        ],
+        "xid": "3.30.705",
+        "role": "COL$",
+        "slot": 51,
+        "current_uba": [
+          37749054,
+          436,
+          38
+        ],
+        "native_differences": 0
+      },
+      {
+        "position": [
+          67,
+          6,
+          16,
+          2
+        ],
+        "xid": "3.26.705",
+        "role": "COL$",
+        "slot": 51,
+        "current_uba": [
+          37749054,
+          436,
+          42
+        ],
+        "native_differences": 0
+      },
+      {
+        "position": [
+          67,
+          11,
+          16,
+          1
+        ],
+        "xid": "3.26.705",
+        "role": "TAB$",
+        "slot": 3,
+        "current_uba": [
+          37749054,
+          436,
+          46
+        ],
+        "native_differences": 0
+      }
+    ],
+    "faults": [
+      {
+        "name": "wrong-forward-UBA",
+        "structure_rc": 0,
+        "pair_rc": 1,
+        "events": 0,
+        "reason": "Exception in thread \"main\" com.streamhouse.oracle.RedoException: MISSING_CLUSTER_UNDO_UBA"
+      },
+      {
+        "name": "wrong-forward-slot",
+        "structure_rc": 0,
+        "pair_rc": 1,
+        "events": 0,
+        "reason": "Exception in thread \"main\" com.streamhouse.oracle.RedoException: CLUSTER_UNDO_OPERATION_SLOT_OR_XID_MISMATCH"
+      },
+      {
+        "name": "wrong-forward-tabn",
+        "structure_rc": 0,
+        "pair_rc": 1,
+        "events": 0,
+        "reason": "Exception in thread \"main\" com.streamhouse.oracle.RedoException: CLUSTER_LOGICAL_TABLE_NUMBER_MISMATCH"
+      },
+      {
+        "name": "wrong-forward-container",
+        "structure_rc": 0,
+        "pair_rc": 1,
+        "events": 0,
+        "reason": "Exception in thread \"main\" com.streamhouse.oracle.RedoException: RESEARCH_CLUSTER_PAIR_COVERAGE_MISMATCH"
+      },
+      {
+        "name": "wrong-forward-full-XID",
+        "structure_rc": 0,
+        "pair_rc": 1,
+        "events": 0,
+        "reason": "Exception in thread \"main\" com.streamhouse.oracle.RedoException: CLUSTER_UNDO_OPERATION_SLOT_OR_XID_MISMATCH"
+      },
+      {
+        "name": "wrong-undo-logical",
+        "structure_rc": 0,
+        "pair_rc": 1,
+        "events": 0,
+        "reason": "Exception in thread \"main\" com.streamhouse.oracle.RedoException: CLUSTER_LOGICAL_TABLE_NUMBER_MISMATCH"
+      },
+      {
+        "name": "wrong-undo-generation",
+        "structure_rc": 0,
+        "pair_rc": 1,
+        "events": 0,
+        "reason": "Exception in thread \"main\" com.streamhouse.oracle.RedoException: RESEARCH_CLUSTER_GENERATION_MISMATCH"
+      },
+      {
+        "name": "wrong-lock-transition",
+        "structure_rc": 0,
+        "pair_rc": 1,
+        "events": 0,
+        "reason": "Exception in thread \"main\" com.streamhouse.oracle.RedoException: UNSUPPORTED_CLUSTER_LOCK_TARGET"
+      },
+      {
+        "name": "wrong-undo-wrap",
+        "structure_rc": 0,
+        "pair_rc": 1,
+        "events": 0,
+        "reason": "Exception in thread \"main\" com.streamhouse.oracle.RedoException: NON_ROW_FIRST_ROOT_IDENTITY_OR_LINK_MISMATCH"
+      }
+    ],
+    "source_actions": 0,
+    "events": 0,
+    "parent_object_authorized": false,
+    "historical_dictionary_authorized": false,
+    "product_rebuilt": false
+  },
+  "index_key_research": {
+    "verified": [
+      {
+        "position": [
+          66,
+          6708,
+          104,
+          1
+        ],
+        "index": "I_COL1",
+        "native_key_differences": 0,
+        "native_rowid_differences": 0
+      },
+      {
+        "position": [
+          66,
+          6709,
+          16,
+          1
+        ],
+        "index": "I_COL2",
+        "native_key_differences": 0,
+        "native_rowid_differences": 0
+      },
+      {
+        "position": [
+          66,
+          6709,
+          284,
+          1
+        ],
+        "index": "I_COL3",
+        "native_key_differences": 0,
+        "native_rowid_differences": 0
+      },
+      {
+        "position": [
+          66,
+          6714,
+          64,
+          1
+        ],
+        "index": "I_COL1",
+        "native_key_differences": 0,
+        "native_rowid_differences": 0
+      },
+      {
+        "position": [
+          66,
+          6714,
+          344,
+          1
+        ],
+        "index": "I_COL1",
+        "native_key_differences": 0,
+        "native_rowid_differences": 0
+      },
+      {
+        "position": [
+          66,
+          6718,
+          260,
+          1
+        ],
+        "index": "I_COL2",
+        "native_key_differences": 0,
+        "native_rowid_differences": 0
+      },
+      {
+        "position": [
+          66,
+          6719,
+          16,
+          1
+        ],
+        "index": "I_COL2",
+        "native_key_differences": 0,
+        "native_rowid_differences": 0
+      },
+      {
+        "position": [
+          67,
+          7,
+          256,
+          1
+        ],
+        "index": "I_COL1",
+        "native_key_differences": 0,
+        "native_rowid_differences": 0
+      },
+      {
+        "position": [
+          67,
+          8,
+          108,
+          1
+        ],
+        "index": "I_COL2",
+        "native_key_differences": 0,
+        "native_rowid_differences": 0
+      },
+      {
+        "position": [
+          67,
+          8,
+          448,
+          1
+        ],
+        "index": "I_COL3",
+        "native_key_differences": 0,
+        "native_rowid_differences": 0
+      }
+    ],
+    "index_authority": false,
+    "parent_history_authority": false
+  },
+  "files": [
+    {
+      "path": "lab/out/sys-cluster-pair-20261006/classes/ClusterPairsProbe.class",
+      "bytes": 9642,
+      "sha256": "76a42e761c9d80f945b3181421b4c3e109014c2a72e6d235e01641d5337661ba"
+    },
+    {
+      "path": "lab/out/sys-cluster-pair-20261006/committed-ClusterPairsProbe.java",
+      "bytes": 3199,
+      "sha256": "457cd888f1e8cfd072e364afed369b20c03d6c492d7737a69145393101c7806f"
+    },
+    {
+      "path": "lab/out/sys-cluster-pair-20261006/committed-verify_cluster_pairs19.py",
+      "bytes": 5248,
+      "sha256": "bf5f67dfacbdb818e93ba4e113042a6af9d612a4daec79159353b93880481075"
+    },
+    {
+      "path": "lab/out/sys-cluster-pair-20261006/committed-verify_sys_index_key_shapes19.py",
+      "bytes": 2243,
+      "sha256": "2450b6fa781ad01c9bf55b4ffcad56b2487d3b90e8c49da0a4cf2d4a7e4ace34"
+    },
+    {
+      "path": "lab/out/sys-cluster-pair-20261006/compile.command.json",
+      "bytes": 320,
+      "sha256": "6401e157e155825405056c99e5bab957f9c7257e51a4ae1a543da3f0c46fde80"
+    },
+    {
+      "path": "lab/out/sys-cluster-pair-20261006/compile.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/sys-cluster-pair-20261006/compile.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/sys-cluster-pair-20261006/compile.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/sys-cluster-pair-20261006/DERIVED-wrong-forward-container.dbf",
+      "bytes": 3446272,
+      "sha256": "2747cd4537dceaaa68ebf51b863c4e39ec5c5a644616e1bf046e0865ad848c57"
+    },
+    {
+      "path": "lab/out/sys-cluster-pair-20261006/DERIVED-wrong-forward-full-XID.dbf",
+      "bytes": 3446272,
+      "sha256": "f3bb03a02ee545dc28c98333c6ee8cd15f06dc10d54940a2898e15f127feaa28"
+    },
+    {
+      "path": "lab/out/sys-cluster-pair-20261006/DERIVED-wrong-forward-slot.dbf",
+      "bytes": 3446272,
+      "sha256": "b190ddf6e6e2afa562f06e5c0188f6a1dfb337b00839a6e11504ef696d79d705"
+    },
+    {
+      "path": "lab/out/sys-cluster-pair-20261006/DERIVED-wrong-forward-tabn.dbf",
+      "bytes": 3446272,
+      "sha256": "2f68d54ff648a3562bf9bab9b24d321eb46a901f4288fbbc610d4524926f255b"
+    },
+    {
+      "path": "lab/out/sys-cluster-pair-20261006/DERIVED-wrong-forward-UBA.dbf",
+      "bytes": 3446272,
+      "sha256": "e560dd91bb627ae30505a2d8e395f27b1f0e18fc69d048d6d62c61b1360a5b3a"
+    },
+    {
+      "path": "lab/out/sys-cluster-pair-20261006/DERIVED-wrong-lock-transition.dbf",
+      "bytes": 3446272,
+      "sha256": "b699c1181cbfd275c59019b1ce5efcc7a1a6c4f51664f5e8ac7906c2675a4bab"
+    },
+    {
+      "path": "lab/out/sys-cluster-pair-20261006/DERIVED-wrong-undo-generation.dbf",
+      "bytes": 3446272,
+      "sha256": "7326e77aa578e2251f796690d732457a0a33ecb176ca216f69ba941c2a2626f4"
+    },
+    {
+      "path": "lab/out/sys-cluster-pair-20261006/DERIVED-wrong-undo-logical.dbf",
+      "bytes": 3446272,
+      "sha256": "cbc89ec775ddbd2bba5df945b336b4879d6fd923c5345b2fedc04c518b43306b"
+    },
+    {
+      "path": "lab/out/sys-cluster-pair-20261006/DERIVED-wrong-undo-wrap.dbf",
+      "bytes": 3446272,
+      "sha256": "066a765d471eb34fb471b0996b12c9748daeefe41f59a71b74c09d77c50f88cd"
+    },
+    {
+      "path": "lab/out/sys-cluster-pair-20261006/executed-driver.py",
+      "bytes": 5248,
+      "sha256": "bf5f67dfacbdb818e93ba4e113042a6af9d612a4daec79159353b93880481075"
+    },
+    {
+      "path": "lab/out/sys-cluster-pair-20261006/executed-index-key-driver-r2.py",
+      "bytes": 2243,
+      "sha256": "2450b6fa781ad01c9bf55b4ffcad56b2487d3b90e8c49da0a4cf2d4a7e4ace34"
+    },
+    {
+      "path": "lab/out/sys-cluster-pair-20261006/executed-index-key-driver.py",
+      "bytes": 2020,
+      "sha256": "d4c6a87e823ea76a60a540c591ef48414a2a471b09ffab4195eff4ab3df605ae"
+    },
+    {
+      "path": "lab/out/sys-cluster-pair-20261006/execution-pin.json",
+      "bytes": 1020,
+      "sha256": "57e526eb51ae396b51ec292c236183ce311be2072449e39fb9a5645d70d3b891"
+    },
+    {
+      "path": "lab/out/sys-cluster-pair-20261006/failed-index-key-driver-r1.py",
+      "bytes": 2020,
+      "sha256": "d4c6a87e823ea76a60a540c591ef48414a2a471b09ffab4195eff4ab3df605ae"
+    },
+    {
+      "path": "lab/out/sys-cluster-pair-20261006/full-build-r1.log",
+      "bytes": 10929,
+      "sha256": "8d4fbd9fd74c8f84fd8419bd3500fb3cccf17de08f8119bf5bd3d784f898416d"
+    },
+    {
+      "path": "lab/out/sys-cluster-pair-20261006/full-build-r1.rc.txt",
+      "bytes": 3,
+      "sha256": "13bf7b3039c63bf5a50491fa3cfd8eb4e699d1ba1436315aef9cbe5711530354"
+    },
+    {
+      "path": "lab/out/sys-cluster-pair-20261006/independent-index-role.command.json",
+      "bytes": 90,
+      "sha256": "6095ca5a9605c02acb9b77ba5ea4d19487ab938e2e51045704dedb495bc394d5"
+    },
+    {
+      "path": "lab/out/sys-cluster-pair-20261006/independent-index-role.execution-pin.json",
+      "bytes": 101,
+      "sha256": "ddb906738f54a94e1f594c3de609fa90b9aaea1179a1d3e160f08a63732dbe4b"
+    },
+    {
+      "path": "lab/out/sys-cluster-pair-20261006/independent-index-role.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/sys-cluster-pair-20261006/independent-index-role.sql",
+      "bytes": 250,
+      "sha256": "b24ce539794af57ca23480f4b30c838c70b6d2949da32a0cee68ca523b79dcb3"
+    },
+    {
+      "path": "lab/out/sys-cluster-pair-20261006/independent-index-role.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/sys-cluster-pair-20261006/independent-index-role.stdout.txt",
+      "bytes": 72,
+      "sha256": "09435b4cc60b7e735a107497b7499e83ebefcd417d9d1bc9449342295bcd0507"
+    },
+    {
+      "path": "lab/out/sys-cluster-pair-20261006/index-key-comparator-r1.full.log",
+      "bytes": 1585,
+      "sha256": "bd5dd92022d84daa8284e705f1b3103de2183c972ba040bd7121b399fd2660e9"
+    },
+    {
+      "path": "lab/out/sys-cluster-pair-20261006/index-key-comparator-r1.rc.txt",
+      "bytes": 3,
+      "sha256": "f1b2f662800122bed0ff255693df89c4487fbdcf453d3524a42d4ec20c3d9c04"
+    },
+    {
+      "path": "lab/out/sys-cluster-pair-20261006/index-key-comparator-r2.full.log",
+      "bytes": 72,
+      "sha256": "c55e483d4229a51a6f3922afbad0ea5a1ceca22514c33c23566b8c687d621518"
+    },
+    {
+      "path": "lab/out/sys-cluster-pair-20261006/index-key-comparator-r2.rc.txt",
+      "bytes": 3,
+      "sha256": "13bf7b3039c63bf5a50491fa3cfd8eb4e699d1ba1436315aef9cbe5711530354"
+    },
+    {
+      "path": "lab/out/sys-cluster-pair-20261006/kernel.jar",
+      "bytes": 212737,
+      "sha256": "cca2546568837c9af03a2ff19aa85eec21d53c81bc5168d06decf2287924d6d0"
+    },
+    {
+      "path": "lab/out/sys-cluster-pair-20261006/native-index-key-proof.json",
+      "bytes": 2060,
+      "sha256": "e6ddeba7af5a1bf3752bc9b492f7b53b39d6f34051d103076e915ae8731e0171"
+    },
+    {
+      "path": "lab/out/sys-cluster-pair-20261006/pair-66-10.18.2272.command.json",
+      "bytes": 555,
+      "sha256": "16cbddb6d42d7113a59399cc1be6caffab71393836beaf5ad6e8e7fe1ada3e0a"
+    },
+    {
+      "path": "lab/out/sys-cluster-pair-20261006/pair-66-10.18.2272.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/sys-cluster-pair-20261006/pair-66-10.18.2272.stderr.txt",
+      "bytes": 66,
+      "sha256": "2ac356a3af8dbb481f36a67a48729cc43119b0fad9f0e4fc5dbc19db66219194"
+    },
+    {
+      "path": "lab/out/sys-cluster-pair-20261006/pair-66-10.18.2272.stdout.txt",
+      "bytes": 263,
+      "sha256": "3405ef6db6b5f2f9e48594c77ffa1b8f1b60a985595578ec1dda0902fc3f1ea5"
+    },
+    {
+      "path": "lab/out/sys-cluster-pair-20261006/pair-66-3.30.705.command.json",
+      "bytes": 553,
+      "sha256": "3706c1db1abe312c5dda632a663a291cff4fdc0c845d99862cc6dcd2feb30143"
+    },
+    {
+      "path": "lab/out/sys-cluster-pair-20261006/pair-66-3.30.705.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/sys-cluster-pair-20261006/pair-66-3.30.705.stderr.txt",
+      "bytes": 66,
+      "sha256": "2ac356a3af8dbb481f36a67a48729cc43119b0fad9f0e4fc5dbc19db66219194"
+    },
+    {
+      "path": "lab/out/sys-cluster-pair-20261006/pair-66-3.30.705.stdout.txt",
+      "bytes": 518,
+      "sha256": "e6e19359445ca21e1672685ba10d81dc0c6f4a6445e1845783bb05bd6771087d"
+    },
+    {
+      "path": "lab/out/sys-cluster-pair-20261006/pair-67-3.26.705.command.json",
+      "bytes": 553,
+      "sha256": "175c8ad653d334c529e81eae64bee431cadade73499b81bcf88058ccfa63deb8"
+    },
+    {
+      "path": "lab/out/sys-cluster-pair-20261006/pair-67-3.26.705.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/sys-cluster-pair-20261006/pair-67-3.26.705.stderr.txt",
+      "bytes": 66,
+      "sha256": "2ac356a3af8dbb481f36a67a48729cc43119b0fad9f0e4fc5dbc19db66219194"
+    },
+    {
+      "path": "lab/out/sys-cluster-pair-20261006/pair-67-3.26.705.stdout.txt",
+      "bytes": 254,
+      "sha256": "8bcc849c153460f160b78a9d70bba2cd704c60bc6133a39bfb080440e0ee061e"
+    },
+    {
+      "path": "lab/out/sys-cluster-pair-20261006/parent-key-research.json",
+      "bytes": 5366,
+      "sha256": "96561010aabc8914d06266097f8c390558c25b39a4d95db3a34b799b20f5dad9"
+    },
+    {
+      "path": "lab/out/sys-cluster-pair-20261006/proof.json",
+      "bytes": 4721,
+      "sha256": "d29dda8ce31d60c5c30620fc9067cd231e69efbb8c5ce103547346f0d8d8fb58"
+    },
+    {
+      "path": "lab/out/sys-cluster-pair-20261006/targeted-r1.log",
+      "bytes": 2109,
+      "sha256": "348932f3c685c345f48f3ec20536e9494dc598d105cba857019cc0d8e23782b6"
+    },
+    {
+      "path": "lab/out/sys-cluster-pair-20261006/targeted-r1.rc.txt",
+      "bytes": 3,
+      "sha256": "13bf7b3039c63bf5a50491fa3cfd8eb4e699d1ba1436315aef9cbe5711530354"
+    },
+    {
+      "path": "lab/out/sys-cluster-pair-20261006/TEST-com.streamhouse.oracle.ArchivedCompensationAssociationsTest.xml",
+      "bytes": 11105,
+      "sha256": "edeff3f85575128e9f68c37a6b217d06a2864377d7f0546528c70e02724d533b"
+    },
+    {
+      "path": "lab/out/sys-cluster-pair-20261006/TEST-com.streamhouse.oracle.ArchivedCompensationInventoryTest.xml",
+      "bytes": 10723,
+      "sha256": "c517d6da69c717dcb7b19d70e6cedb60c8645e57c215b8622a881c512390ceae"
+    },
+    {
+      "path": "lab/out/sys-cluster-pair-20261006/TEST-com.streamhouse.oracle.ArchivedHeapRowsTest.xml",
+      "bytes": 10667,
+      "sha256": "6a3f58cb6545583a9527f3cee0c12077b8edab43fd678b18da5ff9faf88e35dc"
+    },
+    {
+      "path": "lab/out/sys-cluster-pair-20261006/TEST-com.streamhouse.oracle.ArchivedIndexLeafInventoryTest.xml",
+      "bytes": 10862,
+      "sha256": "95e676cd2d3934f86d8d0f881fad4a7f71f91db24f5d0ef54c1285f7a504d6fd"
+    },
+    {
+      "path": "lab/out/sys-cluster-pair-20261006/TEST-com.streamhouse.oracle.ArchivedObjectTransactionsTest.xml",
+      "bytes": 10703,
+      "sha256": "ca54af0f2a7d78832bcb0fc84f3330750eb20a02202fb948709395f13503c7d6"
+    },
+    {
+      "path": "lab/out/sys-cluster-pair-20261006/TEST-com.streamhouse.oracle.ArchivedPhysicalTransactionsTest.xml",
+      "bytes": 11493,
+      "sha256": "421eec78325daf540f3c17c00b812208924161cd96dc91ee57f6ed3aa38d89a0"
+    },
+    {
+      "path": "lab/out/sys-cluster-pair-20261006/TEST-com.streamhouse.oracle.ArchivedRedoTest.xml",
+      "bytes": 11196,
+      "sha256": "91d566bf069ac51a322649e26c0028b772fdfa80f78a0bc202c2eb17b26cfad0"
+    },
+    {
+      "path": "lab/out/sys-cluster-pair-20261006/TEST-com.streamhouse.oracle.ArchivedUndoInventoryTest.xml",
+      "bytes": 10509,
+      "sha256": "a89edc0be3ce7e529edacb2b34bc6420edae0cb04097f398f846fb9d9f12c51a"
+    },
+    {
+      "path": "lab/out/sys-cluster-pair-20261006/TEST-com.streamhouse.oracle.BeginCompensationTest.xml",
+      "bytes": 10614,
+      "sha256": "229d523e08770c95f8c694c3b407faac16ec6d88e8d78d9d58c832fa9d542563"
+    },
+    {
+      "path": "lab/out/sys-cluster-pair-20261006/TEST-com.streamhouse.oracle.CapturedHeapBatchTest.xml",
+      "bytes": 10543,
+      "sha256": "df9d0117fec092a653f1b80b5d189f7189f4e70f23c1656b6be96dba8ad803b0"
+    },
+    {
+      "path": "lab/out/sys-cluster-pair-20261006/TEST-com.streamhouse.oracle.CaptureJournalTest.xml",
+      "bytes": 10457,
+      "sha256": "53cc7a59796dae9c2c6462c471d7423a3f919cf41c5232eba03b6e610e44d75c"
+    },
+    {
+      "path": "lab/out/sys-cluster-pair-20261006/TEST-com.streamhouse.oracle.ClusterRowPatchTest.xml",
+      "bytes": 10250,
+      "sha256": "eee84a5c43720f16367017d786fece64065da17575f35c7a6107c471ca428a34"
+    },
+    {
+      "path": "lab/out/sys-cluster-pair-20261006/TEST-com.streamhouse.oracle.ClusterUndoPairTest.xml",
+      "bytes": 10364,
+      "sha256": "ece584a9dabfce121791baec4ecf924f81c60e1a169322038d8766e47fea7b96"
+    },
+    {
+      "path": "lab/out/sys-cluster-pair-20261006/TEST-com.streamhouse.oracle.CrossCompensationTest.xml",
+      "bytes": 10612,
+      "sha256": "3920de3a1b6bf239b0bd3d1569a17cec87318d799aea11ee1c3b91235363fdcc"
+    },
+    {
+      "path": "lab/out/sys-cluster-pair-20261006/TEST-com.streamhouse.oracle.EmptyHeapCleanoutTest.xml",
+      "bytes": 10087,
+      "sha256": "97f4a2340f582f9d9dcec7846dc4f3004665df2e447b9b007907000d15627680"
+    },
+    {
+      "path": "lab/out/sys-cluster-pair-20261006/TEST-com.streamhouse.oracle.FrozenHeapBaselineTest.xml",
+      "bytes": 10718,
+      "sha256": "5e52af63f9595331b0be38bc6ed78b2209ab988ffd7ccbd13368c10c2cf8bb60"
+    },
+    {
+      "path": "lab/out/sys-cluster-pair-20261006/TEST-com.streamhouse.oracle.HeapCleanoutCTest.xml",
+      "bytes": 10178,
+      "sha256": "1f88814cb2a97a554b0fc4b3567c3d6d5e511d6211e9e7ac69407f5fb55fbf69"
+    },
+    {
+      "path": "lab/out/sys-cluster-pair-20261006/TEST-com.streamhouse.oracle.HeapCompensationTest.xml",
+      "bytes": 10880,
+      "sha256": "65d35ddfe7e71694ca98f3c33d388fcfadf43fa87ca0539a13e0231b4a87b742"
+    },
+    {
+      "path": "lab/out/sys-cluster-pair-20261006/TEST-com.streamhouse.oracle.HeapIndexScopeTest.xml",
+      "bytes": 10377,
+      "sha256": "c5bac588b6bf1a11d5c692e181d0d93bf59afb36f636a287485030bccef53025"
+    },
+    {
+      "path": "lab/out/sys-cluster-pair-20261006/TEST-com.streamhouse.oracle.HeapLockTest.xml",
+      "bytes": 10045,
+      "sha256": "3385720cacb396432e7b895912e2012c9e0e6818a887f9fccd4596cb3d464760"
+    },
+    {
+      "path": "lab/out/sys-cluster-pair-20261006/TEST-com.streamhouse.oracle.HeapRowPatchTest.xml",
+      "bytes": 10653,
+      "sha256": "148cff48d00609a42ba9e344d567f52937f75cb278e2bb2a9238625989d6e573"
+    },
+    {
+      "path": "lab/out/sys-cluster-pair-20261006/TEST-com.streamhouse.oracle.HeapTailExtentTest.xml",
+      "bytes": 10760,
+      "sha256": "dfea79aaf1304f4a6cc69bf7fc0a93ce0a87b783580c9abbd6a7b3c0368f39fe"
+    },
+    {
+      "path": "lab/out/sys-cluster-pair-20261006/TEST-com.streamhouse.oracle.HeapUndoPairTest.xml",
+      "bytes": 10573,
+      "sha256": "dc41560d78c8bdfe12f8c8c3a810e81a9242ef080675f4fd549c8930f14820a7"
+    },
+    {
+      "path": "lab/out/sys-cluster-pair-20261006/TEST-com.streamhouse.oracle.HistoricalSchemaBarrierTest.xml",
+      "bytes": 11459,
+      "sha256": "0cadfc9bc2b63de6beec6886d3da2cc8fbd924109253e62f02ad81d945994642"
+    },
+    {
+      "path": "lab/out/sys-cluster-pair-20261006/TEST-com.streamhouse.oracle.IndexCompensationTest.xml",
+      "bytes": 10498,
+      "sha256": "f9cc4a41e78e6f4b198c03e0467e84fb02a178ee52d812f52d2089905853f2a9"
+    },
+    {
+      "path": "lab/out/sys-cluster-pair-20261006/TEST-com.streamhouse.oracle.IndexLeafPositionsTest.xml",
+      "bytes": 11189,
+      "sha256": "7f2837e06ac7aac10264b530200dfd048d2c97bdcb2a738a505b552d7f24f1d9"
+    },
+    {
+      "path": "lab/out/sys-cluster-pair-20261006/TEST-com.streamhouse.oracle.IndexPositionReplayTest.xml",
+      "bytes": 10437,
+      "sha256": "a80894053f0bbd6b57eb3c232d7c2fb6d8ac8c9723e8f02f9049cd84bd4f9693"
+    },
+    {
+      "path": "lab/out/sys-cluster-pair-20261006/TEST-com.streamhouse.oracle.IndexRestoreCompensationTest.xml",
+      "bytes": 10661,
+      "sha256": "c72d5d0d87bbcc10ba88858aa3b20cafefa24948ddeaef1abb5770f13f78c864"
+    },
+    {
+      "path": "lab/out/sys-cluster-pair-20261006/TEST-com.streamhouse.oracle.IndexUndoPairTest.xml",
+      "bytes": 10947,
+      "sha256": "810a0328e4f89f01061a7779bab6b5552d879a3f63f536a997c98d46b37bbf0e"
+    },
+    {
+      "path": "lab/out/sys-cluster-pair-20261006/TEST-com.streamhouse.oracle.Kdom2MarkerThreeTest.xml",
+      "bytes": 10060,
+      "sha256": "14e8194128fc9e72ba82cedad9fb3a9c9cc6fc0d76d7f517c96b036a8baab573"
+    },
+    {
+      "path": "lab/out/sys-cluster-pair-20261006/TEST-com.streamhouse.oracle.Kdom2UpdateTest.xml",
+      "bytes": 11103,
+      "sha256": "4d815be38f71773f01fab9bf49b29c7042d5d050b480acc242a966ef73129b21"
+    },
+    {
+      "path": "lab/out/sys-cluster-pair-20261006/TEST-com.streamhouse.oracle.KtbZInsertTest.xml",
+      "bytes": 10181,
+      "sha256": "4449499e17907b4cbd17022f06b02d3a482f97e0b457e1e7589135b86f49baf5"
+    },
+    {
+      "path": "lab/out/sys-cluster-pair-20261006/TEST-com.streamhouse.oracle.KtbZRollbackTest.xml",
+      "bytes": 11232,
+      "sha256": "05b9e2b4c648019a52a64d9f682add368f4069b466707ac9f78320615f49203b"
+    },
+    {
+      "path": "lab/out/sys-cluster-pair-20261006/TEST-com.streamhouse.oracle.OracleScalarsTest.xml",
+      "bytes": 10396,
+      "sha256": "ce17814b8c580ca6573dcd4372ce85bf382a920bf50f7f7888ce402aa0a297e2"
+    },
+    {
+      "path": "lab/out/sys-cluster-pair-20261006/TEST-com.streamhouse.oracle.SingleEntryBlockCleanoutTest.xml",
+      "bytes": 10098,
+      "sha256": "d73cbeabec3aa19be2b19ec3acd9c7c2f3d5b42a38a9fe4662881f9aa76e3ff1"
+    },
+    {
+      "path": "lab/out/sys-cluster-pair-20261006/TEST-com.streamhouse.oracle.TransactionLifecycleTest.xml",
+      "bytes": 11702,
+      "sha256": "8ecbf1158fea12c8a88423ab2c2ed3bd0ab71210cae5f26fc94b2b7acc3fa0c6"
+    },
+    {
+      "path": "lab/out/sys-cluster-pair-20261006/TEST-com.streamhouse.oracle.TransactionMarkersTest.xml",
+      "bytes": 11192,
+      "sha256": "f35a2b6a72b74bf53dcc61feca552d6f431da0aa17a5597b265c9e87e72f5618"
+    },
+    {
+      "path": "lab/out/sys-cluster-pair-20261006/TEST-com.streamhouse.oracle.TransactionStartTest.xml",
+      "bytes": 10843,
+      "sha256": "6372fdc9421a4fd910ec8dd624b1e13a46d3b281fdcc0e6639eae7f255bb7240"
+    },
+    {
+      "path": "lab/out/sys-cluster-pair-20261006/TEST-com.streamhouse.oracle.UndoBlockAdvanceTest.xml",
+      "bytes": 10466,
+      "sha256": "dce0f351c72d040494a392ce3db4b1999e0b3edcdb994a8b4efa931dc6ff8083"
+    },
+    {
+      "path": "lab/out/sys-cluster-pair-20261006/TEST-com.streamhouse.oracle.UndoChainTest.xml",
+      "bytes": 10573,
+      "sha256": "077c241f75334e9a372944194fa19604bcfeebad2f2cee74ca5ab870bb3f35c9"
+    },
+    {
+      "path": "lab/out/sys-cluster-pair-20261006/TEST-com.streamhouse.oracle.UndoControlRootTest.xml",
+      "bytes": 10356,
+      "sha256": "e5c8266445d2bc7f5d8fb5dccf40a9ba243696502c8fd77f6c6042310878cc29"
+    },
+    {
+      "path": "lab/out/sys-cluster-pair-20261006/TEST-com.streamhouse.oracle.UndoHeaderTest.xml",
+      "bytes": 10148,
+      "sha256": "1d23b75d63e8f5a385c874f8531ed1bbdeb2666f08ebadcb0f71af88837b6c59"
+    },
+    {
+      "path": "lab/out/sys-cluster-pair-20261006/TEST-com.streamhouse.oracle.UndoHeadUpdateTest.xml",
+      "bytes": 10618,
+      "sha256": "f19aada12c3ed093842860cb3657a6b9c216353acf291f50502470e715dd3e41"
+    },
+    {
+      "path": "lab/out/sys-cluster-pair-20261006/TEST-com.streamhouse.oracle.UndoHistoryTest.xml",
+      "bytes": 11047,
+      "sha256": "07084012c02c22a1d0639b598f99bedbede205fc7965e93793b53978b3085f5d"
+    },
+    {
+      "path": "lab/out/sys-cluster-pair-20261006/TEST-com.streamhouse.oracle.UndoRowPatchTest.xml",
+      "bytes": 10424,
+      "sha256": "a980603d4196f0bf60d463bf3e8f9a01f47031767d907e4e7cf0d525ee8eba8f"
+    },
+    {
+      "path": "lab/out/sys-cluster-pair-20261006/wrong-forward-container-pair.command.json",
+      "bytes": 569,
+      "sha256": "11a69c463692dbc61023fb413527fe68737a2a4e005d666601295d27c6b17e50"
+    },
+    {
+      "path": "lab/out/sys-cluster-pair-20261006/wrong-forward-container-pair.rc.txt",
+      "bytes": 1,
+      "sha256": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b"
+    },
+    {
+      "path": "lab/out/sys-cluster-pair-20261006/wrong-forward-container-pair.stderr.txt",
+      "bytes": 359,
+      "sha256": "4fe0fcf8d856dceb5f821d9b67f1e6f72dfea78fc20cfb0e284234a87eb19299"
+    },
+    {
+      "path": "lab/out/sys-cluster-pair-20261006/wrong-forward-container-pair.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/sys-cluster-pair-20261006/wrong-forward-container-scan.command.json",
+      "bytes": 292,
+      "sha256": "764acf761971e2ccdf8ebfde5185e0a87d313d8709f89a901e43c19dacddb9d0"
+    },
+    {
+      "path": "lab/out/sys-cluster-pair-20261006/wrong-forward-container-scan.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/sys-cluster-pair-20261006/wrong-forward-container-scan.stderr.txt",
+      "bytes": 280,
+      "sha256": "e9968bb4d29659a913d27a56f8b2b446c994fbc3a07d6e9550f8fac546a1bfc0"
+    },
+    {
+      "path": "lab/out/sys-cluster-pair-20261006/wrong-forward-container-scan.stdout.txt",
+      "bytes": 22,
+      "sha256": "43b4733169d6e007aeb99a8ddd34a5c1c256dd2d71bd958ddcc72f09a9cae4e9"
+    },
+    {
+      "path": "lab/out/sys-cluster-pair-20261006/wrong-forward-full-XID-pair.command.json",
+      "bytes": 568,
+      "sha256": "097fbf155aa866f54701e7adc9db9a8c4f2aeccaaa58bdf510dcbbfccadaad99"
+    },
+    {
+      "path": "lab/out/sys-cluster-pair-20261006/wrong-forward-full-XID-pair.rc.txt",
+      "bytes": 1,
+      "sha256": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b"
+    },
+    {
+      "path": "lab/out/sys-cluster-pair-20261006/wrong-forward-full-XID-pair.stderr.txt",
+      "bytes": 437,
+      "sha256": "f0b49df42b6321f6faef757edf379104cb10f3a2eb6b624d4362a961137c1a86"
+    },
+    {
+      "path": "lab/out/sys-cluster-pair-20261006/wrong-forward-full-XID-pair.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/sys-cluster-pair-20261006/wrong-forward-full-XID-scan.command.json",
+      "bytes": 291,
+      "sha256": "011fc27303d41867c839a950d5d14710e6fad0e6b392d463d3486db19f2658d4"
+    },
+    {
+      "path": "lab/out/sys-cluster-pair-20261006/wrong-forward-full-XID-scan.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/sys-cluster-pair-20261006/wrong-forward-full-XID-scan.stderr.txt",
+      "bytes": 280,
+      "sha256": "3e12f9e090239cba63c84c72d1f3c657846a6b116d60fc78443ad0570f1adf43"
+    },
+    {
+      "path": "lab/out/sys-cluster-pair-20261006/wrong-forward-full-XID-scan.stdout.txt",
+      "bytes": 22,
+      "sha256": "43b4733169d6e007aeb99a8ddd34a5c1c256dd2d71bd958ddcc72f09a9cae4e9"
+    },
+    {
+      "path": "lab/out/sys-cluster-pair-20261006/wrong-forward-slot-pair.command.json",
+      "bytes": 564,
+      "sha256": "6d8818d21283c9148b4f1520cbbab40983c803384400dede0c25ff3ce229ab25"
+    },
+    {
+      "path": "lab/out/sys-cluster-pair-20261006/wrong-forward-slot-pair.rc.txt",
+      "bytes": 1,
+      "sha256": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b"
+    },
+    {
+      "path": "lab/out/sys-cluster-pair-20261006/wrong-forward-slot-pair.stderr.txt",
+      "bytes": 437,
+      "sha256": "f0b49df42b6321f6faef757edf379104cb10f3a2eb6b624d4362a961137c1a86"
+    },
+    {
+      "path": "lab/out/sys-cluster-pair-20261006/wrong-forward-slot-pair.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/sys-cluster-pair-20261006/wrong-forward-slot-scan.command.json",
+      "bytes": 287,
+      "sha256": "9ec894f8e07e693f7a1d8c6bdf2cc8eab28d5811ce23c6fe0dd52e90704e621e"
+    },
+    {
+      "path": "lab/out/sys-cluster-pair-20261006/wrong-forward-slot-scan.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/sys-cluster-pair-20261006/wrong-forward-slot-scan.stderr.txt",
+      "bytes": 280,
+      "sha256": "2f462648fb42e35f770048e98897eff46b8fe9791810984033447818b0bdb88d"
+    },
+    {
+      "path": "lab/out/sys-cluster-pair-20261006/wrong-forward-slot-scan.stdout.txt",
+      "bytes": 22,
+      "sha256": "43b4733169d6e007aeb99a8ddd34a5c1c256dd2d71bd958ddcc72f09a9cae4e9"
+    },
+    {
+      "path": "lab/out/sys-cluster-pair-20261006/wrong-forward-tabn-pair.command.json",
+      "bytes": 564,
+      "sha256": "76fcd0cece495a92df2111c327ad67c12aaee80b2364631a6cc7a43db401058d"
+    },
+    {
+      "path": "lab/out/sys-cluster-pair-20261006/wrong-forward-tabn-pair.rc.txt",
+      "bytes": 1,
+      "sha256": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b"
+    },
+    {
+      "path": "lab/out/sys-cluster-pair-20261006/wrong-forward-tabn-pair.stderr.txt",
+      "bytes": 507,
+      "sha256": "d8652cf26714fd568eeb54a3b486b6f804a5ec25a773546f10a451d922c1faf6"
+    },
+    {
+      "path": "lab/out/sys-cluster-pair-20261006/wrong-forward-tabn-pair.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/sys-cluster-pair-20261006/wrong-forward-tabn-scan.command.json",
+      "bytes": 287,
+      "sha256": "12bcbb37b024ef2d4c85ce59b3f55c856a68f702b1756d985fe46d642bc134b2"
+    },
+    {
+      "path": "lab/out/sys-cluster-pair-20261006/wrong-forward-tabn-scan.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/sys-cluster-pair-20261006/wrong-forward-tabn-scan.stderr.txt",
+      "bytes": 280,
+      "sha256": "a492d492675614d55d3c424e336a7c7c3292eadbb5547509f43d162708cc5854"
+    },
+    {
+      "path": "lab/out/sys-cluster-pair-20261006/wrong-forward-tabn-scan.stdout.txt",
+      "bytes": 22,
+      "sha256": "43b4733169d6e007aeb99a8ddd34a5c1c256dd2d71bd958ddcc72f09a9cae4e9"
+    },
+    {
+      "path": "lab/out/sys-cluster-pair-20261006/wrong-forward-UBA-pair.command.json",
+      "bytes": 563,
+      "sha256": "5e5d7963ca374366a85cfa859a355ab149d9681040beb1465c2790e0cde377f1"
+    },
+    {
+      "path": "lab/out/sys-cluster-pair-20261006/wrong-forward-UBA-pair.rc.txt",
+      "bytes": 1,
+      "sha256": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b"
+    },
+    {
+      "path": "lab/out/sys-cluster-pair-20261006/wrong-forward-UBA-pair.stderr.txt",
+      "bytes": 418,
+      "sha256": "0ed6376d719446930e50f32b83c97510a2fa0cf53df9b38fc9e784a78f108939"
+    },
+    {
+      "path": "lab/out/sys-cluster-pair-20261006/wrong-forward-UBA-pair.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/sys-cluster-pair-20261006/wrong-forward-UBA-scan.command.json",
+      "bytes": 286,
+      "sha256": "3f6793e9a6759d759cabbdbbf35715168c4565336e00720d96a3bb0fd2d04e5c"
+    },
+    {
+      "path": "lab/out/sys-cluster-pair-20261006/wrong-forward-UBA-scan.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/sys-cluster-pair-20261006/wrong-forward-UBA-scan.stderr.txt",
+      "bytes": 280,
+      "sha256": "b0d687823b022de9782478f9532e2a712af0db463ffb552a45191acacd018200"
+    },
+    {
+      "path": "lab/out/sys-cluster-pair-20261006/wrong-forward-UBA-scan.stdout.txt",
+      "bytes": 22,
+      "sha256": "43b4733169d6e007aeb99a8ddd34a5c1c256dd2d71bd958ddcc72f09a9cae4e9"
+    },
+    {
+      "path": "lab/out/sys-cluster-pair-20261006/wrong-lock-transition-pair.command.json",
+      "bytes": 567,
+      "sha256": "13306de2213d29dd5d8a38e4f8ad59fb8aef795d540d1eeffbf0e2c26a9b7c6f"
+    },
+    {
+      "path": "lab/out/sys-cluster-pair-20261006/wrong-lock-transition-pair.rc.txt",
+      "bytes": 1,
+      "sha256": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b"
+    },
+    {
+      "path": "lab/out/sys-cluster-pair-20261006/wrong-lock-transition-pair.stderr.txt",
+      "bytes": 501,
+      "sha256": "c1d7db2ad73cedc70586ee8fbbad5223ff06ee5a5aae93dce841b85003c9ac15"
+    },
+    {
+      "path": "lab/out/sys-cluster-pair-20261006/wrong-lock-transition-pair.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/sys-cluster-pair-20261006/wrong-lock-transition-scan.command.json",
+      "bytes": 290,
+      "sha256": "4eaf2a36cf25c9cf29bbc73537f9ea3b378acef5c4fea72a6abe2a78f9b1f350"
+    },
+    {
+      "path": "lab/out/sys-cluster-pair-20261006/wrong-lock-transition-scan.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/sys-cluster-pair-20261006/wrong-lock-transition-scan.stderr.txt",
+      "bytes": 280,
+      "sha256": "25ddc7b792ee008949d22aeb6dc0f1303e0987bc18022c000fa9bda13c5a4f34"
+    },
+    {
+      "path": "lab/out/sys-cluster-pair-20261006/wrong-lock-transition-scan.stdout.txt",
+      "bytes": 22,
+      "sha256": "43b4733169d6e007aeb99a8ddd34a5c1c256dd2d71bd958ddcc72f09a9cae4e9"
+    },
+    {
+      "path": "lab/out/sys-cluster-pair-20261006/wrong-undo-generation-pair.command.json",
+      "bytes": 567,
+      "sha256": "1f6abb2a5011702b01369f19fe5e4a0a4c38e6236ea2386e46b838525d96619b"
+    },
+    {
+      "path": "lab/out/sys-cluster-pair-20261006/wrong-undo-generation-pair.rc.txt",
+      "bytes": 1,
+      "sha256": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b"
+    },
+    {
+      "path": "lab/out/sys-cluster-pair-20261006/wrong-undo-generation-pair.stderr.txt",
+      "bytes": 356,
+      "sha256": "5e084114a808d0671f29aacf9f44324c6dbd5a0d122963e159c422dd26eb914d"
+    },
+    {
+      "path": "lab/out/sys-cluster-pair-20261006/wrong-undo-generation-pair.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/sys-cluster-pair-20261006/wrong-undo-generation-scan.command.json",
+      "bytes": 290,
+      "sha256": "3e2aaa125bf67acf880e8415a413f3c4be2cb970c48ebc9140c9a59589d2ec36"
+    },
+    {
+      "path": "lab/out/sys-cluster-pair-20261006/wrong-undo-generation-scan.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/sys-cluster-pair-20261006/wrong-undo-generation-scan.stderr.txt",
+      "bytes": 280,
+      "sha256": "0118554f46e8205daa4a2ab5c7531468357d170be06d9d6a0bb2057c5fcf9a55"
+    },
+    {
+      "path": "lab/out/sys-cluster-pair-20261006/wrong-undo-generation-scan.stdout.txt",
+      "bytes": 22,
+      "sha256": "43b4733169d6e007aeb99a8ddd34a5c1c256dd2d71bd958ddcc72f09a9cae4e9"
+    },
+    {
+      "path": "lab/out/sys-cluster-pair-20261006/wrong-undo-logical-pair.command.json",
+      "bytes": 564,
+      "sha256": "682198cf98d80500fd9d3f455cc52fbd252f6a38ef3d92a6cb1b7f10cc4db8e4"
+    },
+    {
+      "path": "lab/out/sys-cluster-pair-20261006/wrong-undo-logical-pair.rc.txt",
+      "bytes": 1,
+      "sha256": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b"
+    },
+    {
+      "path": "lab/out/sys-cluster-pair-20261006/wrong-undo-logical-pair.stderr.txt",
+      "bytes": 507,
+      "sha256": "d8652cf26714fd568eeb54a3b486b6f804a5ec25a773546f10a451d922c1faf6"
+    },
+    {
+      "path": "lab/out/sys-cluster-pair-20261006/wrong-undo-logical-pair.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/sys-cluster-pair-20261006/wrong-undo-logical-scan.command.json",
+      "bytes": 287,
+      "sha256": "ff5bf525b7cbde2868bae94be1d5a98e7a38d5fbedbb294cb7ed5e18511b8b68"
+    },
+    {
+      "path": "lab/out/sys-cluster-pair-20261006/wrong-undo-logical-scan.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/sys-cluster-pair-20261006/wrong-undo-logical-scan.stderr.txt",
+      "bytes": 280,
+      "sha256": "03e1509f569cf6f7faf7958eaa2ef35b59904a4661ca185438e02b934c924bbc"
+    },
+    {
+      "path": "lab/out/sys-cluster-pair-20261006/wrong-undo-logical-scan.stdout.txt",
+      "bytes": 22,
+      "sha256": "43b4733169d6e007aeb99a8ddd34a5c1c256dd2d71bd958ddcc72f09a9cae4e9"
+    },
+    {
+      "path": "lab/out/sys-cluster-pair-20261006/wrong-undo-wrap-pair.command.json",
+      "bytes": 561,
+      "sha256": "e2cb5249f1d0965e115755249730abefc54fbf4496500c7f5b034b3b74790bf9"
+    },
+    {
+      "path": "lab/out/sys-cluster-pair-20261006/wrong-undo-wrap-pair.rc.txt",
+      "bytes": 1,
+      "sha256": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b"
+    },
+    {
+      "path": "lab/out/sys-cluster-pair-20261006/wrong-undo-wrap-pair.stderr.txt",
+      "bytes": 710,
+      "sha256": "ab5d317a894635197f6d68110c1fa7a345451f95bb5d1b54eccfe77fc06e1c57"
+    },
+    {
+      "path": "lab/out/sys-cluster-pair-20261006/wrong-undo-wrap-pair.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/sys-cluster-pair-20261006/wrong-undo-wrap-scan.command.json",
+      "bytes": 284,
+      "sha256": "826fcb6ef9876b687aa3f6e93cf5f33ec1fa6cfa4e3a04b1819c5844740f656f"
+    },
+    {
+      "path": "lab/out/sys-cluster-pair-20261006/wrong-undo-wrap-scan.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/sys-cluster-pair-20261006/wrong-undo-wrap-scan.stderr.txt",
+      "bytes": 280,
+      "sha256": "e8a01cbdfbc6e28a721d4b38c50e1c2f713a6c1be66ee9d9bd4172d2085c991a"
+    },
+    {
+      "path": "lab/out/sys-cluster-pair-20261006/wrong-undo-wrap-scan.stdout.txt",
+      "bytes": 22,
+      "sha256": "43b4733169d6e007aeb99a8ddd34a5c1c256dd2d71bd958ddcc72f09a9cae4e9"
+    }
+  ]
+}
