@@ -3,6 +3,7 @@ package com.streamhouse.engines.oracle;
 import com.streamhouse.oracle.ArchivedHeapRows;
 import com.streamhouse.oracle.ArchivedUndoInventory;
 import com.streamhouse.oracle.CapturedHeapBatch;
+import com.streamhouse.oracle.CapturedHistoricalHeapBatch;
 import com.streamhouse.oracle.FrozenHeapBaseline;
 import com.streamhouse.oracle.HeapRowPatch;
 import com.streamhouse.oracle.OracleScalars;
@@ -39,6 +40,11 @@ public final class OracleBatchProjection {
         public CapturedHeapBatch.Schema schema() {return schema;}
         public List<Entry> entries() {return entries;}
         public OracleBatchEvidence evidence() {return evidence;}
+    }
+    public static Batch project(CapturedHistoricalHeapBatch input) throws RedoException {
+        var historical=OracleHistoricalBatchProjection.project(input);
+        return new Batch(input.sha256(),input.source(),input.baselineSchema(),
+                historical.entries().stream().map(OracleHistoricalBatchProjection.Entry::event).toList(),historical.evidence());
     }
     public static Batch project(CapturedHeapBatch input) throws RedoException {
         var entries=new ArrayList<Entry>();var ordinals=new HashMap<HeapRowPatch.Xid,Long>();

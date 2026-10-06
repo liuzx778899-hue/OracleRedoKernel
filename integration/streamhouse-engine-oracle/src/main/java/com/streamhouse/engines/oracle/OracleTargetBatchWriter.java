@@ -9,6 +9,8 @@ import java.util.ArrayList;
 import java.util.Base64;
 import java.util.List;
 import java.util.Map;
+import java.util.LinkedHashMap;
+import com.streamhouse.spi.OracleBatchEvidence;
 import java.util.stream.Collectors;
 
 /** Oracle target transaction port. Owns/closes a fresh connection; never writes source tables or ACK. */
@@ -17,7 +19,9 @@ public final class OracleTargetBatchWriter {
         public Target { identifier(owner);identifier(prefix);if (targetId==null || targetId.isBlank()) throw new IllegalArgumentException("MISSING_TARGET_ID"); }
         String table(String suffix) {return owner+"."+prefix+"_"+suffix;}
     }
-    public record CommitReceipt(String targetId,String batchSha256,String schemaSha256,int events) {}
+    public record CommitReceipt(String targetId,String batchSha256,String schemaSha256,int events,String schemaSequenceSha256) {
+        public CommitReceipt(String targetId,String batchSha256,String schemaSha256,int events){this(targetId,batchSha256,schemaSha256,events,null);}
+    }
     public record Result(CommitReceipt receipt,int newApplications) {}
 
     public static String sourceBinding(OracleBatchProjection.Batch batch) {
@@ -28,7 +32,7 @@ public final class OracleTargetBatchWriter {
     public CommitReceipt verifyCommitted(Connection freshConnection,Target target,OracleBatchProjection.Batch batch) throws SQLException {
         try (var conn=freshConnection) {
             if (!conn.getAutoCommit()) throw new SQLException("ORACLE_TARGET_REQUIRES_FRESH_AUTOCOMMIT_CONNECTION");
-            var expected=new CommitReceipt(target.targetId(),batch.inputBatchSha256(),batch.schema().sha256(),batch.entries().size());
+            var expected=receipt(target,batch);
             String sql="select i.TARGET_ID,i.SOURCE_BINDING,i.SCHEMA_SHA,c.TARGET_ID,c.SCHEMA_SHA,c.EVENTS_COUNT,"
                     +"m.ORDINAL,m.EVENT_ID,a.PAYLOAD_SHA,a.BEFORE_IMAGE,a.AFTER_IMAGE,a.OPERATION from "+target.table("IDENT")+" i"
                     +" left join "+target.table("COMMITS")+" c on c.BATCH_SHA=?"
@@ -42,7 +46,7 @@ public final class OracleTargetBatchWriter {
                         if (!target.targetId().equals(rs.getString(1)) || !sourceBinding(batch).equals(rs.getString(2))
                                 || !expected.schemaSha256().equals(rs.getString(3))) throw new SQLException("ORACLE_TARGET_IDENTITY_MISMATCH");
                         if (rs.getString(4)==null) throw new SQLException("ORACLE_TARGET_ACK_WITHOUT_COMMIT");
-                        if (!target.targetId().equals(rs.getString(4)) || !expected.schemaSha256().equals(rs.getString(5))
+                        if (!target.targetId().equals(rs.getString(4)) || !commitSchemaBinding(expected).equals(rs.getString(5))
                                 || rs.getInt(6)!=expected.events()) throw new SQLException("ORACLE_TARGET_COMMIT_CONFLICT");
                         if (expected.events()==0) {
                             if (count!=0 || rs.getObject(7)!=null || rs.getString(8)!=null) throw new SQLException("ORACLE_TARGET_BATCH_MEMBERS_CONFLICT");
@@ -73,12 +77,12 @@ public final class OracleTargetBatchWriter {
                     if (!rs.next() || !target.targetId().equals(rs.getString(1)) || !sourceBinding(batch).equals(rs.getString(2))
                             || !batch.schema().sha256().equals(rs.getString(3)) || rs.next()) throw new SQLException("ORACLE_TARGET_IDENTITY_MISMATCH");
                 }
-                var receipt=new CommitReceipt(target.targetId(),batch.inputBatchSha256(),batch.schema().sha256(),batch.entries().size());
+                var receipt=receipt(target,batch);
                 boolean committed=false;
                 try (var ps=conn.prepareStatement("select TARGET_ID,SCHEMA_SHA,EVENTS_COUNT from "+target.table("COMMITS")+" where BATCH_SHA=?")) {
                     ps.setString(1,receipt.batchSha256());try (var rs=ps.executeQuery()) {
                         if (rs.next()) {
-                            if (!receipt.targetId().equals(rs.getString(1)) || !receipt.schemaSha256().equals(rs.getString(2))
+                            if (!receipt.targetId().equals(rs.getString(1)) || !commitSchemaBinding(receipt).equals(rs.getString(2))
                                     || receipt.events()!=rs.getInt(3) || rs.next()) throw new SQLException("ORACLE_TARGET_COMMIT_CONFLICT");
                             committed=true;
                         }
@@ -100,7 +104,7 @@ public final class OracleTargetBatchWriter {
                     }
                     if (!present) {
                         if (committed) throw new SQLException("ORACLE_TARGET_COMMIT_WITHOUT_EVENT");
-                        applyRow(conn,target,e);
+                        applyRow(conn,target,e,targetColumns(batch));
                         try (var ps=conn.prepareStatement("insert into "+target.table("APPLIED")+"(EVENT_ID,PAYLOAD_SHA,BEFORE_IMAGE,AFTER_IMAGE,OPERATION) values(?,?,?,?,?)")) {
                             ps.setString(1,e.eventId());ps.setString(2,entry.payloadSha256());ps.setString(3,before);ps.setString(4,after);
                             ps.setString(5,e.operation().name());ps.executeUpdate();
@@ -124,7 +128,7 @@ public final class OracleTargetBatchWriter {
                     }
                 }
                 if (!committed) try (var ps=conn.prepareStatement("insert into "+target.table("COMMITS")+"(BATCH_SHA,TARGET_ID,SCHEMA_SHA,EVENTS_COUNT) values(?,?,?,?)")) {
-                    ps.setString(1,receipt.batchSha256());ps.setString(2,receipt.targetId());ps.setString(3,receipt.schemaSha256());ps.setInt(4,receipt.events());ps.executeUpdate();
+                    ps.setString(1,receipt.batchSha256());ps.setString(2,receipt.targetId());ps.setString(3,commitSchemaBinding(receipt));ps.setInt(4,receipt.events());ps.executeUpdate();
                 }
                 conn.commit();return new Result(receipt,applied);
             } catch (SQLException | RuntimeException e) {
@@ -133,9 +137,37 @@ public final class OracleTargetBatchWriter {
             }
         }
     }
-    private static void applyRow(Connection conn,Target target,EventEnvelope event) throws SQLException {
-        Map<String,Object> before=event.before()==null ? Map.of() : event.before();
-        Map<String,Object> after=event.after()==null ? Map.of() : event.after();var args=new ArrayList<Object>();String sql;
+    private static CommitReceipt receipt(Target target,OracleBatchProjection.Batch batch) {
+        return new CommitReceipt(target.targetId(),batch.inputBatchSha256(),batch.schema().sha256(),batch.entries().size(),batch.evidence().schemaSequenceSha256());
+    }
+    // COMMITS.SCHEMA_SHA stores the commit's schema binding; IDENT retains the acquisition baseline SHA.
+    private static String commitSchemaBinding(CommitReceipt receipt) {
+        return receipt.schemaSequenceSha256()==null?receipt.schemaSha256():receipt.schemaSequenceSha256();
+    }
+    static List<OracleBatchEvidence.Column> targetColumns(OracleBatchProjection.Batch batch)throws SQLException {
+        if(batch.evidence().schemaSequenceSha256()==null)return List.of();
+        var columns=new LinkedHashMap<String,OracleBatchEvidence.Column>();
+        for(var c:batch.evidence().columns())columns.put(c.name(),c);
+        for(var schema:batch.evidence().eventSchemas())for(var c:schema.columns()) {
+            var old=columns.putIfAbsent(c.name(),c);
+            if(old!=null && !old.equals(c))throw new SQLException("ORACLE_TARGET_HISTORICAL_COLUMN_IDENTITY_CHANGED");
+        }
+        return List.copyOf(columns.values());
+    }
+    static Map<String,Object> targetImage(Map<String,Object> logical,List<OracleBatchEvidence.Column> columns)throws SQLException {
+        if(logical==null)return Map.of();
+        if(columns.isEmpty())return logical;
+        var mapped=new LinkedHashMap<String,Object>();
+        for(var c:columns) {
+            if(!logical.containsKey(c.name()) && !c.nullable())throw new SQLException("ORACLE_TARGET_HISTORICAL_REQUIRED_COLUMN_ABSENT");
+            mapped.put(c.name(),logical.get(c.name()));
+        }
+        if(!mapped.keySet().containsAll(logical.keySet()))throw new SQLException("ORACLE_TARGET_HISTORICAL_COLUMN_UNMAPPED");
+        return mapped;
+    }
+    private static void applyRow(Connection conn,Target target,EventEnvelope event,List<OracleBatchEvidence.Column> columns) throws SQLException {
+        Map<String,Object> before=targetImage(event.before(),columns);
+        Map<String,Object> after=targetImage(event.after(),columns);var args=new ArrayList<Object>();String sql;
         for (var name:before.keySet()) identifier(name);for (var name:after.keySet()) identifier(name);
         if (event.operation()==EventEnvelope.Operation.INSERT) {
             sql="insert into "+target.table("ROWS")+"("+String.join(",",after.keySet())+") values("
