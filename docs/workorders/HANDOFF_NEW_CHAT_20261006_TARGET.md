@@ -1,5 +1,7 @@
 # 2026-10-06 新 chat 接续：历史 schema 目标提交
 
+当前接续（优先级最高）：真实产品V3获取已封存407项（productc47a728c/750，actual100747510573780992/SCN2566695）。此基线后新70/71一次源动作已结束，禁止重放或重新获取晚SCN补洞。最新205项研究封存在RESEARCH-v3-product-index-maintenance-20261006.json；完整历史入口因索引维护覆盖拒绝、0事件。445→220+226叶行守恒仅一删除标记新增/槽7恢复raw关联/native0差异、四比较反例、五original graph/tail闭合；044a begin lifecycle及branch/link typed完整证据尚待补。接续RESEARCH_W5_V3_PRODUCT_INDEX_MAINTENANCE_20261006.md的DISPATCH，在新输出目录继续，原205/407不改。helper37261仍running，auto-consume关闭，binding0/event0，目标/历史HTTP/CPACK未执行；完整goal active，禁止Luna/子代理。下方历史dirty/制品/下一步描述不作为当前状态。
+
 接续结果（本节优先于下方历史待办）：新chat已完成root020be30/P65e12c2候选，productac98404d完整746，嵌入kernel240/adapter65e0fcba且SPI全class一致。HS6两完整历史UPDATE/独立事件账/receipt/重复0，HSL6晚CHECK首更新后整批回滚，序列凭证篡改拒绝并精确恢复；216双SHA封存、前241/75/189不变。无源重放/配置/服务换装，helper已退出。详见DELIVERY_W5_HISTORICAL_TARGET_20261006与STATUS，下一单DISPATCH_W5_V3_PRODUCT_RUNTIME_20261006：proper产品V3获取后一次新fixture，禁止晚SCN回填旧68/69。原完整goal active；PR#13已附属新chat，draft依赖#12/评审PENDING，禁止Luna/子代理，Codex最后查。下方未提交/未编译/尚未写探针等为交接时历史记录，不再是当前状态。
 
 用户因旧 chat 反复压缩上下文要求新开窗口。旧 chat 从此只保留历史，不再修改共享 checkout；新 chat 接续全部原目标，不能缩成当前子任务。禁止 Luna、禁止子代理。Oracle 全部目标完成之后才查 Codex 卡顿。

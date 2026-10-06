@@ -1,5 +1,7 @@
 # OracleRedoKernel 当前状态
 
+最新：[产品V3新窗口/索引维护拒绝研究](RESEARCH_W5_V3_PRODUCT_INDEX_MAINTENANCE_20261006.md)：实际baseline2566695后seq70/71一次ADD/DROP及两UPDATE已结束，禁止重放；collector terminal0/next72，126644/18观察块与归档数据块0差异，capture_complete=false/原online header保留。完整工厂DICTIONARY_DISCOVERY_INDEX_COVERAGE rc1/stdout0；原445行→220+226行仅一删除标记新增，槽7恢复key/rowid与native字节0差异、四比较反例检出。XID9.9.660五original前驱graph/tail闭合，但lifecycle仍拒绝044a begin，branch/link完整typed维护未证，0事件/产品binding0/event0，无target/HTTP/CPACK。205双SHA/前407不变，失败保全，0生产代码修改/重构旧套件。接续同冻结窗口typed维护，不重获取/源动作；原全goal active，独立评审/现场发布待证，Codex最后查。
+
 最新：[产品真实V3获取/恢复候选](DELIVERY_W5_V3_PRODUCT_ACQUISITION_20261006.md)：root0f2838b/Pa40db7b，productc47a728c完整750，kernel240/adapter65真实嵌入。认证HTTP获取100747510573780992/SCN2566695/SHA323fd35a，6SYS/230值/3index/业务基线与独立ASOF0差异、完整metadata一致。未认证/字段注入、文件截断与五metadata实际GET拒绝/精确恢复，同件重启字段/SHA相同；ACQUIRED_ONLY/binding0/event0，helper37261 running/auto-consume关闭，无新源fixture/日志配置/目标动作。407双SHA/旧216+241+75+189+374不变；比较器SCN/hex/时间精度及SP2长行失败保全。下一步新基线后一次新历史raw→真实产品HTTP/CPACK，不回填68/69；PR#13 draft依赖#12/评审PENDING，原全goal active，Codex最后查。
 
 最新：[历史完整事件目标原子提交候选](DELIVERY_W5_HISTORICAL_TARGET_20261006.md)：root020be30/P65e12c2，adapter65e0fcba/26、完整productac98404d/746，真实嵌入kernel240/adapter65及SPI全class一致。原早V3/68—69两UPDATE在新owned HS6完整4→3列事件账/成员/commit独立一致，重复0；HSL6首更新后第二CHECK ORA-02290整批回滚，序列凭证篡改拒绝/精确恢复。216双SHA/旧241+75+189不变；0源DML/配置/服务换装，只有direct writer集成，可信V3产品获取/历史HTTP/CPACK待证，禁止晚SCN回填旧窗口。下一单V3_PRODUCT_RUNTIME，PR#13 draft依赖#12/独立评审PENDING；原全goal active，其它全量门禁待证，Codex最后查。
