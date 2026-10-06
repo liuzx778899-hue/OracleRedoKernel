@@ -1,5 +1,7 @@
 # 2026-10-06 新 chat 接续：历史 schema 目标提交
 
+最新优先：DELIVERY_W5_DICTIONARY_MAINTENANCE_PAIRS_20261006.md，kernel1911a0cd/完整305，I_COL3 lock/prev-link/branch三局部typed Pair与真实native0差异，旧115class字节未变，新增2class。139双SHA/旧130/205/407未变，首诊断scope失败保全；完整历史工厂尚未接入此Pair，完整split和两事件未过。接续新执行包typed前像/new与old叶重建→全五original/6记录含end闭包→10.5 raw槽恢复，原70/71和早V3，不重源/获取/封存；产品未构建换装、goal active。
+
 最新优先：DELIVERY_W5_INDEX_MAINTENANCE_BEGIN_20261006.md，kernel4e7eeafc/完整301，044a严格begin profile已支持，原维护生命周期begin/两advance/五original与end/tail/native闭合。130双SHA、旧205/407未变；完整历史工厂仍索引覆盖拒绝/0事件。下一步第2—5项完整typed branch/link/叶重建与restore槽证据，再实际历史HTTP/target/CPACK，不重获取、不重源动作、封存目录不覆盖。0产品构建/换装，完整goal保持active。
 
 当前接续（优先级最高）：真实产品V3获取已封存407项（productc47a728c/750，actual100747510573780992/SCN2566695）。此基线后新70/71一次源动作已结束，禁止重放或重新获取晚SCN补洞。最新205项研究封存在RESEARCH-v3-product-index-maintenance-20261006.json；完整历史入口因索引维护覆盖拒绝、0事件。445→220+226叶行守恒仅一删除标记新增/槽7恢复raw关联/native0差异、四比较反例、五original graph/tail闭合；044a begin lifecycle及branch/link typed完整证据尚待补。接续RESEARCH_W5_V3_PRODUCT_INDEX_MAINTENANCE_20261006.md的DISPATCH，在新输出目录继续，原205/407不改。helper37261仍running，auto-consume关闭，binding0/event0，目标/历史HTTP/CPACK未执行；完整goal active，禁止Luna/子代理。下方历史dirty/制品/下一步描述不作为当前状态。

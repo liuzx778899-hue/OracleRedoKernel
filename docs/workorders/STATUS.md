@@ -1,5 +1,7 @@
 # OracleRedoKernel 当前状态
 
+最新：[I_COL3锁/link/branch typed Pair候选](DELIVERY_W5_DICTIONARY_MAINTENANCE_PAIRS_20261006.md)：kernel1911a0cd完整305/0/0/0，新增三局部Pair/current XID/UBA/role/generation/segment/ITL逆向绑定，真实70三对/native0差异；link指向new leaf0040512f、branch slot299/child一致/parent75281。旧115class字节不变，仅新增2class；完整历史工厂尚未接入/未重跑，完整维护闭包和两事件待证，诊断0事件。139双SHA/前130+205+407不变；首探针范围外undo失败保全，r2仅修研究scope。0源/目标/产品构建换装，接续前像/两叶typed重建+全维护闭包+10.5 raw槽关联，再历史产品链；原goal active、现场发布未过，Codex最后查。
+
 最新：[维护begin/原生命周期候选](DELIVERY_W5_INDEX_MAINTENANCE_BEGIN_20261006.md)：kernel4e7eeafc完整301/0/0/0，严格044a首record/size136/opaque3f98/零parent profile及两新增测试；原70/71同早V3窗口XID9.9.660 begin+两advance+五original/live+end/tail完整生命周期闭合，native身份/前驱0差异。完整capture历史工厂仍DICTIONARY_DISCOVERY_INDEX_COVERAGE rc1/stdout0，branch/link/重建全typed维护尚待证。130双SHA/前205+407不变；0新源动作/配置/目标/产品构建或换装，保留旧拒绝；接续完整typed维护→两历史UPDATE→产品HTTP/target/CPACK，不能跳过维护图。原goal active、评审现场发布未过，Codex最后查。
 
 最新：[产品V3新窗口/索引维护拒绝研究](RESEARCH_W5_V3_PRODUCT_INDEX_MAINTENANCE_20261006.md)：实际baseline2566695后seq70/71一次ADD/DROP及两UPDATE已结束，禁止重放；collector terminal0/next72，126644/18观察块与归档数据块0差异，capture_complete=false/原online header保留。完整工厂DICTIONARY_DISCOVERY_INDEX_COVERAGE rc1/stdout0；原445行→220+226行仅一删除标记新增，槽7恢复key/rowid与native字节0差异、四比较反例检出。XID9.9.660五original前驱graph/tail闭合，但lifecycle仍拒绝044a begin，branch/link完整typed维护未证，0事件/产品binding0/event0，无target/HTTP/CPACK。205双SHA/前407不变，失败保全，0生产代码修改/重构旧套件。接续同冻结窗口typed维护，不重获取/源动作；原全goal active，独立评审/现场发布待证，Codex最后查。
