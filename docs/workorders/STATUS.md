@@ -1,5 +1,7 @@
 # OracleRedoKernel 当前状态
 
+最新：[产品真实V3获取/恢复候选](DELIVERY_W5_V3_PRODUCT_ACQUISITION_20261006.md)：root0f2838b/Pa40db7b，productc47a728c完整750，kernel240/adapter65真实嵌入。认证HTTP获取100747510573780992/SCN2566695/SHA323fd35a，6SYS/230值/3index/业务基线与独立ASOF0差异、完整metadata一致。未认证/字段注入、文件截断与五metadata实际GET拒绝/精确恢复，同件重启字段/SHA相同；ACQUIRED_ONLY/binding0/event0，helper37261 running/auto-consume关闭，无新源fixture/日志配置/目标动作。407双SHA/旧216+241+75+189+374不变；比较器SCN/hex/时间精度及SP2长行失败保全。下一步新基线后一次新历史raw→真实产品HTTP/CPACK，不回填68/69；PR#13 draft依赖#12/评审PENDING，原全goal active，Codex最后查。
+
 最新：[历史完整事件目标原子提交候选](DELIVERY_W5_HISTORICAL_TARGET_20261006.md)：root020be30/P65e12c2，adapter65e0fcba/26、完整productac98404d/746，真实嵌入kernel240/adapter65及SPI全class一致。原早V3/68—69两UPDATE在新owned HS6完整4→3列事件账/成员/commit独立一致，重复0；HSL6首更新后第二CHECK ORA-02290整批回滚，序列凭证篡改拒绝/精确恢复。216双SHA/旧241+75+189不变；0源DML/配置/服务换装，只有direct writer集成，可信V3产品获取/历史HTTP/CPACK待证，禁止晚SCN回填旧窗口。下一单V3_PRODUCT_RUNTIME，PR#13 draft依赖#12/独立评审PENDING；原全goal active，其它全量门禁待证，Codex最后查。
 
 最新：[历史schema证据协议/产品兼容候选](DELIVERY_W5_HISTORICAL_SCHEMA_PROTOCOL_20261006.md)：e5477a6/kernel240c2250/299、adapter35340779/24、SPI53b84d18/8；P代码8cc33b1/743完整通过/product18f49be4，真实嵌入仍672f01bc/9516d4f9而非新历史候选。基线3列与逐事件4→3列DTO/完整字段/JSON往返及重复/擦marker一致，摘要仍c23904a9；错摘要/交换/裁列整入口rc1/stdout0，旧V2三IUD全部旧字段/envelope SHA相同。241双SHA/旧75+189不变；P注册关联拒绝/旧存储兼容通过，0源/目标/服务换装。历史decoder/可信V3获取回执登记/target receipt控制CPACK尚未接通，禁止晚SCN回填68/69。PR#13 draft依赖#12评审PENDING，原goal active，所有其它全量门禁待证，Codex最后查。
