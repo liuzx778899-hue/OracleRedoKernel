@@ -1,5 +1,7 @@
 # OracleRedoKernel 当前状态
 
+最新：[I_COL3前像/两叶重建typed候选](DELIVERY_W5_DICTIONARY_LEAF_ROWS_20261006.md)：最终r2 kernelb4913b23完整309/0/0/0，typed前像445/NEW220/OLD226全部891行/native字节+NUMBER+rowid+状态0差异，四比较反例检出。旧117class字节不变，仅新增2class；OLD重建prev缺证用null，首0占位候选133保留/最终129双SHA，前139+130+205+407未变。0源/配置/目标/产品构建换装，完整历史工厂未接入/未重跑；下一步自主五original+end完整split闭包及10.5 raw槽凭证，不能局部通过冒充两事件/HTTP/CPACK。原完整goal active、现场发布未过，Codex最后查。
+
 最新：[I_COL3锁/link/branch typed Pair候选](DELIVERY_W5_DICTIONARY_MAINTENANCE_PAIRS_20261006.md)：kernel1911a0cd完整305/0/0/0，新增三局部Pair/current XID/UBA/role/generation/segment/ITL逆向绑定，真实70三对/native0差异；link指向new leaf0040512f、branch slot299/child一致/parent75281。旧115class字节不变，仅新增2class；完整历史工厂尚未接入/未重跑，完整维护闭包和两事件待证，诊断0事件。139双SHA/前130+205+407不变；首探针范围外undo失败保全，r2仅修研究scope。0源/目标/产品构建换装，接续前像/两叶typed重建+全维护闭包+10.5 raw槽关联，再历史产品链；原goal active、现场发布未过，Codex最后查。
 
 最新：[维护begin/原生命周期候选](DELIVERY_W5_INDEX_MAINTENANCE_BEGIN_20261006.md)：kernel4e7eeafc完整301/0/0/0，严格044a首record/size136/opaque3f98/零parent profile及两新增测试；原70/71同早V3窗口XID9.9.660 begin+两advance+五original/live+end/tail完整生命周期闭合，native身份/前驱0差异。完整capture历史工厂仍DICTIONARY_DISCOVERY_INDEX_COVERAGE rc1/stdout0，branch/link/重建全typed维护尚待证。130双SHA/前205+407不变；0新源动作/配置/目标/产品构建或换装，保留旧拒绝；接续完整typed维护→两历史UPDATE→产品HTTP/target/CPACK，不能跳过维护图。原goal active、评审现场发布未过，Codex最后查。

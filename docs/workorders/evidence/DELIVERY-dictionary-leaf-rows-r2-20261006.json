@@ -1,0 +1,723 @@
+{
+  "tests": [
+    309,
+    0,
+    0,
+    0
+  ],
+  "kernel_sha256": "b4913b23c18d8c950fccd65873dfcc51c917e03a14cb498ca01a714228450e30",
+  "native_leaf_proof": {
+    "diagnostic_only": true,
+    "events": 0,
+    "rows_compared": 891,
+    "counts": {
+      "BEFORE": 445,
+      "NEW": 220,
+      "OLD": 226
+    },
+    "native_byte_and_scalar_differences": 0,
+    "removed_rows": 0,
+    "added_deleted_rows": 1,
+    "restored_slot": 7,
+    "raw_deleted_row": "0101004089a4003304c308345602c105",
+    "negative_detected": [
+      "wrong_raw",
+      "wrong_number",
+      "wrong_rowid",
+      "wrong_flags"
+    ],
+    "complete_split": false
+  },
+  "class_compatibility": {
+    "previous_classes": 117,
+    "unchanged": true,
+    "added": [
+      "com/streamhouse/oracle/DictionaryIndexLeafRows$Row.class",
+      "com/streamhouse/oracle/DictionaryIndexLeafRows.class"
+    ]
+  },
+  "complete_split": false,
+  "events": 0,
+  "source_actions": 0,
+  "product_build": false,
+  "target_actions": 0,
+  "checkpoint_ack": false,
+  "site_accepted": false,
+  "release_accepted": false,
+  "previous": [
+    {
+      "path": "docs/workorders/evidence/DELIVERY-dictionary-leaf-rows-20261006.json",
+      "files": 133,
+      "unchanged": true
+    },
+    {
+      "path": "docs/workorders/evidence/DELIVERY-dictionary-maintenance-pairs-20261006.json",
+      "files": 139,
+      "unchanged": true
+    },
+    {
+      "path": "docs/workorders/evidence/DELIVERY-index-maintenance-begin-20261006.json",
+      "files": 130,
+      "unchanged": true
+    },
+    {
+      "path": "docs/workorders/evidence/RESEARCH-v3-product-index-maintenance-20261006.json",
+      "files": 205,
+      "unchanged": true
+    },
+    {
+      "path": "docs/workorders/evidence/DELIVERY-v3-product-acquisition-20261006.json",
+      "files": 407,
+      "unchanged": true
+    }
+  ],
+  "double_sha256_verified": true,
+  "files_count": 129,
+  "files": [
+    {
+      "path": "lab/out/index-leaf-rows-r2-20261006/class-compatibility.json",
+      "bytes": 171,
+      "sha256": "eaf9ad03fb2159abb5791f3aab9188a1f9e36db8c06d25e82a5cda55427dc120"
+    },
+    {
+      "path": "lab/out/index-leaf-rows-r2-20261006/classes/DictionaryLeafRowsProbe.class",
+      "bytes": 7039,
+      "sha256": "104e85451bb86bb599fd99ca1597804fd15e3849a1fffcf36738db97468f3506"
+    },
+    {
+      "path": "lab/out/index-leaf-rows-r2-20261006/compile-real-leaves.command.json",
+      "bytes": 393,
+      "sha256": "6ed308bfada7ca39b998b94847b1dc417a86a9f15d94e8139608b421c8d1e6ed"
+    },
+    {
+      "path": "lab/out/index-leaf-rows-r2-20261006/compile-real-leaves.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/index-leaf-rows-r2-20261006/compile-real-leaves.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/index-leaf-rows-r2-20261006/compile-real-leaves.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/index-leaf-rows-r2-20261006/executed-leaf-candidate-driver.py",
+      "bytes": 2351,
+      "sha256": "086c23029256b2e5133417f72e521afb8bf3a44dca1023ffe9a0206ca63f147e"
+    },
+    {
+      "path": "lab/out/index-leaf-rows-r2-20261006/executed-native-leaf-driver.py",
+      "bytes": 3938,
+      "sha256": "74d7db829215c85834dd6e195f65e74d231d9883d20b762f9a10d9197c4138c9"
+    },
+    {
+      "path": "lab/out/index-leaf-rows-r2-20261006/kernel-build.command.json",
+      "bytes": 68,
+      "sha256": "b40f53064e7b8fd79670451c7b3f9b79c0cf10c3d80d9b72cc16b412f0c5869c"
+    },
+    {
+      "path": "lab/out/index-leaf-rows-r2-20261006/kernel-build.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/index-leaf-rows-r2-20261006/kernel-build.stderr.txt",
+      "bytes": 301,
+      "sha256": "a73235e74b7212a667f3c9a6209ea0afe89e0cb01c372b4298f0f1a5e284ba49"
+    },
+    {
+      "path": "lab/out/index-leaf-rows-r2-20261006/kernel-build.stdout.txt",
+      "bytes": 12254,
+      "sha256": "436008da44f711c220c358b840a2d12d913444600dae205688db823dcf9730c8"
+    },
+    {
+      "path": "lab/out/index-leaf-rows-r2-20261006/kernel-reports/2026-10-06T09-06-37_975.dumpstream",
+      "bytes": 259,
+      "sha256": "651b2bc470410ad95a20050217e49d648827d367afd855b2bb9c8e59e874b74a"
+    },
+    {
+      "path": "lab/out/index-leaf-rows-r2-20261006/kernel-reports/com.streamhouse.oracle.ArchivedCompensationAssociationsTest.txt",
+      "bytes": 372,
+      "sha256": "318869f263a144cdb7d74201f75a4332549e16644a3a679f66236854c5e410cf"
+    },
+    {
+      "path": "lab/out/index-leaf-rows-r2-20261006/kernel-reports/com.streamhouse.oracle.ArchivedCompensationInventoryTest.txt",
+      "bytes": 366,
+      "sha256": "3c401af05aeb28247bea69adc99a023bcbe1a98bd8fae2cbb55d5353adfaf43a"
+    },
+    {
+      "path": "lab/out/index-leaf-rows-r2-20261006/kernel-reports/com.streamhouse.oracle.ArchivedHeapRowsTest.txt",
+      "bytes": 340,
+      "sha256": "07ade75a17e1f792b2c58d6db18d659f8b15c2a95ef21a5748b24597485a9d6b"
+    },
+    {
+      "path": "lab/out/index-leaf-rows-r2-20261006/kernel-reports/com.streamhouse.oracle.ArchivedIndexLeafInventoryTest.txt",
+      "bytes": 360,
+      "sha256": "b9c5dbff779d489024551ad0f7d38bf6ecffa21e18ddc8533923ec3110549bda"
+    },
+    {
+      "path": "lab/out/index-leaf-rows-r2-20261006/kernel-reports/com.streamhouse.oracle.ArchivedObjectTransactionsTest.txt",
+      "bytes": 360,
+      "sha256": "d5d86ed4f55671ce2bebc834f86ce1fc87619b69a32f834c31def636c3e79fb4"
+    },
+    {
+      "path": "lab/out/index-leaf-rows-r2-20261006/kernel-reports/com.streamhouse.oracle.ArchivedPhysicalTransactionsTest.txt",
+      "bytes": 365,
+      "sha256": "767abdef7b3e41c29a77fe5ce0ceeb8097bc686b15ec97de082c69567066b0d2"
+    },
+    {
+      "path": "lab/out/index-leaf-rows-r2-20261006/kernel-reports/com.streamhouse.oracle.ArchivedRedoTest.txt",
+      "bytes": 332,
+      "sha256": "110860d54ca420c9f6c49df0da6797282b8ba53d442cf5c325c96a5fdc5c1181"
+    },
+    {
+      "path": "lab/out/index-leaf-rows-r2-20261006/kernel-reports/com.streamhouse.oracle.ArchivedUndoInventoryTest.txt",
+      "bytes": 350,
+      "sha256": "15181e7096f6918405ddf341f620bdacbc8fd0f7fd482e396ffaa0ed2a57bd6c"
+    },
+    {
+      "path": "lab/out/index-leaf-rows-r2-20261006/kernel-reports/com.streamhouse.oracle.BeginCompensationTest.txt",
+      "bytes": 342,
+      "sha256": "41fcbe3ab0556bc811dd413aa20c77743b8b241bafcf3a648935540b9b6187fe"
+    },
+    {
+      "path": "lab/out/index-leaf-rows-r2-20261006/kernel-reports/com.streamhouse.oracle.CapturedHeapBatchTest.txt",
+      "bytes": 342,
+      "sha256": "b5c725e226a0d878a78af49a79cfc1ecdafb94ce4ff7044aaad7cc509a9a95af"
+    },
+    {
+      "path": "lab/out/index-leaf-rows-r2-20261006/kernel-reports/com.streamhouse.oracle.CaptureJournalTest.txt",
+      "bytes": 336,
+      "sha256": "a476aabb1e25b506235baa29a21394bdf2457673b39302750e09d5d877699005"
+    },
+    {
+      "path": "lab/out/index-leaf-rows-r2-20261006/kernel-reports/com.streamhouse.oracle.ClusterRowPatchTest.txt",
+      "bytes": 338,
+      "sha256": "42cd1b5eb91b973fffbecb0b50ac31dba11ca2ae0e299d6aeeef83c429d344a5"
+    },
+    {
+      "path": "lab/out/index-leaf-rows-r2-20261006/kernel-reports/com.streamhouse.oracle.ClusterUndoPairTest.txt",
+      "bytes": 338,
+      "sha256": "cc3686325c2ccfc6504845fe264215c752f0a386820b9ac6dd3cf97e69b86d42"
+    },
+    {
+      "path": "lab/out/index-leaf-rows-r2-20261006/kernel-reports/com.streamhouse.oracle.CrossCompensationTest.txt",
+      "bytes": 342,
+      "sha256": "b7cc6b21533e773bbc87f9fb99c294db51b7db8a6d612aaf267f9214250af65f"
+    },
+    {
+      "path": "lab/out/index-leaf-rows-r2-20261006/kernel-reports/com.streamhouse.oracle.DictionaryBaselineTest.txt",
+      "bytes": 344,
+      "sha256": "dc5892bc1a64fbb0b15f1cae03a99dadfc8a827c03db35231969ed2b9920d80e"
+    },
+    {
+      "path": "lab/out/index-leaf-rows-r2-20261006/kernel-reports/com.streamhouse.oracle.DictionaryHistoryRowsTest.txt",
+      "bytes": 350,
+      "sha256": "acccb8f45cb50e7235f4ab0acb0b65f3d86d9eebc39a46ada174c0e0eed13e59"
+    },
+    {
+      "path": "lab/out/index-leaf-rows-r2-20261006/kernel-reports/com.streamhouse.oracle.DictionaryIndexLeafRowsTest.txt",
+      "bytes": 354,
+      "sha256": "f303ac3672043b72e1ee80904dfe37a0680839b4e0d2a6a688b2765e92e51a6a"
+    },
+    {
+      "path": "lab/out/index-leaf-rows-r2-20261006/kernel-reports/com.streamhouse.oracle.DictionaryIndexMaintenancePairTest.txt",
+      "bytes": 368,
+      "sha256": "dcbaf29d108991c3bcfa810ee56de528f7d8a2bfac3fea72bd15dc795e2458db"
+    },
+    {
+      "path": "lab/out/index-leaf-rows-r2-20261006/kernel-reports/com.streamhouse.oracle.DictionaryIndexUndoPairTest.txt",
+      "bytes": 354,
+      "sha256": "6754621d807ab7dfec0d9aba2e497a133cefc6a3bea56813f54d088dd27e5a1f"
+    },
+    {
+      "path": "lab/out/index-leaf-rows-r2-20261006/kernel-reports/com.streamhouse.oracle.DictionaryObjectUndoPairTest.txt",
+      "bytes": 356,
+      "sha256": "228e08901e63d57d1a44fd208deb473fb486c7f964e589d1992c00ca1974311c"
+    },
+    {
+      "path": "lab/out/index-leaf-rows-r2-20261006/kernel-reports/com.streamhouse.oracle.EmptyHeapCleanoutTest.txt",
+      "bytes": 342,
+      "sha256": "7e58ca8599b095b8f73b41584f596fa8ab6efe7fff9318b196b2eea8c351084e"
+    },
+    {
+      "path": "lab/out/index-leaf-rows-r2-20261006/kernel-reports/com.streamhouse.oracle.FrozenHeapBaselineTest.txt",
+      "bytes": 344,
+      "sha256": "c2f7e52b81600be34c2cde8ee03fc7eba1bb3beb4f11bc2f5089bd354b81d53d"
+    },
+    {
+      "path": "lab/out/index-leaf-rows-r2-20261006/kernel-reports/com.streamhouse.oracle.HeapCleanoutCTest.txt",
+      "bytes": 334,
+      "sha256": "bcea1cb0d4304cdb07cc0ea5d15b5f0ca11819f51b1b924a064bb5398f941235"
+    },
+    {
+      "path": "lab/out/index-leaf-rows-r2-20261006/kernel-reports/com.streamhouse.oracle.HeapCompensationTest.txt",
+      "bytes": 340,
+      "sha256": "8134724df59ac8c61fde61c701215041c640f6b5de7af7a6a20236f513854ee2"
+    },
+    {
+      "path": "lab/out/index-leaf-rows-r2-20261006/kernel-reports/com.streamhouse.oracle.HeapIndexScopeTest.txt",
+      "bytes": 336,
+      "sha256": "a8ce2215d6a948a659b42225c6e8f40aeaf515e7b6704517184de6bb41c8771e"
+    },
+    {
+      "path": "lab/out/index-leaf-rows-r2-20261006/kernel-reports/com.streamhouse.oracle.HeapLockTest.txt",
+      "bytes": 324,
+      "sha256": "d8d67216888b6c706cfb69a7dfa79adbc86655f7ee1b7ae01b04069fcab4baf4"
+    },
+    {
+      "path": "lab/out/index-leaf-rows-r2-20261006/kernel-reports/com.streamhouse.oracle.HeapRowPatchTest.txt",
+      "bytes": 332,
+      "sha256": "223362259669a3114404a701ef5fbe2ed1650aae3842d868e395ff1a309a0490"
+    },
+    {
+      "path": "lab/out/index-leaf-rows-r2-20261006/kernel-reports/com.streamhouse.oracle.HeapTailExtentTest.txt",
+      "bytes": 336,
+      "sha256": "39d8ac3fe0ce4e60d27e741f2f3dcf97917fcb5114de0d3d4cbdfa598578552f"
+    },
+    {
+      "path": "lab/out/index-leaf-rows-r2-20261006/kernel-reports/com.streamhouse.oracle.HeapUndoPairTest.txt",
+      "bytes": 332,
+      "sha256": "fe934888d0e952d5eddc24a00c2a9d56b6fc3c83ffcccafa2c4f65a407c192d3"
+    },
+    {
+      "path": "lab/out/index-leaf-rows-r2-20261006/kernel-reports/com.streamhouse.oracle.HistoricalRowSchemaTest.txt",
+      "bytes": 346,
+      "sha256": "c662fa8841c0ba56113a1092ecfe324e2894a8f4782425adbc95662706361988"
+    },
+    {
+      "path": "lab/out/index-leaf-rows-r2-20261006/kernel-reports/com.streamhouse.oracle.HistoricalSchemaBarrierTest.txt",
+      "bytes": 355,
+      "sha256": "bc765eaa6c51b8803c3d032be4414096ab584a1330e697d3080ccde306544260"
+    },
+    {
+      "path": "lab/out/index-leaf-rows-r2-20261006/kernel-reports/com.streamhouse.oracle.IndexCompensationTest.txt",
+      "bytes": 342,
+      "sha256": "70c4ddc9b4d3bed22de085cb60b7746eb775748a50f1bfa39c855507d3d05a36"
+    },
+    {
+      "path": "lab/out/index-leaf-rows-r2-20261006/kernel-reports/com.streamhouse.oracle.IndexLeafPositionsTest.txt",
+      "bytes": 345,
+      "sha256": "37da90b4c35d7b774a70a697c2f7807aad735510aedb7aa9b654e6af1285cb0e"
+    },
+    {
+      "path": "lab/out/index-leaf-rows-r2-20261006/kernel-reports/com.streamhouse.oracle.IndexPositionReplayTest.txt",
+      "bytes": 346,
+      "sha256": "cf11edd47acbcac1c1f67c868336464ebf75befa8649c4c58ff981b64da1f303"
+    },
+    {
+      "path": "lab/out/index-leaf-rows-r2-20261006/kernel-reports/com.streamhouse.oracle.IndexRestoreCompensationTest.txt",
+      "bytes": 356,
+      "sha256": "ca20533d41063816c6dc6efbef61f90faee4cdbb0a785ea7cfe5834555efaa87"
+    },
+    {
+      "path": "lab/out/index-leaf-rows-r2-20261006/kernel-reports/com.streamhouse.oracle.IndexUndoPairTest.txt",
+      "bytes": 334,
+      "sha256": "7879c875351a0fd1a4f80364ec1363d9af59f64072dff2bb752275a9924e6bbd"
+    },
+    {
+      "path": "lab/out/index-leaf-rows-r2-20261006/kernel-reports/com.streamhouse.oracle.Kdom2MarkerThreeTest.txt",
+      "bytes": 340,
+      "sha256": "7c0d13cfeb6ac2bb4932063b09396d09a2eef5acf08d111466910b041402e1af"
+    },
+    {
+      "path": "lab/out/index-leaf-rows-r2-20261006/kernel-reports/com.streamhouse.oracle.Kdom2UpdateTest.txt",
+      "bytes": 331,
+      "sha256": "0c1e599252b7452e5a92efc19fbb68e6bebdf567b25ce0d44c8e0e170d92d641"
+    },
+    {
+      "path": "lab/out/index-leaf-rows-r2-20261006/kernel-reports/com.streamhouse.oracle.KtbZInsertTest.txt",
+      "bytes": 328,
+      "sha256": "97a8fef9850562df9bc3b463f39b26d0119c2c0bc6e763a3eb93959e12ef6563"
+    },
+    {
+      "path": "lab/out/index-leaf-rows-r2-20261006/kernel-reports/com.streamhouse.oracle.KtbZRollbackTest.txt",
+      "bytes": 333,
+      "sha256": "46250988f2290c1e68a0ddd59e3363dd097efdcf8f94d7912ad599de0f5e9de0"
+    },
+    {
+      "path": "lab/out/index-leaf-rows-r2-20261006/kernel-reports/com.streamhouse.oracle.OracleScalarsTest.txt",
+      "bytes": 334,
+      "sha256": "d870f7fa30e3595fe945b493ac99ee329ec6d8a2b97c3c2882a7414bcc2ae728"
+    },
+    {
+      "path": "lab/out/index-leaf-rows-r2-20261006/kernel-reports/com.streamhouse.oracle.SingleEntryBlockCleanoutTest.txt",
+      "bytes": 356,
+      "sha256": "81962a28a9370b9f5d2c2c05b56c84cd71c752c284db363de96d00e39e4bcdc7"
+    },
+    {
+      "path": "lab/out/index-leaf-rows-r2-20261006/kernel-reports/com.streamhouse.oracle.TransactionLifecycleTest.txt",
+      "bytes": 349,
+      "sha256": "5ec7803ed0e241158883e7e0937bb089feb8e92d37fdac03746a3f83bc495ec6"
+    },
+    {
+      "path": "lab/out/index-leaf-rows-r2-20261006/kernel-reports/com.streamhouse.oracle.TransactionMarkersTest.txt",
+      "bytes": 345,
+      "sha256": "0f5e480b02fb56776ec5b270589461aa32b030606cb092c45da6e4d706fd3c69"
+    },
+    {
+      "path": "lab/out/index-leaf-rows-r2-20261006/kernel-reports/com.streamhouse.oracle.TransactionStartTest.txt",
+      "bytes": 341,
+      "sha256": "aaf35809e1565d494a4ebcb6ea096515ce634a7662dd058843ba4d29cc6e7346"
+    },
+    {
+      "path": "lab/out/index-leaf-rows-r2-20261006/kernel-reports/com.streamhouse.oracle.UndoBlockAdvanceTest.txt",
+      "bytes": 340,
+      "sha256": "ba4c0c7efb6d2904f39920c1aa3b4fa9cc90e2970dc0cc82dac5d99a0b65d044"
+    },
+    {
+      "path": "lab/out/index-leaf-rows-r2-20261006/kernel-reports/com.streamhouse.oracle.UndoChainTest.txt",
+      "bytes": 326,
+      "sha256": "aae1bcfb5e01993cc01c4f76085edcf8f358b1d3ae69d2afee70d9683c44d205"
+    },
+    {
+      "path": "lab/out/index-leaf-rows-r2-20261006/kernel-reports/com.streamhouse.oracle.UndoControlRootTest.txt",
+      "bytes": 338,
+      "sha256": "4ce2955e78a804dbfc5555e92c56c9684f1a8102fee13f0a251f645752415f3a"
+    },
+    {
+      "path": "lab/out/index-leaf-rows-r2-20261006/kernel-reports/com.streamhouse.oracle.UndoHeaderTest.txt",
+      "bytes": 328,
+      "sha256": "0e3e25bd75df77f25b6badb4bf34ac424c0224025f72c61caeb7fabc6c454cfc"
+    },
+    {
+      "path": "lab/out/index-leaf-rows-r2-20261006/kernel-reports/com.streamhouse.oracle.UndoHeadUpdateTest.txt",
+      "bytes": 336,
+      "sha256": "61631c5444653e8238e74711f2f8cc123ac127db497c5368c98a06526d60a813"
+    },
+    {
+      "path": "lab/out/index-leaf-rows-r2-20261006/kernel-reports/com.streamhouse.oracle.UndoHistoryTest.txt",
+      "bytes": 330,
+      "sha256": "b895f1bd0f1cb2ac86089f7789119e2be530fba0d507e01037d471efec4bedbe"
+    },
+    {
+      "path": "lab/out/index-leaf-rows-r2-20261006/kernel-reports/com.streamhouse.oracle.UndoRowPatchTest.txt",
+      "bytes": 332,
+      "sha256": "71696924aefb212dde355161690cb1771454256cfb4a9ecfe3e4f3a6efc8b9b0"
+    },
+    {
+      "path": "lab/out/index-leaf-rows-r2-20261006/kernel-reports/TEST-com.streamhouse.oracle.ArchivedCompensationAssociationsTest.xml",
+      "bytes": 11101,
+      "sha256": "33be18936a498e5054b01051852a350d4e82f203cf98a12c739db5f235538924"
+    },
+    {
+      "path": "lab/out/index-leaf-rows-r2-20261006/kernel-reports/TEST-com.streamhouse.oracle.ArchivedCompensationInventoryTest.xml",
+      "bytes": 10720,
+      "sha256": "7739f0e0995f28ef4c19c9628c626888124b70a04a06b81a30a5aaf7737736c0"
+    },
+    {
+      "path": "lab/out/index-leaf-rows-r2-20261006/kernel-reports/TEST-com.streamhouse.oracle.ArchivedHeapRowsTest.xml",
+      "bytes": 10664,
+      "sha256": "9c68857df9086e59fbdba0d70fdecb2b337aa4ec45dc00b42aebc2b9843616dd"
+    },
+    {
+      "path": "lab/out/index-leaf-rows-r2-20261006/kernel-reports/TEST-com.streamhouse.oracle.ArchivedIndexLeafInventoryTest.xml",
+      "bytes": 10857,
+      "sha256": "984e2d1723ba2ee10287c98583d60a9293dcdac3ef3a45cef24c1f98416e33f7"
+    },
+    {
+      "path": "lab/out/index-leaf-rows-r2-20261006/kernel-reports/TEST-com.streamhouse.oracle.ArchivedObjectTransactionsTest.xml",
+      "bytes": 10700,
+      "sha256": "b298d6a804be53eff277f1e725ee88b5e8feb51a60ec8016ae3b606837c44ce8"
+    },
+    {
+      "path": "lab/out/index-leaf-rows-r2-20261006/kernel-reports/TEST-com.streamhouse.oracle.ArchivedPhysicalTransactionsTest.xml",
+      "bytes": 11490,
+      "sha256": "c09a541346737ed9780abd09dc2bc4cf634d42ff94b0e44a9e4d0e374cfdb290"
+    },
+    {
+      "path": "lab/out/index-leaf-rows-r2-20261006/kernel-reports/TEST-com.streamhouse.oracle.ArchivedRedoTest.xml",
+      "bytes": 11193,
+      "sha256": "50ad88a3b58c80156bdf9b0d2beafc1806cfb42725f754b160febc2944552ea2"
+    },
+    {
+      "path": "lab/out/index-leaf-rows-r2-20261006/kernel-reports/TEST-com.streamhouse.oracle.ArchivedUndoInventoryTest.xml",
+      "bytes": 10506,
+      "sha256": "df8dec15a843da2eb468f3b2d51b1a2319bc8b29789f319fbf1f429d38bb4ee9"
+    },
+    {
+      "path": "lab/out/index-leaf-rows-r2-20261006/kernel-reports/TEST-com.streamhouse.oracle.BeginCompensationTest.xml",
+      "bytes": 10609,
+      "sha256": "54d0847f2e554f97c4cc5d479c30713c6e49a66d1ebc2df5a3baa8fb996db933"
+    },
+    {
+      "path": "lab/out/index-leaf-rows-r2-20261006/kernel-reports/TEST-com.streamhouse.oracle.CapturedHeapBatchTest.xml",
+      "bytes": 10541,
+      "sha256": "07b2b06d81d1ae085d61f26e680c9fb7eeb7cb51fd285ebfbbbf8ff1c833b942"
+    },
+    {
+      "path": "lab/out/index-leaf-rows-r2-20261006/kernel-reports/TEST-com.streamhouse.oracle.CaptureJournalTest.xml",
+      "bytes": 10455,
+      "sha256": "5508742063da4037eeb8ecc9eae4d87578ccdb82b00b1a5b1a3cdece473deb50"
+    },
+    {
+      "path": "lab/out/index-leaf-rows-r2-20261006/kernel-reports/TEST-com.streamhouse.oracle.ClusterRowPatchTest.xml",
+      "bytes": 10398,
+      "sha256": "f908de4a3161e7c83b6231779996a5e3c63ab63ae444c113b34e9921acea7dd0"
+    },
+    {
+      "path": "lab/out/index-leaf-rows-r2-20261006/kernel-reports/TEST-com.streamhouse.oracle.ClusterUndoPairTest.xml",
+      "bytes": 10361,
+      "sha256": "0011a9215f5578964c593e0c6e67fd4b296af166e218862da8fbaa5f62b29fa2"
+    },
+    {
+      "path": "lab/out/index-leaf-rows-r2-20261006/kernel-reports/TEST-com.streamhouse.oracle.CrossCompensationTest.xml",
+      "bytes": 10605,
+      "sha256": "a5da244c596ac8e2773dacab07aa64b0563c3acb69c9bfb8708becfed3ee27f5"
+    },
+    {
+      "path": "lab/out/index-leaf-rows-r2-20261006/kernel-reports/TEST-com.streamhouse.oracle.DictionaryBaselineTest.xml",
+      "bytes": 10419,
+      "sha256": "c0093ed13fdec68bf175459ca44d5c5a57b21dc04252691940101544856dce75"
+    },
+    {
+      "path": "lab/out/index-leaf-rows-r2-20261006/kernel-reports/TEST-com.streamhouse.oracle.DictionaryHistoryRowsTest.xml",
+      "bytes": 10084,
+      "sha256": "ecfbcfcb3020cbc7ae0119678e390c51e91ab013a233e738ce122d9f01cad9d1"
+    },
+    {
+      "path": "lab/out/index-leaf-rows-r2-20261006/kernel-reports/TEST-com.streamhouse.oracle.DictionaryIndexLeafRowsTest.xml",
+      "bytes": 10372,
+      "sha256": "271e95a84dad7419246b7ac2b7222cad055a505d2573c79e4f3fa6c85ba0c4d7"
+    },
+    {
+      "path": "lab/out/index-leaf-rows-r2-20261006/kernel-reports/TEST-com.streamhouse.oracle.DictionaryIndexMaintenancePairTest.xml",
+      "bytes": 10430,
+      "sha256": "e12e596c9ff9711da23d44cbe69fa5a0e9d39d1acf2a1fe1ed6fc0f10733cc0c"
+    },
+    {
+      "path": "lab/out/index-leaf-rows-r2-20261006/kernel-reports/TEST-com.streamhouse.oracle.DictionaryIndexUndoPairTest.xml",
+      "bytes": 10423,
+      "sha256": "c7bcdce388aa8251901643d140aa2a6077885b3c4864628c24fd1805d36b3f3e"
+    },
+    {
+      "path": "lab/out/index-leaf-rows-r2-20261006/kernel-reports/TEST-com.streamhouse.oracle.DictionaryObjectUndoPairTest.xml",
+      "bytes": 10280,
+      "sha256": "dd88c9c02ec33f6ca0383b6c03b266ce5091f09c2be29615bc8544898a5ebff8"
+    },
+    {
+      "path": "lab/out/index-leaf-rows-r2-20261006/kernel-reports/TEST-com.streamhouse.oracle.EmptyHeapCleanoutTest.xml",
+      "bytes": 10085,
+      "sha256": "3ef6b8050fb366e263b82e79ff094e961e5c4f3bee9bf0025f4870383762f8fc"
+    },
+    {
+      "path": "lab/out/index-leaf-rows-r2-20261006/kernel-reports/TEST-com.streamhouse.oracle.FrozenHeapBaselineTest.xml",
+      "bytes": 10716,
+      "sha256": "94aa5217772b46231d15614d9dec5dc810e247fbdd9a756f36ec010e864ad819"
+    },
+    {
+      "path": "lab/out/index-leaf-rows-r2-20261006/kernel-reports/TEST-com.streamhouse.oracle.HeapCleanoutCTest.xml",
+      "bytes": 10177,
+      "sha256": "5f6585411ca888332dda25edf534228c1298000df558009228f566d90dc1b299"
+    },
+    {
+      "path": "lab/out/index-leaf-rows-r2-20261006/kernel-reports/TEST-com.streamhouse.oracle.HeapCompensationTest.xml",
+      "bytes": 10876,
+      "sha256": "4289bc4f7e04a951e4e2e0e377baa660c85c380b0ef1ae0c3f48b51dd66bf306"
+    },
+    {
+      "path": "lab/out/index-leaf-rows-r2-20261006/kernel-reports/TEST-com.streamhouse.oracle.HeapIndexScopeTest.xml",
+      "bytes": 10376,
+      "sha256": "5ebed355370ff300cc52618ce79bc362c41484cf47fe67902016e0fe2d036cf4"
+    },
+    {
+      "path": "lab/out/index-leaf-rows-r2-20261006/kernel-reports/TEST-com.streamhouse.oracle.HeapLockTest.xml",
+      "bytes": 10042,
+      "sha256": "7a0617c6367f47e7c316da67f0121eb41c0c6c219b27eb1194e36c68a7f39e9b"
+    },
+    {
+      "path": "lab/out/index-leaf-rows-r2-20261006/kernel-reports/TEST-com.streamhouse.oracle.HeapRowPatchTest.xml",
+      "bytes": 10652,
+      "sha256": "b72ef6c44b72278d43ff5aac6cea9607ce89a682ce224107ef22d93f7d7337bf"
+    },
+    {
+      "path": "lab/out/index-leaf-rows-r2-20261006/kernel-reports/TEST-com.streamhouse.oracle.HeapTailExtentTest.xml",
+      "bytes": 10755,
+      "sha256": "d82af1f07c31bd82ba544629d50775d1f765fd59b320138f42d5b080aa878c5e"
+    },
+    {
+      "path": "lab/out/index-leaf-rows-r2-20261006/kernel-reports/TEST-com.streamhouse.oracle.HeapUndoPairTest.xml",
+      "bytes": 10570,
+      "sha256": "b104e8569842ed41b7b9ffea8e9253dd21d80276998ac606eaa27adbf95ec15b"
+    },
+    {
+      "path": "lab/out/index-leaf-rows-r2-20261006/kernel-reports/TEST-com.streamhouse.oracle.HistoricalRowSchemaTest.xml",
+      "bytes": 10107,
+      "sha256": "748c75c95dbbdbfc2a9e5dfe2e1242c36cfa80f542960d6196f76fe8a0a9ac6e"
+    },
+    {
+      "path": "lab/out/index-leaf-rows-r2-20261006/kernel-reports/TEST-com.streamhouse.oracle.HistoricalSchemaBarrierTest.xml",
+      "bytes": 11454,
+      "sha256": "e236b2bb7187a7cfde2062b893279c23f758d342da9626b8d245e9aaa09fec50"
+    },
+    {
+      "path": "lab/out/index-leaf-rows-r2-20261006/kernel-reports/TEST-com.streamhouse.oracle.IndexCompensationTest.xml",
+      "bytes": 10497,
+      "sha256": "3c84c52832344ccf79130a3ece91f01a98710ca64384e5a2f192659c09742195"
+    },
+    {
+      "path": "lab/out/index-leaf-rows-r2-20261006/kernel-reports/TEST-com.streamhouse.oracle.IndexLeafPositionsTest.xml",
+      "bytes": 11189,
+      "sha256": "1126c95fb3f89d18f2d34abee752d1ff515dc88632da9625336d48f636157b57"
+    },
+    {
+      "path": "lab/out/index-leaf-rows-r2-20261006/kernel-reports/TEST-com.streamhouse.oracle.IndexPositionReplayTest.xml",
+      "bytes": 10434,
+      "sha256": "f2f2697a795dae9eb95a6c52f7b92c7a6073118af55e1a1514bd49e1461b927c"
+    },
+    {
+      "path": "lab/out/index-leaf-rows-r2-20261006/kernel-reports/TEST-com.streamhouse.oracle.IndexRestoreCompensationTest.xml",
+      "bytes": 10659,
+      "sha256": "cf2e0cabb1361a982a7cd955e44defb12a7a0f08ddd44a3cacefa14bd4153de3"
+    },
+    {
+      "path": "lab/out/index-leaf-rows-r2-20261006/kernel-reports/TEST-com.streamhouse.oracle.IndexUndoPairTest.xml",
+      "bytes": 10941,
+      "sha256": "9d63c661a5741e8697fabb5369a254e3e9d00aafb24c726f847c10642e4a41a3"
+    },
+    {
+      "path": "lab/out/index-leaf-rows-r2-20261006/kernel-reports/TEST-com.streamhouse.oracle.Kdom2MarkerThreeTest.xml",
+      "bytes": 10057,
+      "sha256": "3b009f78f8f78bd663eedfda49c9c0d5075b81534bb0458446f50cab423d1c6c"
+    },
+    {
+      "path": "lab/out/index-leaf-rows-r2-20261006/kernel-reports/TEST-com.streamhouse.oracle.Kdom2UpdateTest.xml",
+      "bytes": 11100,
+      "sha256": "f782e81634430b149f5466c9a022617aaafc3e82000e50dec6f6fdf14f7b7954"
+    },
+    {
+      "path": "lab/out/index-leaf-rows-r2-20261006/kernel-reports/TEST-com.streamhouse.oracle.KtbZInsertTest.xml",
+      "bytes": 10180,
+      "sha256": "a9dd28399f47acd4a03cee947f1b73fcb7e5e29aef90607246de9f7130f10b4c"
+    },
+    {
+      "path": "lab/out/index-leaf-rows-r2-20261006/kernel-reports/TEST-com.streamhouse.oracle.KtbZRollbackTest.xml",
+      "bytes": 11230,
+      "sha256": "673a213647d622c7413d8dcfbb436b9d269298cde2085decaae8b7bf049daf2f"
+    },
+    {
+      "path": "lab/out/index-leaf-rows-r2-20261006/kernel-reports/TEST-com.streamhouse.oracle.OracleScalarsTest.xml",
+      "bytes": 10395,
+      "sha256": "46997ab9640fb07690a381ad4f5365043e2f65a06b06142506c8354d14a027ee"
+    },
+    {
+      "path": "lab/out/index-leaf-rows-r2-20261006/kernel-reports/TEST-com.streamhouse.oracle.SingleEntryBlockCleanoutTest.xml",
+      "bytes": 10095,
+      "sha256": "c41c63b3bf8e89e991207c49453d27a3249a78fd8a1ed00bae3e499f9df562ba"
+    },
+    {
+      "path": "lab/out/index-leaf-rows-r2-20261006/kernel-reports/TEST-com.streamhouse.oracle.TransactionLifecycleTest.xml",
+      "bytes": 11699,
+      "sha256": "11bd59938e56ddcbc1e63b741169ed85825bc7a39742a63fa4d9d45c3f6430f0"
+    },
+    {
+      "path": "lab/out/index-leaf-rows-r2-20261006/kernel-reports/TEST-com.streamhouse.oracle.TransactionMarkersTest.xml",
+      "bytes": 11335,
+      "sha256": "77bb7bbb4a90d3380cd038aeb9a8b3e818b66707df90561bd2efcb92d175b729"
+    },
+    {
+      "path": "lab/out/index-leaf-rows-r2-20261006/kernel-reports/TEST-com.streamhouse.oracle.TransactionStartTest.xml",
+      "bytes": 11146,
+      "sha256": "96b571a0522bb798cc5dd0f595c22b6fe6389a2dfef637ac22c4e201a9a72cb9"
+    },
+    {
+      "path": "lab/out/index-leaf-rows-r2-20261006/kernel-reports/TEST-com.streamhouse.oracle.UndoBlockAdvanceTest.xml",
+      "bytes": 10459,
+      "sha256": "13278894a9e2d7564b39a94bdaa6863ae2ca0abe067b91916d7df50e4a3423e4"
+    },
+    {
+      "path": "lab/out/index-leaf-rows-r2-20261006/kernel-reports/TEST-com.streamhouse.oracle.UndoChainTest.xml",
+      "bytes": 10570,
+      "sha256": "76ee98eebdd2924ad0aaefce91b0b4ac537f10600e7eba06eb56ef8017a6f184"
+    },
+    {
+      "path": "lab/out/index-leaf-rows-r2-20261006/kernel-reports/TEST-com.streamhouse.oracle.UndoControlRootTest.xml",
+      "bytes": 10352,
+      "sha256": "922bda44ed10012f01f59123ec35b70dc20a8f2d14a8ff574dc21dafe439b69e"
+    },
+    {
+      "path": "lab/out/index-leaf-rows-r2-20261006/kernel-reports/TEST-com.streamhouse.oracle.UndoHeaderTest.xml",
+      "bytes": 10143,
+      "sha256": "47cc484635e42b8b592efd326739a29de81f65f8b9a60d2c8b45997557e3982e"
+    },
+    {
+      "path": "lab/out/index-leaf-rows-r2-20261006/kernel-reports/TEST-com.streamhouse.oracle.UndoHeadUpdateTest.xml",
+      "bytes": 10618,
+      "sha256": "b6a7941e5d14675634b3cf856c342ec4ba20711be5377a2e3a74e9480013c30e"
+    },
+    {
+      "path": "lab/out/index-leaf-rows-r2-20261006/kernel-reports/TEST-com.streamhouse.oracle.UndoHistoryTest.xml",
+      "bytes": 11044,
+      "sha256": "f36b7c87ba408051327968efc3722f64ae081feb771004c06941498e6130dbce"
+    },
+    {
+      "path": "lab/out/index-leaf-rows-r2-20261006/kernel-reports/TEST-com.streamhouse.oracle.UndoRowPatchTest.xml",
+      "bytes": 10425,
+      "sha256": "06a39fe36baf6a949a983f60f99d49839cd8d96c13302905ebaef7b85ef67a6f"
+    },
+    {
+      "path": "lab/out/index-leaf-rows-r2-20261006/kernel.jar",
+      "bytes": 276203,
+      "sha256": "b4913b23c18d8c950fccd65873dfcc51c917e03a14cb498ca01a714228450e30"
+    },
+    {
+      "path": "lab/out/index-leaf-rows-r2-20261006/native-leaf-proof.json",
+      "bytes": 459,
+      "sha256": "0a55cb152a3b87248ad8d74013d58c0efc0230b55944ec5d40b21b807c861654"
+    },
+    {
+      "path": "lab/out/index-leaf-rows-r2-20261006/real-leaves.command.json",
+      "bytes": 520,
+      "sha256": "c22124a7576d80c2f2aae8f6a47bcab6639a5a3b3e3955f6ede4e51414719f09"
+    },
+    {
+      "path": "lab/out/index-leaf-rows-r2-20261006/real-leaves.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/index-leaf-rows-r2-20261006/real-leaves.stderr.txt",
+      "bytes": 62,
+      "sha256": "bf55778f919f1d7a2c84aac41cb8743797498aba8a295c281ef7eccbb29b6926"
+    },
+    {
+      "path": "lab/out/index-leaf-rows-r2-20261006/real-leaves.stdout.txt",
+      "bytes": 62547,
+      "sha256": "8383c40555cbe26d3e11c4daa799254de78d6712b21e3cdfea2eefe810867a1b"
+    },
+    {
+      "path": "lab/out/index-leaf-rows-r2-20261006/sealed-build_dictionary_leaf_rows19.py",
+      "bytes": 2351,
+      "sha256": "086c23029256b2e5133417f72e521afb8bf3a44dca1023ffe9a0206ca63f147e"
+    },
+    {
+      "path": "lab/out/index-leaf-rows-r2-20261006/sealed-DictionaryIndexLeafRows.java",
+      "bytes": 4986,
+      "sha256": "de2babb7b7ce72973365e1b0dfde79eb7a801cbfd472770856d257a3e95083b0"
+    },
+    {
+      "path": "lab/out/index-leaf-rows-r2-20261006/sealed-DictionaryIndexLeafRowsTest.java",
+      "bytes": 2640,
+      "sha256": "7594fd57ed12e190499364c8b4a9540d56b93810442b8c8c97fa6f205b20ecbc"
+    },
+    {
+      "path": "lab/out/index-leaf-rows-r2-20261006/sealed-DictionaryLeafRowsProbe.java",
+      "bytes": 2866,
+      "sha256": "66a7b2f51c494aaec4917538b198bb12cf60c3b5c85b5b9be7f48c45c8bd5b4a"
+    },
+    {
+      "path": "lab/out/index-leaf-rows-r2-20261006/sealed-seal_dictionary_leaf_rows19.py",
+      "bytes": 3113,
+      "sha256": "8399df5d74418cebb3a58da61f32abad5ef3108b1f48ede06c08bd1fe03c5654"
+    },
+    {
+      "path": "lab/out/index-leaf-rows-r2-20261006/sealed-verify_dictionary_leaf_rows19.py",
+      "bytes": 3938,
+      "sha256": "74d7db829215c85834dd6e195f65e74d231d9883d20b762f9a10d9197c4138c9"
+    }
+  ]
+}

@@ -1,5 +1,7 @@
 # 2026-10-06 新 chat 接续：历史 schema 目标提交
 
+最新优先：DELIVERY_W5_DICTIONARY_LEAF_ROWS_20261006.md，最终r2 kernelb4913b23/完整309，typed前像445与两叶220/226的891行/native raw/NUMBER/rowid/flags0差异；OLD prev未知=null，首0占位候选133保全不当authority，最终129/旧139/130/205/407不变。原117class未变，完整历史工厂未接入，新源/产品/目标动作0。下一步按该完整执行包建立自主五original/end维护闭包与10.5 raw槽恢复，再两历史业务事件/真实产品CPACK，不再以局部Pair或行解码通过代替完整split。原70/71和早V3不重放/不重获取，goal active。
+
 最新优先：DELIVERY_W5_DICTIONARY_MAINTENANCE_PAIRS_20261006.md，kernel1911a0cd/完整305，I_COL3 lock/prev-link/branch三局部typed Pair与真实native0差异，旧115class字节未变，新增2class。139双SHA/旧130/205/407未变，首诊断scope失败保全；完整历史工厂尚未接入此Pair，完整split和两事件未过。接续新执行包typed前像/new与old叶重建→全五original/6记录含end闭包→10.5 raw槽恢复，原70/71和早V3，不重源/获取/封存；产品未构建换装、goal active。
 
 最新优先：DELIVERY_W5_INDEX_MAINTENANCE_BEGIN_20261006.md，kernel4e7eeafc/完整301，044a严格begin profile已支持，原维护生命周期begin/两advance/五original与end/tail/native闭合。130双SHA、旧205/407未变；完整历史工厂仍索引覆盖拒绝/0事件。下一步第2—5项完整typed branch/link/叶重建与restore槽证据，再实际历史HTTP/target/CPACK，不重获取、不重源动作、封存目录不覆盖。0产品构建/换装，完整goal保持active。
