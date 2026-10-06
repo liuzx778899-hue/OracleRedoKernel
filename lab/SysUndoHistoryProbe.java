@@ -30,10 +30,11 @@ public class SysUndoHistoryProbe {
                     byte[] b=v.fields().get(0);if(half(b,0)!=xid.slot())continue;
                     lifecycle.observeSlotControl(r,v);
                     var root=inventory.controlRoot();
-                    if(root==null||half(b,16)!=2||word(b,8)!=root.rowRoot().uba().dba()
+                    if(half(b,16)==10)lifecycle.advance(r,v);
+                    else if(root==null||half(b,16)!=2||word(b,8)!=root.rowRoot().uba().dba()
                             ||half(b,12)!=root.rowRoot().uba().sequence()||(b[14]&255)!=root.rowRoot().uba().record())
                         throw new RedoException("RESEARCH_UNSUPPORTED_INTERVENING_CONTROL");
-                    output.add("CONTROL|"+header.sequence()+"|"+r.block()+"|"+r.offset()+"|5.2|2");
+                    output.add("CONTROL|"+header.sequence()+"|"+r.block()+"|"+r.offset()+"|5.2|"+half(b,16));
                 }
             }
             for(int index=0;index<r.vectors().size();index++) {

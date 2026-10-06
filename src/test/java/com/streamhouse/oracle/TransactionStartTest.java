@@ -6,6 +6,33 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 class TransactionStartTest {
+    RedoRecords.Vector splitStart() {
+        return new RedoRecords.Vector(5,2,33,11,0x02400100,2567426,1,3,List.of(
+                hex("09000000940200004f2f4002e60001004a048800983f00000000000000000000"),hex("bd726528")));
+    }
+    RedoRecords.Vector splitUndo() {
+        return new RedoRecords.Vector(5,1,34,11,0x02402f4f,2567426,1,3,List.of(
+                hex("880000000a0000000900090094020000e600014d"),
+                hex("320000003200000000000000000000000a150900080c0100000000004e2f4002e60015003b212700000000006d21270000000000777b0000ffffffffffffffff4a2f40020000000000000000")));
+    }
+    @Test void bindsObservedSplitBeginWithoutTreatingHistoricalControlAsCurrentIdentity() throws Exception {
+        var h=TransactionStart.decode(splitStart());
+        assertEquals(0x44a,h.flags());
+        assertEquals(new HeapRowPatch.Xid(9,9,660),h.bindBegin(record(677737149,splitStart(),splitUndo())));
+        // Current UBA/slot/sequence/container must still match the same-record begin undo.
+        for(int at:new int[]{10,12,16,18}) {
+            var u=splitUndo();u.fields().get(0)[at]^=1;
+            assertThrows(RedoException.class,()->h.bindBegin(record(677737149,splitStart(),u)));
+        }
+        assertThrows(RedoException.class,()->h.bindBegin(record(1,splitStart(),splitUndo())));
+        assertThrows(RedoException.class,()->h.bindBegin(record(677737149,splitStart(),splitUndo(),splitUndo())));
+    }
+    @Test void refusesUnobservedSplitBeginControlWordSizeFlagsAndParent() {
+        for(int at:new int[]{2,14,15,16,17,18,19,20,21,22,23,24,28}) {
+            var v=splitStart();v.fields().get(0)[at]^=1;
+            assertThrows(RedoException.class,()->TransactionStart.decode(v));
+        }
+    }
     RedoRecords.Vector firstRecordStart() {
         return new RedoRecords.Vector(5,2,35,11,0x02400110,2362414,1,3,List.of(
                 hex("110000008e060000142b4002080101004a00b000000000000000000000000000"),hex("bd726528")));
