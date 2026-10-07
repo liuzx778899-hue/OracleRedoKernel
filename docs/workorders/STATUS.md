@@ -1,5 +1,7 @@
 # OracleRedoKernel 当前状态
 
+当前执行（2026-10-07跨窗）：[真实跨窗事务与格式拒绝](RESEARCH_W7_CROSS_WINDOW_ACTIVE_20261007.md)。新V3 SCN2743256/SHA3619a433，六SYS/230字段/三索引/业务行独立零差异；新XID10.14.2869一次跨73/74，73关闭时会话活跃/commit未发送，最终恢复原行。collector rc0/next75，219166/23观察块与归档数据块零差异；仅73完整入口INCOMPLETE_TRANSACTION_IDENTITIES:1，73+74因新24.4 mixed-flag跨度10拒绝，均rc1/stdout0，不标跨窗恢复通过。182双SHA/前522不变，collector已退出，NO/NO/旧表保持；无目标/CPACK/产品换装，0源重放。接续同冻结日志范围关联/最小profile反例，再持久跨发布状态与正式C++，原goal active。
+
 当前执行（2026-10-07）：聚焦开发/针对性验证/专属集成，生产部署与验证后续协同。最新[历史失败留证与恢复](DELIVERY_W6_HISTORICAL_FAILURE_RECOVERY_20261007.md)：P代码dbab51a/反馈12ce9f9、product2f1b46ad完整752；实际绑定错consumer零事件/零推进、第二UPDATE ORA-02290完整原文/目标整批回滚/CPACK零推进，ACK存储故障保留PUBLISHED与完整控制凭证、同任务恢复补ACK不重写目标、重复/同件重启稳定。首7/1回归、首修复751及ACK8/1回归全部保全，最终读取新批次保存原异常与文件引用，不覆盖提交事实。522双SHA/前356+1181+407不变，owned helpers停止，0源业务重放/新获取/日志配置；原早V3注册复制到新实验控制库且完整metadata相等。下一开发主线跨窗活跃状态/恢复及正式C++采集；同实例目标/capture_complete=false，仅有限集成，不当一般DML/独立目标/现场/发布通过。原goal active，Codex最后查。
 
 最新：[自主I_COL3七记录物理split候选](DELIVERY_W5_AUTONOMOUS_DICTIONARY_SPLIT_20261006.md)：kernel1d5f91fc完整309/0/0/0，源字节自主发现1个维护XID，五original/两advance/13.7+13.6物理freelist控制/end OLD重建闭合；可信segment/file/当前R身份/links/range/445→220+226守恒及全已知页审计通过，slot7待恢复，OLD prev=null/ccnt不当XID。archive/capture/重复完全一致，12合法checksum块scan0/完整split1/stdout0。旧119class不变，新3class；首漏页审计候选不验收/r2未知freelist拒绝原文及驱动失败保全，最终549双SHA/前129+133+139+130+205+407不变。0新源/目标/产品动作，业务历史工厂未接入，下一步10.5可信raw槽恢复+完整历史两UPDATE→产品HTTP/target/CPACK；原goal active，现场发布未过，Codex最后查。
@@ -73,7 +75,7 @@
 | W4 事务/回滚 | 进行中：有序history/覆盖/heap+index补偿、同源完整XID归属、有源位置重放及精确外来begin排除 | 通过有限样本：254测试；seq51四控制/native归属及两图6/2/4零差异、三重封结构通过/语义拒绝；旧自主图/跨归档/回滚证据保留 | 进行中：有界自主物理入口已交付；完整控制/页维护/跨块关联/恢复待证；不当通用生产能力 | 未开始 | 待证 | 未开始 |
 | W5 SCN字典/基线（当前主线） | 有限历史候选：可信V3实际获取、自主七记录split、10.5可信槽恢复/完整SYS历史与两事件已接入；通用场景仍进行中 | 有限通过：a84db1a3/311；三SYS/22original/764native完整值零差异，两UPDATE完整4→3列、隐藏NOTE/新增NULL；26完整入口反例拒绝/stdout0，14marker擦除；1181SHA/前549不变。三旧SCN ASOF补查ORA-01555保留 | **70/71 raw→完整历史→业务行→adapter→产品HTTP/target/CPACK有限通过；同件重复/重启/凭证反例通过**。旧68/69字节不变；活跃同key/相同commit SCN/多savepoint/跨块/初始恢复等仍待证 | 未开始 | 待证 | 未开始 |
 | W6 StreamHouse接入 | 进行中：独立二进制adapter、可信V3注册/绑定、历史原子目标凭证；最新P代码dbab51a/反馈12ce9f9，完整Oracle发布失败文件关联及已提交批次状态保留 | 有限通过：kernel311/adapter26原件不重跑，最新完整product752及两个新回归；实际嵌入SHA/SPI全class不变，7/1和8/1原失败及751候选保留 | **原70/71两完整历史UPDATE实际HTTP→目标2/2/1→控制CP→ACK有限通过**；错绑定0事件、第二UPDATE约束失败整批回滚/零推进、原异常/文件引用完整，ACK存储故障保留PUBLISHED/目标与控制已提交、恢复补ACK不重写目标、重复/同件重启精确不变。522双SHA/前356+1181+407不变，helper停止；其它方言完整Facade/独立目标/正式采集/任意窗口仍待证 | 未开始 | 待证 | 未开始 |
-| W7 online采集 | 进行中：关闭代际多member跟踪/回执审计/独占重启续接；共用capture输入接完整图/行 | 通过有限样本：seq51真实3873块/归档零差异、独立空batch checkpoint/ACK全字段核验/重复稳定/缺凭证拒绝；旧collector重启/SIGKILL/半帧拒绝保留；C++真实采集/实时/高压/断电/Windows/ASM待证 | 通过有限关闭批次→typed事务/可信baseline→完整DML或已审核空batch→target commit→checkpoint/ACK；旧四消费者强杀保留（两文件边界lab插桩）；跨批活跃状态/生产字典/断电/生产现场待证，有关闭延迟 | 未开始 | 待证 | 未开始 |
+| W7 online采集 | 进行中：关闭代际多member跟踪/回执审计/独占重启续接；共用capture输入接完整图/行 | 通过有限样本：seq51真实3873块/归档零差异、独立空batch checkpoint/ACK全字段核验/重复稳定/缺凭证拒绝；旧collector重启/SIGKILL/半帧拒绝保留；最新73/74活跃跨代际真实采集与归档零差异；完整合并因24.4 mixed-flag range拒绝/0事件，182SHA保全；C++真实采集/实时/高压/断电/Windows/ASM待证 | 通过有限关闭批次→typed事务/可信baseline→完整DML或已审核空batch→target commit→checkpoint/ACK；旧四消费者强杀保留（两文件边界lab插桩）；跨批活跃状态/生产字典/断电/生产现场待证，有关闭延迟 | 未开始 | 待证 | 未开始 |
 | W8-W11 扩展类型/LOB/RAC/ASM/TDE | 未开始 | 待证 | 未开始 | 未开始 | 待证 | 未开始 |
 
 ## 当前证据
