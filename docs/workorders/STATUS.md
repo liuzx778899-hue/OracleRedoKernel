@@ -1,5 +1,7 @@
 # OracleRedoKernel 当前状态
 
+当前执行（2026-10-07前缀登记）：[服务端可信前缀登记与交接](DELIVERY_W6_PREFIX_REGISTRATION_20261007.md)。root代码0c48602/P代码217e5cd，kernel61288022完整330、product04744751完整760；原可信获取与75 capture只读复用，认证HTTP服务端生成pending1/completed0状态7d6eef2a并登记。登记故障后APPROVED_PREFIX/审计0、文件保留；解除后同字节复用/登记一次，重复/强杀137重启GET稳定，毒化拒绝/精确恢复；事件/任务/窗口/批次/发布门0，CPACK0，helper停止143。仅显式前缀API，不是自动pipeline pending或75/76产品完整发布通过；新SQL故障底层原因未持久化，是下一修复项。D1未关闭，其余四包及部署现场发布未关闭。新chat交接以HANDOFF_NEW_CHAT_20261007_PREFIX.md为准，旧chat移交后只保留历史。
+
 当前执行（2026-10-07产品活跃输入）：[可信产品基线/真实75—76与marker2](DELIVERY_W4_PRODUCT_ACTIVE_MARKER2_20261007.md)。proper HTTP获取101320533446070272/SCN2773486/SHA9a99c587，6SYS/230值/3索引/基线零差异；一次XID10.0.2959跨75/76已结束禁止重放，collector0/next77、95320/3块与归档零差异。原593e完整入口KDOM2拒绝保全；代码73c487f/kernel571cac2a完整330，只1class变/127不变，新profile两完整UPDATE/native零差异，75 pending1持久halt23→独立JVM续76输出相同；两重封checksum反例零stdout/四比较器毒化检出。344双SHA/前353+234+113+100未变，helper/collector停止，NO/NO/旧行保持，bindings0/events0/目标0。产品自动pending登记/跨发布尚未实现；下一服务端可信前缀checkpoint登记与私有产品续接，不重获取/不重源；原goal active。
 
 当前执行（2026-10-07恢复失败集成）：[新恢复入口失败与恢复](DELIVERY_W6_RECOVERY_FAILURES_20261007.md)，同件e0a79dd8/原754实际缺失文件、带可信摘要的identity混配均rc2/0事件/零推进；第二UPDATE ORA-02290目标整批回滚/CPACK零推进；ACK目录故障保留PUBLISHED与提交事实/原FileAlreadyExistsException，解除后同任务补ACK、全部目标账/batches/CP及原失败引用不变。353双SHA/前234+113+100+356未变，helper停止；0源业务重放/新获取/日志配置。历史恢复正反例已证，D1下一真正活跃产品跨发布持久恢复；一般矩阵/独立目标/评审/现场/发布仍待证，原goal active。
