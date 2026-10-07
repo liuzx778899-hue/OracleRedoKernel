@@ -35,6 +35,11 @@ final class HistoricalSchemaBarrier {
     }
     /** Profile only; callers must separately bind target scope and complete SYS history. */
     static void requireMarkerProfile(RedoRecords.Record record,RedoRecords.Vector vector)throws RedoException {
+        requireMarkerProfile(record,vector,Long.MAX_VALUE,java.util.Set.of());
+    }
+    /** Mixed range profile needs its lower endpoint in the already visited same-container input. */
+    static void requireMarkerProfile(RedoRecords.Record record,RedoRecords.Vector vector,long baselineScn,
+                                     java.util.Set<Long> observedScns)throws RedoException {
         var fields=vector.fields();
         if(vector.opcodeMajor()!=24)throw new RedoException("NOT_SCHEMA_FAMILY_MARKER");
         if(vector.opcodeMinor()==1) {
@@ -45,7 +50,10 @@ final class HistoricalSchemaBarrier {
                     || fields.size()!=2 || !Arrays.equals(fields.get(0),java.util.HexFormat.of().parseHex("28230000000000000000000072000c00")) || fields.get(1).length!=16)
                 throw new RedoException("UNSUPPORTED_MEDIA_RECOVERY_MARKER_PROFILE");
             byte[] range=fields.get(1);long first=u32(range,0),last=u32(range,8);
-            if(u16(range,4)!=0x8000 || u16(range,12)!=0x8000 || u16(range,6)!=0 || u16(range,14)!=0 || first>last || last-first>1 || last>=record.scn())
+            boolean closed=u16(range,4)==0x8000 && last-first<=1;
+            // Seq73/74 standalone native-matched marker. This is not a begin/end or schema authority.
+            boolean mixed=u16(range,4)==0 && first>baselineScn && observedScns.contains(first) && last==record.scn()-1;
+            if((!closed && !mixed) || u16(range,12)!=0x8000 || u16(range,6)!=0 || u16(range,14)!=0 || first>last || last>=record.scn())
                 throw new RedoException("UNSUPPORTED_MEDIA_RECOVERY_MARKER_RANGE");
         } else throw new RedoException("UNSUPPORTED_HISTORICAL_SCHEMA_MARKER_OPCODE");
     }

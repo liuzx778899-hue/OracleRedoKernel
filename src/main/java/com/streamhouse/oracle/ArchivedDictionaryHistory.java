@@ -71,10 +71,12 @@ public final class ArchivedDictionaryHistory {
         for(var index:baseline.indexes())roles.put(index.role().logicalObject(),index.role());
         var splitRestores=ArchivedDictionaryIndexRestores.read(inputs,snapshot);
         var identities=new LinkedHashSet<HeapRowPatch.Xid>();var sources=new ArrayList<ArchivedRedo.Header>();var continuity=new TransactionLifecycle();var markers=new ArrayList<Long>();
+        var observedScns=new HashSet<Long>();
         for(var input:inputs) {
             var header=input.header();snapshot.requireSource(header);continuity.archive(header);sources.add(header);
             input.visit(header,r->{
                 if(r.containerUid()!=snapshot.source().containerUid() || r.scn()<=snapshot.scn())return;
+                observedScns.add(r.scn());
                 for(int i=0;i<r.vectors().size();i++) {
                     var v=r.vectors().get(i);if(v.containerId()!=snapshot.source().containerId() || v.opcodeMajor()!=5 || v.opcodeMinor()!=1)continue;
                     var at=new ArchivedUndoInventory.Position(header.sequence(),r.block(),r.offset(),i+1);
@@ -88,7 +90,7 @@ public final class ArchivedDictionaryHistory {
                     if(role!=null && affectsBaselineScope(header,r,v,role,snapshot,splitRestores)) {byte[] b=v.fields().get(0);identities.add(new HeapRowPatch.Xid(u16(b,8),u16(b,10),u32(b,12)));}
                 }
                 for(var v:r.vectors())if(v.containerId()==snapshot.source().containerId() && v.opcodeMajor()==24) {
-                    HistoricalSchemaBarrier.requireMarkerProfile(r,v);
+                    HistoricalSchemaBarrier.requireMarkerProfile(r,v,snapshot.scn(),observedScns);
                     if(v.opcodeMinor()==1)for(var role:List.of(snapshot.heap(),snapshot.index())) {
                         var f=v.fields();
                         if(u32(f.get(3),4)==role.logicalObject() || u32(f.get(11),0)==role.logicalObject()

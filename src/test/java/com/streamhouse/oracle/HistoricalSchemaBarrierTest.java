@@ -61,6 +61,28 @@ class HistoricalSchemaBarrierTest {
     @Test void nativeObservedStandaloneMediaMarkerIsNotAnObjectSchemaMarker() throws Exception {
         HistoricalSchemaBarrier.requireUnchanged(mediaRecord(mediaMarker()),snapshot);
     }
+    RedoRecords.Vector mixedMediaMarker() {
+        return new RedoRecords.Vector(24,4,0,0,0,0,0,3,List.of(
+                HexFormat.of().parseHex("28230000000000000000000072000c00"),HexFormat.of().parseHex("0ddc29000000000017dc290000800000")));
+    }
+    RedoRecords.Record mixedMediaRecord(RedoRecords.Vector v) {
+        return new RedoRecords.Record(3,16,140,5,2743320,1,677737149,List.of(v));
+    }
+    @Test void nativeMixedRangeRequiresObservedLowerEndpointAfterBaseline() throws Exception {
+        var v=mixedMediaMarker();var r=mixedMediaRecord(v);
+        HistoricalSchemaBarrier.requireMarkerProfile(r,v,2743256,Set.of(2743309L));
+        assertThrows(RedoException.class,()->HistoricalSchemaBarrier.requireMarkerProfile(r,v));
+        assertThrows(RedoException.class,()->HistoricalSchemaBarrier.requireMarkerProfile(r,v,2743256,Set.of()));
+        assertThrows(RedoException.class,()->HistoricalSchemaBarrier.requireMarkerProfile(r,v,2743309,Set.of(2743309L)));
+    }
+    @Test void mixedRangeFlagsPaddingAndUpperEndpointCannotBeIgnored() {
+        for(int at:new int[]{0,4,6,8,12,14}) {
+            var v=mixedMediaMarker();v.fields().get(1)[at]^=1;
+            assertThrows(RedoException.class,()->HistoricalSchemaBarrier.requireMarkerProfile(mixedMediaRecord(v),v,2743256,Set.of(2743309L)));
+        }
+        var v=mixedMediaMarker();v.fields().get(0)[0]^=1;
+        assertThrows(RedoException.class,()->HistoricalSchemaBarrier.requireMarkerProfile(mixedMediaRecord(v),v,2743256,Set.of(2743309L)));
+    }
     @Test void mediaMarkerCannotHideOtherVectorsOrUnknownHeaderOrScnRange() {
         assertThrows(RedoException.class,()->HistoricalSchemaBarrier.requireUnchanged(mediaRecord(mediaMarker(),marker()),snapshot));
         for(int field:new int[]{0,1}) {
