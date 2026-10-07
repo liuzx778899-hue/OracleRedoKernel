@@ -14,7 +14,9 @@ public final class ArchivedDictionaryIndexSplit {
         private final ArchivedUndoInventory.Position allocationPosition;
         private final DictionaryIndexLeafRows before,newLeaf,oldLeaf;
         private final int pendingSlot;
-        private Closed(Context c,int slot) {identity=c.end;original=c.inventory.entries();endPosition=c.endPosition;allocationPosition=c.allocationPosition;before=c.before;newLeaf=c.newLeaf;oldLeaf=c.oldLeaf;pendingSlot=slot;}
+        private final int file;
+        private Closed(Context c,int slot) {identity=c.end;original=c.inventory.entries();endPosition=c.endPosition;allocationPosition=c.allocationPosition;before=c.before;newLeaf=c.newLeaf;oldLeaf=c.oldLeaf;pendingSlot=slot;file=c.file;}
+        int file(){return file;}
         public TransactionLifecycle.ClosedIdentity identity(){return identity;}
         public List<ArchivedUndoInventory.Entry> original(){return original;}
         public ArchivedUndoInventory.Position endPosition(){return endPosition;}

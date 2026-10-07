@@ -6,6 +6,30 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 class TransactionStartTest {
+    List<RedoRecords.Vector> colDeleteBegin()throws Exception {
+        String text;try(var in=getClass().getResourceAsStream("/col-delete-begin-profile.txt")){text=new String(in.readAllBytes(),java.nio.charset.StandardCharsets.US_ASCII);}
+        var vectors=new java.util.ArrayList<RedoRecords.Vector>();
+        for(var line:text.lines().toList()) {
+            var f=line.split("\\|",-1);var op=f[0].split("\\.");var fields=new java.util.ArrayList<byte[]>();
+            for(int i=2;i<f.length;i++)fields.add(hex(f[i]));
+            vectors.add(new RedoRecords.Vector(Integer.parseInt(op[0]),Integer.parseInt(op[1]),34,11,Long.parseLong(f[1]),2567457,1,3,fields));
+        }
+        return vectors;
+    }
+    @Test void bindsActualFirstRecordColDeleteAndRefusesSizeRoleAndBitmapPoisons()throws Exception {
+        var v=colDeleteBegin();var s=TransactionStart.decode(v.get(0));
+        assertEquals(new HeapRowPatch.Xid(10,31,2348),s.bindBegin(record(677737149,v.get(0),v.get(1))));
+        for(int at:new int[]{0,10,12,18}) {
+            var changed=colDeleteBegin();changed.get(1).fields().get(0)[at]^=1;
+            assertThrows(RedoException.class,()->s.bindBegin(record(677737149,changed.get(0),changed.get(1))));
+        }
+        for(int at:new int[]{0,4,8,16}) {
+            var changed=colDeleteBegin();changed.get(1).fields().get(1)[at]^=1;
+            assertThrows(RedoException.class,()->s.bindBegin(record(677737149,changed.get(0),changed.get(1))));
+        }
+        var changed=colDeleteBegin();changed.get(1).fields().get(3)[46]^=1;
+        assertThrows(RedoException.class,()->s.bindBegin(record(677737149,changed.get(0),changed.get(1))));
+    }
     RedoRecords.Vector splitStart() {
         return new RedoRecords.Vector(5,2,33,11,0x02400100,2567426,1,3,List.of(
                 hex("09000000940200004f2f4002e60001004a048800983f00000000000000000000"),hex("bd726528")));

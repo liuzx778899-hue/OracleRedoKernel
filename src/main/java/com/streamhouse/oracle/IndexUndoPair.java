@@ -48,6 +48,9 @@ public record IndexUndoPair(long containerUid,long containerId,Forward forward,I
     public static Inverse decodeUndo(RedoRecords.Vector vector) throws RedoException {
         return decodeUndo(vector,false);
     }
+    static Inverse decodeDictionaryUndo(RedoRecords.Vector vector) throws RedoException {
+        return decodeUndo(vector,true);
+    }
     private static Inverse decodeUndo(RedoRecords.Vector vector,boolean dictionary) throws RedoException {
         var identity=UndoHeader.decode(vector);
         var fields=vector.fields();

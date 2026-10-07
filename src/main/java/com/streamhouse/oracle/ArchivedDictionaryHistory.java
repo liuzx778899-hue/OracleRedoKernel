@@ -69,15 +69,23 @@ public final class ArchivedDictionaryHistory {
         var baseline=snapshot.dictionaryBaseline();var roles=new HashMap<Long,FrozenHeapBaseline.ObjectRole>();
         for(var layout:baseline.layouts().values())roles.put(layout.role().logicalObject(),layout.role());
         for(var index:baseline.indexes())roles.put(index.role().logicalObject(),index.role());
+        var splitRestores=ArchivedDictionaryIndexRestores.read(inputs,snapshot);
         var identities=new LinkedHashSet<HeapRowPatch.Xid>();var sources=new ArrayList<ArchivedRedo.Header>();var continuity=new TransactionLifecycle();var markers=new ArrayList<Long>();
         for(var input:inputs) {
             var header=input.header();snapshot.requireSource(header);continuity.archive(header);sources.add(header);
             input.visit(header,r->{
                 if(r.containerUid()!=snapshot.source().containerUid() || r.scn()<=snapshot.scn())return;
-                for(var v:r.vectors())if(v.containerId()==snapshot.source().containerId() && v.opcodeMajor()==5 && v.opcodeMinor()==1) {
+                for(int i=0;i<r.vectors().size();i++) {
+                    var v=r.vectors().get(i);if(v.containerId()!=snapshot.source().containerId() || v.opcodeMajor()!=5 || v.opcodeMinor()!=1)continue;
+                    var at=new ArchivedUndoInventory.Position(header.sequence(),r.block(),r.offset(),i+1);
+                    var physical=splitRestores.maintenance.get(at);
+                    if(physical!=null) {
+                        if(!physical.equals(UndoHeader.decode(v)))throw new RedoException("DICTIONARY_SPLIT_ORIGINAL_CHANGED");
+                        continue;
+                    }
                     if(v.fields().size()<2 || v.fields().get(0).length!=20 || v.fields().get(1).length<8)throw new RedoException("UNREADABLE_DICTIONARY_DISCOVERY_IDENTITY");
                     var role=roles.get(u32(v.fields().get(1),0));
-                    if(role!=null && affectsBaselineScope(r,v,role,snapshot)) {byte[] b=v.fields().get(0);identities.add(new HeapRowPatch.Xid(u16(b,8),u16(b,10),u32(b,12)));}
+                    if(role!=null && affectsBaselineScope(header,r,v,role,snapshot,splitRestores)) {byte[] b=v.fields().get(0);identities.add(new HeapRowPatch.Xid(u16(b,8),u16(b,10),u32(b,12)));}
                 }
                 for(var v:r.vectors())if(v.containerId()==snapshot.source().containerId() && v.opcodeMajor()==24) {
                     HistoricalSchemaBarrier.requireMarkerProfile(r,v);
@@ -126,8 +134,10 @@ public final class ArchivedDictionaryHistory {
                             var layout=baseline.layouts().get(role.name());var p=ClusterUndoPair.bind(r,row,role,layout.tableNumber(),layout.columns().size()-1);
                             if(!p.identity().equals(h))throw new RedoException("DICTIONARY_ROW_FULL_IDENTITY_CONFLICT");
                             c.rows.add(new RowOperation(role,p.forward().row(),p.inverse().row()));count++;
-                        } else if(role.name().startsWith("I_COL") && row.opcodeMajor()==10 && (row.opcodeMinor()==2 || row.opcodeMinor()==4)) {
-                            var scope=baseline.indexes().stream().filter(x->x.role().equals(role)).findFirst().orElseThrow();var p=DictionaryIndexUndoPair.bind(r,row,role,scope.indexDba(),"AL32UTF8");
+                        } else if(role.name().startsWith("I_COL") && row.opcodeMajor()==10 && (row.opcodeMinor()==2 || row.opcodeMinor()==4 || row.opcodeMinor()==5)) {
+                            var scope=baseline.indexes().stream().filter(x->x.role().equals(role)).findFirst().orElseThrow();
+                            var p=row.opcodeMinor()==5?splitRestores.restores.get(new ArchivedUndoInventory.Position(header.sequence(),r.block(),r.offset(),r.vectors().indexOf(row)+1)):DictionaryIndexUndoPair.bind(r,row,role,scope.indexDba(),"AL32UTF8");
+                            if(p==null || !p.role().equals(role) || p.indexDba()!=scope.indexDba())throw new RedoException("MISSING_INPUT_OWNED_DICTIONARY_RESTORE");
                             if(!p.physical().undo().identity().equals(h))throw new RedoException("DICTIONARY_INDEX_FULL_IDENTITY_CONFLICT");
                             c.lifecycle.requireActive(r,p.physical());c.indexes.add(p);count++;
                         }
@@ -155,15 +165,16 @@ public final class ArchivedDictionaryHistory {
         }
         return new Timeline(snapshot,sources,commits);
     }
-    private static boolean affectsBaselineScope(RedoRecords.Record r,RedoRecords.Vector undo,FrozenHeapBaseline.ObjectRole role,FrozenHeapBaseline.Snapshot snapshot)throws RedoException {
+    private static boolean affectsBaselineScope(ArchivedRedo.Header header,RedoRecords.Record r,RedoRecords.Vector undo,FrozenHeapBaseline.ObjectRole role,FrozenHeapBaseline.Snapshot snapshot,ArchivedDictionaryIndexRestores splitRestores)throws RedoException {
         var fields=undo.fields();
         if(fields.get(1).length<24 || u32(fields.get(1),4)!=role.dataObject() || u32(fields.get(1),8)!=0)
             throw new RedoException("DICTIONARY_DISCOVERY_GENERATION_CONFLICT");
         if(role.name().startsWith("I_COL")) {
             var scope=snapshot.dictionaryBaseline().indexes().stream().filter(x->x.role().equals(role)).findFirst().orElseThrow();
             boolean selected=false;int count=0;
-            for(var v:r.vectors())if(v.containerId()==undo.containerId() && v.opcodeMajor()==10 && (v.opcodeMinor()==2 || v.opcodeMinor()==4)) {
-                var pair=DictionaryIndexUndoPair.bind(r,v,role,scope.indexDba(),"AL32UTF8");
+            for(var v:r.vectors())if(v.containerId()==undo.containerId() && v.opcodeMajor()==10 && (v.opcodeMinor()==2 || v.opcodeMinor()==4 || v.opcodeMinor()==5)) {
+                var pair=v.opcodeMinor()==5?splitRestores.restores.get(new ArchivedUndoInventory.Position(header.sequence(),r.block(),r.offset(),r.vectors().indexOf(v)+1)):DictionaryIndexUndoPair.bind(r,v,role,scope.indexDba(),"AL32UTF8");
+                if(pair==null || !pair.role().equals(role) || pair.indexDba()!=scope.indexDba())throw new RedoException("MISSING_INPUT_OWNED_DICTIONARY_RESTORE");
                 if(!pair.physical().undo().identity().equals(UndoHeader.decode(undo)))throw new RedoException("DICTIONARY_DISCOVERY_INDEX_IDENTITY_CONFLICT");
                 selected|=pair.key().objectId()==snapshot.heap().logicalObject();count++;
             }

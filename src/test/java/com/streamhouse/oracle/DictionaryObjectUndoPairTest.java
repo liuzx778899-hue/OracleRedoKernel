@@ -57,4 +57,13 @@ class DictionaryObjectUndoPairTest {
         var nine=records().get(2);nine.vectors().get(1).fields().get(1)[18]=(byte)239;
         assertThrows(RedoException.class,()->DictionaryObjectUndoPair.bind(nine,nine.vectors().get(1),role,37));
     }
+    @Test void observedCkix144RemainsPairedScopedAndSixColumnOnly()throws Exception {
+        var r=records().get(0);var row=r.vectors().get(1);var inverse=r.vectors().get(0).fields().get(3);
+        row.fields().get(1)[18]=(byte)144;inverse[18]=(byte)144;
+        assertEquals(6,DictionaryObjectUndoPair.bind(r,row,role,37).physical().forward().extent().changedColumns());
+        inverse[18]=(byte)239;
+        assertEquals("DICTIONARY_OBJECT_CKIX_PAIR_MISMATCH",assertThrows(RedoException.class,()->DictionaryObjectUndoPair.bind(r,row,role,37)).getMessage());
+        var eight=records().get(1);eight.vectors().get(1).fields().get(1)[18]=(byte)144;
+        assertThrows(RedoException.class,()->DictionaryObjectUndoPair.bind(eight,eight.vectors().get(1),role,37));
+    }
 }

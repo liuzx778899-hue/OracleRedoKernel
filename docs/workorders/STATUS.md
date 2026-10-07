@@ -1,5 +1,7 @@
 # OracleRedoKernel 当前状态
 
+当前执行（2026-10-07）：按用户最新安排，聚焦开发阶段、针对性验证和专属环境集成收口；部署及生产验证后续协同。正在推进 **W5 SCN字典/基线 → W6 产品接入 → W7 capture集成**，对应下表。最新[split恢复/完整历史事件](DELIVERY_W5_SPLIT_HISTORY_20261007.md)：kernel a84db1a3/311，同原早V3/70—71两完整UPDATE/schema4→3及adapter通过，三SYS/22original/764native独立完整值零差异、26合法checksum完整入口拒绝/stdout0、14marker擦除语义相同，1181双SHA/前549不变。旧SCN ASOF补查ORA-01555保全，不回填晚基线；native只用于验证。下一主线新产品实际HTTP/target/CPACK；本窗口未通过这些门禁，W5其它通用场景及W8—W11仍待证，不能报开发全部完成。
+
 最新：[自主I_COL3七记录物理split候选](DELIVERY_W5_AUTONOMOUS_DICTIONARY_SPLIT_20261006.md)：kernel1d5f91fc完整309/0/0/0，源字节自主发现1个维护XID，五original/两advance/13.7+13.6物理freelist控制/end OLD重建闭合；可信segment/file/当前R身份/links/range/445→220+226守恒及全已知页审计通过，slot7待恢复，OLD prev=null/ccnt不当XID。archive/capture/重复完全一致，12合法checksum块scan0/完整split1/stdout0。旧119class不变，新3class；首漏页审计候选不验收/r2未知freelist拒绝原文及驱动失败保全，最终549双SHA/前129+133+139+130+205+407不变。0新源/目标/产品动作，业务历史工厂未接入，下一步10.5可信raw槽恢复+完整历史两UPDATE→产品HTTP/target/CPACK；原goal active，现场发布未过，Codex最后查。
 
 最新：[I_COL3前像/两叶重建typed候选](DELIVERY_W5_DICTIONARY_LEAF_ROWS_20261006.md)：最终r2 kernelb4913b23完整309/0/0/0，typed前像445/NEW220/OLD226全部891行/native字节+NUMBER+rowid+状态0差异，四比较反例检出。旧117class字节不变，仅新增2class；OLD重建prev缺证用null，首0占位候选133保留/最终129双SHA，前139+130+205+407未变。0源/配置/目标/产品构建换装，完整历史工厂未接入/未重跑；下一步自主五original+end完整split闭包及10.5 raw槽凭证，不能局部通过冒充两事件/HTTP/CPACK。原完整goal active、现场发布未过，Codex最后查。
@@ -65,11 +67,11 @@
 | 工作包 | 代码交付 | 针对性验证 | 集成验证 | 部署 | 现场验收 | 发布 |
 |---|---|---|---|---|---|---|
 | W0 环境/样本/真值 | 通过：首批fa61476，矩阵继续 | 通过：环境/冻结归档；矩阵待证 | 待证 | 不适用：实验脚本 | 待证 | 未开始 |
-| W1 文件/块 scanner | 通过：首批fa61476 | 通过：19c/21c有界样本/5个真实派生反例 | 待证：真实capture | 未开始 | 待证 | 未开始 |
-| W2 record/vector | 通过：首批fa61476 | 通过：19c seq8/9完整dump、21c选定范围 | 待证：事务/字典 | 未开始 | 待证 | 未开始 |
+| W1 文件/块 scanner | 通过：首批fa61476 | 通过有限19c/21c样本；最新70/71及26合法checksum反例结构通过，语义另判 | 通过有限真实关闭capture→完整历史/两业务事件；正式online/平台集成仍归W7待证 | 未开始 | 待证 | 未开始 |
+| W2 record/vector | 通过：首批fa61476 | 通过有限样本：旧19c完整dump/21c选定范围；最新native全22SYS original/764完整值及业务字节一致 | 通过有限70/71真实capture→事务/历史字典/完整行→adapter；一般格式/产品门禁仍待证 | 未开始 | 待证 | 未开始 |
 | W3 基础行/类型 | 进行中：scalar/pair/KDOM2及可信基线后完整行 | 通过有限样本：254测试制品；seq44—50非空/NULL尾列INSERT/DELETE、混合/全回滚，seq51独立完整回滚空capture；18pair/302长值patch保留 | 进行中：固定可信基线完整像及独立空batch到目标/checkpoint通过；历史字典与一般完整DML待证 | 未开始 | 待证 | 未开始 |
 | W4 事务/回滚 | 进行中：有序history/覆盖/heap+index补偿、同源完整XID归属、有源位置重放及精确外来begin排除 | 通过有限样本：254测试；seq51四控制/native归属及两图6/2/4零差异、三重封结构通过/语义拒绝；旧自主图/跨归档/回滚证据保留 | 进行中：有界自主物理入口已交付；完整控制/页维护/跨块关联/恢复待证；不当通用生产能力 | 未开始 | 待证 | 未开始 |
-| W5 SCN字典/基线 | 进行中：extent/完整行、ASOF/回执/typed世代，有限cleanout、闭合图live选择、commit SCN重放及LKR独立LOCK节点 | 通过：233测试制品；seq37—39真实锁等待三完整行/native/四SQL零差异；seq36 rollback-only及seq33—35旧批次空结果，既有并发/行证据保留；生产可信交接/历史字典待证 | 进行中：有限不同行并发、全/部分回滚、空批次、真实锁等待但redo事务窗口串行通过；活跃同key重叠/相同commit SCN支持/无目标静默/多savepoint/跨块/初始恢复/历史schema待证 | 未开始 | 待证 | 未开始 |
+| W5 SCN字典/基线（当前主线） | 有限历史候选：可信V3实际获取、自主七记录split、10.5可信槽恢复/完整SYS历史与两事件已接入；通用场景仍进行中 | 有限通过：a84db1a3/311；三SYS/22original/764native完整值零差异，两UPDATE完整4→3列、隐藏NOTE/新增NULL；26完整入口反例拒绝/stdout0，14marker擦除；1181SHA/前549不变。三旧SCN ASOF补查ORA-01555保留 | **70/71 raw→完整历史→业务行→adapter已通过有限验证；新产品HTTP/target/CPACK待做**。旧68/69字节不变；活跃同key/相同commit SCN/多savepoint/跨块/初始恢复等仍待证 | 未开始 | 待证 | 未开始 |
 | W6 StreamHouse接入 | 进行中：独立Oracle adapter及JDBC目标原子凭证；空侧null及typed证据透传；私仓内核96095420，公开decoder拒绝 | 通过有限样本：模块19；新专属非空/NULL/混合目标完整像/摘要不漂移、重复0与约束失败原子回滚；独立空batch0/0/0/1、缺commit拒绝及旧SIGKILL证据保留；任意窗口/可信schema待证 | 通过有限raw→内核→私有SPI→专属Oracle目标commit/ACK；产品候选735测试；registry三库24实库项通过，Oracle控制下实际Java Facade四组目标/控制事务/持久ACK有限通过；实际HTTP混合三DML/两处跨进程SIGKILL有限通过，其他方言完整Facade/独立目标实例待证，未换装 | 未开始 | 待证 | 未开始 |
 | W7 online采集 | 进行中：关闭代际多member跟踪/回执审计/独占重启续接；共用capture输入接完整图/行 | 通过有限样本：seq51真实3873块/归档零差异、独立空batch checkpoint/ACK全字段核验/重复稳定/缺凭证拒绝；旧collector重启/SIGKILL/半帧拒绝保留；C++真实采集/实时/高压/断电/Windows/ASM待证 | 通过有限关闭批次→typed事务/可信baseline→完整DML或已审核空batch→target commit→checkpoint/ACK；旧四消费者强杀保留（两文件边界lab插桩）；跨批活跃状态/生产字典/断电/生产现场待证，有关闭延迟 | 未开始 | 待证 | 未开始 |
 | W8-W11 扩展类型/LOB/RAC/ASM/TDE | 未开始 | 待证 | 未开始 | 未开始 | 待证 | 未开始 |

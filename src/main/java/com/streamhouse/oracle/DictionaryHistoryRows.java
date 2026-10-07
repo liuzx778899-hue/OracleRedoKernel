@@ -21,7 +21,7 @@ final class DictionaryHistoryRows {
             var key=pair.key();if(key.objectId()!=snapshot.heap().logicalObject())throw new RedoException("DICTIONARY_INDEX_FOREIGN_PARENT_UNSUPPORTED");
             var rowKey=new ArchivedHeapRows.RowKey(baseline.layouts().get("COL$").role().dataObject(),key.rowDba(),key.rowSlot());
             var prior=parents.putIfAbsent(rowKey,key.objectId());if(prior!=null && prior!=key.objectId())throw new RedoException("DICTIONARY_INDEX_PARENT_CONFLICT");
-            var entries=indexes.get(pair.role().name());boolean insert=pair.physical().forward().kind()==IndexUndoPair.Kind.INSERT;
+            var entries=indexes.get(pair.role().name());boolean insert=pair.physical().forward().kind()==IndexUndoPair.Kind.INSERT || pair.physical().forward().kind()==IndexUndoPair.Kind.RESTORE;
             if(!(insert?entries.add(key):entries.remove(key)))throw new RedoException("DICTIONARY_INDEX_LIFECYCLE_CONFLICT");
         }
         for(var operation:operations) {

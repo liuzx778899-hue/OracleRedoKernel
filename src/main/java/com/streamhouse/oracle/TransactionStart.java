@@ -14,7 +14,7 @@ public record TransactionStart(long segmentDba, int slot, long sequence, HeapRow
         byte[] b=fields.get(0);
         int flags=u16(b,16);
         boolean observedFirstRecord=flags==0x4a && u16(b,2)==0 && (b[14]&255)==1
-                && b[15]==0 && u16(b,18)==176 && u32(b,20)==0;
+                && b[15]==0 && (u16(b,18)==176 || u16(b,18)==316) && u32(b,20)==0;
         boolean observedControlBegin=flags==0x51 && u16(b,2)==0 && (b[14]&255)>0
                 && b[15]==0 && u16(b,18)==80 && b[20]==0;
         // Seq70 native-matched pre-split begin. The 0x3f98 control word remains opaque.
@@ -31,6 +31,7 @@ public record TransactionStart(long segmentDba, int slot, long sequence, HeapRow
         if (record.containerUid()!=containerUid)
             throw new RedoException("TRANSACTION_START_CONTAINER_MISMATCH");
         UndoHeader match=null;
+        RedoRecords.Vector beginVector=null;
         for (var v:record.vectors()) {
             if (v.containerId()!=containerId || v.opcodeMajor()!=5 || v.opcodeMinor()!=1
                     || v.dba()!=uba.dba() || v.fields().isEmpty()) continue;
@@ -40,10 +41,27 @@ public record TransactionStart(long segmentDba, int slot, long sequence, HeapRow
             var h=UndoHeader.decode(v);
             if (match!=null) throw new RedoException("AMBIGUOUS_TRANSACTION_BEGIN_UBA");
             match=h;
+            beginVector=v;
         }
         if (match==null) throw new RedoException("MISSING_TRANSACTION_BEGIN_UBA");
         if (!match.beginsTransaction() || match.xid().slot()!=slot || match.xid().sequence()!=sequence)
             throw new RedoException("TRANSACTION_BEGIN_IDENTITY_MISMATCH");
+        if(flags==0x4a) {
+            int size=-1;
+            for(var v:record.vectors())if(v.containerId()==containerId && v.dba()==segmentDba && v.opcodeMajor()==5 && v.opcodeMinor()==2
+                    && decode(v).equals(this)) {
+                if(size!=-1)throw new RedoException("AMBIGUOUS_FIRST_RECORD_START");size=u16(v.fields().get(0),18);
+            }
+            if(size<0 || u16(beginVector.fields().get(0),0)!=size)throw new RedoException("FIRST_RECORD_BEGIN_SIZE_MISMATCH");
+            // Actual seq71 first-record COL$ delete: full32-column clustered inverse, no parent transaction.
+            if(size==316) {
+                var f=beginVector.fields();
+                if(match.objectId()!=21 || match.dataObjectId()!=2 || match.tablespace()!=0 || f.size()!=36
+                        || f.get(1)[16]!=11 || f.get(1)[17]!=1 || f.get(3).length!=52 || f.get(3)[10]!=2)
+                    throw new RedoException("UNSUPPORTED_COL_DELETE_BEGIN_PROFILE");
+                ClusterRowPatch.decode(f.subList(2,f.size()),2,u32(f.get(3),0),5,36);
+            }
+        }
         if (flags==0x51) {
             var begin=match;
             var v=record.vectors().stream().filter(u->u.containerId()==containerId && u.opcodeMajor()==5

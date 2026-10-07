@@ -1,5 +1,7 @@
 # 2026-10-06 新 chat 接续：历史 schema 目标提交
 
+最新优先（2026-10-07）：DELIVERY_W5_SPLIT_HISTORY_20261007.md。原早V3/70—71已接自主split+10.5 raw槽恢复、ckix144/flags004a-size316有限profile，kernel a84db1a3完整311，三SYS/22original/764native完整值零差异；两完整UPDATE/schema4→3、archive/capture/重复、既有adapter投影通过。26合法checksum完整入口拒绝/stdout0；14marker擦除语义相同，captureInput随batch/journal SHA改变。1181双SHA/前549未变，三旧SCN ASOF ORA-01555保留，不重新获取/不重放源。新产品/目标/HTTP/CPACK尚未执行，下一步升级指定私有P不可变kernel→实际产品同acquisition100747510573780992/原70—71窗口→新owned prefix target原子提交/CPACK/重复重启/晚失败。用户最新要求聚焦开发、针对性验证和专属集成收口，部署及生产验证后续协同；仍保持全部原目标，禁止Luna/子代理，共享StreamHouse只读。STATUS六列表已同步，不能以下方历史“完整工厂未接入”当当前状态。
+
 最新优先：DELIVERY_W5_AUTONOMOUS_DICTIONARY_SPLIT_20261006.md，最终r3 kernel1d5f91fc/完整309，自主五original+13.7/13.6 freelist物理控制+end OLD重建共七记录闭合，源字节选XID、全已知页审计/currentR/links/range/行守恒，slot7待恢复；archive/capture/重复一致，12合法checksum全split拒绝/stdout0。ccnt不冒充XID/OLD prev仍null。549双SHA，原129/133/139/130/205/407不变，首候选漏页审计不验收/r2拒绝额外freelist原文保留。业务历史未接入、新源/产品/目标动作0；下一完整执行包为主字典10.5 raw槽恢复+同输入/baseline位置证明→完整两业务历史事件→新产品HTTP/target/CPACK。原70/71早V3不重放/不重获取，goal active，禁止Luna/子代理。
 
 最新优先：DELIVERY_W5_DICTIONARY_LEAF_ROWS_20261006.md，最终r2 kernelb4913b23/完整309，typed前像445与两叶220/226的891行/native raw/NUMBER/rowid/flags0差异；OLD prev未知=null，首0占位候选133保全不当authority，最终129/旧139/130/205/407不变。原117class未变，完整历史工厂未接入，新源/产品/目标动作0。下一步按该完整执行包建立自主五original/end维护闭包与10.5 raw槽恢复，再两历史业务事件/真实产品CPACK，不再以局部Pair或行解码通过代替完整split。原70/71和早V3不重放/不重获取，goal active。
