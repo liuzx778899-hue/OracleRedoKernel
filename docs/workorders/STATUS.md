@@ -1,5 +1,7 @@
 # OracleRedoKernel 当前状态
 
+最新：[自主I_COL3七记录物理split候选](DELIVERY_W5_AUTONOMOUS_DICTIONARY_SPLIT_20261006.md)：kernel1d5f91fc完整309/0/0/0，源字节自主发现1个维护XID，五original/两advance/13.7+13.6物理freelist控制/end OLD重建闭合；可信segment/file/当前R身份/links/range/445→220+226守恒及全已知页审计通过，slot7待恢复，OLD prev=null/ccnt不当XID。archive/capture/重复完全一致，12合法checksum块scan0/完整split1/stdout0。旧119class不变，新3class；首漏页审计候选不验收/r2未知freelist拒绝原文及驱动失败保全，最终549双SHA/前129+133+139+130+205+407不变。0新源/目标/产品动作，业务历史工厂未接入，下一步10.5可信raw槽恢复+完整历史两UPDATE→产品HTTP/target/CPACK；原goal active，现场发布未过，Codex最后查。
+
 最新：[I_COL3前像/两叶重建typed候选](DELIVERY_W5_DICTIONARY_LEAF_ROWS_20261006.md)：最终r2 kernelb4913b23完整309/0/0/0，typed前像445/NEW220/OLD226全部891行/native字节+NUMBER+rowid+状态0差异，四比较反例检出。旧117class字节不变，仅新增2class；OLD重建prev缺证用null，首0占位候选133保留/最终129双SHA，前139+130+205+407未变。0源/配置/目标/产品构建换装，完整历史工厂未接入/未重跑；下一步自主五original+end完整split闭包及10.5 raw槽凭证，不能局部通过冒充两事件/HTTP/CPACK。原完整goal active、现场发布未过，Codex最后查。
 
 最新：[I_COL3锁/link/branch typed Pair候选](DELIVERY_W5_DICTIONARY_MAINTENANCE_PAIRS_20261006.md)：kernel1911a0cd完整305/0/0/0，新增三局部Pair/current XID/UBA/role/generation/segment/ITL逆向绑定，真实70三对/native0差异；link指向new leaf0040512f、branch slot299/child一致/parent75281。旧115class字节不变，仅新增2class；完整历史工厂尚未接入/未重跑，完整维护闭包和两事件待证，诊断0事件。139双SHA/前130+205+407不变；首探针范围外undo失败保全，r2仅修研究scope。0源/目标/产品构建换装，接续前像/两叶typed重建+全维护闭包+10.5 raw槽关联，再历史产品链；原goal active、现场发布未过，Codex最后查。

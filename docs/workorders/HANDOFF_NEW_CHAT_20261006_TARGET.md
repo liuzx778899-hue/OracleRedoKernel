@@ -1,5 +1,7 @@
 # 2026-10-06 新 chat 接续：历史 schema 目标提交
 
+最新优先：DELIVERY_W5_AUTONOMOUS_DICTIONARY_SPLIT_20261006.md，最终r3 kernel1d5f91fc/完整309，自主五original+13.7/13.6 freelist物理控制+end OLD重建共七记录闭合，源字节选XID、全已知页审计/currentR/links/range/行守恒，slot7待恢复；archive/capture/重复一致，12合法checksum全split拒绝/stdout0。ccnt不冒充XID/OLD prev仍null。549双SHA，原129/133/139/130/205/407不变，首候选漏页审计不验收/r2拒绝额外freelist原文保留。业务历史未接入、新源/产品/目标动作0；下一完整执行包为主字典10.5 raw槽恢复+同输入/baseline位置证明→完整两业务历史事件→新产品HTTP/target/CPACK。原70/71早V3不重放/不重获取，goal active，禁止Luna/子代理。
+
 最新优先：DELIVERY_W5_DICTIONARY_LEAF_ROWS_20261006.md，最终r2 kernelb4913b23/完整309，typed前像445与两叶220/226的891行/native raw/NUMBER/rowid/flags0差异；OLD prev未知=null，首0占位候选133保全不当authority，最终129/旧139/130/205/407不变。原117class未变，完整历史工厂未接入，新源/产品/目标动作0。下一步按该完整执行包建立自主五original/end维护闭包与10.5 raw槽恢复，再两历史业务事件/真实产品CPACK，不再以局部Pair或行解码通过代替完整split。原70/71和早V3不重放/不重获取，goal active。
 
 最新优先：DELIVERY_W5_DICTIONARY_MAINTENANCE_PAIRS_20261006.md，kernel1911a0cd/完整305，I_COL3 lock/prev-link/branch三局部typed Pair与真实native0差异，旧115class字节未变，新增2class。139双SHA/旧130/205/407未变，首诊断scope失败保全；完整历史工厂尚未接入此Pair，完整split和两事件未过。接续新执行包typed前像/new与old叶重建→全五original/6记录含end闭包→10.5 raw槽恢复，原70/71和早V3，不重源/获取/封存；产品未构建换装、goal active。
