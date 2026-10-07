@@ -1,5 +1,7 @@
 # 2026-10-06 新 chat 接续：历史 schema 目标提交
 
+当前执行（2026-10-07产品活跃输入）：[可信产品基线/真实75—76与marker2](DELIVERY_W4_PRODUCT_ACTIVE_MARKER2_20261007.md)。proper HTTP获取101320533446070272/SCN2773486/SHA9a99c587，6SYS/230值/3索引/基线零差异；一次XID10.0.2959跨75/76已结束禁止重放，collector0/next77、95320/3块与归档零差异。原593e完整入口KDOM2拒绝保全；代码73c487f/kernel571cac2a完整330，只1class变/127不变，新profile两完整UPDATE/native零差异，75 pending1持久halt23→独立JVM续76输出相同；两重封checksum反例零stdout/四比较器毒化检出。344双SHA/前353+234+113+100未变，helper/collector停止，NO/NO/旧行保持，bindings0/events0/目标0。产品自动pending登记/跨发布尚未实现；下一服务端可信前缀checkpoint登记与私有产品续接，不重获取/不重源；原goal active。
+
 当前执行（2026-10-07恢复失败集成）：[新恢复入口失败与恢复](DELIVERY_W6_RECOVERY_FAILURES_20261007.md)，同件e0a79dd8/原754实际缺失文件、带可信摘要的identity混配均rc2/0事件/零推进；第二UPDATE ORA-02290目标整批回滚/CPACK零推进；ACK目录故障保留PUBLISHED与提交事实/原FileAlreadyExistsException，解除后同任务补ACK、全部目标账/batches/CP及原失败引用不变。353双SHA/前234+113+100+356未变，helper停止；0源业务重放/新获取/日志配置。历史恢复正反例已证，D1下一真正活跃产品跨发布持久恢复；一般矩阵/独立目标/评审/现场/发布仍待证，原goal active。
 
 当前执行（2026-10-07实际产品恢复）：[历史持久恢复HTTP集成](DELIVERY_W6_RECOVERY_HTTP_20261007.md)，同件producte0a79dd8/原754实际恢复文件→两完整历史UPDATE→目标2/2/1→PUBLISHED/CONSUMED/CP→ACK逐字段与字节一致。文件毒化rc2/0事件/零推进，精确恢复同任务通过；重复及提交后SIGKILL137→重启→resume不重写/CPACK不变。234双SHA/前113+100+356未变，owned helper停止；0源业务重放/新获取/日志配置。仅有限历史恢复产品链，D1仍需缺件/组件混配、新恢复晚失败/ACK故障与真正活跃跨发布；独立目标/评审/现场/发布未过，原goal active。
