@@ -1,0 +1,589 @@
+{
+  "proof": {
+    "kernel_sha256": "593e730b67a2622ac9084eeae837eb64477249efe1946f4c5e4856059fe39ea9",
+    "cases": [
+      {
+        "name": "active",
+        "checkpoint_sha256": "6d99bf83a3ac087e8df305f2cb3230db24b67bb27cd73ecf66092a71edeb000c",
+        "output_sha256": "f9cc40d0286107476e07c985a0e1f9fc8c744213aabb2ca1e9b73bb2f99fcf1c",
+        "reference": "lab\\out\\cross-window-range-20261007\\candidate-closed.stdout.txt",
+        "events": 2,
+        "halt_rc": 23
+      },
+      {
+        "name": "historical",
+        "checkpoint_sha256": "486299c0e2317cf502ba9d56fd5d80d08c24e48e6bc634159ca1b249b2ade5a7",
+        "output_sha256": "b65210234362e04aa4d785c568e199cbe03be3c709a6361285c0ca37ede77c3e",
+        "reference": "lab\\out\\split-history-candidate-20261007\\r6\\capture-business.stdout.txt",
+        "events": 2,
+        "halt_rc": 23
+      }
+    ],
+    "source_actions": 0,
+    "target_actions": 0,
+    "product_actions": 0,
+    "raw_prefix_required": true,
+    "physical_state_suffix_only": true,
+    "business_rows_raw_replayed": true,
+    "pending_sys_recovery": false,
+    "product_publication_recovery": false
+  },
+  "tests": [
+    328,
+    0,
+    0,
+    0
+  ],
+  "negative_runs": 14,
+  "prefix_identity_and_graph_equal_prior": true,
+  "classes_changed": [
+    "com/streamhouse/oracle/ArchivedPhysicalTransactions$Context.class",
+    "com/streamhouse/oracle/ArchivedPhysicalTransactions.class",
+    "com/streamhouse/oracle/CapturedHistoricalHeapBatch.class",
+    "com/streamhouse/oracle/RedoBatch.class"
+  ],
+  "classes_added": [
+    "com/streamhouse/oracle/HistoricalRecovery.class"
+  ],
+  "classes_unchanged": 123,
+  "previous_capsules": [
+    {
+      "manifest": "DELIVERY-physical-prefix-20261007.json",
+      "files": 45,
+      "unchanged": true
+    },
+    {
+      "manifest": "DELIVERY-dictionary-resume-20261007.json",
+      "files": 86,
+      "unchanged": true
+    },
+    {
+      "manifest": "DELIVERY-undo-graph-resume-20261007.json",
+      "files": 36,
+      "unchanged": true
+    },
+    {
+      "manifest": "DELIVERY-transaction-identity-resume-20261007.json",
+      "files": 42,
+      "unchanged": true
+    },
+    {
+      "manifest": "DELIVERY-cross-window-range-20261007.json",
+      "files": 88,
+      "unchanged": true
+    },
+    {
+      "manifest": "RESEARCH-cross-window-active-20261007.json",
+      "files": 182,
+      "unchanged": true
+    }
+  ],
+  "files_count": 100,
+  "files": [
+    {
+      "path": "lab/out/unified-recovery-20261007/active-digest-poison.command.json",
+      "bytes": 967,
+      "sha256": "d2946c80d910382f19d5e69ffb5c0a9953fa92446a5c9d72b508ec346e95663b"
+    },
+    {
+      "path": "lab/out/unified-recovery-20261007/active-digest-poison.rc.txt",
+      "bytes": 1,
+      "sha256": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b"
+    },
+    {
+      "path": "lab/out/unified-recovery-20261007/active-digest-poison.stderr.txt",
+      "bytes": 251,
+      "sha256": "d7f4e7536576e01126414469842d88f8ed08ab5844bd7b868fc201614dc7f1d3"
+    },
+    {
+      "path": "lab/out/unified-recovery-20261007/active-digest-poison.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/unified-recovery-20261007/active-missing-owner.command.json",
+      "bytes": 974,
+      "sha256": "2a510a6ebde69a2187848d1a0a4de595b33663ec8daf2b535d0434345e1f89da"
+    },
+    {
+      "path": "lab/out/unified-recovery-20261007/active-missing-owner.rc.txt",
+      "bytes": 1,
+      "sha256": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b"
+    },
+    {
+      "path": "lab/out/unified-recovery-20261007/active-missing-owner.state",
+      "bytes": 728,
+      "sha256": "01b5337b20f1ee3f87c483970152e3d1ca21e127dcae5f8b2f128b5caf5191b1"
+    },
+    {
+      "path": "lab/out/unified-recovery-20261007/active-missing-owner.stderr.txt",
+      "bytes": 249,
+      "sha256": "a8d6a54f35101514e0f8980b6467ae3fae151da505c66d4c8fffbb1408d0486d"
+    },
+    {
+      "path": "lab/out/unified-recovery-20261007/active-missing-owner.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/unified-recovery-20261007/active-missing-source.command.json",
+      "bytes": 975,
+      "sha256": "fdf9bd4d82ddbdbe42b1d41e81c7a2b2acd0fd873c5a0085a0dbc5d9472142b1"
+    },
+    {
+      "path": "lab/out/unified-recovery-20261007/active-missing-source.rc.txt",
+      "bytes": 1,
+      "sha256": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b"
+    },
+    {
+      "path": "lab/out/unified-recovery-20261007/active-missing-source.state",
+      "bytes": 1073,
+      "sha256": "b3fb47d34868e6bcb504a1a2961eaff556b386a799427493e9b032f2f222f9e3"
+    },
+    {
+      "path": "lab/out/unified-recovery-20261007/active-missing-source.stderr.txt",
+      "bytes": 257,
+      "sha256": "b696940ed8661b545d5e0a3533d91d8038a3f38b6295995ea40bc642903c6492"
+    },
+    {
+      "path": "lab/out/unified-recovery-20261007/active-missing-source.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/unified-recovery-20261007/active-missing-suffix.command.json",
+      "bytes": 783,
+      "sha256": "6b99a820f175598544f550849105e97e30af297c5f1933dd3134db06e8bb252f"
+    },
+    {
+      "path": "lab/out/unified-recovery-20261007/active-missing-suffix.rc.txt",
+      "bytes": 1,
+      "sha256": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b"
+    },
+    {
+      "path": "lab/out/unified-recovery-20261007/active-missing-suffix.stderr.txt",
+      "bytes": 1139,
+      "sha256": "8e734e353ba04e4ad84feb24ce83f0e7be066e5b05803fd5897dc5f7467632b1"
+    },
+    {
+      "path": "lab/out/unified-recovery-20261007/active-missing-suffix.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/unified-recovery-20261007/active-poison.state",
+      "bytes": 1140,
+      "sha256": "bad89c6a0f429af837403fe0c38c0ca088f57b86a709e19ddef36334d85841a5"
+    },
+    {
+      "path": "lab/out/unified-recovery-20261007/active-prefix-halt.command.json",
+      "bytes": 725,
+      "sha256": "5b10a0e5f95db82d8d2a4348abb5e89a8a871f308d4abfe4c4c2d1e76325eef3"
+    },
+    {
+      "path": "lab/out/unified-recovery-20261007/active-prefix-halt.rc.txt",
+      "bytes": 2,
+      "sha256": "535fa30d7e25dd8a49f1536779734ec8286108d115da5045d77f3b4185d8f790"
+    },
+    {
+      "path": "lab/out/unified-recovery-20261007/active-prefix-halt.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/unified-recovery-20261007/active-prefix-halt.stdout.txt",
+      "bytes": 85,
+      "sha256": "e8097dc01d9ff0d54ee0938011225eb97c227f81f62c37cd22abf2817315090e"
+    },
+    {
+      "path": "lab/out/unified-recovery-20261007/active-separate-jvm-resume.command.json",
+      "bytes": 960,
+      "sha256": "48264a7d4fed37239fcce85429dd0d8602c4ea8464ded8ee1bdca245e8ed3561"
+    },
+    {
+      "path": "lab/out/unified-recovery-20261007/active-separate-jvm-resume.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/unified-recovery-20261007/active-separate-jvm-resume.stderr.txt",
+      "bytes": 74,
+      "sha256": "0b880972feac567b51d6bece7a1bae4aeb56d43cc9364541318fd2136f284160"
+    },
+    {
+      "path": "lab/out/unified-recovery-20261007/active-separate-jvm-resume.stdout.txt",
+      "bytes": 1685,
+      "sha256": "f9cc40d0286107476e07c985a0e1f9fc8c744213aabb2ca1e9b73bb2f99fcf1c"
+    },
+    {
+      "path": "lab/out/unified-recovery-20261007/active-state-poison.command.json",
+      "bytes": 967,
+      "sha256": "469d452ec9bc22848abfc7440ca02f299b0723ba57777a936ecd33cb5c805062"
+    },
+    {
+      "path": "lab/out/unified-recovery-20261007/active-state-poison.rc.txt",
+      "bytes": 1,
+      "sha256": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b"
+    },
+    {
+      "path": "lab/out/unified-recovery-20261007/active-state-poison.stderr.txt",
+      "bytes": 249,
+      "sha256": "a8d6a54f35101514e0f8980b6467ae3fae151da505c66d4c8fffbb1408d0486d"
+    },
+    {
+      "path": "lab/out/unified-recovery-20261007/active-state-poison.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/unified-recovery-20261007/active-wrong-leaf.command.json",
+      "bytes": 960,
+      "sha256": "df77c95b7edce3c29de7d2c6c97dfd61840a6ec442920b31647a1d006e746859"
+    },
+    {
+      "path": "lab/out/unified-recovery-20261007/active-wrong-leaf.rc.txt",
+      "bytes": 1,
+      "sha256": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b"
+    },
+    {
+      "path": "lab/out/unified-recovery-20261007/active-wrong-leaf.stderr.txt",
+      "bytes": 252,
+      "sha256": "f15fec779c71a65ff08107ae513457573605730ada6e3b983b282a1cce5eeae6"
+    },
+    {
+      "path": "lab/out/unified-recovery-20261007/active-wrong-leaf.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/unified-recovery-20261007/active.state",
+      "bytes": 1140,
+      "sha256": "6d99bf83a3ac087e8df305f2cb3230db24b67bb27cd73ecf66092a71edeb000c"
+    },
+    {
+      "path": "lab/out/unified-recovery-20261007/ArchivedPhysicalTransactions.java",
+      "bytes": 26954,
+      "sha256": "9e6de73528b048c5606c58257b670a76c7f1fdfbdd80eab209f1a038148a70ad"
+    },
+    {
+      "path": "lab/out/unified-recovery-20261007/CapturedHistoricalHeapBatch.java",
+      "bytes": 5384,
+      "sha256": "a2389370361432d15b1488d2738194cb1b61b37b11c6a86c27d802fe29c4ff71"
+    },
+    {
+      "path": "lab/out/unified-recovery-20261007/classes/UnifiedRecoveryProbe.class",
+      "bytes": 7735,
+      "sha256": "1204fc74671e5e5778908d5c41e4d0fba4d398f2c9c3a94219dd681b30af8bfe"
+    },
+    {
+      "path": "lab/out/unified-recovery-20261007/compile.command.json",
+      "bytes": 301,
+      "sha256": "158ceb88865c01ce9f59bd38faf896a87b42a6a04a04fdf37fe5b40ac4f72c0e"
+    },
+    {
+      "path": "lab/out/unified-recovery-20261007/compile.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/unified-recovery-20261007/compile.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/unified-recovery-20261007/compile.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/unified-recovery-20261007/full-build.command.json",
+      "bytes": 65,
+      "sha256": "6331d95251a0f2a93bd915416a190f270d6e65c5795d0039e81975404fc163dc"
+    },
+    {
+      "path": "lab/out/unified-recovery-20261007/full-build.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/unified-recovery-20261007/full-build.stderr.txt",
+      "bytes": 301,
+      "sha256": "a73235e74b7212a667f3c9a6209ea0afe89e0cb01c372b4298f0f1a5e284ba49"
+    },
+    {
+      "path": "lab/out/unified-recovery-20261007/full-build.stdout.txt",
+      "bytes": 12746,
+      "sha256": "5b5f39921d48eab80f43dcc7807c4d71bb87b37813ed27c04a11b6c83ed7d78a"
+    },
+    {
+      "path": "lab/out/unified-recovery-20261007/historical-digest-poison.command.json",
+      "bytes": 975,
+      "sha256": "d8129053a033550ec386838edccbff98f6e7a17fc003d6a80d2972cd5beadae2"
+    },
+    {
+      "path": "lab/out/unified-recovery-20261007/historical-digest-poison.rc.txt",
+      "bytes": 1,
+      "sha256": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b"
+    },
+    {
+      "path": "lab/out/unified-recovery-20261007/historical-digest-poison.stderr.txt",
+      "bytes": 251,
+      "sha256": "d7f4e7536576e01126414469842d88f8ed08ab5844bd7b868fc201614dc7f1d3"
+    },
+    {
+      "path": "lab/out/unified-recovery-20261007/historical-digest-poison.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/unified-recovery-20261007/historical-missing-owner.command.json",
+      "bytes": 982,
+      "sha256": "9ae7277b3f98a31742a234e01600c1f145e15f9ef733a68c976f79de9cb54d06"
+    },
+    {
+      "path": "lab/out/unified-recovery-20261007/historical-missing-owner.rc.txt",
+      "bytes": 1,
+      "sha256": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b"
+    },
+    {
+      "path": "lab/out/unified-recovery-20261007/historical-missing-owner.state",
+      "bytes": 896,
+      "sha256": "2a2d072b2fda5c073500f7d7752b6090e0cf32b27cd8a5bce9391072413e882b"
+    },
+    {
+      "path": "lab/out/unified-recovery-20261007/historical-missing-owner.stderr.txt",
+      "bytes": 249,
+      "sha256": "a8d6a54f35101514e0f8980b6467ae3fae151da505c66d4c8fffbb1408d0486d"
+    },
+    {
+      "path": "lab/out/unified-recovery-20261007/historical-missing-owner.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/unified-recovery-20261007/historical-missing-source.command.json",
+      "bytes": 983,
+      "sha256": "9b0380610b6bd41cd84d5c2e0bc8e6c5c2c3daec6d9d825c084f22b703621a81"
+    },
+    {
+      "path": "lab/out/unified-recovery-20261007/historical-missing-source.rc.txt",
+      "bytes": 1,
+      "sha256": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b"
+    },
+    {
+      "path": "lab/out/unified-recovery-20261007/historical-missing-source.state",
+      "bytes": 896,
+      "sha256": "c0fea29826042f717a2d3351b42fdb057d0c178d13ceaaf87265859c6aa84104"
+    },
+    {
+      "path": "lab/out/unified-recovery-20261007/historical-missing-source.stderr.txt",
+      "bytes": 257,
+      "sha256": "b696940ed8661b545d5e0a3533d91d8038a3f38b6295995ea40bc642903c6492"
+    },
+    {
+      "path": "lab/out/unified-recovery-20261007/historical-missing-source.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/unified-recovery-20261007/historical-poison.state",
+      "bytes": 963,
+      "sha256": "70a8e159721de1d5338b6b57afd252a3d42d4f5ce83e3cfbcfae8ef8f15798b5"
+    },
+    {
+      "path": "lab/out/unified-recovery-20261007/historical-prefix-halt.command.json",
+      "bytes": 734,
+      "sha256": "3c1268b0248b5532e13ec204a4cf421d94ba361948cf0208bf4a86e104259950"
+    },
+    {
+      "path": "lab/out/unified-recovery-20261007/historical-prefix-halt.rc.txt",
+      "bytes": 2,
+      "sha256": "535fa30d7e25dd8a49f1536779734ec8286108d115da5045d77f3b4185d8f790"
+    },
+    {
+      "path": "lab/out/unified-recovery-20261007/historical-prefix-halt.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/unified-recovery-20261007/historical-prefix-halt.stdout.txt",
+      "bytes": 85,
+      "sha256": "0bcb2700b76bc11555a1781cebcf9351dec2af12fbd80212555b3162020640d5"
+    },
+    {
+      "path": "lab/out/unified-recovery-20261007/historical-separate-jvm-resume.command.json",
+      "bytes": 968,
+      "sha256": "dce3b99860e3210384e80b51b4592d07a2fc855974fa1b594fddc4ec55739c90"
+    },
+    {
+      "path": "lab/out/unified-recovery-20261007/historical-separate-jvm-resume.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/unified-recovery-20261007/historical-separate-jvm-resume.stderr.txt",
+      "bytes": 74,
+      "sha256": "0b880972feac567b51d6bece7a1bae4aeb56d43cc9364541318fd2136f284160"
+    },
+    {
+      "path": "lab/out/unified-recovery-20261007/historical-separate-jvm-resume.stdout.txt",
+      "bytes": 1781,
+      "sha256": "b65210234362e04aa4d785c568e199cbe03be3c709a6361285c0ca37ede77c3e"
+    },
+    {
+      "path": "lab/out/unified-recovery-20261007/historical-state-poison.command.json",
+      "bytes": 975,
+      "sha256": "e762e82ff38d2bfad1b5fb81e815d37bcd5b3569b11336c363fc29c55ed4f0c1"
+    },
+    {
+      "path": "lab/out/unified-recovery-20261007/historical-state-poison.rc.txt",
+      "bytes": 1,
+      "sha256": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b"
+    },
+    {
+      "path": "lab/out/unified-recovery-20261007/historical-state-poison.stderr.txt",
+      "bytes": 249,
+      "sha256": "a8d6a54f35101514e0f8980b6467ae3fae151da505c66d4c8fffbb1408d0486d"
+    },
+    {
+      "path": "lab/out/unified-recovery-20261007/historical-state-poison.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/unified-recovery-20261007/historical-wrong-leaf.command.json",
+      "bytes": 968,
+      "sha256": "b3d9786b2dc2003260196de311829ea6f43cd4e90c047110f811f359457fb8ad"
+    },
+    {
+      "path": "lab/out/unified-recovery-20261007/historical-wrong-leaf.rc.txt",
+      "bytes": 1,
+      "sha256": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b"
+    },
+    {
+      "path": "lab/out/unified-recovery-20261007/historical-wrong-leaf.stderr.txt",
+      "bytes": 252,
+      "sha256": "f15fec779c71a65ff08107ae513457573605730ada6e3b983b282a1cce5eeae6"
+    },
+    {
+      "path": "lab/out/unified-recovery-20261007/historical-wrong-leaf.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/unified-recovery-20261007/historical.state",
+      "bytes": 963,
+      "sha256": "486299c0e2317cf502ba9d56fd5d80d08c24e48e6bc634159ca1b249b2ade5a7"
+    },
+    {
+      "path": "lab/out/unified-recovery-20261007/HistoricalRecovery.java",
+      "bytes": 4610,
+      "sha256": "341278f8318cbb144ac4160331f2807443e9fbe9288f5392ac80d1380d695d8a"
+    },
+    {
+      "path": "lab/out/unified-recovery-20261007/kernel.jar",
+      "bytes": 314612,
+      "sha256": "593e730b67a2622ac9084eeae837eb64477249efe1946f4c5e4856059fe39ea9"
+    },
+    {
+      "path": "lab/out/unified-recovery-20261007/mixed-dictionary.command.json",
+      "bytes": 970,
+      "sha256": "19d569f3f9e02c132ddb9d64602e9ef35ea8c12f4250b7353ce89283726c3462"
+    },
+    {
+      "path": "lab/out/unified-recovery-20261007/mixed-dictionary.rc.txt",
+      "bytes": 1,
+      "sha256": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b"
+    },
+    {
+      "path": "lab/out/unified-recovery-20261007/mixed-dictionary.state",
+      "bytes": 1320,
+      "sha256": "611e9e8eb0a9581ca0d8cdc5a47b857dac0b08f0ba93e95b9bfd2cafaf67eb2b"
+    },
+    {
+      "path": "lab/out/unified-recovery-20261007/mixed-dictionary.stderr.txt",
+      "bytes": 249,
+      "sha256": "a8d6a54f35101514e0f8980b6467ae3fae151da505c66d4c8fffbb1408d0486d"
+    },
+    {
+      "path": "lab/out/unified-recovery-20261007/mixed-dictionary.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/unified-recovery-20261007/mixed-identity.command.json",
+      "bytes": 968,
+      "sha256": "8a9080de3dc5763b855a21533f5ccfd8f9e737e72c19c5fa0c742de0134e4152"
+    },
+    {
+      "path": "lab/out/unified-recovery-20261007/mixed-identity.rc.txt",
+      "bytes": 1,
+      "sha256": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b"
+    },
+    {
+      "path": "lab/out/unified-recovery-20261007/mixed-identity.state",
+      "bytes": 1128,
+      "sha256": "bf9f34159ab1a8ab686d2f0bedd08b1a79815a42ba13890ad243f3d9f9a70214"
+    },
+    {
+      "path": "lab/out/unified-recovery-20261007/mixed-identity.stderr.txt",
+      "bytes": 249,
+      "sha256": "a8d6a54f35101514e0f8980b6467ae3fae151da505c66d4c8fffbb1408d0486d"
+    },
+    {
+      "path": "lab/out/unified-recovery-20261007/mixed-identity.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/unified-recovery-20261007/proof.json",
+      "bytes": 1100,
+      "sha256": "354bc00ba4868640515e08c7bbff16e3723e19ae4f443f208a153ddc6b4e120a"
+    },
+    {
+      "path": "lab/out/unified-recovery-20261007/RedoBatch.java",
+      "bytes": 2244,
+      "sha256": "a674bb6f31b317ea8e865e73b548ebef0907bfd617b00b84ccd64cca688f1101"
+    },
+    {
+      "path": "lab/out/unified-recovery-20261007/seal_unified_recovery19.py",
+      "bytes": 4930,
+      "sha256": "e01cf95f52f887834c8f9926f7297d0d8d4c6a36193507625647c79745075dd0"
+    },
+    {
+      "path": "lab/out/unified-recovery-20261007/UnifiedRecoveryProbe.java",
+      "bytes": 2318,
+      "sha256": "ee69fa6e7e4764ffd0cf1d8330c6de75a071204bbeffd6ca6ecf4b2843dd3d3b"
+    },
+    {
+      "path": "lab/out/unified-recovery-20261007/verify_unified_recovery19.py",
+      "bytes": 4397,
+      "sha256": "d500c4dd9429c6befb439440e6d4356064783e6832959ad6c85efb8805a7ae3c"
+    },
+    {
+      "path": "lab/out/unified-recovery-20261007/wrong-baseline.command.json",
+      "bytes": 966,
+      "sha256": "1d9cc29637b441d469b65a552cff8bbae53d055e0a958e099a1ebbc5179c0074"
+    },
+    {
+      "path": "lab/out/unified-recovery-20261007/wrong-baseline.rc.txt",
+      "bytes": 1,
+      "sha256": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b"
+    },
+    {
+      "path": "lab/out/unified-recovery-20261007/wrong-baseline.stderr.txt",
+      "bytes": 252,
+      "sha256": "f15fec779c71a65ff08107ae513457573605730ada6e3b983b282a1cce5eeae6"
+    },
+    {
+      "path": "lab/out/unified-recovery-20261007/wrong-baseline.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "double_sha256_verified": true,
+  "product_changed": false,
+  "production_deployed": false,
+  "site_accepted": false,
+  "released": false
+}

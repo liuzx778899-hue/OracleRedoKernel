@@ -19,7 +19,7 @@ public final class ArchivedPhysicalTransactions {
     record Prefix(Result completed,PendingState state) {}
     private static final class Context {
         final ArchivedObjectTransactions.Transaction discovered;
-        final UndoHistory graph;
+        UndoHistory graph;
         final IndexLeafPositions positions;
         final List<HeapUndoPair> heaps=new ArrayList<>();
         final List<IndexUndoPair> indexes=new ArrayList<>();
@@ -82,11 +82,21 @@ public final class ArchivedPhysicalTransactions {
         var completed=read(paths,uid,container,scope,leaf,columns,null,null,p->pending[0]=p);
         return new Prefix(completed,pending[0]);
     }
+    static Result readHistoryRestored(RedoBatch paths,FrozenHeapBaseline.Snapshot snapshot,ArchivedDictionaryHistory.Timeline history,long leaf,Prefix prefix)throws IOException {
+        history.requireBoundTo(paths,snapshot);
+        var scope=new HeapIndexScope(new HeapIndexScope.Generation(snapshot.heap().logicalObject(),snapshot.heap().dataObject()),
+                new HeapIndexScope.Generation(snapshot.index().logicalObject(),snapshot.index().dataObject()));
+        return read(paths,snapshot.source().containerUid(),snapshot.source().containerId(),scope,leaf,snapshot.columns().size(),snapshot,history,null,prefix);
+    }
     private static Result read(RedoBatch paths,long uid,long container,HeapIndexScope scope,long leaf,int columns,FrozenHeapBaseline.Snapshot snapshot,ArchivedDictionaryHistory.Timeline history) throws IOException {
         return read(paths,uid,container,scope,leaf,columns,snapshot,history,null);
     }
     private static Result read(RedoBatch paths,long uid,long container,HeapIndexScope scope,long leaf,int columns,FrozenHeapBaseline.Snapshot snapshot,
                                ArchivedDictionaryHistory.Timeline history,java.util.function.Consumer<PendingState> savePending) throws IOException {
+        return read(paths,uid,container,scope,leaf,columns,snapshot,history,savePending,null);
+    }
+    private static Result read(RedoBatch paths,long uid,long container,HeapIndexScope scope,long leaf,int columns,FrozenHeapBaseline.Snapshot snapshot,
+                               ArchivedDictionaryHistory.Timeline history,java.util.function.Consumer<PendingState> savePending,Prefix restored) throws IOException {
         if (columns<=0) throw new RedoException("INVALID_PHYSICAL_TRANSACTION_SCOPE");
         long heapObject=scope.heap().dataObject(),indexObject=scope.index().dataObject();
         var found=savePending==null?ArchivedObjectTransactions.read(paths,uid,container,scope):ArchivedObjectTransactions.readPending(paths,uid,container,scope);
@@ -105,7 +115,31 @@ public final class ArchivedPhysicalTransactions {
                 if (previous!=null && !previous.equals(e)) throw new RedoException("PHYSICAL_MARKER_OWNER_AMBIGUOUS");
             }
         }
-        var state=new TransactionLifecycle();var heapBlocks=new HashSet<Long>();var undoBlocks=new HashSet<Long>();
+        int prefixCount=restored==null?0:restored.state().sources().size();
+        if(prefixCount>paths.size())throw new RedoException("PHYSICAL_RECOVERY_SOURCE_PREFIX_CHANGED");
+        for(int i=0;i<prefixCount;i++)if(!restored.state().sources().get(i).equals(found.sources().get(i)))throw new RedoException("PHYSICAL_RECOVERY_SOURCE_PREFIX_CHANGED");
+        var state=restored==null?new TransactionLifecycle():TransactionLifecycle.restore(utf8(restored.state().identityCheckpoint()),recoveryDigest(utf8(restored.state().identityCheckpoint())));
+        if(restored!=null) {
+            long last=found.sources().get(prefixCount-1).sequence();int pendingCount=0,closedCount=0;
+            for(var c:contexts) {
+                var inventory=c.discovered.associations().window().undo();
+                var pending=restored.state().pending().stream().filter(p->p.xid().equals(c.discovered.xid())).findFirst().orElse(null);
+                var closed=restored.completed().transactions().stream().filter(t->t.identity().xid().equals(c.discovered.xid())).findFirst().orElse(null);
+                c.next=(int)inventory.entries().stream().filter(e->e.position().archiveSequence()<=last).count();
+                if(pending!=null) {
+                    if(c.next!=pending.next())throw new RedoException("PHYSICAL_RECOVERY_ORIGINAL_PREFIX_CHANGED");
+                    c.graph=UndoHistory.restore(inventory,utf8(pending.graphCheckpoint()),recoveryDigest(utf8(pending.graphCheckpoint())));
+                    c.segment=pending.segment();c.operations.addAll(pending.operations());c.heaps.addAll(pending.heaps());c.indexes.addAll(pending.indexes());pendingCount++;
+                } else if(closed!=null) {c.result=closed;c.operations.addAll(closed.operations());closedCount++;}
+                else if(c.next>0) {
+                    if(!c.discovered.associations().window().complete() || c.discovered.associations().window().lastRecord().archiveSequence()>last)
+                        throw new RedoException("PHYSICAL_RECOVERY_PREFIX_OWNER_MISSING");
+                    c.coveredByBaseline=true;
+                }
+            }
+            if(pendingCount!=restored.state().pending().size() || closedCount!=restored.completed().transactions().size())throw new RedoException("PHYSICAL_RECOVERY_PREFIX_OWNER_MISSING");
+        }
+        var heapBlocks=new HashSet<Long>();var undoBlocks=new HashSet<Long>();
 
         // Raw inverse fields establish the bounded physical block set; caller cannot omit individual nodes.
         for (int source=0;source<paths.size();source++) {
@@ -121,7 +155,21 @@ public final class ArchivedPhysicalTransactions {
             });
             requireSource(found,source,paths.get(source).header());
         }
-        for (int source=0;source<paths.size();source++) {
+        // Rehydrate association cursors from the audited prefix, without feeding it into restored identities/graphs.
+        for(int source=0;source<prefixCount;source++) {
+            var path=paths.get(source);var header=path.header();requireSource(found,source,header);
+            path.visit(header,r->{
+                if(r.containerUid()!=uid)return;
+                for(int i=0;i<r.vectors().size();i++) {
+                    var at=position(header,r,i);if(!routes.containsKey(at))continue;
+                    for(var c:contexts)if(c.discovered.associations().entries().stream().anyMatch(e->e.position().equals(at))) {
+                        if(!routes.get(at).equals(c.discovered.associations().associate(header,r,r.vectors().get(i),at)))throw new RedoException("PHYSICAL_ASSOCIATION_CHANGED");
+                        c.markers.add(at);
+                    }
+                }
+            });requireSource(found,source,path.header());
+        }
+        for (int source=prefixCount;source<paths.size();source++) {
             var path=paths.get(source);var header=path.header();requireSource(found,source,header);state.archive(header);
             path.visit(header,r->{
                 if (r.containerUid()!=uid) return;
@@ -238,6 +286,11 @@ public final class ArchivedPhysicalTransactions {
         return new Result(found.sources(),contexts.stream().filter(c->!c.coveredByBaseline && c.result!=null).map(c->c.result).toList());
     }
     private static boolean heap(RedoRecords.Vector v) {return v.opcodeMajor()==11 && (v.opcodeMinor()==2 || v.opcodeMinor()==3 || v.opcodeMinor()==4 || v.opcodeMinor()==5);}
+    private static byte[] utf8(String value){return value.getBytes(java.nio.charset.StandardCharsets.UTF_8);}
+    private static String recoveryDigest(byte[] bytes)throws RedoException {
+        try{return java.util.HexFormat.of().formatHex(java.security.MessageDigest.getInstance("SHA-256").digest(bytes));}
+        catch(java.security.NoSuchAlgorithmException e){throw new RedoException("SHA256_UNAVAILABLE");}
+    }
     private static int columnsAt(ArchivedDictionaryHistory.Timeline history,FrozenHeapBaseline.Snapshot snapshot,long scn,int columns)throws RedoException {
         return history==null || scn<=snapshot.scn()?columns:history.schemaAt(scn).size();
     }

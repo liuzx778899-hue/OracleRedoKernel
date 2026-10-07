@@ -40,6 +40,10 @@ public final class CapturedHistoricalHeapBatch {
     private static CapturedHistoricalHeapBatch read(List<CaptureJournal.Verified> inputs,RedoBatch paths,FrozenHeapBaseline.Snapshot snapshot,
                                                    ArchivedDictionaryHistory.Timeline history,long leaf)throws IOException {
         var physical=ArchivedPhysicalTransactions.readHistory(paths,snapshot,history,leaf);
+        return readWithPhysical(inputs,paths,snapshot,history,leaf,physical);
+    }
+    static CapturedHistoricalHeapBatch readWithPhysical(List<CaptureJournal.Verified> inputs,RedoBatch paths,FrozenHeapBaseline.Snapshot snapshot,
+                                                       ArchivedDictionaryHistory.Timeline history,long leaf,ArchivedPhysicalTransactions.Result physical)throws IOException {
         var rows=ArchivedHeapRows.readHistory(paths,snapshot,leaf,history,physical);
         if(!physical.sources().equals(rows.sources()) || !rows.sources().equals(history.sources()))throw new RedoException("HISTORICAL_BATCH_SOURCE_CHANGED");
         var owners=new HashMap<ArchivedUndoInventory.Position,TransactionLifecycle.ClosedIdentity>();
