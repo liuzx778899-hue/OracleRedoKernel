@@ -1,0 +1,645 @@
+{
+  "proof": {
+    "tests": [
+      754,
+      0,
+      0,
+      0
+    ],
+    "product_sha256": "e0a79dd84abdc0009684f136fbc2b101aa82e7af8e2da300dffdb12ce3ff34af",
+    "kernel_version": "0.1.0-unified-recovery-593e730b67a2",
+    "embedded": {
+      "oracle-redo-kernel": {
+        "path": "BOOT-INF/lib/oracle-redo-kernel-0.1.0-unified-recovery-593e730b67a2.jar",
+        "sha256": "593e730b67a2622ac9084eeae837eb64477249efe1946f4c5e4856059fe39ea9"
+      },
+      "streamhouse-engine-oracle": {
+        "path": "BOOT-INF/lib/streamhouse-engine-oracle-0.1.0-split-history-fbf1d30c8072.jar",
+        "sha256": "fbf1d30c807200faa30034ba31e184bb7467788dc216e79121b5ccc3d586816b"
+      },
+      "streamhouse-spi": {
+        "path": "BOOT-INF/lib/streamhouse-spi-0.1.0-SNAPSHOT.jar",
+        "sha256": "fe3fe0d699df741883d6cbb4f4a0d2d88b5c2d0b7fb93e9bb4fe314127a7c741"
+      }
+    },
+    "spi_all_classes_unchanged": true,
+    "adapter_unchanged": true,
+    "http_recovery_verified": false,
+    "target_recovery_verified": false,
+    "source_actions": 0,
+    "target_actions": 0
+  },
+  "product_code_commit": "60f56f50d28e2f5d4cb5f2ac73b94eecf610ff87",
+  "previous_capsules": [
+    {
+      "manifest": "DELIVERY-unified-recovery-20261007.json",
+      "files": 100,
+      "unchanged": true
+    },
+    {
+      "manifest": "DELIVERY-physical-prefix-20261007.json",
+      "files": 45,
+      "unchanged": true
+    },
+    {
+      "manifest": "DELIVERY-dictionary-resume-20261007.json",
+      "files": 86,
+      "unchanged": true
+    },
+    {
+      "manifest": "DELIVERY-undo-graph-resume-20261007.json",
+      "files": 36,
+      "unchanged": true
+    },
+    {
+      "manifest": "DELIVERY-transaction-identity-resume-20261007.json",
+      "files": 42,
+      "unchanged": true
+    },
+    {
+      "manifest": "DELIVERY-cross-window-range-20261007.json",
+      "files": 88,
+      "unchanged": true
+    },
+    {
+      "manifest": "RESEARCH-cross-window-active-20261007.json",
+      "files": 182,
+      "unchanged": true
+    }
+  ],
+  "files_count": 113,
+  "files": [
+    {
+      "path": "lab/out/product-recovery-binding-20261007/adapter.jar",
+      "bytes": 64056,
+      "sha256": "fbf1d30c807200faa30034ba31e184bb7467788dc216e79121b5ccc3d586816b"
+    },
+    {
+      "path": "lab/out/product-recovery-binding-20261007/application.jar",
+      "bytes": 36097418,
+      "sha256": "e0a79dd84abdc0009684f136fbc2b101aa82e7af8e2da300dffdb12ce3ff34af"
+    },
+    {
+      "path": "lab/out/product-recovery-binding-20261007/build_recovery_binding_product19.py",
+      "bytes": 4157,
+      "sha256": "f0f76948b48b8d151e92920817ba12e720c69ac54510f04c0d767b77505bc08b"
+    },
+    {
+      "path": "lab/out/product-recovery-binding-20261007/embedded-oracle-redo-kernel.jar",
+      "bytes": 314612,
+      "sha256": "593e730b67a2622ac9084eeae837eb64477249efe1946f4c5e4856059fe39ea9"
+    },
+    {
+      "path": "lab/out/product-recovery-binding-20261007/embedded-streamhouse-engine-oracle.jar",
+      "bytes": 64056,
+      "sha256": "fbf1d30c807200faa30034ba31e184bb7467788dc216e79121b5ccc3d586816b"
+    },
+    {
+      "path": "lab/out/product-recovery-binding-20261007/embedded-streamhouse-spi.jar",
+      "bytes": 29797,
+      "sha256": "fe3fe0d699df741883d6cbb4f4a0d2d88b5c2d0b7fb93e9bb4fe314127a7c741"
+    },
+    {
+      "path": "lab/out/product-recovery-binding-20261007/executed-build-driver.py",
+      "bytes": 4157,
+      "sha256": "f0f76948b48b8d151e92920817ba12e720c69ac54510f04c0d767b77505bc08b"
+    },
+    {
+      "path": "lab/out/product-recovery-binding-20261007/install-kernel.command.json",
+      "bytes": 527,
+      "sha256": "bb8984cffc91bf1aa76700cde200fd759885ea805287988fe8dc339eaa0d9cba"
+    },
+    {
+      "path": "lab/out/product-recovery-binding-20261007/install-kernel.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/product-recovery-binding-20261007/install-kernel.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/product-recovery-binding-20261007/install-kernel.stdout.txt",
+      "bytes": 1257,
+      "sha256": "77b3ab29f8400e0818e0c69fddaa6f766f28dedc56e87eb160165e90a988e176"
+    },
+    {
+      "path": "lab/out/product-recovery-binding-20261007/kernel.jar",
+      "bytes": 314612,
+      "sha256": "593e730b67a2622ac9084eeae837eb64477249efe1946f4c5e4856059fe39ea9"
+    },
+    {
+      "path": "lab/out/product-recovery-binding-20261007/OracleApprovedInput.java",
+      "bytes": 3600,
+      "sha256": "fd42e025c540c74de3e96e907b19aab0fe2b285f577433ffb98f35718a084cfb"
+    },
+    {
+      "path": "lab/out/product-recovery-binding-20261007/OracleInputBinding.java",
+      "bytes": 1289,
+      "sha256": "c344e813d3df48b7148134253229083ed06f1c2cafa5f2433aafd6c89f5cc927"
+    },
+    {
+      "path": "lab/out/product-recovery-binding-20261007/OracleInputBindingService.java",
+      "bytes": 6850,
+      "sha256": "f7d002d108e6834730e673e3f010a60e3f87c6e1f4436ea1d229037bfe6d7184"
+    },
+    {
+      "path": "lab/out/product-recovery-binding-20261007/OracleInputBindingServiceTest.java",
+      "bytes": 11265,
+      "sha256": "085a1db47b50a76d3a310dc887301fc59a14afa6af83f49060200e5e8c69427e"
+    },
+    {
+      "path": "lab/out/product-recovery-binding-20261007/pom.xml",
+      "bytes": 5039,
+      "sha256": "b974219779c0e7f38badb308a6bed8491f53d3fb8073649a9283bb945ac27dda"
+    },
+    {
+      "path": "lab/out/product-recovery-binding-20261007/product-build.command.json",
+      "bytes": 376,
+      "sha256": "352e69a35856b744ce74da2f9a14ddd5c838adbb1658e5063e5b90bf7b008257"
+    },
+    {
+      "path": "lab/out/product-recovery-binding-20261007/product-build.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/product-recovery-binding-20261007/product-build.stderr.txt",
+      "bytes": 3271,
+      "sha256": "349c6b4bbdb15d7079adc969a9e5dc81b4b966eb26baa0ade008b49cde63a2da"
+    },
+    {
+      "path": "lab/out/product-recovery-binding-20261007/product-build.stdout.txt",
+      "bytes": 73720,
+      "sha256": "507635fc1be957fe4473c6ea27490581b94b381ff209f5ece901b6eaf5b79ec7"
+    },
+    {
+      "path": "lab/out/product-recovery-binding-20261007/product-proof.json",
+      "bytes": 1034,
+      "sha256": "c31f8455a077add3465705be6e74c5d7e31114cf6d9b3f3d5a84196558793baa"
+    },
+    {
+      "path": "lab/out/product-recovery-binding-20261007/product-reports/streamhouse-alert-TEST-com.streamhouse.alert.mapper.AlertMapperXmlParseTest.xml",
+      "bytes": 23469,
+      "sha256": "771f0fd41096ac13cc6edb30c2647570661c5c0ee007492349312a87a8f64878"
+    },
+    {
+      "path": "lab/out/product-recovery-binding-20261007/product-reports/streamhouse-alert-TEST-com.streamhouse.alert.service.AckServiceTest.xml",
+      "bytes": 23364,
+      "sha256": "a7efb15c37a17e62a0a53a25c31cc7c033a6add448676fdb9b108d29b1f427dd"
+    },
+    {
+      "path": "lab/out/product-recovery-binding-20261007/product-reports/streamhouse-alert-TEST-com.streamhouse.alert.service.AlertQueryServiceTest.xml",
+      "bytes": 23295,
+      "sha256": "e4b899726d43b4b56cb260486c1d2367dd3154660f5d6e08df367d18d0578940"
+    },
+    {
+      "path": "lab/out/product-recovery-binding-20261007/product-reports/streamhouse-alert-TEST-com.streamhouse.alert.service.AlertRuleEngineTest.xml",
+      "bytes": 24457,
+      "sha256": "317b1f9d865d6e792d042187669cb738c24752002123ca314dc4fe68067c83a8"
+    },
+    {
+      "path": "lab/out/product-recovery-binding-20261007/product-reports/streamhouse-alert-TEST-com.streamhouse.alert.service.AlertServiceTest.xml",
+      "bytes": 24913,
+      "sha256": "9afca4dbd3d80f62583254b416a3437e0a40799dba0400cf9312f89e3b31be4b"
+    },
+    {
+      "path": "lab/out/product-recovery-binding-20261007/product-reports/streamhouse-alert-TEST-com.streamhouse.alert.service.ChannelConfigCodecTest.xml",
+      "bytes": 23321,
+      "sha256": "7d82a5cbe6340209ba526c239d1a65f70d154af9ff44fa868b9ec02c3d3adf79"
+    },
+    {
+      "path": "lab/out/product-recovery-binding-20261007/product-reports/streamhouse-alert-TEST-com.streamhouse.alert.service.SmtpSenderTest.xml",
+      "bytes": 23261,
+      "sha256": "ff38b27c38c6b7ce92aa1d3452c7140c05780a6394b8e06b6d884c8ff0b4f4b9"
+    },
+    {
+      "path": "lab/out/product-recovery-binding-20261007/product-reports/streamhouse-alert-TEST-com.streamhouse.alert.service.WecomWebhookSenderTest.xml",
+      "bytes": 23302,
+      "sha256": "74ddeb2126e7f28da90cfefd89f55baeaab86b3abc7a89d583338aaa917f7e61"
+    },
+    {
+      "path": "lab/out/product-recovery-binding-20261007/product-reports/streamhouse-app-TEST-com.streamhouse.app.appdb.AppTargetMapperXmlParseTest.xml",
+      "bytes": 34230,
+      "sha256": "f70422384d0efbbd4707eb00817098837ea55ddfe9e23bb106c6b1c5009ad1a9"
+    },
+    {
+      "path": "lab/out/product-recovery-binding-20261007/product-reports/streamhouse-app-TEST-com.streamhouse.app.auth.AgentTokenInterceptorB64InteropTest.xml",
+      "bytes": 33773,
+      "sha256": "6a6a9ce216a5bda4d55257d7f939de4082397951c34dabe8b62b0e798fea30f4"
+    },
+    {
+      "path": "lab/out/product-recovery-binding-20261007/product-reports/streamhouse-app-TEST-com.streamhouse.app.auth.AgentTokenInterceptorTest.xml",
+      "bytes": 35203,
+      "sha256": "80d6e538dbd413054ab2fdd402515a2e7d42f7c30e4733d38c5f55e874dfabdf"
+    },
+    {
+      "path": "lab/out/product-recovery-binding-20261007/product-reports/streamhouse-app-TEST-com.streamhouse.app.auth.AuthControllerTest.xml",
+      "bytes": 35768,
+      "sha256": "3730501b43ae5586cb8211d412a7fbbb717c2a9d34d43d8ecee3a213622c08d0"
+    },
+    {
+      "path": "lab/out/product-recovery-binding-20261007/product-reports/streamhouse-app-TEST-com.streamhouse.app.auth.CredentialCipherTest.xml",
+      "bytes": 33695,
+      "sha256": "6366d12e931ac242649d756ac43f141a6cc83ced3f85c250579ca7326cf4c5aa"
+    },
+    {
+      "path": "lab/out/product-recovery-binding-20261007/product-reports/streamhouse-app-TEST-com.streamhouse.app.auth.TokenServiceTest.xml",
+      "bytes": 33520,
+      "sha256": "f852740918d4fc8314bacf4a65f781e7be86f0c057c3db510620f78f884869bd"
+    },
+    {
+      "path": "lab/out/product-recovery-binding-20261007/product-reports/streamhouse-app-TEST-com.streamhouse.app.baseline.BaselineCredentialServiceTest.xml",
+      "bytes": 33928,
+      "sha256": "a6c6ff190886591476d708f82182e2e18d60b6d42530016901a25166c2aa40b8"
+    },
+    {
+      "path": "lab/out/product-recovery-binding-20261007/product-reports/streamhouse-app-TEST-com.streamhouse.app.baseline.BaselineDecodeGuardTest.xml",
+      "bytes": 34414,
+      "sha256": "f516b022affd2ace762236ff7c4512920049da502d8043bdf6a47519d376be4c"
+    },
+    {
+      "path": "lab/out/product-recovery-binding-20261007/product-reports/streamhouse-app-TEST-com.streamhouse.app.baseline.OracleAcquisitionServiceTest.xml",
+      "bytes": 35081,
+      "sha256": "c6a90a8d7ffcd6ddf21d50d019b659165f08a7b8b4d2b9fcd9235259ea7b8ac9"
+    },
+    {
+      "path": "lab/out/product-recovery-binding-20261007/product-reports/streamhouse-app-TEST-com.streamhouse.app.baseline.OracleInputBindingServiceTest.xml",
+      "bytes": 34684,
+      "sha256": "f69394c5db002eb5a3ecf554917299aad58205c5bbfe92d0ed5882ed02b35865"
+    },
+    {
+      "path": "lab/out/product-recovery-binding-20261007/product-reports/streamhouse-app-TEST-com.streamhouse.app.config.JacksonLongAsStringConfigTest.xml",
+      "bytes": 33619,
+      "sha256": "c45e690563a236ff0882f265b1688ce33a1f965bb74b085e77f3ec9de3b66828"
+    },
+    {
+      "path": "lab/out/product-recovery-binding-20261007/product-reports/streamhouse-app-TEST-com.streamhouse.app.conn.ConnectionOpsServiceTest.xml",
+      "bytes": 34128,
+      "sha256": "5f97e135d950a92d3770798044f8b7ba3405b4fffd572b7c2673b207cf8f0a5b"
+    },
+    {
+      "path": "lab/out/product-recovery-binding-20261007/product-reports/streamhouse-app-TEST-com.streamhouse.app.conn.SysPartmapFallbackTest.xml",
+      "bytes": 33451,
+      "sha256": "675daa8d896b5268e0f4d185d5d5c2cddaaf22895382814c0f3e97e7387120c1"
+    },
+    {
+      "path": "lab/out/product-recovery-binding-20261007/product-reports/streamhouse-app-TEST-com.streamhouse.app.deploy.DeployServiceTest.xml",
+      "bytes": 35519,
+      "sha256": "b0aeca07478a620b375df345aca2a3b9cfae0cce0b52bcd193864dc815fefd7c"
+    },
+    {
+      "path": "lab/out/product-recovery-binding-20261007/product-reports/streamhouse-app-TEST-com.streamhouse.app.heartbeat.HeartbeatServiceTest.xml",
+      "bytes": 33678,
+      "sha256": "1ec788ab547593bae014f00e78e20af7b218b47e61a7258cefffedf23042f867"
+    },
+    {
+      "path": "lab/out/product-recovery-binding-20261007/product-reports/streamhouse-app-TEST-com.streamhouse.app.machine.MachineAdminServiceTest.xml",
+      "bytes": 35424,
+      "sha256": "4eb4c95a1ce2e51a190fc134e9b11cd46b3baa0a8493a10cc60103130c05b99a"
+    },
+    {
+      "path": "lab/out/product-recovery-binding-20261007/product-reports/streamhouse-app-TEST-com.streamhouse.app.machine.MachineSourceServiceTest.xml",
+      "bytes": 34570,
+      "sha256": "8c9c8c6a35c8fc5825d444d89365a220bcc9a0142703ca3d2d6fdb7243e923f7"
+    },
+    {
+      "path": "lab/out/product-recovery-binding-20261007/product-reports/streamhouse-app-TEST-com.streamhouse.app.pipeline.AutoConsumeSchedulerTest.xml",
+      "bytes": 43095,
+      "sha256": "39b68bcbbff363b0ff0abd62dd1b6efdd715c4d42193f7b8239a2985674c86c1"
+    },
+    {
+      "path": "lab/out/product-recovery-binding-20261007/product-reports/streamhouse-app-TEST-com.streamhouse.app.pipeline.PipelineRunServiceTest.xml",
+      "bytes": 42905,
+      "sha256": "c416419d40b80375de69b2d2f49cebb31a72d8fdb93d020d4ee8b5f944be8b85"
+    },
+    {
+      "path": "lab/out/product-recovery-binding-20261007/product-reports/streamhouse-app-TEST-com.streamhouse.app.pipeline.WindowAdminServiceTest.xml",
+      "bytes": 34417,
+      "sha256": "570cf7ac49f88cca4b7dc2d8653932fd5813b3635528d1e69245eee2819d3f74"
+    },
+    {
+      "path": "lab/out/product-recovery-binding-20261007/product-reports/streamhouse-app-TEST-com.streamhouse.app.port.CodetableDecodeContextProviderTest.xml",
+      "bytes": 33814,
+      "sha256": "0fd0567198849d1c57806d46791cd040ca3faa26c22880c2148279ca7e702f3d"
+    },
+    {
+      "path": "lab/out/product-recovery-binding-20261007/product-reports/streamhouse-app-TEST-com.streamhouse.app.port.FileCodetableFileWriterTest.xml",
+      "bytes": 33922,
+      "sha256": "19192427595de6359299e85c149bd4549ea56481f768ff319d7e46bd164acf89"
+    },
+    {
+      "path": "lab/out/product-recovery-binding-20261007/product-reports/streamhouse-app-TEST-com.streamhouse.app.port.FnDblogOfficialChannelPortTest.xml",
+      "bytes": 34383,
+      "sha256": "735b7c4fed96acada31e433c36c0b2059eeafce660d55280b5fa098e1b801a0e"
+    },
+    {
+      "path": "lab/out/product-recovery-binding-20261007/product-reports/streamhouse-app-TEST-com.streamhouse.app.port.GatewayWindowSourceTest.xml",
+      "bytes": 33499,
+      "sha256": "2a3547b019f36862141af9562a3f844e52591544d4262c4de4175cc9073f564c"
+    },
+    {
+      "path": "lab/out/product-recovery-binding-20261007/product-reports/streamhouse-app-TEST-com.streamhouse.app.port.KernelTargetApplyPortTest.xml",
+      "bytes": 34532,
+      "sha256": "cd2ca780255ac9e419199af23023ec93ede75b88b5309a82a944840580a586e4"
+    },
+    {
+      "path": "lab/out/product-recovery-binding-20261007/product-reports/streamhouse-app-TEST-com.streamhouse.app.port.OdsEnrichedTargetApplyPortTest.xml",
+      "bytes": 35528,
+      "sha256": "6def11c28c977dc45607b8bca67dff07c031f80810c9217ec928af55a778cfe5"
+    },
+    {
+      "path": "lab/out/product-recovery-binding-20261007/product-reports/streamhouse-app-TEST-com.streamhouse.app.port.OdsMappingEngineTest.xml",
+      "bytes": 35084,
+      "sha256": "d8821701dab595f2eda6f9e4a30d8d869c2d0ae2b2a46dbc1c2b126a7fcd87d0"
+    },
+    {
+      "path": "lab/out/product-recovery-binding-20261007/product-reports/streamhouse-app-TEST-com.streamhouse.app.port.OracleBoundedPublicationTest.xml",
+      "bytes": 33960,
+      "sha256": "d8b1facfcb98cfabf79c3d85f0a89a34d73dddcaec09f7c9e2721662d299d07f"
+    },
+    {
+      "path": "lab/out/product-recovery-binding-20261007/product-reports/streamhouse-app-TEST-com.streamhouse.app.port.OracleControlPublicationTest.xml",
+      "bytes": 34918,
+      "sha256": "f8fcba09481348d3fd18097fd409fa9d02ff30d7fa847f6e90f709b6c9fc1cc9"
+    },
+    {
+      "path": "lab/out/product-recovery-binding-20261007/product-reports/streamhouse-app-TEST-com.streamhouse.app.port.RowValueDecoderTest.xml",
+      "bytes": 35298,
+      "sha256": "4a5afda0b0829224c6c43999aa12ff94e96f0cbc85581f907203352898e5d26e"
+    },
+    {
+      "path": "lab/out/product-recovery-binding-20261007/product-reports/streamhouse-app-TEST-com.streamhouse.app.stream.CrossProcessFileLockTest.xml",
+      "bytes": 33340,
+      "sha256": "10edf33039f905a4fd8fe71d2874c03292c9444890305ec9bd6cb75c57d98381"
+    },
+    {
+      "path": "lab/out/product-recovery-binding-20261007/product-reports/streamhouse-app-TEST-com.streamhouse.app.stream.StageBVerifyServiceTest.xml",
+      "bytes": 36371,
+      "sha256": "432d3f21a969bda1f5e081ca4ef7366aa41edaad3223cea2fdc387730503d449"
+    },
+    {
+      "path": "lab/out/product-recovery-binding-20261007/product-reports/streamhouse-app-TEST-com.streamhouse.app.stream.StreamFileServiceTest.xml",
+      "bytes": 41783,
+      "sha256": "68e982a047d8bd3ede78715ca9b4421f76646c251885768b317353dcdbef602f"
+    },
+    {
+      "path": "lab/out/product-recovery-binding-20261007/product-reports/streamhouse-app-TEST-com.streamhouse.app.stream.StreamMapperXmlParseTest.xml",
+      "bytes": 33617,
+      "sha256": "ad826f354c4e8d61d52086676b527ff1f06e936b77f5686584cf74ba3ca987eb"
+    },
+    {
+      "path": "lab/out/product-recovery-binding-20261007/product-reports/streamhouse-app-TEST-com.streamhouse.app.target.TargetMappingServiceTest.xml",
+      "bytes": 34575,
+      "sha256": "fa9bd02266e09dff9387c7be1c290bedb4703d06c6a35dec5ca80f8ba27816ca"
+    },
+    {
+      "path": "lab/out/product-recovery-binding-20261007/product-reports/streamhouse-app-TEST-com.streamhouse.app.target.TargetServiceTest.xml",
+      "bytes": 34794,
+      "sha256": "24516d39f65740e358a244130d67f0073d9ad17ceedd536af4f7a1d928e74dcb"
+    },
+    {
+      "path": "lab/out/product-recovery-binding-20261007/product-reports/streamhouse-app-TEST-com.streamhouse.app.web.BaselineControllerTest.xml",
+      "bytes": 34855,
+      "sha256": "d14d9fe3108e39952c2e22fee66140a66a147f1bda553436076c3f80f92b0c6c"
+    },
+    {
+      "path": "lab/out/product-recovery-binding-20261007/product-reports/streamhouse-app-TEST-com.streamhouse.app.web.DeleteEndpointsControllerTest.xml",
+      "bytes": 38090,
+      "sha256": "040d49373a667790ba595437d75af9a145f9001efc73dafd3d4c1beac6025b69"
+    },
+    {
+      "path": "lab/out/product-recovery-binding-20261007/product-reports/streamhouse-app-TEST-com.streamhouse.app.web.PipelineControllerTest.xml",
+      "bytes": 38581,
+      "sha256": "e4d7fca19fb2cfaa28cc172a0e9cf7d1632809835b948073314df491d7324b6c"
+    },
+    {
+      "path": "lab/out/product-recovery-binding-20261007/product-reports/streamhouse-app-TEST-com.streamhouse.app.web.StreamGatewayControllerCodecTest.xml",
+      "bytes": 34383,
+      "sha256": "4fc5fc7ca4520fb20c7c05ee3f3491ac8726c804028f478e33b1dcfed10beae4"
+    },
+    {
+      "path": "lab/out/product-recovery-binding-20261007/product-reports/streamhouse-app-TEST-com.streamhouse.app.web.UnquarantineAuditTest.xml",
+      "bytes": 33725,
+      "sha256": "342cd4f8e775a51b8ea89eae7860b3a3d2dbb9749b902fbf1d082b1469a4c7cd"
+    },
+    {
+      "path": "lab/out/product-recovery-binding-20261007/product-reports/streamhouse-codetable-TEST-com.streamhouse.codetable.mapper.CodetableMapperXmlParseTest.xml",
+      "bytes": 22941,
+      "sha256": "8eaef9bdb120a412fd331739cd874ba681190f13f510b20c17e9868940aab82f"
+    },
+    {
+      "path": "lab/out/product-recovery-binding-20261007/product-reports/streamhouse-codetable-TEST-com.streamhouse.codetable.service.CoverageGuardTest.xml",
+      "bytes": 23681,
+      "sha256": "3ffef538d27ed4ee8b17d0ee1bd738027d05b13b65c5ae8fafbaa2d5f751acb2"
+    },
+    {
+      "path": "lab/out/product-recovery-binding-20261007/product-reports/streamhouse-codetable-TEST-com.streamhouse.codetable.service.DriftPatrolServiceTest.xml",
+      "bytes": 23060,
+      "sha256": "9ce872c3724acb77e4763ab66840ea4802fd3d50ebc45e5b901d51562e054f2c"
+    },
+    {
+      "path": "lab/out/product-recovery-binding-20261007/product-reports/streamhouse-codetable-TEST-com.streamhouse.codetable.service.ReimportServiceTest.xml",
+      "bytes": 23187,
+      "sha256": "df21cc23043bf100ae3df828fd987a6e7c27e3c6116808f3832872c7b1b1de2d"
+    },
+    {
+      "path": "lab/out/product-recovery-binding-20261007/product-reports/streamhouse-codetable-TEST-com.streamhouse.codetable.service.StructureFingerprintTest.xml",
+      "bytes": 23174,
+      "sha256": "a1cb1ad2deb8256ef85836c06f4dc4605ed0263fcd48781ce5f106f1386b0867"
+    },
+    {
+      "path": "lab/out/product-recovery-binding-20261007/product-reports/streamhouse-common-TEST-com.streamhouse.common.DialectTest.xml",
+      "bytes": 18871,
+      "sha256": "125a61da031b15c1cd28c953d5104ee2c3d8c327a1ddc77bdb61d4f7aca8fb7a"
+    },
+    {
+      "path": "lab/out/product-recovery-binding-20261007/product-reports/streamhouse-common-TEST-com.streamhouse.common.Sha256Test.xml",
+      "bytes": 18962,
+      "sha256": "d455797a6b938d44fde1fc0de3ede5bc4031d77a2862264b05ba3ce8b2c494b6"
+    },
+    {
+      "path": "lab/out/product-recovery-binding-20261007/product-reports/streamhouse-common-TEST-com.streamhouse.common.SnowflakeIdTest.xml",
+      "bytes": 18897,
+      "sha256": "5712a58885448b7dc963a4ee005eccf3b0bc7d5c4ee66d2a491c140fb50ee86a"
+    },
+    {
+      "path": "lab/out/product-recovery-binding-20261007/product-reports/streamhouse-engine-sqlserver-TEST-com.streamhouse.engines.sqlserver.SqlServerConnectorTest.xml",
+      "bytes": 21494,
+      "sha256": "56822e0e42f7e46edbccd861c980acbcf599cf429102046eef1d74c481e03e12"
+    },
+    {
+      "path": "lab/out/product-recovery-binding-20261007/product-reports/streamhouse-engine-sqlserver-TEST-com.streamhouse.engines.sqlserver.VerifyCliAssemblerTest.xml",
+      "bytes": 23872,
+      "sha256": "13fb68b0b3f2b05084e10dae003e5af4b436ab5214ba935a93bb6b369093dd95"
+    },
+    {
+      "path": "lab/out/product-recovery-binding-20261007/product-reports/streamhouse-gateway-TEST-com.streamhouse.gateway.mapper.MapperXmlParseTest.xml",
+      "bytes": 30042,
+      "sha256": "e5b6d0d53ab0a00d61a11f9ee9f04b052434d6ddb0efe45e103b35603a39ea04"
+    },
+    {
+      "path": "lab/out/product-recovery-binding-20261007/product-reports/streamhouse-gateway-TEST-com.streamhouse.gateway.service.AgentMetricsServiceTest.xml",
+      "bytes": 30207,
+      "sha256": "7df87d43cdfbd6e2089696461069a466552864f6aed0a155c74a29d0b58185ac"
+    },
+    {
+      "path": "lab/out/product-recovery-binding-20261007/product-reports/streamhouse-gateway-TEST-com.streamhouse.gateway.service.ContinuityCheckerTest.xml",
+      "bytes": 30524,
+      "sha256": "97c048205330460cd3fbc789e4ed8c427f7d7d2c6106896a54a1a2594b49d630"
+    },
+    {
+      "path": "lab/out/product-recovery-binding-20261007/product-reports/streamhouse-gateway-TEST-com.streamhouse.gateway.service.MachineServiceTest.xml",
+      "bytes": 30270,
+      "sha256": "9a1085ceaa72d13cec25302f4dd1a1d4e84d2276b4e6ed3295f94570102a5b96"
+    },
+    {
+      "path": "lab/out/product-recovery-binding-20261007/product-reports/streamhouse-gateway-TEST-com.streamhouse.gateway.service.TransferChunkServiceTest.xml",
+      "bytes": 32108,
+      "sha256": "1f168a279f8b6368bf0609f9bd47cb501985e2ae558d63c629e5b39418146b9c"
+    },
+    {
+      "path": "lab/out/product-recovery-binding-20261007/product-reports/streamhouse-gateway-TEST-com.streamhouse.gateway.service.WindowIngestServiceTest.xml",
+      "bytes": 30809,
+      "sha256": "05fcaf010b6b1ef3394a834cef1ba538630c9ad3f28eedad13fe10eef5c64547"
+    },
+    {
+      "path": "lab/out/product-recovery-binding-20261007/product-reports/streamhouse-gateway-TEST-com.streamhouse.gateway.web.MachineBindingGuardTest.xml",
+      "bytes": 30239,
+      "sha256": "afb3ebae56085c2c38bb76d902dd1ca6d0994db70eb6c293a2b8f9aa74a5d6c2"
+    },
+    {
+      "path": "lab/out/product-recovery-binding-20261007/product-reports/streamhouse-gateway-TEST-com.streamhouse.gateway.web.TransferControllerFlatOffsetNumericTest.xml",
+      "bytes": 30655,
+      "sha256": "964cb8bf8ddaee2b620646f58b38c2a98571dbe099c0edc595179ec4cc96d990"
+    },
+    {
+      "path": "lab/out/product-recovery-binding-20261007/product-reports/streamhouse-pipeline-TEST-com.streamhouse.pipeline.mapper.PipelineMapperXmlParseTest.xml",
+      "bytes": 27367,
+      "sha256": "0f49ea81544816b628156574b165ea9e5d7c18305704be08793140360a9d7fcf"
+    },
+    {
+      "path": "lab/out/product-recovery-binding-20261007/product-reports/streamhouse-pipeline-TEST-com.streamhouse.pipeline.service.DecodeBatchServiceTest.xml",
+      "bytes": 28592,
+      "sha256": "08ce5778210568b4c3d17028ac1bb034af2eda6cd9c26dc43fa4b222bd76b8f3"
+    },
+    {
+      "path": "lab/out/product-recovery-binding-20261007/product-reports/streamhouse-pipeline-TEST-com.streamhouse.pipeline.service.OracleFacadePublicationTest.xml",
+      "bytes": 28112,
+      "sha256": "a83ec80cce777bf58212a1e839cb0c0f1267f1487c764e5921416d3004f926ec"
+    },
+    {
+      "path": "lab/out/product-recovery-binding-20261007/product-reports/streamhouse-pipeline-TEST-com.streamhouse.pipeline.service.PipelineFacadeTest.xml",
+      "bytes": 28747,
+      "sha256": "2cc0de3cf044ca828aa6769473be99c8416c69a03978ed421b970b094293c4bd"
+    },
+    {
+      "path": "lab/out/product-recovery-binding-20261007/product-reports/streamhouse-pipeline-TEST-com.streamhouse.pipeline.service.PublishGateTest.xml",
+      "bytes": 29309,
+      "sha256": "d4640af2ce47e24dcc9b2dadc000e642ec3726cc787effb931f7f7d399baf236"
+    },
+    {
+      "path": "lab/out/product-recovery-binding-20261007/product-reports/streamhouse-pipeline-TEST-com.streamhouse.pipeline.service.TaskStateMachineTest.xml",
+      "bytes": 27577,
+      "sha256": "db6f17813b4d201a74eb3228b49c85c85dcad5afd2c13137ae898e18981510f0"
+    },
+    {
+      "path": "lab/out/product-recovery-binding-20261007/product-reports/streamhouse-pipeline-TEST-com.streamhouse.pipeline.service.WatermarkGateTest.xml",
+      "bytes": 27833,
+      "sha256": "0747ebdc84b93bd9c428aa8aa828826fae3fc7ba345afc500444161ef7c6b66d"
+    },
+    {
+      "path": "lab/out/product-recovery-binding-20261007/product-reports/streamhouse-recon-TEST-com.streamhouse.recon.mapper.ReconMapperXmlParseTest.xml",
+      "bytes": 24235,
+      "sha256": "195477ac320322a816f33f9389519a659d58145999017ec8d230f2f8bad364d9"
+    },
+    {
+      "path": "lab/out/product-recovery-binding-20261007/product-reports/streamhouse-recon-TEST-com.streamhouse.recon.service.CloseBatchServiceTest.xml",
+      "bytes": 24480,
+      "sha256": "5ab61713ec7096a91ed40a935b40cf7607ace58df32dd1103e123d7ed083342e"
+    },
+    {
+      "path": "lab/out/product-recovery-binding-20261007/product-reports/streamhouse-recon-TEST-com.streamhouse.recon.service.Dt3ReconServiceTest.xml",
+      "bytes": 24733,
+      "sha256": "1f0a703dc391d31bed1c0e8db75cc16ff763432dabb88f775aa03ed3b6a4bb19"
+    },
+    {
+      "path": "lab/out/product-recovery-binding-20261007/product-reports/streamhouse-recon-TEST-com.streamhouse.recon.service.GapClassifierTest.xml",
+      "bytes": 25318,
+      "sha256": "b7d8ca8b2d91e889de2b66f96c654aea0d5b961c595ce4acba57656f5dcf8ede"
+    },
+    {
+      "path": "lab/out/product-recovery-binding-20261007/product-reports/streamhouse-recon-TEST-com.streamhouse.recon.service.ReconQueryServiceTest.xml",
+      "bytes": 23940,
+      "sha256": "3d67bf4e751cd1e945611fc53d9eb8e667675a23d75c9d8f21894c33ecf83edc"
+    },
+    {
+      "path": "lab/out/product-recovery-binding-20261007/product-reports/streamhouse-recovery-TEST-com.streamhouse.recovery.mapper.RecoveryMapperXmlParseTest.xml",
+      "bytes": 24284,
+      "sha256": "da052adee1be07261e865ac504c04ad9d13f694bde29ac5f93f72a95ae80e4f3"
+    },
+    {
+      "path": "lab/out/product-recovery-binding-20261007/product-reports/streamhouse-recovery-TEST-com.streamhouse.recovery.service.ExceptFinalVerifierTest.xml",
+      "bytes": 25554,
+      "sha256": "f76654a1e90f5a44adfea821656b344c0d2fd75960084e82aea58051867051ad"
+    },
+    {
+      "path": "lab/out/product-recovery-binding-20261007/product-reports/streamhouse-recovery-TEST-com.streamhouse.recovery.service.FullLoadPlannerTest.xml",
+      "bytes": 25072,
+      "sha256": "f0ec07c4a77f88f4e115404b45918a710e70e2081c02b804540dd36e53575505"
+    },
+    {
+      "path": "lab/out/product-recovery-binding-20261007/product-reports/streamhouse-recovery-TEST-com.streamhouse.recovery.service.LocatorGuardServiceTest.xml",
+      "bytes": 25402,
+      "sha256": "ec7fd330ac3e80381a768e52a6623dac2167c696fbdd1ed88084a9cbc9d61ef1"
+    },
+    {
+      "path": "lab/out/product-recovery-binding-20261007/product-reports/streamhouse-recovery-TEST-com.streamhouse.recovery.service.RecoveryFacadeTest.xml",
+      "bytes": 25150,
+      "sha256": "3347431c81a527d71574d1e0adcbd36e469f2eee322f85902d654e25147bbb89"
+    },
+    {
+      "path": "lab/out/product-recovery-binding-20261007/product-reports/streamhouse-recovery-TEST-com.streamhouse.recovery.service.ResnatchServiceTest.xml",
+      "bytes": 25337,
+      "sha256": "085ceda2aebec9c468435d8dd4fba3fb612871095d0774b155e95c03e8b2e762"
+    },
+    {
+      "path": "lab/out/product-recovery-binding-20261007/product-reports/streamhouse-recovery-TEST-com.streamhouse.recovery.service.UpsertSqlBuilderTest.xml",
+      "bytes": 25076,
+      "sha256": "83f3426633602a23275b8a3c904a76400b1604346cc298e46a1ad717502ffe6d"
+    },
+    {
+      "path": "lab/out/product-recovery-binding-20261007/product-reports/streamhouse-recovery-TEST-com.streamhouse.recovery.service.WatermarkReplayServiceTest.xml",
+      "bytes": 26008,
+      "sha256": "042eca862ccb4c29f5b7e6b44958e7d7f675e5bcda9c30a353cac1090d361f4d"
+    },
+    {
+      "path": "lab/out/product-recovery-binding-20261007/product-reports/streamhouse-spi-TEST-com.streamhouse.spi.ConnectorRegistryTest.xml",
+      "bytes": 19239,
+      "sha256": "7083fd15073f1d6b7767b37b4c20c0125bf6fefc1a5f9bec07533807bd948a1c"
+    },
+    {
+      "path": "lab/out/product-recovery-binding-20261007/product-reports/streamhouse-spi-TEST-com.streamhouse.spi.OracleSchemaSequenceTest.xml",
+      "bytes": 19093,
+      "sha256": "6dd37fc8b7a4156b5caf36cf98f6a23db6bafdc3613a319ca796e207e04d316d"
+    },
+    {
+      "path": "lab/out/product-recovery-binding-20261007/seal_recovery_binding_product19.py",
+      "bytes": 2753,
+      "sha256": "c593fbbede067cda8cf02f55e5a8b328eb088c5392b54b1bd9520ed404861cb7"
+    },
+    {
+      "path": "lab/out/product-recovery-binding-20261007/spi.jar",
+      "bytes": 29797,
+      "sha256": "53b84d186ba2cfa7f14143ae04cd553354a783e98a71642d271825d65059d829"
+    }
+  ],
+  "double_sha256_verified": true,
+  "new_http_recovery_verified": false,
+  "new_target_cp_ack_recovery_verified": false,
+  "independent_review": "PENDING",
+  "production_deployed": false,
+  "site_accepted": false,
+  "released": false
+}
