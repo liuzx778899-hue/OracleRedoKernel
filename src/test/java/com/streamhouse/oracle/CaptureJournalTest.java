@@ -45,6 +45,35 @@ class CaptureJournalTest {
     }
     private CaptureJournal.Verified read(Path path) throws Exception { return new CaptureJournal().read(path,sha(Files.readAllBytes(path))); }
 
+    private Path rawMember(String name,byte[][] blocks) throws Exception {
+        byte[] full=new byte[6*512];put32(blocks[0],24,5);checksum(blocks[0]);
+        for (int i=0;i<blocks.length;i++) System.arraycopy(blocks[i],0,full,i*512,512);
+        Path path=directory.resolve(name);Files.write(path,full);return path;
+    }
+    @Test void rawClosedRetainsCapacityAndHeaderWithoutInventingFrames() throws Exception {
+        byte[][] raw=blocks(3);Path file=rawMember("raw",raw);
+        var verified=new CaptureJournal().readRawClosed(file,sha(Files.readAllBytes(file)));
+        assertEquals(6,verified.source().capacityBlocks());assertEquals(3,verified.source().blocks());
+        assertEquals(3072,verified.source().journalBytes());assertArrayEquals(raw[1],verified.block(1));
+        assertTrue(new RedoRecords().readCaptured(verified).isEmpty());
+        assertThrows(RedoException.class,()->read(file));
+    }
+    @Test void rawDigestActiveCorruptionAndCapacityAreRejected() throws Exception {
+        Path file=rawMember("digest",blocks(3));
+        assertEquals("CAPTURE_RECEIPT_SHA_MISMATCH",assertThrows(RedoException.class,
+                ()->new CaptureJournal().readRawClosed(file,"0".repeat(64))).getMessage());
+        byte[][] active=blocks(3);put32(active[1],156,-1);checksum(active[1]);
+        Path current=rawMember("active",active);
+        assertEquals("CAPTURE_CLOSED_RANGE_MISMATCH",assertThrows(RedoException.class,
+                ()->new CaptureJournal().readRawClosed(current,sha(Files.readAllBytes(current)))).getMessage());
+        byte[][] corrupt=blocks(3);corrupt[2][40]^=1;Path bad=rawMember("bad",corrupt);
+        assertEquals("CAPTURE_BLOCK_CHECKSUM_MISMATCH",assertThrows(RedoException.class,
+                ()->new CaptureJournal().readRawClosed(bad,sha(Files.readAllBytes(bad)))).getMessage());
+        byte[] truncated=java.util.Arrays.copyOf(Files.readAllBytes(file),1536);Files.write(file,truncated);
+        assertEquals("RAW_MEMBER_CAPACITY_MISMATCH",assertThrows(RedoException.class,
+                ()->new CaptureJournal().readRawClosed(file,sha(truncated))).getMessage());
+    }
+
     @Test void retainsOnlineCapacityAndRawClosedHeader() throws Exception {
         var capture=read(write("closed",blocks(3),-1));
         assertEquals(409600,capture.source().capacityBlocks());assertEquals(3,capture.source().blocks());

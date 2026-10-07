@@ -67,13 +67,43 @@ public final class CaptureJournal {
             else if (!Arrays.equals(source,identity)) throw new RedoException("CAPTURE_MIXED_SOURCE");
             byte[] raw=Arrays.copyOfRange(data,offset+(int)metadataLength,end);
             if (!hexDigest(raw).equals(metadata.group(4))) throw new RedoException("CAPTURE_BLOCK_DIGEST_MISMATCH");
-            int checksum=0;
-            for (int i=0;i<512;i+=2) checksum^=u16(raw,i);
-            if (checksum!=0) throw new RedoException("CAPTURE_BLOCK_CHECKSUM_MISMATCH");
-            if (!blocks.isEmpty() && (u16(raw,0)!=0x2201 || u32(raw,4)!=blocks.size() || u32(raw,8)!=source[4]))
-                throw new RedoException("CAPTURE_BLOCK_IDENTITY_MISMATCH");
+            validateBlock(raw,blocks.size(),source[4]);
             blocks.add(raw);offset=end+32;
         }
+        return closed(actual,data.length,blocks,source);
+    }
+
+    /** Whole immutable member digest is transport evidence, not approval of its source or sequence. */
+    public Verified readRawClosed(Path path,String expectedSha256) throws IOException {
+        byte[] data=Files.readAllBytes(path);
+        String actual=hexDigest(data);
+        if (!actual.equals(expectedSha256)) throw new RedoException("CAPTURE_RECEIPT_SHA_MISMATCH");
+        if (data.length<1536 || data.length%512!=0)
+            throw new RedoException("RAW_MEMBER_TRUNCATED_OR_UNALIGNED");
+        byte[] file=Arrays.copyOfRange(data,0,512),header=Arrays.copyOfRange(data,512,1024);
+        if (u32(file,24)+1!=data.length/512L)
+            throw new RedoException("RAW_MEMBER_CAPACITY_MISMATCH");
+        long nab=u32(header,156),seq=u32(header,8);
+        if (nab<3 || nab>data.length/512L)
+            throw new RedoException("CAPTURE_CLOSED_RANGE_MISMATCH");
+        List<byte[]> blocks=new ArrayList<>();
+        for (int i=0;i<nab;i++) {
+            byte[] raw=Arrays.copyOfRange(data,i*512,(i+1)*512);
+            validateBlock(raw,i,seq);blocks.add(raw);
+        }
+        long[] source={u32(header,52),u32(header,20),u32(header,24),u32(header,160),seq,u16(header,176)};
+        return closed(actual,data.length,blocks,source);
+    }
+
+    private static void validateBlock(byte[] raw,int index,long sequence) throws RedoException {
+        int checksum=0;
+        for (int i=0;i<512;i+=2) checksum^=u16(raw,i);
+        if (checksum!=0) throw new RedoException("CAPTURE_BLOCK_CHECKSUM_MISMATCH");
+        if (index!=0 && (u16(raw,0)!=0x2201 || u32(raw,4)!=index || u32(raw,8)!=sequence))
+            throw new RedoException("CAPTURE_BLOCK_IDENTITY_MISMATCH");
+    }
+
+    private static Verified closed(String actual,long bytes,List<byte[]> blocks,long[] source) throws RedoException {
         if (blocks.size()<3) throw new RedoException("CAPTURE_MISSING_CLOSED_RANGE");
         byte[] file=blocks.get(0),header=blocks.get(1);
         if (u16(file,0)!=0x2200 || u32(file,20)!=512 || u32(file,28)!=0x7a7b7c7dL)
@@ -85,7 +115,7 @@ public final class CaptureJournal {
         if (!Arrays.equals(source,actualSource) || actualSource[5]==0 || actualSource[4]==0
                 || (actualSource[1]!=0x13000000L && actualSource[1]!=0x15000000L))
             throw new RedoException("CAPTURE_SOURCE_HEADER_MISMATCH");
-        return new Verified(new Source(actual,data.length,capacity,nab,source[2],source[0],source[1],(int)source[5],
+        return new Verified(new Source(actual,bytes,capacity,nab,source[2],source[0],source[1],(int)source[5],
                 source[4],source[3],scn(header,164),first,next),blocks);
     }
 
