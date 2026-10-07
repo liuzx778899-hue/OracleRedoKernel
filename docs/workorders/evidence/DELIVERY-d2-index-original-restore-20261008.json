@@ -1,0 +1,17 @@
+{
+  "sourceCommit": "ea05f06f28db3dd4aaca9eedcedd97cc9f660baf",
+  "kernelSha256": "71d38849703508c49ac8f37c3b521cc769616d22ee851c1f3ac3e1f8d6cb7992",
+  "buildRc": 0,
+  "tests": 332,
+  "failures": 0,
+  "errors": 0,
+  "skipped": 0,
+  "events": 3,
+  "fullAndSeparateJvmResumeExact": true,
+  "rawPrefixRequired": true,
+  "independentNativeCompleteComparison": "PENDING",
+  "productDeployment": "NOT_EXECUTED",
+  "targetAck": "NOT_VERIFIED",
+  "review": "PENDING",
+  "release": "NO_GO"
+}
