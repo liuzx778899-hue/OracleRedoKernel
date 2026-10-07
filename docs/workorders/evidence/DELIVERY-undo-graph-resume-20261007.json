@@ -1,0 +1,240 @@
+{
+  "proof": {
+    "kernel_sha256": "b6d5d792dec12cb854dac9825a777ffaa2c93f4e9a28598406aefd2dbd58c9fa",
+    "identity_sha256": "c346dea4e3d3c54fdfa79458aba37bbb0f07c45a204b0f8857f9ee0a0634f4f5",
+    "graph_sha256": "217b8119b58651750750a1a5e8affd8049a01c73f0e23e8dfc677a38479ccd89",
+    "halt_rc": 23,
+    "separate_jvm_resume_rc": 0,
+    "original": 2,
+    "live": 2,
+    "compensated": 0,
+    "allocation_tail_record": 11,
+    "active_head_record": 11,
+    "second_original_rci": 10,
+    "graph_poison_rejected": true,
+    "source_actions": 0,
+    "target_actions": 0,
+    "events": 0,
+    "full_dictionary_publication_recovery": "NOT_VERIFIED"
+  },
+  "tests": [
+    322,
+    0,
+    0,
+    0
+  ],
+  "classes_added": [
+    "com/streamhouse/oracle/UndoHistory$Action.class"
+  ],
+  "classes_changed": [
+    "com/streamhouse/oracle/UndoHistory$Result.class",
+    "com/streamhouse/oracle/UndoHistory.class"
+  ],
+  "classes_unchanged": 121,
+  "previous_capsules": [
+    {
+      "manifest": "DELIVERY-transaction-identity-resume-20261007.json",
+      "files": 42,
+      "unchanged": true
+    },
+    {
+      "manifest": "DELIVERY-cross-window-range-20261007.json",
+      "files": 88,
+      "unchanged": true
+    },
+    {
+      "manifest": "RESEARCH-cross-window-active-20261007.json",
+      "files": 182,
+      "unchanged": true
+    }
+  ],
+  "production_deployed": false,
+  "site_accepted": false,
+  "released": false,
+  "product_changed": false,
+  "full_dictionary_event_publication_recovery_verified": false,
+  "double_sha256_verified": true,
+  "files_count": 36,
+  "files": [
+    {
+      "path": "lab/out/cross-window-undo-20261007/classes/com/streamhouse/oracle/UndoGraphResumeProbe.class",
+      "bytes": 11844,
+      "sha256": "4970c554b7fb504e161363d05fcf2d76f97d8cf262563ccae7e534ad07470209"
+    },
+    {
+      "path": "lab/out/cross-window-undo-20261007/compile-probe.command.json",
+      "bytes": 303,
+      "sha256": "317c696ecd53fb1ac3102c75189ddd8c345270bb8973a9dfd46e3f3ec66d6f3d"
+    },
+    {
+      "path": "lab/out/cross-window-undo-20261007/compile-probe.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/cross-window-undo-20261007/compile-probe.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/cross-window-undo-20261007/compile-probe.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/cross-window-undo-20261007/full-build.command.json",
+      "bytes": 65,
+      "sha256": "6331d95251a0f2a93bd915416a190f270d6e65c5795d0039e81975404fc163dc"
+    },
+    {
+      "path": "lab/out/cross-window-undo-20261007/full-build.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/cross-window-undo-20261007/full-build.stderr.txt",
+      "bytes": 301,
+      "sha256": "a73235e74b7212a667f3c9a6209ea0afe89e0cb01c372b4298f0f1a5e284ba49"
+    },
+    {
+      "path": "lab/out/cross-window-undo-20261007/full-build.stdout.txt",
+      "bytes": 12447,
+      "sha256": "57a799aadf7c9f8ec704556a7d86846d5842b3143538e3a198d453c73520de08"
+    },
+    {
+      "path": "lab/out/cross-window-undo-20261007/kernel.jar",
+      "bytes": 301309,
+      "sha256": "b6d5d792dec12cb854dac9825a777ffaa2c93f4e9a28598406aefd2dbd58c9fa"
+    },
+    {
+      "path": "lab/out/cross-window-undo-20261007/pending-halt.command.json",
+      "bytes": 710,
+      "sha256": "e58bab42a616e1c2f214a178913750f6e040289eb4710b82ab055f5b4fac65de"
+    },
+    {
+      "path": "lab/out/cross-window-undo-20261007/pending-halt.rc.txt",
+      "bytes": 2,
+      "sha256": "535fa30d7e25dd8a49f1536779734ec8286108d115da5045d77f3b4185d8f790"
+    },
+    {
+      "path": "lab/out/cross-window-undo-20261007/pending-halt.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/cross-window-undo-20261007/pending-halt.stdout.txt",
+      "bytes": 156,
+      "sha256": "6feb96b47580c883343da05078cc4547ffc34939377f433896b4ba3b9ac99b93"
+    },
+    {
+      "path": "lab/out/cross-window-undo-20261007/poison/graph.state",
+      "bytes": 235,
+      "sha256": "6f38185fffcf05c236ee7c5687cfefef482105adc84589ed00a2d6bb544e2244"
+    },
+    {
+      "path": "lab/out/cross-window-undo-20261007/poison/identity.state",
+      "bytes": 252,
+      "sha256": "c346dea4e3d3c54fdfa79458aba37bbb0f07c45a204b0f8857f9ee0a0634f4f5"
+    },
+    {
+      "path": "lab/out/cross-window-undo-20261007/proof.json",
+      "bytes": 620,
+      "sha256": "586da8b61614ec673faba6e2575715f678b7fe2a3b842c42996187014140bbaa"
+    },
+    {
+      "path": "lab/out/cross-window-undo-20261007/reject-graph-poison.command.json",
+      "bytes": 1023,
+      "sha256": "b42da127bad8c0db9bbd2429c9d92fdaa502e0057c352d7b8ea10484a9b8b1dd"
+    },
+    {
+      "path": "lab/out/cross-window-undo-20261007/reject-graph-poison.rc.txt",
+      "bytes": 1,
+      "sha256": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b"
+    },
+    {
+      "path": "lab/out/cross-window-undo-20261007/reject-graph-poison.stderr.txt",
+      "bytes": 251,
+      "sha256": "3914179fbdc44424b030d1c2b969a07b5eedc5a6d4e4a432ce9043b2ed0ec081"
+    },
+    {
+      "path": "lab/out/cross-window-undo-20261007/reject-graph-poison.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/cross-window-undo-20261007/resume/graph.state",
+      "bytes": 235,
+      "sha256": "217b8119b58651750750a1a5e8affd8049a01c73f0e23e8dfc677a38479ccd89"
+    },
+    {
+      "path": "lab/out/cross-window-undo-20261007/resume/identity.state",
+      "bytes": 252,
+      "sha256": "c346dea4e3d3c54fdfa79458aba37bbb0f07c45a204b0f8857f9ee0a0634f4f5"
+    },
+    {
+      "path": "lab/out/cross-window-undo-20261007/sealed-seal_undo_graph_resume19.py",
+      "bytes": 3211,
+      "sha256": "cd9e67fb0d62073724c1961cb0345a7a255c03c3799b9dbb881ac8d1e2e46a4b"
+    },
+    {
+      "path": "lab/out/cross-window-undo-20261007/sealed-UndoGraphResumeProbe.java",
+      "bytes": 4769,
+      "sha256": "50e062438f5d591539caf1cd4207ad97b187a76e503aa1c22a71ade69e90e065"
+    },
+    {
+      "path": "lab/out/cross-window-undo-20261007/sealed-verify_undo_graph_resume19.py",
+      "bytes": 3315,
+      "sha256": "0a781e58fb89933d12a06e60eff13fc01b6b90e19aa38bb947d83faa05e22040"
+    },
+    {
+      "path": "lab/out/cross-window-undo-20261007/separate-jvm-resume.command.json",
+      "bytes": 1023,
+      "sha256": "6ec80f155649d30f367a88bd4ef318bfa023cd28cca0461a0271fea939b9f9c2"
+    },
+    {
+      "path": "lab/out/cross-window-undo-20261007/separate-jvm-resume.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/cross-window-undo-20261007/separate-jvm-resume.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/cross-window-undo-20261007/separate-jvm-resume.stdout.txt",
+      "bytes": 923,
+      "sha256": "5f0ffb4ac26a6bd2b9c189a686af1294c2a06d712ef0ec3ab5427d4c4e705c4e"
+    },
+    {
+      "path": "lab/out/cross-window-undo-20261007/targeted.log",
+      "bytes": 2099,
+      "sha256": "f2a00a2bbe15d90bc6d317809a54721120b94b3bc91cc0f822eab2d41db0795b"
+    },
+    {
+      "path": "lab/out/cross-window-undo-20261007/targeted.rc.txt",
+      "bytes": 3,
+      "sha256": "13bf7b3039c63bf5a50491fa3cfd8eb4e699d1ba1436315aef9cbe5711530354"
+    },
+    {
+      "path": "lab/out/cross-window-undo-20261007/UndoGraphResumeProbe.java",
+      "bytes": 4769,
+      "sha256": "50e062438f5d591539caf1cd4207ad97b187a76e503aa1c22a71ade69e90e065"
+    },
+    {
+      "path": "lab/out/cross-window-undo-20261007/UndoHistory.java",
+      "bytes": 10349,
+      "sha256": "09ee9e33ae9a080c09a7a84cf2c19eb635817e3f6b9002defd2104ec4e533561"
+    },
+    {
+      "path": "lab/out/cross-window-undo-20261007/UndoHistoryCheckpointTest.java",
+      "bytes": 4001,
+      "sha256": "1d5b7f6534877874a93c6e8a7aa757c4f821cac6184700c8ef3905a010706e51"
+    },
+    {
+      "path": "lab/out/cross-window-undo-20261007/verify_undo_graph_resume19.py",
+      "bytes": 3315,
+      "sha256": "0a781e58fb89933d12a06e60eff13fc01b6b90e19aa38bb947d83faa05e22040"
+    }
+  ]
+}

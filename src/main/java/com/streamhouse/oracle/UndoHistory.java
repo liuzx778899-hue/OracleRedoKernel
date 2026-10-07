@@ -8,11 +8,13 @@ import java.util.Map;
 /** Ordered 5.1 history and supplied verified compensations; not capture or event authorization. */
 public final class UndoHistory {
     private record Node(ArchivedUndoInventory.Entry entry,HeapRowPatch.Uba predecessor) {}
+    private record Action(boolean append,int index) {}
     public record Result(List<ArchivedUndoInventory.Entry> original,List<ArchivedUndoInventory.Entry> live,
                          List<UndoHeader> compensated,HeapRowPatch.Uba allocationTail,HeapRowPatch.Uba activeHead) {}
     private final ArchivedUndoInventory inventory;
     private final Map<HeapRowPatch.Uba,Node> nodes=new HashMap<>();
     private final List<UndoHeader> compensated=new ArrayList<>();
+    private final List<Action> actions=new ArrayList<>();
     private HeapRowPatch.Uba head,allocated;
     private int next;
     private boolean failed,closed;
@@ -39,7 +41,8 @@ public final class UndoHistory {
                 if (!explicit.equals(head)) refuse("UNDO_HISTORY_SAME_BLOCK_HEAD_MISMATCH");
             } else if (entry.rci()!=0 || entry.previousDba()!=head.dba()) refuse("UNDO_HISTORY_CROSS_BLOCK_HEAD_MISMATCH");
         }
-        var previous=head;nodes.put(address,new Node(entry,previous));if(!allocationOnly) head=address;allocated=address;next++;
+        var previous=head;nodes.put(address,new Node(entry,previous));if(!allocationOnly) head=address;allocated=address;
+        actions.add(new Action(true,next));next++;
         return previous;
     }
 
@@ -48,7 +51,56 @@ public final class UndoHistory {
         healthy();
         if (head==null || !head.equals(original.uba()) || !nodes.get(head).entry().identity().equals(original))
             refuse("UNDO_HISTORY_COMPENSATION_NOT_ACTIVE_HEAD");
+        actions.add(new Action(false,inventory.entries().indexOf(nodes.get(head).entry())));
         compensated.add(original);head=nodes.get(head).predecessor();
+    }
+
+    /** Pending graph state only; source receipts and a trusted external digest remain required. */
+    public byte[] checkpoint()throws RedoException {
+        healthy();
+        var out=new StringBuilder("ORK_UNDO_HISTORY_V1\nR|").append(inventory.containerUid()).append('|').append(inventory.containerId())
+                .append('|').append(digest(String.valueOf(inventory.controlRoot()))).append('\n');
+        for(var source:inventory.sources())out.append("S|").append(digest(source.toString())).append('\n');
+        for(var action:actions)out.append(action.append()?"A|":"C|").append(action.index()).append('|')
+                .append(digest(inventory.entries().get(action.index()).toString())).append('\n');
+        return out.toString().getBytes(java.nio.charset.StandardCharsets.UTF_8);
+    }
+    /** Extended inventories must retain every original source and selected entry exactly. */
+    public static UndoHistory restore(ArchivedUndoInventory input,byte[] bytes,String trustedSha256)throws RedoException {
+        if(!digest(bytes).equals(trustedSha256))throw new RedoException("UNDO_CHECKPOINT_DIGEST_MISMATCH");
+        String[] lines=new String(bytes,java.nio.charset.StandardCharsets.UTF_8).split("\n");
+        String role="R|"+input.containerUid()+"|"+input.containerId()+"|"+digest(String.valueOf(input.controlRoot()));
+        if(lines.length<3 || !lines[0].equals("ORK_UNDO_HISTORY_V1") || !lines[1].equals(role))throw new RedoException("UNDO_CHECKPOINT_SCOPE");
+        var state=new UndoHistory(input);int sourceCount=0;
+        try {
+            int at=2;
+            while(at<lines.length && lines[at].startsWith("S|")) {
+                if(sourceCount>=input.sources().size() || !lines[at].equals("S|"+digest(input.sources().get(sourceCount).toString())))
+                    throw new RedoException("UNDO_CHECKPOINT_SOURCE_PREFIX_CHANGED");
+                sourceCount++;at++;
+            }
+            if(sourceCount==0)throw new RedoException("UNDO_CHECKPOINT_SOURCE_PREFIX_CHANGED");
+            for(;at<lines.length;at++) {
+                String[] f=lines[at].split("\\|",-1);
+                if(f.length!=3 || (!f[0].equals("A") && !f[0].equals("C")))throw new RedoException("UNDO_CHECKPOINT_ACTION");
+                int index=Integer.parseInt(f[1]);
+                if(index<0 || index>=input.entries().size())throw new RedoException("UNDO_CHECKPOINT_ACTION");
+                var entry=input.entries().get(index);
+                if(!f[2].equals(digest(entry.toString())) || input.sources().subList(0,sourceCount).stream()
+                        .noneMatch(h->h.sequence()==entry.position().archiveSequence()))throw new RedoException("UNDO_CHECKPOINT_ENTRY_CHANGED");
+                if(f[0].equals("A"))state.append(entry);else state.compensate(entry.identity());
+            }
+            // Re-encode only the source prefix: a new verified suffix does not alter the old checkpoint.
+            String rebuilt=new String(state.checkpoint(),java.nio.charset.StandardCharsets.UTF_8);
+            for(int i=sourceCount;i<input.sources().size();i++)rebuilt=rebuilt.replace("S|"+digest(input.sources().get(i).toString())+"\n","");
+            if(!java.util.Arrays.equals(bytes,rebuilt.getBytes(java.nio.charset.StandardCharsets.UTF_8)))throw new RedoException("UNDO_CHECKPOINT_NONCANONICAL");
+            return state;
+        } catch(NumberFormatException e){throw new RedoException("UNDO_CHECKPOINT_ACTION");}
+    }
+    private static String digest(String text)throws RedoException {return digest(text.getBytes(java.nio.charset.StandardCharsets.UTF_8));}
+    private static String digest(byte[] bytes)throws RedoException {
+        try{return java.util.HexFormat.of().formatHex(java.security.MessageDigest.getInstance("SHA-256").digest(bytes));}
+        catch(java.security.NoSuchAlgorithmException e){throw new RedoException("SHA256_UNAVAILABLE");}
     }
 
     /** Native 5.4 reference is checked against allocation history, not the post-rollback active head. */
