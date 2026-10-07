@@ -1,0 +1,2752 @@
+{
+  "product_build_commit": "dbab51ae669db515e9b11a76b94f1f723cdd6049",
+  "build": {
+    "tests": [
+      752,
+      0,
+      0,
+      0
+    ],
+    "product_sha256": "2f1b46adc7a0fa7a8d6ab7c65ec8121e5eee32989256068a603b9bee549fe878",
+    "embedded": {
+      "oracle-redo-kernel": {
+        "path": "BOOT-INF/lib/oracle-redo-kernel-0.1.0-split-history-a84db1a3ff8f.jar",
+        "sha256": "a84db1a3ff8fddbe49258714c8b8d7945e6648f2caa75eb082cbf36b225e3a64"
+      },
+      "streamhouse-engine-oracle": {
+        "path": "BOOT-INF/lib/streamhouse-engine-oracle-0.1.0-split-history-fbf1d30c8072.jar",
+        "sha256": "fbf1d30c807200faa30034ba31e184bb7467788dc216e79121b5ccc3d586816b"
+      },
+      "streamhouse-spi": {
+        "path": "BOOT-INF/lib/streamhouse-spi-0.1.0-SNAPSHOT.jar",
+        "sha256": "442f573ff6b5df665474328a7d408ae500c9b128d8e39f95f417fe38a4a5efd1"
+      }
+    },
+    "all_dependency_class_bytes_unchanged": true
+  },
+  "proofs": {
+    "bad-binding-state": {
+      "stage": "bad-binding-state",
+      "task_id": "101217591124647936",
+      "actual_authenticated_http": true,
+      "source_fixture_actions": 0,
+      "events": 0,
+      "wrong_consumer_refused_before_target": true
+    },
+    "repaired-late-state": {
+      "stage": "repaired-late-state",
+      "task_id": "101217591124647936",
+      "actual_authenticated_http": true,
+      "source_fixture_actions": 0,
+      "events": 2,
+      "full_database_error": "ORA-02290 SHPL7_LATE_CK",
+      "target_rows_and_all_ledgers_rolled_back": true,
+      "control_gate_checkpoint_ack_unadvanced": true,
+      "preceding_update_inferred_from_second_full_before_match": true,
+      "failure_sha256": "bdf3d4e4452f4f9cce25adee5b605c433581c09d69381b140008afea100c038d"
+    },
+    "ack-blocked-state": {
+      "stage": "ack-blocked-state",
+      "task_id": "101217591124647936",
+      "actual_authenticated_http": true,
+      "source_fixture_actions": 0,
+      "events": 2,
+      "ordered_events_members_receipt_exact": true,
+      "checkpoint_full_evidence_exact": true,
+      "published_batch_state_preserved": true,
+      "published_batch_id": "101221037735239680",
+      "target_and_control_committed": true,
+      "persistent_ack_files": 0,
+      "full_ack_exception_preserved": true
+    },
+    "ack-recovered-state": {
+      "stage": "ack-recovered-state",
+      "task_id": "101217591124647936",
+      "actual_authenticated_http": true,
+      "source_fixture_actions": 0,
+      "events": 2,
+      "ordered_events_members_receipt_exact": true,
+      "checkpoint_full_evidence_exact": true,
+      "published_batch_state_preserved": true,
+      "published_batch_id": "101221037735239680",
+      "ack_sha256": "aa8f7d2bbdfce3be8aaa3736c9ef435fd99cda5b53a552f808ac9386e3056629"
+    },
+    "duplicate-state": {
+      "stage": "duplicate-state",
+      "task_id": "101217591124647936",
+      "actual_authenticated_http": true,
+      "source_fixture_actions": 0,
+      "events": 2,
+      "ordered_events_members_receipt_exact": true,
+      "checkpoint_full_evidence_exact": true,
+      "published_batch_state_preserved": true,
+      "published_batch_id": "101221037735239680",
+      "ack_sha256": "aa8f7d2bbdfce3be8aaa3736c9ef435fd99cda5b53a552f808ac9386e3056629",
+      "repeated_target_control_ack_exact_unchanged": true
+    },
+    "restart-state": {
+      "stage": "restart-state",
+      "task_id": "101217591124647936",
+      "actual_authenticated_http": true,
+      "source_fixture_actions": 0,
+      "events": 2,
+      "ordered_events_members_receipt_exact": true,
+      "checkpoint_full_evidence_exact": true,
+      "published_batch_state_preserved": true,
+      "published_batch_id": "101221037735239680",
+      "ack_sha256": "aa8f7d2bbdfce3be8aaa3736c9ef435fd99cda5b53a552f808ac9386e3056629",
+      "repeated_target_control_ack_exact_unchanged": true
+    }
+  },
+  "copied_original_acquisition_registration": true,
+  "registration_full_metadata_equal": true,
+  "source_business_dml": 0,
+  "source_logging_changes": 0,
+  "source_acquisitions": 0,
+  "capture_complete": false,
+  "same_instance_owned_target": true,
+  "independent_target_verified": false,
+  "independent_review": "PENDING",
+  "production_deployed": false,
+  "site_accepted": false,
+  "released": false,
+  "helper": "false|143|exited",
+  "failure_dispositions": {
+    "original_http": "Target rollback observed but database cause absent; original ef852 candidate logs/states preserved, not accepted for full late-failure evidence",
+    "regression_r1": "7/1/0/0; missing original exception at the sink reproduced",
+    "first_repair": "740223e/751 passed but new ACK regression showed stale decoded GATED object could overwrite PUBLISHED; candidate retained, never run",
+    "regression_r2": "8/1/0/0; expected PUBLISHED but was GATED reproduced; final dbab51a uses freshly stored batch",
+    "final": "752/0/0/0; real ORA-02290 and ACK FileAlreadyExistsException full files and references retained; actual ACK fault keeps PUBLISHED and restores exactly"
+  },
+  "previous_capsules": [
+    {
+      "manifest": "docs/workorders/evidence/DELIVERY-split-history-product-20261007.json",
+      "files": 356,
+      "unchanged": true
+    },
+    {
+      "manifest": "docs/workorders/evidence/DELIVERY-split-history-20261007.json",
+      "files": 1181,
+      "unchanged": true
+    },
+    {
+      "manifest": "docs/workorders/evidence/DELIVERY-v3-product-acquisition-20261006.json",
+      "files": 407,
+      "unchanged": true
+    }
+  ],
+  "files_count": 522,
+  "double_sha256_verified": true,
+  "files": [
+    {
+      "path": "lab/out/split-history-late-http-20261007/ack-blocked-attempt.command.json",
+      "bytes": 127,
+      "sha256": "4b3f489995491f11a0b46cb6dec6b30f03f05d6af5fd67d3bbcd84e6319687a1"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/ack-blocked-attempt.end.json",
+      "bytes": 56,
+      "sha256": "925bed183f8c71a6bbfde9c81fc0b9507ff3037441db6f04db165fc15aab72a4"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/ack-blocked-attempt.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/ack-blocked-attempt.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/ack-blocked-attempt.stdout.txt",
+      "bytes": 285,
+      "sha256": "115777f51b4182d34a71f53ed7b53c3faacd3c6db92beae42459f9e677b6e685"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/ack-blocked-forensic.command.json",
+      "bytes": 149,
+      "sha256": "cfe81642976d5d96a39ffd2e1c4645d6b62ff8b49c628f68bdbf5760de929c6c"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/ack-blocked-forensic.end.json",
+      "bytes": 56,
+      "sha256": "8477a47d94dd14b8da481a5a28f5713a8d988d7122f2c1e0903103338a0acc0a"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/ack-blocked-forensic.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/ack-blocked-forensic.sql",
+      "bytes": 444,
+      "sha256": "db85305b98adc60c9f09cb8e69b4c80da387729f648ecdfb849474f80320800a"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/ack-blocked-forensic.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/ack-blocked-forensic.stdout.txt",
+      "bytes": 441,
+      "sha256": "fe5626b014735370716ebc1955bbff89af5d84f0a7d72db78d8cc82f0534c801"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/ack-blocked-state-proof.json",
+      "bytes": 453,
+      "sha256": "a955ab45469c33bb8fe50becd88f381a0fb1e93bf5b8130392847bed48c0ec14"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/ack-blocked-state.command.json",
+      "bytes": 149,
+      "sha256": "67b3f3dd84ad2eb39dbc34083dcade1f71e1eec29334768ec4c80d998cfb6a1a"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/ack-blocked-state.end.json",
+      "bytes": 56,
+      "sha256": "59979c9042db01a37dd992704fd1457f91cca15b030f94b634e0fc6504d29c17"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/ack-blocked-state.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/ack-blocked-state.sql",
+      "bytes": 1712,
+      "sha256": "a428c637f62ed9b5ba84b55b3bdcf49743eeb7e8b6740c70b547e60b3ee2647c"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/ack-blocked-state.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/ack-blocked-state.stdout.txt",
+      "bytes": 6140,
+      "sha256": "f78aecb02dec0b1313c122d8657f9b6a88608179a7328f4eb38d1d914035f3b1"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/ack-directory-blocker.fixture",
+      "bytes": 36,
+      "sha256": "982692a5ab656422d2e8aa23fb61e9a32d7e155c1a9979867a0c7bd59f94afd4"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/ack-recovered-state-proof.json",
+      "bytes": 428,
+      "sha256": "6f50685b709526905c0ba4f4abba64c8ba1f167c12939ff3cf345414c9e4c297"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/ack-recovered-state.command.json",
+      "bytes": 149,
+      "sha256": "96be58b91de6b7595fe12091990a8d51b219331e2da301e8b4f77eb44c792c7d"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/ack-recovered-state.end.json",
+      "bytes": 56,
+      "sha256": "5d119333317dd899aec7400cd27050051fdb0ec5cb2ab8bfdf7831840ce892d4"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/ack-recovered-state.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/ack-recovered-state.sql",
+      "bytes": 1712,
+      "sha256": "a428c637f62ed9b5ba84b55b3bdcf49743eeb7e8b6740c70b547e60b3ee2647c"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/ack-recovered-state.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/ack-recovered-state.stdout.txt",
+      "bytes": 6196,
+      "sha256": "8c34fe581fd2f1b1db546114d3580fe184e3dda95bdd37db79b9c466ff8911ca"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/ack-recovery.command.json",
+      "bytes": 127,
+      "sha256": "7c1a607294302e13527a43b4d1a7719257b78ced7009370783f9f3db7ffdc618"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/ack-recovery.end.json",
+      "bytes": 56,
+      "sha256": "c1b0e4e6234883a84d775ceb4c13f6b247fc5bd4dc2694565a4d06a5f814a69c"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/ack-recovery.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/ack-recovery.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/ack-recovery.stdout.txt",
+      "bytes": 4799,
+      "sha256": "c258114f4651a87188ce07e450c3cf1ba5741c595bffaa4774f4e8d4becf21e1"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/acks/66da66efdb7ff394ff4f9c4f1d9c9e2c6ef900cd2070d2d6652f5c0b523d7d17.ack.json",
+      "bytes": 4088,
+      "sha256": "aa8f7d2bbdfce3be8aaa3736c9ef435fd99cda5b53a552f808ac9386e3056629"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/approved-binding.json",
+      "bytes": 5713,
+      "sha256": "2763843e5917f8e7aca484e82670c3b448f7c89fe5a4b7dd3513f9e72353c205"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/bad-binding-state-proof.json",
+      "bytes": 207,
+      "sha256": "a6eb34236be9d4745c37002f0bdeb50b9448dde8568ddbddf25dcbf04c32fb0d"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/bad-binding-state.command.json",
+      "bytes": 149,
+      "sha256": "ffe4aef99dd95b1fcbad258c527ed46337e6d1c3fba0ecf5e9d37f6310d03eba"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/bad-binding-state.end.json",
+      "bytes": 56,
+      "sha256": "636fd45f462a79f0686ffccf12ac09b2ff7ce084892feca09e2a0605d17603fa"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/bad-binding-state.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/bad-binding-state.sql",
+      "bytes": 1712,
+      "sha256": "a428c637f62ed9b5ba84b55b3bdcf49743eeb7e8b6740c70b547e60b3ee2647c"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/bad-binding-state.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/bad-binding-state.stdout.txt",
+      "bytes": 264,
+      "sha256": "09606af80dfc9a01aa73d5f7d39444b3a781b4765dec177d34d93e48d506c2df"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/clear-late.command.json",
+      "bytes": 149,
+      "sha256": "fc160706bf9fc37163b6035d0b342ec1871e633f1defc63ac7b60613e0c6d7da"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/clear-late.end.json",
+      "bytes": 56,
+      "sha256": "bc13577a808e7630dd721dd3d61c022ec932f50083c93683efc909a47be986ef"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/clear-late.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/clear-late.sql",
+      "bytes": 303,
+      "sha256": "64b602def43d90b9bddf393723869fcac18d67b0006a6e8b9a81fc6d93eaa0d9"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/clear-late.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/clear-late.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/copy-original-registration.command.json",
+      "bytes": 149,
+      "sha256": "bd67c643478fc639e7dc1f66ff0ecc6aaf3fc03e6e052cb2cd32ed771d315014"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/copy-original-registration.end.json",
+      "bytes": 56,
+      "sha256": "250f626b89850ac2b90ed262c900a0e012205066855829f53fa8012ebd59fb93"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/copy-original-registration.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/copy-original-registration.sql",
+      "bytes": 1048,
+      "sha256": "509f77a5471dd0a8a6d05b880059ea343b03ae9dee134bd1ef925652f4e742e5"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/copy-original-registration.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/copy-original-registration.stdout.txt",
+      "bytes": 13,
+      "sha256": "f6eef615f35303b20843fc3a23c04a2686b6a9ac7325b38957ec9411728d533d"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/create-control.command.json",
+      "bytes": 149,
+      "sha256": "495d76fb6f491a9f9ebd31cffef2c751715c07d07ad70bbe6918f2683420dc9d"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/create-control.end.json",
+      "bytes": 56,
+      "sha256": "26d5dd274bde4b29701efa023e8fa0ecaf1d0f62a9bcaf91d0b12133a47dc4b9"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/create-control.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/create-control.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/create-control.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/duplicate-restored-attempt.command.json",
+      "bytes": 127,
+      "sha256": "9d8b3d205897424bea89ad4c13c686d8db90d15b34434ae0deea6b56e0c3ea54"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/duplicate-restored-attempt.end.json",
+      "bytes": 56,
+      "sha256": "9e2b201c2efcf07ffb5a1f5ebc0b09319d68b9ff35e620d02312958a4dcc13a9"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/duplicate-restored-attempt.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/duplicate-restored-attempt.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/duplicate-restored-attempt.stdout.txt",
+      "bytes": 4797,
+      "sha256": "61ab4b902de91dfe6b04dadda28fc9ad87e739bae91fae1205ec795a8e51c42a"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/duplicate-state-proof.json",
+      "bytes": 480,
+      "sha256": "025c37c4056e7a0d3ed22543861fa3dd7bf860abaf3586b387a21d1bd0f0fd70"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/duplicate-state.command.json",
+      "bytes": 149,
+      "sha256": "5900ae0d9fee78e280ca9c00792eca0cccf544f50a0271d67580248a68c70656"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/duplicate-state.end.json",
+      "bytes": 56,
+      "sha256": "9096661e5dbd929d3e7e33b1139e7941ba4df2865d6b6a08556ff33887961e04"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/duplicate-state.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/duplicate-state.sql",
+      "bytes": 1712,
+      "sha256": "a428c637f62ed9b5ba84b55b3bdcf49743eeb7e8b6740c70b547e60b3ee2647c"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/duplicate-state.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/duplicate-state.stdout.txt",
+      "bytes": 6254,
+      "sha256": "474d76b5687d6c1ac1e8a352aca09ebf691556bc51a0c891f17b1ea2646b5e12"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/enroll-binding-poisoned.command.json",
+      "bytes": 149,
+      "sha256": "d068cdea968b64437e7dd11f6c1761044d596c2a5c98c4ea56fc3f6dd796560f"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/enroll-binding-poisoned.end.json",
+      "bytes": 56,
+      "sha256": "5aa9e7deb72341700adb65431e622020fdff9a6939d15032c184f24a2b5897fe"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/enroll-binding-poisoned.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/enroll-binding-poisoned.sql",
+      "bytes": 4537,
+      "sha256": "6f91c4712b721cb9f321bd0769b2e0f7088220a72da28059eda0222113069c73"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/enroll-binding-poisoned.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/enroll-binding-poisoned.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/executed-ack-blocked-attempt.py",
+      "bytes": 16076,
+      "sha256": "1a57b3c4b22a8565d945dc9ab63cdda5a6ad330f849e85e059e95b9315bde2cd"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/executed-ack-blocked-forensic.py",
+      "bytes": 16076,
+      "sha256": "1a57b3c4b22a8565d945dc9ab63cdda5a6ad330f849e85e059e95b9315bde2cd"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/executed-ack-blocked-state.py",
+      "bytes": 16076,
+      "sha256": "1a57b3c4b22a8565d945dc9ab63cdda5a6ad330f849e85e059e95b9315bde2cd"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/executed-ack-recovered-state.py",
+      "bytes": 16076,
+      "sha256": "1a57b3c4b22a8565d945dc9ab63cdda5a6ad330f849e85e059e95b9315bde2cd"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/executed-ack-recovery.py",
+      "bytes": 16076,
+      "sha256": "1a57b3c4b22a8565d945dc9ab63cdda5a6ad330f849e85e059e95b9315bde2cd"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/executed-bad-binding-state.py",
+      "bytes": 12258,
+      "sha256": "853713f6286b89ae1b465f15c70fcf3727f80896aa53a0f650c9c31f48a92572"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/executed-block-ack.py",
+      "bytes": 16076,
+      "sha256": "1a57b3c4b22a8565d945dc9ab63cdda5a6ad330f849e85e059e95b9315bde2cd"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/executed-bootstrap.py",
+      "bytes": 12258,
+      "sha256": "853713f6286b89ae1b465f15c70fcf3727f80896aa53a0f650c9c31f48a92572"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/executed-clear-late.py",
+      "bytes": 16076,
+      "sha256": "1a57b3c4b22a8565d945dc9ab63cdda5a6ad330f849e85e059e95b9315bde2cd"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/executed-duplicate-restored-attempt.py",
+      "bytes": 16076,
+      "sha256": "1a57b3c4b22a8565d945dc9ab63cdda5a6ad330f849e85e059e95b9315bde2cd"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/executed-duplicate-state.py",
+      "bytes": 16076,
+      "sha256": "1a57b3c4b22a8565d945dc9ab63cdda5a6ad330f849e85e059e95b9315bde2cd"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/executed-enroll.py",
+      "bytes": 12258,
+      "sha256": "853713f6286b89ae1b465f15c70fcf3727f80896aa53a0f650c9c31f48a92572"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/executed-final-source.py",
+      "bytes": 16076,
+      "sha256": "1a57b3c4b22a8565d945dc9ab63cdda5a6ad330f849e85e059e95b9315bde2cd"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/executed-health.py",
+      "bytes": 12258,
+      "sha256": "853713f6286b89ae1b465f15c70fcf3727f80896aa53a0f650c9c31f48a92572"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/executed-late-attempt.py",
+      "bytes": 12258,
+      "sha256": "853713f6286b89ae1b465f15c70fcf3727f80896aa53a0f650c9c31f48a92572"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/executed-late-logs.py",
+      "bytes": 12258,
+      "sha256": "853713f6286b89ae1b465f15c70fcf3727f80896aa53a0f650c9c31f48a92572"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/executed-late-state.py",
+      "bytes": 12258,
+      "sha256": "853713f6286b89ae1b465f15c70fcf3727f80896aa53a0f650c9c31f48a92572"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/executed-repaired-health.py",
+      "bytes": 16076,
+      "sha256": "1a57b3c4b22a8565d945dc9ab63cdda5a6ad330f849e85e059e95b9315bde2cd"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/executed-repaired-late-attempt.py",
+      "bytes": 16076,
+      "sha256": "1a57b3c4b22a8565d945dc9ab63cdda5a6ad330f849e85e059e95b9315bde2cd"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/executed-repaired-late-forensic.py",
+      "bytes": 16076,
+      "sha256": "1a57b3c4b22a8565d945dc9ab63cdda5a6ad330f849e85e059e95b9315bde2cd"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/executed-repaired-late-state.py",
+      "bytes": 16076,
+      "sha256": "1a57b3c4b22a8565d945dc9ab63cdda5a6ad330f849e85e059e95b9315bde2cd"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/executed-restart-repaired.py",
+      "bytes": 16076,
+      "sha256": "1a57b3c4b22a8565d945dc9ab63cdda5a6ad330f849e85e059e95b9315bde2cd"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/executed-restart-state.py",
+      "bytes": 16076,
+      "sha256": "1a57b3c4b22a8565d945dc9ab63cdda5a6ad330f849e85e059e95b9315bde2cd"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/executed-restarted-health.py",
+      "bytes": 16076,
+      "sha256": "1a57b3c4b22a8565d945dc9ab63cdda5a6ad330f849e85e059e95b9315bde2cd"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/executed-restarted-recovery.py",
+      "bytes": 16076,
+      "sha256": "1a57b3c4b22a8565d945dc9ab63cdda5a6ad330f849e85e059e95b9315bde2cd"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/executed-restore-binding.py",
+      "bytes": 12258,
+      "sha256": "853713f6286b89ae1b465f15c70fcf3727f80896aa53a0f650c9c31f48a92572"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/executed-start-repaired.py",
+      "bytes": 16076,
+      "sha256": "1a57b3c4b22a8565d945dc9ab63cdda5a6ad330f849e85e059e95b9315bde2cd"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/executed-stop-final.py",
+      "bytes": 16076,
+      "sha256": "1a57b3c4b22a8565d945dc9ab63cdda5a6ad330f849e85e059e95b9315bde2cd"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/executed-stop-old.py",
+      "bytes": 12258,
+      "sha256": "853713f6286b89ae1b465f15c70fcf3727f80896aa53a0f650c9c31f48a92572"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/executed-submit.py",
+      "bytes": 12258,
+      "sha256": "853713f6286b89ae1b465f15c70fcf3727f80896aa53a0f650c9c31f48a92572"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/executed-unblock-ack.py",
+      "bytes": 16076,
+      "sha256": "1a57b3c4b22a8565d945dc9ab63cdda5a6ad330f849e85e059e95b9315bde2cd"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/failures/oracle-v3-HIST/history-70-71-late.101220762211409920.applyfail.txt",
+      "bytes": 3607,
+      "sha256": "bdf3d4e4452f4f9cce25adee5b605c433581c09d69381b140008afea100c038d"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/failures/oracle-v3-HIST/history-70-71-late.101221037735239680.applyfail.txt",
+      "bytes": 2214,
+      "sha256": "d38c069fca825c083923a0013e7cdfd2aa467a4a549bea2c8742b0e80f4bec40"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/final-source.command.json",
+      "bytes": 149,
+      "sha256": "868545fd8a49f06c4ea53ada4baf4a19d358b9577c9f4ed0a079677f3d07e7c2"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/final-source.end.json",
+      "bytes": 56,
+      "sha256": "3a5737bf13226d35d2e51b766ecd79fe14cc78fae042f7081628ff78231397bd"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/final-source.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/final-source.sql",
+      "bytes": 890,
+      "sha256": "980ff98aaee1b71a1d6b13290304758d7fff4070bdaeb7dc8be5831864344e62"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/final-source.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/final-source.stdout.txt",
+      "bytes": 98,
+      "sha256": "e3909c9778b645bf4d32fb3fe99df7fda25b9f96ebd0c6bdca6cff5033275005"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/health-sha.command.json",
+      "bytes": 152,
+      "sha256": "6767ca0ffad27805f828bd9e70f98d8b759b851a1fe20af1b3ac4f5690e13948"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/health-sha.end.json",
+      "bytes": 56,
+      "sha256": "41b050c48e0dfe8e1d907dbc5320ea99a25a6207162c1fd72c3c7e17088d4d77"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/health-sha.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/health-sha.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/health-sha.stdout.txt",
+      "bytes": 93,
+      "sha256": "f0c3c944922abdaec0a97244bb08fc37b59e6dd9feee33fb4f014836eabaad12"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/health.command.json",
+      "bytes": 127,
+      "sha256": "fcb67d653c98e1db433374730f4a20184c9ab7105d7f4b1f01fffd68d485785e"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/health.end.json",
+      "bytes": 56,
+      "sha256": "c0b8e1fe0c5b2e0c4187b07653272df2d45c74ac9f4132ec4a1f21a884ad5283"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/health.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/health.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/health.stdout.txt",
+      "bytes": 119,
+      "sha256": "ac09f54ccdb1a54e46f1fc6b1f25aabe4d4adb9e00f57fdf79076d9ae471f729"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/helper-preflight.command.json",
+      "bytes": 107,
+      "sha256": "ede6b6a290373a37857b014e8b28d602fdc608f4511ee28bdc5f67e4660eeba5"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/helper-preflight.end.json",
+      "bytes": 56,
+      "sha256": "82f6836bc042c9bc3a7dc0d768c7f52c32ffae8b36b3913deb1481969dfd6b4d"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/helper-preflight.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/helper-preflight.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/helper-preflight.stdout.txt",
+      "bytes": 814,
+      "sha256": "e33dabd55e5d6bd180a2cfb03e2ee1c704280828ff5ba0efddd826c3bd48bc01"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/late-attempt.command.json",
+      "bytes": 127,
+      "sha256": "b5470608ff547f0c4813c7bf72372279ac34a29f9709782e76830fd40e34ee22"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/late-attempt.end.json",
+      "bytes": 56,
+      "sha256": "77bea98804b00b1c9e7de9cc6a624aeedb3165eaa2a1ca3f4f4064629201a501"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/late-attempt.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/late-attempt.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/late-attempt.stdout.txt",
+      "bytes": 285,
+      "sha256": "d22665ced16ee926d40263c505b43c07b2c351bd9dc1d329647db80b38eeef2d"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/late-logs.command.json",
+      "bytes": 109,
+      "sha256": "cbd0d555cda7c599a3a001610b7944591b8b6389ab8423f560ede08f0db067ec"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/late-logs.end.json",
+      "bytes": 56,
+      "sha256": "b079231f3a6941ec0c7f191793967ba3b37756327a53d4d7140a7e04a7f1c71c"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/late-logs.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/late-logs.stderr.txt",
+      "bytes": 398,
+      "sha256": "4dc046fd29d1008fe148e8ed92f4ab07d145e7a8363ce7122071cbd82d40f830"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/late-logs.stdout.txt",
+      "bytes": 8592,
+      "sha256": "1542182fab6aa878cedcc5f862d7bc9ae9dfe777e107181b6d3f3dde4869ab96"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/late-state.command.json",
+      "bytes": 149,
+      "sha256": "4717ab3cda42890553e7cf0a3e28922a39771925f064ed8f1c555cfc23ecc307"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/late-state.end.json",
+      "bytes": 56,
+      "sha256": "9d70fc9f4a3c3315e08eeda08d8ee2013d74afb8f4712c2f0f960cb28a9a926d"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/late-state.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/late-state.sql",
+      "bytes": 1712,
+      "sha256": "a428c637f62ed9b5ba84b55b3bdcf49743eeb7e8b6740c70b547e60b3ee2647c"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/late-state.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/late-state.stdout.txt",
+      "bytes": 536,
+      "sha256": "64a91568851f6c72fa370d6a9bb95756b21c829af35dc858398956fa951feb05"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/original-acquisition-get.command.json",
+      "bytes": 127,
+      "sha256": "c6a3ae57417ece0cffaca1f3613bf885526a8951bee4024039b916a3aab6b03b"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/original-acquisition-get.end.json",
+      "bytes": 56,
+      "sha256": "929bdd16988476a41223b6e6aebf9e3ac3ea0ff660aeff07799cb81311e11c94"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/original-acquisition-get.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/original-acquisition-get.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/original-acquisition-get.stdout.txt",
+      "bytes": 22269,
+      "sha256": "ce1747834cc4d5129d9cd48917aa406c7a8bc41964f8cb69e8bc72b24729acff"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/preflight.command.json",
+      "bytes": 149,
+      "sha256": "4f8194922c8372b58bc9d8690382d75fa30971577b6892c2f9294395f8da1530"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/preflight.end.json",
+      "bytes": 56,
+      "sha256": "47066c340d95b2334e993eaf6330b0711ba1a04bbaf5b7966c72fbd0cb6f29d0"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/preflight.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/preflight.sql",
+      "bytes": 598,
+      "sha256": "77cad5a852a8a6f3c74dc8a9f03a5fd1f72027d6c2bd162c2b1d882408b2da70"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/preflight.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/preflight.stdout.txt",
+      "bytes": 65,
+      "sha256": "a77845c9f4bc0697b513fde5ed52f099b35502d3d5d3af004c9e389d16643d9b"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/regression-r1/command.json",
+      "bytes": 492,
+      "sha256": "21185ac93dc6491bc33369a2c7443c22a4744e35a7e1b90e65efbabe41b9e2c7"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/regression-r1/executed-driver.py",
+      "bytes": 3693,
+      "sha256": "7b7fb36f4c2839b273cb50db4991b21b53933f56fbb8b866ef0afd1fb24f20d2"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/regression-r1/OracleFacadePublicationTest.java",
+      "bytes": 9029,
+      "sha256": "e18e85eaf9568ea1c7167b1805e53cc373e3be6f6831295bb42fe1e2d52c2bd2"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/regression-r1/PipelineFacade.java",
+      "bytes": 16107,
+      "sha256": "ec6574e3ef67ebb4aa0af905411495cea57ef71edae35a1a6df74dbc8df29e58"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/regression-r1/rc.txt",
+      "bytes": 1,
+      "sha256": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/regression-r1/reports/streamhouse-pipeline-TEST-com.streamhouse.pipeline.service.OracleFacadePublicationTest.xml",
+      "bytes": 29091,
+      "sha256": "2931a8a266dac35585b3eb4ced4680e58d5d081b31bc6421643303b9e80a7052"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/regression-r1/stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/regression-r1/stdout.txt",
+      "bytes": 11395,
+      "sha256": "2b52b686d107b76b20c6b38ba9bc671bb15076c1648da329f87232594ea940cb"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/regression-r2/command.json",
+      "bytes": 492,
+      "sha256": "6648c8ebbcf0beafba03b4f61e9468617dee6a682411e224fe8ca8406b10cf9d"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/regression-r2/executed-driver.py",
+      "bytes": 3822,
+      "sha256": "4e5055b6a2d9f6c27b7b4e6ac6e45a80120c66b3e90745a8c3996ddab2eea7a6"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/regression-r2/OracleFacadePublicationTest.java",
+      "bytes": 10548,
+      "sha256": "e40481a8717d09cabaa4bbb93fbc3b55b2c5ec5641ec656ae31b5640ad0e3a74"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/regression-r2/PipelineFacade.java",
+      "bytes": 16700,
+      "sha256": "be246f0f50fdb3c81042663755388e64356f60583b0ee438d07c14024a5ac8ef"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/regression-r2/rc.txt",
+      "bytes": 1,
+      "sha256": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/regression-r2/reports/streamhouse-pipeline-TEST-com.streamhouse.pipeline.service.OracleFacadePublicationTest.xml",
+      "bytes": 29142,
+      "sha256": "70a0bb065fd15b03ff15962f97f4711db20abd7da99f239e30c3b08b58313569"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/regression-r2/stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/regression-r2/stdout.txt",
+      "bytes": 11242,
+      "sha256": "01546e4c4b9d6add27f8301e67e364a0c08cac4f4e508c7f868c475be0291d34"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/repaired-build/application.jar",
+      "bytes": 35990531,
+      "sha256": "166d11305d1caf2ed1002d66c6d8c2f6ecf7dff377edfcfdba98a0da41393945"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/repaired-build/command.json",
+      "bytes": 376,
+      "sha256": "a127e2f9be1e017bf7d041c7555bbb7c41127ab3ede5a9b0e2a3778fc019690e"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/repaired-build/executed-driver.py",
+      "bytes": 3693,
+      "sha256": "7b7fb36f4c2839b273cb50db4991b21b53933f56fbb8b866ef0afd1fb24f20d2"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/repaired-build/oracle-redo-kernel.jar",
+      "bytes": 294901,
+      "sha256": "a84db1a3ff8fddbe49258714c8b8d7945e6648f2caa75eb082cbf36b225e3a64"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/repaired-build/OracleFacadePublicationTest.java",
+      "bytes": 9029,
+      "sha256": "e18e85eaf9568ea1c7167b1805e53cc373e3be6f6831295bb42fe1e2d52c2bd2"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/repaired-build/PipelineFacade.java",
+      "bytes": 16700,
+      "sha256": "be246f0f50fdb3c81042663755388e64356f60583b0ee438d07c14024a5ac8ef"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/repaired-build/proof.json",
+      "bytes": 830,
+      "sha256": "ffb535d14913205716cbc12d0be40679a44e2f6766d36ca6952f525ed441c613"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/repaired-build/rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/repaired-build/reports/streamhouse-alert-TEST-com.streamhouse.alert.mapper.AlertMapperXmlParseTest.xml",
+      "bytes": 23468,
+      "sha256": "b52eb083bcc19064c747fc0eabcd4a34ade73724bf42748c9c2e64f8c659cb46"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/repaired-build/reports/streamhouse-alert-TEST-com.streamhouse.alert.service.AckServiceTest.xml",
+      "bytes": 23363,
+      "sha256": "283df8ac422df55f3ff5004e5c4b8ffcfcf9a6b8435962f60d8fbed5ce8d5dd9"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/repaired-build/reports/streamhouse-alert-TEST-com.streamhouse.alert.service.AlertQueryServiceTest.xml",
+      "bytes": 23295,
+      "sha256": "0e2176df04c5e03c63d44a37f86d4c94f281cecd57ec2db2bc733236bb44af36"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/repaired-build/reports/streamhouse-alert-TEST-com.streamhouse.alert.service.AlertRuleEngineTest.xml",
+      "bytes": 24461,
+      "sha256": "f1d392aea37eb510c385ae35db45471097bbb19fc72147e95b7e9c66e6b6dc9f"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/repaired-build/reports/streamhouse-alert-TEST-com.streamhouse.alert.service.AlertServiceTest.xml",
+      "bytes": 24908,
+      "sha256": "f9d8fb93fe71adf2c84311c1d54bc078d6d327e2771551ac34dae247ea48cc70"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/repaired-build/reports/streamhouse-alert-TEST-com.streamhouse.alert.service.ChannelConfigCodecTest.xml",
+      "bytes": 23321,
+      "sha256": "ea6660e8b8a8a88d8bf9baacad22300e72aa8653c4761f925c1a5a931105ca3b"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/repaired-build/reports/streamhouse-alert-TEST-com.streamhouse.alert.service.SmtpSenderTest.xml",
+      "bytes": 23261,
+      "sha256": "720cecb25f682994eb71ecac26126775bd7061e9fbc592d9817a5085a4f9d25d"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/repaired-build/reports/streamhouse-alert-TEST-com.streamhouse.alert.service.WecomWebhookSenderTest.xml",
+      "bytes": 23303,
+      "sha256": "0dea3231b47b2222906a799eefafac25614c042f5cb08498c4e17acfe9ab066e"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/repaired-build/reports/streamhouse-app-TEST-com.streamhouse.app.appdb.AppTargetMapperXmlParseTest.xml",
+      "bytes": 34217,
+      "sha256": "8b7a551601fa36315276169c2559b1836e49ca87b706fd530b54e8e7e4dd6ff2"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/repaired-build/reports/streamhouse-app-TEST-com.streamhouse.app.auth.AgentTokenInterceptorB64InteropTest.xml",
+      "bytes": 33761,
+      "sha256": "4fbf281715b2be1802e40b2af0a62a55bc1183ff78e3eadaa362b27f267c27ca"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/repaired-build/reports/streamhouse-app-TEST-com.streamhouse.app.auth.AgentTokenInterceptorTest.xml",
+      "bytes": 35189,
+      "sha256": "579bfdc16d56beb8fb7e91cc84d0507662ce71664880b13ab20d4f5d2be27e12"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/repaired-build/reports/streamhouse-app-TEST-com.streamhouse.app.auth.AuthControllerTest.xml",
+      "bytes": 35759,
+      "sha256": "312aba28dd741d79d1939c30d004ee2b323c6954273de16ed3a31426c93a138a"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/repaired-build/reports/streamhouse-app-TEST-com.streamhouse.app.auth.CredentialCipherTest.xml",
+      "bytes": 33682,
+      "sha256": "2f1502e760cfeb1616e9f576020d8d5349d9f99e3565d09c6a1838642b93822c"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/repaired-build/reports/streamhouse-app-TEST-com.streamhouse.app.auth.TokenServiceTest.xml",
+      "bytes": 33506,
+      "sha256": "5d285e0be420f6076ce4c26860a2e83e2929d219b69089bf32e5d3141fb0920b"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/repaired-build/reports/streamhouse-app-TEST-com.streamhouse.app.baseline.BaselineCredentialServiceTest.xml",
+      "bytes": 33917,
+      "sha256": "87eb8d8896a5f71f81a8310daba2da80f04f8eb3b002acb729218aed06739605"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/repaired-build/reports/streamhouse-app-TEST-com.streamhouse.app.baseline.BaselineDecodeGuardTest.xml",
+      "bytes": 34403,
+      "sha256": "2e7fd5704e89d9994693c5270f49d33d861883131ba85ad3879a3ed6492164ae"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/repaired-build/reports/streamhouse-app-TEST-com.streamhouse.app.baseline.OracleAcquisitionServiceTest.xml",
+      "bytes": 35070,
+      "sha256": "8b472621ba8facaa26686648ab7bda4c2d44989b00ed780d946979f9fe061e3d"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/repaired-build/reports/streamhouse-app-TEST-com.streamhouse.app.baseline.OracleInputBindingServiceTest.xml",
+      "bytes": 34330,
+      "sha256": "e4cc8ffe5868ed7e72dcba6528ae30f550a9d887fcbb916daa0e5f8a56dd544c"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/repaired-build/reports/streamhouse-app-TEST-com.streamhouse.app.config.JacksonLongAsStringConfigTest.xml",
+      "bytes": 33608,
+      "sha256": "835908d417b379f066e6d6d7637213ae6453507ce1d15b0c49a2d08fe8234a98"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/repaired-build/reports/streamhouse-app-TEST-com.streamhouse.app.conn.ConnectionOpsServiceTest.xml",
+      "bytes": 34116,
+      "sha256": "dca83e578d9c5338cb3111b421f991a7224c306c30c289c794054c2659ea99f3"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/repaired-build/reports/streamhouse-app-TEST-com.streamhouse.app.conn.SysPartmapFallbackTest.xml",
+      "bytes": 33441,
+      "sha256": "a4fefa84487dc570fa71fd119671cd7d3c43791113e3cccaea92ce3f7902b97b"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/repaired-build/reports/streamhouse-app-TEST-com.streamhouse.app.deploy.DeployServiceTest.xml",
+      "bytes": 35504,
+      "sha256": "f4e0d1a0cc2861a2c98edd26c9c9f2e6cc7a3d47550c7b3e9fc8d723d2ef37e5"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/repaired-build/reports/streamhouse-app-TEST-com.streamhouse.app.heartbeat.HeartbeatServiceTest.xml",
+      "bytes": 33667,
+      "sha256": "1e5ad0ab9d74908aea1cff187d9277a1219a20fe3774186c3420dcd85e9ec101"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/repaired-build/reports/streamhouse-app-TEST-com.streamhouse.app.machine.MachineAdminServiceTest.xml",
+      "bytes": 35410,
+      "sha256": "829f047b295ef28ae821f33b753459e1248ec5c6730788090eaf877ecaffb4d2"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/repaired-build/reports/streamhouse-app-TEST-com.streamhouse.app.machine.MachineSourceServiceTest.xml",
+      "bytes": 34558,
+      "sha256": "cd4dbdfcbd36dff18fbb88b694f1cb051a4a7496760ab92ab40d0c2ce3691736"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/repaired-build/reports/streamhouse-app-TEST-com.streamhouse.app.pipeline.AutoConsumeSchedulerTest.xml",
+      "bytes": 43083,
+      "sha256": "6758892f503a180bf8706428fc7e19028847ac74bf2410d28206be065a109e7e"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/repaired-build/reports/streamhouse-app-TEST-com.streamhouse.app.pipeline.PipelineRunServiceTest.xml",
+      "bytes": 42895,
+      "sha256": "d862f33fb994af7cad45b5d2854d8c9ae4d68ec9c7e6a39cca387b05646801c0"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/repaired-build/reports/streamhouse-app-TEST-com.streamhouse.app.pipeline.WindowAdminServiceTest.xml",
+      "bytes": 34407,
+      "sha256": "e68120466c6be2c715a13d459435fdbdd546475b9662c49b18d8157eee279f9a"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/repaired-build/reports/streamhouse-app-TEST-com.streamhouse.app.port.CodetableDecodeContextProviderTest.xml",
+      "bytes": 33802,
+      "sha256": "335dd75ca9a37843384304f94ebec05ed6fb73cd14fe17bbeb6fb89180344d9d"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/repaired-build/reports/streamhouse-app-TEST-com.streamhouse.app.port.FileCodetableFileWriterTest.xml",
+      "bytes": 33909,
+      "sha256": "c38c0978335aaffdb9c7f7598bab756f603eed7fb2b199564a3ba27fd26e5835"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/repaired-build/reports/streamhouse-app-TEST-com.streamhouse.app.port.FnDblogOfficialChannelPortTest.xml",
+      "bytes": 34374,
+      "sha256": "67d5718bde760ccbdf965b3445cd226da417aad1df5f3ac711bd4deddebdf70d"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/repaired-build/reports/streamhouse-app-TEST-com.streamhouse.app.port.GatewayWindowSourceTest.xml",
+      "bytes": 33488,
+      "sha256": "d58f17ecd716576c0079ba953fc0fc042fb72cfbbe591c2f703a2d3259d97a90"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/repaired-build/reports/streamhouse-app-TEST-com.streamhouse.app.port.KernelTargetApplyPortTest.xml",
+      "bytes": 34519,
+      "sha256": "5fa8d952840a199ad211f111d76b03a99422b7a9edf861ca1936d414339194aa"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/repaired-build/reports/streamhouse-app-TEST-com.streamhouse.app.port.OdsEnrichedTargetApplyPortTest.xml",
+      "bytes": 35516,
+      "sha256": "142abf20fee44cf14da79e31b4120fd399923cd926e2dd41e366340ab58e0536"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/repaired-build/reports/streamhouse-app-TEST-com.streamhouse.app.port.OdsMappingEngineTest.xml",
+      "bytes": 35072,
+      "sha256": "4630e632113ec3231955b913f9961fe6ed3d1f1a111b684fd57af84d6edc9a5d"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/repaired-build/reports/streamhouse-app-TEST-com.streamhouse.app.port.OracleBoundedPublicationTest.xml",
+      "bytes": 33949,
+      "sha256": "335e363cd1a6f359d88f3bbc8e29f33ce8524e959197013f31505428d8a4ac7b"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/repaired-build/reports/streamhouse-app-TEST-com.streamhouse.app.port.OracleControlPublicationTest.xml",
+      "bytes": 34907,
+      "sha256": "587cfa77edb9f0316b405b000b6668b4071970db7e3d4c9df1f7967158261cea"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/repaired-build/reports/streamhouse-app-TEST-com.streamhouse.app.port.RowValueDecoderTest.xml",
+      "bytes": 35288,
+      "sha256": "4a067bcc6d86f1c7a4a38a2eb3e6ae604423b39f64f072d3b7f6d8640129a632"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/repaired-build/reports/streamhouse-app-TEST-com.streamhouse.app.stream.CrossProcessFileLockTest.xml",
+      "bytes": 33328,
+      "sha256": "725422b9da6093ecc1a4485f757c0c4d8ad8a9b54a5008a3ab7b2e8579664845"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/repaired-build/reports/streamhouse-app-TEST-com.streamhouse.app.stream.StageBVerifyServiceTest.xml",
+      "bytes": 36361,
+      "sha256": "235231d846a730aca217743f48e7163caf68303f825d16625bb032fdbdad160d"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/repaired-build/reports/streamhouse-app-TEST-com.streamhouse.app.stream.StreamFileServiceTest.xml",
+      "bytes": 41772,
+      "sha256": "cf1b7b9fb991e9554ce6aae9f3e23d11b36716218c8ccb8fc102a9a4034957b3"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/repaired-build/reports/streamhouse-app-TEST-com.streamhouse.app.stream.StreamMapperXmlParseTest.xml",
+      "bytes": 33603,
+      "sha256": "1067e050e383b8ae5a58d9ada30d43b0eb556dffea976120fb249e6aca2ab1b3"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/repaired-build/reports/streamhouse-app-TEST-com.streamhouse.app.target.TargetMappingServiceTest.xml",
+      "bytes": 34563,
+      "sha256": "4895d39f4681c6d37ce5fad78d471a966e769bd8caabb459aa5518e8f00fc729"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/repaired-build/reports/streamhouse-app-TEST-com.streamhouse.app.target.TargetServiceTest.xml",
+      "bytes": 34782,
+      "sha256": "4b548a76ab5971a21403ffc8ad0a7ce6bb3c2a22553ff633eb519088f87013f6"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/repaired-build/reports/streamhouse-app-TEST-com.streamhouse.app.web.BaselineControllerTest.xml",
+      "bytes": 34843,
+      "sha256": "be5867ce3cc6d3a4451442a4b0319802248a37302dd04679d7e3076c88e1e3a6"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/repaired-build/reports/streamhouse-app-TEST-com.streamhouse.app.web.DeleteEndpointsControllerTest.xml",
+      "bytes": 38079,
+      "sha256": "282e2afa787920e2c21eebd068d44fec9d5d405217d9d3876fb2b429b0bb23c7"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/repaired-build/reports/streamhouse-app-TEST-com.streamhouse.app.web.PipelineControllerTest.xml",
+      "bytes": 38570,
+      "sha256": "0227e4d5709fac610ea4c9d0f87134bb593390479a995008c6a42d9c61fb128a"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/repaired-build/reports/streamhouse-app-TEST-com.streamhouse.app.web.StreamGatewayControllerCodecTest.xml",
+      "bytes": 34378,
+      "sha256": "ae6db6eae34084fc6a7098ae47099fafe8fd53285578c43e08ff0069006af59a"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/repaired-build/reports/streamhouse-app-TEST-com.streamhouse.app.web.UnquarantineAuditTest.xml",
+      "bytes": 33715,
+      "sha256": "a1171419d29f58efa26a76e8e7d77fb0d24ae80f3143acca4c1fa6c7d771fea3"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/repaired-build/reports/streamhouse-codetable-TEST-com.streamhouse.codetable.mapper.CodetableMapperXmlParseTest.xml",
+      "bytes": 22937,
+      "sha256": "b17734de37270905f8db82d783dcf1bb6ded44bab7f19cde957bc1d08c9f617d"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/repaired-build/reports/streamhouse-codetable-TEST-com.streamhouse.codetable.service.CoverageGuardTest.xml",
+      "bytes": 23681,
+      "sha256": "42916b479997dea83137df7adf9122271a8ba1f4f389450631d1fe7095c8fc57"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/repaired-build/reports/streamhouse-codetable-TEST-com.streamhouse.codetable.service.DriftPatrolServiceTest.xml",
+      "bytes": 23061,
+      "sha256": "e42732d18a911ca45dde911457f227fade5bcddb6c8fb0a013429c73db7ff568"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/repaired-build/reports/streamhouse-codetable-TEST-com.streamhouse.codetable.service.ReimportServiceTest.xml",
+      "bytes": 23184,
+      "sha256": "ff5593d635e9d01123250e5a7c476692a389fdc211aedbffc1380df62c17c1dc"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/repaired-build/reports/streamhouse-codetable-TEST-com.streamhouse.codetable.service.StructureFingerprintTest.xml",
+      "bytes": 23171,
+      "sha256": "c4c45383d4561a59e2e0ff60890d120266c08071bae2c6a412109dd4e004eee6"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/repaired-build/reports/streamhouse-common-TEST-com.streamhouse.common.DialectTest.xml",
+      "bytes": 18868,
+      "sha256": "b96b940a83842d32cdcf2dcea3701fd16fc2a1a9c59aea6d4d35ba2e63bff7f9"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/repaired-build/reports/streamhouse-common-TEST-com.streamhouse.common.Sha256Test.xml",
+      "bytes": 18959,
+      "sha256": "aa591d4d820ef3f79b859d3a716d504662f29373e5fc2b4582098d8c699663ec"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/repaired-build/reports/streamhouse-common-TEST-com.streamhouse.common.SnowflakeIdTest.xml",
+      "bytes": 18893,
+      "sha256": "455b7f7dcde059c812c3afa071364b9287927463bb2b0b8f7e77372dd6af7279"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/repaired-build/reports/streamhouse-engine-sqlserver-TEST-com.streamhouse.engines.sqlserver.SqlServerConnectorTest.xml",
+      "bytes": 21497,
+      "sha256": "c058f24524362ab82ba266b110b28ff84352b9c72e5b3a4a2ee3c1440c226a39"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/repaired-build/reports/streamhouse-engine-sqlserver-TEST-com.streamhouse.engines.sqlserver.VerifyCliAssemblerTest.xml",
+      "bytes": 23879,
+      "sha256": "cb055b7a8980a797909cd823f52af6ed3006a03f95826ff8bd6fe86266f4e765"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/repaired-build/reports/streamhouse-gateway-TEST-com.streamhouse.gateway.mapper.MapperXmlParseTest.xml",
+      "bytes": 30039,
+      "sha256": "d680c23cdf3c0a3eeadeba6c70899602cb054f121457b91f452aedc5a535c9ce"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/repaired-build/reports/streamhouse-gateway-TEST-com.streamhouse.gateway.service.AgentMetricsServiceTest.xml",
+      "bytes": 30205,
+      "sha256": "1985a80ee97cb33254e5f7e82903e58fce56b71939b7429df906501fda726965"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/repaired-build/reports/streamhouse-gateway-TEST-com.streamhouse.gateway.service.ContinuityCheckerTest.xml",
+      "bytes": 30523,
+      "sha256": "4478a43c5f1b50895c478584c7c311befe023d4c671fb403c8fdb20c5096c0e6"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/repaired-build/reports/streamhouse-gateway-TEST-com.streamhouse.gateway.service.MachineServiceTest.xml",
+      "bytes": 30269,
+      "sha256": "83d4e7e92c22c39bd1c19c032dad2dc254c481de5d4ba1b4496879a68e546928"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/repaired-build/reports/streamhouse-gateway-TEST-com.streamhouse.gateway.service.TransferChunkServiceTest.xml",
+      "bytes": 32103,
+      "sha256": "83f5646105850ad08b8b0ccb3e3f0e8c46cf38b05f86dc011f68944706f174c0"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/repaired-build/reports/streamhouse-gateway-TEST-com.streamhouse.gateway.service.WindowIngestServiceTest.xml",
+      "bytes": 30809,
+      "sha256": "032360da9e06f306403f961288fc0ba93e73c53fda87e83d4778896106c46bd9"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/repaired-build/reports/streamhouse-gateway-TEST-com.streamhouse.gateway.web.MachineBindingGuardTest.xml",
+      "bytes": 30237,
+      "sha256": "eb139057d0fa6dfa7c310ea8cfbe06483762a89f13b66d6b1b14ab3325e9a34f"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/repaired-build/reports/streamhouse-gateway-TEST-com.streamhouse.gateway.web.TransferControllerFlatOffsetNumericTest.xml",
+      "bytes": 30652,
+      "sha256": "7fc72035c526e78c3b12ad5a6b423d026d610b1e48d8b59ab9d7b3bc9cc3d7b8"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/repaired-build/reports/streamhouse-pipeline-TEST-com.streamhouse.pipeline.mapper.PipelineMapperXmlParseTest.xml",
+      "bytes": 27367,
+      "sha256": "38a60090c6072b16c6dac86befa7ff558e289254cdce28490264d8c53f5a9808"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/repaired-build/reports/streamhouse-pipeline-TEST-com.streamhouse.pipeline.service.DecodeBatchServiceTest.xml",
+      "bytes": 28591,
+      "sha256": "264668091c2682849e42dc443a4b5a72b9c880352f0adde639c5959d5ed26fd8"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/repaired-build/reports/streamhouse-pipeline-TEST-com.streamhouse.pipeline.service.OracleFacadePublicationTest.xml",
+      "bytes": 27954,
+      "sha256": "943877ce1084f6265c01b49a5ee21285cb05a83297314e63129704341b618e6a"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/repaired-build/reports/streamhouse-pipeline-TEST-com.streamhouse.pipeline.service.PipelineFacadeTest.xml",
+      "bytes": 28747,
+      "sha256": "a10eaf4b76f04247dbfa0113a7670d0af8d31deb4f31a68bde9da08174ddf3fb"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/repaired-build/reports/streamhouse-pipeline-TEST-com.streamhouse.pipeline.service.PublishGateTest.xml",
+      "bytes": 29303,
+      "sha256": "cbb15617ea4f3c96c240ec5b58c77c0afd038dbee94c44031d760128c420cb25"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/repaired-build/reports/streamhouse-pipeline-TEST-com.streamhouse.pipeline.service.TaskStateMachineTest.xml",
+      "bytes": 27577,
+      "sha256": "0ad5c81c907a617eefca3a5c2bd5abaa104bcda13918c6e1515535704d5fe314"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/repaired-build/reports/streamhouse-pipeline-TEST-com.streamhouse.pipeline.service.WatermarkGateTest.xml",
+      "bytes": 27834,
+      "sha256": "5ff205b91ef0ab9fd063d506e9d9e01f7fd8fc73bfd58bfc190d115bc973eb61"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/repaired-build/reports/streamhouse-recon-TEST-com.streamhouse.recon.mapper.ReconMapperXmlParseTest.xml",
+      "bytes": 24238,
+      "sha256": "684c83ed04428f242f77f175e02fc2b40ac783c55dc359bc030f4df422a4b4d3"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/repaired-build/reports/streamhouse-recon-TEST-com.streamhouse.recon.service.CloseBatchServiceTest.xml",
+      "bytes": 24484,
+      "sha256": "c7c20dbd4c8c1b234046a6b25feebcb6a0872c9c6a88514991259c9ae95dc972"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/repaired-build/reports/streamhouse-recon-TEST-com.streamhouse.recon.service.Dt3ReconServiceTest.xml",
+      "bytes": 24736,
+      "sha256": "1e2ac81a80672953a47f0164c081e09b873c9235c416238363ce2454230165dd"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/repaired-build/reports/streamhouse-recon-TEST-com.streamhouse.recon.service.GapClassifierTest.xml",
+      "bytes": 25321,
+      "sha256": "d608480051a0db25c87f8c5fd71e575187ad86339a341afbff1d4acec8f285a0"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/repaired-build/reports/streamhouse-recon-TEST-com.streamhouse.recon.service.ReconQueryServiceTest.xml",
+      "bytes": 23943,
+      "sha256": "a4020b2dfaefa0b0bb36d9367fba0cce5c4d5d3db60a1ac835e4f09c41b24e9e"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/repaired-build/reports/streamhouse-recovery-TEST-com.streamhouse.recovery.mapper.RecoveryMapperXmlParseTest.xml",
+      "bytes": 24285,
+      "sha256": "2aa05e6e38ddcb067ae465c152d4b327a76cfe34239a8139a7cb7cbae8428527"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/repaired-build/reports/streamhouse-recovery-TEST-com.streamhouse.recovery.service.ExceptFinalVerifierTest.xml",
+      "bytes": 25554,
+      "sha256": "33cb4bdd789fd0965b744aae4b772499a4b1122326886285f5d7fac464289612"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/repaired-build/reports/streamhouse-recovery-TEST-com.streamhouse.recovery.service.FullLoadPlannerTest.xml",
+      "bytes": 25083,
+      "sha256": "3545ca02f70ebfc0dc7d8ec1b9b5ff58d22f68826d6517d6fc7d147a791509f1"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/repaired-build/reports/streamhouse-recovery-TEST-com.streamhouse.recovery.service.LocatorGuardServiceTest.xml",
+      "bytes": 25400,
+      "sha256": "04088198be2a416353a0acfdcdfa188e755f8c06ffa4c3c71c9a4c639b386c6f"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/repaired-build/reports/streamhouse-recovery-TEST-com.streamhouse.recovery.service.RecoveryFacadeTest.xml",
+      "bytes": 25150,
+      "sha256": "dff116274bf34371d9a6202739aef4d357542e890bdf70a62fadd97f98af5f52"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/repaired-build/reports/streamhouse-recovery-TEST-com.streamhouse.recovery.service.ResnatchServiceTest.xml",
+      "bytes": 25346,
+      "sha256": "88df33701d55d0df1314776759e79b221e3b411085ada76b3c8ee96269db68a1"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/repaired-build/reports/streamhouse-recovery-TEST-com.streamhouse.recovery.service.UpsertSqlBuilderTest.xml",
+      "bytes": 25079,
+      "sha256": "c56763e3c3e29d070f82f5540f020bb1d057421f60ab448d999ece1821514b49"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/repaired-build/reports/streamhouse-recovery-TEST-com.streamhouse.recovery.service.WatermarkReplayServiceTest.xml",
+      "bytes": 26011,
+      "sha256": "b0352cee0ceb2b4cdd1fa3a2a0f05520a46aa14e33d2f770a1187d5c4cad673f"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/repaired-build/reports/streamhouse-spi-TEST-com.streamhouse.spi.ConnectorRegistryTest.xml",
+      "bytes": 19235,
+      "sha256": "aa8ea86993896fc0083705fad8f7241401bc71718c67a93af5400cfbfaab9d7c"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/repaired-build/reports/streamhouse-spi-TEST-com.streamhouse.spi.OracleSchemaSequenceTest.xml",
+      "bytes": 19090,
+      "sha256": "dce3f49c125693b539eb772d083ead4b654b2e961289b64e914d3b0bfeac32c5"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/repaired-build/stderr.txt",
+      "bytes": 3269,
+      "sha256": "83cdb01e31ff75200a00767bbdfc9023c12192727064ba25e694852ed8c3dff5"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/repaired-build/stdout.txt",
+      "bytes": 73720,
+      "sha256": "9833150e66786efed180a7dd489b8443099b8512540f6c023aefdbc62c93aa66"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/repaired-build/streamhouse-engine-oracle.jar",
+      "bytes": 64056,
+      "sha256": "fbf1d30c807200faa30034ba31e184bb7467788dc216e79121b5ccc3d586816b"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/repaired-build/streamhouse-spi.jar",
+      "bytes": 29797,
+      "sha256": "b3a8bf988ad050d4aeba44eddf128770220ce6e1a1b73bfa9a10f05a767f6aae"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/repaired-build-r2/application.jar",
+      "bytes": 35990572,
+      "sha256": "2f1b46adc7a0fa7a8d6ab7c65ec8121e5eee32989256068a603b9bee549fe878"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/repaired-build-r2/command.json",
+      "bytes": 376,
+      "sha256": "182ba0607ec6c30a5988459ab148ae9f42416c9ea2a72df3fedbe82ec9804838"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/repaired-build-r2/executed-driver.py",
+      "bytes": 3822,
+      "sha256": "4e5055b6a2d9f6c27b7b4e6ac6e45a80120c66b3e90745a8c3996ddab2eea7a6"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/repaired-build-r2/oracle-redo-kernel.jar",
+      "bytes": 294901,
+      "sha256": "a84db1a3ff8fddbe49258714c8b8d7945e6648f2caa75eb082cbf36b225e3a64"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/repaired-build-r2/OracleFacadePublicationTest.java",
+      "bytes": 10548,
+      "sha256": "e40481a8717d09cabaa4bbb93fbc3b55b2c5ec5641ec656ae31b5640ad0e3a74"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/repaired-build-r2/PipelineFacade.java",
+      "bytes": 16833,
+      "sha256": "f9a6f5fde2c55bcab4a1d75618d7f99113b2f77d47eb0c91f5d700e8ce5ad928"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/repaired-build-r2/proof.json",
+      "bytes": 830,
+      "sha256": "63281d451a043c75a21c6f64cdebba9e710c6caf778d16d6720a063cf471404d"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/repaired-build-r2/rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/repaired-build-r2/reports/streamhouse-alert-TEST-com.streamhouse.alert.mapper.AlertMapperXmlParseTest.xml",
+      "bytes": 23468,
+      "sha256": "3fa4975f4dd7d9e6a01cabba18b8d77fab6aa22aefcb53c7bdf266e6ca498563"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/repaired-build-r2/reports/streamhouse-alert-TEST-com.streamhouse.alert.service.AckServiceTest.xml",
+      "bytes": 23364,
+      "sha256": "7ef8d4738566c240f58ab1307820a3b818f86868888ea2a8d19f0829f4c6c602"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/repaired-build-r2/reports/streamhouse-alert-TEST-com.streamhouse.alert.service.AlertQueryServiceTest.xml",
+      "bytes": 23295,
+      "sha256": "c63fb6cc40255601228ad14e79bf0c67ecb9c760ffd63e60b19113b964e62486"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/repaired-build-r2/reports/streamhouse-alert-TEST-com.streamhouse.alert.service.AlertRuleEngineTest.xml",
+      "bytes": 24458,
+      "sha256": "08231084319b6e1cb971b4b8ccc7be78dcf201864491644ed596667459775b5f"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/repaired-build-r2/reports/streamhouse-alert-TEST-com.streamhouse.alert.service.AlertServiceTest.xml",
+      "bytes": 24906,
+      "sha256": "1afbcbcef48e0a0896ab5d3f0079b4fc2a4d6a80e10f93c04b0db1c0debd0234"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/repaired-build-r2/reports/streamhouse-alert-TEST-com.streamhouse.alert.service.ChannelConfigCodecTest.xml",
+      "bytes": 23323,
+      "sha256": "df3e6b3ba87ca98b1bc30464e0c91533f25e3d2d2bd48b5cdd4051788e89ca21"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/repaired-build-r2/reports/streamhouse-alert-TEST-com.streamhouse.alert.service.SmtpSenderTest.xml",
+      "bytes": 23261,
+      "sha256": "875a1d3a156ffa7e3f7027b0fe344e4dc8f6b035e92d513622225639fbde5b79"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/repaired-build-r2/reports/streamhouse-alert-TEST-com.streamhouse.alert.service.WecomWebhookSenderTest.xml",
+      "bytes": 23302,
+      "sha256": "dfefa2b8c32518ee85b564dcb85db66385ca4c79ec63d4d8f2476b992d62a53f"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/repaired-build-r2/reports/streamhouse-app-TEST-com.streamhouse.app.appdb.AppTargetMapperXmlParseTest.xml",
+      "bytes": 34220,
+      "sha256": "e8132b457be0f28bacd4521f77ba186a7cfc1d27b840bdddb88f84bc2b77eca6"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/repaired-build-r2/reports/streamhouse-app-TEST-com.streamhouse.app.auth.AgentTokenInterceptorB64InteropTest.xml",
+      "bytes": 33764,
+      "sha256": "8e068c0b64e4918d7a268aedf5844cfa55fe660d9798544a530425bd328a5ef2"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/repaired-build-r2/reports/streamhouse-app-TEST-com.streamhouse.app.auth.AgentTokenInterceptorTest.xml",
+      "bytes": 35192,
+      "sha256": "01dfff8557d0ad3231cac96640bfdf4249b30c20dc6add93510dc56dcbd3d798"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/repaired-build-r2/reports/streamhouse-app-TEST-com.streamhouse.app.auth.AuthControllerTest.xml",
+      "bytes": 35761,
+      "sha256": "59a73f8875ba57fe4409d9dc8a41b85d1c0267836de29caaf985440d41f93fad"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/repaired-build-r2/reports/streamhouse-app-TEST-com.streamhouse.app.auth.CredentialCipherTest.xml",
+      "bytes": 33685,
+      "sha256": "a2dd89e549203807cdc568576755be527d10b4966e45354c5dcbd5bb5311b734"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/repaired-build-r2/reports/streamhouse-app-TEST-com.streamhouse.app.auth.TokenServiceTest.xml",
+      "bytes": 33510,
+      "sha256": "3963feb330c67719c28f157bce9a2d5695e5d4b8a963c81175d05a8b5e78905a"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/repaired-build-r2/reports/streamhouse-app-TEST-com.streamhouse.app.baseline.BaselineCredentialServiceTest.xml",
+      "bytes": 33920,
+      "sha256": "353056d09f1e51ee102d5b19b87ba5bb8ffbc1e905013f030ccbae98ee7deb7f"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/repaired-build-r2/reports/streamhouse-app-TEST-com.streamhouse.app.baseline.BaselineDecodeGuardTest.xml",
+      "bytes": 34405,
+      "sha256": "70f3e19c5697ac06c07a30e6664f73bcaa075a6268e93a593faf7240a385dfac"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/repaired-build-r2/reports/streamhouse-app-TEST-com.streamhouse.app.baseline.OracleAcquisitionServiceTest.xml",
+      "bytes": 35074,
+      "sha256": "7ef9967c3759d8e65aa3f4e0ae0788cc904611a12942a7d1c3d603813f522b1e"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/repaired-build-r2/reports/streamhouse-app-TEST-com.streamhouse.app.baseline.OracleInputBindingServiceTest.xml",
+      "bytes": 34334,
+      "sha256": "606b9d879c3c8e06f96e1b0003124851169f2abf60b4d9811dc14e44be4ae3ad"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/repaired-build-r2/reports/streamhouse-app-TEST-com.streamhouse.app.config.JacksonLongAsStringConfigTest.xml",
+      "bytes": 33611,
+      "sha256": "9dfdfdde22873534f1b8a666f911df46a5911ff4a04f03b74f31638d273cd1be"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/repaired-build-r2/reports/streamhouse-app-TEST-com.streamhouse.app.conn.ConnectionOpsServiceTest.xml",
+      "bytes": 34120,
+      "sha256": "6d10301d42183ce088086388992a72e5cf01b45746782f91e4d2968629e8dd0e"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/repaired-build-r2/reports/streamhouse-app-TEST-com.streamhouse.app.conn.SysPartmapFallbackTest.xml",
+      "bytes": 33444,
+      "sha256": "1180e4d180a6a89b4ab2bcbe3af41fc27202f9605be8fb41ce33ef8ddcf26a87"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/repaired-build-r2/reports/streamhouse-app-TEST-com.streamhouse.app.deploy.DeployServiceTest.xml",
+      "bytes": 35508,
+      "sha256": "09ac07630d04989b36c4045fcf55be0ac992f20baf0570d145dbf88e84196fb9"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/repaired-build-r2/reports/streamhouse-app-TEST-com.streamhouse.app.heartbeat.HeartbeatServiceTest.xml",
+      "bytes": 33670,
+      "sha256": "2a1144fef00ef34f4a6f423667b7e03c17c7a68a65d37f02d84bc1eb87e55a30"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/repaired-build-r2/reports/streamhouse-app-TEST-com.streamhouse.app.machine.MachineAdminServiceTest.xml",
+      "bytes": 35413,
+      "sha256": "513c3a9228fcedce86c2f6c3c8d5a224ae85c28cca48787f98f08e73a970680d"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/repaired-build-r2/reports/streamhouse-app-TEST-com.streamhouse.app.machine.MachineSourceServiceTest.xml",
+      "bytes": 34560,
+      "sha256": "01e0b3cd693e7b3c2e90ae00aab42840fff0e5ef921bbb55f95444a41aa5a615"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/repaired-build-r2/reports/streamhouse-app-TEST-com.streamhouse.app.pipeline.AutoConsumeSchedulerTest.xml",
+      "bytes": 43085,
+      "sha256": "30e7b0a4855f7cdc2b7dbd6546c374142f111fa68b264463a40eb94ca44fe5b8"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/repaired-build-r2/reports/streamhouse-app-TEST-com.streamhouse.app.pipeline.PipelineRunServiceTest.xml",
+      "bytes": 42902,
+      "sha256": "d2c06bba0f455c03dadf01cb8999f7d5c51a6d1bc8c496c81480cb7314f87363"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/repaired-build-r2/reports/streamhouse-app-TEST-com.streamhouse.app.pipeline.WindowAdminServiceTest.xml",
+      "bytes": 34408,
+      "sha256": "2568fac94bd41a56b2a86000cb604072112a362068a61a07ccee577e98eaab44"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/repaired-build-r2/reports/streamhouse-app-TEST-com.streamhouse.app.port.CodetableDecodeContextProviderTest.xml",
+      "bytes": 33806,
+      "sha256": "cfda8af9e20b6ac0faa9709ec66abbce80b56dc8a78d86ee8ba6a364668329f5"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/repaired-build-r2/reports/streamhouse-app-TEST-com.streamhouse.app.port.FileCodetableFileWriterTest.xml",
+      "bytes": 33913,
+      "sha256": "a84d3361c679706d2328d2ebbb7f5cd8e91361000364b5503baa149cbfc09329"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/repaired-build-r2/reports/streamhouse-app-TEST-com.streamhouse.app.port.FnDblogOfficialChannelPortTest.xml",
+      "bytes": 34379,
+      "sha256": "bf2ecd48d62d9fbebbc631a0be8780059f07b05b29bba33e20165aac8a79e6ca"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/repaired-build-r2/reports/streamhouse-app-TEST-com.streamhouse.app.port.GatewayWindowSourceTest.xml",
+      "bytes": 33492,
+      "sha256": "95282453f46317540b14b955b559d78f21f1ed6ac9568af7cee748718688817a"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/repaired-build-r2/reports/streamhouse-app-TEST-com.streamhouse.app.port.KernelTargetApplyPortTest.xml",
+      "bytes": 34522,
+      "sha256": "3be27a90c7f8d88920a42762df0316690e754c73b7f27faafca96e1905242a03"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/repaired-build-r2/reports/streamhouse-app-TEST-com.streamhouse.app.port.OdsEnrichedTargetApplyPortTest.xml",
+      "bytes": 35517,
+      "sha256": "57ca8471ba97b571317908f0c19efa825dd96af48d51e4043f03667f613af42c"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/repaired-build-r2/reports/streamhouse-app-TEST-com.streamhouse.app.port.OdsMappingEngineTest.xml",
+      "bytes": 35074,
+      "sha256": "3f394ba7393057e681b219df2eb429697e23436b2477e98913a98ae24f9bb4f8"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/repaired-build-r2/reports/streamhouse-app-TEST-com.streamhouse.app.port.OracleBoundedPublicationTest.xml",
+      "bytes": 33951,
+      "sha256": "3aa636ef7c5a3d035e7c61f7a17b2c50e1a30e15914b5335d6d522c4e8a03e74"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/repaired-build-r2/reports/streamhouse-app-TEST-com.streamhouse.app.port.OracleControlPublicationTest.xml",
+      "bytes": 34908,
+      "sha256": "870b315f5006271cf35df13160224ec99e26cc2d24bb49d6d93f9ef273aad56c"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/repaired-build-r2/reports/streamhouse-app-TEST-com.streamhouse.app.port.RowValueDecoderTest.xml",
+      "bytes": 35298,
+      "sha256": "df2e9fed057a96d26581ddf58d0404563d2672e11bde1875007049a8995edc21"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/repaired-build-r2/reports/streamhouse-app-TEST-com.streamhouse.app.stream.CrossProcessFileLockTest.xml",
+      "bytes": 33331,
+      "sha256": "b87cb8888dfb6f4ad1ddeb8baf8f7f55e9836762a04b6ae79c00fcc48a8337c1"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/repaired-build-r2/reports/streamhouse-app-TEST-com.streamhouse.app.stream.StageBVerifyServiceTest.xml",
+      "bytes": 36363,
+      "sha256": "780c3f47ec3df03d3875a3b73ec2685af902f8f50962ded739ff3f89190dbc6b"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/repaired-build-r2/reports/streamhouse-app-TEST-com.streamhouse.app.stream.StreamFileServiceTest.xml",
+      "bytes": 41770,
+      "sha256": "7257fec3e6d4dcc9b5e204ab3a4b09bc6bea4260894f2ddbb997cd49f5a8641b"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/repaired-build-r2/reports/streamhouse-app-TEST-com.streamhouse.app.stream.StreamMapperXmlParseTest.xml",
+      "bytes": 33608,
+      "sha256": "e8a01ce683609b3b67fba7fa6d737a4a7019cb7cdbbd0b8e4aaba663ecadc59e"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/repaired-build-r2/reports/streamhouse-app-TEST-com.streamhouse.app.target.TargetMappingServiceTest.xml",
+      "bytes": 34566,
+      "sha256": "d6264fab6a16b0e02e1249b568735f56f2079742785e25ae3fe0a10d070351e0"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/repaired-build-r2/reports/streamhouse-app-TEST-com.streamhouse.app.target.TargetServiceTest.xml",
+      "bytes": 34786,
+      "sha256": "4296a1875651b51560a5f75c21492d71c525d75cea6fa60bb6cd2bdc0cf48977"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/repaired-build-r2/reports/streamhouse-app-TEST-com.streamhouse.app.web.BaselineControllerTest.xml",
+      "bytes": 34846,
+      "sha256": "480afe7fc985803c7ef0f50113d3f50f1e57659c5b07b27496ea6a2b4d81312c"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/repaired-build-r2/reports/streamhouse-app-TEST-com.streamhouse.app.web.DeleteEndpointsControllerTest.xml",
+      "bytes": 38080,
+      "sha256": "7206673c062b408489b3127a6e137d4ee4e87c45c10758167f08aee532efa202"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/repaired-build-r2/reports/streamhouse-app-TEST-com.streamhouse.app.web.PipelineControllerTest.xml",
+      "bytes": 38572,
+      "sha256": "d910fd637c78cba8d0d66fed5007e696c688ec64d4181296fb3346225f6e1203"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/repaired-build-r2/reports/streamhouse-app-TEST-com.streamhouse.app.web.StreamGatewayControllerCodecTest.xml",
+      "bytes": 34378,
+      "sha256": "d09aa5172a274282c63c848e6ff3992383fffc22ee814db02e472b9ad2d3e6d8"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/repaired-build-r2/reports/streamhouse-app-TEST-com.streamhouse.app.web.UnquarantineAuditTest.xml",
+      "bytes": 33720,
+      "sha256": "c9427017271d67da21e5e30cb218ec8ecdaf8bbacffa1e6fac45d719b71bf0ef"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/repaired-build-r2/reports/streamhouse-codetable-TEST-com.streamhouse.codetable.mapper.CodetableMapperXmlParseTest.xml",
+      "bytes": 22938,
+      "sha256": "c15e7ffef7c514f184bbf0f8fe757fda23e4c96164c5f435a316c257e0394ff0"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/repaired-build-r2/reports/streamhouse-codetable-TEST-com.streamhouse.codetable.service.CoverageGuardTest.xml",
+      "bytes": 23682,
+      "sha256": "25429379c9d89e3cb09b35fdb50c2662b9448b40e9b693a1d5c363857d1305e4"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/repaired-build-r2/reports/streamhouse-codetable-TEST-com.streamhouse.codetable.service.DriftPatrolServiceTest.xml",
+      "bytes": 23061,
+      "sha256": "04020ee61a6e42aab377dbccdb02f61d4a95ed6ae0347f4e4c0a0b6e31f4c740"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/repaired-build-r2/reports/streamhouse-codetable-TEST-com.streamhouse.codetable.service.ReimportServiceTest.xml",
+      "bytes": 23184,
+      "sha256": "03c63e794c7fc3a3c91177ddfbe5fa94bbf10f413ca101b510e31d330b216fad"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/repaired-build-r2/reports/streamhouse-codetable-TEST-com.streamhouse.codetable.service.StructureFingerprintTest.xml",
+      "bytes": 23171,
+      "sha256": "0d0f9c1060c8b8f1337fe2d2601849a677770452ebdd475c4e25dd9ca071d1bb"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/repaired-build-r2/reports/streamhouse-common-TEST-com.streamhouse.common.DialectTest.xml",
+      "bytes": 18870,
+      "sha256": "fa0c423e060af81c1c137f1eabac3d406b5eb5eb01f4b055a22747ec23deaed6"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/repaired-build-r2/reports/streamhouse-common-TEST-com.streamhouse.common.Sha256Test.xml",
+      "bytes": 18962,
+      "sha256": "98d2d0ee53ff5d0ad7eefb3aecefd17d4933d5d156d8f1c2daec82c504507c41"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/repaired-build-r2/reports/streamhouse-common-TEST-com.streamhouse.common.SnowflakeIdTest.xml",
+      "bytes": 18897,
+      "sha256": "0ce9cb181a710c205c0027a0100b67def2aa55fa4616ed9200765959f8febdfa"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/repaired-build-r2/reports/streamhouse-engine-sqlserver-TEST-com.streamhouse.engines.sqlserver.SqlServerConnectorTest.xml",
+      "bytes": 21497,
+      "sha256": "ddb57da2ae84a0b45764efd93c20e4b3d7251ce90a3f0f4fa3f804cb1978ec25"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/repaired-build-r2/reports/streamhouse-engine-sqlserver-TEST-com.streamhouse.engines.sqlserver.VerifyCliAssemblerTest.xml",
+      "bytes": 23877,
+      "sha256": "0889b417398c1ee731d26c0f81b9e37a7e08ee0699f55366dcfdecf99e4c8a19"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/repaired-build-r2/reports/streamhouse-gateway-TEST-com.streamhouse.gateway.mapper.MapperXmlParseTest.xml",
+      "bytes": 30040,
+      "sha256": "5c7f8d07b08270e8373164214059a5c46a8fdade0f0b3c898078bc96b7837541"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/repaired-build-r2/reports/streamhouse-gateway-TEST-com.streamhouse.gateway.service.AgentMetricsServiceTest.xml",
+      "bytes": 30206,
+      "sha256": "b1bae14983f2e40371b06381cb17c972b8dd9333b0a91def736f1702a31b8f2b"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/repaired-build-r2/reports/streamhouse-gateway-TEST-com.streamhouse.gateway.service.ContinuityCheckerTest.xml",
+      "bytes": 30521,
+      "sha256": "9cc9a7bb32571e09baa4bd0ae61a69489d7b51e755f5720e32149d86d32d21b6"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/repaired-build-r2/reports/streamhouse-gateway-TEST-com.streamhouse.gateway.service.MachineServiceTest.xml",
+      "bytes": 30270,
+      "sha256": "1b5ab0aa95c63e1755a5decfacdad0bc0549e87f4d020f9e227d2126ca8e867b"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/repaired-build-r2/reports/streamhouse-gateway-TEST-com.streamhouse.gateway.service.TransferChunkServiceTest.xml",
+      "bytes": 32103,
+      "sha256": "4beae51e5e279f51f6902aa8c4b6256285e41fd208ed0ee444a31f3a8cff8159"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/repaired-build-r2/reports/streamhouse-gateway-TEST-com.streamhouse.gateway.service.WindowIngestServiceTest.xml",
+      "bytes": 30811,
+      "sha256": "d58353938cc194ab79a518265ca7dd0cd9e46b300cb07391c812b83603d6fc76"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/repaired-build-r2/reports/streamhouse-gateway-TEST-com.streamhouse.gateway.web.MachineBindingGuardTest.xml",
+      "bytes": 30240,
+      "sha256": "310905c4f7023bfba20a83eb5f9036fa5675ef4be2724fa06d9b1d4f0a55bcc5"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/repaired-build-r2/reports/streamhouse-gateway-TEST-com.streamhouse.gateway.web.TransferControllerFlatOffsetNumericTest.xml",
+      "bytes": 30655,
+      "sha256": "808343bbf9e4e6886951870954d090ed1e122870a3a51361215f98731d226a0d"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/repaired-build-r2/reports/streamhouse-pipeline-TEST-com.streamhouse.pipeline.mapper.PipelineMapperXmlParseTest.xml",
+      "bytes": 27365,
+      "sha256": "911d16a7da07c35ead3f3c541c91917cdc53b66089ce35916fadc1236bcd2d93"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/repaired-build-r2/reports/streamhouse-pipeline-TEST-com.streamhouse.pipeline.service.DecodeBatchServiceTest.xml",
+      "bytes": 28588,
+      "sha256": "9f27884ff10470b795c623f7dd6fd3e5b0907397914b5647de3fc0ea0ae47283"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/repaired-build-r2/reports/streamhouse-pipeline-TEST-com.streamhouse.pipeline.service.OracleFacadePublicationTest.xml",
+      "bytes": 28110,
+      "sha256": "fbb88bb4198233c5f3e70157ec7d243727601b5744c12ac13728aaec11b3b1cd"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/repaired-build-r2/reports/streamhouse-pipeline-TEST-com.streamhouse.pipeline.service.PipelineFacadeTest.xml",
+      "bytes": 28747,
+      "sha256": "9d0e51a778b958807396eb743bb27aa520de90a381b4c006e9517d99956844a8"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/repaired-build-r2/reports/streamhouse-pipeline-TEST-com.streamhouse.pipeline.service.PublishGateTest.xml",
+      "bytes": 29303,
+      "sha256": "3bbbe1b07a17654f6f998b7c08f7404510ce40a21a2cca519a69ee695148c8da"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/repaired-build-r2/reports/streamhouse-pipeline-TEST-com.streamhouse.pipeline.service.TaskStateMachineTest.xml",
+      "bytes": 27577,
+      "sha256": "bb8f196b325b0be5dedcfab84846aa0257a7003e4b5de6c07f53ed6be627c9a7"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/repaired-build-r2/reports/streamhouse-pipeline-TEST-com.streamhouse.pipeline.service.WatermarkGateTest.xml",
+      "bytes": 27830,
+      "sha256": "b6ceb0022044466fbbf67d74c92069834429232a1e58d3fc154681bb50927707"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/repaired-build-r2/reports/streamhouse-recon-TEST-com.streamhouse.recon.mapper.ReconMapperXmlParseTest.xml",
+      "bytes": 24236,
+      "sha256": "3e217d68c63a0934450e8ca8019d4f9ca1e917587dda27637325b86ff9f46a61"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/repaired-build-r2/reports/streamhouse-recon-TEST-com.streamhouse.recon.service.CloseBatchServiceTest.xml",
+      "bytes": 24481,
+      "sha256": "6c520518f67d1a525b3fc2538a545b91abaaa5f490957a9a8990d3014d0a3088"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/repaired-build-r2/reports/streamhouse-recon-TEST-com.streamhouse.recon.service.Dt3ReconServiceTest.xml",
+      "bytes": 24733,
+      "sha256": "26422d66f23535a595dadcd4887c2f208a0008d1a96c47b983a6548cdc72b782"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/repaired-build-r2/reports/streamhouse-recon-TEST-com.streamhouse.recon.service.GapClassifierTest.xml",
+      "bytes": 25318,
+      "sha256": "62d23bebd83cfa20aafa27fbdd76acc93dd6621fa76a2a66d94daf7f8954b13a"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/repaired-build-r2/reports/streamhouse-recon-TEST-com.streamhouse.recon.service.ReconQueryServiceTest.xml",
+      "bytes": 23939,
+      "sha256": "0e58881a07861a5d97e34b4f4f1c4de42e8efc88840007f83f876055ce176b94"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/repaired-build-r2/reports/streamhouse-recovery-TEST-com.streamhouse.recovery.mapper.RecoveryMapperXmlParseTest.xml",
+      "bytes": 24282,
+      "sha256": "15b9f8b26544449bfa6a63a50d0941738fe14bea497919cfad92a7ff6bd07059"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/repaired-build-r2/reports/streamhouse-recovery-TEST-com.streamhouse.recovery.service.ExceptFinalVerifierTest.xml",
+      "bytes": 25554,
+      "sha256": "2bf6a44e7b664bf0dc9bae7463d7ee09b5520da9bb0a9b4370de88ce7401f630"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/repaired-build-r2/reports/streamhouse-recovery-TEST-com.streamhouse.recovery.service.FullLoadPlannerTest.xml",
+      "bytes": 25074,
+      "sha256": "418076b2f01ddc7c5ea3ab8fc43e488a318ae57f2fb481c8b0046af7c690d134"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/repaired-build-r2/reports/streamhouse-recovery-TEST-com.streamhouse.recovery.service.LocatorGuardServiceTest.xml",
+      "bytes": 25402,
+      "sha256": "d127aa9e383c87c8ef5b4515771fe8e928d26f63c8262657729c2d9b007f872a"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/repaired-build-r2/reports/streamhouse-recovery-TEST-com.streamhouse.recovery.service.RecoveryFacadeTest.xml",
+      "bytes": 25150,
+      "sha256": "33c4ccd275d3ee3d08116551a54349c14d032520d775243a57add4177cf4909d"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/repaired-build-r2/reports/streamhouse-recovery-TEST-com.streamhouse.recovery.service.ResnatchServiceTest.xml",
+      "bytes": 25343,
+      "sha256": "99f2f49c3178feb7381f0667cf53aee4211ee7c9de212f768be1df7e366b3eec"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/repaired-build-r2/reports/streamhouse-recovery-TEST-com.streamhouse.recovery.service.UpsertSqlBuilderTest.xml",
+      "bytes": 25076,
+      "sha256": "7a0983c4736372b47317ebc3a23cd387ebfa64e5e653db60e75a8afd4d969f40"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/repaired-build-r2/reports/streamhouse-recovery-TEST-com.streamhouse.recovery.service.WatermarkReplayServiceTest.xml",
+      "bytes": 26006,
+      "sha256": "9cf2fed1603e33feb78816f1789b4250587ce256286e916ff31f69fede242dab"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/repaired-build-r2/reports/streamhouse-spi-TEST-com.streamhouse.spi.ConnectorRegistryTest.xml",
+      "bytes": 19236,
+      "sha256": "cde3996a65c4e440c09ae8f1e10dc6fbeeb92863f478ee8fe1e556ae43adde77"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/repaired-build-r2/reports/streamhouse-spi-TEST-com.streamhouse.spi.OracleSchemaSequenceTest.xml",
+      "bytes": 19090,
+      "sha256": "9c064379134daef2b63872cae6ec94876235c6f6bc134edd58d2694368606ba8"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/repaired-build-r2/stderr.txt",
+      "bytes": 3264,
+      "sha256": "09b0b27c8411b48b5cc07031e1c2a03b8394c5bcc5e343c696607fd96248f930"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/repaired-build-r2/stdout.txt",
+      "bytes": 73720,
+      "sha256": "aaf10413800726378efa469c6af9ecef246d1ddab7fb029ba65cd1da1e7a0a68"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/repaired-build-r2/streamhouse-engine-oracle.jar",
+      "bytes": 64056,
+      "sha256": "fbf1d30c807200faa30034ba31e184bb7467788dc216e79121b5ccc3d586816b"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/repaired-build-r2/streamhouse-spi.jar",
+      "bytes": 29797,
+      "sha256": "442f573ff6b5df665474328a7d408ae500c9b128d8e39f95f417fe38a4a5efd1"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/repaired-health-sha.command.json",
+      "bytes": 154,
+      "sha256": "74344dd934230108780bdb706c3eb90a7c77afbaaaa0219a320f0e04c5d46c30"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/repaired-health-sha.end.json",
+      "bytes": 56,
+      "sha256": "46bd3aa5d7f474427f505b2b81451b05995d1b7e1e76a0c8f867396c3335dcd6"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/repaired-health-sha.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/repaired-health-sha.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/repaired-health-sha.stdout.txt",
+      "bytes": 92,
+      "sha256": "cce09f646c52d142f96f2e9e8cdc88eeb8865ad0915f30adae38816ef1d6c4c8"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/repaired-health.command.json",
+      "bytes": 127,
+      "sha256": "f9062476c5479b4b51c85de86a4e3b4e17689c8d386719374f37a664c73f7b13"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/repaired-health.end.json",
+      "bytes": 56,
+      "sha256": "fde417548991229a3c1a2955e04b2330d89f3261ef84c902d64f8a2c6e3efc42"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/repaired-health.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/repaired-health.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/repaired-health.stdout.txt",
+      "bytes": 119,
+      "sha256": "ac09f54ccdb1a54e46f1fc6b1f25aabe4d4adb9e00f57fdf79076d9ae471f729"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/repaired-helper.txt",
+      "bytes": 31,
+      "sha256": "b17d89e7015dff3c1aefd06263258bf3dabf10f0fd70f02a97cacf7ef7b266e6"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/repaired-late-attempt.command.json",
+      "bytes": 127,
+      "sha256": "3ffd00091bddf662a6aa64193200669d4f1e77c030774ab24f809090a1619471"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/repaired-late-attempt.end.json",
+      "bytes": 56,
+      "sha256": "dac861f5903f23919f13b1425818f7dcf146fbff31cbada5a2fc6ec476a8da73"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/repaired-late-attempt.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/repaired-late-attempt.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/repaired-late-attempt.stdout.txt",
+      "bytes": 284,
+      "sha256": "c9b855da679c35f2e05d91cf32705bacf70da7673be054d681c5cf73d4af0e58"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/repaired-late-forensic.command.json",
+      "bytes": 149,
+      "sha256": "69bec27d0c92b30ee3e5a80b79591139213698d92aefecb2f3caa204fdb7ff78"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/repaired-late-forensic.end.json",
+      "bytes": 56,
+      "sha256": "71f8dd567bb9a7ee1a7800e27662fe1b0fba4c6834551604657e1e4f79e9da94"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/repaired-late-forensic.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/repaired-late-forensic.sql",
+      "bytes": 444,
+      "sha256": "db85305b98adc60c9f09cb8e69b4c80da387729f648ecdfb849474f80320800a"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/repaired-late-forensic.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/repaired-late-forensic.stdout.txt",
+      "bytes": 265,
+      "sha256": "5fa63f6b975d62f9fdcc1bb4cc42f99ff49eda6086f165136368b4c032d80e4a"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/repaired-late-state-proof.json",
+      "bytes": 473,
+      "sha256": "96a049a0337b9af6b0776783df37e0a6bf103d8bb92ea0fc403a3fe20ec680ea"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/repaired-late-state.command.json",
+      "bytes": 149,
+      "sha256": "d605de6a8ae351c033a2b24d23fab10b2c53ae3c4a46e1cec2d7ec123217a336"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/repaired-late-state.end.json",
+      "bytes": 56,
+      "sha256": "fe67a801a2f4d7d570d9f3a687eba035144a533972790b29d3497a66c273b4a4"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/repaired-late-state.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/repaired-late-state.sql",
+      "bytes": 1712,
+      "sha256": "a428c637f62ed9b5ba84b55b3bdcf49743eeb7e8b6740c70b547e60b3ee2647c"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/repaired-late-state.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/repaired-late-state.stdout.txt",
+      "bytes": 808,
+      "sha256": "387e7d44de7cf9a8181591f0e83334b57371470bbe35cfd0e262aa958b1ce412"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/restart-repaired-owner.command.json",
+      "bytes": 199,
+      "sha256": "87d9192a300558387407b99833b5a24ed5aad33287c8e3869b47c033fcca41e6"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/restart-repaired-owner.end.json",
+      "bytes": 56,
+      "sha256": "0a7370d47566b4ccfeec90c183dfd0c7bad042e65bb52722d93e445359a12a7e"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/restart-repaired-owner.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/restart-repaired-owner.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/restart-repaired-owner.stdout.txt",
+      "bytes": 46,
+      "sha256": "106d2463dabf0c2814108dacf0a83777c8dd047fa678faab890782f925f7cb94"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/restart-repaired-start.command.json",
+      "bytes": 113,
+      "sha256": "dbb108c0abe312baf907a7d04d4d925e6ecc2e85e12b838e83d10651ee4dbdfe"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/restart-repaired-start.end.json",
+      "bytes": 56,
+      "sha256": "ae512429aefea9e9aa5faeb7d08626ada4caba0544600d09dece41c0cb3cbf80"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/restart-repaired-start.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/restart-repaired-start.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/restart-repaired-start.stdout.txt",
+      "bytes": 32,
+      "sha256": "8331c6f4bc3aa1ab88af654769822f354117137e52747160a52f7e490f67b5f0"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/restart-repaired-stop.command.json",
+      "bytes": 128,
+      "sha256": "758e9e6a920cc1c3f94537d54d6608d8cbabfeefb8e8d7ae0a7d377cd277ab4b"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/restart-repaired-stop.end.json",
+      "bytes": 56,
+      "sha256": "cb4de471a9670c635b770aedee480ef87cf908d5b166e74c0f4c8c77b7688af1"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/restart-repaired-stop.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/restart-repaired-stop.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/restart-repaired-stop.stdout.txt",
+      "bytes": 87,
+      "sha256": "6dcf3f2303f41f27b9c0f90e9bfc8a0a0a551d894501b68d1f92c70aa1ea6b48"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/restart-state-proof.json",
+      "bytes": 478,
+      "sha256": "d13a1e1737ce814e665c2cf52e64d2196e767b2b1eef9901e9371b5ff3281b67"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/restart-state.command.json",
+      "bytes": 149,
+      "sha256": "52b6d49f11421ac5a353cdf7105c330d97a3e485c0e12bfb6691472ad65b8355"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/restart-state.end.json",
+      "bytes": 56,
+      "sha256": "3ad5d14dad39cac40b0a48e8564109a22a94f05efeda92d3f1ff331040be1f85"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/restart-state.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/restart-state.sql",
+      "bytes": 1712,
+      "sha256": "a428c637f62ed9b5ba84b55b3bdcf49743eeb7e8b6740c70b547e60b3ee2647c"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/restart-state.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/restart-state.stdout.txt",
+      "bytes": 6312,
+      "sha256": "e8c50cf89f94f90c8b1913249faa34bd6886e62cb90954a6b5a7701261a69422"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/restarted-health-sha.command.json",
+      "bytes": 154,
+      "sha256": "8607bdec9676f484a317b5cbe1f8805bba5eae0e0950b8c4c373df3c73f1cec2"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/restarted-health-sha.end.json",
+      "bytes": 56,
+      "sha256": "c89f93e2df653aeadbffc21601fdbc87aaef27eae8947e775f3dc80710cdff97"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/restarted-health-sha.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/restarted-health-sha.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/restarted-health-sha.stdout.txt",
+      "bytes": 92,
+      "sha256": "cce09f646c52d142f96f2e9e8cdc88eeb8865ad0915f30adae38816ef1d6c4c8"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/restarted-health.command.json",
+      "bytes": 127,
+      "sha256": "94291b2570d8c7908d4af9b39b937db7878cae8bb052fa5c9ce9f6b63482db93"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/restarted-health.end.json",
+      "bytes": 56,
+      "sha256": "4c91ba6a72f96310db91bea64747ca7dd0a71124f22056274b495862879d2f76"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/restarted-health.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/restarted-health.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/restarted-health.stdout.txt",
+      "bytes": 119,
+      "sha256": "ac09f54ccdb1a54e46f1fc6b1f25aabe4d4adb9e00f57fdf79076d9ae471f729"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/restarted-recovery.command.json",
+      "bytes": 127,
+      "sha256": "43dd9b0405a3e9e15154a0ff19240b5e21e161c4de013f5fcb28fc86ceb7db95"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/restarted-recovery.end.json",
+      "bytes": 56,
+      "sha256": "c0dfc54b5af0579b2a291a812d47755bec0b7431bb8dd74ba25cf289f646fc1a"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/restarted-recovery.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/restarted-recovery.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/restarted-recovery.stdout.txt",
+      "bytes": 4797,
+      "sha256": "61ab4b902de91dfe6b04dadda28fc9ad87e739bae91fae1205ec795a8e51c42a"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/restore-binding.command.json",
+      "bytes": 149,
+      "sha256": "6bc4f2b34427ad4bdcbe7d9c0b63cf538715b0d766a43891dde0ceea39901a05"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/restore-binding.end.json",
+      "bytes": 56,
+      "sha256": "44aa153e707f75fad6a770e13d4e5fa3472a629deaa82e373c8f45ff21a1f4b2"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/restore-binding.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/restore-binding.sql",
+      "bytes": 487,
+      "sha256": "ef2fefed051a528927991e46e0474df1c765cb4546dc692df100e8a603c7caa3"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/restore-binding.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/restore-binding.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/sealed-build_oracle_failure_evidence19.py",
+      "bytes": 3822,
+      "sha256": "4e5055b6a2d9f6c27b7b4e6ac6e45a80120c66b3e90745a8c3996ddab2eea7a6"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/sealed-seal_split_history_late_http19.py",
+      "bytes": 4665,
+      "sha256": "5e880e7ba646dde73426967ae4f76b657eae57bf3125c932dc13101bd59fb794"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/sealed-split_history_late_http19.py",
+      "bytes": 16076,
+      "sha256": "1a57b3c4b22a8565d945dc9ab63cdda5a6ad330f849e85e059e95b9315bde2cd"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/sealed-verify_split_history_late_http19.py",
+      "bytes": 5911,
+      "sha256": "9cf7ef0ba01ca1a920da1da32a9eef6a053c3f5ec96a6b09e2f88661ff64a97e"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/source-owner.command.json",
+      "bytes": 167,
+      "sha256": "8caedeb215ccc159258a80296acfb22d0d4a6f78034e28b984c1466ca3bb2e84"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/source-owner.end.json",
+      "bytes": 56,
+      "sha256": "4b6114fcb9cdc6b60a70a1d3515d9069fea575a8585a6a0f7bdf9ffebcaebe6b"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/source-owner.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/source-owner.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/source-owner.stdout.txt",
+      "bytes": 22,
+      "sha256": "e6f17ef0f1bff0b3f3ca6816129ee44d4d575225f7b533896b7044aea88e89f0"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/start-repaired-inventory.command.json",
+      "bytes": 107,
+      "sha256": "92972d2423978404b3722533a858226f13429b64fb519fda65243e74af910cd2"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/start-repaired-inventory.end.json",
+      "bytes": 56,
+      "sha256": "95ba0d740af3a88aa6c170e1f31556e1f4ca759b30b72e26d5f4f6c909d27f7f"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/start-repaired-inventory.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/start-repaired-inventory.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/start-repaired-inventory.stdout.txt",
+      "bytes": 843,
+      "sha256": "8e5cb37bd66183d68497497891079a1c0a92aae0736e640e98dd8b3ef043cca1"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/start-repaired-old-owner.command.json",
+      "bytes": 196,
+      "sha256": "100df7c1b2a1383f175f32b0be19eca954e96a87e2912c243e366e7b297c9a49"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/start-repaired-old-owner.end.json",
+      "bytes": 56,
+      "sha256": "e36e81b237c4eabb9b193a83edee6196940fb0de6cade646d3fc471cd7d62c26"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/start-repaired-old-owner.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/start-repaired-old-owner.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/start-repaired-old-owner.stdout.txt",
+      "bytes": 47,
+      "sha256": "65bdbdef07b6099fc67fc4336ce242ff02eeef937ca4afac1dfd9c642fc4994a"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/start-repaired.command.json",
+      "bytes": 1091,
+      "sha256": "53643de851885b302214f307fd44eb59d043ce3f29333047eb56f4df00527ded"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/start-repaired.end.json",
+      "bytes": 56,
+      "sha256": "a1cd6fad865fda102c7470a4e8b02f394555d74df1e68af252f466b1025b0abf"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/start-repaired.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/start-repaired.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/start-repaired.stdout.txt",
+      "bytes": 65,
+      "sha256": "ebb625475e558a0be0fefd96b04fef464378952a4eba422c17b62f731fb2f0c9"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/start.command.json",
+      "bytes": 931,
+      "sha256": "ff4ee88af5a32036497a4c44a204ccd0cdcaed15ef26018a9526a98c82e45261"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/start.end.json",
+      "bytes": 56,
+      "sha256": "8910725390b69cf9b7d59efa2bbe1d30b2a72c7390c35c84bfa81e5070ed86d9"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/start.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/start.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/start.stdout.txt",
+      "bytes": 65,
+      "sha256": "032f7498d9f5b54a62e6af09150ef8c6ec2fb1dec81da5dac260efccb7db728d"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/stop-final-owner.command.json",
+      "bytes": 199,
+      "sha256": "f71c9016bf413aa3ab53e2f2ddb692c6106f88a8dbdad2f2b3066e8dcd476004"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/stop-final-owner.end.json",
+      "bytes": 56,
+      "sha256": "fa18b837e62898ccc7727331ed3bbf5996b1e17eca020f08f740fc237153a1c3"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/stop-final-owner.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/stop-final-owner.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/stop-final-owner.stdout.txt",
+      "bytes": 46,
+      "sha256": "106d2463dabf0c2814108dacf0a83777c8dd047fa678faab890782f925f7cb94"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/stop-final-state.command.json",
+      "bytes": 187,
+      "sha256": "abbdcbc3351359e7ba53528bcf3d552369542ba2c2edbc5aea295d761289ece9"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/stop-final-state.end.json",
+      "bytes": 56,
+      "sha256": "fabbbf4e4a9c5aa8ee0b2cd37aac36e734b7a55dfec8e9505d25c1fc2c1d118a"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/stop-final-state.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/stop-final-state.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/stop-final-state.stdout.txt",
+      "bytes": 17,
+      "sha256": "a838087ccfe0dc3765bd8ff067613312dcc3f87282f4e490984001d3c787a921"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/stop-final.command.json",
+      "bytes": 128,
+      "sha256": "9fd22fa723cd2d11dcbbae05eb34c48e0e4cf157015346fe5477cc93ae51ec0c"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/stop-final.end.json",
+      "bytes": 56,
+      "sha256": "8458c6ab1f37d74050e340d982f00188bdcbe28529a99719fd8ffc4cd0a456bc"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/stop-final.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/stop-final.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/stop-final.stdout.txt",
+      "bytes": 87,
+      "sha256": "6dcf3f2303f41f27b9c0f90e9bfc8a0a0a551d894501b68d1f92c70aa1ea6b48"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/stop-old-owner.command.json",
+      "bytes": 196,
+      "sha256": "47c267b1e5586ac1897fa94de946b8fa63b6f2c3b80138f0480bca0e1bacd187"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/stop-old-owner.end.json",
+      "bytes": 56,
+      "sha256": "a476f1b6eded1abc732b22a46e858acdc252b0a1d9c31d89e334c5e30d1498ae"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/stop-old-owner.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/stop-old-owner.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/stop-old-owner.stdout.txt",
+      "bytes": 46,
+      "sha256": "106d2463dabf0c2814108dacf0a83777c8dd047fa678faab890782f925f7cb94"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/stop-old.command.json",
+      "bytes": 125,
+      "sha256": "ed095073b0cfb8b5b6ae43c6e587decfb605ae1dde388400e4a534edfb02183a"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/stop-old.end.json",
+      "bytes": 56,
+      "sha256": "622a1bcb002d3dbd7432fa5388567d84b74bea403900db30939c26efa9c4edbc"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/stop-old.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/stop-old.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/stop-old.stdout.txt",
+      "bytes": 84,
+      "sha256": "c5915191dfe7257428f76556688f021a18dadbe039ae34a3baef073bb4be9ef3"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/stopped-ork-oracle-v3-product-20261006.command.json",
+      "bytes": 173,
+      "sha256": "a95f85fb9f3aac982bc350974e217309c9c8d0ad9b0e4c273150b8c544cd12c8"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/stopped-ork-oracle-v3-product-20261006.end.json",
+      "bytes": 56,
+      "sha256": "87f4321fadeed0f690b08f6b10989a4bc9d1a50463149b6230c4b2371033c668"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/stopped-ork-oracle-v3-product-20261006.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/stopped-ork-oracle-v3-product-20261006.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/stopped-ork-oracle-v3-product-20261006.stdout.txt",
+      "bytes": 23,
+      "sha256": "3393f906add810c70d11215acfea7d633a49b2297811bdd2c00111ea948e3e73"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/stopped-ork-split-history-product-20261007.command.json",
+      "bytes": 177,
+      "sha256": "9ffb68804977491b18ffba107ce89785bfaeb96a3aa82b90a850612aa6020f2e"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/stopped-ork-split-history-product-20261007.end.json",
+      "bytes": 56,
+      "sha256": "a400a79132859c2699a856a859b3693b1c3a88c7c582f706ea76d3a3760b156f"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/stopped-ork-split-history-product-20261007.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/stopped-ork-split-history-product-20261007.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/stopped-ork-split-history-product-20261007.stdout.txt",
+      "bytes": 23,
+      "sha256": "3393f906add810c70d11215acfea7d633a49b2297811bdd2c00111ea948e3e73"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/submit.command.json",
+      "bytes": 127,
+      "sha256": "a13e3f50dee5f9e319180cf71a0b1a927b37e69c9f735c1275616fb30a3b37d2"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/submit.end.json",
+      "bytes": 56,
+      "sha256": "9d2511ff9736d6913ab92d267b674fdae47cebb48b755b3e2ac1ae052866fcf9"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/submit.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/submit.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/submit.stdout.txt",
+      "bytes": 292,
+      "sha256": "ed7690e0cabfeaa65737591fbb4bdb68ee34d994e8b1f74a248c0bb32826603b"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/target-setup.command.json",
+      "bytes": 149,
+      "sha256": "90d922f3b48f2a108de2ac696713667a107ce475e4e326db0a0ad70324ece18d"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/target-setup.end.json",
+      "bytes": 56,
+      "sha256": "122ea6aee754114afd411a5da40a6d2716dc61d471150976b7894ad5db0057d0"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/target-setup.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/target-setup.sql",
+      "bytes": 1525,
+      "sha256": "260c4e7cf76c696cf54d0f45b81facecf01c84807f85fa2183fd3869d7ea21be"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/target-setup.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/target-setup.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/split-history-late-http-20261007/task-id.txt",
+      "bytes": 18,
+      "sha256": "0a83c289b8508574ba69745caf439e33172fca7fa8519df25862995453d53f6f"
+    }
+  ]
+}
