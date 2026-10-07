@@ -1,5 +1,7 @@
 # 新chat接续：D1产品活跃前缀恢复
 
+交接同步结果：root交付cd90e04、P反馈9e7775a均本地已commit且clean；两个仓库首次推送与一次重试均GitHub Internal Server Error拒绝，不能声称已远端同步。重试完整原文及rc保留lab/out/prefix-handoff-publish-20261007/root-retry.txt、product-retry.txt；首失败Request ID分别560F:BA21E:1413C2:1BC2D7:6AC660BB与6A0B:11810C:145029:1C0392:6AC660BB，时间2026-10-07T15:09:49Z。新chat先核remote/local差异，在服务恢复后推指定root/main与P分支，不force、不改他人分支。此故障不阻断本地D1开发。
+
 原完整goal不缩减：严格零侵入raw→可信事务/历史字典→完整事件→StreamHouse→目标原子提交→CP/ACK→独立验证/现场/发布；全部Oracle目标后查Codex卡顿并关闭oracle-redo。禁止Luna/子代理。用户授权由当前chat自行决定新开chat时机；切换后旧chat只历史，不并行写入。
 
 先读根AGENTS、STATUS、DEVELOPMENT_CLOSEOUT_20261007、本文件与DELIVERY_W6_PREFIX_REGISTRATION_20261007；旧20261006交接只作历史。共享D:/work/vibecode/StreamHouse只读；产品唯一可修改P=D:/work/vibecode/OracleRedoKernel/lab/out/streamhouse-oracle-gate-worktree，branch codex/oracle-dictionary-acquisition。读P的AGENTS/产品方案/开发流程。PR13 draft依赖12，独立评审PENDING；接续要attach PR https://github.com/liuzx778899-hue/StreamHouse/pull/13 。不要生成子代理。
