@@ -8,11 +8,18 @@ import java.util.*;
 /** Unified source-bound checkpoint. Raw prefix remains mandatory for dictionary and physical pair authority. */
 public final class HistoricalRecovery {
     private HistoricalRecovery() {}
+    public record Prefix(byte[] checkpoint,int pendingTransactions,int completedTransactions) {
+        public Prefix { checkpoint=checkpoint.clone(); }
+        @Override public byte[] checkpoint(){return checkpoint.clone();}
+    }
     public static byte[] checkpointCaptured(List<CaptureJournal.Verified> captures,Path baseline,String trustedBaselineSha256,long leaf)throws IOException {
+        return prefixCaptured(captures,baseline,trustedBaselineSha256,leaf).checkpoint();
+    }
+    public static Prefix prefixCaptured(List<CaptureJournal.Verified> captures,Path baseline,String trustedBaselineSha256,long leaf)throws IOException {
         var snapshot=FrozenHeapBaseline.read(baseline,trustedBaselineSha256);var inputs=RedoBatch.captures(captures);
         var history=ArchivedDictionaryHistory.read(inputs,snapshot);
         var physical=ArchivedPhysicalTransactions.readHistoryPrefix(inputs,snapshot,history,leaf);
-        return encode(snapshot,leaf,history,physical);
+        return new Prefix(encode(snapshot,leaf,history,physical),physical.state().pending().size(),physical.completed().transactions().size());
     }
     public static CapturedHistoricalHeapBatch readCaptured(List<CaptureJournal.Verified> captures,Path baseline,String trustedBaselineSha256,
                                                           long leaf,byte[] checkpoint,String trustedCheckpointSha256)throws IOException {
