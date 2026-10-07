@@ -1,5 +1,7 @@
 # 2026-10-06 新 chat 接续：历史 schema 目标提交
 
+当前执行（2026-10-07恢复失败集成）：[新恢复入口失败与恢复](DELIVERY_W6_RECOVERY_FAILURES_20261007.md)，同件e0a79dd8/原754实际缺失文件、带可信摘要的identity混配均rc2/0事件/零推进；第二UPDATE ORA-02290目标整批回滚/CPACK零推进；ACK目录故障保留PUBLISHED与提交事实/原FileAlreadyExistsException，解除后同任务补ACK、全部目标账/batches/CP及原失败引用不变。353双SHA/前234+113+100+356未变，helper停止；0源业务重放/新获取/日志配置。历史恢复正反例已证，D1下一真正活跃产品跨发布持久恢复；一般矩阵/独立目标/评审/现场/发布仍待证，原goal active。
+
 当前执行（2026-10-07实际产品恢复）：[历史持久恢复HTTP集成](DELIVERY_W6_RECOVERY_HTTP_20261007.md)，同件producte0a79dd8/原754实际恢复文件→两完整历史UPDATE→目标2/2/1→PUBLISHED/CONSUMED/CP→ACK逐字段与字节一致。文件毒化rc2/0事件/零推进，精确恢复同任务通过；重复及提交后SIGKILL137→重启→resume不重写/CPACK不变。234双SHA/前113+100+356未变，owned helper停止；0源业务重放/新获取/日志配置。仅有限历史恢复产品链，D1仍需缺件/组件混配、新恢复晚失败/ACK故障与真正活跃跨发布；独立目标/评审/现场/发布未过，原goal active。
 
 当前执行（2026-10-07产品恢复绑定）：[产品恢复输入候选](DELIVERY_W6_RECOVERY_BINDING_20261007.md)，P代码60f56f5/反馈cb7846e/完整754，producte0a79dd8真实嵌入kernel593e730b，adapter/SPI原件。APPROVED历史绑定增加可选持久恢复文件路径/可信SHA，decode与发布核验，获取路径解析保留，客户端options不可登记；新两反例单位测试通过。113双SHA/前100+45+86+36+42+88+182未变，0源/目标/换装；新候选实际HTTP/target/CPACK恢复仍待证，独立评审PENDING。继续D1真实恢复集成，五开发包详见收口清单；原goal active。
