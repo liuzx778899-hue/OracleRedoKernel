@@ -9,3 +9,5 @@
 证据本地目录d2-index-savepoint-20261008已320项双SHA封存；不得追加、重跑source-actions-started标记后的capture脚本或新获取baseline。独立native仅按可信baseline SCN过滤，未参考Java位置/事件；自主发现1事务9original/2compensated/7live，与完整物理图逐项零差异。错误checkpoint摘要与删除pending owner后重算摘要，正式jar均rc1/stdout0；恢复反例2项通过。旧committed-proof的native PENDING是该追加核验前时点，最新native-poison-proof和封存清单证明本有限物理图已过，不扩张到通用逻辑支持。
 
 最初只读快照挂载拒绝、V2获取误用导致独立V3比较失败、路径准备与shell生成错误保留在当轮记录；正式baseline-reference是V3，首V2另存baseline-v2-original。自有两个helper已停143。无产品或目标部署，本场景target/CPACK未验证；独立评审[PR1](https://github.com/liuzx778899-hue/OracleRedoKernel/pull/1)保持draft。下一在新目录升级私有产品候选，只读复用封存原始输入与原获取，实际验证主键变更→目标原子提交/CPACK，再推进D2其他缺口/D3正式C++采集；D4/D5、独立目标/独立评审/现场验收/发布保留。
+
+产品后续追加（2026-10-08）：以上“未部署/CPACK未验证”保留为内核交付时点。私有产品b815f23完整779通过，product5ae245dd嵌入正式kernel71d38849核等；新专属任务101423259819597824真实WAITING_INPUT→3个顺序完整UPDATE→原子目标3/3/1→PUBLISHED/DONE→两窗CONSUMED，CPACK同字节SHAc8c584d07f5bd05fe505cadb8727a9e2f5af2492e1a30c5785f0c03f8a46460a，重复原任务实账稳定，341双SHA封存/helper停止143。未重跑源事务/获取/旧D1轮次；同实例跨schema不算独立目标，生产/现场/发布与独立评审仍待证。最新产品反馈与六列状态以唯一P的REPORT_ORACLE_D2_INDEX_RESTORE_INTEGRATION_20261008.md/STATUS为准；root STATUS恢复并保留移交快照，不作为产品当前入口。
