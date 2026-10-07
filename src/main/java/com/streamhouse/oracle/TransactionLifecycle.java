@@ -19,6 +19,65 @@ public final class TransactionLifecycle {
     private ArchivedRedo.Header archive;
     private boolean failed;
 
+    /** Identity state only. The caller must durably retain its digest and the bound raw input. */
+    public byte[] checkpoint() throws RedoException {
+        checkHealthy();if(archive==null)throw new RedoException("NO_ARCHIVE_INPUT");
+        var out=new StringBuilder("ORK_TRANSACTION_IDENTITIES_V1\nA|")
+                .append(java.util.Base64.getEncoder().encodeToString(archive.sha256().getBytes(java.nio.charset.StandardCharsets.UTF_8)));
+        for(long value:new long[]{archive.bytes(),archive.dbid(),archive.activationId(),archive.compatibility(),archive.thread(),archive.sequence(),
+                archive.resetlogsId(),archive.resetlogsScn(),archive.firstScn(),archive.nextScn(),archive.blocks()})out.append('|').append(value);
+        out.append('\n');
+        var order=java.util.Comparator.comparingLong(Key::uid).thenComparingLong(Key::container).thenComparingLong(Key::segment)
+                .thenComparingInt(Key::slot).thenComparingLong(Key::sequence);
+        for(var key:pending.keySet().stream().sorted(order).toList()) {
+            var begin=pending.get(key);out.append("P");checkpointKey(out,key);
+            out.append('|').append(begin.identity().xid().usn()).append('|').append(begin.scn()).append('\n');
+        }
+        for(var key:closed.stream().sorted(order).toList()){out.append("C");checkpointKey(out,key);out.append('\n');}
+        return out.toString().getBytes(java.nio.charset.StandardCharsets.UTF_8);
+    }
+    private static void checkpointKey(StringBuilder out,Key key) {
+        out.append('|').append(key.uid()).append('|').append(key.container()).append('|').append(key.segment())
+                .append('|').append(key.slot()).append('|').append(key.sequence());
+    }
+    /** A digest supplied by the same untrusted file does not establish checkpoint authority. */
+    public static TransactionLifecycle restore(byte[] bytes,String trustedSha256)throws RedoException {
+        try {
+            String digest=java.util.HexFormat.of().formatHex(java.security.MessageDigest.getInstance("SHA-256").digest(bytes));
+            if(!digest.equals(trustedSha256))throw new RedoException("TRANSACTION_CHECKPOINT_DIGEST_MISMATCH");
+            String[] lines=new String(bytes,java.nio.charset.StandardCharsets.UTF_8).split("\n");
+            if(lines.length<2 || !lines[0].equals("ORK_TRANSACTION_IDENTITIES_V1"))throw new RedoException("TRANSACTION_CHECKPOINT_FORMAT");
+            String[] a=lines[1].split("\\|",-1);if(a.length!=13 || !a[0].equals("A"))throw new RedoException("TRANSACTION_CHECKPOINT_ARCHIVE");
+            var state=new TransactionLifecycle();
+            state.archive=new ArchivedRedo.Header(new String(java.util.Base64.getDecoder().decode(a[1]),java.nio.charset.StandardCharsets.UTF_8),
+                    Long.parseLong(a[2]),Long.parseLong(a[3]),Long.parseLong(a[4]),Long.parseLong(a[5]),Integer.parseInt(a[6]),
+                    Long.parseLong(a[7]),Long.parseLong(a[8]),Long.parseLong(a[9]),Long.parseLong(a[10]),Long.parseLong(a[11]),Long.parseLong(a[12]));
+            if(state.archive.thread()<1 || state.archive.firstScn()>=state.archive.nextScn() || state.archive.blocks()<3)
+                throw new RedoException("TRANSACTION_CHECKPOINT_ARCHIVE");
+            var slots=new HashSet<String>();
+            for(int i=2;i<lines.length;i++) {
+                String[] f=lines[i].split("\\|",-1);boolean active=f[0].equals("P");
+                if(f.length!=(active?8:6) || (!active && !f[0].equals("C")))throw new RedoException("TRANSACTION_CHECKPOINT_IDENTITY");
+                var key=new Key(Long.parseLong(f[1]),Long.parseLong(f[2]),Long.parseLong(f[3]),Integer.parseInt(f[4]),Long.parseLong(f[5]));
+                if(key.uid()<1 || key.container()<1 || key.segment()<1 || key.segment()>0xffffffffL || key.slot()<0 || key.slot()>65535
+                        || key.sequence()<0 || key.sequence()>0xffffffffL || state.pending.containsKey(key) || state.closed.contains(key))
+                    throw new RedoException("TRANSACTION_CHECKPOINT_IDENTITY");
+                if(active) {
+                    int usn=Integer.parseInt(f[6]);long scn=Long.parseLong(f[7]);
+                    if(usn<1 || usn>65535 || scn<state.archive.resetlogsScn() || scn>=state.archive.nextScn()
+                            || !slots.add(key.uid()+"|"+key.container()+"|"+key.segment()+"|"+key.slot()))
+                        throw new RedoException("TRANSACTION_CHECKPOINT_ACTIVE_IDENTITY");
+                    var identity=new Identity(key.uid(),key.container(),new HeapRowPatch.Xid(usn,key.slot(),key.sequence()));
+                    if(state.identities.putIfAbsent(identity,key)!=null)throw new RedoException("TRANSACTION_CHECKPOINT_ACTIVE_IDENTITY");
+                    state.pending.put(key,new Begin(identity,scn));
+                } else state.closed.add(key);
+            }
+            if(!java.util.Arrays.equals(bytes,state.checkpoint()))throw new RedoException("TRANSACTION_CHECKPOINT_NONCANONICAL");
+            return state;
+        } catch(RedoException e){throw e;}
+        catch(IllegalArgumentException | java.security.NoSuchAlgorithmException e){throw new RedoException("TRANSACTION_CHECKPOINT_FORMAT");}
+    }
+
     public void archive(ArchivedRedo.Header next) throws RedoException {
         checkHealthy();
         if (archive!=null && (next.dbid()!=archive.dbid() || next.activationId()!=archive.activationId()

@@ -1,0 +1,260 @@
+{
+  "proof": {
+    "kernel_sha256": "44341f9da66956010962d4577d6c2972e3194c5d97882a16afa73a1603777a00",
+    "pending_sha256": "c346dea4e3d3c54fdfa79458aba37bbb0f07c45a204b0f8857f9ee0a0634f4f5",
+    "prefix_process_rc": 23,
+    "separate_jvm_resume_rc": 0,
+    "xid": "10.14.2869",
+    "begin_record_scn": 2743312,
+    "end_record_scn": 2743344,
+    "negative_cases": 2,
+    "source_actions": 0,
+    "target_actions": 0,
+    "events": 0,
+    "identity_state_only": true,
+    "full_cross_publication_recovery": "NOT_VERIFIED"
+  },
+  "tests": [
+    317,
+    0,
+    0,
+    0
+  ],
+  "classes_changed": [
+    "com/streamhouse/oracle/TransactionLifecycle.class"
+  ],
+  "classes_unchanged": 122,
+  "previous_capsules": [
+    {
+      "manifest": "DELIVERY-cross-window-range-20261007.json",
+      "files": 88,
+      "unchanged": true
+    },
+    {
+      "manifest": "RESEARCH-cross-window-active-20261007.json",
+      "files": 182,
+      "unchanged": true
+    }
+  ],
+  "driver_failure_preserved": true,
+  "passed_build_halt_resume_not_replayed": true,
+  "full_undo_dictionary_state_verified": false,
+  "product_changed": false,
+  "production_deployed": false,
+  "site_accepted": false,
+  "released": false,
+  "double_sha256_verified": true,
+  "files_count": 42,
+  "files": [
+    {
+      "path": "lab/out/cross-window-identities-20261007/classes/com/streamhouse/oracle/TransactionIdentityResumeProbe.class",
+      "bytes": 6908,
+      "sha256": "adad906d7eb5ccdc63863d235ae9dd91fe0ab9fe74e8eabd4598c511990eafe6"
+    },
+    {
+      "path": "lab/out/cross-window-identities-20261007/closed-identities.state",
+      "bytes": 233,
+      "sha256": "8511f88724e3214f0715b6864d94f30a488aaafad89a94087c34c3c62e251d82"
+    },
+    {
+      "path": "lab/out/cross-window-identities-20261007/compile-probe.command.json",
+      "bytes": 325,
+      "sha256": "e33d1667e04ee9fbf7770c3ba965d40a8233693683fab03c029d130c8cc6b708"
+    },
+    {
+      "path": "lab/out/cross-window-identities-20261007/compile-probe.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/cross-window-identities-20261007/compile-probe.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/cross-window-identities-20261007/compile-probe.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/cross-window-identities-20261007/digest-poison.state",
+      "bytes": 252,
+      "sha256": "cb44cc92b5758c6939e5b41268fbdc8e5ef3fae618ab540b697482cc07d33868"
+    },
+    {
+      "path": "lab/out/cross-window-identities-20261007/failed-driver-r1.error.txt",
+      "bytes": 391,
+      "sha256": "8d2fa424ee09353849325212fee0a95405467944299f1e7f4d14c8882013e2f6"
+    },
+    {
+      "path": "lab/out/cross-window-identities-20261007/failed-driver-r1.py",
+      "bytes": 3348,
+      "sha256": "49be45afec12cd39da898968647745c5dc85f157f5d1798b559873cf22337dd5"
+    },
+    {
+      "path": "lab/out/cross-window-identities-20261007/full-build.command.json",
+      "bytes": 65,
+      "sha256": "6331d95251a0f2a93bd915416a190f270d6e65c5795d0039e81975404fc163dc"
+    },
+    {
+      "path": "lab/out/cross-window-identities-20261007/full-build.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/cross-window-identities-20261007/full-build.stderr.txt",
+      "bytes": 301,
+      "sha256": "a73235e74b7212a667f3c9a6209ea0afe89e0cb01c372b4298f0f1a5e284ba49"
+    },
+    {
+      "path": "lab/out/cross-window-identities-20261007/full-build.stdout.txt",
+      "bytes": 12154,
+      "sha256": "392fe28cccfa8e4fdad3ded0bdd0b6bc6b0b163621f20d10abd5df94214c192d"
+    },
+    {
+      "path": "lab/out/cross-window-identities-20261007/kernel.jar",
+      "bytes": 297978,
+      "sha256": "44341f9da66956010962d4577d6c2972e3194c5d97882a16afa73a1603777a00"
+    },
+    {
+      "path": "lab/out/cross-window-identities-20261007/pending-identities.state",
+      "bytes": 252,
+      "sha256": "c346dea4e3d3c54fdfa79458aba37bbb0f07c45a204b0f8857f9ee0a0634f4f5"
+    },
+    {
+      "path": "lab/out/cross-window-identities-20261007/prefix-halt.command.json",
+      "bytes": 756,
+      "sha256": "38258c12292f7a5bea0fcb5cabb49c8c1e60bee9f5da596049e30ee4cf2c8e93"
+    },
+    {
+      "path": "lab/out/cross-window-identities-20261007/prefix-halt.rc.txt",
+      "bytes": 2,
+      "sha256": "535fa30d7e25dd8a49f1536779734ec8286108d115da5045d77f3b4185d8f790"
+    },
+    {
+      "path": "lab/out/cross-window-identities-20261007/prefix-halt.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/cross-window-identities-20261007/prefix-halt.stdout.txt",
+      "bytes": 96,
+      "sha256": "8da1481e2ee3b032f81d58a50dc0f582682127fd61bc997bab65eff740ebbb24"
+    },
+    {
+      "path": "lab/out/cross-window-identities-20261007/proof.json",
+      "bytes": 500,
+      "sha256": "fca879b06c8432275da40a2fd140dc943080cdd543d786c71441d9422c39bc02"
+    },
+    {
+      "path": "lab/out/cross-window-identities-20261007/reject-poison.command.json",
+      "bytes": 819,
+      "sha256": "d4bb274c32d4e5a808865adb75e0a965ce0dc043f2baeb0f8c6f392c88b7003c"
+    },
+    {
+      "path": "lab/out/cross-window-identities-20261007/reject-poison.rc.txt",
+      "bytes": 1,
+      "sha256": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b"
+    },
+    {
+      "path": "lab/out/cross-window-identities-20261007/reject-poison.stderr.txt",
+      "bytes": 296,
+      "sha256": "f404394c119b99a0aeeb08a18f93603be956f34fbca48d31f40cc87a60d31940"
+    },
+    {
+      "path": "lab/out/cross-window-identities-20261007/reject-poison.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/cross-window-identities-20261007/reject-truncated-valid-digest.command.json",
+      "bytes": 815,
+      "sha256": "7f1bf324bbc4331a1d79afed0cd20de026d6e162a1259cf382c1a7c6b537e1bc"
+    },
+    {
+      "path": "lab/out/cross-window-identities-20261007/reject-truncated-valid-digest.rc.txt",
+      "bytes": 1,
+      "sha256": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b"
+    },
+    {
+      "path": "lab/out/cross-window-identities-20261007/reject-truncated-valid-digest.stderr.txt",
+      "bytes": 293,
+      "sha256": "2cf761def04e60a9616fceb7730e5d4fce76f90045d59955846ba918d6295d50"
+    },
+    {
+      "path": "lab/out/cross-window-identities-20261007/reject-truncated-valid-digest.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/cross-window-identities-20261007/sealed-seal_transaction_identity_resume19.py",
+      "bytes": 2953,
+      "sha256": "47306eee3f612b57ac8b51571f4c96c1c1a7206de0d4c8c37643f4800eb57e2f"
+    },
+    {
+      "path": "lab/out/cross-window-identities-20261007/sealed-TransactionIdentityResumeProbe.java",
+      "bytes": 3204,
+      "sha256": "df84849f5ccb71cb69b214b148a355c3b33e1f43a452d0eb50cccc190ea0e1b3"
+    },
+    {
+      "path": "lab/out/cross-window-identities-20261007/sealed-verify_transaction_identity_resume19.py",
+      "bytes": 3661,
+      "sha256": "61832d729da25e784d93def8bfca456bf1794fbecc22273dc4516506a39daa2d"
+    },
+    {
+      "path": "lab/out/cross-window-identities-20261007/separate-jvm-resume.command.json",
+      "bytes": 824,
+      "sha256": "9b5b91b2ca10b97dc20f5916241529c2a3ac369e5ef728b389e8e6f80b150c03"
+    },
+    {
+      "path": "lab/out/cross-window-identities-20261007/separate-jvm-resume.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/cross-window-identities-20261007/separate-jvm-resume.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/cross-window-identities-20261007/separate-jvm-resume.stdout.txt",
+      "bytes": 185,
+      "sha256": "758dd54758db91bb2b9dae53523457a84a0c1fc7ce3e28d3d271023af1c9b94a"
+    },
+    {
+      "path": "lab/out/cross-window-identities-20261007/targeted.log",
+      "bytes": 2117,
+      "sha256": "16f3e03d3606e9d4b95ea371502445923ab0704c6c490a969722d5a7bfeac113"
+    },
+    {
+      "path": "lab/out/cross-window-identities-20261007/targeted.rc.txt",
+      "bytes": 3,
+      "sha256": "13bf7b3039c63bf5a50491fa3cfd8eb4e699d1ba1436315aef9cbe5711530354"
+    },
+    {
+      "path": "lab/out/cross-window-identities-20261007/TransactionIdentityResumeProbe.java",
+      "bytes": 3204,
+      "sha256": "df84849f5ccb71cb69b214b148a355c3b33e1f43a452d0eb50cccc190ea0e1b3"
+    },
+    {
+      "path": "lab/out/cross-window-identities-20261007/TransactionLifecycle.java",
+      "bytes": 16840,
+      "sha256": "0c08155002a8bb73a9bd06e3b41e3e7f195d0084418f9210077df093c221b3e3"
+    },
+    {
+      "path": "lab/out/cross-window-identities-20261007/TransactionLifecycleCheckpointTest.java",
+      "bytes": 2841,
+      "sha256": "76fd4c0735c91a633822b9b36adfa91f8196ab7a17d652ca340d3e782cee2036"
+    },
+    {
+      "path": "lab/out/cross-window-identities-20261007/truncated.state",
+      "bytes": 251,
+      "sha256": "aa01afe3836521565ebc9a5129baf1f299964a7eb9a0fd9c140c94f8f6b31a5d"
+    },
+    {
+      "path": "lab/out/cross-window-identities-20261007/verify_transaction_identity_resume19.py",
+      "bytes": 3661,
+      "sha256": "61832d729da25e784d93def8bfca456bf1794fbecc22273dc4516506a39daa2d"
+    }
+  ]
+}
