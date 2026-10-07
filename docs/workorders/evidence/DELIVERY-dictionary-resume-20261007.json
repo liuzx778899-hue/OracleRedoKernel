@@ -1,0 +1,503 @@
+{
+  "proof": {
+    "kernel_sha256": "b35dcdecf1dd528cd6bc1121499d86dbceb4856cae6265eae4b63a08cb13e208",
+    "cases": [
+      {
+        "name": "historical",
+        "checkpoint_sha256": "28beb8a4b049827990e4f1f580423eb5b3b9e03804eb2d808b0a8790c835b701",
+        "output_sha256": "b65210234362e04aa4d785c568e199cbe03be3c709a6361285c0ca37ede77c3e",
+        "events": 2,
+        "byte_equal_reference": "lab\\out\\split-history-candidate-20261007\\r6\\capture-business.stdout.txt",
+        "halt_rc": 23
+      },
+      {
+        "name": "active",
+        "checkpoint_sha256": "7dac38b1f9d35b2d9b8dc253fef34d924f610255d05b72478d0c196e169ce57e",
+        "output_sha256": "f9cc40d0286107476e07c985a0e1f9fc8c744213aabb2ca1e9b73bb2f99fcf1c",
+        "events": 2,
+        "byte_equal_reference": "lab\\out\\cross-window-range-20261007\\candidate-closed.stdout.txt",
+        "halt_rc": 23
+      }
+    ],
+    "source_actions": 0,
+    "target_actions": 0,
+    "product_actions": 0,
+    "incremental_pending_sys_recovery": false,
+    "raw_prefix_required": true,
+    "full_publication_recovery": false
+  },
+  "tests": [
+    322,
+    0,
+    0,
+    0
+  ],
+  "classes_changed": [
+    "com/streamhouse/oracle/ArchivedDictionaryHistory$Context.class",
+    "com/streamhouse/oracle/ArchivedDictionaryHistory$Timeline.class",
+    "com/streamhouse/oracle/ArchivedDictionaryHistory.class",
+    "com/streamhouse/oracle/CapturedHistoricalHeapBatch.class"
+  ],
+  "classes_unchanged": 120,
+  "previous_capsules": [
+    {
+      "manifest": "DELIVERY-undo-graph-resume-20261007.json",
+      "files": 36,
+      "unchanged": true
+    },
+    {
+      "manifest": "DELIVERY-transaction-identity-resume-20261007.json",
+      "files": 42,
+      "unchanged": true
+    },
+    {
+      "manifest": "DELIVERY-cross-window-range-20261007.json",
+      "files": 88,
+      "unchanged": true
+    },
+    {
+      "manifest": "RESEARCH-cross-window-active-20261007.json",
+      "files": 182,
+      "unchanged": true
+    }
+  ],
+  "files_count": 86,
+  "double_sha256_verified": true,
+  "files": [
+    {
+      "path": "lab/out/cross-window-dictionary-20261007/active-complete-resume.command.json",
+      "bytes": 982,
+      "sha256": "97d380c7395a7cbe716aba6c9d682973fcaf3f70f1b7e998103a923d251ec924"
+    },
+    {
+      "path": "lab/out/cross-window-dictionary-20261007/active-complete-resume.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/cross-window-dictionary-20261007/active-complete-resume.stderr.txt",
+      "bytes": 74,
+      "sha256": "0b880972feac567b51d6bece7a1bae4aeb56d43cc9364541318fd2136f284160"
+    },
+    {
+      "path": "lab/out/cross-window-dictionary-20261007/active-complete-resume.stdout.txt",
+      "bytes": 1685,
+      "sha256": "f9cc40d0286107476e07c985a0e1f9fc8c744213aabb2ca1e9b73bb2f99fcf1c"
+    },
+    {
+      "path": "lab/out/cross-window-dictionary-20261007/active-digest-poison.command.json",
+      "bytes": 989,
+      "sha256": "55317e8f578d7648bcbf0ceeadc9a7f5f8260ec384ff0eb098b4bcb7dc8203a4"
+    },
+    {
+      "path": "lab/out/cross-window-dictionary-20261007/active-digest-poison.rc.txt",
+      "bytes": 1,
+      "sha256": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b"
+    },
+    {
+      "path": "lab/out/cross-window-dictionary-20261007/active-digest-poison.stderr.txt",
+      "bytes": 370,
+      "sha256": "4c17dfc57f2aab3af3f4aa3bb7d41d77c33759c8626f3f1fe086bbc04b5b79bf"
+    },
+    {
+      "path": "lab/out/cross-window-dictionary-20261007/active-digest-poison.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/cross-window-dictionary-20261007/active-duplicate-commit.command.json",
+      "bytes": 992,
+      "sha256": "2a61f5b749a3a6ca30e84dd0d88ec91d8b2df3bad011dab45bcacaec602a43b8"
+    },
+    {
+      "path": "lab/out/cross-window-dictionary-20261007/active-duplicate-commit.rc.txt",
+      "bytes": 1,
+      "sha256": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b"
+    },
+    {
+      "path": "lab/out/cross-window-dictionary-20261007/active-duplicate-commit.stderr.txt",
+      "bytes": 368,
+      "sha256": "6165b0df066d57eceea3eba11c2a67b1cea3f30f7281dcf9141043364e4c5486"
+    },
+    {
+      "path": "lab/out/cross-window-dictionary-20261007/active-duplicate-commit.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/cross-window-dictionary-20261007/active-duplicate.state",
+      "bytes": 173,
+      "sha256": "097ee3eb1b4e4909903505383423b9813e474dc45262cf9081535efcec944ac7"
+    },
+    {
+      "path": "lab/out/cross-window-dictionary-20261007/active-noncanonical.command.json",
+      "bytes": 992,
+      "sha256": "8c98373b337d6ac3d0fad40f4e7ec61bda9ec3438acfec1ce77daf56540173be"
+    },
+    {
+      "path": "lab/out/cross-window-dictionary-20261007/active-noncanonical.rc.txt",
+      "bytes": 1,
+      "sha256": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b"
+    },
+    {
+      "path": "lab/out/cross-window-dictionary-20261007/active-noncanonical.stderr.txt",
+      "bytes": 368,
+      "sha256": "6165b0df066d57eceea3eba11c2a67b1cea3f30f7281dcf9141043364e4c5486"
+    },
+    {
+      "path": "lab/out/cross-window-dictionary-20261007/active-noncanonical.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/cross-window-dictionary-20261007/active-poison.state",
+      "bytes": 161,
+      "sha256": "40566b01f9e5daea8496a0973bb7a5f776b14144e292611e58d942c17a197cf9"
+    },
+    {
+      "path": "lab/out/cross-window-dictionary-20261007/active-prefix-halt.command.json",
+      "bytes": 747,
+      "sha256": "edd3557a0029a0e686f6918e9c570e06156d3fc034ed26f714fdeb11899d262d"
+    },
+    {
+      "path": "lab/out/cross-window-dictionary-20261007/active-prefix-halt.rc.txt",
+      "bytes": 2,
+      "sha256": "535fa30d7e25dd8a49f1536779734ec8286108d115da5045d77f3b4185d8f790"
+    },
+    {
+      "path": "lab/out/cross-window-dictionary-20261007/active-prefix-halt.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/cross-window-dictionary-20261007/active-prefix-halt.stdout.txt",
+      "bytes": 27,
+      "sha256": "7a86ee7cabfa8b3c3a87663a16fc4411cdb9eee66696084f9938c9c8eb0c815e"
+    },
+    {
+      "path": "lab/out/cross-window-dictionary-20261007/active-state-poison.command.json",
+      "bytes": 989,
+      "sha256": "6888caec37adda94d5cad5d4016b178dff620857af68eaa62d15fac40ce3792c"
+    },
+    {
+      "path": "lab/out/cross-window-dictionary-20261007/active-state-poison.rc.txt",
+      "bytes": 1,
+      "sha256": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b"
+    },
+    {
+      "path": "lab/out/cross-window-dictionary-20261007/active-state-poison.stderr.txt",
+      "bytes": 376,
+      "sha256": "023456898297e6afb64d80132f4f02a95782fb1af7915c74538728d9cdf48c0d"
+    },
+    {
+      "path": "lab/out/cross-window-dictionary-20261007/active-state-poison.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/cross-window-dictionary-20261007/active-truncated.state",
+      "bytes": 160,
+      "sha256": "9b6d7b0aad7d81b59e74ff067f1f9d4d98b0357921e04328efae8dff9efefb28"
+    },
+    {
+      "path": "lab/out/cross-window-dictionary-20261007/active.state",
+      "bytes": 161,
+      "sha256": "7dac38b1f9d35b2d9b8dc253fef34d924f610255d05b72478d0c196e169ce57e"
+    },
+    {
+      "path": "lab/out/cross-window-dictionary-20261007/ArchivedDictionaryHistory.java",
+      "bytes": 21160,
+      "sha256": "eb0caea05789faec9c9378eb268d7394920b6f9f2ea4f403020d729609c737d6"
+    },
+    {
+      "path": "lab/out/cross-window-dictionary-20261007/CapturedHistoricalHeapBatch.java",
+      "bytes": 4979,
+      "sha256": "f02102bd3a1d6b0ac4a360f987816f61cd9555d4e70f03826e8ff2dfc1fc2b74"
+    },
+    {
+      "path": "lab/out/cross-window-dictionary-20261007/classes/DictionaryResumeProbe.class",
+      "bytes": 7946,
+      "sha256": "ebadf3cd18e91a0c02b2b9ed805cd007cd3e8cbddc6c65bcf222aaa8ec583a66"
+    },
+    {
+      "path": "lab/out/cross-window-dictionary-20261007/compile-probe.command.json",
+      "bytes": 316,
+      "sha256": "1ccb7b0a642001e25ddd70fddda69809effc030322edff490793193f6de6cf27"
+    },
+    {
+      "path": "lab/out/cross-window-dictionary-20261007/compile-probe.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/cross-window-dictionary-20261007/compile-probe.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/cross-window-dictionary-20261007/compile-probe.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/cross-window-dictionary-20261007/DictionaryResumeProbe.java",
+      "bytes": 2369,
+      "sha256": "df12e5d78a0a275824b9ad3971ed0694693676133e06cd5feb84706c9c5f6de8"
+    },
+    {
+      "path": "lab/out/cross-window-dictionary-20261007/full-build.command.json",
+      "bytes": 65,
+      "sha256": "6331d95251a0f2a93bd915416a190f270d6e65c5795d0039e81975404fc163dc"
+    },
+    {
+      "path": "lab/out/cross-window-dictionary-20261007/full-build.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/cross-window-dictionary-20261007/full-build.stderr.txt",
+      "bytes": 301,
+      "sha256": "a73235e74b7212a667f3c9a6209ea0afe89e0cb01c372b4298f0f1a5e284ba49"
+    },
+    {
+      "path": "lab/out/cross-window-dictionary-20261007/full-build.stdout.txt",
+      "bytes": 12534,
+      "sha256": "ee222277173e552d2ea3c3f5cc12710737ce06a789fb0bf0acd2f3bbdc2ef3e1"
+    },
+    {
+      "path": "lab/out/cross-window-dictionary-20261007/historical-complete-resume.command.json",
+      "bytes": 990,
+      "sha256": "c5e5b04017bfb1a60921756b960b17b166e95654e362d907958f71eea2ab78e7"
+    },
+    {
+      "path": "lab/out/cross-window-dictionary-20261007/historical-complete-resume.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/cross-window-dictionary-20261007/historical-complete-resume.stderr.txt",
+      "bytes": 74,
+      "sha256": "0b880972feac567b51d6bece7a1bae4aeb56d43cc9364541318fd2136f284160"
+    },
+    {
+      "path": "lab/out/cross-window-dictionary-20261007/historical-complete-resume.stdout.txt",
+      "bytes": 1781,
+      "sha256": "b65210234362e04aa4d785c568e199cbe03be3c709a6361285c0ca37ede77c3e"
+    },
+    {
+      "path": "lab/out/cross-window-dictionary-20261007/historical-digest-poison.command.json",
+      "bytes": 997,
+      "sha256": "edbbe435f91596a0aa3d99ed5e7dfff76c2fab4e02963d10435f5a9e5120661a"
+    },
+    {
+      "path": "lab/out/cross-window-dictionary-20261007/historical-digest-poison.rc.txt",
+      "bytes": 1,
+      "sha256": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b"
+    },
+    {
+      "path": "lab/out/cross-window-dictionary-20261007/historical-digest-poison.stderr.txt",
+      "bytes": 370,
+      "sha256": "4c17dfc57f2aab3af3f4aa3bb7d41d77c33759c8626f3f1fe086bbc04b5b79bf"
+    },
+    {
+      "path": "lab/out/cross-window-dictionary-20261007/historical-digest-poison.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/cross-window-dictionary-20261007/historical-duplicate-commit.command.json",
+      "bytes": 1000,
+      "sha256": "70545b3ea994f87ba28e24e431ef9804d913ca6dcd03ce556cb50e2d8517bb8f"
+    },
+    {
+      "path": "lab/out/cross-window-dictionary-20261007/historical-duplicate-commit.rc.txt",
+      "bytes": 1,
+      "sha256": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b"
+    },
+    {
+      "path": "lab/out/cross-window-dictionary-20261007/historical-duplicate-commit.stderr.txt",
+      "bytes": 368,
+      "sha256": "6165b0df066d57eceea3eba11c2a67b1cea3f30f7281dcf9141043364e4c5486"
+    },
+    {
+      "path": "lab/out/cross-window-dictionary-20261007/historical-duplicate-commit.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/cross-window-dictionary-20261007/historical-duplicate.state",
+      "bytes": 307,
+      "sha256": "6d569d145464b9bee23f9761ecbe8e07906572ec944b68f04a660be68a560c5b"
+    },
+    {
+      "path": "lab/out/cross-window-dictionary-20261007/historical-noncanonical.command.json",
+      "bytes": 1000,
+      "sha256": "3baf620a539d7e22e2397f2489d80c68dac1d17cf7f77848ea5ff6361c036515"
+    },
+    {
+      "path": "lab/out/cross-window-dictionary-20261007/historical-noncanonical.rc.txt",
+      "bytes": 1,
+      "sha256": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b"
+    },
+    {
+      "path": "lab/out/cross-window-dictionary-20261007/historical-noncanonical.stderr.txt",
+      "bytes": 368,
+      "sha256": "6165b0df066d57eceea3eba11c2a67b1cea3f30f7281dcf9141043364e4c5486"
+    },
+    {
+      "path": "lab/out/cross-window-dictionary-20261007/historical-noncanonical.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/cross-window-dictionary-20261007/historical-poison.state",
+      "bytes": 295,
+      "sha256": "ed803346f54c556caef08d95eb8a2553cc4b476548607dfac3557e9910abcb1a"
+    },
+    {
+      "path": "lab/out/cross-window-dictionary-20261007/historical-prefix-halt.command.json",
+      "bytes": 756,
+      "sha256": "0e761b3adb1debac338c486705ca2077461205d4d488978f46faa60ed1a7b4ce"
+    },
+    {
+      "path": "lab/out/cross-window-dictionary-20261007/historical-prefix-halt.rc.txt",
+      "bytes": 2,
+      "sha256": "535fa30d7e25dd8a49f1536779734ec8286108d115da5045d77f3b4185d8f790"
+    },
+    {
+      "path": "lab/out/cross-window-dictionary-20261007/historical-prefix-halt.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/cross-window-dictionary-20261007/historical-prefix-halt.stdout.txt",
+      "bytes": 27,
+      "sha256": "3fc46e05ed8c6f4d1e4d4d50ba6a4e95303f845016dceb9e5f7af92a5cbcf67c"
+    },
+    {
+      "path": "lab/out/cross-window-dictionary-20261007/historical-state-poison.command.json",
+      "bytes": 997,
+      "sha256": "1c37161a5f852c37b3b0859be3e6e026926f3a1f2f08c39c4652d5f5635c9bff"
+    },
+    {
+      "path": "lab/out/cross-window-dictionary-20261007/historical-state-poison.rc.txt",
+      "bytes": 1,
+      "sha256": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b"
+    },
+    {
+      "path": "lab/out/cross-window-dictionary-20261007/historical-state-poison.stderr.txt",
+      "bytes": 368,
+      "sha256": "6165b0df066d57eceea3eba11c2a67b1cea3f30f7281dcf9141043364e4c5486"
+    },
+    {
+      "path": "lab/out/cross-window-dictionary-20261007/historical-state-poison.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/cross-window-dictionary-20261007/historical-truncated.state",
+      "bytes": 294,
+      "sha256": "ed86b467adabfd1717f705af04d33ac924b4d394004716c082f4688a4465365e"
+    },
+    {
+      "path": "lab/out/cross-window-dictionary-20261007/historical.state",
+      "bytes": 295,
+      "sha256": "28beb8a4b049827990e4f1f580423eb5b3b9e03804eb2d808b0a8790c835b701"
+    },
+    {
+      "path": "lab/out/cross-window-dictionary-20261007/kernel.jar",
+      "bytes": 303182,
+      "sha256": "b35dcdecf1dd528cd6bc1121499d86dbceb4856cae6265eae4b63a08cb13e208"
+    },
+    {
+      "path": "lab/out/cross-window-dictionary-20261007/missing-commit.command.json",
+      "bytes": 994,
+      "sha256": "21c67b23c0075db28a6963bc6863790d2b1f67eb5a9b82dcfb78195b66a28f2d"
+    },
+    {
+      "path": "lab/out/cross-window-dictionary-20261007/missing-commit.rc.txt",
+      "bytes": 1,
+      "sha256": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b"
+    },
+    {
+      "path": "lab/out/cross-window-dictionary-20261007/missing-commit.state",
+      "bytes": 228,
+      "sha256": "66311bcb07a3b36b1f8531690cf09e3170941144374ad58a405ea287982a5448"
+    },
+    {
+      "path": "lab/out/cross-window-dictionary-20261007/missing-commit.stderr.txt",
+      "bytes": 368,
+      "sha256": "6165b0df066d57eceea3eba11c2a67b1cea3f30f7281dcf9141043364e4c5486"
+    },
+    {
+      "path": "lab/out/cross-window-dictionary-20261007/missing-commit.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/cross-window-dictionary-20261007/missing-first-source.command.json",
+      "bytes": 1000,
+      "sha256": "8e7837b28b3343c5e708d426d9959f1ae92daddf8de6b8e927c6db6a71f7bf29"
+    },
+    {
+      "path": "lab/out/cross-window-dictionary-20261007/missing-first-source.rc.txt",
+      "bytes": 1,
+      "sha256": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b"
+    },
+    {
+      "path": "lab/out/cross-window-dictionary-20261007/missing-first-source.state",
+      "bytes": 228,
+      "sha256": "c550ad6291a23e1f97ea6f7347186517d147f2816a73107aec42a5bf0255dc3c"
+    },
+    {
+      "path": "lab/out/cross-window-dictionary-20261007/missing-first-source.stderr.txt",
+      "bytes": 376,
+      "sha256": "95250102e783aa3d25cabc5ff484c90d1960ac5d59a1f1c16e40c2aabdade399"
+    },
+    {
+      "path": "lab/out/cross-window-dictionary-20261007/missing-first-source.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/cross-window-dictionary-20261007/proof.json",
+      "bytes": 1053,
+      "sha256": "f899f797ec19b4f77d50e3dbbe8b3bca593a19f30e1cf91f5ca391a1e35ff352"
+    },
+    {
+      "path": "lab/out/cross-window-dictionary-20261007/seal_dictionary_resume19.py",
+      "bytes": 3952,
+      "sha256": "ac2ce94a28401c31bd345e3f8bfb047e3e3c6c61eeac7ced82c5bd2072ec4b56"
+    },
+    {
+      "path": "lab/out/cross-window-dictionary-20261007/verify_dictionary_resume19.py",
+      "bytes": 4261,
+      "sha256": "dd9871b0515968bbbcf5cf8cc56947f65031ff436d03542c1539ff81678529b2"
+    },
+    {
+      "path": "lab/out/cross-window-dictionary-20261007/wrong-baseline.command.json",
+      "bytes": 984,
+      "sha256": "c48e8278c222f65357fb49759e609fb62cf93b77e6d749fcc65d66fe503a95bf"
+    },
+    {
+      "path": "lab/out/cross-window-dictionary-20261007/wrong-baseline.rc.txt",
+      "bytes": 1,
+      "sha256": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b"
+    },
+    {
+      "path": "lab/out/cross-window-dictionary-20261007/wrong-baseline.stderr.txt",
+      "bytes": 363,
+      "sha256": "09c272bccde1c896017d75bf933ace72de2072958183dbc8618498cf6888c955"
+    },
+    {
+      "path": "lab/out/cross-window-dictionary-20261007/wrong-baseline.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "incremental_pending_sys_recovery_verified": false,
+  "full_publication_recovery_verified": false,
+  "production_deployed": false,
+  "site_accepted": false,
+  "released": false
+}

@@ -28,6 +28,17 @@ public final class CapturedHistoricalHeapBatch {
         var inputs=List.copyOf(captures);var paths=RedoBatch.captures(inputs);
         var snapshot=FrozenHeapBaseline.read(snapshotPath,trustedAcquisitionSha256);
         var history=ArchivedDictionaryHistory.read(paths,snapshot);
+        return read(inputs,paths,snapshot,history,leaf);
+    }
+    public static CapturedHistoricalHeapBatch readRestored(List<CaptureJournal.Verified> captures,Path snapshotPath,String trustedAcquisitionSha256,
+                                                         long leaf,byte[] dictionaryCheckpoint,String trustedCheckpointSha256)throws IOException {
+        var inputs=List.copyOf(captures);var paths=RedoBatch.captures(inputs);
+        var snapshot=FrozenHeapBaseline.read(snapshotPath,trustedAcquisitionSha256);
+        var history=ArchivedDictionaryHistory.restore(paths,snapshot,dictionaryCheckpoint,trustedCheckpointSha256);
+        return read(inputs,paths,snapshot,history,leaf);
+    }
+    private static CapturedHistoricalHeapBatch read(List<CaptureJournal.Verified> inputs,RedoBatch paths,FrozenHeapBaseline.Snapshot snapshot,
+                                                   ArchivedDictionaryHistory.Timeline history,long leaf)throws IOException {
         var physical=ArchivedPhysicalTransactions.readHistory(paths,snapshot,history,leaf);
         var rows=ArchivedHeapRows.readHistory(paths,snapshot,leaf,history,physical);
         if(!physical.sources().equals(rows.sources()) || !rows.sources().equals(history.sources()))throw new RedoException("HISTORICAL_BATCH_SOURCE_CHANGED");

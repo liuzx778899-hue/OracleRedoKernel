@@ -22,6 +22,13 @@ public final class ArchivedDictionaryHistory {
         public List<ArchivedRedo.Header> sources(){return sources;}
         public List<Commit> commits(){return commits;}
         public String baselineSha256(){return snapshot.sha256();}
+        /** Source-bound dictionary state receipt; the frozen baseline and raw prefix remain required. */
+        public byte[] checkpoint()throws RedoException {
+            var out=new StringBuilder("ORK_DICTIONARY_TIMELINE_V1\nB|").append(snapshot.sha256()).append('\n');
+            for(var source:sources)out.append("S|").append(digest(source.toString())).append('\n');
+            for(var commit:commits)out.append("C|").append(digest(commit.toString())).append('\n');
+            return out.toString().getBytes(java.nio.charset.StandardCharsets.UTF_8);
+        }
         void requireBoundTo(RedoBatch inputs,FrozenHeapBaseline.Snapshot baseline)throws IOException {
             if(!snapshot.equals(baseline) || inputs.size()!=sources.size())throw new RedoException("HISTORY_TIMELINE_BASELINE_OR_INPUT_MISMATCH");
             for(int i=0;i<inputs.size();i++)if(!sources.get(i).equals(inputs.get(i).header()))throw new RedoException("HISTORY_TIMELINE_SOURCE_CHANGED");
@@ -62,6 +69,39 @@ public final class ArchivedDictionaryHistory {
     }
     public static Timeline readCaptured(List<CaptureJournal.Verified> captures,Path baseline,String trustedReceipt)throws IOException {
         return read(RedoBatch.captures(captures),FrozenHeapBaseline.read(baseline,trustedReceipt));
+    }
+    /** Reconstructs dictionary values from verified raw bytes, never from a caller-supplied schema. */
+    public static Timeline restoreCaptured(List<CaptureJournal.Verified> captures,Path baseline,String trustedReceipt,
+                                           byte[] checkpoint,String trustedCheckpointSha256)throws IOException {
+        return restore(RedoBatch.captures(captures),FrozenHeapBaseline.read(baseline,trustedReceipt),checkpoint,trustedCheckpointSha256);
+    }
+    static Timeline restore(RedoBatch inputs,FrozenHeapBaseline.Snapshot snapshot,byte[] checkpoint,String trustedSha256)throws IOException {
+        if(!digest(checkpoint).equals(trustedSha256))throw new RedoException("DICTIONARY_CHECKPOINT_DIGEST_MISMATCH");
+        String[] lines=new String(checkpoint,java.nio.charset.StandardCharsets.UTF_8).split("\n");
+        if(lines.length<3 || !lines[0].equals("ORK_DICTIONARY_TIMELINE_V1") || !lines[1].equals("B|"+snapshot.sha256()))
+            throw new RedoException("DICTIONARY_CHECKPOINT_BASELINE");
+        int count=0;
+        while(count+2<lines.length && lines[count+2].startsWith("S|")) {
+            if(count>=inputs.size() || !lines[count+2].equals("S|"+digest(inputs.get(count).header().toString())))
+                throw new RedoException("DICTIONARY_CHECKPOINT_SOURCE_PREFIX_CHANGED");
+            count++;
+        }
+        if(count==0)throw new RedoException("DICTIONARY_CHECKPOINT_SOURCE_PREFIX_CHANGED");
+        var restored=read(inputs,snapshot);long boundary=restored.sources.get(count-1).nextScn();
+        var prefix=new ArrayList<Commit>();
+        for(var commit:restored.commits) {
+            if(commit.identity().beginRecordScn()<boundary && commit.identity().endRecordScn()>=boundary)
+                throw new RedoException("DICTIONARY_CHECKPOINT_CROSSES_PENDING_SYS_TRANSACTION");
+            if(commit.identity().endRecordScn()<boundary)prefix.add(commit);
+        }
+        var expected=new Timeline(snapshot,restored.sources.subList(0,count),prefix).checkpoint();
+        if(!Arrays.equals(checkpoint,expected))throw new RedoException("DICTIONARY_CHECKPOINT_STATE_CHANGED");
+        return restored;
+    }
+    private static String digest(String value)throws RedoException {return digest(value.getBytes(java.nio.charset.StandardCharsets.UTF_8));}
+    private static String digest(byte[] value)throws RedoException {
+        try{return HexFormat.of().formatHex(java.security.MessageDigest.getInstance("SHA-256").digest(value));}
+        catch(java.security.NoSuchAlgorithmException e){throw new RedoException("SHA256_UNAVAILABLE");}
     }
     static Timeline read(RedoBatch inputs,FrozenHeapBaseline.Snapshot snapshot)throws IOException {
         if(snapshot.dictionaryBaseline()==null)throw new RedoException("MISSING_V3_COMPLETE_DICTIONARY_BASELINE");
