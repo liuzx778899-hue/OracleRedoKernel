@@ -1,0 +1,1956 @@
+{
+  "product_code_commit": "175597597dd874d1d14c67d0572523888f2deb03",
+  "build": {
+    "tests": [
+      750,
+      0,
+      0,
+      0
+    ],
+    "product_sha256": "ef852e719862ee41c552fb6de9370af66f9229b56faa92bb7b2dfce02fc5ceb7",
+    "embedded": {
+      "oracle-redo-kernel": {
+        "path": "BOOT-INF/lib/oracle-redo-kernel-0.1.0-split-history-a84db1a3ff8f.jar",
+        "sha256": "a84db1a3ff8fddbe49258714c8b8d7945e6648f2caa75eb082cbf36b225e3a64"
+      },
+      "streamhouse-engine-oracle": {
+        "path": "BOOT-INF/lib/streamhouse-engine-oracle-0.1.0-split-history-fbf1d30c8072.jar",
+        "sha256": "fbf1d30c807200faa30034ba31e184bb7467788dc216e79121b5ccc3d586816b"
+      },
+      "streamhouse-spi": {
+        "path": "BOOT-INF/lib/streamhouse-spi-0.1.0-SNAPSHOT.jar",
+        "sha256": "6b635904d8632115204a557580009e78324ce47956d6d4907a544654061a62ff"
+      }
+    },
+    "spi_all_class_bytes_match": true,
+    "historical_http_verified": false,
+    "source_actions": 0,
+    "target_actions": 0
+  },
+  "adapter": {
+    "tests": [
+      26,
+      0,
+      0,
+      0
+    ],
+    "kernel_version": "0.1.0-split-history-a84db1a3ff8f",
+    "adapter_version": "0.1.0-split-history-fbf1d30c8072",
+    "kernel_sha256": "a84db1a3ff8fddbe49258714c8b8d7945e6648f2caa75eb082cbf36b225e3a64",
+    "adapter_sha256": "fbf1d30c807200faa30034ba31e184bb7467788dc216e79121b5ccc3d586816b"
+  },
+  "positive": {
+    "events": 2,
+    "event_columns": [
+      4,
+      3
+    ],
+    "full_before_after_matches": true,
+    "ordered_target_members_and_payloads_match": true,
+    "checkpoint_full_evidence_and_receipt_match": true,
+    "persisted_ack_exact_checkpoint_bytes": true,
+    "ack_sha256": "1489e4484bf0061722c39e4f20e8c0408fac76bf0d962b7c1563855f64b68dc4",
+    "task_id": "101213916868202496",
+    "actual_authenticated_http": true,
+    "source_dml": 0,
+    "source_configuration_changes": 0,
+    "same_instance_cross_schema_target": true,
+    "independent_target_verified": false,
+    "capture_complete": false,
+    "site_accepted": false,
+    "released": false
+  },
+  "duplicate": {
+    "events": 2,
+    "event_columns": [
+      4,
+      3
+    ],
+    "full_before_after_matches": true,
+    "ordered_target_members_and_payloads_match": true,
+    "checkpoint_full_evidence_and_receipt_match": true,
+    "persisted_ack_exact_checkpoint_bytes": true,
+    "ack_sha256": "1489e4484bf0061722c39e4f20e8c0408fac76bf0d962b7c1563855f64b68dc4",
+    "task_id": "101213916868202496",
+    "actual_authenticated_http": true,
+    "source_dml": 0,
+    "source_configuration_changes": 0,
+    "same_instance_cross_schema_target": true,
+    "independent_target_verified": false,
+    "capture_complete": false,
+    "site_accepted": false,
+    "released": false,
+    "target_control_checkpoint_ack_exact_unchanged": true
+  },
+  "restart": {
+    "events": 2,
+    "event_columns": [
+      4,
+      3
+    ],
+    "full_before_after_matches": true,
+    "ordered_target_members_and_payloads_match": true,
+    "checkpoint_full_evidence_and_receipt_match": true,
+    "persisted_ack_exact_checkpoint_bytes": true,
+    "ack_sha256": "1489e4484bf0061722c39e4f20e8c0408fac76bf0d962b7c1563855f64b68dc4",
+    "task_id": "101213916868202496",
+    "actual_authenticated_http": true,
+    "source_dml": 0,
+    "source_configuration_changes": 0,
+    "same_instance_cross_schema_target": true,
+    "independent_target_verified": false,
+    "capture_complete": false,
+    "site_accepted": false,
+    "released": false,
+    "target_control_checkpoint_ack_exact_unchanged": true
+  },
+  "receipt_negative": {
+    "error": "ORACLE_TARGET_COMMIT_CONFLICT",
+    "full_exception_preserved": true,
+    "target_rows_events_members_unchanged": true,
+    "existing_checkpoint_and_ack_unchanged": true,
+    "task_state": "DONE",
+    "note": "Previously committed task remains DONE; recovery attempt refused and fail-closed audit appended",
+    "schema_sequence_receipt_poison_only": true,
+    "new_publications": 0
+  },
+  "restored": {
+    "events": 2,
+    "event_columns": [
+      4,
+      3
+    ],
+    "full_before_after_matches": true,
+    "ordered_target_members_and_payloads_match": true,
+    "checkpoint_full_evidence_and_receipt_match": true,
+    "persisted_ack_exact_checkpoint_bytes": true,
+    "ack_sha256": "1489e4484bf0061722c39e4f20e8c0408fac76bf0d962b7c1563855f64b68dc4",
+    "task_id": "101213916868202496",
+    "actual_authenticated_http": true,
+    "source_dml": 0,
+    "source_configuration_changes": 0,
+    "same_instance_cross_schema_target": true,
+    "independent_target_verified": false,
+    "capture_complete": false,
+    "site_accepted": false,
+    "released": false,
+    "target_control_checkpoint_ack_exact_unchanged": true
+  },
+  "historical_product_http": true,
+  "target_checkpoint_ack": true,
+  "source_actions": 0,
+  "source_configuration_changes": 0,
+  "helper": "false|143|exited",
+  "old_helper_stopped": true,
+  "previous_capsules": [
+    {
+      "manifest": "docs/workorders/evidence/DELIVERY-split-history-20261007.json",
+      "files": 1181,
+      "unchanged": true
+    },
+    {
+      "manifest": "docs/workorders/evidence/DELIVERY-autonomous-dictionary-split-20261006.json",
+      "files": 549,
+      "unchanged": true
+    },
+    {
+      "manifest": "docs/workorders/evidence/DELIVERY-v3-product-acquisition-20261006.json",
+      "files": 407,
+      "unchanged": true
+    }
+  ],
+  "failure_dispositions": {
+    "receipt": "Expected owned poison; full conflict exception/audit kept, exact schema commitment restored",
+    "comparator": "First comparator used Windows default GBK on UTF-8 product log; script/error preserved, ASCII error matched as bytes without re-running HTTP/Java"
+  },
+  "capture_complete": false,
+  "independent_target_verified": false,
+  "independent_review": "PENDING",
+  "production_deployed": false,
+  "site_accepted": false,
+  "released": false,
+  "files_count": 356,
+  "double_sha256_verified": true,
+  "files": [
+    {
+      "path": "lab/out/split-history-product-20261007/acks/b5508cfd025d96b335115301f573efaa4fca3384049540f360a0f5d0d11f76d9.ack.json",
+      "bytes": 4082,
+      "sha256": "1489e4484bf0061722c39e4f20e8c0408fac76bf0d962b7c1563855f64b68dc4"
+    },
+    {
+      "path": "lab/out/split-history-product-20261007/adapter-build.command.json",
+      "bytes": 440,
+      "sha256": "425f3c24690b561e3d97d9510671862d76c9f50f5716d5bf8dfac72cb983c56b"
+    },
+    {
+      "path": "lab/out/split-history-product-20261007/adapter-build.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/split-history-product-20261007/adapter-build.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/split-history-product-20261007/adapter-build.stdout.txt",
+      "bytes": 3726,
+      "sha256": "7d3b037b2e331e6d396d7ef5550999c41e09d1a5db7c39a4b0277962cd0fb30e"
+    },
+    {
+      "path": "lab/out/split-history-product-20261007/adapter-proof.json",
+      "bytes": 347,
+      "sha256": "a637c56ed8ab497daa4796ec50d0a0c8f05d9f8607d320ad6a258761b0280e2f"
+    },
+    {
+      "path": "lab/out/split-history-product-20261007/adapter-reports/streamhouse-engine-oracle-TEST-com.streamhouse.engines.oracle.OracleBatchProjectionTest.xml",
+      "bytes": 11750,
+      "sha256": "4dabeb660b974971bf0ad73772214162dade51353cf0f799ea1b775f320bcfb9"
+    },
+    {
+      "path": "lab/out/split-history-product-20261007/adapter-reports/streamhouse-engine-oracle-TEST-com.streamhouse.engines.oracle.OracleConsumerCheckpointTest.xml",
+      "bytes": 11477,
+      "sha256": "d0f46cc487fc6758cceee03cc1afec2eb347f6ad9e8828b24560bafb9699e835"
+    },
+    {
+      "path": "lab/out/split-history-product-20261007/adapter-reports/streamhouse-engine-oracle-TEST-com.streamhouse.engines.oracle.OracleConsumptionWindowTest.xml",
+      "bytes": 11720,
+      "sha256": "35e4379ccd30a5e7974b393f4996c5e073cb85cfb295485d4a741bea17520bba"
+    },
+    {
+      "path": "lab/out/split-history-product-20261007/adapter-reports/streamhouse-engine-oracle-TEST-com.streamhouse.engines.oracle.OracleHistoricalBatchProjectionTest.xml",
+      "bytes": 11226,
+      "sha256": "4e92a4889f6dd4b231dd87caf683fb3cd33c00284cacf0600cfc3979ec197c12"
+    },
+    {
+      "path": "lab/out/split-history-product-20261007/adapter-reports/streamhouse-engine-oracle-TEST-com.streamhouse.engines.oracle.OracleHistoricalTargetMappingTest.xml",
+      "bytes": 11197,
+      "sha256": "f3713b43d5c9bee8f10353a2ff5b14250bc4f0404ec047843877e81b1b25f2e0"
+    },
+    {
+      "path": "lab/out/split-history-product-20261007/adapter-reports/streamhouse-engine-oracle-TEST-com.streamhouse.engines.oracle.OracleSnapshotAcquirerTest.xml",
+      "bytes": 11829,
+      "sha256": "ea5477654e9206d5ac2a90149757e731e5ca97266b2a1305b02a22ca87965f47"
+    },
+    {
+      "path": "lab/out/split-history-product-20261007/adapter.jar",
+      "bytes": 64056,
+      "sha256": "fbf1d30c807200faa30034ba31e184bb7467788dc216e79121b5ccc3d586816b"
+    },
+    {
+      "path": "lab/out/split-history-product-20261007/after-drive-proof.json",
+      "bytes": 641,
+      "sha256": "be2e94f92456971fd5bb38983fdd14c6356151376f03ce2470272ae041907e75"
+    },
+    {
+      "path": "lab/out/split-history-product-20261007/after-drive.command.json",
+      "bytes": 90,
+      "sha256": "6095ca5a9605c02acb9b77ba5ea4d19487ab938e2e51045704dedb495bc394d5"
+    },
+    {
+      "path": "lab/out/split-history-product-20261007/after-drive.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/split-history-product-20261007/after-drive.sql",
+      "bytes": 1415,
+      "sha256": "db27114855316cf8cb7757cae5bec4a4435b64be5671cb5007c8f4697a2db960"
+    },
+    {
+      "path": "lab/out/split-history-product-20261007/after-drive.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/split-history-product-20261007/after-drive.stdout.txt",
+      "bytes": 5703,
+      "sha256": "12d7c5ce3613f145e6d46244cbc6a888203f38082cb2b01a33ccc8953b27e90d"
+    },
+    {
+      "path": "lab/out/split-history-product-20261007/application.jar",
+      "bytes": 35990454,
+      "sha256": "ef852e719862ee41c552fb6de9370af66f9229b56faa92bb7b2dfce02fc5ceb7"
+    },
+    {
+      "path": "lab/out/split-history-product-20261007/approved-binding.json",
+      "bytes": 5711,
+      "sha256": "79dbb5c5b13d2be75f10a993256457e4df1199ab74abb0110772b4ca462106b1"
+    },
+    {
+      "path": "lab/out/split-history-product-20261007/audit-old-owner.command.json",
+      "bytes": 139,
+      "sha256": "7444d8f9b4747d4ab43ba3080cb1044fb87dc6ecd5882be203ff50b61d28f27f"
+    },
+    {
+      "path": "lab/out/split-history-product-20261007/audit-old-owner.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/split-history-product-20261007/audit-old-owner.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/split-history-product-20261007/audit-old-owner.stdout.txt",
+      "bytes": 40,
+      "sha256": "c2a48a3beb509d3321ce34682c01717ed7cfd71d9e421917cfc5fb1e3f75b0b9"
+    },
+    {
+      "path": "lab/out/split-history-product-20261007/audit-old-sha.command.json",
+      "bytes": 94,
+      "sha256": "28a828ca5719e87e468c5c87b5d94829e43deced3bd1cde414a254c6664a8761"
+    },
+    {
+      "path": "lab/out/split-history-product-20261007/audit-old-sha.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/split-history-product-20261007/audit-old-sha.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/split-history-product-20261007/audit-old-sha.stdout.txt",
+      "bytes": 92,
+      "sha256": "28d9050851d046d60fccdedeae811d77efc700160cb2d7f5da9dde439c37c606"
+    },
+    {
+      "path": "lab/out/split-history-product-20261007/audit-source.command.json",
+      "bytes": 107,
+      "sha256": "6cc60bfdc53919bf5068bdcbf30ec5c8b4e38feaebc9cbc53db9992eff5a6357"
+    },
+    {
+      "path": "lab/out/split-history-product-20261007/audit-source.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/split-history-product-20261007/audit-source.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/split-history-product-20261007/audit-source.stdout.txt",
+      "bytes": 25,
+      "sha256": "0a713b1fc68700ddfe68d6757c3a323c2b2a06f3c595b5513399d6b6771b1823"
+    },
+    {
+      "path": "lab/out/split-history-product-20261007/audit-state.command.json",
+      "bytes": 90,
+      "sha256": "6095ca5a9605c02acb9b77ba5ea4d19487ab938e2e51045704dedb495bc394d5"
+    },
+    {
+      "path": "lab/out/split-history-product-20261007/audit-state.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/split-history-product-20261007/audit-state.sql",
+      "bytes": 894,
+      "sha256": "cb4f293849bf7bb0eb02330e34ca291ae9af845d55366873dafceae630b2a1bf"
+    },
+    {
+      "path": "lab/out/split-history-product-20261007/audit-state.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/split-history-product-20261007/audit-state.stdout.txt",
+      "bytes": 231,
+      "sha256": "14a56fcde2e7ab17be8d043dad456c446486508843ca263a2169dd9673bafdc5"
+    },
+    {
+      "path": "lab/out/split-history-product-20261007/before-enroll-acquisition.command.json",
+      "bytes": 68,
+      "sha256": "3db85b9ce9c292803929512f3544a8cdb53c7de4ff523465c28d15a36cd01ae0"
+    },
+    {
+      "path": "lab/out/split-history-product-20261007/before-enroll-acquisition.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/split-history-product-20261007/before-enroll-acquisition.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/split-history-product-20261007/before-enroll-acquisition.stdout.txt",
+      "bytes": 22269,
+      "sha256": "ce1747834cc4d5129d9cd48917aa406c7a8bc41964f8cb69e8bc72b24729acff"
+    },
+    {
+      "path": "lab/out/split-history-product-20261007/before-enroll-running-sha.command.json",
+      "bytes": 98,
+      "sha256": "b10fa737d504459b176aa5193d4c0310d5b807755126f10848589114b4c99c45"
+    },
+    {
+      "path": "lab/out/split-history-product-20261007/before-enroll-running-sha.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/split-history-product-20261007/before-enroll-running-sha.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/split-history-product-20261007/before-enroll-running-sha.stdout.txt",
+      "bytes": 92,
+      "sha256": "835e1615e9d74d34a5e41534fc01d234021b348ec14e95de4229687a4c97cdb1"
+    },
+    {
+      "path": "lab/out/split-history-product-20261007/before-enroll.command.json",
+      "bytes": 68,
+      "sha256": "3db85b9ce9c292803929512f3544a8cdb53c7de4ff523465c28d15a36cd01ae0"
+    },
+    {
+      "path": "lab/out/split-history-product-20261007/before-enroll.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/split-history-product-20261007/before-enroll.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/split-history-product-20261007/before-enroll.stdout.txt",
+      "bytes": 119,
+      "sha256": "ac09f54ccdb1a54e46f1fc6b1f25aabe4d4adb9e00f57fdf79076d9ae471f729"
+    },
+    {
+      "path": "lab/out/split-history-product-20261007/duplicate-completion.command.json",
+      "bytes": 90,
+      "sha256": "6095ca5a9605c02acb9b77ba5ea4d19487ab938e2e51045704dedb495bc394d5"
+    },
+    {
+      "path": "lab/out/split-history-product-20261007/duplicate-completion.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/split-history-product-20261007/duplicate-completion.sql",
+      "bytes": 477,
+      "sha256": "3c6de2befbbf442c769d15fedcb59c8987d176e7bdbd67a0d1a715fe93bc5988"
+    },
+    {
+      "path": "lab/out/split-history-product-20261007/duplicate-completion.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/split-history-product-20261007/duplicate-completion.stdout.txt",
+      "bytes": 4304,
+      "sha256": "64af115313b9347c3b20302c6274f5fb52b18959c3c44ea17dcb50410cf6f05d"
+    },
+    {
+      "path": "lab/out/split-history-product-20261007/duplicate-http.command.json",
+      "bytes": 68,
+      "sha256": "3db85b9ce9c292803929512f3544a8cdb53c7de4ff523465c28d15a36cd01ae0"
+    },
+    {
+      "path": "lab/out/split-history-product-20261007/duplicate-http.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/split-history-product-20261007/duplicate-http.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/split-history-product-20261007/duplicate-http.stdout.txt",
+      "bytes": 4791,
+      "sha256": "74bda8c7a6b95e02a5643306f8a1b467feaa0dbd1f4314f9cbe020f1ee1e266e"
+    },
+    {
+      "path": "lab/out/split-history-product-20261007/duplicate-state-proof.json",
+      "bytes": 699,
+      "sha256": "db1273fd45c4f0673766d5bec2e871fc2b6fcd74cb6c2f5674980c5cfa775276"
+    },
+    {
+      "path": "lab/out/split-history-product-20261007/duplicate-state.command.json",
+      "bytes": 90,
+      "sha256": "6095ca5a9605c02acb9b77ba5ea4d19487ab938e2e51045704dedb495bc394d5"
+    },
+    {
+      "path": "lab/out/split-history-product-20261007/duplicate-state.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/split-history-product-20261007/duplicate-state.sql",
+      "bytes": 1415,
+      "sha256": "db27114855316cf8cb7757cae5bec4a4435b64be5671cb5007c8f4697a2db960"
+    },
+    {
+      "path": "lab/out/split-history-product-20261007/duplicate-state.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/split-history-product-20261007/duplicate-state.stdout.txt",
+      "bytes": 5703,
+      "sha256": "12d7c5ce3613f145e6d46244cbc6a888203f38082cb2b01a33ccc8953b27e90d"
+    },
+    {
+      "path": "lab/out/split-history-product-20261007/embedded-oracle-redo-kernel.jar",
+      "bytes": 294901,
+      "sha256": "a84db1a3ff8fddbe49258714c8b8d7945e6648f2caa75eb082cbf36b225e3a64"
+    },
+    {
+      "path": "lab/out/split-history-product-20261007/embedded-streamhouse-engine-oracle.jar",
+      "bytes": 64056,
+      "sha256": "fbf1d30c807200faa30034ba31e184bb7467788dc216e79121b5ccc3d586816b"
+    },
+    {
+      "path": "lab/out/split-history-product-20261007/embedded-streamhouse-spi.jar",
+      "bytes": 29797,
+      "sha256": "6b635904d8632115204a557580009e78324ce47956d6d4907a544654061a62ff"
+    },
+    {
+      "path": "lab/out/split-history-product-20261007/executed-build-driver.py",
+      "bytes": 5729,
+      "sha256": "2fe8490a71a3bbafc68bee3dae717e73e3a144ea3584667492107d5f92f8cfa7"
+    },
+    {
+      "path": "lab/out/split-history-product-20261007/executed-runtime-after-drive.py",
+      "bytes": 11548,
+      "sha256": "74d6fbbb4285bc8fb85f8f5d58a19d6f804095b65253f44111ee4464527979c1"
+    },
+    {
+      "path": "lab/out/split-history-product-20261007/executed-runtime-audit.py",
+      "bytes": 11548,
+      "sha256": "74d6fbbb4285bc8fb85f8f5d58a19d6f804095b65253f44111ee4464527979c1"
+    },
+    {
+      "path": "lab/out/split-history-product-20261007/executed-runtime-before-enroll.py",
+      "bytes": 11548,
+      "sha256": "74d6fbbb4285bc8fb85f8f5d58a19d6f804095b65253f44111ee4464527979c1"
+    },
+    {
+      "path": "lab/out/split-history-product-20261007/executed-runtime-duplicate-completion.py",
+      "bytes": 12485,
+      "sha256": "5c692d51fb6bc9f26409bcbb57096e1afb1e929427645a98d50ab8e8702318a6"
+    },
+    {
+      "path": "lab/out/split-history-product-20261007/executed-runtime-duplicate-http.py",
+      "bytes": 12172,
+      "sha256": "1815e7593a96fcb0706c9c32d3d3f51aca6b391d5e68ea5575e44a1eea1467bd"
+    },
+    {
+      "path": "lab/out/split-history-product-20261007/executed-runtime-duplicate-state.py",
+      "bytes": 12485,
+      "sha256": "5c692d51fb6bc9f26409bcbb57096e1afb1e929427645a98d50ab8e8702318a6"
+    },
+    {
+      "path": "lab/out/split-history-product-20261007/executed-runtime-final-source.py",
+      "bytes": 13842,
+      "sha256": "b3e44d22bbee67baccec307c7ea339bf3cddfae4db11afd243740f0215531fcd"
+    },
+    {
+      "path": "lab/out/split-history-product-20261007/executed-runtime-first-task-logs.py",
+      "bytes": 11548,
+      "sha256": "74d6fbbb4285bc8fb85f8f5d58a19d6f804095b65253f44111ee4464527979c1"
+    },
+    {
+      "path": "lab/out/split-history-product-20261007/executed-runtime-poison-receipt.py",
+      "bytes": 12991,
+      "sha256": "b6c8213a90e7164bf7d72e5011be540bdad50d3ea09355fa56daf5d8288586b2"
+    },
+    {
+      "path": "lab/out/split-history-product-20261007/executed-runtime-poisoned-complete-state.py",
+      "bytes": 13842,
+      "sha256": "b3e44d22bbee67baccec307c7ea339bf3cddfae4db11afd243740f0215531fcd"
+    },
+    {
+      "path": "lab/out/split-history-product-20261007/executed-runtime-poisoned-recovery-logs.py",
+      "bytes": 13842,
+      "sha256": "b3e44d22bbee67baccec307c7ea339bf3cddfae4db11afd243740f0215531fcd"
+    },
+    {
+      "path": "lab/out/split-history-product-20261007/executed-runtime-poisoned-recovery.py",
+      "bytes": 12991,
+      "sha256": "b6c8213a90e7164bf7d72e5011be540bdad50d3ea09355fa56daf5d8288586b2"
+    },
+    {
+      "path": "lab/out/split-history-product-20261007/executed-runtime-poisoned-state.py",
+      "bytes": 12991,
+      "sha256": "b6c8213a90e7164bf7d72e5011be540bdad50d3ea09355fa56daf5d8288586b2"
+    },
+    {
+      "path": "lab/out/split-history-product-20261007/executed-runtime-prepare.py",
+      "bytes": 11548,
+      "sha256": "74d6fbbb4285bc8fb85f8f5d58a19d6f804095b65253f44111ee4464527979c1"
+    },
+    {
+      "path": "lab/out/split-history-product-20261007/executed-runtime-published-state.py",
+      "bytes": 11548,
+      "sha256": "74d6fbbb4285bc8fb85f8f5d58a19d6f804095b65253f44111ee4464527979c1"
+    },
+    {
+      "path": "lab/out/split-history-product-20261007/executed-runtime-restart-completion.py",
+      "bytes": 12991,
+      "sha256": "b6c8213a90e7164bf7d72e5011be540bdad50d3ea09355fa56daf5d8288586b2"
+    },
+    {
+      "path": "lab/out/split-history-product-20261007/executed-runtime-restart-repeat.py",
+      "bytes": 12485,
+      "sha256": "5c692d51fb6bc9f26409bcbb57096e1afb1e929427645a98d50ab8e8702318a6"
+    },
+    {
+      "path": "lab/out/split-history-product-20261007/executed-runtime-restart-state.py",
+      "bytes": 12991,
+      "sha256": "b6c8213a90e7164bf7d72e5011be540bdad50d3ea09355fa56daf5d8288586b2"
+    },
+    {
+      "path": "lab/out/split-history-product-20261007/executed-runtime-restart.py",
+      "bytes": 12485,
+      "sha256": "5c692d51fb6bc9f26409bcbb57096e1afb1e929427645a98d50ab8e8702318a6"
+    },
+    {
+      "path": "lab/out/split-history-product-20261007/executed-runtime-restarted-health.py",
+      "bytes": 12485,
+      "sha256": "5c692d51fb6bc9f26409bcbb57096e1afb1e929427645a98d50ab8e8702318a6"
+    },
+    {
+      "path": "lab/out/split-history-product-20261007/executed-runtime-restore-receipt.py",
+      "bytes": 13842,
+      "sha256": "b3e44d22bbee67baccec307c7ea339bf3cddfae4db11afd243740f0215531fcd"
+    },
+    {
+      "path": "lab/out/split-history-product-20261007/executed-runtime-restored-completion.py",
+      "bytes": 13842,
+      "sha256": "b3e44d22bbee67baccec307c7ea339bf3cddfae4db11afd243740f0215531fcd"
+    },
+    {
+      "path": "lab/out/split-history-product-20261007/executed-runtime-restored-recovery.py",
+      "bytes": 13842,
+      "sha256": "b3e44d22bbee67baccec307c7ea339bf3cddfae4db11afd243740f0215531fcd"
+    },
+    {
+      "path": "lab/out/split-history-product-20261007/executed-runtime-restored-state.py",
+      "bytes": 13842,
+      "sha256": "b3e44d22bbee67baccec307c7ea339bf3cddfae4db11afd243740f0215531fcd"
+    },
+    {
+      "path": "lab/out/split-history-product-20261007/executed-runtime-start.py",
+      "bytes": 11548,
+      "sha256": "74d6fbbb4285bc8fb85f8f5d58a19d6f804095b65253f44111ee4464527979c1"
+    },
+    {
+      "path": "lab/out/split-history-product-20261007/executed-runtime-stop.py",
+      "bytes": 13842,
+      "sha256": "b3e44d22bbee67baccec307c7ea339bf3cddfae4db11afd243740f0215531fcd"
+    },
+    {
+      "path": "lab/out/split-history-product-20261007/executed-runtime-submit.py",
+      "bytes": 11548,
+      "sha256": "74d6fbbb4285bc8fb85f8f5d58a19d6f804095b65253f44111ee4464527979c1"
+    },
+    {
+      "path": "lab/out/split-history-product-20261007/final-source.command.json",
+      "bytes": 90,
+      "sha256": "6095ca5a9605c02acb9b77ba5ea4d19487ab938e2e51045704dedb495bc394d5"
+    },
+    {
+      "path": "lab/out/split-history-product-20261007/final-source.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/split-history-product-20261007/final-source.sql",
+      "bytes": 623,
+      "sha256": "0a50b240f830ef3972f96662c8f95555605483d3183c57c90a89a9cfa2e8b0d5"
+    },
+    {
+      "path": "lab/out/split-history-product-20261007/final-source.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/split-history-product-20261007/final-source.stdout.txt",
+      "bytes": 195,
+      "sha256": "e0ee1e040fb9dacaa9625f5d3661df77a4aa90f1b4e952f0294387811073e526"
+    },
+    {
+      "path": "lab/out/split-history-product-20261007/first-task-logs.command.json",
+      "bytes": 56,
+      "sha256": "8959d9bc63bbfdfb71d7586548fd5cc88bf49b02230ad41ff0e2765b73aaaaf1"
+    },
+    {
+      "path": "lab/out/split-history-product-20261007/first-task-logs.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/split-history-product-20261007/first-task-logs.stderr.txt",
+      "bytes": 398,
+      "sha256": "4dc046fd29d1008fe148e8ed92f4ab07d145e7a8363ce7122071cbd82d40f830"
+    },
+    {
+      "path": "lab/out/split-history-product-20261007/first-task-logs.stdout.txt",
+      "bytes": 3660,
+      "sha256": "b763a03ea289930442238c7fd2722605f338cf364facf61ec240c6c7ce633fc8"
+    },
+    {
+      "path": "lab/out/split-history-product-20261007/install-adapter.command.json",
+      "bytes": 599,
+      "sha256": "ee0dce121cb2c24547b671636c56153e2a2aa4c1731c0e2acbee9099b659b362"
+    },
+    {
+      "path": "lab/out/split-history-product-20261007/install-adapter.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/split-history-product-20261007/install-adapter.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/split-history-product-20261007/install-adapter.stdout.txt",
+      "bytes": 1259,
+      "sha256": "53c4eae526e14a778fd407d0cd59bfb5312ee336cd3bedf5b7a2c7587f5eb93b"
+    },
+    {
+      "path": "lab/out/split-history-product-20261007/install-kernel.command.json",
+      "bytes": 598,
+      "sha256": "783afd3d570e6efe8fa33781b22606036251bb581910e3432c1df25f6785c352"
+    },
+    {
+      "path": "lab/out/split-history-product-20261007/install-kernel.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/split-history-product-20261007/install-kernel.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/split-history-product-20261007/install-kernel.stdout.txt",
+      "bytes": 1244,
+      "sha256": "9162501cdd0c31e9ea6282260b68ea3da5026d852c93dc1b94b77751890a52a1"
+    },
+    {
+      "path": "lab/out/split-history-product-20261007/kernel.jar",
+      "bytes": 294901,
+      "sha256": "a84db1a3ff8fddbe49258714c8b8d7945e6648f2caa75eb082cbf36b225e3a64"
+    },
+    {
+      "path": "lab/out/split-history-product-20261007/negative-comparator-r1.failure-from-tool.txt",
+      "bytes": 545,
+      "sha256": "9b41bef8b3b485e0776a103a80d6379bb3361c072caecbffc61ec215d0f84a73"
+    },
+    {
+      "path": "lab/out/split-history-product-20261007/negative-comparator-r1.py",
+      "bytes": 1735,
+      "sha256": "8fdaf5a5ba426e2a0a320b86f5311979543cc4164b1d4744d2bbf6ec88b46151"
+    },
+    {
+      "path": "lab/out/split-history-product-20261007/poison-receipt.command.json",
+      "bytes": 90,
+      "sha256": "6095ca5a9605c02acb9b77ba5ea4d19487ab938e2e51045704dedb495bc394d5"
+    },
+    {
+      "path": "lab/out/split-history-product-20261007/poison-receipt.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/split-history-product-20261007/poison-receipt.sql",
+      "bytes": 637,
+      "sha256": "8d44c8562044d8a14757aa2969e50bc47727ac5443fbfb19ea131b0984183987"
+    },
+    {
+      "path": "lab/out/split-history-product-20261007/poison-receipt.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/split-history-product-20261007/poison-receipt.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/split-history-product-20261007/poisoned-complete-state.command.json",
+      "bytes": 90,
+      "sha256": "6095ca5a9605c02acb9b77ba5ea4d19487ab938e2e51045704dedb495bc394d5"
+    },
+    {
+      "path": "lab/out/split-history-product-20261007/poisoned-complete-state.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/split-history-product-20261007/poisoned-complete-state.sql",
+      "bytes": 1415,
+      "sha256": "db27114855316cf8cb7757cae5bec4a4435b64be5671cb5007c8f4697a2db960"
+    },
+    {
+      "path": "lab/out/split-history-product-20261007/poisoned-complete-state.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/split-history-product-20261007/poisoned-complete-state.stdout.txt",
+      "bytes": 5803,
+      "sha256": "294851493c9c9ce35fb76c3921aa10cb2c8161b5faa99f2886ff05c57cbbc3dc"
+    },
+    {
+      "path": "lab/out/split-history-product-20261007/poisoned-recovery-logs.command.json",
+      "bytes": 56,
+      "sha256": "8959d9bc63bbfdfb71d7586548fd5cc88bf49b02230ad41ff0e2765b73aaaaf1"
+    },
+    {
+      "path": "lab/out/split-history-product-20261007/poisoned-recovery-logs.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/split-history-product-20261007/poisoned-recovery-logs.stderr.txt",
+      "bytes": 796,
+      "sha256": "5592a0b48ab3060103c104ba46fbfe46cb20dc39616ed7556c591c83fdc75b35"
+    },
+    {
+      "path": "lab/out/split-history-product-20261007/poisoned-recovery-logs.stdout.txt",
+      "bytes": 9762,
+      "sha256": "405d0949ff3a995ef6675fa14a24e1246b9ec8c1188dc0b475183c8fe23502d1"
+    },
+    {
+      "path": "lab/out/split-history-product-20261007/poisoned-recovery.command.json",
+      "bytes": 68,
+      "sha256": "3db85b9ce9c292803929512f3544a8cdb53c7de4ff523465c28d15a36cd01ae0"
+    },
+    {
+      "path": "lab/out/split-history-product-20261007/poisoned-recovery.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/split-history-product-20261007/poisoned-recovery.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/split-history-product-20261007/poisoned-recovery.stdout.txt",
+      "bytes": 4791,
+      "sha256": "74bda8c7a6b95e02a5643306f8a1b467feaa0dbd1f4314f9cbe020f1ee1e266e"
+    },
+    {
+      "path": "lab/out/split-history-product-20261007/poisoned-state.command.json",
+      "bytes": 90,
+      "sha256": "6095ca5a9605c02acb9b77ba5ea4d19487ab938e2e51045704dedb495bc394d5"
+    },
+    {
+      "path": "lab/out/split-history-product-20261007/poisoned-state.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/split-history-product-20261007/poisoned-state.sql",
+      "bytes": 1415,
+      "sha256": "db27114855316cf8cb7757cae5bec4a4435b64be5671cb5007c8f4697a2db960"
+    },
+    {
+      "path": "lab/out/split-history-product-20261007/poisoned-state.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/split-history-product-20261007/poisoned-state.stdout.txt",
+      "bytes": 5803,
+      "sha256": "294851493c9c9ce35fb76c3921aa10cb2c8161b5faa99f2886ff05c57cbbc3dc"
+    },
+    {
+      "path": "lab/out/split-history-product-20261007/prepare-enroll.command.json",
+      "bytes": 90,
+      "sha256": "6095ca5a9605c02acb9b77ba5ea4d19487ab938e2e51045704dedb495bc394d5"
+    },
+    {
+      "path": "lab/out/split-history-product-20261007/prepare-enroll.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/split-history-product-20261007/prepare-enroll.sql",
+      "bytes": 4524,
+      "sha256": "3ae7e4d68fcb96c72e8d4451ab7087bf2896b9a24e38fb2adbd8e3507d07b608"
+    },
+    {
+      "path": "lab/out/split-history-product-20261007/prepare-enroll.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/split-history-product-20261007/prepare-enroll.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/split-history-product-20261007/prepare-target-once.command.json",
+      "bytes": 90,
+      "sha256": "6095ca5a9605c02acb9b77ba5ea4d19487ab938e2e51045704dedb495bc394d5"
+    },
+    {
+      "path": "lab/out/split-history-product-20261007/prepare-target-once.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/split-history-product-20261007/prepare-target-once.sql",
+      "bytes": 1452,
+      "sha256": "b743cbe26a3ffd2fe76659b7ac11fbc54210cb917c7d3f0401c9b871f14530fd"
+    },
+    {
+      "path": "lab/out/split-history-product-20261007/prepare-target-once.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/split-history-product-20261007/prepare-target-once.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/split-history-product-20261007/prepare-target-preflight.command.json",
+      "bytes": 90,
+      "sha256": "6095ca5a9605c02acb9b77ba5ea4d19487ab938e2e51045704dedb495bc394d5"
+    },
+    {
+      "path": "lab/out/split-history-product-20261007/prepare-target-preflight.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/split-history-product-20261007/prepare-target-preflight.sql",
+      "bytes": 347,
+      "sha256": "5c4fe2f4dfc3712c936ee2f28e6e99ba5c6011a09c4a91ec646d9f5cbe427276"
+    },
+    {
+      "path": "lab/out/split-history-product-20261007/prepare-target-preflight.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/split-history-product-20261007/prepare-target-preflight.stdout.txt",
+      "bytes": 8,
+      "sha256": "3796a939baa50b706c403c0cc7c84e1008d0b44ad59aa0bf163f81112dd46091"
+    },
+    {
+      "path": "lab/out/split-history-product-20261007/product-build.command.json",
+      "bytes": 438,
+      "sha256": "e0220c62d671a6707e88b1c07f7ba4912291da5429ca0ea42398bcf2c0ea238a"
+    },
+    {
+      "path": "lab/out/split-history-product-20261007/product-build.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/split-history-product-20261007/product-build.stderr.txt",
+      "bytes": 3261,
+      "sha256": "057834104883d6e6579a5301916d2838fe3d3aac27dd8c1e3491c68540cb5731"
+    },
+    {
+      "path": "lab/out/split-history-product-20261007/product-build.stdout.txt",
+      "bytes": 73720,
+      "sha256": "c7b44b5f7f67d39b62840c75f49248ef9c9d605b425462da7b5be386017cc95c"
+    },
+    {
+      "path": "lab/out/split-history-product-20261007/product-proof.json",
+      "bytes": 905,
+      "sha256": "3c5e851fb951064c205199f36c821980a3781152ee49e774a596ceb78fe41277"
+    },
+    {
+      "path": "lab/out/split-history-product-20261007/product-reports/streamhouse-alert-TEST-com.streamhouse.alert.mapper.AlertMapperXmlParseTest.xml",
+      "bytes": 23466,
+      "sha256": "4c89c03af377b304c7acae0b1e60bb406621763ddcd15f12f40d4e19b034e8f4"
+    },
+    {
+      "path": "lab/out/split-history-product-20261007/product-reports/streamhouse-alert-TEST-com.streamhouse.alert.service.AckServiceTest.xml",
+      "bytes": 23361,
+      "sha256": "cff4e2e8795d481ae4de08de403e76bda729b009b3f4ae9e0b3f557a8dbd3fe0"
+    },
+    {
+      "path": "lab/out/split-history-product-20261007/product-reports/streamhouse-alert-TEST-com.streamhouse.alert.service.AlertQueryServiceTest.xml",
+      "bytes": 23292,
+      "sha256": "fb83d3eafc2e92f2d82626161653c7075b43c2fdad5b54ada878d08d74a6937f"
+    },
+    {
+      "path": "lab/out/split-history-product-20261007/product-reports/streamhouse-alert-TEST-com.streamhouse.alert.service.AlertRuleEngineTest.xml",
+      "bytes": 24460,
+      "sha256": "379595f9e0f704bd08acd7ad27282325e023f932dbfad401754d83ae8fa9c777"
+    },
+    {
+      "path": "lab/out/split-history-product-20261007/product-reports/streamhouse-alert-TEST-com.streamhouse.alert.service.AlertServiceTest.xml",
+      "bytes": 24901,
+      "sha256": "16b8730f01248416e99e9aab1ac8bcdc2303d3a2260d501287c7616dabf9b8c1"
+    },
+    {
+      "path": "lab/out/split-history-product-20261007/product-reports/streamhouse-alert-TEST-com.streamhouse.alert.service.ChannelConfigCodecTest.xml",
+      "bytes": 23320,
+      "sha256": "29111f1c762cf89126cf3533478f1ab93bc5bd9f0a1c946202887c5fa5ffd7f4"
+    },
+    {
+      "path": "lab/out/split-history-product-20261007/product-reports/streamhouse-alert-TEST-com.streamhouse.alert.service.SmtpSenderTest.xml",
+      "bytes": 23258,
+      "sha256": "dc44363d4d25eaae6f240186dfa3b1dfe47e9ad5f33cee5628d4e95e01a0d6bd"
+    },
+    {
+      "path": "lab/out/split-history-product-20261007/product-reports/streamhouse-alert-TEST-com.streamhouse.alert.service.WecomWebhookSenderTest.xml",
+      "bytes": 23299,
+      "sha256": "15d8666df8d92f1fba1f9c1f70cddc0c86695651243dfbbf7b6f87f50ee851bc"
+    },
+    {
+      "path": "lab/out/split-history-product-20261007/product-reports/streamhouse-app-TEST-com.streamhouse.app.appdb.AppTargetMapperXmlParseTest.xml",
+      "bytes": 34218,
+      "sha256": "b44efc0f5ca69ec00ac8dd8134ea815ab12de103b4d7d45152e26529a434c469"
+    },
+    {
+      "path": "lab/out/split-history-product-20261007/product-reports/streamhouse-app-TEST-com.streamhouse.app.auth.AgentTokenInterceptorB64InteropTest.xml",
+      "bytes": 33764,
+      "sha256": "e88ba0c28f9c421da8dc6a76c35a37cb101f009726a2f2594a51587c382beb43"
+    },
+    {
+      "path": "lab/out/split-history-product-20261007/product-reports/streamhouse-app-TEST-com.streamhouse.app.auth.AgentTokenInterceptorTest.xml",
+      "bytes": 35189,
+      "sha256": "62ccff5ab7afb3af2f301cf685c864d5804740cd9f5f1d824f9d0b4d48a452e1"
+    },
+    {
+      "path": "lab/out/split-history-product-20261007/product-reports/streamhouse-app-TEST-com.streamhouse.app.auth.AuthControllerTest.xml",
+      "bytes": 35755,
+      "sha256": "f49fb5c8dfaf4357e5e9c771c31a55724dffb04d4b8f4136c000cf7fb8e0d7d4"
+    },
+    {
+      "path": "lab/out/split-history-product-20261007/product-reports/streamhouse-app-TEST-com.streamhouse.app.auth.CredentialCipherTest.xml",
+      "bytes": 33686,
+      "sha256": "79218435b08e0fd543914f148f16f056e33861b014e9ef0b5ce077c33598e829"
+    },
+    {
+      "path": "lab/out/split-history-product-20261007/product-reports/streamhouse-app-TEST-com.streamhouse.app.auth.TokenServiceTest.xml",
+      "bytes": 33513,
+      "sha256": "ffb924adc92dc3ad0f12a4263bcd3aff041296591f29997773290208a50a7f15"
+    },
+    {
+      "path": "lab/out/split-history-product-20261007/product-reports/streamhouse-app-TEST-com.streamhouse.app.baseline.BaselineCredentialServiceTest.xml",
+      "bytes": 33921,
+      "sha256": "7d667d9d10ff031cbf2ea44c7f61c5b35d92f369667caa663ec37ad003a69f38"
+    },
+    {
+      "path": "lab/out/split-history-product-20261007/product-reports/streamhouse-app-TEST-com.streamhouse.app.baseline.BaselineDecodeGuardTest.xml",
+      "bytes": 34404,
+      "sha256": "e51195d2240aee247281cc91d9b447be0b8271c73a22db2025e401f1215bdaed"
+    },
+    {
+      "path": "lab/out/split-history-product-20261007/product-reports/streamhouse-app-TEST-com.streamhouse.app.baseline.OracleAcquisitionServiceTest.xml",
+      "bytes": 35070,
+      "sha256": "622f0e95c708a93b9a4dfa6ddf982029e0dc188eb925ee7a2fcb32f6e354ed0c"
+    },
+    {
+      "path": "lab/out/split-history-product-20261007/product-reports/streamhouse-app-TEST-com.streamhouse.app.baseline.OracleInputBindingServiceTest.xml",
+      "bytes": 34333,
+      "sha256": "6c20f80ad8c4884013e683d99c038be6d81b65c2e726d7d6db8f4d5589f3207b"
+    },
+    {
+      "path": "lab/out/split-history-product-20261007/product-reports/streamhouse-app-TEST-com.streamhouse.app.config.JacksonLongAsStringConfigTest.xml",
+      "bytes": 33611,
+      "sha256": "96beed0a94ec37e9075d901b5924fc7c6545884c00126a5afd9fd243114a7b2c"
+    },
+    {
+      "path": "lab/out/split-history-product-20261007/product-reports/streamhouse-app-TEST-com.streamhouse.app.conn.ConnectionOpsServiceTest.xml",
+      "bytes": 34120,
+      "sha256": "c5ba1bdc21b7bb4ea930ee5b88ef0a5e86ba36916163790801ff2088ebbbb7ac"
+    },
+    {
+      "path": "lab/out/split-history-product-20261007/product-reports/streamhouse-app-TEST-com.streamhouse.app.conn.SysPartmapFallbackTest.xml",
+      "bytes": 33444,
+      "sha256": "02d0a78ee654b4c8dda8e6c9c7f638873b5b3a9a3ba987fc178a696ccff4d293"
+    },
+    {
+      "path": "lab/out/split-history-product-20261007/product-reports/streamhouse-app-TEST-com.streamhouse.app.deploy.DeployServiceTest.xml",
+      "bytes": 35509,
+      "sha256": "a93664fb6b840c237121d1c44ec15c2c4864dd685d5ee16f75b03dcf0aaa3009"
+    },
+    {
+      "path": "lab/out/split-history-product-20261007/product-reports/streamhouse-app-TEST-com.streamhouse.app.heartbeat.HeartbeatServiceTest.xml",
+      "bytes": 33672,
+      "sha256": "f1d303348d961e23d84697fd401770ee06c32b447f47bd850c5611d2c13b7b9b"
+    },
+    {
+      "path": "lab/out/split-history-product-20261007/product-reports/streamhouse-app-TEST-com.streamhouse.app.machine.MachineAdminServiceTest.xml",
+      "bytes": 35415,
+      "sha256": "cbd78d5aa423b6e720fa7dd8df73b84126b7ab9f79e176e775baeddcc171095d"
+    },
+    {
+      "path": "lab/out/split-history-product-20261007/product-reports/streamhouse-app-TEST-com.streamhouse.app.machine.MachineSourceServiceTest.xml",
+      "bytes": 34562,
+      "sha256": "be8e593991d0e20dcea02a323ccc8ab36b3e4bd1aa7f4db034dfc9fc60984510"
+    },
+    {
+      "path": "lab/out/split-history-product-20261007/product-reports/streamhouse-app-TEST-com.streamhouse.app.pipeline.AutoConsumeSchedulerTest.xml",
+      "bytes": 43086,
+      "sha256": "d55aa670073c2b735b3fa92cc6310289e18058d6ffea434d5ee277889eb26bbc"
+    },
+    {
+      "path": "lab/out/split-history-product-20261007/product-reports/streamhouse-app-TEST-com.streamhouse.app.pipeline.PipelineRunServiceTest.xml",
+      "bytes": 42896,
+      "sha256": "3b06cee342ebb345d214bdce8e7431edf928c254f429e5e3eabab7e2fcca74f4"
+    },
+    {
+      "path": "lab/out/split-history-product-20261007/product-reports/streamhouse-app-TEST-com.streamhouse.app.pipeline.WindowAdminServiceTest.xml",
+      "bytes": 34406,
+      "sha256": "0070fcad08851addb1090260e3600aca50cede8d5ab98ee08e5e0a124f0c0403"
+    },
+    {
+      "path": "lab/out/split-history-product-20261007/product-reports/streamhouse-app-TEST-com.streamhouse.app.port.CodetableDecodeContextProviderTest.xml",
+      "bytes": 33806,
+      "sha256": "a53a3b5389a27331e28eb36b95b0b68ca50339832cfee585d4e41a1c1be4234d"
+    },
+    {
+      "path": "lab/out/split-history-product-20261007/product-reports/streamhouse-app-TEST-com.streamhouse.app.port.FileCodetableFileWriterTest.xml",
+      "bytes": 33913,
+      "sha256": "2cbeed4961f8beb269267061165d04b2bdfa080e2fa704e055328c978aa33640"
+    },
+    {
+      "path": "lab/out/split-history-product-20261007/product-reports/streamhouse-app-TEST-com.streamhouse.app.port.FnDblogOfficialChannelPortTest.xml",
+      "bytes": 34378,
+      "sha256": "18468d8e1e94bba80e68d393a9a7d0eeaba5c24183d861dfc5bc7941212e13d4"
+    },
+    {
+      "path": "lab/out/split-history-product-20261007/product-reports/streamhouse-app-TEST-com.streamhouse.app.port.GatewayWindowSourceTest.xml",
+      "bytes": 33492,
+      "sha256": "e2c93beb08e9888b1ac2a8ef004f0d03bbf6641424e40368bd349fc3e6c50fc4"
+    },
+    {
+      "path": "lab/out/split-history-product-20261007/product-reports/streamhouse-app-TEST-com.streamhouse.app.port.KernelTargetApplyPortTest.xml",
+      "bytes": 34524,
+      "sha256": "22f83f0b89cbe5b7c92aef302c6c6d9b1f06c3b61915c92f3325d20bda9c3aae"
+    },
+    {
+      "path": "lab/out/split-history-product-20261007/product-reports/streamhouse-app-TEST-com.streamhouse.app.port.OdsEnrichedTargetApplyPortTest.xml",
+      "bytes": 35518,
+      "sha256": "676ecb68ccc2f2386ba709e3d6989eaa9a79aecde63d4c6d5978cd92c6a96045"
+    },
+    {
+      "path": "lab/out/split-history-product-20261007/product-reports/streamhouse-app-TEST-com.streamhouse.app.port.OdsMappingEngineTest.xml",
+      "bytes": 35075,
+      "sha256": "75e50b152640d9fbc000997a677a4910008929774b78532ddeba10f015724270"
+    },
+    {
+      "path": "lab/out/split-history-product-20261007/product-reports/streamhouse-app-TEST-com.streamhouse.app.port.OracleBoundedPublicationTest.xml",
+      "bytes": 33952,
+      "sha256": "2285efa1d09f8dc40068d4312e06a9ee1048af8fbde5f592098493b716254c70"
+    },
+    {
+      "path": "lab/out/split-history-product-20261007/product-reports/streamhouse-app-TEST-com.streamhouse.app.port.OracleControlPublicationTest.xml",
+      "bytes": 34911,
+      "sha256": "b8e4ddc0a9511f4a1d5a1dc15e9daae22edeb37e3b71b24121c6a19a10891590"
+    },
+    {
+      "path": "lab/out/split-history-product-20261007/product-reports/streamhouse-app-TEST-com.streamhouse.app.port.RowValueDecoderTest.xml",
+      "bytes": 35292,
+      "sha256": "9b9092842dc5920a65e4e9bb0697481872c44d89a551e260ca9f5e7c4cb3088b"
+    },
+    {
+      "path": "lab/out/split-history-product-20261007/product-reports/streamhouse-app-TEST-com.streamhouse.app.stream.CrossProcessFileLockTest.xml",
+      "bytes": 33331,
+      "sha256": "db693430bc5eacf2d46654a8e50b1be3853a393e0c9e9335bbb4d92f5db6e070"
+    },
+    {
+      "path": "lab/out/split-history-product-20261007/product-reports/streamhouse-app-TEST-com.streamhouse.app.stream.StageBVerifyServiceTest.xml",
+      "bytes": 36363,
+      "sha256": "45e2a52955ef97e0dd9389fd34b7bb6d4cfeb1de526380507dcdb5529351d5f9"
+    },
+    {
+      "path": "lab/out/split-history-product-20261007/product-reports/streamhouse-app-TEST-com.streamhouse.app.stream.StreamFileServiceTest.xml",
+      "bytes": 41766,
+      "sha256": "82c46da0fc2590ddf0c18199a8e1147f37e06101eb784a7815e84cc96aa0076b"
+    },
+    {
+      "path": "lab/out/split-history-product-20261007/product-reports/streamhouse-app-TEST-com.streamhouse.app.stream.StreamMapperXmlParseTest.xml",
+      "bytes": 33608,
+      "sha256": "e41cc01da82936a27237426109201f727a23668928b4e680f91cc904b9eae47c"
+    },
+    {
+      "path": "lab/out/split-history-product-20261007/product-reports/streamhouse-app-TEST-com.streamhouse.app.target.TargetMappingServiceTest.xml",
+      "bytes": 34564,
+      "sha256": "76f4ab1de3b6a6c56933013cea8295ab1644dbe35f6efa23d1500acc707fe440"
+    },
+    {
+      "path": "lab/out/split-history-product-20261007/product-reports/streamhouse-app-TEST-com.streamhouse.app.target.TargetServiceTest.xml",
+      "bytes": 34787,
+      "sha256": "e40f95c4e6e572a0cea09155c067dbb9eecf04a2e55ca66e8292969699dc10fa"
+    },
+    {
+      "path": "lab/out/split-history-product-20261007/product-reports/streamhouse-app-TEST-com.streamhouse.app.web.BaselineControllerTest.xml",
+      "bytes": 34847,
+      "sha256": "c0c018d9894f6064107cec03a5e83fccfc783fabe0d667d516475b7524e910b2"
+    },
+    {
+      "path": "lab/out/split-history-product-20261007/product-reports/streamhouse-app-TEST-com.streamhouse.app.web.DeleteEndpointsControllerTest.xml",
+      "bytes": 38082,
+      "sha256": "e97ea88d3bc61eedaf20c28dcf06bb0cda7a32f3725712586fa05e5891727d87"
+    },
+    {
+      "path": "lab/out/split-history-product-20261007/product-reports/streamhouse-app-TEST-com.streamhouse.app.web.PipelineControllerTest.xml",
+      "bytes": 38572,
+      "sha256": "c5ab8643a4bc5b610f097b29631ce384bfb30e80c46409e446909a9a9bfd5ecb"
+    },
+    {
+      "path": "lab/out/split-history-product-20261007/product-reports/streamhouse-app-TEST-com.streamhouse.app.web.StreamGatewayControllerCodecTest.xml",
+      "bytes": 34383,
+      "sha256": "df556dfd201c2a8d0f512dfad8e4ba0c3856f90877c6bd19357c108ddcca3095"
+    },
+    {
+      "path": "lab/out/split-history-product-20261007/product-reports/streamhouse-app-TEST-com.streamhouse.app.web.UnquarantineAuditTest.xml",
+      "bytes": 33720,
+      "sha256": "a1551865cdf1330e3c79b5ab0719d637087bd16eb3763d9752683e8c49d0763f"
+    },
+    {
+      "path": "lab/out/split-history-product-20261007/product-reports/streamhouse-codetable-TEST-com.streamhouse.codetable.mapper.CodetableMapperXmlParseTest.xml",
+      "bytes": 22941,
+      "sha256": "c2c15dcf2eae6030b36fc2c13e1b4047cb8b5a991c6b460602dcc55583a556e2"
+    },
+    {
+      "path": "lab/out/split-history-product-20261007/product-reports/streamhouse-codetable-TEST-com.streamhouse.codetable.service.CoverageGuardTest.xml",
+      "bytes": 23685,
+      "sha256": "913768817f87a35089ab8421cad412c964829f6164e93368b789cb69ac9babb8"
+    },
+    {
+      "path": "lab/out/split-history-product-20261007/product-reports/streamhouse-codetable-TEST-com.streamhouse.codetable.service.DriftPatrolServiceTest.xml",
+      "bytes": 23064,
+      "sha256": "097f3af18fb19fcee16dc554d5bd393a9bd184e80e34266eed76eb8e1b367bee"
+    },
+    {
+      "path": "lab/out/split-history-product-20261007/product-reports/streamhouse-codetable-TEST-com.streamhouse.codetable.service.ReimportServiceTest.xml",
+      "bytes": 23187,
+      "sha256": "83be0526d34bfc5c1e6a942cf5fcbcfd4bfcc5e555f1eedd3206c859f109b216"
+    },
+    {
+      "path": "lab/out/split-history-product-20261007/product-reports/streamhouse-codetable-TEST-com.streamhouse.codetable.service.StructureFingerprintTest.xml",
+      "bytes": 23175,
+      "sha256": "e98ef3ba34bbf9a67ff8281ffa2f10912aacfecae109ba39f09496a4911f176e"
+    },
+    {
+      "path": "lab/out/split-history-product-20261007/product-reports/streamhouse-common-TEST-com.streamhouse.common.DialectTest.xml",
+      "bytes": 18868,
+      "sha256": "5bbf8a8cf42bf8781574ae33f9dc0514ab7ad3974055e65086ca055320299360"
+    },
+    {
+      "path": "lab/out/split-history-product-20261007/product-reports/streamhouse-common-TEST-com.streamhouse.common.Sha256Test.xml",
+      "bytes": 18959,
+      "sha256": "d3ba51bb9df5c46800f1e83021f660606f0d5dd057c88fcf7584254afed3db0d"
+    },
+    {
+      "path": "lab/out/split-history-product-20261007/product-reports/streamhouse-common-TEST-com.streamhouse.common.SnowflakeIdTest.xml",
+      "bytes": 18894,
+      "sha256": "be9a8b0dccfe0969537c86b2deee0b8483eba54635e70796221eac047fcd17b8"
+    },
+    {
+      "path": "lab/out/split-history-product-20261007/product-reports/streamhouse-engine-sqlserver-TEST-com.streamhouse.engines.sqlserver.SqlServerConnectorTest.xml",
+      "bytes": 21493,
+      "sha256": "ef65b1b9355e9fb5bb10238095db1de1d323f3670b7255b8ef11c54c86c85924"
+    },
+    {
+      "path": "lab/out/split-history-product-20261007/product-reports/streamhouse-engine-sqlserver-TEST-com.streamhouse.engines.sqlserver.VerifyCliAssemblerTest.xml",
+      "bytes": 23875,
+      "sha256": "c492258102a2140eb8fa0448597d9de5d90da320749684906061d3c316a40aaa"
+    },
+    {
+      "path": "lab/out/split-history-product-20261007/product-reports/streamhouse-gateway-TEST-com.streamhouse.gateway.mapper.MapperXmlParseTest.xml",
+      "bytes": 30042,
+      "sha256": "03f04420cbaa53117a7afdb4e2a30621281eb7b6f8dd526b222fae3f8ad5fe7d"
+    },
+    {
+      "path": "lab/out/split-history-product-20261007/product-reports/streamhouse-gateway-TEST-com.streamhouse.gateway.service.AgentMetricsServiceTest.xml",
+      "bytes": 30207,
+      "sha256": "770a2beb2419c1b1319f65a25681c2843f777423fea0edffc3c2b6a82a7d9061"
+    },
+    {
+      "path": "lab/out/split-history-product-20261007/product-reports/streamhouse-gateway-TEST-com.streamhouse.gateway.service.ContinuityCheckerTest.xml",
+      "bytes": 30524,
+      "sha256": "b499edcde452ffd8c21f57d403457888dbb5271e5292e78e8ca4a4cc230c3213"
+    },
+    {
+      "path": "lab/out/split-history-product-20261007/product-reports/streamhouse-gateway-TEST-com.streamhouse.gateway.service.MachineServiceTest.xml",
+      "bytes": 30268,
+      "sha256": "386cb48107255fa769804c5c11e73d7d92435e75457b110b60d49a04638d3d5f"
+    },
+    {
+      "path": "lab/out/split-history-product-20261007/product-reports/streamhouse-gateway-TEST-com.streamhouse.gateway.service.TransferChunkServiceTest.xml",
+      "bytes": 32106,
+      "sha256": "fcbbd17710b9305a6879cdfb7dfa75413b239c4555e8de8c0f239b75a15278a7"
+    },
+    {
+      "path": "lab/out/split-history-product-20261007/product-reports/streamhouse-gateway-TEST-com.streamhouse.gateway.service.WindowIngestServiceTest.xml",
+      "bytes": 30811,
+      "sha256": "4aff463b69d5036ea4638a6a3c43a6f87279425ce4a528c1253001d9e2756c56"
+    },
+    {
+      "path": "lab/out/split-history-product-20261007/product-reports/streamhouse-gateway-TEST-com.streamhouse.gateway.web.MachineBindingGuardTest.xml",
+      "bytes": 30236,
+      "sha256": "bd330cfd4f841c273a545388cc2a43dce90b80c578071d12d6e152203d8ca515"
+    },
+    {
+      "path": "lab/out/split-history-product-20261007/product-reports/streamhouse-gateway-TEST-com.streamhouse.gateway.web.TransferControllerFlatOffsetNumericTest.xml",
+      "bytes": 30655,
+      "sha256": "ec34283b7297424bf849de333e243e1638c5a9a337509516804f05b1a786b0d9"
+    },
+    {
+      "path": "lab/out/split-history-product-20261007/product-reports/streamhouse-pipeline-TEST-com.streamhouse.pipeline.mapper.PipelineMapperXmlParseTest.xml",
+      "bytes": 27363,
+      "sha256": "7ab4587b49b3dfa84c9aa2ad64ee9dfaba4dbffac004b5ef674c0656d6b15a91"
+    },
+    {
+      "path": "lab/out/split-history-product-20261007/product-reports/streamhouse-pipeline-TEST-com.streamhouse.pipeline.service.DecodeBatchServiceTest.xml",
+      "bytes": 28588,
+      "sha256": "37a8458543a1d13e94573892abec2e8042b438bdbc677a9dd722d0ec2e417fc2"
+    },
+    {
+      "path": "lab/out/split-history-product-20261007/product-reports/streamhouse-pipeline-TEST-com.streamhouse.pipeline.service.OracleFacadePublicationTest.xml",
+      "bytes": 27769,
+      "sha256": "d4c8ff71100161571cd41124251109df6de7102b3e6b95c2b0026d09023513c7"
+    },
+    {
+      "path": "lab/out/split-history-product-20261007/product-reports/streamhouse-pipeline-TEST-com.streamhouse.pipeline.service.PipelineFacadeTest.xml",
+      "bytes": 28742,
+      "sha256": "87933efe225d00c1ef256345ad0a0e1e0a452337d88c5f9ce2af8d944e7d8bfe"
+    },
+    {
+      "path": "lab/out/split-history-product-20261007/product-reports/streamhouse-pipeline-TEST-com.streamhouse.pipeline.service.PublishGateTest.xml",
+      "bytes": 29292,
+      "sha256": "4b7e803af26e3ebcb56d5dc9e4dd8922ecb61bb64b7f4e074aa6498a7bcb961d"
+    },
+    {
+      "path": "lab/out/split-history-product-20261007/product-reports/streamhouse-pipeline-TEST-com.streamhouse.pipeline.service.TaskStateMachineTest.xml",
+      "bytes": 27573,
+      "sha256": "da79cd9a0477a97ca46ea7aaf0a024db31bd948cf305066cec3ac1c02712c4b8"
+    },
+    {
+      "path": "lab/out/split-history-product-20261007/product-reports/streamhouse-pipeline-TEST-com.streamhouse.pipeline.service.WatermarkGateTest.xml",
+      "bytes": 27829,
+      "sha256": "f4f69c89be4d7ca5fce245334992c6cd5508a88578b4c67f463e82a0927069f9"
+    },
+    {
+      "path": "lab/out/split-history-product-20261007/product-reports/streamhouse-recon-TEST-com.streamhouse.recon.mapper.ReconMapperXmlParseTest.xml",
+      "bytes": 24233,
+      "sha256": "46c74b8b26da7d3fda637e4b77056cbfd0ec379c74eb1fdfb8ff2b4afed449cb"
+    },
+    {
+      "path": "lab/out/split-history-product-20261007/product-reports/streamhouse-recon-TEST-com.streamhouse.recon.service.CloseBatchServiceTest.xml",
+      "bytes": 24478,
+      "sha256": "7ddce211bab9de068a723269354b6f66761c3d2ab3c16e8188c4f88ac753680e"
+    },
+    {
+      "path": "lab/out/split-history-product-20261007/product-reports/streamhouse-recon-TEST-com.streamhouse.recon.service.Dt3ReconServiceTest.xml",
+      "bytes": 24729,
+      "sha256": "8d7543d12598b779bb43a746218832ec34713da19a6bc555fb812527be86fd04"
+    },
+    {
+      "path": "lab/out/split-history-product-20261007/product-reports/streamhouse-recon-TEST-com.streamhouse.recon.service.GapClassifierTest.xml",
+      "bytes": 25316,
+      "sha256": "92f5ea0d06540ae92560bd7ebd3190d1ef59e7404951ab459307e63d81c91f4a"
+    },
+    {
+      "path": "lab/out/split-history-product-20261007/product-reports/streamhouse-recon-TEST-com.streamhouse.recon.service.ReconQueryServiceTest.xml",
+      "bytes": 23936,
+      "sha256": "08260bb9f806d8888289dfd261a20e5d41b14d80c6f1ff15be1a38136aa110a3"
+    },
+    {
+      "path": "lab/out/split-history-product-20261007/product-reports/streamhouse-recovery-TEST-com.streamhouse.recovery.mapper.RecoveryMapperXmlParseTest.xml",
+      "bytes": 24284,
+      "sha256": "b68c943c99c167472cfdd749a4e91676f37ea1e8dc0e38e6a6d6386e03739326"
+    },
+    {
+      "path": "lab/out/split-history-product-20261007/product-reports/streamhouse-recovery-TEST-com.streamhouse.recovery.service.ExceptFinalVerifierTest.xml",
+      "bytes": 25551,
+      "sha256": "0f717cf19f103d83a5d94873c40e7137d4e53d07825ecd597a87cfde5a74a285"
+    },
+    {
+      "path": "lab/out/split-history-product-20261007/product-reports/streamhouse-recovery-TEST-com.streamhouse.recovery.service.FullLoadPlannerTest.xml",
+      "bytes": 25078,
+      "sha256": "d8f640ceb03eb375b7cc7c3ac3956e012332b4daac6324861947ab8eb70d85e1"
+    },
+    {
+      "path": "lab/out/split-history-product-20261007/product-reports/streamhouse-recovery-TEST-com.streamhouse.recovery.service.LocatorGuardServiceTest.xml",
+      "bytes": 25400,
+      "sha256": "fa438dc4417f0c82391398b2b6b72d160970b73767d3b0b3c9292412e26ce76d"
+    },
+    {
+      "path": "lab/out/split-history-product-20261007/product-reports/streamhouse-recovery-TEST-com.streamhouse.recovery.service.RecoveryFacadeTest.xml",
+      "bytes": 25145,
+      "sha256": "4c35ea12ef81602c2461949480f09894d64d4b2c74fa714736170873e5dbc714"
+    },
+    {
+      "path": "lab/out/split-history-product-20261007/product-reports/streamhouse-recovery-TEST-com.streamhouse.recovery.service.ResnatchServiceTest.xml",
+      "bytes": 25339,
+      "sha256": "7bb55b83422a071960d7aafec9fd495cdf2f8fae4e983d62de725ff85b9bfa87"
+    },
+    {
+      "path": "lab/out/split-history-product-20261007/product-reports/streamhouse-recovery-TEST-com.streamhouse.recovery.service.UpsertSqlBuilderTest.xml",
+      "bytes": 25073,
+      "sha256": "80d10a4242ae1cf317e919789782f8252d4f1baf7c1964c801e443b878df591b"
+    },
+    {
+      "path": "lab/out/split-history-product-20261007/product-reports/streamhouse-recovery-TEST-com.streamhouse.recovery.service.WatermarkReplayServiceTest.xml",
+      "bytes": 26006,
+      "sha256": "f4ff76e7c8e63687c57807c5c63e2cd6e18db57fdabb15ab83285ed5e20a1e5e"
+    },
+    {
+      "path": "lab/out/split-history-product-20261007/product-reports/streamhouse-spi-TEST-com.streamhouse.spi.ConnectorRegistryTest.xml",
+      "bytes": 19239,
+      "sha256": "b93d6054048337046db072a3e713cf396a7b47ccda5c5fe6ab49ca2701c2d027"
+    },
+    {
+      "path": "lab/out/split-history-product-20261007/product-reports/streamhouse-spi-TEST-com.streamhouse.spi.OracleSchemaSequenceTest.xml",
+      "bytes": 19093,
+      "sha256": "d01aac1ca5019b1dd85aa64bc91e04c036d27aa15d95085a2a1c0a7200c6abe3"
+    },
+    {
+      "path": "lab/out/split-history-product-20261007/published-state.command.json",
+      "bytes": 90,
+      "sha256": "6095ca5a9605c02acb9b77ba5ea4d19487ab938e2e51045704dedb495bc394d5"
+    },
+    {
+      "path": "lab/out/split-history-product-20261007/published-state.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/split-history-product-20261007/published-state.sql",
+      "bytes": 1415,
+      "sha256": "db27114855316cf8cb7757cae5bec4a4435b64be5671cb5007c8f4697a2db960"
+    },
+    {
+      "path": "lab/out/split-history-product-20261007/published-state.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/split-history-product-20261007/published-state.stdout.txt",
+      "bytes": 578,
+      "sha256": "a51583e24aebe369ed502ed7f7feccbd0fcb07fedde0511cc2d3551d982bce7b"
+    },
+    {
+      "path": "lab/out/split-history-product-20261007/receipt-negative-proof.json",
+      "bytes": 393,
+      "sha256": "882750dbac41cf5349c03d249abfa57ef80fc64ac2d83931d1eb37c5b65c4de9"
+    },
+    {
+      "path": "lab/out/split-history-product-20261007/restart-completion.command.json",
+      "bytes": 90,
+      "sha256": "6095ca5a9605c02acb9b77ba5ea4d19487ab938e2e51045704dedb495bc394d5"
+    },
+    {
+      "path": "lab/out/split-history-product-20261007/restart-completion.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/split-history-product-20261007/restart-completion.sql",
+      "bytes": 477,
+      "sha256": "3c6de2befbbf442c769d15fedcb59c8987d176e7bdbd67a0d1a715fe93bc5988"
+    },
+    {
+      "path": "lab/out/split-history-product-20261007/restart-completion.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/split-history-product-20261007/restart-completion.stdout.txt",
+      "bytes": 8531,
+      "sha256": "6e414e765010685318ef9c94be22853a92fea7f5dd44adbfee40ee0c174ae973"
+    },
+    {
+      "path": "lab/out/split-history-product-20261007/restart-owner.command.json",
+      "bytes": 143,
+      "sha256": "7a9c5115d9f2ef666c9a072665adb9cdf8aa677e2f2f5c7adbb2717ad3a9bb1e"
+    },
+    {
+      "path": "lab/out/split-history-product-20261007/restart-owner.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/split-history-product-20261007/restart-owner.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/split-history-product-20261007/restart-owner.stdout.txt",
+      "bytes": 44,
+      "sha256": "9429b5da62e0eb58b3b4103a76d50c00ac6eaf362bbac669b3b978441e531228"
+    },
+    {
+      "path": "lab/out/split-history-product-20261007/restart-pin.json",
+      "bytes": 275,
+      "sha256": "7751ddced33be142c897fa82d909edaadc07a5c7c70c24a729c60545abce34eb"
+    },
+    {
+      "path": "lab/out/split-history-product-20261007/restart-repeat.command.json",
+      "bytes": 68,
+      "sha256": "3db85b9ce9c292803929512f3544a8cdb53c7de4ff523465c28d15a36cd01ae0"
+    },
+    {
+      "path": "lab/out/split-history-product-20261007/restart-repeat.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/split-history-product-20261007/restart-repeat.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/split-history-product-20261007/restart-repeat.stdout.txt",
+      "bytes": 4791,
+      "sha256": "74bda8c7a6b95e02a5643306f8a1b467feaa0dbd1f4314f9cbe020f1ee1e266e"
+    },
+    {
+      "path": "lab/out/split-history-product-20261007/restart-start.command.json",
+      "bytes": 57,
+      "sha256": "1458b6a44fe7ee2db7ef0491b122cab4e6873abcb4b3b487eba8449aa8fc5059"
+    },
+    {
+      "path": "lab/out/split-history-product-20261007/restart-start.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/split-history-product-20261007/restart-start.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/split-history-product-20261007/restart-start.stdout.txt",
+      "bytes": 35,
+      "sha256": "c841382eb19a919479a862f9977511ad2fcf6172ee4a242d1b533cd175a9be90"
+    },
+    {
+      "path": "lab/out/split-history-product-20261007/restart-state-proof.json",
+      "bytes": 699,
+      "sha256": "db1273fd45c4f0673766d5bec2e871fc2b6fcd74cb6c2f5674980c5cfa775276"
+    },
+    {
+      "path": "lab/out/split-history-product-20261007/restart-state.command.json",
+      "bytes": 90,
+      "sha256": "6095ca5a9605c02acb9b77ba5ea4d19487ab938e2e51045704dedb495bc394d5"
+    },
+    {
+      "path": "lab/out/split-history-product-20261007/restart-state.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/split-history-product-20261007/restart-state.sql",
+      "bytes": 1415,
+      "sha256": "db27114855316cf8cb7757cae5bec4a4435b64be5671cb5007c8f4697a2db960"
+    },
+    {
+      "path": "lab/out/split-history-product-20261007/restart-state.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/split-history-product-20261007/restart-state.stdout.txt",
+      "bytes": 5703,
+      "sha256": "12d7c5ce3613f145e6d46244cbc6a888203f38082cb2b01a33ccc8953b27e90d"
+    },
+    {
+      "path": "lab/out/split-history-product-20261007/restart-stop.command.json",
+      "bytes": 72,
+      "sha256": "230580ce6d3943ce11409290459dfd3f960e6379e1d972ed906046c7b6f1ebe4"
+    },
+    {
+      "path": "lab/out/split-history-product-20261007/restart-stop.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/split-history-product-20261007/restart-stop.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/split-history-product-20261007/restart-stop.stdout.txt",
+      "bytes": 90,
+      "sha256": "e42ea3f4679c795fab5d59726e4d66efb315dabc55baab0c82f7852c76a6954b"
+    },
+    {
+      "path": "lab/out/split-history-product-20261007/restarted-health-acquisition.command.json",
+      "bytes": 68,
+      "sha256": "3db85b9ce9c292803929512f3544a8cdb53c7de4ff523465c28d15a36cd01ae0"
+    },
+    {
+      "path": "lab/out/split-history-product-20261007/restarted-health-acquisition.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/split-history-product-20261007/restarted-health-acquisition.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/split-history-product-20261007/restarted-health-acquisition.stdout.txt",
+      "bytes": 22269,
+      "sha256": "ce1747834cc4d5129d9cd48917aa406c7a8bc41964f8cb69e8bc72b24729acff"
+    },
+    {
+      "path": "lab/out/split-history-product-20261007/restarted-health-running-sha.command.json",
+      "bytes": 98,
+      "sha256": "b10fa737d504459b176aa5193d4c0310d5b807755126f10848589114b4c99c45"
+    },
+    {
+      "path": "lab/out/split-history-product-20261007/restarted-health-running-sha.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/split-history-product-20261007/restarted-health-running-sha.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/split-history-product-20261007/restarted-health-running-sha.stdout.txt",
+      "bytes": 92,
+      "sha256": "835e1615e9d74d34a5e41534fc01d234021b348ec14e95de4229687a4c97cdb1"
+    },
+    {
+      "path": "lab/out/split-history-product-20261007/restarted-health.command.json",
+      "bytes": 68,
+      "sha256": "3db85b9ce9c292803929512f3544a8cdb53c7de4ff523465c28d15a36cd01ae0"
+    },
+    {
+      "path": "lab/out/split-history-product-20261007/restarted-health.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/split-history-product-20261007/restarted-health.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/split-history-product-20261007/restarted-health.stdout.txt",
+      "bytes": 119,
+      "sha256": "5f757beb2f31a9b1b7c5824b6c75fdf80ba7eb546c62d6d92d5f1ee023ddeef4"
+    },
+    {
+      "path": "lab/out/split-history-product-20261007/restore-receipt.command.json",
+      "bytes": 90,
+      "sha256": "6095ca5a9605c02acb9b77ba5ea4d19487ab938e2e51045704dedb495bc394d5"
+    },
+    {
+      "path": "lab/out/split-history-product-20261007/restore-receipt.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/split-history-product-20261007/restore-receipt.sql",
+      "bytes": 637,
+      "sha256": "dd4d314b0dccbc2308237c3a43cb39e3bd7b90cb39ad796d8435be05a6a003f9"
+    },
+    {
+      "path": "lab/out/split-history-product-20261007/restore-receipt.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/split-history-product-20261007/restore-receipt.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/split-history-product-20261007/restored-completion.command.json",
+      "bytes": 90,
+      "sha256": "6095ca5a9605c02acb9b77ba5ea4d19487ab938e2e51045704dedb495bc394d5"
+    },
+    {
+      "path": "lab/out/split-history-product-20261007/restored-completion.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/split-history-product-20261007/restored-completion.sql",
+      "bytes": 477,
+      "sha256": "3c6de2befbbf442c769d15fedcb59c8987d176e7bdbd67a0d1a715fe93bc5988"
+    },
+    {
+      "path": "lab/out/split-history-product-20261007/restored-completion.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/split-history-product-20261007/restored-completion.stdout.txt",
+      "bytes": 16908,
+      "sha256": "4952dd461fec79d308c181a646e34c0589c381094aa94e75aad1926d2cecfb23"
+    },
+    {
+      "path": "lab/out/split-history-product-20261007/restored-recovery.command.json",
+      "bytes": 68,
+      "sha256": "3db85b9ce9c292803929512f3544a8cdb53c7de4ff523465c28d15a36cd01ae0"
+    },
+    {
+      "path": "lab/out/split-history-product-20261007/restored-recovery.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/split-history-product-20261007/restored-recovery.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/split-history-product-20261007/restored-recovery.stdout.txt",
+      "bytes": 4791,
+      "sha256": "74bda8c7a6b95e02a5643306f8a1b467feaa0dbd1f4314f9cbe020f1ee1e266e"
+    },
+    {
+      "path": "lab/out/split-history-product-20261007/restored-state-proof.json",
+      "bytes": 699,
+      "sha256": "db1273fd45c4f0673766d5bec2e871fc2b6fcd74cb6c2f5674980c5cfa775276"
+    },
+    {
+      "path": "lab/out/split-history-product-20261007/restored-state.command.json",
+      "bytes": 90,
+      "sha256": "6095ca5a9605c02acb9b77ba5ea4d19487ab938e2e51045704dedb495bc394d5"
+    },
+    {
+      "path": "lab/out/split-history-product-20261007/restored-state.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/split-history-product-20261007/restored-state.sql",
+      "bytes": 1415,
+      "sha256": "db27114855316cf8cb7757cae5bec4a4435b64be5671cb5007c8f4697a2db960"
+    },
+    {
+      "path": "lab/out/split-history-product-20261007/restored-state.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/split-history-product-20261007/restored-state.stdout.txt",
+      "bytes": 5803,
+      "sha256": "a79e3c1cd253aeda398b2ad2c842e6215ec461fd2b56ac3eb88c353626f28772"
+    },
+    {
+      "path": "lab/out/split-history-product-20261007/runtime-pin.json",
+      "bytes": 394,
+      "sha256": "03b693187789831dcd02ba129227edf07eaace658e0193c81c0ae10a15592ecb"
+    },
+    {
+      "path": "lab/out/split-history-product-20261007/sealed-build_split_history_product19.py",
+      "bytes": 5729,
+      "sha256": "2fe8490a71a3bbafc68bee3dae717e73e3a144ea3584667492107d5f92f8cfa7"
+    },
+    {
+      "path": "lab/out/split-history-product-20261007/sealed-seal_split_history_product19.py",
+      "bytes": 4223,
+      "sha256": "d57df2488f3dcfa07c31f7ee811a68ee543f79e496922a42a62061e0cf08f1f6"
+    },
+    {
+      "path": "lab/out/split-history-product-20261007/sealed-split_history_product_runtime19.py",
+      "bytes": 13842,
+      "sha256": "b3e44d22bbee67baccec307c7ea339bf3cddfae4db11afd243740f0215531fcd"
+    },
+    {
+      "path": "lab/out/split-history-product-20261007/sealed-verify_split_history_product19.py",
+      "bytes": 3718,
+      "sha256": "301c0cb6a1f1afcadc877550690cc380ec442bb993babd3fefd3663da9b406b6"
+    },
+    {
+      "path": "lab/out/split-history-product-20261007/sealed-verify_split_history_product_negative19.py",
+      "bytes": 1737,
+      "sha256": "63c3600ae5f09f9464ba078ecd892f0ad9dcf0a3f75607d4034045f8be6633d5"
+    },
+    {
+      "path": "lab/out/split-history-product-20261007/sequence-70.oracap",
+      "bytes": 108642965,
+      "sha256": "803146ffb45659b9fc16950099bc021b4de709d48b1c43d511ce57f057931d60"
+    },
+    {
+      "path": "lab/out/split-history-product-20261007/sequence-71.oracap",
+      "bytes": 15387,
+      "sha256": "8e5f35770e633731128374ef37d321053c771f6d3b5bbed591760b00eb11cba9"
+    },
+    {
+      "path": "lab/out/split-history-product-20261007/spi.jar",
+      "bytes": 29797,
+      "sha256": "53b84d186ba2cfa7f14143ae04cd553354a783e98a71642d271825d65059d829"
+    },
+    {
+      "path": "lab/out/split-history-product-20261007/start-container.command.json",
+      "bytes": 734,
+      "sha256": "fc9f6e38f6c2cce54acfd576ac36fa3e4a804a2cc557eec6e697c872d949cf35"
+    },
+    {
+      "path": "lab/out/split-history-product-20261007/start-container.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/split-history-product-20261007/start-container.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/split-history-product-20261007/start-container.stdout.txt",
+      "bytes": 65,
+      "sha256": "011446c22a8b33b51dd557eb7ccfa491bfe0658dbfe35d20fcb0a756cdd35f46"
+    },
+    {
+      "path": "lab/out/split-history-product-20261007/start-inventory.command.json",
+      "bytes": 48,
+      "sha256": "8e703e6ef841282e2bc58a0f26edc74775c6ff87a30c3062749844da7b98c782"
+    },
+    {
+      "path": "lab/out/split-history-product-20261007/start-inventory.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/split-history-product-20261007/start-inventory.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/split-history-product-20261007/start-inventory.stdout.txt",
+      "bytes": 779,
+      "sha256": "87b0efb470e13df90de0378d9d976f889a8204762ea4f8a875b7e36f163ca0c5"
+    },
+    {
+      "path": "lab/out/split-history-product-20261007/start-old-owner.command.json",
+      "bytes": 139,
+      "sha256": "7444d8f9b4747d4ab43ba3080cb1044fb87dc6ecd5882be203ff50b61d28f27f"
+    },
+    {
+      "path": "lab/out/split-history-product-20261007/start-old-owner.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/split-history-product-20261007/start-old-owner.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/split-history-product-20261007/start-old-owner.stdout.txt",
+      "bytes": 40,
+      "sha256": "c2a48a3beb509d3321ce34682c01717ed7cfd71d9e421917cfc5fb1e3f75b0b9"
+    },
+    {
+      "path": "lab/out/split-history-product-20261007/start-stop-old.command.json",
+      "bytes": 68,
+      "sha256": "29270d9ccdf011828da086dc9aaa4e4240cb8842602b051e97ff968d81f488bc"
+    },
+    {
+      "path": "lab/out/split-history-product-20261007/start-stop-old.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/split-history-product-20261007/start-stop-old.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/split-history-product-20261007/start-stop-old.stdout.txt",
+      "bytes": 86,
+      "sha256": "39583f2a824acafa0e2fd786e35d96a87c9efdb66d73c05f4754b762adc87bcf"
+    },
+    {
+      "path": "lab/out/split-history-product-20261007/stop-owner.command.json",
+      "bytes": 143,
+      "sha256": "7a9c5115d9f2ef666c9a072665adb9cdf8aa677e2f2f5c7adbb2717ad3a9bb1e"
+    },
+    {
+      "path": "lab/out/split-history-product-20261007/stop-owner.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/split-history-product-20261007/stop-owner.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/split-history-product-20261007/stop-owner.stdout.txt",
+      "bytes": 44,
+      "sha256": "9429b5da62e0eb58b3b4103a76d50c00ac6eaf362bbac669b3b978441e531228"
+    },
+    {
+      "path": "lab/out/split-history-product-20261007/stop-state.command.json",
+      "bytes": 131,
+      "sha256": "899e3ec0db57d3011185325c06bfc159d40a7fcaa523f9e8d657a6c57aa3bad4"
+    },
+    {
+      "path": "lab/out/split-history-product-20261007/stop-state.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/split-history-product-20261007/stop-state.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/split-history-product-20261007/stop-state.stdout.txt",
+      "bytes": 17,
+      "sha256": "a838087ccfe0dc3765bd8ff067613312dcc3f87282f4e490984001d3c787a921"
+    },
+    {
+      "path": "lab/out/split-history-product-20261007/stop.command.json",
+      "bytes": 72,
+      "sha256": "230580ce6d3943ce11409290459dfd3f960e6379e1d972ed906046c7b6f1ebe4"
+    },
+    {
+      "path": "lab/out/split-history-product-20261007/stop.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/split-history-product-20261007/stop.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/split-history-product-20261007/stop.stdout.txt",
+      "bytes": 90,
+      "sha256": "e42ea3f4679c795fab5d59726e4d66efb315dabc55baab0c82f7852c76a6954b"
+    },
+    {
+      "path": "lab/out/split-history-product-20261007/submit.command.json",
+      "bytes": 68,
+      "sha256": "3db85b9ce9c292803929512f3544a8cdb53c7de4ff523465c28d15a36cd01ae0"
+    },
+    {
+      "path": "lab/out/split-history-product-20261007/submit.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/split-history-product-20261007/submit.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/split-history-product-20261007/submit.stdout.txt",
+      "bytes": 292,
+      "sha256": "a88f33e8c0fef369e60c28a53486c56695e3804e7e72a486e72aaf45e928cb5c"
+    },
+    {
+      "path": "lab/out/split-history-product-20261007/task-id.txt",
+      "bytes": 18,
+      "sha256": "b0da530019ce19ccee5be6cba4862b663b369ef80307b57304258a5364b13d61"
+    }
+  ]
+}
