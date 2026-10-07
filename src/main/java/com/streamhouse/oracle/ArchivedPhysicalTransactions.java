@@ -198,7 +198,7 @@ public final class ArchivedPhysicalTransactions {
                             var f=new HeapRowPatch().decode(row,rowColumns);
                             if (f.xtype()!=1 || !h.uba().equals(f.uba())) continue;
                             var pair=HeapUndoPair.bind(r,row,rowColumns);state.requireActive(r,pair);c.heaps.add(pair);
-                        } else if (h.dataObjectId()==indexObject && row.opcodeMajor()==10 && (row.opcodeMinor()==2 || row.opcodeMinor()==4)) {
+                        } else if (h.dataObjectId()==indexObject && row.opcodeMajor()==10 && (row.opcodeMinor()==2 || row.opcodeMinor()==4 || row.opcodeMinor()==5 && row.fields().size()==3)) {
                             if (!h.uba().equals(IndexUndoPair.decodeForward(row).uba())) continue;
                             var pair=IndexUndoPair.bind(r,row);state.requireActive(r,pair);c.indexes.add(pair);
                         } else continue;

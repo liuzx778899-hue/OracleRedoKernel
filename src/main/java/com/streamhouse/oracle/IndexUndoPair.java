@@ -16,11 +16,12 @@ public record IndexUndoPair(long containerUid,long containerId,Forward forward,I
         return decodeForward(vector,false);
     }
     private static Forward decodeForward(RedoRecords.Vector vector,boolean dictionary) throws RedoException {
-        if (vector.opcodeMajor()!=10 || (vector.opcodeMinor()!=2 && vector.opcodeMinor()!=4))
+        if (vector.opcodeMajor()!=10 || (vector.opcodeMinor()!=2 && vector.opcodeMinor()!=4 && vector.opcodeMinor()!=5))
             throw new RedoException("UNSUPPORTED_INDEX_FORWARD_OPCODE");
         var fields=vector.fields();
         boolean insert=vector.opcodeMinor()==2;
-        int count=insert ? dictionary && fields.size()==3 ? 3 : 4 : 2;
+        boolean restore=vector.opcodeMinor()==5;
+        int count=insert ? dictionary && fields.size()==3 ? 3 : 4 : restore ? 3 : 2;
         if (fields.size()!=count || fields.get(1).length!=6)
             throw new RedoException("UNSUPPORTED_INDEX_FORWARD_FIELDS");
         byte[] ktb=fields.get(0),leaf=fields.get(1);
@@ -35,14 +36,15 @@ public record IndexUndoPair(long containerUid,long containerId,Forward forward,I
         var uba=new HeapRowPatch.Uba(u32(ktb,offset),u16(ktb,offset+4),ktb[offset+6]&255);
         if (uba.dba()==0 || uba.record()==0) throw new RedoException("INVALID_INDEX_FORWARD_UBA");
         byte[] key=insert ? fields.get(2).clone() : null;
-        byte[] data=insert ? count==4 ? fields.get(3).clone() : new byte[0] : null;
+        byte[] data=insert ? count==4 ? fields.get(3).clone() : new byte[0] : restore ? fields.get(2).clone() : null;
+        if (restore && (dictionary || data.length!=6)) throw new RedoException("UNSUPPORTED_INDEX_RESTORE_KEYDATA");
         if (insert) {
             if(dictionary)DictionaryIndexKey.validatePhysical(key,data);else validateKeyData(key,data);
         }
         int size=u16(leaf,4);
         if (size<4 || (insert && size!=4+key.length+data.length))
             throw new RedoException("INDEX_LEAF_ROW_SIZE_MISMATCH");
-        return new Forward(insert ? Kind.INSERT : Kind.DELETE,vector.dba(),leaf[0]&255,u16(leaf,2),size,xid,uba,key,data);
+        return new Forward(insert ? Kind.INSERT : restore ? Kind.RESTORE : Kind.DELETE,vector.dba(),leaf[0]&255,u16(leaf,2),size,xid,uba,key,data);
     }
 
     public static Inverse decodeUndo(RedoRecords.Vector vector) throws RedoException {
@@ -62,13 +64,14 @@ public record IndexUndoPair(long containerUid,long containerId,Forward forward,I
         if (ktb.length<2 || (ktb[1]&255)!=0x0d || !((ktb[0]==3 && ktb.length==8)
                 || (ktb[0]==2 && ktb.length==16) || (ktb[0]==4 && ktb.length==32)))
             throw new RedoException("UNSUPPORTED_INDEX_UNDO_KTB");
-        if (leaf.length!=20 || (leaf[0]!=3 && leaf[0]!=5) || leaf[1]==0 || (leaf[2]!=1 && leaf[2]!=5)
+        if (leaf.length!=20 || !(leaf[0]==3 || leaf[0]==5 || !dictionary && leaf[0]==4) || leaf[1]==0 || (leaf[2]!=1 && leaf[2]!=5)
                 || u32(leaf,4)==0 || u32(leaf,8)==0)
             throw new RedoException("UNSUPPORTED_INDEX_UNDO_LEAF");
-        Kind kind=leaf[0]==3 ? Kind.PURGE : Kind.RESTORE;
+        Kind kind=leaf[0]==3 ? Kind.PURGE : leaf[0]==4 ? Kind.DELETE : Kind.RESTORE;
+        if (kind==Kind.DELETE && leaf[2]!=1) throw new RedoException("UNSUPPORTED_INDEX_RESTORE_UNDO_FLAGS");
         boolean inlineRestore=dictionary && kind==Kind.RESTORE && fields.size()==5;
         if (fields.size()!=(kind==Kind.PURGE || inlineRestore ? 5 : 6)) throw new RedoException("INDEX_UNDO_OPERATION_FIELDS_MISMATCH");
-        byte[] key=fields.get(4).clone(),data=kind==Kind.RESTORE ? inlineRestore ? new byte[0] : fields.get(5).clone() : null;
+        byte[] key=fields.get(4).clone(),data=kind!=Kind.PURGE ? inlineRestore ? new byte[0] : fields.get(5).clone() : null;
         if(dictionary)DictionaryIndexKey.validatePhysical(key,data);else validateKeyData(key,data);
         return new Inverse(identity,kind,u32(leaf,4),u32(leaf,8),leaf[1]&255,leaf[2]&255,u16(leaf,12),
                 u32(metadata,12),metadata[19]&255,u16(metadata,22),key,data);
@@ -101,12 +104,14 @@ public record IndexUndoPair(long containerUid,long containerId,Forward forward,I
         }
         if (rowMatches!=1) throw new RedoException("AMBIGUOUS_INDEX_FORWARD_UBA");
         if (match==null) throw new RedoException("MISSING_INDEX_UNDO_UBA");
-        if (match.kind()!=(forward.kind()==Kind.INSERT ? Kind.PURGE : Kind.RESTORE)
+        if (match.kind()!=(forward.kind()==Kind.INSERT ? Kind.PURGE : forward.kind()==Kind.RESTORE ? Kind.DELETE : Kind.RESTORE)
                 || match.block()!=forward.block() || match.itl()!=forward.itl()
                 || (forward.xid()!=null && !forward.xid().equals(match.identity().xid()))
                 || (forward.kind()==Kind.INSERT && !Arrays.equals(forward.key(),match.key()))
-                || (forward.kind()==Kind.DELETE && forward.rowSize()!=4+match.key().length+match.keydata().length))
+                || (forward.kind()!=Kind.INSERT && forward.rowSize()!=4+match.key().length+match.keydata().length)
+                || (forward.kind()==Kind.RESTORE && !Arrays.equals(forward.keydata(),match.keydata())))
             throw new RedoException("INDEX_UNDO_OPERATION_BLOCK_ITL_XID_OR_KEY_MISMATCH");
+        if (forward.kind()==Kind.RESTORE) forward=new Forward(forward.kind(),forward.block(),forward.itl(),forward.slot(),forward.rowSize(),forward.xid(),forward.uba(),match.key().clone(),forward.keydata());
         return new IndexUndoPair(record.containerUid(),row.containerId(),forward,match);
     }
 

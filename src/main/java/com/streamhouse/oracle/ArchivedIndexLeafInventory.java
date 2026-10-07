@@ -52,7 +52,7 @@ public final class ArchivedIndexLeafInventory {
                         SingleEntryBlockCleanout.require(r,v);continue;
                     }
                     var position=new ArchivedUndoInventory.Position(header.sequence(),r.block(),r.offset(),i+1);
-                    if (v.opcodeMajor()==10 && (v.opcodeMinor()==2 || v.opcodeMinor()==4)) {
+                    if (v.opcodeMajor()==10 && (v.opcodeMinor()==2 || v.opcodeMinor()==4 || v.opcodeMinor()==5 && v.fields().size()==3)) {
                         var pair=IndexUndoPair.bind(r,v);var f=pair.forward();var u=pair.undo();
                         if (u.identity().objectId()!=indexObject || u.identity().dataObjectId()!=indexDataObject)
                             throw new RedoException("INDEX_LEAF_INVENTORY_OBJECT_MISMATCH");
