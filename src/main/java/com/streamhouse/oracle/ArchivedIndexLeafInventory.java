@@ -30,7 +30,11 @@ public final class ArchivedIndexLeafInventory {
     }
     static ArchivedIndexLeafInventory read(RedoBatch archives,long uid,long container,HeapRowPatch.Xid xid,
                                                  long indexObject,long indexDataObject,long leafDba) throws IOException {
-        var window=ArchivedCompensationInventory.read(archives,uid,container,xid);
+        return read(archives,uid,container,xid,indexObject,indexDataObject,leafDba,false);
+    }
+    static ArchivedIndexLeafInventory read(RedoBatch archives,long uid,long container,HeapRowPatch.Xid xid,
+                                                 long indexObject,long indexDataObject,long leafDba,boolean allowPending) throws IOException {
+        var window=ArchivedCompensationInventory.read(archives,uid,container,xid,allowPending);
         var entries=new ArrayList<Entry>();
         for (int source=0;source<archives.size();source++) {
             var path=archives.get(source);var header=path.header();

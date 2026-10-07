@@ -24,7 +24,13 @@ public final class ArchivedObjectTransactions {
     static ArchivedObjectTransactions read(RedoBatch paths,long uid,long container,HeapIndexScope roles) throws IOException {
         return read(paths,uid,container,roles.generations());
     }
+    static ArchivedObjectTransactions readPending(RedoBatch paths,long uid,long container,HeapIndexScope roles) throws IOException {
+        return read(paths,uid,container,roles.generations(),true);
+    }
     private static ArchivedObjectTransactions read(RedoBatch paths,long uid,long container,java.util.Map<Long,Long> generations) throws IOException {
+        return read(paths,uid,container,generations,false);
+    }
+    private static ArchivedObjectTransactions read(RedoBatch paths,long uid,long container,java.util.Map<Long,Long> generations,boolean allowPending) throws IOException {
         if (paths.isEmpty() || generations.isEmpty()) throw new RedoException("EMPTY_OBJECT_TRANSACTION_SCOPE_OR_INPUT");
         var scope=new java.util.HashSet<Long>(generations.keySet());scope.addAll(generations.values());var xids=new LinkedHashSet<HeapRowPatch.Xid>();
         var relevantMarkers=new ArrayList<ArchivedUndoInventory.Position>();var sources=new ArrayList<ArchivedRedo.Header>();
@@ -58,7 +64,7 @@ public final class ArchivedObjectTransactions {
         }
         var transactions=new ArrayList<Transaction>();var routed=new java.util.HashMap<ArchivedUndoInventory.Position,ArchivedCompensationAssociations.Entry>();
         for (var xid:xids) {
-            var associations=ArchivedCompensationAssociations.read(paths,uid,container,xid);
+            var associations=ArchivedCompensationAssociations.read(paths,uid,container,xid,allowPending);
             if (!sources.equals(associations.window().undo().sources())) throw new RedoException("OBJECT_TRANSACTION_INPUT_CHANGED");
             for (var original:associations.window().undo().entries())
                 if (!Long.valueOf(original.identity().dataObjectId()).equals(generations.get(original.identity().objectId())))

@@ -1,5 +1,7 @@
 # 2026-10-06 新 chat 接续：历史 schema 目标提交
 
+当前执行（2026-10-07物理前缀）：[活跃物理前缀状态](DELIVERY_W4_PHYSICAL_PREFIX_20261007.md)，kernel7ff4a5e7/完整328、新六测试。新增内部pending发现/补偿路由/index槽/physical前缀，保留原物理门禁且默认完整入口未闭合仍拒绝。冻结73闭合0/pending1/heap pair1，identity及graph与前独立JVM state字节相同；原73+74闭合1/pending0及两完整事件字节不变。首326/1新fixture同时删marker/end的预期错误原文保全，修正后328通过。45双SHA/前86+36+42+88+182未变，0源/目标/产品动作。尚在内存生成pending，统一持久恢复/仅续后缀/完整行/产品CPACK待证；下一装配字典与physical恢复凭证。原goal active。
+
 当前执行（2026-10-07字典恢复凭证）：[字典恢复/完整事件](DELIVERY_W5_DICTIONARY_RESUME_20261007.md)，kernelb35dcdec/完整322；新增源绑定timeline checkpoint与readRestored，原始capture重建核完整SYS行/提交摘要。原70前缀两SYS/四列及73前缀零SYS/三列持久后halt23，新JVM接71/74，两组两完整UPDATE全部stdout与原封存字节相同；11恢复反例rc1/stdout0。86双SHA/前36+42+88+182未变，0源/目标/产品动作。不当免raw增量SYS或identity/undo/行统一恢复、跨发布CPACK/断电/现场通过。下一统一恢复入口及私有产品；当前goal已核active，旧usageLimited描述属历史。
 
 最新优先（2026-10-07undo恢复）：DELIVERY_W4_UNDO_GRAPH_RESUME_20261007.md，kernelb6d5d792/322。UndoHistory checkpoint/restore保存操作序列及源/entry摘要，在源字节完整inventory重放旧门禁、可精确保留源前缀的扩展；不信自声明head。原73一个original持久后halt23，新JVM在73+74扩展inventory恢复仅续74，original2/live2/补偿0，UBA10→11/rci10/native tail11、同XID10.14.2869/begin2743312/end2743344全部一致；实际graph毒化拒绝/零stdout，五单位验证含补偿续写/全回滚/源SHA变entries同拒绝。36双SHA/前42+88+182不变，新capsule cross-window-undo-20261007已冻结，0源/目标/产品动作、0事件。下一历史字典/索引/完整行状态及raw前缀持久绑定、恢复后完整事件，再私有产品HTTP/target/CPACK；完整跨发布/正式C++/现场发布未证。额度已恢复ordinaryUsageAllowed=true/5h used1%，goal工具仍usageLimited不擅改状态；不重跑已过轮次、不重放源73/74。

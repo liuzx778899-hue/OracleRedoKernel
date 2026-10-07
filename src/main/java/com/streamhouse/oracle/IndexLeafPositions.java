@@ -21,8 +21,12 @@ public final class IndexLeafPositions {
     }
     static IndexLeafPositions read(RedoBatch paths,long uid,long container,HeapRowPatch.Xid xid,
                                           long indexObject,long indexDataObject,long leafDba) throws java.io.IOException {
-        var leaf=ArchivedIndexLeafInventory.read(paths,uid,container,xid,indexObject,indexDataObject,leafDba);
-        var associations=ArchivedCompensationAssociations.read(paths,uid,container,xid);
+        return read(paths,uid,container,xid,indexObject,indexDataObject,leafDba,false);
+    }
+    static IndexLeafPositions read(RedoBatch paths,long uid,long container,HeapRowPatch.Xid xid,
+                                          long indexObject,long indexDataObject,long leafDba,boolean allowPending) throws java.io.IOException {
+        var leaf=ArchivedIndexLeafInventory.read(paths,uid,container,xid,indexObject,indexDataObject,leafDba,allowPending);
+        var associations=ArchivedCompensationAssociations.read(paths,uid,container,xid,allowPending);
         if (!leaf.window().undo().sources().equals(associations.window().undo().sources())
                 || !leaf.window().entries().equals(associations.window().entries()))
             throw new RedoException("INDEX_POSITION_ASSOCIATION_SOURCE_CHANGED");

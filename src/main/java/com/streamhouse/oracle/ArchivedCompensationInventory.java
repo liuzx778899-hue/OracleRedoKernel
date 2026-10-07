@@ -12,11 +12,13 @@ public final class ArchivedCompensationInventory {
     private final ArchivedUndoInventory undo;
     private final List<Entry> entries;
     private final ArchivedUndoInventory.Position firstRecord,lastRecord;
+    private final boolean complete;
 
     private ArchivedCompensationInventory(ArchivedUndoInventory undo,List<Entry> entries,
-                                         ArchivedUndoInventory.Position firstRecord,ArchivedUndoInventory.Position lastRecord) {
+                                         ArchivedUndoInventory.Position firstRecord,ArchivedUndoInventory.Position lastRecord,boolean complete) {
         this.undo=undo;this.entries=List.copyOf(entries);
         this.firstRecord=firstRecord;this.lastRecord=lastRecord;
+        this.complete=complete;
     }
 
     /** Includes every 5.6/5.11 in the target's verified record window, including unrelated objects. */
@@ -24,6 +26,9 @@ public final class ArchivedCompensationInventory {
         return read(RedoBatch.archives(archives),uid,container,xid);
     }
     static ArchivedCompensationInventory read(RedoBatch archives,long uid,long container,HeapRowPatch.Xid xid) throws IOException {
+        return read(archives,uid,container,xid,false);
+    }
+    static ArchivedCompensationInventory read(RedoBatch archives,long uid,long container,HeapRowPatch.Xid xid,boolean allowPending) throws IOException {
         var undo=ArchivedUndoInventory.read(archives,uid,container,xid);
         var state=new TransactionLifecycle();var entries=new ArrayList<Entry>();
         int[] next={0},begins={0},ends={0};boolean[] active={false};
@@ -80,14 +85,19 @@ public final class ArchivedCompensationInventory {
             });
             if (!header.equals(path.header())) throw new RedoException("COMPENSATION_INVENTORY_INPUT_CHANGED");
         }
-        state.finish();
-        if (begins[0]!=1 || ends[0]!=1 || next[0]!=undo.entries().size())
+        boolean pending=allowPending && active[0] && ends[0]==0;
+        if(pending) {
+            state.checkpoint();var last=undo.sources().get(undo.sources().size()-1);
+            window[1]=new ArchivedUndoInventory.Position(last.sequence(),last.blocks()-1,Integer.MAX_VALUE,0);
+        } else state.finish();
+        if (begins[0]!=1 || (!pending && ends[0]!=1) || next[0]!=undo.entries().size())
             throw new RedoException("COMPENSATION_INVENTORY_TRANSACTION_WINDOW_INCOMPLETE");
-        return new ArchivedCompensationInventory(undo,entries,window[0],window[1]);
+        return new ArchivedCompensationInventory(undo,entries,window[0],window[1],!pending);
     }
 
     public ArchivedUndoInventory undo() { return undo; }
     public List<Entry> entries() { return entries; }
+    public boolean complete() {return complete;}
     /** Inclusive verified record window; vector zero denotes the record, not a change vector. */
     public ArchivedUndoInventory.Position firstRecord() { return firstRecord; }
     public ArchivedUndoInventory.Position lastRecord() { return lastRecord; }

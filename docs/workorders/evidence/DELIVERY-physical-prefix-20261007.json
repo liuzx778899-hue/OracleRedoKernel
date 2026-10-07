@@ -1,0 +1,306 @@
+{
+  "proof": {
+    "kernel_sha256": "7ff4a5e72abcf379b66091e75be71c9a9dc294ead488cce0003dd46ca5706f89",
+    "prefix_transactions": 0,
+    "pending": 1,
+    "pending_originals": 1,
+    "pending_heap_pairs": 1,
+    "pending_index_pairs": 0,
+    "default_prefix_refused": true,
+    "closed_transactions": 1,
+    "complete_events": 2,
+    "complete_stdout_byte_equal": true,
+    "source_actions": 0,
+    "target_actions": 0,
+    "product_actions": 0,
+    "unified_resume_verified": false
+  },
+  "tests": [
+    328,
+    0,
+    0,
+    0
+  ],
+  "first_failure_tests": [
+    326,
+    1,
+    0,
+    0
+  ],
+  "classes_changed": [
+    "com/streamhouse/oracle/ArchivedCompensationAssociations.class",
+    "com/streamhouse/oracle/ArchivedCompensationInventory.class",
+    "com/streamhouse/oracle/ArchivedIndexLeafInventory.class",
+    "com/streamhouse/oracle/ArchivedObjectTransactions.class",
+    "com/streamhouse/oracle/ArchivedPhysicalTransactions$Context.class",
+    "com/streamhouse/oracle/ArchivedPhysicalTransactions.class",
+    "com/streamhouse/oracle/IndexLeafPositions.class"
+  ],
+  "classes_added": [
+    "com/streamhouse/oracle/ArchivedPhysicalTransactions$PendingGraph.class",
+    "com/streamhouse/oracle/ArchivedPhysicalTransactions$PendingState.class",
+    "com/streamhouse/oracle/ArchivedPhysicalTransactions$Prefix.class"
+  ],
+  "classes_unchanged": 117,
+  "previous_capsules": [
+    {
+      "manifest": "DELIVERY-dictionary-resume-20261007.json",
+      "files": 86,
+      "unchanged": true
+    },
+    {
+      "manifest": "DELIVERY-undo-graph-resume-20261007.json",
+      "files": 36,
+      "unchanged": true
+    },
+    {
+      "manifest": "DELIVERY-transaction-identity-resume-20261007.json",
+      "files": 42,
+      "unchanged": true
+    },
+    {
+      "manifest": "DELIVERY-cross-window-range-20261007.json",
+      "files": 88,
+      "unchanged": true
+    },
+    {
+      "manifest": "RESEARCH-cross-window-active-20261007.json",
+      "files": 182,
+      "unchanged": true
+    }
+  ],
+  "files_count": 45,
+  "files": [
+    {
+      "path": "lab/out/physical-prefix-20261007/actual-73-74-closed.command.json",
+      "bytes": 811,
+      "sha256": "b1a4330556450b3e0552346837850a7a641a6e92b00853eaac57d7c6f847b65e"
+    },
+    {
+      "path": "lab/out/physical-prefix-20261007/actual-73-74-closed.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/physical-prefix-20261007/actual-73-74-closed.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/physical-prefix-20261007/actual-73-74-closed.stdout.txt",
+      "bytes": 424,
+      "sha256": "ab5a7b64afe6cdca1320d7a61492d22f30e85452a2efad273b7d1118621a743b"
+    },
+    {
+      "path": "lab/out/physical-prefix-20261007/actual-73-prefix.command.json",
+      "bytes": 634,
+      "sha256": "a8cd4aa30462f346fa9a318a64b6633e7b92dd547e0034cfd3441d5a44e7f966"
+    },
+    {
+      "path": "lab/out/physical-prefix-20261007/actual-73-prefix.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/physical-prefix-20261007/actual-73-prefix.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/physical-prefix-20261007/actual-73-prefix.stdout.txt",
+      "bytes": 875,
+      "sha256": "692d9a97b2761119b1b391852462ebe16274cf53ba137c243addc8351e47ccd4"
+    },
+    {
+      "path": "lab/out/physical-prefix-20261007/ArchivedCompensationAssociations.java",
+      "bytes": 9594,
+      "sha256": "539ea82135dbf268e2d6272932155820b78381b6a44028b3b3f653a229e1ccc2"
+    },
+    {
+      "path": "lab/out/physical-prefix-20261007/ArchivedCompensationInventory.java",
+      "bytes": 7230,
+      "sha256": "c25d31efde04bfc1ca80bbbcc62d72491e3a320daea288ceeee92caa75ef446a"
+    },
+    {
+      "path": "lab/out/physical-prefix-20261007/ArchivedIndexLeafInventory.java",
+      "bytes": 8627,
+      "sha256": "71563e36b4ef5aa31c4ee943b9e241f22476a1ed789bbd5aa0ab49b6252d8e05"
+    },
+    {
+      "path": "lab/out/physical-prefix-20261007/ArchivedObjectTransactions.java",
+      "bytes": 6175,
+      "sha256": "78db8feb3571334e9cb07d682cee39c49a484d23c2a6819b225a15a7c00b2036"
+    },
+    {
+      "path": "lab/out/physical-prefix-20261007/ArchivedPhysicalTransactions.java",
+      "bytes": 22177,
+      "sha256": "82ea6ac9c1f72d11511a938b5b743829104dbcb9dcce3663f6d7c800d65e1c5f"
+    },
+    {
+      "path": "lab/out/physical-prefix-20261007/classes/CapturedHistoricalBatchProbe.class",
+      "bytes": 5972,
+      "sha256": "8fea8609ee5e7b6c24b80d8fbe62b395d60ff45212fc152f110fa083455b1cd3"
+    },
+    {
+      "path": "lab/out/physical-prefix-20261007/classes/com/streamhouse/oracle/PhysicalPrefixProbe.class",
+      "bytes": 5006,
+      "sha256": "fc906a63ec20f6ad02eab152aa00e3950422ed6ddf9d12b8e16aefe703dfda42"
+    },
+    {
+      "path": "lab/out/physical-prefix-20261007/compile.command.json",
+      "bytes": 378,
+      "sha256": "533c4b042a790e533cd9e07de92726ebe471657f3653779f92a93897ac994e09"
+    },
+    {
+      "path": "lab/out/physical-prefix-20261007/compile.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/physical-prefix-20261007/compile.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/physical-prefix-20261007/compile.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/physical-prefix-20261007/complete-events-regression.command.json",
+      "bytes": 797,
+      "sha256": "1d03cc740689e630dde0b2fa4f26d42e2d1bb6c8e005261964ca7f06e343c01b"
+    },
+    {
+      "path": "lab/out/physical-prefix-20261007/complete-events-regression.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/physical-prefix-20261007/complete-events-regression.stderr.txt",
+      "bytes": 74,
+      "sha256": "0b880972feac567b51d6bece7a1bae4aeb56d43cc9364541318fd2136f284160"
+    },
+    {
+      "path": "lab/out/physical-prefix-20261007/complete-events-regression.stdout.txt",
+      "bytes": 1685,
+      "sha256": "f9cc40d0286107476e07c985a0e1f9fc8c744213aabb2ca1e9b73bb2f99fcf1c"
+    },
+    {
+      "path": "lab/out/physical-prefix-20261007/default-73-still-rejects.command.json",
+      "bytes": 620,
+      "sha256": "35c86a2b0d3a4d2bdc327d7e296c83041027c59c3c50dabd32663a77c2a3dde4"
+    },
+    {
+      "path": "lab/out/physical-prefix-20261007/default-73-still-rejects.rc.txt",
+      "bytes": 1,
+      "sha256": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b"
+    },
+    {
+      "path": "lab/out/physical-prefix-20261007/default-73-still-rejects.stderr.txt",
+      "bytes": 1354,
+      "sha256": "95ca534953d6f4764239415657a5bd7f1297f3cfc59a58831e3df93fc77bfa41"
+    },
+    {
+      "path": "lab/out/physical-prefix-20261007/default-73-still-rejects.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "lab/out/physical-prefix-20261007/full-build.command.json",
+      "bytes": 65,
+      "sha256": "6331d95251a0f2a93bd915416a190f270d6e65c5795d0039e81975404fc163dc"
+    },
+    {
+      "path": "lab/out/physical-prefix-20261007/full-build.rc.txt",
+      "bytes": 1,
+      "sha256": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b"
+    },
+    {
+      "path": "lab/out/physical-prefix-20261007/full-build.stderr.txt",
+      "bytes": 301,
+      "sha256": "a73235e74b7212a667f3c9a6209ea0afe89e0cb01c372b4298f0f1a5e284ba49"
+    },
+    {
+      "path": "lab/out/physical-prefix-20261007/full-build.stdout.txt",
+      "bytes": 14819,
+      "sha256": "b7456d0303c494e1932561a3a7293469bbcfbdf40702823af9858c3e1d61f43a"
+    },
+    {
+      "path": "lab/out/physical-prefix-20261007/IndexLeafPositions.java",
+      "bytes": 8867,
+      "sha256": "671ef49f78c3e9f2d85752236ab6497070c7621d98a51aca157f20b6b15987d0"
+    },
+    {
+      "path": "lab/out/physical-prefix-20261007/kernel.jar",
+      "bytes": 308612,
+      "sha256": "7ff4a5e72abcf379b66091e75be71c9a9dc294ead488cce0003dd46ca5706f89"
+    },
+    {
+      "path": "lab/out/physical-prefix-20261007/PendingTransactionDiscoveryTest.java",
+      "bytes": 5444,
+      "sha256": "c546f2f6e1e3f69fee5619954d4c07aa305d4d903d945e7261f62233ec15e5c6"
+    },
+    {
+      "path": "lab/out/physical-prefix-20261007/PhysicalPrefixProbe.java",
+      "bytes": 1391,
+      "sha256": "06929cac66b77cc6cfb56b2d971c9d53367f263fb2605b1bb55cc128084a2c90"
+    },
+    {
+      "path": "lab/out/physical-prefix-20261007/proof.json",
+      "bytes": 459,
+      "sha256": "4bcc092dd8cff855db31cb937902a5a11b089b61110ecbf0483930cf234aadb6"
+    },
+    {
+      "path": "lab/out/physical-prefix-20261007/r1/com.streamhouse.oracle.PendingTransactionDiscoveryTest.txt",
+      "bytes": 1545,
+      "sha256": "2cd867e272c321404bad5c92c58235f4a1dd99be32dfb681f325df00014565ed"
+    },
+    {
+      "path": "lab/out/physical-prefix-20261007/r1/PendingTransactionDiscoveryTest.java",
+      "bytes": 3841,
+      "sha256": "2c3b57003f166855b90ef24dead7990ecc14dcff6c7d8bdc6c3d2ffa8afa7a6b"
+    },
+    {
+      "path": "lab/out/physical-prefix-20261007/r1/verify_physical_prefix19.py",
+      "bytes": 2894,
+      "sha256": "78fafffdf2e6eaa9c10c94615c541ae1d8a195402716515f56e68daad0b6225c"
+    },
+    {
+      "path": "lab/out/physical-prefix-20261007/r2-full-build.command.json",
+      "bytes": 65,
+      "sha256": "6331d95251a0f2a93bd915416a190f270d6e65c5795d0039e81975404fc163dc"
+    },
+    {
+      "path": "lab/out/physical-prefix-20261007/r2-full-build.rc.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "lab/out/physical-prefix-20261007/r2-full-build.stderr.txt",
+      "bytes": 301,
+      "sha256": "a73235e74b7212a667f3c9a6209ea0afe89e0cb01c372b4298f0f1a5e284ba49"
+    },
+    {
+      "path": "lab/out/physical-prefix-20261007/r2-full-build.stdout.txt",
+      "bytes": 12746,
+      "sha256": "4d6695280ec9fc37587ef86b8d775187f2425d6d11d3ccc4e282ae0c54362219"
+    },
+    {
+      "path": "lab/out/physical-prefix-20261007/seal_physical_prefix19.py",
+      "bytes": 3269,
+      "sha256": "34012f5a522a3b1210f94be69c3f4224b4deba287d34235993c00d2994eed9c9"
+    },
+    {
+      "path": "lab/out/physical-prefix-20261007/verify_physical_prefix19.py",
+      "bytes": 2962,
+      "sha256": "8c087fe34f561ba4fad7eb44d7a4a379ed3660fb27389c47535b14a9424c3737"
+    }
+  ],
+  "double_sha256_verified": true,
+  "unified_resume_verified": false,
+  "product_changed": false,
+  "production_deployed": false,
+  "site_accepted": false,
+  "released": false
+}

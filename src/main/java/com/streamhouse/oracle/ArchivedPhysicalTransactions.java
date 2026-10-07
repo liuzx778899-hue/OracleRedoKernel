@@ -13,6 +13,10 @@ public final class ArchivedPhysicalTransactions {
     public record Operation(ArchivedUndoInventory.Position position,UndoHeader original,boolean compensation) {}
     public record Transaction(TransactionLifecycle.ClosedIdentity identity,List<Operation> operations,UndoHistory.Result graph) {}
     public record Result(List<ArchivedRedo.Header> sources,List<Transaction> transactions) {}
+    record PendingGraph(HeapRowPatch.Xid xid,long segment,int next,List<Operation> operations,List<HeapUndoPair> heaps,
+                        List<IndexUndoPair> indexes,List<ArchivedUndoInventory.Position> markers,String graphCheckpoint) {}
+    record PendingState(List<ArchivedRedo.Header> sources,List<PendingGraph> pending,String identityCheckpoint) {}
+    record Prefix(Result completed,PendingState state) {}
     private static final class Context {
         final ArchivedObjectTransactions.Transaction discovered;
         final UndoHistory graph;
@@ -65,10 +69,27 @@ public final class ArchivedPhysicalTransactions {
                 new HeapIndexScope.Generation(snapshot.index().logicalObject(),snapshot.index().dataObject()));
         return read(paths,snapshot.source().containerUid(),snapshot.source().containerId(),scope,leaf,snapshot.columns().size(),snapshot,history);
     }
+    static Prefix readHistoryPrefix(RedoBatch paths,FrozenHeapBaseline.Snapshot snapshot,ArchivedDictionaryHistory.Timeline history,long leaf)throws IOException {
+        history.requireBoundTo(paths,snapshot);
+        var scope=new HeapIndexScope(new HeapIndexScope.Generation(snapshot.heap().logicalObject(),snapshot.heap().dataObject()),
+                new HeapIndexScope.Generation(snapshot.index().logicalObject(),snapshot.index().dataObject()));
+        PendingState[] pending={null};
+        var completed=read(paths,snapshot.source().containerUid(),snapshot.source().containerId(),scope,leaf,snapshot.columns().size(),snapshot,history,p->pending[0]=p);
+        return new Prefix(completed,pending[0]);
+    }
+    static Prefix readPrefix(RedoBatch paths,long uid,long container,HeapIndexScope scope,long leaf,int columns)throws IOException {
+        PendingState[] pending={null};
+        var completed=read(paths,uid,container,scope,leaf,columns,null,null,p->pending[0]=p);
+        return new Prefix(completed,pending[0]);
+    }
     private static Result read(RedoBatch paths,long uid,long container,HeapIndexScope scope,long leaf,int columns,FrozenHeapBaseline.Snapshot snapshot,ArchivedDictionaryHistory.Timeline history) throws IOException {
+        return read(paths,uid,container,scope,leaf,columns,snapshot,history,null);
+    }
+    private static Result read(RedoBatch paths,long uid,long container,HeapIndexScope scope,long leaf,int columns,FrozenHeapBaseline.Snapshot snapshot,
+                               ArchivedDictionaryHistory.Timeline history,java.util.function.Consumer<PendingState> savePending) throws IOException {
         if (columns<=0) throw new RedoException("INVALID_PHYSICAL_TRANSACTION_SCOPE");
         long heapObject=scope.heap().dataObject(),indexObject=scope.index().dataObject();
-        var found=ArchivedObjectTransactions.read(paths,uid,container,scope);
+        var found=savePending==null?ArchivedObjectTransactions.read(paths,uid,container,scope):ArchivedObjectTransactions.readPending(paths,uid,container,scope);
         if (found.transactions().isEmpty()) throw new RedoException("NO_PHYSICAL_OBJECT_TRANSACTIONS");
         var contexts=new ArrayList<Context>();var owners=new HashMap<HeapRowPatch.Xid,Context>();
         var originals=new HashMap<ArchivedUndoInventory.Position,Context>();
@@ -76,7 +97,7 @@ public final class ArchivedPhysicalTransactions {
         for (var t:found.transactions()) {
             var entries=t.associations().window().undo().entries();
             boolean hasIndex=entries.stream().anyMatch(e->e.identity().dataObjectId()==indexObject);
-            var c=new Context(t,hasIndex ? IndexLeafPositions.read(paths,uid,container,t.xid(),scope.index().logicalObject(),indexObject,leaf) : null);
+            var c=new Context(t,hasIndex ? IndexLeafPositions.read(paths,uid,container,t.xid(),scope.index().logicalObject(),indexObject,leaf,savePending!=null) : null);
             contexts.add(c);owners.put(t.xid(),c);
             for (var e:entries) if (originals.putIfAbsent(e.position(),c)!=null) throw new RedoException("PHYSICAL_ORIGINAL_OWNER_AMBIGUOUS");
             for (var e:t.associations().entries()) {
@@ -203,13 +224,18 @@ public final class ArchivedPhysicalTransactions {
             });
             requireSource(found,source,path.header());
         }
-        state.finish();
+        if(savePending==null)state.finish();
+        var pending=new ArrayList<PendingGraph>();
         for (var c:contexts) {
             c.discovered.associations().finish();
-            if ((c.result==null && !c.coveredByBaseline) || c.next!=c.discovered.associations().window().undo().entries().size()) throw new RedoException("PHYSICAL_TRANSACTION_COVERAGE_INCOMPLETE");
+            boolean active=savePending!=null && !c.discovered.associations().window().complete() && c.result==null && !c.coveredByBaseline;
+            if ((c.result==null && !c.coveredByBaseline && !active) || c.next!=c.discovered.associations().window().undo().entries().size()) throw new RedoException("PHYSICAL_TRANSACTION_COVERAGE_INCOMPLETE");
+            if(active)pending.add(new PendingGraph(c.discovered.xid(),c.segment,c.next,List.copyOf(c.operations),List.copyOf(c.heaps),List.copyOf(c.indexes),
+                    List.copyOf(c.markers),new String(c.graph.checkpoint(),java.nio.charset.StandardCharsets.UTF_8)));
         }
+        if(savePending!=null)savePending.accept(new PendingState(found.sources(),List.copyOf(pending),new String(state.checkpoint(),java.nio.charset.StandardCharsets.UTF_8)));
         for (int i=0;i<paths.size();i++) requireSource(found,i,paths.get(i).header());
-        return new Result(found.sources(),contexts.stream().filter(c->!c.coveredByBaseline).map(c->c.result).toList());
+        return new Result(found.sources(),contexts.stream().filter(c->!c.coveredByBaseline && c.result!=null).map(c->c.result).toList());
     }
     private static boolean heap(RedoRecords.Vector v) {return v.opcodeMajor()==11 && (v.opcodeMinor()==2 || v.opcodeMinor()==3 || v.opcodeMinor()==4 || v.opcodeMinor()==5);}
     private static int columnsAt(ArchivedDictionaryHistory.Timeline history,FrozenHeapBaseline.Snapshot snapshot,long scn,int columns)throws RedoException {

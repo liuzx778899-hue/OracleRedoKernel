@@ -28,7 +28,10 @@ public final class ArchivedCompensationAssociations {
         return read(RedoBatch.archives(paths),uid,container,target);
     }
     static ArchivedCompensationAssociations read(RedoBatch paths,long uid,long container,HeapRowPatch.Xid target) throws IOException {
-        var window=ArchivedCompensationInventory.read(paths,uid,container,target);
+        return read(paths,uid,container,target,false);
+    }
+    static ArchivedCompensationAssociations read(RedoBatch paths,long uid,long container,HeapRowPatch.Xid target,boolean allowPending) throws IOException {
+        var window=ArchivedCompensationInventory.read(paths,uid,container,target,allowPending);
         var candidates=new ArrayList<List<Candidate>>();var markers=new ArrayList<Marker>();
         for (var e:window.entries()) {
             if (e.marker().crossesUndoBlock()) throw new RedoException("UNSUPPORTED_ASSOCIATION_CROSS_BLOCK_MARKER");
@@ -87,7 +90,7 @@ public final class ArchivedCompensationAssociations {
             var marker=markers.get(i);Candidate chosen=null;
             for (var candidate:candidates.get(i)) {
                 var xid=candidate.header().xid();var owner=owners.get(xid);
-                if (owner==null) {owner=ArchivedCompensationInventory.read(paths,uid,container,xid);owners.put(xid,owner);}
+                if (owner==null) {owner=ArchivedCompensationInventory.read(paths,uid,container,xid,allowPending);owners.put(xid,owner);}
                 if (!owner.undo().sources().equals(window.undo().sources())) throw new RedoException("ASSOCIATION_OWNER_SOURCE_MISMATCH");
                 if (owner.undo().entries().stream().noneMatch(e->e.position().equals(candidate.position()) && e.identity().equals(candidate.header())))
                     throw new RedoException("ASSOCIATION_ORIGINAL_NOT_OWNED");
