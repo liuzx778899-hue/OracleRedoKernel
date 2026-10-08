@@ -151,7 +151,7 @@ public final class ArchivedPhysicalTransactions {
                 for (int i=0;i<r.vectors().size();i++) {
                     var v=r.vectors().get(i);if (!originals.containsKey(position(header,r,i))) continue;
                     var h=UndoHeader.decode(v);undoBlocks.add(v.dba());
-                    if (h.dataObjectId()==heapObject) heapBlocks.add(UndoRowPatch.decode(v,columnsAt(history,snapshot,r.scn(),columns)).inverse().dba());
+                    if (h.dataObjectId()==heapObject) heapBlocks.add(UndoRowPatch.decode(v,columnsAt(history,snapshot,r.scn(),columns,new ArchivedUndoInventory.Position(header.sequence(),r.block(),r.offset(),i+1))).inverse().dba());
                     else if (IndexUndoPair.decodeUndo(v).block()!=leaf) throw new RedoException("PHYSICAL_INDEX_OUTSIDE_DECLARED_LEAF");
                 }
             });
@@ -196,7 +196,7 @@ public final class ArchivedPhysicalTransactions {
                     for (int j=0;j<r.vectors().size();j++) {
                         var row=r.vectors().get(j);if (row.containerId()!=container) continue;
                         if (h.dataObjectId()==heapObject && heap(row)) {
-                            int rowColumns=columnsAt(history,snapshot,r.scn(),columns);
+                            int rowColumns=columnsAt(history,snapshot,r.scn(),columns,new ArchivedUndoInventory.Position(header.sequence(),r.block(),r.offset(),i+1));
                             var f=new HeapRowPatch().decode(row,rowColumns);
                             if (f.xtype()!=1 || !h.uba().equals(f.uba())) continue;
                             var pair=HeapUndoPair.bind(r,row,rowColumns);state.requireActive(r,pair);c.heaps.add(pair);
@@ -223,9 +223,9 @@ public final class ArchivedPhysicalTransactions {
                         if (marker.dataObjectId()==indexObject && row.opcodeMajor()==10 && (row.opcodeMinor()==3 || row.opcodeMinor()==5)) {
                             if (matched!=null) throw new RedoException("PHYSICAL_COMPENSATION_ROW_AMBIGUOUS");
                             matched=IndexCompensation.match(r,v,row,c.indexes,state,c.positions,position(header,r,j)).undo().identity();
-                        } else if (marker.dataObjectId()==heapObject && heap(row) && new HeapRowPatch().decode(row,columnsAt(history,snapshot,r.scn(),columns)).xtype()==2) {
+                        } else if (marker.dataObjectId()==heapObject && heap(row) && new HeapRowPatch().decode(row,columnsAt(history,snapshot,r.scn(),columns,new ArchivedUndoInventory.Position(header.sequence(),r.block(),r.offset(),i+1))).xtype()==2) {
                             if (matched!=null) throw new RedoException("PHYSICAL_COMPENSATION_ROW_AMBIGUOUS");
-                            int rowColumns=columnsAt(history,snapshot,r.scn(),columns);
+                            int rowColumns=columnsAt(history,snapshot,r.scn(),columns,new ArchivedUndoInventory.Position(header.sequence(),r.block(),r.offset(),i+1));
                             var pair=marker.beginsTransaction() ? HeapCompensation.matchBegin(r,v,row,c.heaps,rowColumns,state) : HeapCompensation.match(r,v,row,c.heaps,rowColumns);
                             state.requireActive(r,pair);matched=pair.undo().identity();
                         } else continue;
@@ -264,13 +264,15 @@ public final class ArchivedPhysicalTransactions {
                     }
                     // An initial snapshot excludes uncommitted values; retain the entire raw-owned graph.
                     // Row replay still must match its first before-image against that committed snapshot.
-                    if(history!=null && !history.schemaAt(Math.max(end.beginRecordScn(),snapshot.scn())).equals(history.schemaAt(end.endRecordScn())))
+                    var commitPosition=new ArchivedUndoInventory.Position(header.sequence(),r.block(),r.offset(),r.vectors().indexOf(v)+1);
+                    if(history!=null && !history.schemaAt(Math.max(end.beginRecordScn(),snapshot.scn()),
+                            end.beginRecordScn()<=snapshot.scn()?null:c.discovered.associations().window().firstRecord())
+                            .equals(history.schemaAt(end.endRecordScn(),commitPosition)))
                         throw new RedoException("UNSUPPORTED_TRANSACTION_CROSSES_SCHEMA_CHANGE");
                     var result=end.rolledBack() ? c.graph.closeRollback(end)
                             : v.fields().size()==2 && TransactionEnd.decode(v).flags()==0
                                 ? c.graph.closeCommitWithoutNativeTail(end) : c.graph.close(TransactionEnd.undoTail(v));
-                    c.result=new Transaction(end,List.copyOf(c.operations),result,
-                            new ArchivedUndoInventory.Position(header.sequence(),r.block(),r.offset(),r.vectors().indexOf(v)+1));
+                    c.result=new Transaction(end,List.copyOf(c.operations),result,commitPosition);
                 }
             });
             requireSource(found,source,path.header());
@@ -294,8 +296,8 @@ public final class ArchivedPhysicalTransactions {
         try{return java.util.HexFormat.of().formatHex(java.security.MessageDigest.getInstance("SHA-256").digest(bytes));}
         catch(java.security.NoSuchAlgorithmException e){throw new RedoException("SHA256_UNAVAILABLE");}
     }
-    private static int columnsAt(ArchivedDictionaryHistory.Timeline history,FrozenHeapBaseline.Snapshot snapshot,long scn,int columns)throws RedoException {
-        return history==null || scn<=snapshot.scn()?columns:history.schemaAt(scn).size();
+    private static int columnsAt(ArchivedDictionaryHistory.Timeline history,FrozenHeapBaseline.Snapshot snapshot,long scn,int columns,ArchivedUndoInventory.Position position)throws RedoException {
+        return history==null || scn<=snapshot.scn()?columns:history.schemaAt(scn,position).size();
     }
     private static void requireForeignBegin(RedoRecords.Record record,RedoRecords.Vector vector,HeapIndexScope scope,
                                            java.util.Map<HeapRowPatch.Xid,Context> owners,ArchivedUndoInventory.Position at) throws RedoException {

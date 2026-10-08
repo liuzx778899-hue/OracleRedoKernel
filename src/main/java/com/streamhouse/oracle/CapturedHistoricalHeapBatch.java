@@ -46,15 +46,15 @@ public final class CapturedHistoricalHeapBatch {
                                                        ArchivedDictionaryHistory.Timeline history,long leaf,ArchivedPhysicalTransactions.Result physical)throws IOException {
         var rows=ArchivedHeapRows.readHistory(paths,snapshot,leaf,history,physical);
         if(!physical.sources().equals(rows.sources()) || !rows.sources().equals(history.sources()))throw new RedoException("HISTORICAL_BATCH_SOURCE_CHANGED");
-        var owners=new HashMap<ArchivedUndoInventory.Position,TransactionLifecycle.ClosedIdentity>();
-        for(var t:physical.transactions())for(var live:t.graph().live())if(owners.putIfAbsent(live.position(),t.identity())!=null)
+        var owners=new HashMap<ArchivedUndoInventory.Position,ArchivedPhysicalTransactions.Transaction>();
+        for(var t:physical.transactions())for(var live:t.graph().live())if(owners.putIfAbsent(live.position(),t)!=null)
             throw new RedoException("HISTORICAL_BATCH_POSITION_OWNER_AMBIGUOUS");
         var events=new ArrayList<Event>();var ids=new HashSet<String>();
         for(var change:rows.changes()) {
-            var owner=owners.get(change.position());
+            var transaction=owners.get(change.position());var owner=transaction==null?null:transaction.identity();
             if(owner==null || owner.rolledBack() || !owner.xid().equals(change.xid()) || owner.endRecordScn()<=snapshot.scn())
                 throw new RedoException("HISTORICAL_BATCH_ROW_OWNER_MISMATCH");
-            var columns=history.schemaAt(owner.endRecordScn());
+            var columns=history.schemaAt(owner.endRecordScn(),transaction.commitPosition());
             var schema=new Schema(snapshot.heap(),snapshot.index(),columns,schemaDigest(snapshot.heap(),snapshot.index(),columns));
             String id=eventId(snapshot.source(),schema.sha256(),change);if(!ids.add(id))throw new RedoException("HISTORICAL_BATCH_DUPLICATE_EVENT_ID");
             events.add(new Event(schema,new CapturedHeapBatch.Event(id,payloadDigest(change,owner),change.position(),owner,change.key(),change.kind(),change.before(),change.after())));

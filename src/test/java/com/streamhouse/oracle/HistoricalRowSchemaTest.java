@@ -30,4 +30,32 @@ class HistoricalRowSchemaTest {
         var dropped=ArchivedHeapRows.remapRows(s.rows(),s.columns(),s.columns().subList(0,2),f.history(),s.scn());
         for(var row:s.rows().entrySet())assertEquals(row.getValue().subList(0,2),dropped.get(row.getKey()));
     }
+    List<DictionaryBaseline.Row> renameColumn(FrozenHeapBaseline.Snapshot snapshot,String name)throws Exception {
+        var baseline=snapshot.dictionaryBaseline();var layout=baseline.layouts().get("COL$");
+        int at=0;while(!layout.columns().get(at).name().equals("NAME"))at++;
+        var rows=new ArrayList<DictionaryBaseline.Row>();
+        for(var row:baseline.rows()) {
+            var values=new ArrayList<>(row.values());
+            if(row.role().equals("COL$") && baseline.number(row,"INTCOL#")==2)
+                values.set(at,new ArchivedHeapRows.Cell(HeapRowPatch.State.VALUE,HexFormat.of().formatHex(name.getBytes(java.nio.charset.StandardCharsets.UTF_8))));
+            rows.add(new DictionaryBaseline.Row(row.role(),row.target(),row.key(),values));
+        }
+        return rows;
+    }
+    @Test void equalScnDictionaryVersionsAreSelectedByRawCommitPosition()throws Exception {
+        var f=fixture();var s=f.snapshot();long scn=160;
+        var first=new ArchivedUndoInventory.Position(7,4,16,1);var second=new ArchivedUndoInventory.Position(7,5,16,1);
+        var a=new TransactionLifecycle.ClosedIdentity(new HeapRowPatch.Xid(10,1,1),s.source().containerUid(),s.source().containerId(),151,scn,false);
+        var b=new TransactionLifecycle.ClosedIdentity(new HeapRowPatch.Xid(10,2,1),s.source().containerUid(),s.source().containerId(),152,scn,false);
+        var commits=List.of(new ArchivedDictionaryHistory.Commit(a,List.of(),0,0,0,renameColumn(s,"FIRST"),first),
+                new ArchivedDictionaryHistory.Commit(b,List.of(),0,0,0,renameColumn(s,"SECOND"),second));
+        var constructor=ArchivedDictionaryHistory.Timeline.class.getDeclaredConstructor(FrozenHeapBaseline.Snapshot.class,List.class,List.class);
+        constructor.setAccessible(true);var history=constructor.newInstance(s,f.history().sources(),commits);
+        assertEquals(s.columns(),history.schemaAt(scn,new ArchivedUndoInventory.Position(7,3,16,1)));
+        assertEquals("FIRST",history.schemaAt(scn,first).get(1).name());
+        assertEquals("FIRST",history.schemaAt(scn,new ArchivedUndoInventory.Position(7,4,32,1)).get(1).name());
+        assertEquals("SECOND",history.schemaAt(scn,second).get(1).name());
+        assertEquals("SECOND",history.schemaAt(scn).get(1).name());
+        assertNotEquals(history.schemaAt(scn,first),history.schemaAt(scn,second));
+    }
 }

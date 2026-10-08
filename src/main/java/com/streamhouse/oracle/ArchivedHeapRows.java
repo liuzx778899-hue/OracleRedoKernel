@@ -114,8 +114,8 @@ public final class ArchivedHeapRows {
                 for (int v=0;v<r.vectors().size();v++) {
                     var at=new ArchivedUndoInventory.Position(h.sequence(),r.block(),r.offset(),v+1);var owner=selected.get(at);
                     if (owner==null) continue;
-                    var recordSchema=history==null?schema:history.schemaAt(Math.max(r.scn(),baseline.scn()));
-                    if(history!=null && !recordSchema.equals(history.schemaAt(owner.identity().endRecordScn())))
+                    var recordSchema=history==null?schema:history.schemaAt(Math.max(r.scn(),baseline.scn()),r.scn()<=baseline.scn()?null:at);
+                    if(history!=null && !recordSchema.equals(history.schemaAt(owner.identity().endRecordScn(),owner.commitPosition())))
                         throw new RedoException("UNSUPPORTED_ROW_RECORD_SCHEMA_TRANSITION");
                     int rowColumns=history==null?baseline.columns():recordSchema.size();
                     var undo=UndoHeader.decode(r.vectors().get(v));HeapUndoPair found=null;int forwardIndex=-1;
@@ -141,8 +141,8 @@ public final class ArchivedHeapRows {
         var replaySchema=schema;
         for (var t:transactions) {
             if(history!=null) {
-                var next=history.schemaAt(t.identity().endRecordScn());
-                rows=new HashMap<>(remapRows(rows,replaySchema,next,history,t.identity().endRecordScn()));replaySchema=next;
+                var next=history.schemaAt(t.identity().endRecordScn(),t.commitPosition());
+                rows=new HashMap<>(remapRows(rows,replaySchema,next,history,t.identity().endRecordScn(),t.commitPosition()));replaySchema=next;
             }
             for (var p:pending.getOrDefault(t.identity().xid(),List.of())) {
             var previous=lastRowPosition.put(p.key(),p.position());
@@ -162,6 +162,11 @@ public final class ArchivedHeapRows {
 
     static Map<RowKey,List<Cell>> remapRows(Map<RowKey,List<Cell>> rows,List<FrozenHeapBaseline.PhysicalColumn> previous,
                                            List<FrozenHeapBaseline.PhysicalColumn> next,ArchivedDictionaryHistory.Timeline history,long scn)throws RedoException {
+        return remapRows(rows,previous,next,history,scn,null);
+    }
+    static Map<RowKey,List<Cell>> remapRows(Map<RowKey,List<Cell>> rows,List<FrozenHeapBaseline.PhysicalColumn> previous,
+                                           List<FrozenHeapBaseline.PhysicalColumn> next,ArchivedDictionaryHistory.Timeline history,long scn,
+                                           ArchivedUndoInventory.Position position)throws RedoException {
         if(previous.equals(next))return rows;
         var positions=new ArrayList<Integer>();
         for(var column:next) {
@@ -169,7 +174,7 @@ public final class ArchivedHeapRows {
             if(at<0) {
                 if(previous.stream().anyMatch(c->c.internal()==column.internal() || c.name().equals(column.name())))
                     throw new RedoException("UNSUPPORTED_HISTORICAL_COLUMN_IDENTITY_CHANGE");
-                history.requireAddedNullDefault(column,scn);
+                history.requireAddedNullDefault(column,scn,position);
             }
             positions.add(at);
         }

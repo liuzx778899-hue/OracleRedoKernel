@@ -7,9 +7,14 @@ import static com.streamhouse.oracle.RedoBytes.*;
 
 /** Archive-owned complete committed SYS histories. Does not itself emit business events. */
 public final class ArchivedDictionaryHistory {
+    private static final Comparator<ArchivedUndoInventory.Position> POSITION_ORDER=
+            Comparator.comparingLong(ArchivedUndoInventory.Position::archiveSequence)
+                    .thenComparingLong(ArchivedUndoInventory.Position::block)
+                    .thenComparingInt(ArchivedUndoInventory.Position::offset)
+                    .thenComparingInt(ArchivedUndoInventory.Position::vector);
     record RowOperation(FrozenHeapBaseline.ObjectRole role,HeapRowPatch.Patch forward,HeapRowPatch.Patch inverse) {}
     public record Commit(TransactionLifecycle.ClosedIdentity identity,List<ArchivedUndoInventory.Entry> original,
-                         int rowPairs,int indexPairs,int controls,List<DictionaryBaseline.Row> rows) {
+                         int rowPairs,int indexPairs,int controls,List<DictionaryBaseline.Row> rows,ArchivedUndoInventory.Position commitPosition) {
         public Commit {original=List.copyOf(original);rows=List.copyOf(rows);}
     }
     public record Pending(HeapRowPatch.Xid xid,long beginScn,int originals,int rowPairs,int indexPairs,int controls,
@@ -37,7 +42,9 @@ public final class ArchivedDictionaryHistory {
         public byte[] checkpoint()throws RedoException {
             var out=new StringBuilder("ORK_DICTIONARY_TIMELINE_V1\nB|").append(snapshot.sha256()).append('\n');
             for(var source:sources)out.append("S|").append(digest(source.toString())).append('\n');
-            for(var commit:commits)out.append("C|").append(digest(commit.toString())).append('\n');
+            // Preserve V1 receipts; commit position is re-derived from the already bound raw input.
+            for(var commit:commits)out.append("C|").append(digest("Commit[identity="+commit.identity()+", original="+commit.original()
+                    +", rowPairs="+commit.rowPairs()+", indexPairs="+commit.indexPairs()+", controls="+commit.controls()+", rows="+commit.rows()+"]")).append('\n');
             for(var active:pending)out.append("P|").append(digest(active.toString())).append('\n');
             for(var maintenance:clusterMaintenance)out.append("M|").append(digest(maintenance.toString())).append('\n');
             return out.toString().getBytes(java.nio.charset.StandardCharsets.UTF_8);
@@ -47,9 +54,12 @@ public final class ArchivedDictionaryHistory {
             for(int i=0;i<inputs.size();i++)if(!sources.get(i).equals(inputs.get(i).header()))throw new RedoException("HISTORY_TIMELINE_SOURCE_CHANGED");
         }
         void requireAddedNullDefault(FrozenHeapBaseline.PhysicalColumn column,long scn)throws RedoException {
+            requireAddedNullDefault(column,scn,null);
+        }
+        void requireAddedNullDefault(FrozenHeapBaseline.PhysicalColumn column,long scn,ArchivedUndoInventory.Position position)throws RedoException {
             var baseline=snapshot.dictionaryBaseline();var layout=baseline.layouts().get("COL$");
             int defaultAt=-1;for(int i=0;i<layout.columns().size();i++)if(layout.columns().get(i).name().equals("DEFAULT$"))defaultAt=i;
-            for(var row:rowsAt(scn))if(row.role().equals("COL$") && baseline.number(row,"INTCOL#")==column.internal()
+            for(var row:rowsAt(scn,position))if(row.role().equals("COL$") && baseline.number(row,"INTCOL#")==column.internal()
                     && baseline.text(row,"NAME").equals(column.name())) {
                 if(!column.nullable() || defaultAt<0 || row.values().get(defaultAt).state()!=HeapRowPatch.State.NULL)
                     throw new RedoException("UNSUPPORTED_HISTORICAL_ADDED_COLUMN_DEFAULT");return;
@@ -57,13 +67,20 @@ public final class ArchivedDictionaryHistory {
             throw new RedoException("HISTORICAL_ADDED_COLUMN_METADATA_MISSING");
         }
         public List<FrozenHeapBaseline.PhysicalColumn> schemaAt(long scn)throws RedoException {
-            if(pending.stream().anyMatch(p->p.beginScn()<=scn))throw new RedoException("DICTIONARY_SCHEMA_PENDING_SYS");
-            return DictionaryHistoryRows.schema(snapshot,rowsAt(scn));
+            return schemaAt(scn,null);
         }
-        private List<DictionaryBaseline.Row> rowsAt(long scn)throws RedoException {
+        public List<FrozenHeapBaseline.PhysicalColumn> schemaAt(long scn,ArchivedUndoInventory.Position position)throws RedoException {
+            if(pending.stream().anyMatch(p->p.beginScn()<=scn))throw new RedoException("DICTIONARY_SCHEMA_PENDING_SYS");
+            return DictionaryHistoryRows.schema(snapshot,rowsAt(scn,position));
+        }
+        private List<DictionaryBaseline.Row> rowsAt(long scn,ArchivedUndoInventory.Position position)throws RedoException {
             if(scn<snapshot.scn() || scn>=sources.get(sources.size()-1).nextScn())throw new RedoException("DICTIONARY_SCHEMA_SCN_OUTSIDE_VERIFIED_WINDOW");
             List<DictionaryBaseline.Row> rows=snapshot.dictionaryBaseline().rows();
-            for(var commit:commits) {if(commit.identity().endRecordScn()>scn)break;rows=commit.rows();}
+            for(var commit:commits) {
+                if(commit.identity().endRecordScn()>scn || commit.identity().endRecordScn()==scn
+                        && position!=null && POSITION_ORDER.compare(commit.commitPosition(),position)>0)break;
+                rows=commit.rows();
+            }
             return rows;
         }
     }
@@ -82,6 +99,7 @@ public final class ArchivedDictionaryHistory {
         TransactionStart start;
         long beginScn;
         TransactionLifecycle.ClosedIdentity end;
+        ArchivedUndoInventory.Position commitPosition;
         int next,controls;
         Context(ArchivedUndoInventory inventory){this.inventory=inventory;graph=new UndoHistory(inventory);}
     }
@@ -250,6 +268,7 @@ public final class ArchivedDictionaryHistory {
                     if(v.opcodeMajor()==5 && v.opcodeMinor()==6 && c.start!=null && c.end==null)throw new RedoException("UNSUPPORTED_ACTIVE_SYS_COMPENSATION");
                     if(v.opcodeMajor()==5 && v.opcodeMinor()==4 && c.lifecycle.knowsEnd(r,v)) {
                         c.end=c.lifecycle.end(r,v);if(c.end.rolledBack())throw new RedoException("UNSUPPORTED_SYS_ROLLBACK_HISTORY");
+                        c.commitPosition=new ArchivedUndoInventory.Position(header.sequence(),r.block(),r.offset(),r.vectors().indexOf(v)+1);
                         var graph=c.graph.close(TransactionEnd.undoTail(v));
                         if(graph.live().size()!=c.rowCount()+c.indexCount() || c.next!=c.inventory.entries().size())throw new RedoException("DICTIONARY_COMPLETE_LIVE_ORIGINAL_COVERAGE");
                     }
@@ -268,16 +287,17 @@ public final class ArchivedDictionaryHistory {
             }
         }
         for(long scn:markers)if(contexts.values().stream().noneMatch(c->c.beginScn<=scn && (c.end==null?allowPending:c.end.endRecordScn()>=scn)))throw new RedoException("TARGET_SCHEMA_MARKER_WITHOUT_COMPLETE_SYS_HISTORY");
-        var ordered=new ArrayList<>(contexts.values().stream().filter(c->c.end!=null).toList());ordered.sort(Comparator.comparingLong(c->c.end.endRecordScn()));
-        var state=new DictionaryHistoryRows(snapshot);var commits=new ArrayList<Commit>();long prior=snapshot.scn();
+        var ordered=new ArrayList<>(contexts.values().stream().filter(c->c.end!=null).toList());
+        ordered.sort(Comparator.comparingLong((Context c)->c.end.endRecordScn()).thenComparing(c->c.commitPosition,POSITION_ORDER));
+        var state=new DictionaryHistoryRows(snapshot);var commits=new ArrayList<Commit>();var positions=new HashSet<ArchivedUndoInventory.Position>();
         for(var c:ordered) {
-            if(c.end.endRecordScn()<=prior)throw new RedoException("AMBIGUOUS_DICTIONARY_COMMIT_SCN");
+            if(c.end.endRecordScn()<=snapshot.scn() || !positions.add(c.commitPosition))throw new RedoException("AMBIGUOUS_DICTIONARY_COMMIT_POSITION");
             if(!c.usageRows.isEmpty() || !c.usageIndexes.isEmpty())
                 DictionaryUsageChanges.requireComplete(c.usageRows,c.usageIndexes,baseline.usage(),snapshot.heap().logicalObject(),state.current(),baseline);
             var rows=state.apply(c.rows,c.indexes);
             if(!c.statisticsRows.isEmpty() || !c.statisticsIndexes.isEmpty())
                 DictionaryStatisticsChanges.requireComplete(c.statisticsRows,c.statisticsIndexes,baseline.statistics(),snapshot.heap().logicalObject(),rows,baseline);
-            commits.add(new Commit(c.end,c.inventory.entries(),c.rowCount(),c.indexCount(),c.controls,rows));prior=c.end.endRecordScn();
+            commits.add(new Commit(c.end,c.inventory.entries(),c.rowCount(),c.indexCount(),c.controls,rows,c.commitPosition));
         }
         return new Timeline(snapshot,sources,commits,pending,clusterMaintenance);
     }
