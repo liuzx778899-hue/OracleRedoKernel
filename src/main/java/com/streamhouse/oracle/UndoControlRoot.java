@@ -13,7 +13,7 @@ public record UndoControlRoot(TransactionStart start,UndoHeader allocationBegin,
             if(u32(b,8)!=h.uba().dba() || u16(b,12)!=h.uba().sequence() || (b[14]&255)!=h.uba().record()) continue;
             var s=TransactionStart.decode(v);
             if(found!=null) throw new RedoException("AMBIGUOUS_NON_ROW_BEGIN_CONTROL");
-            if(s.flags()!=0x51 || !s.bindBegin(record).equals(h.xid())) throw new RedoException("NON_ROW_BEGIN_CONTROL_MISMATCH");
+            if((s.flags()!=0x51 && s.flags()!=0x451) || !s.bindBegin(record).equals(h.xid())) throw new RedoException("NON_ROW_BEGIN_CONTROL_MISMATCH");
             found=s;
         }
         if(found==null) throw new RedoException("MISSING_NON_ROW_BEGIN_CONTROL");

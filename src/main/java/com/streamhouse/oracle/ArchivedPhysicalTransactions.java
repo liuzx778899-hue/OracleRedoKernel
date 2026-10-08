@@ -100,7 +100,9 @@ public final class ArchivedPhysicalTransactions {
                                ArchivedDictionaryHistory.Timeline history,java.util.function.Consumer<PendingState> savePending,Prefix restored) throws IOException {
         if (columns<=0) throw new RedoException("INVALID_PHYSICAL_TRANSACTION_SCOPE");
         long heapObject=scope.heap().dataObject(),indexObject=scope.index().dataObject();
-        var found=savePending==null?ArchivedObjectTransactions.read(paths,uid,container,scope):ArchivedObjectTransactions.readPending(paths,uid,container,scope);
+        var coverage=snapshot==null?List.<BaselineTransactionCoverage.Receipt>of():BaselineTransactionCoverage.read(paths,uid,container,scope,snapshot.scn());
+        var covered=coverage.stream().map(c->c.identity().xid()).collect(java.util.stream.Collectors.toSet());
+        var found=ArchivedObjectTransactions.readCovered(paths,uid,container,scope,savePending!=null,covered);
         if (found.transactions().isEmpty() && !(savePending!=null && history!=null && !history.pending().isEmpty()))
             throw new RedoException("NO_PHYSICAL_OBJECT_TRANSACTIONS");
         var contexts=new ArrayList<Context>();var owners=new HashMap<HeapRowPatch.Xid,Context>();
@@ -176,6 +178,14 @@ public final class ArchivedPhysicalTransactions {
             path.visit(header,r->{
                 if (r.containerUid()!=uid) return;
                 var paired=new HashSet<Integer>();var starts=new HashSet<Integer>();
+                for(var receipt:coverage)for(int i=0;i<r.vectors().size();i++)if(receipt.begin().equals(position(header,r,i))) {
+                    var h=UndoHeader.decode(r.vectors().get(i));
+                    for(var control:r.vectors())if(control.containerId()==container && control.opcodeMajor()==5 && control.opcodeMinor()==2
+                            && control.fields().size()==2 && TransactionStart.decode(control).uba().equals(h.uba()))state.begin(r,control);
+                }
+                for(var receipt:coverage)if(compareRecord(new ArchivedUndoInventory.Position(header.sequence(),r.block(),r.offset(),0),receipt.begin())>=0
+                        && compareRecord(new ArchivedUndoInventory.Position(header.sequence(),r.block(),r.offset(),0),receipt.end())<=0)
+                    for(var control:r.vectors())if(control.containerId()==container && control.opcodeMajor()==5 && control.opcodeMinor()==2)state.observeSlotControl(r,control);
                 for (int i=0;i<r.vectors().size();i++) {
                     var v=r.vectors().get(i);var at=position(header,r,i);var c=originals.get(at);if (c==null) continue;
                     var h=UndoHeader.decode(v);
@@ -184,6 +194,9 @@ public final class ArchivedPhysicalTransactions {
                         for (int j=0;j<r.vectors().size();j++) {
                             var control=r.vectors().get(j);
                             if (control.containerId()!=container || control.opcodeMajor()!=5 || control.opcodeMinor()!=2) continue;
+                            if(control.fields().isEmpty() || control.fields().get(0).length<15)throw new RedoException("UNREADABLE_PHYSICAL_BEGIN_CONTROL");
+                            byte[] identity=control.fields().get(0);
+                            if(u32(identity,8)!=h.uba().dba() || u16(identity,12)!=h.uba().sequence() || (identity[14]&255)!=h.uba().record())continue;
                             var start=TransactionStart.decode(control);
                             if (!start.uba().equals(h.uba())) continue;
                             state.begin(r,control);c.segment=start.segmentDba();starts.add(j);count++;
@@ -249,12 +262,17 @@ public final class ArchivedPhysicalTransactions {
                     if (v.opcodeMajor()!=5) throw new RedoException("UNSUPPORTED_PHYSICAL_CONTROL_OPCODE");
                     if (v.opcodeMinor()==2) {
                         state.observeSlotControl(r,v);
-                        if (!starts.contains(i)) requireForeignBegin(r,v,scope,owners,recordAt);
+                        if (!starts.contains(i)) {
+                            if(v.fields().size()==1 && v.fields().get(0).length==32 && u16(v.fields().get(0),16)==10)state.advance(r,v);
+                            else if(v.fields().size()==1 && v.fields().get(0).length==32 && u16(v.fields().get(0),16)==2)state.headUpdate(r,v);
+                            else requireForeignBegin(r,v,scope,owners,recordAt);
+                        }
                     } else if (v.opcodeMinor()!=1 && v.opcodeMinor()!=4 && v.opcodeMinor()!=6 && v.opcodeMinor()!=11)
                         throw new RedoException("UNSUPPORTED_PHYSICAL_CONTROL_OPCODE");
                 }
                 for (var v:r.vectors()) if (v.containerId()==container && v.opcodeMajor()==5 && v.opcodeMinor()==4 && state.knowsEnd(r,v)) {
                     var end=state.end(r,v);var c=owners.get(end.xid());
+                    if(c==null && coverage.stream().anyMatch(receipt->receipt.identity().equals(end)))continue;
                     if (c==null || c.result!=null || c.coveredByBaseline) throw new RedoException("PHYSICAL_END_OWNER_CHANGED_OR_REPEATED");
                     c.discovered.associations().window().requireCompleteSelection(c.markers);
                     // Keep all contexts and foreign routes until their raw lifecycle closes. The verified

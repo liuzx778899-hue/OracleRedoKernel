@@ -35,4 +35,13 @@ class ExtentMapPairTest {
         assertThrows(RedoException.class,()->ExtentMapPair.bind(record(u,f),u,f));
         assertThrows(RedoException.class,()->UndoHeader.decode(u));
     }
+    @Test void bindsNativeNonRowBeginWithFbiOne() throws Exception {
+        var start=vector(5,2,0x02400110,"1f000000250e0000330240026d01060051045000010000000000000000000000","bd726528");
+        var begin=vector(5,1,0x02400233,"5000b81d1000ab760a001f00250e00006d010600",
+                "0000000000000000000000000000000005071f00080c010000000000320240026d014b00c9982c0000000000cd982c000000000000000000ffffffffffffffff300240020000000000000000");
+        var r=record(begin,start);var decoded=TransactionStart.decode(start);
+        assertEquals(0x451,decoded.flags());assertEquals(new HeapRowPatch.Xid(10,31,3621),decoded.bindBegin(r));
+        start.fields().get(0)[20]=0;
+        assertThrows(RedoException.class,()->TransactionStart.decode(start));
+    }
 }

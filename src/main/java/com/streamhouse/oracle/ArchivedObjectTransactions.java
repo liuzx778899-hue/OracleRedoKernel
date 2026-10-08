@@ -27,10 +27,18 @@ public final class ArchivedObjectTransactions {
     static ArchivedObjectTransactions readPending(RedoBatch paths,long uid,long container,HeapIndexScope roles) throws IOException {
         return read(paths,uid,container,roles.generations(),true);
     }
+    static ArchivedObjectTransactions readCovered(RedoBatch paths,long uid,long container,HeapIndexScope roles,
+                                                  boolean allowPending,Set<HeapRowPatch.Xid> covered)throws IOException {
+        return read(paths,uid,container,roles.generations(),allowPending,covered);
+    }
     private static ArchivedObjectTransactions read(RedoBatch paths,long uid,long container,java.util.Map<Long,Long> generations) throws IOException {
         return read(paths,uid,container,generations,false);
     }
     private static ArchivedObjectTransactions read(RedoBatch paths,long uid,long container,java.util.Map<Long,Long> generations,boolean allowPending) throws IOException {
+        return read(paths,uid,container,generations,allowPending,Set.of());
+    }
+    private static ArchivedObjectTransactions read(RedoBatch paths,long uid,long container,java.util.Map<Long,Long> generations,
+                                                    boolean allowPending,Set<HeapRowPatch.Xid> covered) throws IOException {
         if (paths.isEmpty() || generations.isEmpty()) throw new RedoException("EMPTY_OBJECT_TRANSACTION_SCOPE_OR_INPUT");
         var scope=new java.util.HashSet<Long>(generations.keySet());scope.addAll(generations.values());var xids=new LinkedHashSet<HeapRowPatch.Xid>();
         var relevantMarkers=new ArrayList<ArchivedUndoInventory.Position>();var sources=new ArrayList<ArchivedRedo.Header>();
@@ -46,6 +54,8 @@ public final class ArchivedObjectTransactions {
                         if (v.fields().size()<2 || v.fields().get(0).length!=20 || v.fields().get(1).length<24)
                             throw new RedoException("UNREADABLE_OBJECT_TRANSACTION_ORIGINAL");
                         object=RedoBytes.u32(v.fields().get(1),0);data=RedoBytes.u32(v.fields().get(1),4);
+                        byte[] identity=v.fields().get(0);
+                        if(covered.contains(new HeapRowPatch.Xid(RedoBytes.u16(identity,8),RedoBytes.u16(identity,10),RedoBytes.u32(identity,12))))continue;
                         if (scope.contains(object) || scope.contains(data)) xids.add(UndoHeader.decode(v).xid());
                     } else if (v.opcodeMinor()==6 || v.opcodeMinor()==11) {
                         if (v.fields().size()!=2 || v.fields().get(0).length!=28 || v.fields().get(1).length!=8)

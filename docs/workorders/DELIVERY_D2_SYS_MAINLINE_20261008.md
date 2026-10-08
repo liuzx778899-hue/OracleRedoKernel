@@ -76,3 +76,6 @@ D2真实跨块正常样本已冻结，尚未通过：新先行acquisition1016731
 
 
 D2空间扩展配对候选：新增ExtentMapPair，仅绑定同记录5.1/14.5 undo与14.4 ADD，核logical1/dataObject、XID/UBA、segment/extent地址、块数、删除/新增entry及前后extent/block统计。仅读90:1328:464实际记录配对rc0/1，native尺子一致；相关5测试零失败错误跳过，未放宽业务UndoHeader flags。尚未接入完整storage事务/基线覆盖收据，prefix拒绝仍在，事件/目标0；不当跨块支持。入口d2-blocks-runtime-20261008/extent-pair-summary.json。首PowerShell未引号-Dtest解析失败保留；无源/获取/部署动作。下一复用此配对并核完整10.31.3621原始BEGIN/undo/COMMIT及旧seed ARRAY事务处置，再接正常跨块闭合。
+
+
+D2跨块正常能力开发态通过：新增基线初始化覆盖收据，仅同raw完整BEGIN/全部undo地址链/slot控制/COMMIT尾、提交不晚于可信基线才覆盖，14.5 extent配对和22.3空间根已结构绑定；不按单记录SCN丢弃跨水位活跃事务，也不宣称基线后ARRAY DML支持。实际非行BEGIN0x0451/fbi1、XA第三列KDOM2短值、同记录BEGIN与跨undo-block推进正常接入。冻结90 prefix rc0/1pending/0events→90/91 closed/restored各40完整UPDATE，20行NOTE anchor→block1→anchor、7个heap块；native40个正向UPDATE按物理rowkey/值/顺序零差异，独立JVM完整stdout字节同SHAb2d61a93a9c0b2f5b0cec8fbaa4912048f1a95724bc0fa89588d688d224f455a。checkpoint SHA70b193154bed3575770bcfa72cf2ba6026c7cd8e8297fa24c50bf7cbd237e8a9；相关38测试零失败错误跳过，原缺端旧生命周期拒绝回归保留。首次flags/FBI与KDOM2/控制布局拒绝、native核验器DBA空格误判全文保留。源/新获取/目标/部署0，自有helper保持停止143；禁止重放90/91源或原获取。入口d2-blocks-runtime-20261008/normal-summary.json/native-blocks-proof.json。开发态不当正式产品或独立验收；下一合并初始水位/同key/同SCN候选与跨块候选，集中一次提交树打包、产品正常目标CPACK，再D3连续/D4/D5功能。低概率矩阵继续后置。

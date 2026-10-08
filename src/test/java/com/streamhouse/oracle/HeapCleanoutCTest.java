@@ -8,6 +8,14 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class HeapCleanoutCTest {
     byte[] hex(String s) { return HexFormat.of().parseHex(s); }
+    @Test void decodesRealColumnTwoVectorContentAtRowOffset103() throws Exception {
+        var fields=List.of(hex("020d4002dd014a00ac0340026e011300"),
+                hex("bc6c0003ba6c0003fa120581020000002c0212000100030100006700"),hex("0200"),hex("06626c6f636b31"));
+        var patch=HeapRowPatch.decodeKdo(fields,5,0x03006cbc,3);
+        assertEquals("block1",OracleScalars.varchar2(patch.columns().get(2).bytes(),"AL32UTF8"));
+        fields.get(3)[0]=5;
+        assertThrows(RedoException.class,()->HeapRowPatch.decodeKdo(fields,5,0x03006cbc,3));
+    }
     RedoRecords.Vector row() {
         return new RedoRecords.Vector(11,3,1,12,50331943,2207273,1,3,List.of(
                 hex("120d0000000000007a2d4002f20032000000000000000000000000000000000000000000000000000000000002010d0029ae2100008000000206008024ae2100000000000000"),

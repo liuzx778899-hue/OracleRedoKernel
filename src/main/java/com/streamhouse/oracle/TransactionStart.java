@@ -15,8 +15,8 @@ public record TransactionStart(long segmentDba, int slot, long sequence, HeapRow
         int flags=u16(b,16);
         boolean observedFirstRecord=flags==0x4a && u16(b,2)==0 && (b[14]&255)==1
                 && b[15]==0 && (u16(b,18)==176 || u16(b,18)==316) && u32(b,20)==0;
-        boolean observedControlBegin=flags==0x51 && u16(b,2)==0 && (b[14]&255)>0
-                && b[15]==0 && u16(b,18)==80 && b[20]==0;
+        boolean observedControlBegin=(flags==0x51 || flags==0x451) && u16(b,2)==0 && (b[14]&255)>0
+                && b[15]==0 && u16(b,18)==80 && b[20]==(flags==0x451?1:0);
         // Native seq70/82: fbi plus padding is historical control state, not a current identity.
         boolean observedSplitBegin=flags==0x44a && u16(b,2)==0 && (b[14]&255)==1
                 && b[15]==0 && (u16(b,18)==136 || u16(b,18)==148);
@@ -62,7 +62,7 @@ public record TransactionStart(long segmentDba, int slot, long sequence, HeapRow
                 ClusterRowPatch.decode(f.subList(2,f.size()),2,u32(f.get(3),0),5,36);
             }
         }
-        if (flags==0x51) {
+        if (flags==0x51 || flags==0x451) {
             var begin=match;
             var v=record.vectors().stream().filter(u->u.containerId()==containerId && u.opcodeMajor()==5
                     && u.opcodeMinor()==1 && u.dba()==uba.dba() && u.fields().size()==2

@@ -129,7 +129,12 @@ public final class HeapRowPatch {
             // Actual product-acquired seq75/76: marker2 XA, column1 of3, one-byte value length.
             boolean shortMarkerTwo=packed && u16(kdo,26)==2 && xtype==1 && stored==3 && dictionaryColumns==3
                     && fields.size()==4 && fields.get(2).length==2 && u16(fields.get(2),0)==1;
-            if (packed && (count!=1 || u16(kdo,24)!=0 || (!shortColumnTwo && !shortMarkerTwo && u16(kdo,26)!=3 && (u16(kdo,26)!=0 || (kdo[11]&0x7f)!=1))))
+            // Seq90 XA column2: vector content has a self-sized short value; the KDO vector offset is 103/104.
+            boolean shortXaColumnTwo=packed && xtype==1 && stored==3 && dictionaryColumns==3 && fields.size()==4
+                    && fields.get(2).length==2 && u16(fields.get(2),0)==2 && fields.get(3).length>=2
+                    && (fields.get(3)[0]&255)>=1 && (fields.get(3)[0]&255)<=250
+                    && (fields.get(3)[0]&255)==fields.get(3).length-1;
+            if (packed && (count!=1 || u16(kdo,24)!=0 || (!shortColumnTwo && !shortMarkerTwo && !shortXaColumnTwo && u16(kdo,26)!=3 && (u16(kdo,26)!=0 || (kdo[11]&0x7f)!=1))))
                 throw new RedoException("UNSUPPORTED_KDOM2_UPDATE_LAYOUT");
             if ((kdo[16]&255) != 0x2c || stored<1 || stored>dictionaryColumns)
                 throw new RedoException("UNSUPPORTED_UPDATE_ROWPIECE");
@@ -155,7 +160,7 @@ public final class HeapRowPatch {
                 // Actual seq41 XA: marker3, physical column1 of3, unchanged 16-byte value with one-byte length.
                 boolean shortMarkerThree=packed && u16(kdo,26)==3 && xtype==1 && stored==3 && dictionaryColumns==3
                         && index==1 && bytes.length==17 && (bytes[0]&255)==16;
-                columns.set(index,value(packed ? packedValue(bytes,u16(kdo,26),shortMarkerThree || shortMarkerTwo) : bytes));
+                columns.set(index,value(packed ? packedValue(bytes,u16(kdo,26),shortMarkerThree || shortMarkerTwo || shortXaColumnTwo) : bytes));
             }
         } else {
             kind=Kind.DELETE; slot=u16(kdo,16);
