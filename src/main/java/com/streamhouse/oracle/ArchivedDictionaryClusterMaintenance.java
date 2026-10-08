@@ -135,7 +135,8 @@ final class ArchivedDictionaryClusterMaintenance {
             throw new RedoException("UNSUPPORTED_CLUSTER_MAINTENANCE_INDEX");
         current(row,h);byte[] leaf=u.get(3),key=u.get(4),forward=v.get(1);
         if(leaf[0]!=18 || leaf[1]==0 || leaf[2]!=(first?1:5) || u32(leaf,4)==0 || u32(leaf,8)!=row.dba()
-                || u16(leaf,12)!=2 || forward[0]!=leaf[1] || forward[1]!=0 || key.length<2 || (key[0]&255)!=key.length-1
+                // Native seq80/82 SDC differs (2/1); it is not the current XID, extent or pointer authority.
+                || forward[0]!=leaf[1] || forward[1]!=0 || key.length<2 || (key[0]&255)!=key.length-1
                 || u16(forward,4)!=8+key.length+4 || !first && (u.get(5).length!=8 || v.get(2).length!=8))
             throw new RedoException("CLUSTER_MAINTENANCE_INDEX_KEY_OR_EXTENT");
         return new Index(h,u32(leaf,4),row.dba(),u16(forward,2),leaf[1]&255,key,first?null:u.get(5),first?null:v.get(2));
@@ -162,7 +163,7 @@ final class ArchivedDictionaryClusterMaintenance {
         current(row,h);byte[] k=v.get(1),prior=u.get(3);
         if(row.dba()!=fresh.linkBlock() || u32(k,0)!=row.dba() || u32(prior,0)!=row.dba() || u32(k,4)!=u32(prior,4)
                 || k[10]!=2 || prior[10]!=3 || k[11]!=1 || prior[11]!=1 || k[16]!=(byte)0xac || k[17]!=1 || k[18]!=1
-                || k[19]!=(byte)0x94 || u16(k,40)!=24 || u16(k,42)!=fresh.linkSlot() || k[44]!=0 || k[45]!=0
+                || u16(k,40)!=24 || u16(k,42)!=fresh.linkSlot() || k[44]!=0 || k[45]!=0
                 || u16(prior,16)!=fresh.linkSlot() || prior[18]!=0 || !Arrays.equals(v.get(2),Arrays.copyOfRange(key,1,key.length))
                 || u32(k,20)!=old.block() || u16(k,24)!=old.slot() || u32(k,28)!=old.block() || u16(k,32)!=old.slot())
             throw new RedoException("CLUSTER_MAINTENANCE_KEY_OR_BACKLINK_CONFLICT");

@@ -47,7 +47,7 @@ final class HistoricalSchemaBarrier {
                     || (fields.get(11).length!=4 && !observedTriggerMarker(fields)))
                 throw new RedoException("UNSUPPORTED_HISTORICAL_SCHEMA_MARKER");
         } else if(vector.opcodeMinor()==4) {
-            if(record.validity()!=5 || record.vectors().size()!=1 || vector.blockClass()!=0 || vector.file()!=0 || vector.dba()!=0 || vector.scn()!=0 || vector.sequence()!=0
+            if((record.validity()!=1 && record.validity()!=5) || record.vectors().size()!=1 || vector.blockClass()!=0 || vector.file()!=0 || vector.dba()!=0 || vector.scn()!=0 || vector.sequence()!=0
                     || fields.size()!=2 || !Arrays.equals(fields.get(0),java.util.HexFormat.of().parseHex("28230000000000000000000072000c00")) || fields.get(1).length!=16)
                 throw new RedoException("UNSUPPORTED_MEDIA_RECOVERY_MARKER_PROFILE");
             byte[] range=fields.get(1);long first=u32(range,0),last=u32(range,8);

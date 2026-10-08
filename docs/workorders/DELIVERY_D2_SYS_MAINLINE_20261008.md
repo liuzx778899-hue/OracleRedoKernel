@@ -21,3 +21,13 @@
 针对性内核6类23项零失败/错误/跳过；获取2项直接Java测试通过，两个获取类javac rc0。适配Maven因本机SPI/内核坐标缺失rc1，原文保留，直接测试不冒充完整模块构建。首测试生成编译错误、实际KDO长度拒绝和测试列号错误均保留在statistics-*.log。必要SHA/rc见lab/out/d2-sys-maintenance-20261008/statistics-summary.json。源动作/目标动作/新获取/部署0，产品旧制品未换装。
 
 尚未证明：旧80/81完整闭合（旧可信基线未获取统计身份），新增先行历史获取实库路径、新样本完整SYS事务、恢复及产品目标CPACK。下一在新独立实验窗口先获取含本契约的可信基线，再运行一次必要正常DDL/DML链路；不得重放80/81或修改旧基线。其后集中产品接线，不扩故障矩阵，D2其余/D3连续采集/D4-D5和最终验收范围不变。
+
+## 新先行统计基线与82/83正常事务（2026-10-08）
+
+产品依赖87f0261完整提交树必要打包rc0，未重跑全量测试；application f5be235df0951d92f9035b4ac6705bae17e0c527e0db78a7e98d09cd4b624673，嵌入kernel2cb14d11/adaptera54946ae逐字节核等。新自有ORKD2STATCTL_20261008/helper37294worker50真实Flyway25项成功、消费关闭。首健康探测未就绪connect111保留；原进程正常启动后核SHA/HTTP通过。首获取拒绝且无基线，确认新fixture及ICOL$缺读取权限，仅专属实验补SELECT/FLASHBACK后成功，不作生产零权限配置证明。
+
+真实HTTP acquisition101622639306678272/SCN2910534/snapshot9f0347eb3093ebc19416690199fcc0cebd7e5ac40c9bc24aa7541ff2bfa2d895；独立SYS6行230cells/3index/业务1row，加统计22列/2索引零差异。新fixture T_D2_STATS_20261008一次ADD跨82/83、DROP/两UPDATE，延迟trigger已删、源行三列恢复/NO NO/旧行不变。原始归档SHA核等；禁止重跑d2_statistics_source.py --execute、新获取或晚SCN回填本基线。
+
+开发修复：148字节0x44a BEGIN绑定同记录声明长度；历史fbi/padding、cluster索引SDC及IRP填充不作身份/key/指针授权；COMMIT fbi/padding不作扩展语义；24.4支持VLD1且仍核已观察下界和闭合上界。相关5类47项零失败/错误/跳过。开发classes真实82前缀rc0，pending SYS10.24.3554/5original/2row/2index/1control、schema拒绝/completed0/events0。CP SHA及必要制品/输入SHA见lab/out/d2-statistics-runtime-20261008/integration-summary.json；控制修复尚未换装产品，不冒充正式jar恢复通过。首索引段误用50357378保留；冻结同记录配对确认实际leaf50357379，未按猜测加1。
+
+闭合仍rc1/stdout0：83:38:16未知669/669。全部两个SYS事务原始清单：ADD10original、DROP8original；新增缺件仅COL_USAGE$669/I_COL_USAGE$670。诊断布局10列NUMBER/DATE、索引OBJ#/INTCOL#，不是历史元数据授权。本批ADD没有HIST_HEAD$操作，不替代旧真实统计INSERT完整运行验证。下一先补这两个依赖的完整处置及先行获取，再新独立窗口集中一次闭合/恢复/产品CPACK；不逐表反复源实验、不忽略统计或回填本基线。全部失败与原始输入保留，自有helper已停143，源Oracle运行。D2其余/D3连续/D4-D5及独立验收发布保留，不扩故障矩阵。

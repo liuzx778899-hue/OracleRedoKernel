@@ -7,6 +7,7 @@ public class D2PendingSysRawProbe {
     public static void main(String[] args)throws Exception {
         String mode=args[0];Path state=Path.of(args[1]);String stateSha=args[2];
         Path baseline=Path.of(args[3]);String baselineSha=args[4];
+        long indexDba=Long.getLong("ork.indexDba",50342539L);
         var captures=new ArrayList<CaptureJournal.Verified>();
         for(int i=5;i<args.length;i+=2)captures.add(new CaptureJournal().readRawClosed(Path.of(args[i]),args[i+1]));
         var lines=new ArrayList<String>();
@@ -21,7 +22,7 @@ public class D2PendingSysRawProbe {
                 if(!e.getMessage().equals("DICTIONARY_SCHEMA_PENDING_SYS"))throw e;
                 lines.add("SCHEMA_REFUSED|"+e.getMessage());
             }
-            var prefix=HistoricalRecovery.prefixCaptured(captures,baseline,baselineSha,50342539);
+            var prefix=HistoricalRecovery.prefixCaptured(captures,baseline,baselineSha,indexDba);
             if(prefix.completedTransactions()!=0 || prefix.pendingTransactions()!=timeline.pending().size())
                 throw new IllegalStateException("UNIFIED_PENDING_SCOPE_MISMATCH");
             byte[] bytes=prefix.checkpoint();
@@ -31,8 +32,8 @@ public class D2PendingSysRawProbe {
             lines.add("WAITING|"+prefix.pendingTransactions()+"|"+prefix.completedTransactions()+"|events=0");
         } else {
             var batch=mode.equals("restored")
-                ?HistoricalRecovery.readCaptured(captures,baseline,baselineSha,50342539,Files.readAllBytes(state),stateSha)
-                :CapturedHistoricalHeapBatch.read(captures,baseline,baselineSha,50342539);
+                ?HistoricalRecovery.readCaptured(captures,baseline,baselineSha,indexDba,Files.readAllBytes(state),stateSha)
+                :CapturedHistoricalHeapBatch.read(captures,baseline,baselineSha,indexDba);
             for(var event:batch.events()) {
                 var e=event.row();var p=e.pairedUndoPosition();
                 lines.add("SCHEMA|"+event.schema().sha256()+"|"+event.schema().columns());

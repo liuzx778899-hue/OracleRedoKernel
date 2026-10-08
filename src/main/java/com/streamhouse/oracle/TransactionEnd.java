@@ -37,11 +37,9 @@ public record TransactionEnd(long segmentDba, int slot, long sequence, int flags
                     && u32(extra,16)==observedSize && u32(extra,20)==observedSize;
             // Seq59 native-matched commit tails with ext 0/1 and an otherwise empty extension.
             // The extra control payload is not interpreted as a transaction identity or undo tail.
-            // Seq69 native ktucf ext=0: observed opaque tail word 0x0b00; no inferred meaning.
-            boolean observedTail=u32(fields.get(1),12)==0
-                    || (u32(extra,0)==0 && u32(fields.get(1),12)==0x0b00);
+            // Native seq82 ktucf ext=0, spc=4194, fbi=1: fbi/padding is not extension or identity authority.
             boolean empty=flags==0x12 && u32(extra,0)<=1 && u32(extra,4)==u32(extra,0)
-                    && u16(fields.get(1),8)==u32(extra,0) && fields.get(1)[7]==0 && observedTail
+                    && u16(fields.get(1),8)==u32(extra,0) && fields.get(1)[7]==0
                     && u32(extra,12)==0 && u32(extra,16)==0 && u32(extra,20)==0;
             if ((!sized && !empty) || u32(extra,8)!=u32(fields.get(fields.size()-1),0))
                 throw new RedoException("UNSUPPORTED_TRANSACTION_END_EXTENSION");

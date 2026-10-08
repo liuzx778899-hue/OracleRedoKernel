@@ -51,11 +51,23 @@ class TransactionStartTest {
         assertThrows(RedoException.class,()->h.bindBegin(record(1,splitStart(),splitUndo())));
         assertThrows(RedoException.class,()->h.bindBegin(record(677737149,splitStart(),splitUndo(),splitUndo())));
     }
-    @Test void refusesUnobservedSplitBeginControlWordSizeFlagsAndParent() {
-        for(int at:new int[]{2,14,15,16,17,18,19,20,21,22,23,24,28}) {
+    @Test void refusesUnobservedSplitBeginSizeFlagsAndParent() {
+        for(int at:new int[]{2,14,15,16,17,18,19,24,28}) {
             var v=splitStart();v.fields().get(0)[at]^=1;
             assertThrows(RedoException.class,()->TransactionStart.decode(v));
         }
+    }
+    @Test void actual148ByteBeginBindsSizeWhileOpaqueFbiDoesNotSupplyIdentity()throws Exception {
+        var s=new RedoRecords.Vector(5,2,35,11,37749008,2910636,1,3,List.of(
+                hex("09000000da0d000017014002660101004a049400c0230b790000000000000000"),hex("bd726528")));
+        var u=new RedoRecords.Vector(5,1,36,11,37749015,2910636,1,3,List.of(
+                hex("940000000a0000000a000900da0d000066010181"),
+                hex("030000000300000000000000000000000a160900080c01000000000016014002660125000c692c00000000000e692c000000000000000000ffffffffffffffff690340020000000000000000")));
+        var h=TransactionStart.decode(s);assertEquals(new HeapRowPatch.Xid(10,9,3546),h.bindBegin(record(677737149,s,u)));
+        for(int at=20;at<24;at++)s.fields().get(0)[at]^=1;
+        assertEquals(h,TransactionStart.decode(s));assertEquals(new HeapRowPatch.Xid(10,9,3546),h.bindBegin(record(677737149,s,u)));
+        u.fields().get(0)[0]^=1;
+        assertThrows(RedoException.class,()->h.bindBegin(record(677737149,s,u)));
     }
     RedoRecords.Vector firstRecordStart() {
         return new RedoRecords.Vector(5,2,35,11,0x02400110,2362414,1,3,List.of(

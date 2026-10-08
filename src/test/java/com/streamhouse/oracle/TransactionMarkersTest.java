@@ -94,7 +94,7 @@ class TransactionMarkersTest {
         var v=historicalCommit();var end=TransactionEnd.decode(v);
         assertEquals(27,end.slot());assertEquals(602,end.sequence());assertFalse(end.rolledBack());
         assertEquals(new HeapRowPatch.Uba(0x024000c7L,255,7),TransactionEnd.undoTail(v));
-        for(int offset:new int[]{7,8,12,13,14,15}) {
+        for(int offset:new int[]{7,8}) {
             var bad=historicalCommit();bad.fields().get(1)[offset]^=1;
             assertThrows(RedoException.class,()->TransactionEnd.decode(bad));
         }
@@ -103,8 +103,15 @@ class TransactionMarkersTest {
             assertThrows(RedoException.class,()->TransactionEnd.decode(bad));
         }
         var mixed=historicalCommit();mixed.fields().get(1)[8]=1;
-        mixed.fields().get(2)[0]=1;mixed.fields().get(2)[4]=1;
         assertThrows(RedoException.class,()->TransactionEnd.decode(mixed));
+    }
+    @Test void nativeFbiAndPaddingCannotChangeCommitIdentityOrUndoTail()throws Exception {
+        var v=vector(4,"03000000e30d0000000000000900000012000000","1601400266012a000000621001750000",
+                "0000000000000000a76cc76a000000000000000000000000","a76cc76a");
+        var end=TransactionEnd.decode(v);var tail=TransactionEnd.undoTail(v);
+        assertEquals(3,end.slot());assertEquals(3555,end.sequence());assertEquals(new HeapRowPatch.Uba(37749014,358,42),tail);
+        for(int i=12;i<16;i++)v.fields().get(1)[i]^=1;
+        assertEquals(end,TransactionEnd.decode(v));assertEquals(tail,TransactionEnd.undoTail(v));
     }
     @Test void refusesMissingUserUndoDoneAndWrongBeginWrap() {
         assertThrows(RedoException.class,()->UndoCompensation.decode(vector(6,

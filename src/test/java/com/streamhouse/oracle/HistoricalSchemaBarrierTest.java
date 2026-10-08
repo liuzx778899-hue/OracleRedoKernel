@@ -100,6 +100,13 @@ class HistoricalSchemaBarrierTest {
         assertThrows(RedoException.class,()->HistoricalSchemaBarrier.requireMarkerProfile(r,v,2743256,Set.of()));
         assertThrows(RedoException.class,()->HistoricalSchemaBarrier.requireMarkerProfile(r,v,2743309,Set.of(2743309L)));
     }
+    @Test void actualSeq83MarkerWithoutOptionalRecordTimeStillRequiresObservedRange()throws Exception {
+        var v=new RedoRecords.Vector(24,4,0,0,0,0,0,3,List.of(
+                HexFormat.of().parseHex("28230000000000000000000072000c00"),HexFormat.of().parseHex("b0692c0000000000bf692c0000800000")));
+        var r=new RedoRecords.Record(9,280,140,1,2910656,1,677737149,List.of(v));
+        HistoricalSchemaBarrier.requireMarkerProfile(r,v,2910534,Set.of(2910640L));
+        assertThrows(RedoException.class,()->HistoricalSchemaBarrier.requireMarkerProfile(r,v,2910534,Set.of()));
+    }
     @Test void mixedRangeFlagsPaddingAndUpperEndpointCannotBeIgnored() {
         for(int at:new int[]{0,4,6,8,12,14}) {
             var v=mixedMediaMarker();v.fields().get(1)[at]^=1;

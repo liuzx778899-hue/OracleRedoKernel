@@ -17,9 +17,9 @@ public record TransactionStart(long segmentDba, int slot, long sequence, HeapRow
                 && b[15]==0 && (u16(b,18)==176 || u16(b,18)==316) && u32(b,20)==0;
         boolean observedControlBegin=flags==0x51 && u16(b,2)==0 && (b[14]&255)>0
                 && b[15]==0 && u16(b,18)==80 && b[20]==0;
-        // Seq70 native-matched pre-split begin. The 0x3f98 control word remains opaque.
+        // Native seq70/82: fbi plus padding is historical control state, not a current identity.
         boolean observedSplitBegin=flags==0x44a && u16(b,2)==0 && (b[14]&255)==1
-                && b[15]==0 && u16(b,18)==136 && u32(b,20)==0x3f98;
+                && b[15]==0 && (u16(b,18)==136 || u16(b,18)==148);
         if ((flags!=0x52 && flags!=0x452 && !observedFirstRecord && !observedControlBegin && !observedSplitBegin) || u32(b,24)!=0 || u32(b,28)!=0)
             throw new RedoException("UNSUPPORTED_TRANSACTION_START_FLAGS_OR_PARENT");
         return new TransactionStart(vector.dba(),u16(b,0),u32(b,4),
@@ -46,7 +46,7 @@ public record TransactionStart(long segmentDba, int slot, long sequence, HeapRow
         if (match==null) throw new RedoException("MISSING_TRANSACTION_BEGIN_UBA");
         if (!match.beginsTransaction() || match.xid().slot()!=slot || match.xid().sequence()!=sequence)
             throw new RedoException("TRANSACTION_BEGIN_IDENTITY_MISMATCH");
-        if(flags==0x4a) {
+        if(flags==0x4a || flags==0x44a) {
             int size=-1;
             for(var v:record.vectors())if(v.containerId()==containerId && v.dba()==segmentDba && v.opcodeMajor()==5 && v.opcodeMinor()==2
                     && decode(v).equals(this)) {
