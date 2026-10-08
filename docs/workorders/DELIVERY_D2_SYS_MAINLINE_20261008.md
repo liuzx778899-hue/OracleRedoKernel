@@ -73,3 +73,6 @@ D2 SYS同commitSCN版本候选已接入：字典Commit保留原始5.4 commitPosi
 
 
 D2真实跨块正常样本已冻结，尚未通过：新先行acquisition101673191742861312/SCN2925153/snapshotf85525d7aa20597a4f8eeaa9accd0358192bfed9175ad0ca1c52fc0f55c08f4c，独立SYS6行230cells/3index/20业务行及统计usage零差异；20行分布7个heap块。一次实际XID10.2.3636更新20行NOTE后提交、恢复20行后提交，冻结90/91原始归档SHA见d2-blocks-source-20261008/archives.json，源20行恢复/NO NO。prefix rc1/stdout0 UNSUPPORTED_UNDO_HEADER_FLAGS：90:1328:464/SCN2923459基线前XID10.31.3621，native证明为logical1/data78310、flags0x0080、14.5 extent-map undo与14.4 ADD配对；seed另有20key ARRAY index10.2与heap11.11，旧leaf探针字段拒绝原文保留。未改内核或跳过记录，不宣称40事件/跨块支持；目标0。自有helper37299停止143，禁止重跑源d2_blocks_source.py、原获取或任何executed动作。入口lab/out/d2-blocks-runtime-20261008/normal-gap-summary.json。下一仅读冻结90/91补基线已闭合storage/array事务处置，保留完整raw归属、跨初始水位活跃事务与generation守卫；随后正常跨块事件/恢复，合并候选集中打包及产品CPACK，不扩低概率故障矩阵。
+
+
+D2空间扩展配对候选：新增ExtentMapPair，仅绑定同记录5.1/14.5 undo与14.4 ADD，核logical1/dataObject、XID/UBA、segment/extent地址、块数、删除/新增entry及前后extent/block统计。仅读90:1328:464实际记录配对rc0/1，native尺子一致；相关5测试零失败错误跳过，未放宽业务UndoHeader flags。尚未接入完整storage事务/基线覆盖收据，prefix拒绝仍在，事件/目标0；不当跨块支持。入口d2-blocks-runtime-20261008/extent-pair-summary.json。首PowerShell未引号-Dtest解析失败保留；无源/获取/部署动作。下一复用此配对并核完整10.31.3621原始BEGIN/undo/COMMIT及旧seed ARRAY事务处置，再接正常跨块闭合。
