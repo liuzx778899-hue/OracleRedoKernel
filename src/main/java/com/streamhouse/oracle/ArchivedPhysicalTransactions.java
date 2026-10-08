@@ -11,7 +11,8 @@ import static com.streamhouse.oracle.RedoBytes.*;
 /** Source-owned bounded physical graphs. Declared object/leaf/column scope is not a historical dictionary. */
 public final class ArchivedPhysicalTransactions {
     public record Operation(ArchivedUndoInventory.Position position,UndoHeader original,boolean compensation) {}
-    public record Transaction(TransactionLifecycle.ClosedIdentity identity,List<Operation> operations,UndoHistory.Result graph) {}
+    public record Transaction(TransactionLifecycle.ClosedIdentity identity,List<Operation> operations,UndoHistory.Result graph,
+                              ArchivedUndoInventory.Position commitPosition) {}
     public record Result(List<ArchivedRedo.Header> sources,List<Transaction> transactions) {}
     record PendingGraph(HeapRowPatch.Xid xid,long segment,int next,List<Operation> operations,List<HeapUndoPair> heaps,
                         List<IndexUndoPair> indexes,List<ArchivedUndoInventory.Position> markers,String graphCheckpoint) {}
@@ -268,7 +269,8 @@ public final class ArchivedPhysicalTransactions {
                     var result=end.rolledBack() ? c.graph.closeRollback(end)
                             : v.fields().size()==2 && TransactionEnd.decode(v).flags()==0
                                 ? c.graph.closeCommitWithoutNativeTail(end) : c.graph.close(TransactionEnd.undoTail(v));
-                    c.result=new Transaction(end,List.copyOf(c.operations),result);
+                    c.result=new Transaction(end,List.copyOf(c.operations),result,
+                            new ArchivedUndoInventory.Position(header.sequence(),r.block(),r.offset(),r.vectors().indexOf(v)+1));
                 }
             });
             requireSource(found,source,path.header());

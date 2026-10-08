@@ -34,6 +34,15 @@ public final class ArchivedHeapRows {
     public record Change(ArchivedUndoInventory.Position position,Xid xid,RowKey key,Kind kind,List<Cell> before,List<Cell> after) {}
     public record Result(List<ArchivedRedo.Header> sources,List<Change> changes,Map<RowKey,List<Cell>> rows) {}
     private record Pending(ArchivedUndoInventory.Position position,Xid xid,RowKey key,HeapUndoPair pair) {}
+    private static final Comparator<ArchivedUndoInventory.Position> POSITION_ORDER=
+            Comparator.comparingLong(ArchivedUndoInventory.Position::archiveSequence)
+                    .thenComparingLong(ArchivedUndoInventory.Position::block)
+                    .thenComparingInt(ArchivedUndoInventory.Position::offset)
+                    .thenComparingInt(ArchivedUndoInventory.Position::vector);
+    static List<ArchivedPhysicalTransactions.Transaction> commitOrdered(List<ArchivedPhysicalTransactions.Transaction> transactions) {
+        return transactions.stream().sorted(Comparator.comparingLong((ArchivedPhysicalTransactions.Transaction t)->t.identity().endRecordScn())
+                .thenComparing(ArchivedPhysicalTransactions.Transaction::commitPosition,POSITION_ORDER)).toList();
+    }
 
     public static Result read(List<Path> paths,Baseline baseline,long indexObject,long leaf) throws IOException {
         if (baseline==null || baseline.source()==null) throw new RedoException("MISSING_COMPLETE_BASELINE");
@@ -80,9 +89,9 @@ public final class ArchivedHeapRows {
             throw new RedoException("BASELINE_SOURCE_IDENTITY_MISMATCH");
         if (baseline.scn()<physical.sources().get(0).firstScn() || baseline.scn()>=physical.sources().get(physical.sources().size()-1).nextScn())
             throw new RedoException("BASELINE_SCN_OUTSIDE_INPUT_COVERAGE");
-        var transactions=physical.transactions().stream().filter(t->t.identity().endRecordScn()>baseline.scn())
-                .sorted(Comparator.comparingLong(t->t.identity().endRecordScn())).toList();
-        var selected=new HashMap<ArchivedUndoInventory.Position,ArchivedPhysicalTransactions.Transaction>();long previousCommit=baseline.scn();
+        var transactions=commitOrdered(physical.transactions().stream().filter(t->t.identity().endRecordScn()>baseline.scn()).toList());
+        var selected=new HashMap<ArchivedUndoInventory.Position,ArchivedPhysicalTransactions.Transaction>();
+        var commits=new java.util.HashSet<ArchivedUndoInventory.Position>();
         for (var t:transactions) {
             if (t.identity().rolledBack()) {
                 if (!t.graph().live().isEmpty() || t.graph().original().isEmpty()
@@ -90,8 +99,7 @@ public final class ArchivedHeapRows {
                     throw new RedoException("ROW_REPLAY_INCOMPLETE_ROLLBACK_GRAPH");
                 continue;
             }
-            if (t.identity().endRecordScn()<=previousCommit) throw new RedoException("AMBIGUOUS_ROW_REPLAY_COMMIT_SCN");
-            previousCommit=t.identity().endRecordScn();
+            if (!commits.add(t.commitPosition())) throw new RedoException("AMBIGUOUS_ROW_REPLAY_COMMIT_POSITION");
             // All original and compensation records already passed the complete physical gate.
             for (var entry:t.graph().live()) if (entry.identity().dataObjectId()==scope.heap().dataObject()) selected.put(entry.position(),t);
         }
@@ -130,10 +138,6 @@ public final class ArchivedHeapRows {
         }
         if (seen.size()!=selected.size()) throw new RedoException("ROW_REPLAY_INCOMPLETE_SELECTED_INPUT");
         var lastRowPosition=new HashMap<RowKey,ArchivedUndoInventory.Position>();
-        var positionOrder=Comparator.comparingLong(ArchivedUndoInventory.Position::archiveSequence)
-                .thenComparingLong(ArchivedUndoInventory.Position::block)
-                .thenComparingInt(ArchivedUndoInventory.Position::offset)
-                .thenComparingInt(ArchivedUndoInventory.Position::vector);
         var replaySchema=schema;
         for (var t:transactions) {
             if(history!=null) {
@@ -142,7 +146,7 @@ public final class ArchivedHeapRows {
             }
             for (var p:pending.getOrDefault(t.identity().xid(),List.of())) {
             var previous=lastRowPosition.put(p.key(),p.position());
-            if(previous!=null && positionOrder.compare(previous,p.position())>=0)
+            if(previous!=null && POSITION_ORDER.compare(previous,p.position())>=0)
                 throw new RedoException("ROW_REPLAY_COMMIT_AND_ROW_ORDER_DISAGREE");
             var before=rows.get(p.key());var after=apply(p.pair(),before,history==null?baseline.columns():replaySchema.size(),replaySchema);
             if(history!=null && !after.isEmpty())requireCompleteValues(after,replaySchema);

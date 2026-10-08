@@ -53,6 +53,15 @@ class ArchivedPhysicalTransactionsTest {
         var raw=fixture();f.records.record(raw,4,130,List.of());seal(raw,2048);
         assertThrows(RedoException.class,()->read(raw,leaf,677737149));
     }
+    @Test void equalCommitScnUsesOwnedRawCommitPositionRatherThanBeginOrder()throws Exception {
+        var raw=fixture();f.records.record(raw,5,130,List.of(end(a,0x02402cbeL,0x02400110L)));seal(raw,2560);
+        var physical=read(raw,leaf,677737149).transactions();
+        assertEquals(List.of(a,b),physical.stream().map(t->t.identity().xid()).toList());
+        assertTrue(physical.stream().allMatch(t->t.identity().endRecordScn()==130));
+        assertEquals(List.of(b,a),ArchivedHeapRows.commitOrdered(physical).stream().map(t->t.identity().xid()).toList());
+        assertEquals(4,physical.get(1).commitPosition().block());assertEquals(5,physical.get(0).commitPosition().block());
+        assertEquals(1,physical.get(0).commitPosition().vector());
+    }
     @Test void wrongLeafAndContainerCannotReturnPartialSuccess() {
         assertThrows(RedoException.class,()->read(fixture(),leaf+1,677737149));
         assertEquals("NO_PHYSICAL_OBJECT_TRANSACTIONS",assertThrows(RedoException.class,()->read(fixture(),leaf,1)).getMessage());
