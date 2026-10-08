@@ -13,8 +13,13 @@ public final class CapturedHistoricalHeapBatch {
     private final List<Event> events;
     private final String sha256;
     private final long leaf;
+    private final boolean incremental;
     private CapturedHistoricalHeapBatch(FrozenHeapBaseline.Snapshot snapshot,List<CaptureJournal.Source> captures,List<Event> events,String sha256,long leaf) {
+        this(snapshot,captures,events,sha256,leaf,false);
+    }
+    private CapturedHistoricalHeapBatch(FrozenHeapBaseline.Snapshot snapshot,List<CaptureJournal.Source> captures,List<Event> events,String sha256,long leaf,boolean incremental) {
         this.snapshot=snapshot;this.captures=List.copyOf(captures);this.events=List.copyOf(events);this.sha256=sha256;this.leaf=leaf;
+        this.incremental=incremental;
     }
     public ArchivedHeapRows.Source source(){return snapshot.source();}
     public String baselineSha256(){return snapshot.sha256();}
@@ -24,6 +29,31 @@ public final class CapturedHistoricalHeapBatch {
     public List<Event> events(){return events;}
     public String sha256(){return sha256;}
     public long leaf(){return leaf;}
+    public record PublicationBoundary(int events,String sha256) {
+        public PublicationBoundary {
+            if(events<0 || sha256==null || !sha256.matches("[0-9a-f]{64}"))throw new IllegalArgumentException("HISTORICAL_PUBLICATION_BOUNDARY_INVALID");
+        }
+    }
+    /** Computes a complete-transaction prefix receipt; computing it does not prove target commitment. */
+    public PublicationBoundary publicationBoundary(int count)throws RedoException {
+        if(incremental || count<0 || count>events.size())throw new RedoException("HISTORICAL_PUBLICATION_PREFIX_RANGE");
+        var owners=new HashSet<TransactionLifecycle.ClosedIdentity>();
+        for(int i=0;i<count;i++)owners.add(events.get(i).row().transaction());
+        for(int i=count;i<events.size();i++)if(owners.contains(events.get(i).row().transaction()))
+            throw new RedoException("HISTORICAL_PUBLICATION_TRANSACTION_SPLIT");
+        String digest=hash(out->{
+            text(out,"ORK_HISTORICAL_PUBLICATION_PREFIX_V1");text(out,snapshot.sha256());out.writeLong(leaf);out.writeInt(count);
+            for(int i=0;i<count;i++){var event=events.get(i);text(out,event.schema().sha256());text(out,event.row().eventId());text(out,event.row().payloadSha256());}
+        });
+        return new PublicationBoundary(count,digest);
+    }
+    /** Boundary must come from the authenticated atomic target/control commit, never a client offset. */
+    public CapturedHistoricalHeapBatch afterPublished(PublicationBoundary boundary)throws RedoException {
+        if(boundary==null || !publicationBoundary(boundary.events()).equals(boundary))
+            throw new RedoException("HISTORICAL_PUBLICATION_PREFIX_CHANGED");
+        String digest=hash(out->{text(out,"ORK_INCREMENTAL_HISTORICAL_BATCH_V1");text(out,sha256);text(out,boundary.sha256());out.writeInt(boundary.events());});
+        return new CapturedHistoricalHeapBatch(snapshot,captures,events.subList(boundary.events(),events.size()),digest,leaf,true);
+    }
     public static CapturedHistoricalHeapBatch read(List<CaptureJournal.Verified> captures,Path snapshotPath,String trustedAcquisitionSha256,long leaf)throws IOException {
         var inputs=List.copyOf(captures);var paths=RedoBatch.captures(inputs);
         var snapshot=FrozenHeapBaseline.read(snapshotPath,trustedAcquisitionSha256);
