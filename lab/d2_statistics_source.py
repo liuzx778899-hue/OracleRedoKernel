@@ -6,6 +6,9 @@ R = Path('D:/work/vibecode/OracleRedoKernel')
 N = R / 'lab/out/d2-statistics-source-20261008'
 B = R / 'lab/out/d2-statistics-runtime-20261008'
 S, TRIGGER = 'oraredo-19c-lab-20261004', 'ORK_D2_STATS_DELAY_20261008'
+usage='--usage' in sys.argv
+if usage:
+    sys.argv.remove('--usage');N=R/'lab/out/d2-usage-source-20261008';B=R/'lab/out/d2-usage-runtime-20261008';TRIGGER='ORK_D2_USAGE_DELAY_20261008'
 assert sys.argv[1:] == ['--execute']
 assert not N.exists(), 'source action batch must not be replayed'
 baseline = json.loads((B / 'baseline-reference.json').read_text())
@@ -25,6 +28,7 @@ def run(label, args, data=None):
     return p.stdout.decode('utf-8')
 
 def sql_text(body):
+    if usage:body=body.replace('T_D2_STATS_20261008','T_D2_USAGE_20261008').replace('ORK_D2_STATS_DELAY_20261008',TRIGGER).replace('ork-d2-statistics','ork-d2-usage')
     return 'whenever sqlerror exit failure rollback\nwhenever oserror exit failure rollback\nset pages 0 lines 32767 feedback off heading off trimspool on\n' + body + '\nexit success\n'
 
 def sql(label, body):
