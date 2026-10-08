@@ -1,6 +1,6 @@
 """Normal incremental product check; every action has a new label, source actions execute once."""
 from pathlib import Path
-import hashlib,json,os,shutil,subprocess,sys
+import base64,hashlib,json,os,shutil,subprocess,sys
 
 R=Path('D:/work/vibecode/OracleRedoKernel')
 N=R/'lab/out/d3-stream-runtime-20261009'
@@ -74,6 +74,7 @@ elif action=='grant':
     sql(label,f"alter session set container=ORKPDB;\ninsert into {U}.SH_ORACLE_INPUT_BINDING values({GRANT},'{SOURCE}','d3-stream-grant',1,64,'v3-history-consumer','{generation}','APPROVED_RAW_STREAM',to_clob('{binding}'),systimestamp,'owned-stream-normal');\ncommit;")
 elif action=='start':
     assert HELPER not in run(label+'-containers',['docker','ps','-a','--format','{{.Names}}']).splitlines()
+    if (N/'collector.pid').exists():(N/'collector.pid').rename(N/(label+'-prior-collector.pid'))
     run(label,['docker','run','-d','--name',HELPER,'--label','owner=OracleRedoKernel','--label','scope=oracle-product-runtime',
         '--user','0','--network','container:'+S,'--workdir','/evidence','--env-file',N/'runtime.secret.env',
         '--mount','type=bind,source='+str(N)+',target=/evidence','--mount','type=bind,source='+str(CAP)+',target=/inputs,readonly',
@@ -114,6 +115,59 @@ elif action=='source':
     assert run(label+'-sha',['docker','exec',S,'sha256sum',path]).split()[0]==sha(partial)
     partial.rename(local)
     (N/'new-archive.json').write_text(json.dumps(dict(sequence=92,path=str(local),sourcePath=path,sha256=sha(local),bytes=local.stat().st_size),indent=2))
+elif action=='proof':
+    kernel=R/'lab/out/d3-stream-candidate-20261009/kernel-r7/source/target/oracle-redo-kernel-0.1.0-SNAPSHOT.jar'
+    assert sha(kernel)==json.loads((kernel.parents[2]/'proof.json').read_text())['kernelSha256']
+    classes=N/(label+'-classes');classes.mkdir()
+    cp=str(kernel)+';'+str(classes)+';'+(R/'lab/out/d3-discovery-20261008/stream-test-classpath-20261009.txt').read_text().strip()
+    run(label+'-compile',['D:/work/Java/jdk-17.0.7/bin/javac.exe','-cp',cp,'-d',classes,R/'lab/StreamIncrementalRuntimeProbe.java'])
+    archive=json.loads((N/'new-archive.json').read_text())
+    projection=json.loads(run(label+'-raw',['D:/work/Java/jdk-17.0.7/bin/java.exe','-cp',cp,'StreamIncrementalRuntimeProbe',
+        OLD.parent/'snapshots/101673191742861312.snapshot','f85525d7aa20597a4f8eeaa9accd0358192bfed9175ad0ca1c52fc0f55c08f4c',
+        CAP/'90.raw','44a08e6ec18c86b6a9601b137f1a37ead8c6797769cd4d3b70d67ace6016986b',CAP/'91.raw',
+        'e837cd97db88b0212275c1451686911949fb954161cd0d7cc84feecede6b4b2f',N/'new-inputs/92.raw',archive['sha256']]))
+    evidence=projection['evidence'];batch=evidence['batchSha256'];key='raw-stream-12001-3';t='ORKTGT_CMT_20261005.SHPBL1'
+    out=sql(label+'-actual',f"""alter session set container=ORKPDB;
+select 'COUNTS|'||(select count(*) from {t}_APPLIED)||'|'||(select count(*) from {t}_MEMBERS)||'|'||(select count(*) from {t}_COMMITS)||'|'||(select count(*) from {U}.SH_EVENT_LEDGER)||'|'||(select count(*) from {U}.SH_PUBLISH_GATE where VERDICT='PASS') from dual;
+select 'EVENT|'||m.ORDINAL||'|'||m.EVENT_ID||'|'||a.PAYLOAD_SHA||'|'||a.BEFORE_IMAGE||'|'||a.AFTER_IMAGE||'|'||a.OPERATION from {t}_MEMBERS m join {t}_APPLIED a on a.EVENT_ID=m.EVENT_ID where m.BATCH_SHA='{batch}' order by m.ORDINAL;
+select 'OLD_EVENT|'||m.ORDINAL||'|'||m.EVENT_ID||'|'||a.PAYLOAD_SHA||'|'||a.BEFORE_IMAGE||'|'||a.AFTER_IMAGE||'|'||a.OPERATION from {t}_MEMBERS m join {t}_APPLIED a on a.EVENT_ID=m.EVENT_ID where m.BATCH_SHA='c98dd25724224a9f44c8b261b013631db09504205edae5981450a188590c2ef0' order by m.ORDINAL;
+select 'COMMIT|'||BATCH_SHA||'|'||TARGET_ID||'|'||SCHEMA_SHA||'|'||EVENTS_COUNT from {t}_COMMITS where BATCH_SHA='{batch}';
+select 'WINDOW|'||STATUS||'|'||ISSUE_SEQ_START||'|'||ISSUE_SEQ_END from {U}.SH_CAP_WINDOW where WINDOW_KEY='{key}';
+select 'SOURCE|'||count(*) from ORKLAB.T_D2_BLOCKS_20261008 where NOTE='anchor' and TXT=rpad('block-seed',100,'x');
+set serveroutput on size unlimited
+begin
+for r in (select ID,STATE,CHECKPOINT_JSON from {U}.SH_TASK where CHECKPOINT_JSON is not null) loop
+dbms_output.put_line('TASK|'||r.ID||'|'||r.STATE);
+for i in 0..trunc((dbms_lob.getlength(r.CHECKPOINT_JSON)-1)/1000) loop
+dbms_output.put_line('CPHEX|'||r.ID||'|'||i||'|'||rawtohex(utl_raw.cast_to_raw(dbms_lob.substr(r.CHECKPOINT_JSON,1000,1+i*1000))));
+end loop;end loop;
+for r in (select BINDING_JSON from {U}.SH_ORACLE_INPUT_BINDING where WINDOW_KEY='{key}') loop
+for i in 0..trunc((dbms_lob.getlength(r.BINDING_JSON)-1)/1000) loop
+dbms_output.put_line('BINDINGHEX|'||i||'|'||rawtohex(utl_raw.cast_to_raw(dbms_lob.substr(r.BINDING_JSON,1000,1+i*1000))));
+end loop;end loop;end;
+/""")
+    lines=[line.strip().split('|') for line in out.splitlines() if '|' in line]
+    select=lambda kind:[line[1:] for line in lines if line[0]==kind]
+    assert select('COUNTS')==[['42','42','2','42','2']] and select('WINDOW')==[['CONSUMED','3','3']] and select('SOURCE')==[['20']]
+    def image(values):
+        return ';'.join(k+'='+('NULL' if v is None else 'NUMBER:'+str(v) if isinstance(v,(int,float)) else 'VARCHAR2:'+base64.urlsafe_b64encode(v.encode()).decode().rstrip('=')) for k,v in values.items())
+    expected=[[str(i),event['eventId'],meta['payloadSha256'],image(event['before']),image(event['after']),event['operation']] for i,(event,meta) in enumerate(zip(projection['events'],evidence['events']))]
+    assert select('EVENT')==expected
+    old=json.loads((OLD/'actual-projection.json').read_text())
+    assert select('OLD_EVENT')==[[str(i),event['eventId'],meta['payloadSha256'],image(event['before']),image(event['after']),event['operation']] for i,(event,meta) in enumerate(zip(old['envelopes'],old['evidence']['events']))]
+    assert select('COMMIT')==[[batch,'oracle-d2-blocks-SHPBL1-20261008',evidence['schemaSequenceSha256'],'2']]
+    checkpoints={}
+    for task,state in select('TASK'):
+        chunks=sorted((int(i),data) for tid,i,data in select('CPHEX') if tid==task)
+        assert [i for i,_ in chunks]==list(range(len(chunks))) and state=='DONE'
+        checkpoints[task]=bytes.fromhex(''.join(data for _,data in chunks))
+    actual=[(tid,raw,json.loads(raw)) for tid,raw in checkpoints.items() if json.loads(raw)['lastWindowKey']==key];assert len(actual)==1
+    task,raw,checkpoint=actual[0];assert checkpoint['oracleEvidence']==evidence
+    ack=N/'acks'/(hashlib.sha256((SOURCE+'\0'+key).encode()).hexdigest()+'.ack.json');assert ack.read_bytes()==raw
+    binding=json.loads(bytes.fromhex(''.join(data for _,data in sorted((int(i),data) for i,data in select('BINDINGHEX')))))
+    assert binding['publication']==dict(previousTaskId=101684760056922112,previousBatchId=101684894673108992,publishedEvents=40,prefixSha256=projection['prefixSha256'])
+    for old in (OLD/'acks').glob('*.ack.json'):assert (N/'acks'/old.name).read_bytes()==old.read_bytes()
+    (N/(label+'-summary.json')).write_text(json.dumps(dict(taskId=task,batchId=checkpoint['lastBatchId'],fullEvents=42,incrementalEvents=2,target=[42,42,2],ledger=42,gates=2,cpAckSha256=sha(ack),rawSha256=archive['sha256'],mismatches=0,independentTargetAccepted=False),indent=2))
 elif action=='stop':
     assert run(label+'-owner',['docker','inspect',HELPER,'--format','{{.Config.Labels.owner}}|{{.Config.Labels.scope}}']).strip()=='OracleRedoKernel|oracle-product-runtime'
     if (N/'collector.pid').exists():
