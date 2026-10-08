@@ -43,3 +43,11 @@
 新一次专属T_D2_USAGE_20261008实验冻结84/85，ADD跨成员SYS3.16.749真实pending，prefix rc0/5original/2row/2index/1control/completed0/events0；完整闭合rc0/2 UPDATE，四列→三列历史schema及完整前后像核等。独立JVM恢复rc0/2事件、完整输出同字节SHA8b72c0866cd4203d8f7134126982523efb4e4db8509df6a8d1fb85eadf654ab2，CP SHAe2491466818b04e03c204ac1f7e7704c28881693d3fe4ad5726aca9992caa5c4。原始归档源/本地SHA核等，源行三列恢复/延迟trigger已删/NO NO。禁止重跑本批源动作或获取，也不回填旧75–83。必要SHA/rc入口lab/out/d2-usage-runtime-20261008/normal-summary.json，原始失败保留，无新增封存仪式。
 
 产品目标接线尚未执行：2026-10-08本轮获取helper停止核归属时，Docker返回“Docker Desktop is manually paused”。helper最后已知健康运行，stop未成功，不宣称已停；新产品helper37296/目标SHPUS1/任务/CPACK驱动仅准备，目标写入0。lab/d2_usage_product.py为后续入口，先核Docker恢复与原helper权威状态，以新标签完成停止再projection→target→start→正常prefix WAITING→闭合CPACK，不重放源动作。此为新实际环境暂停，不是旧Docker阻断；goal仍active。D2其余/D3连续/D4-D5及独立目标评审部署生产现场发布保持待证，不扩极端验证。
+
+## 正常产品目标闭环完成（2026-10-08）
+
+Docker恢复后只接续冻结84/85与原先行获取，新源动作/新获取0。正式dc90e006同件、原SYS历史pending进入产品task101658150276644864 WAITING_INPUT，目标/事件账/门/CP均零；闭合后两完整UPDATE四列→三列历史进入batch101658702570012672 PUBLISHED/rc0、原任务DONE，target2/2/1、ledger2/gate1、两窗CONSUMED。独立SQL读目标两事件顺序/ID/payloadSHA/完整前后像均与实际raw投影核等，完整控制checkpoint与ACK同字节SHA75af73f1683cd37248c83dd09c642ea3bdc8f4dcac6aaa7543ff55370a8cbc8f。获取全字段/metadata/登记时间按TIMESTAMP(6)核等，源三列/旧行/NO NO保持、trigger0，目标最终行含D2STAT_COL=NULL。
+
+首窗口登记脚本沿用旧.oracap文件名导致ORACLE_CAPTURE_HASH_OR_SCOPE_MISMATCH，零目标/零推进失败保留；仅修正本窗口FILE_SHA256文件名清单并续原task，没有重新提交批次/重放源。首resume空body误发GET和校验器base64补位误判均保留，按既有POST/无padding契约修正。产品代码与制品未改。两个自有helpers均已停143，源Oracle运行。必要证据入口lab/out/d2-usage-runtime-20261008/product-summary.json和product/closure-proof.json，不新增封存或重跑已过项。
+
+本批证明实际pending SYS→完整历史事件/跨JVM恢复→产品目标原子提交→CPACK正常链路；同实例独立SQL是尺子，不是独立目标验收，且新ADD未包含HIST_HEAD$操作。D2初始水位/初始恢复/一般事务、D3连续采集、D4/D5及独立目标评审部署生产现场发布仍保留，下一主攻这些功能，不补低概率故障矩阵。

@@ -94,11 +94,27 @@ elif action=='closed':
     p=json.loads((N/'actual-projection.json').read_text());e=p['evidence']
     approved=dict(baselinePath=None,capturePaths=['/inputs/84.raw','/inputs/85.raw'],evidence=e,envelopesSha256=p['envelopesSha256'],acquisitionId=ACQ,recovery=dict(prefixBindingId=9801),inputFormat='RAW_MEMBER')
     data=json.dumps(approved,separators=(',',':'));expr='||\n'.join("to_clob('"+data[i:i+1800].replace("'","''")+"')" for i in range(0,len(data),1800))
-    hashes='\n'.join('sequence-'+str(seq)+'.oracap '+sha(CAP/(str(seq)+'.raw')) for seq in [84,85])
+    hashes='\n'.join(str(seq)+'.raw '+sha(CAP/(str(seq)+'.raw')) for seq in [84,85])
     total=sum((CAP/(str(seq)+'.raw')).stat().st_size for seq in [84,85])
     sql('closed-binding',f"insert into {U}.SH_ORACLE_INPUT_BINDING values(9901,'oracle-d2-usage','d2-usage-closed',1,2,'v3-history-consumer','{e['schemaSha256']}','APPROVED_BOUNDED',"+expr+",systimestamp,'owned-d2-closure');\n"+f"insert into {U}.SH_CAP_WINDOW(ID,SOURCE_ID,ENGINE_TYPE,WINDOW_KEY,ISSUE_SEQ_START,ISSUE_SEQ_END,HEAD_PATH,FROZEN,FILE_SHA256,TOTAL_SIZE,DROPPED_SEGMENTS,STATUS,REGISTERED_AT) values(9902,'oracle-d2-usage','oracle','d2-usage-closed',1,2,'/inputs/84.raw',1,'{hashes}',{total},0,'PENDING',systimestamp);\ncommit;")
+elif action=='repair-hash-names':
+    failed=(N/'closed-state.stdout.txt').read_text()
+    assert 'TARGET|0|0|0' in failed and 'GATES|0' in failed and 'ORACLE_CAPTURE_HASH_OR_SCOPE_MISMATCH' in failed
+    task=next(line.split('|')[1] for line in failed.splitlines() if line.startswith('TASK|') and '|FAILED|' in line)
+    hashes='\n'.join(str(seq)+'.raw '+sha(CAP/(str(seq)+'.raw')) for seq in [84,85])
+    sql(label,f"declare n number;begin select count(*) into n from {U}.SH_TASK where ID={task} and STATE='FAILED';if n!=1 then raise_application_error(-20001,'task state changed');end if;select count(*) into n from {T}_APPLIED;if n!=0 then raise_application_error(-20002,'target changed');end if;update {U}.SH_CAP_WINDOW set FILE_SHA256='{hashes}' where ID=9902 and STATUS='PENDING';if sql%rowcount!=1 then raise_application_error(-20003,'window changed');end if;end;\n/\ncommit;")
+    http('resume-after-hash-name-fix',f'/pipeline/tasks/{task}/resume',{})
+elif action=='resume-fixed-task':
+    task=next(line.split('|')[1] for line in (N/'closed-state.stdout.txt').read_text().splitlines() if line.startswith('TASK|') and '|FAILED|' in line)
+    current=http('fixed-task-authority',f'/pipeline/tasks/{task}')[1]['data'];assert current['state']=='FAILED'
+    http('resume-fixed-task',f'/pipeline/tasks/{task}/resume',{})
 elif action=='state':
     sql(label,f"select 'TARGET|'||(select count(*) from {T}_APPLIED)||'|'||(select count(*) from {T}_MEMBERS)||'|'||(select count(*) from {T}_COMMITS) from dual;\nselect 'ROW|'||ID||'|'||TXT||'|'||NOTE from {T}_ROWS;\nselect 'EVENT|'||m.ORDINAL||'|'||m.EVENT_ID||'|'||a.PAYLOAD_SHA||'|'||a.BEFORE_IMAGE||'|'||a.AFTER_IMAGE||'|'||a.OPERATION from {T}_MEMBERS m join {T}_APPLIED a on a.EVENT_ID=m.EVENT_ID order by m.ORDINAL;\nselect 'TASK|'||to_char(ID,'FM99999999999999999999')||'|'||STATE||'|'||ATTEMPTS from {U}.SH_TASK;\nselect 'CP|'||CHECKPOINT_JSON from {U}.SH_TASK;\nselect 'BATCH|'||to_char(ID,'FM99999999999999999999')||'|'||STATE||'|'||RC||'|'||EVENT_COUNT from {U}.SH_PIPELINE_BATCH;\nselect 'WINDOW|'||WINDOW_KEY||'|'||STATUS from {U}.SH_CAP_WINDOW order by WINDOW_KEY;\nselect 'LEDGER|'||EVENT_ID from {U}.SH_EVENT_LEDGER order by EVENT_ID;\nselect 'GATES|'||count(*) from {U}.SH_PUBLISH_GATE;\nselect 'FAIL|'||STAGE||'|'||REASON||'|'||DETAIL from {U}.SH_FAILCLOSED_RECORD;")
+elif action=='source-final':
+    original=json.loads((O/'historical-acquire.stdout').read_text())['data']
+    metadata=original['metadataJson'];expr='||\n'.join("to_clob('"+metadata[i:i+1600].replace("'","''")+"')" for i in range(0,len(metadata),1600))
+    out=sql(label,"select 'LOGGING|'||supplemental_log_data_min||'|'||supplemental_log_data_all from v$database;\nselect 'SOURCE|'||ID||'|'||TXT||'|'||NOTE from ORKLAB.T_D2_USAGE_20261008;\nselect 'OLD|'||ID||'|'||TXT||'|'||NOTE from ORKLAB.T_BASELINE_20261004;\nselect 'TRIGGER|'||count(*) from dba_triggers where owner='SYS' and trigger_name='ORK_D2_USAGE_DELAY_20261008';\n"+f"select 'TARGET_ROW|'||ID||'|'||TXT||'|'||NOTE||'|'||nvl(D2STAT_COL,'NULL') from {T}_ROWS;\nselect 'META_EQUAL|'||count(*) from {U}.SH_ORACLE_ACQUISITION where ID={ACQ} and SOURCE_ID='{original['sourceId']}' and AUTHORITY='{original['authority']}' and SNAPSHOT_SHA256='{original['snapshotSha256']}' and SNAPSHOT_SCN={original['snapshotScn']} and STATE='{original['state']}' and REGISTERED_BY='{original['registeredBy']}' and REGISTERED_AT=cast(to_timestamp('{original['registeredAt']}','YYYY-MM-DD\"T\"HH24:MI:SS.FF9') as timestamp(6)) and dbms_lob.compare(METADATA_JSON,"+expr+")=0;")
+    assert all(v in out for v in ['LOGGING|NO|NO','SOURCE|0|statistics-seed|anchor','OLD|11|blocking-closed|new-note','TRIGGER|0','TARGET_ROW|0|statistics-seed|anchor|NULL','META_EQUAL|1'])
 elif action=='stop':
     assert run('stop-owner',['docker','inspect',NAME,'--format','{{.Config.Labels.owner}}|{{.Config.Labels.scope}}']).strip()=='OracleRedoKernel|oracle-d2-usage-product'
     run('stop',['docker','stop','--time','30',NAME]);run('stop-terminal',['docker','inspect',NAME,'--format','{{.State.Running}}|{{.State.ExitCode}}'])
