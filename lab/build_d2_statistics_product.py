@@ -4,8 +4,8 @@ import hashlib, json, os, shutil, subprocess, zipfile, sys
 
 R=Path(__file__).resolve().parent.parent
 P=R/'lab/out/streamhouse-oracle-gate-worktree'
-usage=sys.argv[1:]==['--usage'];assert not sys.argv[1:] or usage
-kind='usage' if usage else 'statistics'
+usage=sys.argv[1:]==['--usage'];normal=sys.argv[1:]==['--normal'];assert not sys.argv[1:] or usage or normal
+kind='normal' if normal else 'usage' if usage else 'statistics'
 N=R/('lab/out/d2-'+kind+'-candidate-20261008')
 assert not N.exists(), 'inspect failed step; never restart the complete build driver'
 N.mkdir();shutil.copyfile(__file__,N/'executed-build.py')
@@ -38,8 +38,8 @@ shutil.copyfile(adapter/'target/streamhouse-engine-oracle-0.1.0-SNAPSHOT.jar',N/
 av='0.1.0-'+kind+'-'+sha(N/'adapter.jar')[:12]
 install('install-adapter',N/'adapter.jar','com.streamhouse','streamhouse-engine-oracle',av)
 pom=P/'server/streamhouse-app/pom.xml';text=pom.read_text(encoding='utf-8')
-oldAdapter='0.1.0-statistics-a54946ae521b' if usage else '0.1.0-split-history-fbf1d30c8072'
-oldKernel='0.1.0-statistics-2cb14d11abe7' if usage else '0.1.0-d3-raw-2690e584ae63'
+oldAdapter='0.1.0-usage-008d2a194be3' if normal else '0.1.0-statistics-a54946ae521b' if usage else '0.1.0-split-history-fbf1d30c8072'
+oldKernel='0.1.0-usage-cbbe75b013c1' if normal else '0.1.0-statistics-2cb14d11abe7' if usage else '0.1.0-d3-raw-2690e584ae63'
 assert text.count(oldAdapter)==1 and text.count(oldKernel)==1
 pom.write_text(text.replace(oldAdapter,av).replace(oldKernel,kv),encoding='utf-8')
 (N/'dependencies.json').write_text(json.dumps(dict(kernel=kv,adapter=av,kernelSha256=sha(N/'kernel.jar'),adapterSha256=sha(N/'adapter.jar')),indent=2))
