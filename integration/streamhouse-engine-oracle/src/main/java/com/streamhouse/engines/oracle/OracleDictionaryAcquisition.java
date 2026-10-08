@@ -83,6 +83,7 @@ final class OracleDictionaryAcquisition {
             var f=frame.split("\\|",-1);
             if(!query(c,"select object_id||'|'||data_object_id from dba_objects where owner='SYS' and object_name='"+f[2]+"' and object_type='INDEX'").equals(List.of(f[3]+"|"+f[4])))throw new SQLException("DICTIONARY_INDEX_CHANGED");
         }
+        var statistics=OracleStatisticsAcquisition.acquire(c,scn);frames.addAll(statistics.frames());after.addAll(statistics.after());
         frames.add("DICT_HISTORY_END|"+count);return new Result(List.copyOf(frames),List.copyOf(after));
     }
 }

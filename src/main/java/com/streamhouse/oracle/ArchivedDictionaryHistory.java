@@ -73,6 +73,10 @@ public final class ArchivedDictionaryHistory {
         final TransactionLifecycle lifecycle=new TransactionLifecycle();
         final List<RowOperation> rows=new ArrayList<>();
         final List<DictionaryIndexUndoPair> indexes=new ArrayList<>();
+        final List<DictionaryStatisticsChanges.Row> statisticsRows=new ArrayList<>();
+        final List<DictionaryIndexUndoPair> statisticsIndexes=new ArrayList<>();
+        int rowCount(){return rows.size()+statisticsRows.size();}
+        int indexCount(){return indexes.size()+statisticsIndexes.size();}
         TransactionStart start;
         long beginScn;
         TransactionLifecycle.ClosedIdentity end;
@@ -170,6 +174,11 @@ public final class ArchivedDictionaryHistory {
             if(!header.equals(input.header()))throw new RedoException("DICTIONARY_DISCOVERY_SOURCE_CHANGED");
         }
         continuity.finish();
+        // Auxiliary statistics do not select a schema history; every dependency of a selected SYS transaction is still owned below.
+        if(baseline.statistics()!=null) {
+            var statistics=baseline.statistics();roles.put(statistics.table().role().logicalObject(),statistics.table().role());
+            for(var index:statistics.indexes())roles.put(index.role().logicalObject(),index.role());
+        }
         if(snapshot.scn()<sources.get(0).firstScn() || snapshot.scn()>=sources.get(sources.size()-1).nextScn())throw new RedoException("DICTIONARY_BASELINE_SCN_OUTSIDE_INPUT_COVERAGE");
         var contexts=new LinkedHashMap<HeapRowPatch.Xid,Context>();var originals=new HashMap<ArchivedUndoInventory.Position,Context>();
         for(var xid:identities) {
@@ -203,6 +212,15 @@ public final class ArchivedDictionaryHistory {
                             var layout=baseline.layouts().get(role.name());var p=ClusterUndoPair.bind(r,row,role,layout.tableNumber(),layout.columns().size()-1);
                             if(!p.identity().equals(h))throw new RedoException("DICTIONARY_ROW_FULL_IDENTITY_CONFLICT");
                             c.rows.add(new RowOperation(role,p.forward().row(),p.inverse().row()));count++;
+                        } else if(role.name().equals("HIST_HEAD$") && row.opcodeMajor()==11) {
+                            var p=DictionaryStatisticsChanges.bind(r,row,baseline.statistics());
+                            if(!p.physical().undo().identity().equals(h))throw new RedoException("STATISTICS_ROW_FULL_IDENTITY_CONFLICT");
+                            c.lifecycle.requireActive(r,p.physical());c.statisticsRows.add(p);count++;
+                        } else if(role.name().startsWith("I_HH_") && row.opcodeMajor()==10) {
+                            var scope=baseline.statistics().indexes().stream().filter(x->x.role().equals(role)).findFirst().orElseThrow();
+                            var p=DictionaryIndexUndoPair.bind(r,row,role,scope.indexDba(),"AL32UTF8");
+                            if(!p.physical().undo().identity().equals(h))throw new RedoException("STATISTICS_INDEX_FULL_IDENTITY_CONFLICT");
+                            c.lifecycle.requireActive(r,p.physical());c.statisticsIndexes.add(p);count++;
                         } else if(role.name().startsWith("I_COL") && row.opcodeMajor()==10 && (row.opcodeMinor()==2 || row.opcodeMinor()==4 || row.opcodeMinor()==5)) {
                             var scope=baseline.indexes().stream().filter(x->x.role().equals(role)).findFirst().orElseThrow();
                             var p=row.opcodeMinor()==5?splitRestores.restores.get(new ArchivedUndoInventory.Position(header.sequence(),r.block(),r.offset(),r.vectors().indexOf(row)+1)):DictionaryIndexUndoPair.bind(r,row,role,scope.indexDba(),"AL32UTF8");
@@ -218,7 +236,7 @@ public final class ArchivedDictionaryHistory {
                     if(v.opcodeMajor()==5 && v.opcodeMinor()==4 && c.lifecycle.knowsEnd(r,v)) {
                         c.end=c.lifecycle.end(r,v);if(c.end.rolledBack())throw new RedoException("UNSUPPORTED_SYS_ROLLBACK_HISTORY");
                         var graph=c.graph.close(TransactionEnd.undoTail(v));
-                        if(graph.live().size()!=c.rows.size()+c.indexes.size() || c.next!=c.inventory.entries().size())throw new RedoException("DICTIONARY_COMPLETE_LIVE_ORIGINAL_COVERAGE");
+                        if(graph.live().size()!=c.rowCount()+c.indexCount() || c.next!=c.inventory.entries().size())throw new RedoException("DICTIONARY_COMPLETE_LIVE_ORIGINAL_COVERAGE");
                     }
                 }
             });
@@ -228,9 +246,9 @@ public final class ArchivedDictionaryHistory {
         for(var c:contexts.values()) {
             if(c.end!=null || !allowPending)c.lifecycle.finish();
             else {
-                if(c.start==null || c.next!=c.inventory.entries().size() || c.next!=c.rows.size()+c.indexes.size()+c.controls)
+                if(c.start==null || c.next!=c.inventory.entries().size() || c.next!=c.rowCount()+c.indexCount()+c.controls)
                     throw new RedoException("DICTIONARY_PENDING_ORIGINAL_COVERAGE");
-                pending.add(new Pending(c.inventory.entries().get(0).identity().xid(),c.beginScn,c.next,c.rows.size(),c.indexes.size(),c.controls,
+                pending.add(new Pending(c.inventory.entries().get(0).identity().xid(),c.beginScn,c.next,c.rowCount(),c.indexCount(),c.controls,
                         digest(c.lifecycle.checkpoint()),digest(c.graph.checkpoint())));
             }
         }
@@ -239,7 +257,10 @@ public final class ArchivedDictionaryHistory {
         var state=new DictionaryHistoryRows(snapshot);var commits=new ArrayList<Commit>();long prior=snapshot.scn();
         for(var c:ordered) {
             if(c.end.endRecordScn()<=prior)throw new RedoException("AMBIGUOUS_DICTIONARY_COMMIT_SCN");
-            var rows=state.apply(c.rows,c.indexes);commits.add(new Commit(c.end,c.inventory.entries(),c.rows.size(),c.indexes.size(),c.controls,rows));prior=c.end.endRecordScn();
+            var rows=state.apply(c.rows,c.indexes);
+            if(!c.statisticsRows.isEmpty() || !c.statisticsIndexes.isEmpty())
+                DictionaryStatisticsChanges.requireComplete(c.statisticsRows,c.statisticsIndexes,baseline.statistics(),snapshot.heap().logicalObject(),rows,baseline);
+            commits.add(new Commit(c.end,c.inventory.entries(),c.rowCount(),c.indexCount(),c.controls,rows));prior=c.end.endRecordScn();
         }
         return new Timeline(snapshot,sources,commits,pending,clusterMaintenance);
     }

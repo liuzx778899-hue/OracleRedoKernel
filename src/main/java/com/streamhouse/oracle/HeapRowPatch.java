@@ -84,7 +84,9 @@ public final class HeapRowPatch {
         boolean packed=op==5 && kdo.length==28 && ((kdo[11]&255)==0x81 || (kdo[11]&255)==0x82);
         boolean tail=op==5 && kdo.length==28 && (kdo[11]&255)==1 && (kdo[23]&255)==0;
         boolean sysNine=dictionaryObject && dictionaryColumns==37 && op==5 && kdo.length==30 && (kdo[23]&255)==9;
-        int expectedKdo=sysNine?30:op == 2 ? 49 : op == 3 || op == 4 ? 20 : packed || tail ? 28 : 29;
+        // Observed HIST_HEAD$ IRP stores 18 columns and a longer null bitmap; offsets of row identity and values are unchanged.
+        boolean statisticsInsert=op==2 && kdo.length==51 && (kdo[18]&255)==18 && kdo[11]==1;
+        int expectedKdo=sysNine?30:op == 2 ? statisticsInsert?51:49 : op == 3 || op == 4 ? 20 : packed || tail ? 28 : 29;
         if (kdo.length != expectedKdo || (kdo[10]&255) != op || u32(kdo,0) != dba)
             throw new RedoException("UNSUPPORTED_KDO_LAYOUT_OR_BLOCK");
         if(dictionaryObject && (dictionaryColumns!=37 || op!=5 || packed || tail || kdo[11]!=1 || kdo[12]!=1 || kdo[13]!=0
