@@ -77,7 +77,7 @@ elif action=='start':
     run(label,['docker','run','-d','--name',HELPER,'--label','owner=OracleRedoKernel','--label','scope=oracle-product-runtime',
         '--user','0','--network','container:'+S,'--workdir','/evidence','--env-file',N/'runtime.secret.env',
         '--mount','type=bind,source='+str(N)+',target=/evidence','--mount','type=bind,source='+str(CAP)+',target=/inputs,readonly',
-        '--mount','type=bind,source='+str(OLD/'snapshots')+',target=/evidence/snapshots,readonly',
+        '--mount','type=bind,source='+str(OLD.parent/'snapshots')+',target=/evidence/snapshots,readonly',
         '--entrypoint','java','flink:1.18-java17','-Xmx1024m','-jar','/evidence/application.jar'])
 elif action=='health':
     http(label,'/system/info')
