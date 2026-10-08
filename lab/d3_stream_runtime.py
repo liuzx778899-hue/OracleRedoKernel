@@ -88,14 +88,15 @@ elif action=='machine':
     assert len(matches)<=1
     machine=matches[0] if matches else http(label+'-register','/machines',dict(name='ORK-STREAM-COLLECTOR',sourceId=SOURCE,engineType='oracle',host='127.0.0.1'))
     token=http(label+'-rotate','/machines/'+str(machine['id'])+'/agent-token/rotate',{},True)['agentToken']
-    (N/'machine.secret.env').write_text('SH_AGENT_MACHINE_TOKEN='+token+'\n')
+    (N/'machine.secret.env').write_bytes(('SH_AGENT_MACHINE_TOKEN='+token+'\n').encode())
     config='[agent]\nsource_id='+SOURCE+'\n[oracle]\nmember_count=3\nmember_1=/inputs/90.raw\nmember_2=/inputs/91.raw\nmember_3=/evidence/new-inputs/92.raw\nspool_dir=/evidence/spool\npoll_interval_ms=1000\nmax_spool_bytes=1073741824\n[transfer]\nbase_url=http://127.0.0.1:'+str(PORT)+'\n'
     (N/'collector.ini').write_text(config)
-    (N/'run-collector.sh').write_text('#!/bin/sh\nset -eu\nset -a\n. /evidence/machine.secret.env\nset +a\necho $$ > /evidence/collector.pid\nexec /evidence/sh_agent --collect-oracle /evidence/collector.ini\n')
+    (N/'run-collector.sh').write_bytes(b'#!/bin/sh\nset -eu\nset -a\n. /evidence/machine.secret.env\nset +a\necho $$ > /evidence/collector.pid\nexec /evidence/sh_agent --collect-oracle /evidence/collector.ini\n')
     run(label+'-permissions',['docker','exec',HELPER,'chmod','700','/evidence/sh_agent','/evidence/run-collector.sh'])
 elif action=='collect':
     with (N/(label+'.stdout')).open('xb') as out,(N/(label+'.stderr')).open('xb') as err:
         process=subprocess.Popen(['docker','exec',HELPER,'/evidence/run-collector.sh'],stdout=out,stderr=err)
+        (N/(label+'.host-pid.txt')).write_text(str(process.pid))
         (N/'collector-host-pid.txt').write_text(str(process.pid))
 elif action=='state':
     sql(label,f"alter session set container=ORKPDB;\nselect 'TARGET|'||(select count(*) from ORKTGT_CMT_20261005.SHPBL1_APPLIED)||'|'||(select count(*) from ORKTGT_CMT_20261005.SHPBL1_MEMBERS)||'|'||(select count(*) from ORKTGT_CMT_20261005.SHPBL1_COMMITS) from dual;\nselect 'TASK|'||to_char(ID,'FM99999999999999999999')||'|'||STATE from {U}.SH_TASK;\nselect 'CP|'||CHECKPOINT_JSON from {U}.SH_TASK;\nselect 'BATCH|'||to_char(ID,'FM99999999999999999999')||'|'||STATE||'|'||RC||'|'||EVENT_COUNT from {U}.SH_PIPELINE_BATCH;\nselect 'WINDOW|'||WINDOW_KEY||'|'||STATUS||'|'||ISSUE_SEQ_START||'|'||ISSUE_SEQ_END from {U}.SH_CAP_WINDOW;\nselect 'RAW|'||STATE||'|'||ISSUE_SEQ_END from {U}.SH_ORACLE_INPUT_BINDING where ID={GRANT} or WINDOW_KEY='raw-discovery-{GRANT}';\nselect 'TRANSFER|'||FILE_NAME||'|'||STATUS||'|'||RECEIVED_OFFSET from {U}.SH_TRANSFER_SESSION where SOURCE_ID='{SOURCE}';\nselect 'FAIL|'||REASON||'|'||DETAIL from {U}.SH_FAILCLOSED_RECORD;")
