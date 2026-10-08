@@ -37,3 +37,9 @@
 基于冻结83:38/39实际DELETE/索引DELETE补COL_USAGE$十列、I_COL_USAGE$分离rowid绑定；完整undo前像、XID/UBA/代际/父OBJ#/INTCOL#及删除前COL$历史关联进入原SYS全original覆盖，不以统计表名跳过。可选先行DICT_USAGE布局/身份/索引段地址与前后核等接V3，获取沿用固定SCN OBJ$/COL$/TAB$/IND$/ICOL$与当前布局核等。旧V3不带此契约仍可读，但不得事后回填82/83。
 
 相关内核5类21项及获取/HTTP类8项零失败/错误/跳过。实际十列undo IRP为50字节KDO（两字节null bitmap）已支持；首长度拒绝与新角色碰撞校验误碰已有cluster共享dataobj失败全文保留在usage-targeted-tests*.log，修后通过。当前只是开发候选，正常新先行获取/完整闭合/恢复/产品CPACK继续待证。只做本次必要正常接线，不扩故障矩阵。
+
+正式提交树正常链路补证：root0b9f77e内核cbbe75b013c173e3c858dac7fb37464c6e2b67ffae91619912c196877921e35c、adapter008d2a194be3c76335aa3aa5be4a4bd9acdeecde8740763128294aaad0d8ec6b；P b1e5d9b applicationdc90e006e6826bdbaf3c0bcd23a0e09eb6c9e22b59e9368acc35df09676eb6b4必要打包rc0/未重跑全量测试，嵌入逐字节核等。新真实HTTP acquisition101631881417797632/SCN2913968/snapshotd5184aa9edfbce2667b873376b93db8428fee5a0067a7e8f2ef929751dbac47d；独立SYS6行230cells/3index/业务1row及HIST_HEAD$22列2索引、COL_USAGE$10列1索引零差异。
+
+新一次专属T_D2_USAGE_20261008实验冻结84/85，ADD跨成员SYS3.16.749真实pending，prefix rc0/5original/2row/2index/1control/completed0/events0；完整闭合rc0/2 UPDATE，四列→三列历史schema及完整前后像核等。独立JVM恢复rc0/2事件、完整输出同字节SHA8b72c0866cd4203d8f7134126982523efb4e4db8509df6a8d1fb85eadf654ab2，CP SHAe2491466818b04e03c204ac1f7e7704c28881693d3fe4ad5726aca9992caa5c4。原始归档源/本地SHA核等，源行三列恢复/延迟trigger已删/NO NO。禁止重跑本批源动作或获取，也不回填旧75–83。必要SHA/rc入口lab/out/d2-usage-runtime-20261008/normal-summary.json，原始失败保留，无新增封存仪式。
+
+产品目标接线尚未执行：2026-10-08本轮获取helper停止核归属时，Docker返回“Docker Desktop is manually paused”。helper最后已知健康运行，stop未成功，不宣称已停；新产品helper37296/目标SHPUS1/任务/CPACK驱动仅准备，目标写入0。lab/d2_usage_product.py为后续入口，先核Docker恢复与原helper权威状态，以新标签完成停止再projection→target→start→正常prefix WAITING→闭合CPACK，不重放源动作。此为新实际环境暂停，不是旧Docker阻断；goal仍active。D2其余/D3连续/D4-D5及独立目标评审部署生产现场发布保持待证，不扩极端验证。
