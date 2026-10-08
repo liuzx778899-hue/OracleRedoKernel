@@ -261,9 +261,9 @@ public final class ArchivedPhysicalTransactions {
                     if (snapshot!=null && end.endRecordScn()<=snapshot.scn()) {
                         c.coveredByBaseline=true;continue;
                     }
-                    if (snapshot!=null && end.beginRecordScn()<=snapshot.scn())
-                        throw new RedoException("BASELINE_CROSSES_TRANSACTION_BOUNDARY");
-                    if(history!=null && !history.schemaAt(end.beginRecordScn()).equals(history.schemaAt(end.endRecordScn())))
+                    // An initial snapshot excludes uncommitted values; retain the entire raw-owned graph.
+                    // Row replay still must match its first before-image against that committed snapshot.
+                    if(history!=null && !history.schemaAt(Math.max(end.beginRecordScn(),snapshot.scn())).equals(history.schemaAt(end.endRecordScn())))
                         throw new RedoException("UNSUPPORTED_TRANSACTION_CROSSES_SCHEMA_CHANGE");
                     var result=end.rolledBack() ? c.graph.closeRollback(end)
                             : v.fields().size()==2 && TransactionEnd.decode(v).flags()==0

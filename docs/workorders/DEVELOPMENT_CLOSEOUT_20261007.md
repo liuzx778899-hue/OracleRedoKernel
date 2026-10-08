@@ -1,5 +1,7 @@
 # Oracle 开发阶段收口清单
 
+D2初始水位开发态通过：新一次专属T_D2_INITIAL_20261008事务10.11.3606/startSCN2917894未提交时获取可信acquisition101660919708471296/SCN2917903/snapshot1ab759112bc293bd647877d8aa72fc640faa530bf2eb5227260a9cee5e0e1834，独立固定SCN基线SYS6行230cells/3index/业务1row及统计/usage布局零差异。冻结86/87完整BEGIN/undo/commit，保留首前像核对和schema一致性，将完整跨水位事务纳入重放；实际24.4标记下界取原始已观察SCN，不以基线之后限制。prefix rc0/1pending/0events，closed与独立JVM restored均rc0/3完整UPDATE，seed→initial-open→initial-final→seed顺序及前后像核等，输出同字节SHA233746264a2c007959df99906a7422e9eea70e97c6be58a7c2fb52c0ed0bce79。相关37项零失败错误跳过；首正式jar标记拒绝、后续跨水位拒绝及测试误写1而实际2事务失败全文保留。helper37297已停143，源行恢复/NO NO；禁止重放本批源动作或获取。入口lab/out/d2-initial-runtime-20261008/normal-summary.json及d2-initial-source-20261008/archives.json。此为开发classes正常恢复证据，正式产品仍dc90e006/旧内核，未新打包/部署/目标CPACK，不当D2整体验收。下一补一般事务同commitSCN/同key/跨块正常能力，合并候选后集中产品接线；D3连续、D4/D5及独立验收发布保持完整范围。
+
 2026-10-08用户执行优先级覆盖：先补完整D1–D5能力与正常端到端，再集中加固。局部开发仅真实样本、针对性回归及明显漏重/错误提交必要检查；极端并发、多故障组合、反复强杀等后移至完整功能候选。已通过证据复用，相关逻辑改变才复验，按工作包合并简短反馈。最新D2正常主线见[交付](DELIVERY_D2_SYS_MAINLINE_20261008.md)：先行统计与列使用统计契约已补，新84/85正式jar真实pending→闭合两完整UPDATE→跨JVM恢复同字节通过；同件产品目标2/2/1、两窗消费与完整CPACK已正常实证；继续初始水位/恢复及一般事务，不能当完整D2验收。
 
 当前仍为开发/专属环境集成，未达到开发收口。下面按工作包归并剩余范围，**五个工作包不是五个小任务，也不是完成百分比**。原完整目标不缩减；部署、生产验证后续与用户协同。已通过冻结实验不重复，失败与原始证据保留。

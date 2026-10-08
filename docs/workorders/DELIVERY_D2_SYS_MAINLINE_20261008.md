@@ -51,3 +51,8 @@ Docker恢复后只接续冻结84/85与原先行获取，新源动作/新获取0�
 首窗口登记脚本沿用旧.oracap文件名导致ORACLE_CAPTURE_HASH_OR_SCOPE_MISMATCH，零目标/零推进失败保留；仅修正本窗口FILE_SHA256文件名清单并续原task，没有重新提交批次/重放源。首resume空body误发GET和校验器base64补位误判均保留，按既有POST/无padding契约修正。产品代码与制品未改。两个自有helpers均已停143，源Oracle运行。必要证据入口lab/out/d2-usage-runtime-20261008/product-summary.json和product/closure-proof.json，不新增封存或重跑已过项。
 
 本批证明实际pending SYS→完整历史事件/跨JVM恢复→产品目标原子提交→CPACK正常链路；同实例独立SQL是尺子，不是独立目标验收，且新ADD未包含HIST_HEAD$操作。D2初始水位/初始恢复/一般事务、D3连续采集、D4/D5及独立目标评审部署生产现场发布仍保留，下一主攻这些功能，不补低概率故障矩阵。
+
+
+## 初始水位与完整活跃事务恢复（2026-10-08）
+
+D2初始水位开发态通过：新一次专属T_D2_INITIAL_20261008事务10.11.3606/startSCN2917894未提交时获取可信acquisition101660919708471296/SCN2917903/snapshot1ab759112bc293bd647877d8aa72fc640faa530bf2eb5227260a9cee5e0e1834，独立固定SCN基线SYS6行230cells/3index/业务1row及统计/usage布局零差异。冻结86/87完整BEGIN/undo/commit，保留首前像核对和schema一致性，将完整跨水位事务纳入重放；实际24.4标记下界取原始已观察SCN，不以基线之后限制。prefix rc0/1pending/0events，closed与独立JVM restored均rc0/3完整UPDATE，seed→initial-open→initial-final→seed顺序及前后像核等，输出同字节SHA233746264a2c007959df99906a7422e9eea70e97c6be58a7c2fb52c0ed0bce79。相关37项零失败错误跳过；首正式jar标记拒绝、后续跨水位拒绝及测试误写1而实际2事务失败全文保留。helper37297已停143，源行恢复/NO NO；禁止重放本批源动作或获取。入口lab/out/d2-initial-runtime-20261008/normal-summary.json及d2-initial-source-20261008/archives.json。此为开发classes正常恢复证据，正式产品仍dc90e006/旧内核，未新打包/部署/目标CPACK，不当D2整体验收。下一补一般事务同commitSCN/同key/跨块正常能力，合并候选后集中产品接线；D3连续、D4/D5及独立验收发布保持完整范围。

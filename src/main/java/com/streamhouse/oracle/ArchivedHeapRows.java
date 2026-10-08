@@ -84,7 +84,6 @@ public final class ArchivedHeapRows {
                 .sorted(Comparator.comparingLong(t->t.identity().endRecordScn())).toList();
         var selected=new HashMap<ArchivedUndoInventory.Position,ArchivedPhysicalTransactions.Transaction>();long previousCommit=baseline.scn();
         for (var t:transactions) {
-            if (t.identity().beginRecordScn()<=baseline.scn()) throw new RedoException("BASELINE_CROSSES_TRANSACTION_BOUNDARY");
             if (t.identity().rolledBack()) {
                 if (!t.graph().live().isEmpty() || t.graph().original().isEmpty()
                         || t.graph().compensated().size()!=t.graph().original().size())
@@ -107,7 +106,7 @@ public final class ArchivedHeapRows {
                 for (int v=0;v<r.vectors().size();v++) {
                     var at=new ArchivedUndoInventory.Position(h.sequence(),r.block(),r.offset(),v+1);var owner=selected.get(at);
                     if (owner==null) continue;
-                    var recordSchema=history==null?schema:history.schemaAt(r.scn());
+                    var recordSchema=history==null?schema:history.schemaAt(Math.max(r.scn(),baseline.scn()));
                     if(history!=null && !recordSchema.equals(history.schemaAt(owner.identity().endRecordScn())))
                         throw new RedoException("UNSUPPORTED_ROW_RECORD_SCHEMA_TRANSITION");
                     int rowColumns=history==null?baseline.columns():recordSchema.size();

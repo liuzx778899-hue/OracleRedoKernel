@@ -93,12 +93,12 @@ class HistoricalSchemaBarrierTest {
     RedoRecords.Record mixedMediaRecord(RedoRecords.Vector v) {
         return new RedoRecords.Record(3,16,140,5,2743320,1,677737149,List.of(v));
     }
-    @Test void nativeMixedRangeRequiresObservedLowerEndpointAfterBaseline() throws Exception {
+    @Test void nativeMixedRangeRequiresObservedLowerEndpointIncludingBeforeBaseline() throws Exception {
         var v=mixedMediaMarker();var r=mixedMediaRecord(v);
         HistoricalSchemaBarrier.requireMarkerProfile(r,v,2743256,Set.of(2743309L));
         assertThrows(RedoException.class,()->HistoricalSchemaBarrier.requireMarkerProfile(r,v));
         assertThrows(RedoException.class,()->HistoricalSchemaBarrier.requireMarkerProfile(r,v,2743256,Set.of()));
-        assertThrows(RedoException.class,()->HistoricalSchemaBarrier.requireMarkerProfile(r,v,2743309,Set.of(2743309L)));
+        HistoricalSchemaBarrier.requireMarkerProfile(r,v,2743309,Set.of(2743309L));
     }
     @Test void actualSeq83MarkerWithoutOptionalRecordTimeStillRequiresObservedRange()throws Exception {
         var v=new RedoRecords.Vector(24,4,0,0,0,0,0,3,List.of(
@@ -106,6 +106,13 @@ class HistoricalSchemaBarrierTest {
         var r=new RedoRecords.Record(9,280,140,1,2910656,1,677737149,List.of(v));
         HistoricalSchemaBarrier.requireMarkerProfile(r,v,2910534,Set.of(2910640L));
         assertThrows(RedoException.class,()->HistoricalSchemaBarrier.requireMarkerProfile(r,v,2910534,Set.of()));
+    }
+    @Test void actualSeq87MarkerCanReferenceTheObservedPreSnapshotBegin()throws Exception {
+        var v=new RedoRecords.Vector(24,4,0,0,0,0,0,3,List.of(
+                HexFormat.of().parseHex("28230000000000000000000072000c00"),HexFormat.of().parseHex("06862c000000000054862c0000800000")));
+        var r=new RedoRecords.Record(5,16,140,5,2917973,1,677737149,List.of(v));
+        HistoricalSchemaBarrier.requireMarkerProfile(r,v,2917903,Set.of(2917894L));
+        assertThrows(RedoException.class,()->HistoricalSchemaBarrier.requireMarkerProfile(r,v,2917903,Set.of()));
     }
     @Test void mixedRangeFlagsPaddingAndUpperEndpointCannotBeIgnored() {
         for(int at:new int[]{0,4,6,8,12,14}) {

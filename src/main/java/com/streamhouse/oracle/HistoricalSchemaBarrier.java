@@ -53,7 +53,7 @@ final class HistoricalSchemaBarrier {
             byte[] range=fields.get(1);long first=u32(range,0),last=u32(range,8);
             boolean closed=u16(range,4)==0x8000 && last-first<=1;
             // Seq73/74 standalone native-matched marker. This is not a begin/end or schema authority.
-            boolean mixed=u16(range,4)==0 && first>baselineScn && observedScns.contains(first) && last==record.scn()-1;
+            boolean mixed=u16(range,4)==0 && observedScns.contains(first) && last==record.scn()-1;
             if((!closed && !mixed) || u16(range,12)!=0x8000 || u16(range,6)!=0 || u16(range,14)!=0 || first>last || last>=record.scn())
                 throw new RedoException("UNSUPPORTED_MEDIA_RECOVERY_MARKER_RANGE");
         } else throw new RedoException("UNSUPPORTED_HISTORICAL_SCHEMA_MARKER_OPCODE");

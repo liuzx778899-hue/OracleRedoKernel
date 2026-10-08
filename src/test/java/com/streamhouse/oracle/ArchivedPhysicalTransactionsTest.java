@@ -131,9 +131,11 @@ class ArchivedPhysicalTransactionsTest {
         assertEquals("TRANSACTION_END_HAS_NO_UNDO_TAIL_REFERENCE",assertThrows(RedoException.class,
                 ()->read(raw,leaf,677737149)).getMessage());
     }
-    @Test void baselineCannotHideCrossingOrMissingOldLifecycleEnd() {
-        assertEquals("BASELINE_CROSSES_TRANSACTION_BOUNDARY",assertThrows(RedoException.class,
-                ()->verified(noTailFixture(),125)).getMessage());
+    @Test void baselineRetainsCompleteCrossingGraphAndCannotHideMissingOldLifecycleEnd() throws Exception {
+        var crossing=verified(noTailFixture(),125).transactions();assertEquals(2,crossing.size());
+        assertEquals(List.of(a,b),crossing.stream().map(t->t.identity().xid()).toList());
+        assertTrue(crossing.stream().allMatch(t->t.identity().beginRecordScn()<=125
+                && t.identity().endRecordScn()>125 && t.graph().live().size()==1));
         var raw=noTailFixture();f.records.record(raw,4,130,List.of());seal(raw,2048);
         assertThrows(RedoException.class,()->verified(raw,150));
     }

@@ -143,8 +143,9 @@ public final class ArchivedDictionaryHistory {
         for(var input:inputs) {
             var header=input.header();snapshot.requireSource(header);continuity.archive(header);sources.add(header);
             input.visit(header,r->{
-                if(r.containerUid()!=snapshot.source().containerUid() || r.scn()<=snapshot.scn())return;
+                if(r.containerUid()!=snapshot.source().containerUid())return;
                 observedScns.add(r.scn());
+                if(r.scn()<=snapshot.scn())return;
                 for(int i=0;i<r.vectors().size();i++) {
                     var v=r.vectors().get(i);if(v.containerId()!=snapshot.source().containerId() || v.opcodeMajor()!=5 || v.opcodeMinor()!=1)continue;
                     var at=new ArchivedUndoInventory.Position(header.sequence(),r.block(),r.offset(),i+1);
