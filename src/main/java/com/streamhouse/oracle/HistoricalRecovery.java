@@ -12,6 +12,17 @@ public final class HistoricalRecovery {
         public Prefix { checkpoint=checkpoint.clone(); }
         @Override public byte[] checkpoint(){return checkpoint.clone();}
     }
+    public record CommittedPrefix(Prefix state,CapturedHistoricalHeapBatch completed) {}
+    /** Publishable complete business transactions; pending business graphs remain bound to the raw prefix. */
+    public static CommittedPrefix committedPrefixCaptured(List<CaptureJournal.Verified> captures,Path baseline,
+                                                          String trustedBaselineSha256,long leaf)throws IOException {
+        var snapshot=FrozenHeapBaseline.read(baseline,trustedBaselineSha256);var inputs=RedoBatch.captures(captures);
+        var history=ArchivedDictionaryHistory.readPrefix(inputs,snapshot);
+        if(!history.pending().isEmpty())throw new RedoException("COMMITTED_PREFIX_DICTIONARY_PENDING");
+        var physical=ArchivedPhysicalTransactions.readHistoryPrefix(inputs,snapshot,history,leaf);
+        var state=new Prefix(encode(snapshot,leaf,history,physical),physical.state().pending().size(),physical.completed().transactions().size());
+        return new CommittedPrefix(state,CapturedHistoricalHeapBatch.readWithPhysical(List.copyOf(captures),inputs,snapshot,history,leaf,physical.completed()));
+    }
     public static byte[] checkpointCaptured(List<CaptureJournal.Verified> captures,Path baseline,String trustedBaselineSha256,long leaf)throws IOException {
         return prefixCaptured(captures,baseline,trustedBaselineSha256,leaf).checkpoint();
     }
