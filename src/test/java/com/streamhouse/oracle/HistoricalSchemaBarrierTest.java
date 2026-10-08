@@ -46,6 +46,31 @@ class HistoricalSchemaBarrierTest {
         var e=assertThrows(RedoException.class,()->HistoricalSchemaBarrier.requireUnchanged(record(2501918,677737149,v),snapshot));
         assertEquals("UNSUPPORTED_HISTORICAL_SCHEMA_MARKER",e.getMessage());
     }
+    RedoRecords.Vector observedTriggerMarker() {
+        var v=marker();
+        v.fields().set(0,HexFormat.of().parseHex("e02e00000a000800c10d00003b0002000000010001000000"));
+        v.fields().set(3,HexFormat.of().parseHex("00000000682f010000000000"));
+        v.fields().set(8,"SYS".getBytes(StandardCharsets.UTF_8));v.fields().set(9,"ORK_D2_SYS_DELAY_20261008".getBytes(StandardCharsets.UTF_8));
+        v.fields().set(10,HexFormat.of().parseHex("000000003b0000000080000000000000ffff0c8c"));
+        v.fields().set(11,new byte[0]);return v;
+    }
+    @Test void observedTriggerMarkerUsesPrimaryIdentityAndNameWithoutSqlAuthority()throws Exception {
+        var v=observedTriggerMarker();
+        v.fields().set(7,"alter table ORKLAB.T_SCHEMA_BARRIER_20261005 add EXTRA number".getBytes(StandardCharsets.UTF_8));
+        HistoricalSchemaBarrier.requireUnchanged(record(2501918,677737149,v),snapshot);
+        v.fields().set(3,HexFormat.of().parseHex("00000000c723010000000000"));refuse(v);
+        v=observedTriggerMarker();v.fields().set(8,marker().fields().get(8));v.fields().set(9,marker().fields().get(9));refuse(v);
+    }
+    @Test void absentAffectedFieldRequiresObservedTriggerProfile() {
+        for(int field:new int[]{0,3,10}) {
+            var v=observedTriggerMarker();
+            if(field==3)Arrays.fill(v.fields().get(field),4,8,(byte)0);
+            else v.fields().get(field)[field==0?12:4]=0;
+            assertThrows(RedoException.class,()->HistoricalSchemaBarrier.requireUnchanged(record(2501918,677737149,v),snapshot));
+        }
+        var v=marker();v.fields().set(11,new byte[0]);
+        assertThrows(RedoException.class,()->HistoricalSchemaBarrier.requireUnchanged(record(2501918,677737149,v),snapshot));
+    }
     @Test void unknownSchemaFamilyOpcodeCannotBeSilentlyExcluded() {
         var v=marker();var unknown=new RedoRecords.Vector(24,0,0,0,0,0,0,3,v.fields());
         var e=assertThrows(RedoException.class,()->HistoricalSchemaBarrier.requireUnchanged(record(2501918,677737149,unknown),snapshot));

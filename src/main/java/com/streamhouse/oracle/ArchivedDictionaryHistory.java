@@ -147,7 +147,7 @@ public final class ArchivedDictionaryHistory {
                     HistoricalSchemaBarrier.requireMarkerProfile(r,v,snapshot.scn(),observedScns);
                     if(v.opcodeMinor()==1)for(var role:List.of(snapshot.heap(),snapshot.index())) {
                         var f=v.fields();
-                        if(u32(f.get(3),4)==role.logicalObject() || u32(f.get(11),0)==role.logicalObject()
+                        if(u32(f.get(3),4)==role.logicalObject() || HistoricalSchemaBarrier.affectedObject(v)==role.logicalObject()
                                 || Arrays.equals(f.get(8),role.owner().getBytes(java.nio.charset.StandardCharsets.UTF_8)) && Arrays.equals(f.get(9),role.name().getBytes(java.nio.charset.StandardCharsets.UTF_8))) {
                             markers.add(r.scn());break;
                         }

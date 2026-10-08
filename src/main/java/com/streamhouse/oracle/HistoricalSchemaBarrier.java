@@ -25,7 +25,7 @@ final class HistoricalSchemaBarrier {
             var fields=vector.fields();
             // Independently observed on CREATE/GRANT/ADD/DROP in seq56/57.
             // SQL text in field 7 is deliberately not interpreted or used as authority.
-            long object=u32(fields.get(3),4),affected=u32(fields.get(11),0);
+            long object=u32(fields.get(3),4),affected=affectedObject(vector);
             for(var role:java.util.List.of(snapshot.heap(),snapshot.index()))
                 if(object==role.logicalObject() || affected==role.logicalObject()
                         || (Arrays.equals(fields.get(8),role.owner().getBytes(StandardCharsets.UTF_8))
@@ -43,7 +43,8 @@ final class HistoricalSchemaBarrier {
         var fields=vector.fields();
         if(vector.opcodeMajor()!=24)throw new RedoException("NOT_SCHEMA_FAMILY_MARKER");
         if(vector.opcodeMinor()==1) {
-            if(fields.size()!=46 || fields.get(0).length!=24 || u32(fields.get(0),0)!=0x2ee0 || fields.get(3).length!=12 || fields.get(11).length!=4)
+            if(fields.size()!=46 || fields.get(0).length!=24 || u32(fields.get(0),0)!=0x2ee0 || fields.get(3).length!=12
+                    || (fields.get(11).length!=4 && !observedTriggerMarker(fields)))
                 throw new RedoException("UNSUPPORTED_HISTORICAL_SCHEMA_MARKER");
         } else if(vector.opcodeMinor()==4) {
             if(record.validity()!=5 || record.vectors().size()!=1 || vector.blockClass()!=0 || vector.file()!=0 || vector.dba()!=0 || vector.scn()!=0 || vector.sequence()!=0
@@ -56,6 +57,18 @@ final class HistoricalSchemaBarrier {
             if((!closed && !mixed) || u16(range,12)!=0x8000 || u16(range,6)!=0 || u16(range,14)!=0 || first>last || last>=record.scn())
                 throw new RedoException("UNSUPPORTED_MEDIA_RECOVERY_MARKER_RANGE");
         } else throw new RedoException("UNSUPPORTED_HISTORICAL_SCHEMA_MARKER_OPCODE");
+    }
+    /** Seq80 native-matched CREATE TRIGGER marker has no secondary affected-object field. */
+    private static boolean observedTriggerMarker(java.util.List<byte[]> fields) {
+        return fields.get(11).length==0 && u16(fields.get(0),12)==59 && u16(fields.get(0),14)==2
+                && u32(fields.get(3),0)==0 && u32(fields.get(3),4)>0 && u32(fields.get(3),8)==0
+                && fields.get(10).length==20 && u32(fields.get(10),4)==59
+                && fields.get(4).length==0 && fields.get(12).length==0 && fields.get(13).length==0
+                && fields.get(8).length>0 && fields.get(9).length>0;
+    }
+    /** Call only after requireMarkerProfile; primary object and exact name still bind scope. */
+    static long affectedObject(RedoRecords.Vector vector) {
+        return vector.fields().get(11).length==0?0:u32(vector.fields().get(11),0);
     }
     private static void requireDictionaryUnchanged(RedoRecords.Record record,RedoRecords.Vector vector,
                                                     FrozenHeapBaseline.Snapshot snapshot) throws RedoException {
