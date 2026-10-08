@@ -11,7 +11,7 @@ public record ClusterUndoPair(long containerUid,long containerId,FrozenHeapBasel
         if(v.fields().isEmpty())throw new RedoException("MISSING_CLUSTER_FORWARD_KTB");
         byte[] b=v.fields().get(0);int offset;Xid xid=null;
         if(b.length<2 || b[1]!=0x0d)throw new RedoException("UNSUPPORTED_CLUSTER_FORWARD_KTB");
-        if((b[0]==1 && b.length==24) || (b[0]==17 && b.length==70)) {
+        if((b[0]==1 && b.length==24) || (b[0]==17 && (b.length==70 || b.length==80 && b[44]==2 && b[45]==2))) {
             xid=new Xid(u16(b,8),u16(b,10),u32(b,12));offset=16;
         } else if(b[0]==2 && b.length==16)offset=8;
         else throw new RedoException("UNSUPPORTED_CLUSTER_FORWARD_KTB");

@@ -18,7 +18,7 @@ class ClusterRowPatchTest {
         var p=ClusterRowPatch.decode(insert(),2,4229540,5,36);
         assertEquals(HeapRowPatch.State.NULL,p.row().columns().get(8).state());
         assertEquals(HeapRowPatch.State.ABSENT,p.row().columns().get(32).state());
-        for(int at:new int[]{40,46,47,48,49}) {
+        for(int at:new int[]{40,46,47,48}) {
             var f=insert();f.get(1)[at]^=1;
             assertThrows(RedoException.class,()->ClusterRowPatch.decode(f,2,4229540,5,36));
         }
@@ -50,5 +50,11 @@ class ClusterRowPatchTest {
         assertEquals(HeapRowPatch.Kind.LOCK,p.row().kind());assertEquals(2,p.row().lockTo());
         assertThrows(RedoException.class,()->HeapRowPatch.decodeKdo(f,4,4229540,36));
         f.get(1)[19]=1;assertThrows(RedoException.class,()->ClusterRowPatch.decode(f,4,4229540,5,36));
+    }
+    @Test void unusedInsertTailAndDeletePaddingDoNotChangeRowSemantics()throws Exception {
+        var f=insert();f.get(1)[49]=(byte)0xb1;f.get(1)[50]=0x4b;f.get(1)[51]=0x3b;
+        assertEquals(HeapRowPatch.Kind.INSERT,ClusterRowPatch.decode(f,2,4229540,5,36).row().kind());
+        var deleted=List.of(new byte[70],hex("a489400090004000ff12030102000000120005d4"));
+        assertEquals(18,ClusterRowPatch.decode(deleted,3,4229540,5,36).row().slot());
     }
 }

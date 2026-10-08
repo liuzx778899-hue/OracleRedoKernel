@@ -48,4 +48,13 @@ class ClusterUndoPairTest {
         assertEquals(p.identity().xid(),p.forward().row().xid());
         u.fields().get(0)[14]=1;assertThrows(RedoException.class,()->bind(u,r));
     }
+    @Test void twoEntryCleanoutKeepsCurrentPrefixIdentityAndUndoAssociation()throws Exception {
+        var u=undo();var original=row();var fields=new ArrayList<>(original.fields());
+        byte[] ktb=new byte[80];ktb[0]=17;ktb[1]=13;ktb[44]=2;ktb[45]=2;
+        System.arraycopy(u.fields().get(0),8,ktb,8,8);
+        System.arraycopy(original.fields().get(0),8,ktb,16,7);fields.set(0,ktb);
+        var r=new RedoRecords.Vector(11,5,1,9,original.dba(),original.scn(),1,3,fields);
+        assertEquals(bind(u,r).identity().xid(),bind(u,r).forward().row().xid());
+        ktb[45]=3;assertThrows(RedoException.class,()->bind(u,r));
+    }
 }

@@ -19,12 +19,15 @@ public final class ArchivedDictionaryHistory {
         private final List<ArchivedRedo.Header> sources;
         private final List<Commit> commits;
         private final List<Pending> pending;
+        private final List<ArchivedDictionaryClusterMaintenance.Closed> clusterMaintenance;
         private Timeline(FrozenHeapBaseline.Snapshot snapshot,List<ArchivedRedo.Header> sources,List<Commit> commits) {
-            this(snapshot,sources,commits,List.of());
+            this(snapshot,sources,commits,List.of(),List.of());
         }
-        private Timeline(FrozenHeapBaseline.Snapshot snapshot,List<ArchivedRedo.Header> sources,List<Commit> commits,List<Pending> pending) {
+        private Timeline(FrozenHeapBaseline.Snapshot snapshot,List<ArchivedRedo.Header> sources,List<Commit> commits,List<Pending> pending,
+                         List<ArchivedDictionaryClusterMaintenance.Closed> clusterMaintenance) {
             this.snapshot=snapshot;this.sources=List.copyOf(sources);this.commits=List.copyOf(commits);
             this.pending=List.copyOf(pending);
+            this.clusterMaintenance=List.copyOf(clusterMaintenance);
         }
         public List<ArchivedRedo.Header> sources(){return sources;}
         public List<Commit> commits(){return commits;}
@@ -36,6 +39,7 @@ public final class ArchivedDictionaryHistory {
             for(var source:sources)out.append("S|").append(digest(source.toString())).append('\n');
             for(var commit:commits)out.append("C|").append(digest(commit.toString())).append('\n');
             for(var active:pending)out.append("P|").append(digest(active.toString())).append('\n');
+            for(var maintenance:clusterMaintenance)out.append("M|").append(digest(maintenance.toString())).append('\n');
             return out.toString().getBytes(java.nio.charset.StandardCharsets.UTF_8);
         }
         void requireBoundTo(RedoBatch inputs,FrozenHeapBaseline.Snapshot baseline)throws IOException {
@@ -124,6 +128,10 @@ public final class ArchivedDictionaryHistory {
         for(var layout:baseline.layouts().values())roles.put(layout.role().logicalObject(),layout.role());
         for(var index:baseline.indexes())roles.put(index.role().logicalObject(),index.role());
         var splitRestores=ArchivedDictionaryIndexRestores.read(inputs,snapshot);
+        var clusterMaintenance=ArchivedDictionaryClusterMaintenance.read(inputs,snapshot);
+        var clusterOriginals=new HashMap<ArchivedUndoInventory.Position,UndoHeader>();
+        for(var closed:clusterMaintenance)for(var e:closed.original())if(clusterOriginals.putIfAbsent(e.position(),e.identity())!=null)
+            throw new RedoException("CLUSTER_MAINTENANCE_ORIGINAL_OWNER_COLLISION");
         var identities=new LinkedHashSet<HeapRowPatch.Xid>();var sources=new ArrayList<ArchivedRedo.Header>();var continuity=new TransactionLifecycle();var markers=new ArrayList<Long>();
         var observedScns=new HashSet<Long>();
         for(var input:inputs) {
@@ -134,6 +142,11 @@ public final class ArchivedDictionaryHistory {
                 for(int i=0;i<r.vectors().size();i++) {
                     var v=r.vectors().get(i);if(v.containerId()!=snapshot.source().containerId() || v.opcodeMajor()!=5 || v.opcodeMinor()!=1)continue;
                     var at=new ArchivedUndoInventory.Position(header.sequence(),r.block(),r.offset(),i+1);
+                    var cluster=clusterOriginals.get(at);
+                    if(cluster!=null) {
+                        if(!cluster.equals(UndoHeader.decode(v)))throw new RedoException("CLUSTER_MAINTENANCE_ORIGINAL_CHANGED");
+                        continue;
+                    }
                     var physical=splitRestores.maintenance.get(at);
                     if(physical!=null) {
                         if(!physical.equals(UndoHeader.decode(v)))throw new RedoException("DICTIONARY_SPLIT_ORIGINAL_CHANGED");
@@ -228,7 +241,7 @@ public final class ArchivedDictionaryHistory {
             if(c.end.endRecordScn()<=prior)throw new RedoException("AMBIGUOUS_DICTIONARY_COMMIT_SCN");
             var rows=state.apply(c.rows,c.indexes);commits.add(new Commit(c.end,c.inventory.entries(),c.rows.size(),c.indexes.size(),c.controls,rows));prior=c.end.endRecordScn();
         }
-        return new Timeline(snapshot,sources,commits,pending);
+        return new Timeline(snapshot,sources,commits,pending,clusterMaintenance);
     }
     private static boolean affectsBaselineScope(ArchivedRedo.Header header,RedoRecords.Record r,RedoRecords.Vector undo,FrozenHeapBaseline.ObjectRole role,FrozenHeapBaseline.Snapshot snapshot,ArchivedDictionaryIndexRestores splitRestores)throws RedoException {
         var fields=undo.fields();

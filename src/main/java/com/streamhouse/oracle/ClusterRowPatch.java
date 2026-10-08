@@ -35,7 +35,7 @@ public final class ClusterRowPatch {
                     throw new RedoException("CLUSTER_INSERT_NULL_BITMAP_MISMATCH");
                 rowSize+=cell.length;columns.set(i,value(cell));
             }
-            if(k[49]!=0 || k[50]!=0 || k[51]!=0 || rowSize!=u16(k,40))
+            if(rowSize!=u16(k,40))
                 throw new RedoException("UNSUPPORTED_CLUSTER_INSERT_COMPLETE_SIZE");
             extent=new HeapRowPatch.RowExtent(count,count,-1,u16(k,40));
         } else if(op==5) {
@@ -60,7 +60,7 @@ public final class ClusterRowPatch {
                 if(lockTo!=0 && lockTo!=2)throw new RedoException("UNSUPPORTED_CLUSTER_LOCK_TARGET");
                 kind=HeapRowPatch.Kind.LOCK;
             } else {
-                if((k[19]&255)>1)throw new RedoException("UNSUPPORTED_CLUSTER_DELETE_FLAGS");
+                // DRP ends at tabn (byte18); byte19 is unused, not a lock/row flag.
                 kind=HeapRowPatch.Kind.DELETE;
             }
         }

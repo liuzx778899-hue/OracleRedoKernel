@@ -53,7 +53,7 @@ class DictionaryObjectUndoPairTest {
         inverse[18]=0;
         assertEquals("DICTIONARY_OBJECT_CKIX_PAIR_MISMATCH",assertThrows(RedoException.class,()->DictionaryObjectUndoPair.bind(r,row,role,37)).getMessage());
         row.fields().get(1)[18]=(byte)238;inverse[18]=(byte)238;
-        assertThrows(RedoException.class,()->DictionaryObjectUndoPair.bind(r,row,role,37));
+        assertEquals(6,DictionaryObjectUndoPair.bind(r,row,role,37).physical().forward().extent().changedColumns());
         var nine=records().get(2);nine.vectors().get(1).fields().get(1)[18]=(byte)239;
         assertThrows(RedoException.class,()->DictionaryObjectUndoPair.bind(nine,nine.vectors().get(1),role,37));
     }
@@ -65,5 +65,12 @@ class DictionaryObjectUndoPairTest {
         assertEquals("DICTIONARY_OBJECT_CKIX_PAIR_MISMATCH",assertThrows(RedoException.class,()->DictionaryObjectUndoPair.bind(r,row,role,37)).getMessage());
         var eight=records().get(1);eight.vectors().get(1).fields().get(1)[18]=(byte)144;
         assertThrows(RedoException.class,()->DictionaryObjectUndoPair.bind(eight,eight.vectors().get(1),role,37));
+    }
+    @Test void sixColumnCkixIsAByteReferenceRatherThanAnEnumeratedParentIdentity()throws Exception {
+        for(int ckix:new int[]{0,87,144,238,239,255}) {
+            var r=records().get(0);var row=r.vectors().get(1);
+            row.fields().get(1)[18]=(byte)ckix;r.vectors().get(0).fields().get(3)[18]=(byte)ckix;
+            assertEquals(6,DictionaryObjectUndoPair.bind(r,row,role,37).physical().forward().extent().changedColumns());
+        }
     }
 }
