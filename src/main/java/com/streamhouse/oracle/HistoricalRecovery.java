@@ -17,9 +17,9 @@ public final class HistoricalRecovery {
     }
     public static Prefix prefixCaptured(List<CaptureJournal.Verified> captures,Path baseline,String trustedBaselineSha256,long leaf)throws IOException {
         var snapshot=FrozenHeapBaseline.read(baseline,trustedBaselineSha256);var inputs=RedoBatch.captures(captures);
-        var history=ArchivedDictionaryHistory.read(inputs,snapshot);
+        var history=ArchivedDictionaryHistory.readPrefix(inputs,snapshot);
         var physical=ArchivedPhysicalTransactions.readHistoryPrefix(inputs,snapshot,history,leaf);
-        return new Prefix(encode(snapshot,leaf,history,physical),physical.state().pending().size(),physical.completed().transactions().size());
+        return new Prefix(encode(snapshot,leaf,history,physical),physical.state().pending().size()+history.pending().size(),physical.completed().transactions().size());
     }
     public static CapturedHistoricalHeapBatch readCaptured(List<CaptureJournal.Verified> captures,Path baseline,String trustedBaselineSha256,
                                                           long leaf,byte[] checkpoint,String trustedCheckpointSha256)throws IOException {
@@ -35,7 +35,7 @@ public final class HistoricalRecovery {
             count++;
         }
         if(count==0)throw new RedoException("HISTORICAL_RECOVERY_SOURCE_PREFIX_CHANGED");
-        var prefix=inputs.prefix(count);var history=ArchivedDictionaryHistory.read(prefix,snapshot);
+        var prefix=inputs.prefix(count);var history=ArchivedDictionaryHistory.readPrefix(prefix,snapshot);
         var physical=ArchivedPhysicalTransactions.readHistoryPrefix(prefix,snapshot,history,leaf);
         if(!Arrays.equals(checkpoint,encode(snapshot,leaf,history,physical)))throw new RedoException("HISTORICAL_RECOVERY_STATE_CHANGED");
         byte[] dictionary=history.checkpoint();

@@ -12,21 +12,30 @@ public final class ArchivedDictionaryHistory {
                          int rowPairs,int indexPairs,int controls,List<DictionaryBaseline.Row> rows) {
         public Commit {original=List.copyOf(original);rows=List.copyOf(rows);}
     }
+    public record Pending(HeapRowPatch.Xid xid,long beginScn,int originals,int rowPairs,int indexPairs,int controls,
+                          String identitySha256,String graphSha256) {}
     public static final class Timeline {
         private final FrozenHeapBaseline.Snapshot snapshot;
         private final List<ArchivedRedo.Header> sources;
         private final List<Commit> commits;
+        private final List<Pending> pending;
         private Timeline(FrozenHeapBaseline.Snapshot snapshot,List<ArchivedRedo.Header> sources,List<Commit> commits) {
+            this(snapshot,sources,commits,List.of());
+        }
+        private Timeline(FrozenHeapBaseline.Snapshot snapshot,List<ArchivedRedo.Header> sources,List<Commit> commits,List<Pending> pending) {
             this.snapshot=snapshot;this.sources=List.copyOf(sources);this.commits=List.copyOf(commits);
+            this.pending=List.copyOf(pending);
         }
         public List<ArchivedRedo.Header> sources(){return sources;}
         public List<Commit> commits(){return commits;}
+        public List<Pending> pending(){return pending;}
         public String baselineSha256(){return snapshot.sha256();}
         /** Source-bound dictionary state receipt; the frozen baseline and raw prefix remain required. */
         public byte[] checkpoint()throws RedoException {
             var out=new StringBuilder("ORK_DICTIONARY_TIMELINE_V1\nB|").append(snapshot.sha256()).append('\n');
             for(var source:sources)out.append("S|").append(digest(source.toString())).append('\n');
             for(var commit:commits)out.append("C|").append(digest(commit.toString())).append('\n');
+            for(var active:pending)out.append("P|").append(digest(active.toString())).append('\n');
             return out.toString().getBytes(java.nio.charset.StandardCharsets.UTF_8);
         }
         void requireBoundTo(RedoBatch inputs,FrozenHeapBaseline.Snapshot baseline)throws IOException {
@@ -44,6 +53,7 @@ public final class ArchivedDictionaryHistory {
             throw new RedoException("HISTORICAL_ADDED_COLUMN_METADATA_MISSING");
         }
         public List<FrozenHeapBaseline.PhysicalColumn> schemaAt(long scn)throws RedoException {
+            if(pending.stream().anyMatch(p->p.beginScn()<=scn))throw new RedoException("DICTIONARY_SCHEMA_PENDING_SYS");
             return DictionaryHistoryRows.schema(snapshot,rowsAt(scn));
         }
         private List<DictionaryBaseline.Row> rowsAt(long scn)throws RedoException {
@@ -60,6 +70,7 @@ public final class ArchivedDictionaryHistory {
         final List<RowOperation> rows=new ArrayList<>();
         final List<DictionaryIndexUndoPair> indexes=new ArrayList<>();
         TransactionStart start;
+        long beginScn;
         TransactionLifecycle.ClosedIdentity end;
         int next,controls;
         Context(ArchivedUndoInventory inventory){this.inventory=inventory;graph=new UndoHistory(inventory);}
@@ -69,6 +80,10 @@ public final class ArchivedDictionaryHistory {
     }
     public static Timeline readCaptured(List<CaptureJournal.Verified> captures,Path baseline,String trustedReceipt)throws IOException {
         return read(RedoBatch.captures(captures),FrozenHeapBaseline.read(baseline,trustedReceipt));
+    }
+    /** Waiting receipt only; uncommitted SYS rows never become a schema or event authority. */
+    public static Timeline prefixCaptured(List<CaptureJournal.Verified> captures,Path baseline,String trustedReceipt)throws IOException {
+        return readPrefix(RedoBatch.captures(captures),FrozenHeapBaseline.read(baseline,trustedReceipt));
     }
     /** Reconstructs dictionary values from verified raw bytes, never from a caller-supplied schema. */
     public static Timeline restoreCaptured(List<CaptureJournal.Verified> captures,Path baseline,String trustedReceipt,
@@ -87,16 +102,9 @@ public final class ArchivedDictionaryHistory {
             count++;
         }
         if(count==0)throw new RedoException("DICTIONARY_CHECKPOINT_SOURCE_PREFIX_CHANGED");
-        var restored=read(inputs,snapshot);long boundary=restored.sources.get(count-1).nextScn();
-        var prefix=new ArrayList<Commit>();
-        for(var commit:restored.commits) {
-            if(commit.identity().beginRecordScn()<boundary && commit.identity().endRecordScn()>=boundary)
-                throw new RedoException("DICTIONARY_CHECKPOINT_CROSSES_PENDING_SYS_TRANSACTION");
-            if(commit.identity().endRecordScn()<boundary)prefix.add(commit);
-        }
-        var expected=new Timeline(snapshot,restored.sources.subList(0,count),prefix).checkpoint();
+        var expected=readPrefix(inputs.prefix(count),snapshot).checkpoint();
         if(!Arrays.equals(checkpoint,expected))throw new RedoException("DICTIONARY_CHECKPOINT_STATE_CHANGED");
-        return restored;
+        return read(inputs,snapshot);
     }
     private static String digest(String value)throws RedoException {return digest(value.getBytes(java.nio.charset.StandardCharsets.UTF_8));}
     private static String digest(byte[] value)throws RedoException {
@@ -104,6 +112,12 @@ public final class ArchivedDictionaryHistory {
         catch(java.security.NoSuchAlgorithmException e){throw new RedoException("SHA256_UNAVAILABLE");}
     }
     static Timeline read(RedoBatch inputs,FrozenHeapBaseline.Snapshot snapshot)throws IOException {
+        return read(inputs,snapshot,false);
+    }
+    static Timeline readPrefix(RedoBatch inputs,FrozenHeapBaseline.Snapshot snapshot)throws IOException {
+        return read(inputs,snapshot,true);
+    }
+    private static Timeline read(RedoBatch inputs,FrozenHeapBaseline.Snapshot snapshot,boolean allowPending)throws IOException {
         if(snapshot.dictionaryBaseline()==null)throw new RedoException("MISSING_V3_COMPLETE_DICTIONARY_BASELINE");
         if(inputs.isEmpty())throw new RedoException("NO_DICTIONARY_REDO_INPUT");
         var baseline=snapshot.dictionaryBaseline();var roles=new HashMap<Long,FrozenHeapBaseline.ObjectRole>();
@@ -197,15 +211,24 @@ public final class ArchivedDictionaryHistory {
             });
             if(!header.equals(input.header()))throw new RedoException("DICTIONARY_REPLAY_SOURCE_CHANGED");
         }
-        for(var c:contexts.values()) {c.lifecycle.finish();if(c.end==null)throw new RedoException("INCOMPLETE_DICTIONARY_TRANSACTION_END");}
-        for(long scn:markers)if(contexts.values().stream().noneMatch(c->c.end.beginRecordScn()<=scn && c.end.endRecordScn()>=scn))throw new RedoException("TARGET_SCHEMA_MARKER_WITHOUT_COMPLETE_SYS_HISTORY");
-        var ordered=new ArrayList<>(contexts.values());ordered.sort(Comparator.comparingLong(c->c.end.endRecordScn()));
+        var pending=new ArrayList<Pending>();
+        for(var c:contexts.values()) {
+            if(c.end!=null || !allowPending)c.lifecycle.finish();
+            else {
+                if(c.start==null || c.next!=c.inventory.entries().size() || c.next!=c.rows.size()+c.indexes.size()+c.controls)
+                    throw new RedoException("DICTIONARY_PENDING_ORIGINAL_COVERAGE");
+                pending.add(new Pending(c.inventory.entries().get(0).identity().xid(),c.beginScn,c.next,c.rows.size(),c.indexes.size(),c.controls,
+                        digest(c.lifecycle.checkpoint()),digest(c.graph.checkpoint())));
+            }
+        }
+        for(long scn:markers)if(contexts.values().stream().noneMatch(c->c.beginScn<=scn && (c.end==null?allowPending:c.end.endRecordScn()>=scn)))throw new RedoException("TARGET_SCHEMA_MARKER_WITHOUT_COMPLETE_SYS_HISTORY");
+        var ordered=new ArrayList<>(contexts.values().stream().filter(c->c.end!=null).toList());ordered.sort(Comparator.comparingLong(c->c.end.endRecordScn()));
         var state=new DictionaryHistoryRows(snapshot);var commits=new ArrayList<Commit>();long prior=snapshot.scn();
         for(var c:ordered) {
             if(c.end.endRecordScn()<=prior)throw new RedoException("AMBIGUOUS_DICTIONARY_COMMIT_SCN");
             var rows=state.apply(c.rows,c.indexes);commits.add(new Commit(c.end,c.inventory.entries(),c.rows.size(),c.indexes.size(),c.controls,rows));prior=c.end.endRecordScn();
         }
-        return new Timeline(snapshot,sources,commits);
+        return new Timeline(snapshot,sources,commits,pending);
     }
     private static boolean affectsBaselineScope(ArchivedRedo.Header header,RedoRecords.Record r,RedoRecords.Vector undo,FrozenHeapBaseline.ObjectRole role,FrozenHeapBaseline.Snapshot snapshot,ArchivedDictionaryIndexRestores splitRestores)throws RedoException {
         var fields=undo.fields();
@@ -238,7 +261,7 @@ public final class ArchivedDictionaryHistory {
             if(initial) {
                 var start=TransactionStart.decode(v);if(!start.uba().equals(first.identity().uba()))continue;
                 if(c.start!=null || !start.bindBegin(r).equals(first.identity().xid()))throw new RedoException("DICTIONARY_BEGIN_CONTROL_AMBIGUOUS");
-                c.lifecycle.begin(r,v);c.start=start;
+                c.lifecycle.begin(r,v);c.start=start;c.beginScn=r.scn();
             } else if(c.start!=null && c.end==null && v.dba()==c.start.segmentDba()) {
                 if(v.fields().isEmpty() || v.fields().get(0).length!=32)throw new RedoException("UNREADABLE_ACTIVE_DICTIONARY_CONTROL");
                 byte[] b=v.fields().get(0);if(u16(b,0)!=c.start.slot())continue;c.lifecycle.observeSlotControl(r,v);

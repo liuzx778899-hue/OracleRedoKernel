@@ -100,7 +100,8 @@ public final class ArchivedPhysicalTransactions {
         if (columns<=0) throw new RedoException("INVALID_PHYSICAL_TRANSACTION_SCOPE");
         long heapObject=scope.heap().dataObject(),indexObject=scope.index().dataObject();
         var found=savePending==null?ArchivedObjectTransactions.read(paths,uid,container,scope):ArchivedObjectTransactions.readPending(paths,uid,container,scope);
-        if (found.transactions().isEmpty()) throw new RedoException("NO_PHYSICAL_OBJECT_TRANSACTIONS");
+        if (found.transactions().isEmpty() && !(savePending!=null && history!=null && !history.pending().isEmpty()))
+            throw new RedoException("NO_PHYSICAL_OBJECT_TRANSACTIONS");
         var contexts=new ArrayList<Context>();var owners=new HashMap<HeapRowPatch.Xid,Context>();
         var originals=new HashMap<ArchivedUndoInventory.Position,Context>();
         var routes=new HashMap<ArchivedUndoInventory.Position,ArchivedCompensationAssociations.Entry>();
