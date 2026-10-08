@@ -46,6 +46,32 @@ class HistoricalSchemaBarrierTest {
         var e=assertThrows(RedoException.class,()->HistoricalSchemaBarrier.requireUnchanged(record(2501918,677737149,v),snapshot));
         assertEquals("UNSUPPORTED_HISTORICAL_SCHEMA_MARKER",e.getMessage());
     }
+    RedoRecords.Vector multipleObjectMarker() {
+        var v=marker();v.fields().set(3,HexFormat.of().parseHex("6c0000008832010001000000"));
+        v.fields().set(8,"OTHER".getBytes(StandardCharsets.UTF_8));v.fields().set(9,new byte[0]);
+        v.fields().set(10,HexFormat.of().parseHex("000000000100000000000000020002000100028c"));
+        v.fields().set(11,HexFormat.of().parseHex("8632010088320100"));
+        v.fields().set(12,HexFormat.of().parseHex("01000100"));v.fields().set(13,new byte[4]);return v;
+    }
+    @Test void observedMultipleObjectMarkerChecksEveryAffectedIdentity()throws Exception {
+        var v=multipleObjectMarker();HistoricalSchemaBarrier.requireUnchanged(record(2501918,677737149,v),snapshot);
+        v.fields().set(10,HexFormat.of().parseHex("020000000900000000000000020000000100018c"));
+        v.fields().set(13,new byte[0]);HistoricalSchemaBarrier.requireUnchanged(record(2501918,677737149,v),snapshot);
+        for(int at:new int[]{0,4}) {
+            v=multipleObjectMarker();System.arraycopy(marker().fields().get(11),0,v.fields().get(11),at,4);refuse(v);
+        }
+    }
+    @Test void multipleObjectMarkerRequiresExactObjectAndFlagCounts() {
+        for(int field:new int[]{10,11,12,13}) {
+            var v=multipleObjectMarker();v.fields().set(field,Arrays.copyOf(v.fields().get(field),v.fields().get(field).length-1));
+            assertEquals("UNSUPPORTED_HISTORICAL_SCHEMA_MARKER",assertThrows(RedoException.class,()->
+                    HistoricalSchemaBarrier.requireUnchanged(record(2501918,677737149,v),snapshot)).getMessage());
+        }
+        var v=multipleObjectMarker();v.fields().get(10)[12]=3;
+        assertThrows(RedoException.class,()->HistoricalSchemaBarrier.requireUnchanged(record(2501918,677737149,v),snapshot));
+        v.fields().get(10)[12]=2;v.fields().get(10)[14]=1;v.fields().set(13,new byte[2]);
+        assertThrows(RedoException.class,()->HistoricalSchemaBarrier.requireUnchanged(record(2501918,677737149,v),snapshot));
+    }
     RedoRecords.Vector observedTriggerMarker() {
         var v=marker();
         v.fields().set(0,HexFormat.of().parseHex("e02e00000a000800c10d00003b0002000000010001000000"));

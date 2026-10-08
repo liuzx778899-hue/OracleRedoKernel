@@ -25,9 +25,9 @@ final class HistoricalSchemaBarrier {
             var fields=vector.fields();
             // Independently observed on CREATE/GRANT/ADD/DROP in seq56/57.
             // SQL text in field 7 is deliberately not interpreted or used as authority.
-            long object=u32(fields.get(3),4),affected=affectedObject(vector);
+            long object=u32(fields.get(3),4);
             for(var role:java.util.List.of(snapshot.heap(),snapshot.index()))
-                if(object==role.logicalObject() || affected==role.logicalObject()
+                if(object==role.logicalObject() || affectsObject(vector,role.logicalObject())
                         || (Arrays.equals(fields.get(8),role.owner().getBytes(StandardCharsets.UTF_8))
                         && Arrays.equals(fields.get(9),role.name().getBytes(StandardCharsets.UTF_8))))
                     throw new RedoException("HISTORICAL_SCHEMA_BARRIER:scn="+record.scn()+":object="+role.logicalObject());
@@ -44,7 +44,7 @@ final class HistoricalSchemaBarrier {
         if(vector.opcodeMajor()!=24)throw new RedoException("NOT_SCHEMA_FAMILY_MARKER");
         if(vector.opcodeMinor()==1) {
             if(fields.size()!=46 || fields.get(0).length!=24 || u32(fields.get(0),0)!=0x2ee0 || fields.get(3).length!=12
-                    || (fields.get(11).length!=4 && !observedTriggerMarker(fields)))
+                    || (fields.get(11).length!=4 && !observedTriggerMarker(fields) && !observedMultipleObjects(fields)))
                 throw new RedoException("UNSUPPORTED_HISTORICAL_SCHEMA_MARKER");
         } else if(vector.opcodeMinor()==4) {
             if((record.validity()!=1 && record.validity()!=5) || record.vectors().size()!=1 || vector.blockClass()!=0 || vector.file()!=0 || vector.dba()!=0 || vector.scn()!=0 || vector.sequence()!=0
@@ -68,9 +68,18 @@ final class HistoricalSchemaBarrier {
                 && fields.get(4).length==0 && fields.get(12).length==0 && fields.get(13).length==0
                 && fields.get(8).length>0 && fields.get(9).length>0;
     }
-    /** Call only after requireMarkerProfile; primary object and exact name still bind scope. */
-    static long affectedObject(RedoRecords.Vector vector) {
-        return vector.fields().get(11).length==0?0:u32(vector.fields().get(11),0);
+    /** Seq92 native-matched markers carry two object identities and parallel flag arrays. */
+    private static boolean observedMultipleObjects(java.util.List<byte[]> fields) {
+        if(fields.get(10).length!=20 || fields.get(11).length<=4 || fields.get(11).length%4!=0)return false;
+        int count=fields.get(11).length/4,secondary=u16(fields.get(10),14);
+        return count==2 && u16(fields.get(10),12)==count && (secondary==0 || secondary==count)
+                && fields.get(12).length==count*2 && fields.get(13).length==secondary*2;
+    }
+    /** Call only after requireMarkerProfile; every affected identity participates in scope. */
+    static boolean affectsObject(RedoRecords.Vector vector,long object) {
+        byte[] affected=vector.fields().get(11);
+        for(int at=0;at<affected.length;at+=4)if(u32(affected,at)==object)return true;
+        return false;
     }
     private static void requireDictionaryUnchanged(RedoRecords.Record record,RedoRecords.Vector vector,
                                                     FrozenHeapBaseline.Snapshot snapshot) throws RedoException {
