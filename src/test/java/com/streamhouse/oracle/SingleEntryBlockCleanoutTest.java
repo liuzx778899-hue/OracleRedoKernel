@@ -22,4 +22,14 @@ class SingleEntryBlockCleanoutTest {
         assertThrows(RedoException.class,()->SingleEntryBlockCleanout.require(record(2349205),vector(original,0x0300019b,2348269)));
         assertThrows(RedoException.class,()->SingleEntryBlockCleanout.require(record(2349205),vector(java.util.Arrays.copyOf(original,27),0x0300019b,2348270)));
     }
+    @Test void native93ConcurrentHeapItl1RetainsHeaderAndPriorScnChecks() {
+        assertDoesNotThrow(()->SingleEntryBlockCleanout.require(record(2951358),vector(hex("01010d00be082d000080000001060080efe42c00000000000000"),50359484,2951358)));
+        byte[] bytes=hex("01010d00c3082d000080000001060080c0082d00000000000000");
+        assertDoesNotThrow(()->SingleEntryBlockCleanout.require(record(2951363),vector(bytes,50359484,2951360)));
+        assertThrows(RedoException.class,()->SingleEntryBlockCleanout.require(record(2951363),vector(bytes,50359484,2951359)));
+        for(int itl:new int[]{0,3}) {
+            byte[] changed=bytes.clone();changed[12]=(byte)itl;
+            assertThrows(RedoException.class,()->SingleEntryBlockCleanout.require(record(2951363),vector(changed,50359484,2951360)));
+        }
+    }
 }

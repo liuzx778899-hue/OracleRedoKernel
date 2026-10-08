@@ -88,6 +88,22 @@ class TransactionStartTest {
             assertThrows(RedoException.class,()->TransactionStart.decode(v));
         }
     }
+    @Test void native93FirstRecordsBindExactUndoDespiteHighPadding()throws Exception {
+        String[][] profiles={
+                {"01000000620e0000270340026f0101004a008800000001000000000000000000","880000000a0000000a000100620e00006f010100",
+                 "793201007932010005000000000000000b010100080c010000000000260340026f012c0070e42c000000000075e42c00000000001032010036e52c000000000000000000000000008d000000","37749008"},
+                {"17000000d3020000fb004002190101004a00a400000000000000000000000000","a40000000a00000008001700d302000019010100",
+                 "e6310100e631010005000000000000000b011700080c010000000000fa0040021901370045ed2c0000000000cfed2c000000000000000000be082d0000000000f80040020000000000000000","37748976"}};
+        for(var profile:profiles) {
+            byte[] bytes=hex(profile[0]);long uba=com.streamhouse.oracle.RedoBytes.u32(bytes,8);
+            var s=new RedoRecords.Vector(5,2,35,11,Long.parseLong(profile[3]),2951360,1,3,List.of(bytes,hex("bd726528")));
+            var u=new RedoRecords.Vector(5,1,36,11,uba,2951360,1,3,List.of(hex(profile[1]),hex(profile[2])));
+            var start=TransactionStart.decode(s);assertEquals(UndoHeader.decode(u).xid(),start.bindBegin(record(677737149,s,u)));
+            u.fields().get(0)[0]^=4;
+            assertThrows(RedoException.class,()->start.bindBegin(record(677737149,s,u)));
+            s.fields().get(0)[24]=1;assertThrows(RedoException.class,()->TransactionStart.decode(s));
+        }
+    }
     byte[] hex(String s) { return HexFormat.of().parseHex(s); }
     RedoRecords.Vector start() {
         return new RedoRecords.Vector(5,2,35,11,0x02400110,2149086,1,3,List.of(
