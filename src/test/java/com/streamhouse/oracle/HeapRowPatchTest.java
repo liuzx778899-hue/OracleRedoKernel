@@ -41,6 +41,17 @@ class HeapRowPatchTest {
         assertEquals(HeapRowPatch.State.ABSENT,p.columns().get(2).state());
         assertEquals("中文",OracleScalars.varchar2(p.columns().get(1).bytes(),"AL32UTF8"));
     }
+    @Test void actualSeq89CleanoutUpdateKeepsOnlyCurrentPrefixUba()throws Exception {
+        var v=new RedoRecords.Vector(11,5,1,12,0x03006b4d,2921895,1,3,Arrays.asList(
+                hex("120d000000000000f4004002180103000000000000000000000000000000000000000000000000000000000002010d00a9952c000080000001060080a7952c00000000000000"),
+                hex("4d6b00034a6b0003fa120501020044242c021200000003010300000000"),hex("0200"),hex("6f7665726c61702d62")));
+        var p=new HeapRowPatch().decode(v,3);assertNull(p.xid());
+        assertEquals(new HeapRowPatch.Uba(0x024000f4,280,3),p.uba());
+        assertEquals(HeapRowPatch.Kind.UPDATE,p.kind());assertEquals(0,p.slot());
+        assertEquals("overlap-b",OracleScalars.varchar2(p.columns().get(2).bytes(),"AL32UTF8"));
+        v.fields().get(0)[0]=0x13;
+        assertThrows(RedoException.class,()->new HeapRowPatch().decode(v,3));
+    }
     @Test void deleteDoesNotGuessBeforeImage() throws Exception {
         var p=new HeapRowPatch().decode(vector(3,F,"8300000382000003fa1203010100000000000000"),4);
         assertEquals(HeapRowPatch.Kind.DELETE,p.kind());

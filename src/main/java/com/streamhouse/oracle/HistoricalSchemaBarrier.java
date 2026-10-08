@@ -54,7 +54,9 @@ final class HistoricalSchemaBarrier {
             boolean closed=u16(range,4)==0x8000 && last-first<=1;
             // Seq73/74 standalone native-matched marker. This is not a begin/end or schema authority.
             boolean mixed=u16(range,4)==0 && observedScns.contains(first) && last==record.scn()-1;
-            if((!closed && !mixed) || u16(range,12)!=0x8000 || u16(range,6)!=0 || u16(range,14)!=0 || first>last || last>=record.scn())
+            // Seq89 native-matched marker has an unspecified zero lower endpoint, not a transaction SCN.
+            boolean unspecified=record.validity()==5 && first==0 && u16(range,4)==0 && last==record.scn()-1;
+            if((!closed && !mixed && !unspecified) || u16(range,12)!=0x8000 || u16(range,6)!=0 || u16(range,14)!=0 || first>last || last>=record.scn())
                 throw new RedoException("UNSUPPORTED_MEDIA_RECOVERY_MARKER_RANGE");
         } else throw new RedoException("UNSUPPORTED_HISTORICAL_SCHEMA_MARKER_OPCODE");
     }

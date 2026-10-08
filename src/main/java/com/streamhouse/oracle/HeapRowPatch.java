@@ -57,8 +57,9 @@ public final class HeapRowPatch {
             ubaOffset=16;
         } else if ((ktb[0]&255) == 2) ubaOffset=8;
         else if ((ktb[0]&255)==18 && ktb.length==70 && (ktb[1]&255)==0x0d
-                && vector.opcodeMinor()==3 && fields.get(1).length==20 && (fields.get(1)[11]&255)==1) {
-            // Observed cleanout-C DELETE: current UBA is in the C prefix; cleanout tail remains opaque.
+                && ((vector.opcodeMinor()==3 && fields.get(1).length==20)
+                    || (vector.opcodeMinor()==5 && fields.get(1).length==29)) && (fields.get(1)[11]&255)==1) {
+            // Observed cleanout-C DELETE and seq89 UPDATE: only the C prefix owns the current UBA.
             ubaOffset=8;
         }
         else if ((ktb[0]&255) == 4) {

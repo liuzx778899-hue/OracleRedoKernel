@@ -59,3 +59,8 @@ D2初始水位开发态通过：新一次专属T_D2_INITIAL_20261008事务10.11.
 
 
 D2同key重叠候选：移除按事务存活区间重叠一概拒绝，改为commit顺序重放中同一物理RowKey的raw sequence/block/offset/vector严格递增，完整undo前像/extent/schema匹配仍保留；逆序拒绝ROW_REPLAY_COMMIT_AND_ROW_ORDER_DISAGREE。相关17项通过，冻结86/87直接闭合与恢复均3事件且完整输出保持SHA233746264a2c007959df99906a7422e9eea70e97c6be58a7c2fb52c0ed0bce79。新源/获取/部署0；这只证明相关回归，真实活跃同key新实验尚未执行，相同commitSCN仍拒绝，不能宣称这些支持已完成。入口d2-initial-runtime-20261008/ordering-summary.json；下普通额度先新自有双事务正常实验，禁止重放86/87及原获取。
+
+
+## 真实活跃同key与普通cleanout UPDATE（2026-10-08）
+
+D2真实活跃同key正常路径开发态通过：先行可信acquisition101667102842380288/SCN2921710/snapshot3568126785c78fb7053aa9fe64513e6b113304dd0fc9d3c1bedf4257fef97fb5，独立SYS6行230cells/3index/业务2row及统计usage零差异。专属一次A10.1.3620改row0 TXT未提交，B8.12.719先改row1 NOTE后等row0 TX锁；真实两活跃XID/阻塞会话2664已留证，冻结88/89源/本地SHA核等、最终两行恢复/NO NO。开发classes prefix rc0/2pending/0events，closed和独立JVM restored rc0/5完整UPDATE，B同key前像承接A提交值，恢复输出同字节SHA9e7d4ea6595ffae82f46aa7ccb6529469e9f1d388c8c0b1bb83614ac647e0535；native按先行SCN及完整record核5个实际URP/undo零差异。实际89:3/42的24.4零下界布局和89:111:16的cleanout-C UPDATE已最小补齐，不以媒体标记或cleanout旧ITL认当前XID；完整undo/UBA/前像/schema/原始行顺序守卫保留。相关49项零失败错误跳过。首标记拒绝、KTB拒绝及native核验器误算前基线INSERT/多vector重复失败保留。helper37298已停143，源运行；正式产品仍dc90e006未换装，目标动作0，不当产品/独立验收。禁止重放本批源脚本或新获取回填。入口lab/out/d2-overlap-runtime-20261008/normal-summary.json/native-row-proof.json、d2-overlap-source-20261008/archives.json。下一D2相同commitSCN需可信原始提交位置、跨块等正常能力，合并候选后集中产品目标CPACK；D3连续、D4/D5及最终独立验证部署现场发布保留，低概率加固后置。

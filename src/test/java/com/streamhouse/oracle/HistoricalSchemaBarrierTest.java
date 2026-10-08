@@ -114,6 +114,17 @@ class HistoricalSchemaBarrierTest {
         HistoricalSchemaBarrier.requireMarkerProfile(r,v,2917903,Set.of(2917894L));
         assertThrows(RedoException.class,()->HistoricalSchemaBarrier.requireMarkerProfile(r,v,2917903,Set.of()));
     }
+    @Test void actualSeq89UnspecifiedLowerEndpointStillRequiresExactUpperAndFlags()throws Exception {
+        var v=new RedoRecords.Vector(24,4,0,0,0,0,0,3,List.of(
+                HexFormat.of().parseHex("28230000000000000000000072000c00"),HexFormat.of().parseHex("00000000000000004b952c0000800000")));
+        var r=new RedoRecords.Record(3,16,140,5,2921804,1,677737149,List.of(v));
+        HistoricalSchemaBarrier.requireMarkerProfile(r,v);
+        for(int at:new int[]{0,4,6,8,12,14}) {
+            var raw=v.fields().get(1).clone();raw[at]^=1;
+            var bad=new RedoRecords.Vector(24,4,0,0,0,0,0,3,List.of(v.fields().get(0),raw));
+            assertThrows(RedoException.class,()->HistoricalSchemaBarrier.requireMarkerProfile(r,bad));
+        }
+    }
     @Test void mixedRangeFlagsPaddingAndUpperEndpointCannotBeIgnored() {
         for(int at:new int[]{0,4,6,8,12,14}) {
             var v=mixedMediaMarker();v.fields().get(1)[at]^=1;
