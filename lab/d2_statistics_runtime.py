@@ -8,6 +8,7 @@ S='oraredo-19c-lab-20261004';H='ork-d2-statistics-20261008';U='ORKD2STATCTL_2026
 TABLE='T_D2_STATS_20261008';INDEX='PK_D2_STATS_20261008'
 usage='--usage' in sys.argv
 initial='--initial' in sys.argv
+overlap='--overlap' in sys.argv
 if usage:
     sys.argv.remove('--usage');N=R/'lab/out/d2-usage-runtime-20261008';C=R/'lab/out/d2-usage-candidate-20261008/application.jar'
     H='ork-d2-usage-20261008';U='ORKD2USAGECTL_20261008';PORT=37295;TABLE='T_D2_USAGE_20261008';INDEX='PK_D2_USAGE_20261008'
@@ -16,6 +17,9 @@ if initial:
     H='ork-d2-initial-20261008';U='ORKD2INITCTL_20261008';PORT=37297;TABLE='T_D2_INITIAL_20261008';INDEX='PK_D2_INITIAL_20261008'
 scope='oracle-d2-usage' if usage else 'oracle-d2-statistics'
 if initial:scope='oracle-d2-initial'
+if overlap:
+    sys.argv.remove('--overlap');N=R/'lab/out/d2-overlap-runtime-20261008';C=R/'lab/out/d2-usage-candidate-20261008/application.jar'
+    H='ork-d2-overlap-20261008';U='ORKD2OVERCTL_20261008';PORT=37298;TABLE='T_D2_OVERLAP_20261008';INDEX='PK_D2_OVERLAP_20261008';scope='oracle-d2-overlap'
 action=sys.argv[1];assert action in ['check','provision','start','health','health-r2','acquire','acquire-r2','stop','stop-r2']
 N.mkdir(exist_ok=True);marker=N/('executed-'+action+'.py');assert not marker.exists(),'inspect failed action; never replay'
 shutil.copyfile(__file__,marker)
@@ -62,6 +66,7 @@ elif action=='provision':
     password='P'+secrets.token_hex(12)+'a1';control.write_text(json.dumps(dict(user=U,password=password)));redactions.append(password)
     sql('create-control',f'create user {U} identified by "{password}" default tablespace USERS quota unlimited on USERS;\ngrant create session,create table,create sequence to {U};')
     sql('create-fixture',f"create table ORKLAB.{TABLE}(ID number not null,TXT varchar2(120),NOTE varchar2(80),constraint {INDEX} primary key(ID));\ninsert into ORKLAB.{TABLE} values(0,'statistics-seed','anchor');\ncommit;")
+    if overlap:sql('second-fixture-row',f"insert into ORKLAB.{TABLE} values(1,'statistics-seed','anchor');\ncommit;")
     reader=props['SH_ORACLE_ACQUISITION_USER'];assert reader.replace('_','').isalnum()
     sql('fixture-read-access',f'grant select,flashback on ORKLAB.{TABLE} to {reader};\ngrant select,flashback on SYS.ICOL$ to {reader};')
     sql('fixture-state',f"select 'FIXTURE|'||ID||'|'||TXT||'|'||NOTE from ORKLAB.{TABLE};\nselect 'IDENTITY|'||object_name||'|'||object_id||'|'||data_object_id from dba_objects where owner='ORKLAB' and object_name in ('{TABLE}','{INDEX}') order by object_name;")
@@ -69,7 +74,7 @@ elif action=='start':
     assert (N/'create-fixture.rc').read_text()=='0' and C.exists()
     assert H not in run('helper-recheck',['docker','ps','-a','--format','{{.Names}}']).splitlines()
     for folder in ['snapshots','prefix-state','prefix-input','acks','failures']:(N/folder).mkdir(exist_ok=True)
-    props.update(SPRING_DATASOURCE_USERNAME=U,SPRING_DATASOURCE_PASSWORD=json.loads(control.read_text())['password'],SERVER_PORT=str(PORT),SH_WORKER_ID='53' if initial else '51' if usage else '50',SH_PIPELINE_AUTO_CONSUME_ENABLED='false',SH_ORACLE_RAW_PLAN_ENABLED='false',SH_ORACLE_RAW_PLAN_REGISTRATION_ENABLED='false',SH_ORACLE_ACQUISITION_SOURCE_ID=scope,SH_ORACLE_ACQUISITION_OWNER='ORKLAB',SH_ORACLE_ACQUISITION_TABLE=TABLE,SH_ORACLE_ACQUISITION_INDEX=INDEX,SH_ORACLE_ACQUISITION_DIRECTORY='/evidence/snapshots',SH_ORACLE_PREFIX_INPUT_DIRECTORY='/evidence/prefix-input',SH_ORACLE_PREFIX_CHECKPOINT_DIRECTORY='/evidence/prefix-state',SH_ORACLE_BOUNDED_ACK_DIRECTORY='/evidence/acks',SH_PIPELINE_TARGET_APPLY_FAIL_DIR='/evidence/failures')
+    props.update(SPRING_DATASOURCE_USERNAME=U,SPRING_DATASOURCE_PASSWORD=json.loads(control.read_text())['password'],SERVER_PORT=str(PORT),SH_WORKER_ID='54' if overlap else '53' if initial else '51' if usage else '50',SH_PIPELINE_AUTO_CONSUME_ENABLED='false',SH_ORACLE_RAW_PLAN_ENABLED='false',SH_ORACLE_RAW_PLAN_REGISTRATION_ENABLED='false',SH_ORACLE_ACQUISITION_SOURCE_ID=scope,SH_ORACLE_ACQUISITION_OWNER='ORKLAB',SH_ORACLE_ACQUISITION_TABLE=TABLE,SH_ORACLE_ACQUISITION_INDEX=INDEX,SH_ORACLE_ACQUISITION_DIRECTORY='/evidence/snapshots',SH_ORACLE_PREFIX_INPUT_DIRECTORY='/evidence/prefix-input',SH_ORACLE_PREFIX_CHECKPOINT_DIRECTORY='/evidence/prefix-state',SH_ORACLE_BOUNDED_ACK_DIRECTORY='/evidence/acks',SH_PIPELINE_TARGET_APPLY_FAIL_DIR='/evidence/failures')
     env=N/'runtime.secret.env';assert not env.exists();env.write_bytes(''.join(k+'='+v+'\n' for k,v in props.items()).encode())
     (N/'application-sha.txt').write_text(hashlib.sha256(C.read_bytes()).hexdigest())
     run('start',['docker','run','-d','--name',H,'--label','owner=OracleRedoKernel','--label','scope='+scope,'--user','0','--network','container:'+S,'--workdir','/evidence','--env-file',env,'--mount','type=bind,source='+str(N)+',target=/evidence','--mount','type=bind,source='+str(C.parent)+',target=/candidate,readonly','--entrypoint','java','flink:1.18-java17','-Xmx1536m','-jar','/candidate/application.jar'])
@@ -84,7 +89,7 @@ elif action in ['acquire','acquire-r2']:
     assert result['state']=='ACQUIRED_ONLY';snapshot=N/'snapshots'/(str(result['id'])+'.snapshot')
     assert hashlib.sha256(snapshot.read_bytes()).hexdigest()==result['snapshotSha256']
     text=snapshot.read_text();assert 'DICT_STATS_BEGIN|1' in text and 'DICT_STATS_END|22' in text
-    if usage or initial:assert 'DICT_USAGE_BEGIN|1' in text and 'DICT_USAGE_END|10' in text
+    if usage or initial or overlap:assert 'DICT_USAGE_BEGIN|1' in text and 'DICT_USAGE_END|10' in text
     (N/'baseline-reference.json').write_text(json.dumps(dict(path=str(snapshot),scn=result['snapshotScn'],sha256=result['snapshotSha256'],acquisition_id=str(result['id']),sourceFixture=TABLE,trustedHistoricalHttp=True),indent=2))
 elif action in ['stop','stop-r2']:
     assert run('helper-owner' if action=='stop' else 'helper-owner-r2',['docker','inspect',H,'--format','{{.Config.Labels.owner}}|{{.Config.Labels.scope}}']).strip()=='OracleRedoKernel|'+scope
