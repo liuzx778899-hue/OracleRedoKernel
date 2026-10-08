@@ -56,3 +56,6 @@ Docker恢复后只接续冻结84/85与原先行获取，新源动作/新获取0�
 ## 初始水位与完整活跃事务恢复（2026-10-08）
 
 D2初始水位开发态通过：新一次专属T_D2_INITIAL_20261008事务10.11.3606/startSCN2917894未提交时获取可信acquisition101660919708471296/SCN2917903/snapshot1ab759112bc293bd647877d8aa72fc640faa530bf2eb5227260a9cee5e0e1834，独立固定SCN基线SYS6行230cells/3index/业务1row及统计/usage布局零差异。冻结86/87完整BEGIN/undo/commit，保留首前像核对和schema一致性，将完整跨水位事务纳入重放；实际24.4标记下界取原始已观察SCN，不以基线之后限制。prefix rc0/1pending/0events，closed与独立JVM restored均rc0/3完整UPDATE，seed→initial-open→initial-final→seed顺序及前后像核等，输出同字节SHA233746264a2c007959df99906a7422e9eea70e97c6be58a7c2fb52c0ed0bce79。相关37项零失败错误跳过；首正式jar标记拒绝、后续跨水位拒绝及测试误写1而实际2事务失败全文保留。helper37297已停143，源行恢复/NO NO；禁止重放本批源动作或获取。入口lab/out/d2-initial-runtime-20261008/normal-summary.json及d2-initial-source-20261008/archives.json。此为开发classes正常恢复证据，正式产品仍dc90e006/旧内核，未新打包/部署/目标CPACK，不当D2整体验收。下一补一般事务同commitSCN/同key/跨块正常能力，合并候选后集中产品接线；D3连续、D4/D5及独立验收发布保持完整范围。
+
+
+D2同key重叠候选：移除按事务存活区间重叠一概拒绝，改为commit顺序重放中同一物理RowKey的raw sequence/block/offset/vector严格递增，完整undo前像/extent/schema匹配仍保留；逆序拒绝ROW_REPLAY_COMMIT_AND_ROW_ORDER_DISAGREE。相关17项通过，冻结86/87直接闭合与恢复均3事件且完整输出保持SHA233746264a2c007959df99906a7422e9eea70e97c6be58a7c2fb52c0ed0bce79。新源/获取/部署0；这只证明相关回归，真实活跃同key新实验尚未执行，相同commitSCN仍拒绝，不能宣称这些支持已完成。入口d2-initial-runtime-20261008/ordering-summary.json；下普通额度先新自有双事务正常实验，禁止重放86/87及原获取。

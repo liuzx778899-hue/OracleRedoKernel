@@ -129,14 +129,11 @@ public final class ArchivedHeapRows {
             if (!h.equals(path.header())) throw new RedoException("ROW_REPLAY_SOURCE_CHANGED");
         }
         if (seen.size()!=selected.size()) throw new RedoException("ROW_REPLAY_INCOMPLETE_SELECTED_INPUT");
-        for (int i=0;i<transactions.size();i++) for (int j=i+1;j<transactions.size();j++) {
-            var a=transactions.get(i).identity();var b=transactions.get(j).identity();
-            if (a.rolledBack() || b.rolledBack() || a.endRecordScn()<b.beginRecordScn() || b.endRecordScn()<a.beginRecordScn()) continue;
-            var keys=new java.util.HashSet<RowKey>();
-            for (var p:pending.getOrDefault(a.xid(),List.of())) keys.add(p.key());
-            if (pending.getOrDefault(b.xid(),List.of()).stream().anyMatch(p->keys.contains(p.key())))
-                throw new RedoException("UNSUPPORTED_ROW_REPLAY_OVERLAPPING_ROW_KEY");
-        }
+        var lastRowPosition=new HashMap<RowKey,ArchivedUndoInventory.Position>();
+        var positionOrder=Comparator.comparingLong(ArchivedUndoInventory.Position::archiveSequence)
+                .thenComparingLong(ArchivedUndoInventory.Position::block)
+                .thenComparingInt(ArchivedUndoInventory.Position::offset)
+                .thenComparingInt(ArchivedUndoInventory.Position::vector);
         var replaySchema=schema;
         for (var t:transactions) {
             if(history!=null) {
@@ -144,6 +141,9 @@ public final class ArchivedHeapRows {
                 rows=new HashMap<>(remapRows(rows,replaySchema,next,history,t.identity().endRecordScn()));replaySchema=next;
             }
             for (var p:pending.getOrDefault(t.identity().xid(),List.of())) {
+            var previous=lastRowPosition.put(p.key(),p.position());
+            if(previous!=null && positionOrder.compare(previous,p.position())>=0)
+                throw new RedoException("ROW_REPLAY_COMMIT_AND_ROW_ORDER_DISAGREE");
             var before=rows.get(p.key());var after=apply(p.pair(),before,history==null?baseline.columns():replaySchema.size(),replaySchema);
             if(history!=null && !after.isEmpty())requireCompleteValues(after,replaySchema);
             if (p.pair().forward().kind()==Kind.LOCK) continue;
