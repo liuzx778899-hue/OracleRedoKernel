@@ -11,7 +11,7 @@ if usage:
     sys.argv.remove('--usage');N=R/'lab/out/d2-usage-runtime-20261008';C=R/'lab/out/d2-usage-candidate-20261008/application.jar'
     H='ork-d2-usage-20261008';U='ORKD2USAGECTL_20261008';PORT=37295;TABLE='T_D2_USAGE_20261008';INDEX='PK_D2_USAGE_20261008'
 scope='oracle-d2-usage' if usage else 'oracle-d2-statistics'
-action=sys.argv[1];assert action in ['check','provision','start','health','health-r2','acquire','acquire-r2','stop']
+action=sys.argv[1];assert action in ['check','provision','start','health','health-r2','acquire','acquire-r2','stop','stop-r2']
 N.mkdir(exist_ok=True);marker=N/('executed-'+action+'.py');assert not marker.exists(),'inspect failed action; never replay'
 shutil.copyfile(__file__,marker)
 props=dict(line.split('=',1) for line in (R/'lab/out/d2-index-savepoint-20261008/runtime.secret.env').read_text().splitlines())
@@ -81,7 +81,7 @@ elif action in ['acquire','acquire-r2']:
     text=snapshot.read_text();assert 'DICT_STATS_BEGIN|1' in text and 'DICT_STATS_END|22' in text
     if usage:assert 'DICT_USAGE_BEGIN|1' in text and 'DICT_USAGE_END|10' in text
     (N/'baseline-reference.json').write_text(json.dumps(dict(path=str(snapshot),scn=result['snapshotScn'],sha256=result['snapshotSha256'],acquisition_id=str(result['id']),sourceFixture=TABLE,trustedHistoricalHttp=True),indent=2))
-elif action=='stop':
-    assert run('helper-owner',['docker','inspect',H,'--format','{{.Config.Labels.owner}}|{{.Config.Labels.scope}}']).strip()=='OracleRedoKernel|'+scope
-    run('stop',['docker','stop',H])
+elif action in ['stop','stop-r2']:
+    assert run('helper-owner' if action=='stop' else 'helper-owner-r2',['docker','inspect',H,'--format','{{.Config.Labels.owner}}|{{.Config.Labels.scope}}']).strip()=='OracleRedoKernel|'+scope
+    run(action,['docker','stop',H])
 print(json.dumps(dict(action=action,automaticConsumption=False)))
