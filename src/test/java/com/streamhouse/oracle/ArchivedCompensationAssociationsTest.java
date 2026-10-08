@@ -49,9 +49,45 @@ class ArchivedCompensationAssociationsTest {
         assertEquals(List.of(3L,2L),associations.entries().stream().map(e->e.originalPosition().block()).toList());
         assertThrows(UnsupportedOperationException.class,()->associations.entries().clear());
     }
+    byte[] crossFixture() {
+        var foreign=new HeapRowPatch.Xid(b.usn(),b.slot(),65536+b.sequence());
+        byte[] bytes=java.util.Arrays.copyOf(fixture(),8*512);put(bytes,24,7,4);put(bytes,668,8,4);
+        records.record(bytes,3,120,List.of(start(foreign,0x02400120,0x02402ccc,43),undo(foreign,0x02402ccc,43)));
+        var original=undo(foreign,0x02402ccd,1);byte[] metadata=java.util.Arrays.copyOf(original.fields().get(1),24);
+        put(metadata,12,0x02402ccc,4);put(metadata,19,0,1);put(metadata,20,0,2);put(metadata,22,foreign.sequence()&0xffff,2);
+        original=new RedoRecords.Vector(5,1,36,11,original.dba(),125,1,3,List.of(original.fields().get(0),metadata));
+        records.record(bytes,4,125,List.of(original));
+        var marker=marker(foreign.slot(),0x02400120);put(marker.fields().get(0),12,0x02402ccc,4);
+        put(marker.fields().get(0),20,16,2);put(marker.fields().get(0),22,foreign.sequence()&0xffff,2);
+        records.record(bytes,5,130,List.of(marker,end(foreign,0x02400120)));
+        records.record(bytes,6,140,List.of());records.record(bytes,7,150,List.of(marker(a.slot(),0x02400110),end(a,0x02400110)));
+        for(int i=0;i<bytes.length;i+=512)seal(bytes,i);return bytes;
+    }
+    @Test void crossBlockMarkerUsesOwnedSegmentSlotAndFullSequenceWindow()throws Exception {
+        var associations=read(crossFixture());var entry=associations.entries().get(0);
+        assertEquals(new HeapRowPatch.Xid(b.usn(),b.slot(),65536+b.sequence()),entry.xid());
+        assertEquals(4,entry.originalPosition().block());assertEquals(0x02402ccd,entry.original().uba().dba());
+        for(int at:new int[]{8,12,18,22}) {
+            byte[] raw=crossFixture();int marker=5*512+16+24;
+            if(at==8)put(raw,marker+8,0x02400110,4);
+            else {
+                int field=marker+32+8;raw[field+at]^=1;
+            }
+            seal(raw,5*512);assertThrows(RedoException.class,()->read(raw));
+        }
+    }
     @Test void missingOriginalAndWrongBeginSegmentCannotBeExcluded() {
         byte[] bytes=fixture();var m=marker(b.slot(),0x02400110);records.record(bytes,4,130,List.of(m,end(b,0x02400120)));seal(bytes,2048);
         assertEquals("MISSING_COMPENSATION_HEADER_ASSOCIATION",assertThrows(RedoException.class,()->read(bytes)).getMessage());
+    }
+    @Test void beginAssociationDecodesOnlyItsExactUbaButCannotHideItsInvalidControl()throws Exception {
+        for(boolean selected:new boolean[]{false,true}) {
+            byte[] bytes=fixture();var extra=start(b,0x02400120,selected?0x02402ccc:0x02402cdd,43);
+            extra.fields().get(0)[16]=0;
+            records.record(bytes,3,120,List.of(start(b,0x02400120,0x02402ccc,43),extra,undo(b,0x02402ccc,43)));seal(bytes,3*512);
+            if(selected)assertThrows(RedoException.class,()->read(bytes));
+            else assertEquals(List.of(b,a),read(bytes).entries().stream().map(ArchivedCompensationAssociations.Entry::xid).toList());
+        }
     }
     @Test void incompleteForeignWindowRefuses() {
         byte[] bytes=fixture();records.record(bytes,4,130,List.of(marker(b.slot(),0x02400120)));seal(bytes,2048);

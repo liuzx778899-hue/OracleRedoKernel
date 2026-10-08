@@ -34,7 +34,6 @@ public final class ArchivedCompensationAssociations {
         var window=ArchivedCompensationInventory.read(paths,uid,container,target,allowPending);
         var candidates=new ArrayList<List<Candidate>>();var markers=new ArrayList<Marker>();
         for (var e:window.entries()) {
-            if (e.marker().crossesUndoBlock()) throw new RedoException("UNSUPPORTED_ASSOCIATION_CROSS_BLOCK_MARKER");
             candidates.add(new ArrayList<>());
         }
 
@@ -70,12 +69,16 @@ public final class ArchivedCompensationAssociations {
                         if (h.beginsTransaction()) {
                             int count=0;
                             for (var control:r.vectors()) if (control.containerId()==container && control.opcodeMajor()==5 && control.opcodeMinor()==2) {
+                                if(control.fields().isEmpty() || control.fields().get(0).length<15)
+                                    throw new RedoException("UNREADABLE_ASSOCIATION_BEGIN_CONTROL");
+                                byte[] b=control.fields().get(0);
+                                if(u32(b,8)!=h.uba().dba() || u16(b,12)!=h.uba().sequence() || (b[14]&255)!=h.uba().record())continue;
                                 var start=TransactionStart.decode(control);
                                 if (start.uba().equals(h.uba()) && start.bindBegin(r).equals(h.xid())) {segment=start.segmentDba();count++;}
                             }
                             if (count!=1) throw new RedoException("ASSOCIATION_BEGIN_CONTROL_COUNT");
                             if (segment!=c.dba()) continue;
-                        } else if (h.uba().dba()!=c.dba() || (h.xid().sequence()&0xffff)!=c.wrap()) continue;
+                        } else if ((!c.crossesUndoBlock() && h.uba().dba()!=c.dba()) || (h.xid().sequence()&0xffff)!=c.wrap()) continue;
                         candidates.get(j).add(new Candidate(at,h));
                     }
                 }
@@ -92,6 +95,8 @@ public final class ArchivedCompensationAssociations {
                 var xid=candidate.header().xid();var owner=owners.get(xid);
                 if (owner==null) {owner=ArchivedCompensationInventory.read(paths,uid,container,xid,allowPending);owners.put(xid,owner);}
                 if (!owner.undo().sources().equals(window.undo().sources())) throw new RedoException("ASSOCIATION_OWNER_SOURCE_MISMATCH");
+                if(marker.header().crossesUndoBlock() && (owner.segmentDba()!=marker.header().dba()
+                        || candidate.header().xid().slot()!=marker.header().slot()))continue;
                 if (owner.undo().entries().stream().noneMatch(e->e.position().equals(candidate.position()) && e.identity().equals(candidate.header())))
                     throw new RedoException("ASSOCIATION_ORIGINAL_NOT_OWNED");
                 if (owner.entries().stream().noneMatch(e->e.position().equals(marker.position()) && e.marker().equals(marker.header()))) continue;

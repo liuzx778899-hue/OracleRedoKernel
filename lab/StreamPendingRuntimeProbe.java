@@ -11,7 +11,10 @@ public class StreamPendingRuntimeProbe {
         var captures=new ArrayList<CaptureJournal.Verified>();
         for(int i=4;i<args.length;i+=2)captures.add(new CaptureJournal().readRawClosed(Path.of(args[i]),args[i+1]));
         var result=HistoricalRecovery.committedPrefixCaptured(captures,Path.of(args[0]),args[1],50359491);
-        var full=result.completed();var boundary=full.publicationBoundary(published);
+        var full=result.completed();
+        var previous=HistoricalRecovery.committedPrefixCaptured(captures.subList(0,captures.size()-1),Path.of(args[0]),args[1],50359491).completed();
+        if(previous.events().size()!=published)throw new AssertionError("previous committed prefix size differs");
+        var boundary=previous.publicationBoundary(published);
         var projection=OracleBatchProjection.project(full.afterPublished(boundary));
         var events=projection.entries().stream().map(OracleBatchProjection.Entry::envelope).toList();
         String note=pending==1?"closed-B":"pending-A";

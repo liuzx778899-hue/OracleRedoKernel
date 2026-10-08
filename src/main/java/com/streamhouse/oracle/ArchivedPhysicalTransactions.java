@@ -229,7 +229,15 @@ public final class ArchivedPhysicalTransactions {
                         if (!route.equals(c.discovered.associations().associate(header,r,v,at))) throw new RedoException("PHYSICAL_ASSOCIATION_CHANGED");
                         c.markers.add(at);
                     }
-                    var c=owners.get(route.xid());if (c==null) throw new RedoException("PHYSICAL_UNDISCOVERED_MARKER_OWNER");
+                    var c=owners.get(route.xid());
+                    if (c==null) {
+                        var h=route.original();var roles=scope.generations();
+                        if(roles.containsKey(h.objectId()) || roles.containsValue(h.objectId())
+                                || roles.containsKey(h.dataObjectId()) || roles.containsValue(h.dataObjectId()))
+                            throw new RedoException("PHYSICAL_UNDISCOVERED_MARKER_OWNER");
+                        // Association consumed the source-owned foreign window; target block operations still require pairing below.
+                        continue;
+                    }
                     var marker=UndoCompensation.decode(v);UndoHeader matched=null;int rowIndex=-1;
                     for (int j=0;j<r.vectors().size();j++) {
                         var row=r.vectors().get(j);if (row.containerId()!=container) continue;
@@ -239,7 +247,9 @@ public final class ArchivedPhysicalTransactions {
                         } else if (marker.dataObjectId()==heapObject && heap(row) && new HeapRowPatch().decode(row,columnsAt(history,snapshot,r.scn(),columns,new ArchivedUndoInventory.Position(header.sequence(),r.block(),r.offset(),i+1))).xtype()==2) {
                             if (matched!=null) throw new RedoException("PHYSICAL_COMPENSATION_ROW_AMBIGUOUS");
                             int rowColumns=columnsAt(history,snapshot,r.scn(),columns,new ArchivedUndoInventory.Position(header.sequence(),r.block(),r.offset(),i+1));
-                            var pair=marker.beginsTransaction() ? HeapCompensation.matchBegin(r,v,row,c.heaps,rowColumns,state) : HeapCompensation.match(r,v,row,c.heaps,rowColumns);
+                            var pair=marker.beginsTransaction() ? HeapCompensation.matchBegin(r,v,row,c.heaps,rowColumns,state)
+                                    :marker.crossesUndoBlock()?HeapCompensation.matchCross(r,v,row,c.heaps,rowColumns,state)
+                                    :HeapCompensation.match(r,v,row,c.heaps,rowColumns);
                             state.requireActive(r,pair);matched=pair.undo().identity();
                         } else continue;
                         rowIndex=j;

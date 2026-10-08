@@ -93,6 +93,20 @@ class ArchivedPhysicalTransactionsTest {
         var raw=withForeignBegin(foreignBegin(4));
         assertEquals(List.of(a,b),read(raw,leaf,677737149).transactions().stream().map(t->t.identity().xid()).toList());
     }
+    byte[] foreignCompensation(boolean targetOperation) {
+        var raw=withForeignBegin(foreignBegin(4));var foreign=new HeapRowPatch.Xid(10,4,1106);
+        var marker=f.marker(4,0x02400110);put(marker.fields().get(0),0,720,4);put(marker.fields().get(0),4,720,4);
+        put(marker.fields().get(0),16,10,1);put(marker.fields().get(0),17,22,1);
+        var vectors=new ArrayList<>(List.of(marker,end(foreign,0x02402cc0L,0x02400110L),end(b,0x02402cbfL,0x02400120L)));
+        if(targetOperation)vectors.add(new RedoRecords.Vector(10,31,1,12,leaf,130,1,3,List.of()));
+        f.records.record(raw,5,130,vectors);seal(raw,5*512);return raw;
+    }
+    @Test void sourceOwnedForeignCompensationCannotCancelTargetOrHideTargetBlockOperations()throws Exception {
+        var transactions=read(foreignCompensation(false),leaf,677737149).transactions();
+        assertEquals(List.of(a,b),transactions.stream().map(t->t.identity().xid()).toList());
+        assertTrue(transactions.stream().allMatch(t->t.graph().original().size()==1 && t.graph().live().size()==1));
+        assertThrows(RedoException.class,()->read(foreignCompensation(true),leaf,677737149));
+    }
     @Test void foreignBeginCannotReassignActiveSlotOrLoseItsExactUndo() {
         for (boolean collision:List.of(true,false)) {
             var foreign=foreignBegin(collision?12:4);var raw=withForeignBegin(collision?foreign:List.of(foreign.get(0)));

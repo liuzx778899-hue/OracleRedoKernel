@@ -13,12 +13,14 @@ public final class ArchivedCompensationInventory {
     private final List<Entry> entries;
     private final ArchivedUndoInventory.Position firstRecord,lastRecord;
     private final boolean complete;
+    private final long segmentDba;
 
     private ArchivedCompensationInventory(ArchivedUndoInventory undo,List<Entry> entries,
-                                         ArchivedUndoInventory.Position firstRecord,ArchivedUndoInventory.Position lastRecord,boolean complete) {
+                                         ArchivedUndoInventory.Position firstRecord,ArchivedUndoInventory.Position lastRecord,boolean complete,long segmentDba) {
         this.undo=undo;this.entries=List.copyOf(entries);
         this.firstRecord=firstRecord;this.lastRecord=lastRecord;
         this.complete=complete;
+        this.segmentDba=segmentDba;
     }
 
     /** Includes every 5.6/5.11 in the target's verified record window, including unrelated objects. */
@@ -32,6 +34,7 @@ public final class ArchivedCompensationInventory {
         var undo=ArchivedUndoInventory.read(archives,uid,container,xid);
         var state=new TransactionLifecycle();var entries=new ArrayList<Entry>();
         int[] next={0},begins={0},ends={0};boolean[] active={false};
+        long[] segment={0};
         ArchivedUndoInventory.Position[] window=new ArchivedUndoInventory.Position[2];
         for (int source=0;source<archives.size();source++) {
             var path=archives.get(source);var header=path.header();
@@ -59,7 +62,7 @@ public final class ArchivedCompensationInventory {
                                 || control.fields().isEmpty() || control.fields().get(0).length<15) continue;
                         byte[] b=control.fields().get(0);
                         if (u32(b,8)!=h.uba().dba() || u16(b,12)!=h.uba().sequence() || (b[14]&255)!=h.uba().record()) continue;
-                        state.begin(record,control);matches++;
+                        state.begin(record,control);segment[0]=control.dba();matches++;
                     }
                     if (matches!=1) throw new RedoException("COMPENSATION_INVENTORY_BEGIN_CONTROL_COUNT");
                     begins[0]++;active[0]=true;
@@ -92,12 +95,13 @@ public final class ArchivedCompensationInventory {
         } else state.finish();
         if (begins[0]!=1 || (!pending && ends[0]!=1) || next[0]!=undo.entries().size())
             throw new RedoException("COMPENSATION_INVENTORY_TRANSACTION_WINDOW_INCOMPLETE");
-        return new ArchivedCompensationInventory(undo,entries,window[0],window[1],!pending);
+        return new ArchivedCompensationInventory(undo,entries,window[0],window[1],!pending,segment[0]);
     }
 
     public ArchivedUndoInventory undo() { return undo; }
     public List<Entry> entries() { return entries; }
     public boolean complete() {return complete;}
+    public long segmentDba() {return segmentDba;}
     /** Inclusive verified record window; vector zero denotes the record, not a change vector. */
     public ArchivedUndoInventory.Position firstRecord() { return firstRecord; }
     public ArchivedUndoInventory.Position lastRecord() { return lastRecord; }
