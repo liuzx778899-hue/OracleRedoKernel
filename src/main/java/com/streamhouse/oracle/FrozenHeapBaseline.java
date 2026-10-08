@@ -142,6 +142,7 @@ public final class FrozenHeapBaseline {
             for(var dict:dictionaryRoles) input.exact("DICT_ROLE|AFTER|SYS|"+dict.name()+"|"+dict.logicalObject()+"|"+dict.dataObject());
             if(history)for(var dict:dictionaryBaseline.indexes())input.exact("DICT_INDEX|AFTER|"+dict.role().name()+"|"+dict.role().logicalObject()+"|"+dict.role().dataObject()+"|"+dict.indexDba());
             if(history && dictionaryBaseline.statistics()!=null)dictionaryBaseline.statistics().requireAfter(input);
+            if(history && dictionaryBaseline.usage()!=null)dictionaryBaseline.usage().requireAfter(input);
             input.exact("SOURCE_AFTER|"+String.join("|",java.util.Arrays.copyOfRange(sourceFields,1,sourceFields.length)));
             input.exact("END|"+format);if (input.at!=input.lines.size()) throw new RedoException("SNAPSHOT_UNEXPECTED_TRAILING_OUTPUT");
             return new Snapshot(digest,source,scn,heap,index,List.copyOf(columns),Map.copyOf(rows),anchors,dictionaryBaseline);

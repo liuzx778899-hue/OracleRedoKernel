@@ -75,8 +75,10 @@ public final class ArchivedDictionaryHistory {
         final List<DictionaryIndexUndoPair> indexes=new ArrayList<>();
         final List<DictionaryStatisticsChanges.Row> statisticsRows=new ArrayList<>();
         final List<DictionaryIndexUndoPair> statisticsIndexes=new ArrayList<>();
-        int rowCount(){return rows.size()+statisticsRows.size();}
-        int indexCount(){return indexes.size()+statisticsIndexes.size();}
+        final List<DictionaryUsageChanges.Row> usageRows=new ArrayList<>();
+        final List<DictionaryIndexUndoPair> usageIndexes=new ArrayList<>();
+        int rowCount(){return rows.size()+statisticsRows.size()+usageRows.size();}
+        int indexCount(){return indexes.size()+statisticsIndexes.size()+usageIndexes.size();}
         TransactionStart start;
         long beginScn;
         TransactionLifecycle.ClosedIdentity end;
@@ -179,6 +181,10 @@ public final class ArchivedDictionaryHistory {
             var statistics=baseline.statistics();roles.put(statistics.table().role().logicalObject(),statistics.table().role());
             for(var index:statistics.indexes())roles.put(index.role().logicalObject(),index.role());
         }
+        if(baseline.usage()!=null) {
+            var usage=baseline.usage();roles.put(usage.table().role().logicalObject(),usage.table().role());
+            roles.put(usage.index().role().logicalObject(),usage.index().role());
+        }
         if(snapshot.scn()<sources.get(0).firstScn() || snapshot.scn()>=sources.get(sources.size()-1).nextScn())throw new RedoException("DICTIONARY_BASELINE_SCN_OUTSIDE_INPUT_COVERAGE");
         var contexts=new LinkedHashMap<HeapRowPatch.Xid,Context>();var originals=new HashMap<ArchivedUndoInventory.Position,Context>();
         for(var xid:identities) {
@@ -221,6 +227,14 @@ public final class ArchivedDictionaryHistory {
                             var p=DictionaryIndexUndoPair.bind(r,row,role,scope.indexDba(),"AL32UTF8");
                             if(!p.physical().undo().identity().equals(h))throw new RedoException("STATISTICS_INDEX_FULL_IDENTITY_CONFLICT");
                             c.lifecycle.requireActive(r,p.physical());c.statisticsIndexes.add(p);count++;
+                        } else if(role.name().equals("COL_USAGE$") && row.opcodeMajor()==11) {
+                            var p=DictionaryUsageChanges.bind(r,row,baseline.usage());
+                            if(!p.physical().undo().identity().equals(h))throw new RedoException("USAGE_ROW_FULL_IDENTITY_CONFLICT");
+                            c.lifecycle.requireActive(r,p.physical());c.usageRows.add(p);count++;
+                        } else if(role.name().equals("I_COL_USAGE$") && row.opcodeMajor()==10) {
+                            var p=DictionaryIndexUndoPair.bind(r,row,role,baseline.usage().index().indexDba(),"AL32UTF8");
+                            if(!p.physical().undo().identity().equals(h))throw new RedoException("USAGE_INDEX_FULL_IDENTITY_CONFLICT");
+                            c.lifecycle.requireActive(r,p.physical());c.usageIndexes.add(p);count++;
                         } else if(role.name().startsWith("I_COL") && row.opcodeMajor()==10 && (row.opcodeMinor()==2 || row.opcodeMinor()==4 || row.opcodeMinor()==5)) {
                             var scope=baseline.indexes().stream().filter(x->x.role().equals(role)).findFirst().orElseThrow();
                             var p=row.opcodeMinor()==5?splitRestores.restores.get(new ArchivedUndoInventory.Position(header.sequence(),r.block(),r.offset(),r.vectors().indexOf(row)+1)):DictionaryIndexUndoPair.bind(r,row,role,scope.indexDba(),"AL32UTF8");
@@ -257,6 +271,8 @@ public final class ArchivedDictionaryHistory {
         var state=new DictionaryHistoryRows(snapshot);var commits=new ArrayList<Commit>();long prior=snapshot.scn();
         for(var c:ordered) {
             if(c.end.endRecordScn()<=prior)throw new RedoException("AMBIGUOUS_DICTIONARY_COMMIT_SCN");
+            if(!c.usageRows.isEmpty() || !c.usageIndexes.isEmpty())
+                DictionaryUsageChanges.requireComplete(c.usageRows,c.usageIndexes,baseline.usage(),snapshot.heap().logicalObject(),state.current(),baseline);
             var rows=state.apply(c.rows,c.indexes);
             if(!c.statisticsRows.isEmpty() || !c.statisticsIndexes.isEmpty())
                 DictionaryStatisticsChanges.requireComplete(c.statisticsRows,c.statisticsIndexes,baseline.statistics(),snapshot.heap().logicalObject(),rows,baseline);

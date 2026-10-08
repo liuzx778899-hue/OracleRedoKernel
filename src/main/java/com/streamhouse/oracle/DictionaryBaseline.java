@@ -3,8 +3,9 @@ package com.streamhouse.oracle;
 import java.util.*;
 
 /** Same-SCN complete SYS row acquisition. Its existence alone never authorizes historical event publication. */
-public record DictionaryBaseline(Map<String,Layout> layouts,List<Index> indexes,List<Row> rows,DictionaryStatisticsBaseline statistics) {
-    public DictionaryBaseline(Map<String,Layout> layouts,List<Index> indexes,List<Row> rows){this(layouts,indexes,rows,null);}
+public record DictionaryBaseline(Map<String,Layout> layouts,List<Index> indexes,List<Row> rows,DictionaryStatisticsBaseline statistics,DictionaryUsageBaseline usage) {
+    public DictionaryBaseline(Map<String,Layout> layouts,List<Index> indexes,List<Row> rows){this(layouts,indexes,rows,null,null);}
+    public DictionaryBaseline(Map<String,Layout> layouts,List<Index> indexes,List<Row> rows,DictionaryStatisticsBaseline statistics){this(layouts,indexes,rows,statistics,null);}
     public record Column(int segment,int internal,String name,int type,boolean required) {}
     public record Layout(FrozenHeapBaseline.ObjectRole role,int tableNumber,List<Column> columns) {
         public Layout {columns=List.copyOf(columns);}
@@ -104,9 +105,10 @@ public record DictionaryBaseline(Map<String,Layout> layouts,List<Index> indexes,
             rows.add(new Row(name,target,key,values));
         }
         var statistics=input.peek("DICT_STATS_BEGIN")?DictionaryStatisticsBaseline.read(input,layouts,indexes):null;
+        var usage=input.peek("DICT_USAGE_BEGIN")?DictionaryUsageBaseline.read(input,layouts,indexes,statistics):null;
         input.exact("DICT_HISTORY_END|"+rows.size());
         if(seen.size()!=anchors.size() || input.at!=input.lines.size())throw new RedoException("DICTIONARY_FULL_ROW_COVERAGE_MISMATCH");
-        return new DictionaryBaseline(layouts,indexes,rows,statistics);
+        return new DictionaryBaseline(layouts,indexes,rows,statistics,usage);
     }
     private static long positive(String s) throws RedoException {
         long n=Long.parseLong(s);if(n<=0 || n>0xffffffffL)throw new RedoException("DICTIONARY_SCOPE_NUMBER");return n;

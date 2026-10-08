@@ -31,3 +31,9 @@
 开发修复：148字节0x44a BEGIN绑定同记录声明长度；历史fbi/padding、cluster索引SDC及IRP填充不作身份/key/指针授权；COMMIT fbi/padding不作扩展语义；24.4支持VLD1且仍核已观察下界和闭合上界。相关5类47项零失败/错误/跳过。开发classes真实82前缀rc0，pending SYS10.24.3554/5original/2row/2index/1control、schema拒绝/completed0/events0。CP SHA及必要制品/输入SHA见lab/out/d2-statistics-runtime-20261008/integration-summary.json；控制修复尚未换装产品，不冒充正式jar恢复通过。首索引段误用50357378保留；冻结同记录配对确认实际leaf50357379，未按猜测加1。
 
 闭合仍rc1/stdout0：83:38:16未知669/669。全部两个SYS事务原始清单：ADD10original、DROP8original；新增缺件仅COL_USAGE$669/I_COL_USAGE$670。诊断布局10列NUMBER/DATE、索引OBJ#/INTCOL#，不是历史元数据授权。本批ADD没有HIST_HEAD$操作，不替代旧真实统计INSERT完整运行验证。下一先补这两个依赖的完整处置及先行获取，再新独立窗口集中一次闭合/恢复/产品CPACK；不逐表反复源实验、不忽略统计或回填本基线。全部失败与原始输入保留，自有helper已停143，源Oracle运行。D2其余/D3连续/D4-D5及独立验收发布保留，不扩故障矩阵。
+
+## COL_USAGE$正常主线补齐（2026-10-08）
+
+基于冻结83:38/39实际DELETE/索引DELETE补COL_USAGE$十列、I_COL_USAGE$分离rowid绑定；完整undo前像、XID/UBA/代际/父OBJ#/INTCOL#及删除前COL$历史关联进入原SYS全original覆盖，不以统计表名跳过。可选先行DICT_USAGE布局/身份/索引段地址与前后核等接V3，获取沿用固定SCN OBJ$/COL$/TAB$/IND$/ICOL$与当前布局核等。旧V3不带此契约仍可读，但不得事后回填82/83。
+
+相关内核5类21项及获取/HTTP类8项零失败/错误/跳过。实际十列undo IRP为50字节KDO（两字节null bitmap）已支持；首长度拒绝与新角色碰撞校验误碰已有cluster共享dataobj失败全文保留在usage-targeted-tests*.log，修后通过。当前只是开发候选，正常新先行获取/完整闭合/恢复/产品CPACK继续待证。只做本次必要正常接线，不扩故障矩阵。

@@ -23,7 +23,7 @@ public record DictionaryIndexKey(long objectId,String columnName,Integer columnN
             throw new RedoException("UNSUPPORTED_DICTIONARY_INDEX_ROWID_STORAGE");
     }
     public static DictionaryIndexKey decode(String indexName,byte[] key,byte[] data,String charset) throws RedoException {
-        if(!List.of("I_COL1","I_COL2","I_COL3","I_HH_OBJ#_COL#","I_HH_OBJ#_INTCOL#").contains(indexName))throw new RedoException("UNSUPPORTED_DICTIONARY_INDEX_ROLE");
+        if(!List.of("I_COL1","I_COL2","I_COL3","I_HH_OBJ#_COL#","I_HH_OBJ#_INTCOL#","I_COL_USAGE$").contains(indexName))throw new RedoException("UNSUPPORTED_DICTIONARY_INDEX_ROLE");
         validatePhysical(key,data);var parts=components(key);boolean inline=indexName.equals("I_COL2") || indexName.startsWith("I_HH_");
         if(parts.size()!=(inline?3:2) || !inline && (data==null || data.length!=6))
             throw new RedoException("DICTIONARY_INDEX_ROLE_ROWID_LAYOUT_MISMATCH");

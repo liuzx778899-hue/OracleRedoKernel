@@ -56,6 +56,7 @@ final class DictionaryHistoryRows {
         if(!indexes.equals(expectedIndexes()))throw new RedoException("DICTIONARY_COMPLETE_INDEX_ROW_STATE_MISMATCH");
         return List.copyOf(rows.values());
     }
+    List<DictionaryBaseline.Row> current(){return List.copyOf(rows.values());}
     private List<ArchivedHeapRows.Cell> completeInsert(DictionaryBaseline.Layout layout,Patch patch,long parent)throws RedoException {
         if(!layout.role().name().equals("COL$") || layout.tableNumber()!=5 || layout.columns().size()!=37 || patch.kind()!=Kind.INSERT
                 || patch.extent()==null || patch.extent().storedColumns()!=32 || patch.columns().size()!=36)
