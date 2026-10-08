@@ -28,18 +28,21 @@ public class RawStreamProposalProbe {
         var plan=new OracleRawPlanService.Plan("s","stream",7,90,50359491,List.of(10L));
         var candidate=new OracleRawPlanService.Plan("s","stream",7,90,50359491,List.of(10L,11L));
         var input=new OracleRawPlanService(plan,output,sessions,acquisition,json);
+        var pending=input.inspect(plan,null,null);
+        if(!"WAITING_INPUT".equals(pending.state()) || pending.proposal()!=null || pending.prefix().pendingTransactions()!=1)
+            throw new AssertionError("pending-only raw prefix must wait without publishing");
         var full=CapturedHistoricalHeapBatch.read(captures,Path.of(args[0]),args[1],50359491);
         var boundary=full.publicationBoundary(20);var previous=mock(CapturedHistoricalHeapBatch.class);
         when(previous.captures()).thenReturn(full.captures());when(previous.events()).thenReturn(full.events().subList(0,20));when(previous.publicationBoundary(20)).thenReturn(boundary);
         var publication=new OracleInputBinding.Publication(30,20,20,boundary.sha256());
         var receipt=input.inspect(candidate,previous,publication);var expected=OracleBatchProjection.project(full.afterPublished(boundary));
-        if(receipt.proposal()==null || !receipt.proposal().evidence().equals(expected.evidence()) || !receipt.proposal().publication().equals(publication)
+        if(receipt.proposal()==null || receipt.proposal().committedPrefix() || !receipt.proposal().evidence().equals(expected.evidence()) || !receipt.proposal().publication().equals(publication)
                 || !receipt.proposal().envelopesSha256().equals(OracleInputBindingService.envelopesSha256(json,OracleApprovedInput.events(expected))))
             throw new AssertionError("raw stream incremental proposal differs");
         when(previous.publicationBoundary(20)).thenReturn(new CapturedHistoricalHeapBatch.PublicationBoundary(20,"a".repeat(64)));
         try {input.inspect(candidate,previous,publication);throw new AssertionError("poisoned boundary accepted");}catch(IllegalStateException expectedFailure){}
         var proof=Map.of("fullEvents",full.events().size(),"remainingEvents",expected.entries().size(),"exactTypedProposal",true,
-                "poisonedPrefixRefused",true,"databaseVerified",false,"sourceActions",0,"targetActions",0);
+                "poisonedPrefixRefused",true,"pendingOnlyWaits",true,"databaseVerified",false,"sourceActions",0,"targetActions",0);
         Files.writeString(output.resolve("summary.json"),json.writerWithDefaultPrettyPrinter().writeValueAsString(proof));System.out.println(json.writeValueAsString(proof));
     }
 }
