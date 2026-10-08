@@ -1,5 +1,7 @@
 # D2 SYS正常主线与验证优先级调整
 
+2026-10-09追加：新92仅一次两UPDATE，发现并修复真实双对象24.1 marker缺口。root a3bce21按原始fields/native RBA和SCN匹配，所有身份参与范围、精确对象/flags数组，相关28项通过；kernel b4c83473c2a3b04ff130f2558a05320362ba2819fa9e948c25e72e87a1a84a0d。正式P917afb5自动增量target42/42/2、ledger42/gate2、原40保持，新增两完整像及CPACK9ab3ff6c69d3bb639a0e27ead4fa1d892e722ea32d07908af8787f51e97e8d1e全文核等。本批失败全保留，无源重放/新获取，helper保存日志停止删除、专属库已停；入口lab/out/d3-stream-runtime-20261009/incremental-proof-r13-summary.json和产品STATUS。同实例不当独立目标/完整D3验收，完整D1–D5继续。
+
 用户2026-10-08明确：完整D1–D5能力目标保留，先功能齐，再集中加固。oracle-redo提示词、根AGENTS及产品STATUS已同步；局部解析修复仅针对性回归与冻结真实样本，低概率故障组合后移，已有通过项不重跑，不再为每个部件双SHA封存和独立长报告。
 
 本批实现输入自有的五节点cluster维护闭合：完整BEGIN/COMMIT、undo链、索引keydata、cluster key插入与双向链一致，保留基线TAB$/COL$值行；形成原始节点收据进入字典checkpoint，只有完整闭合才从逻辑值更新中分离。仅读原80/81及SCN2899589基线，不按非值行slot直接忽略维护。

@@ -1,5 +1,6 @@
 """Normal incremental product check; every action has a new label, source actions execute once."""
 from pathlib import Path
+from decimal import Decimal
 import base64,hashlib,json,os,shutil,subprocess,sys
 
 R=Path('D:/work/vibecode/OracleRedoKernel')
@@ -150,10 +151,10 @@ end loop;end loop;end;
     select=lambda kind:[line[1:] for line in lines if line[0]==kind]
     assert select('COUNTS')==[['42','42','2','42','2']] and select('WINDOW')==[['CONSUMED','3','3']] and select('SOURCE')==[['20']]
     def image(values):
-        return ';'.join(k+'='+('NULL' if v is None else 'NUMBER:'+str(v) if isinstance(v,(int,float)) else 'VARCHAR2:'+base64.urlsafe_b64encode(v.encode()).decode().rstrip('=')) for k,v in values.items())
+        return ';'.join(k+'='+('NULL' if v is None else 'NUMBER:'+format(v.normalize(),'f') if isinstance(v,Decimal) else 'NUMBER:'+str(v) if isinstance(v,(int,float)) else 'VARCHAR2:'+base64.urlsafe_b64encode(v.encode()).decode().rstrip('=')) for k,v in values.items())
     expected=[[str(i),event['eventId'],meta['payloadSha256'],image(event['before']),image(event['after']),event['operation']] for i,(event,meta) in enumerate(zip(projection['events'],evidence['events']))]
     assert select('EVENT')==expected
-    old=json.loads((OLD/'actual-projection.json').read_text())
+    old=json.loads((OLD/'actual-projection.json').read_text(),parse_float=Decimal)
     assert select('OLD_EVENT')==[[str(i),event['eventId'],meta['payloadSha256'],image(event['before']),image(event['after']),event['operation']] for i,(event,meta) in enumerate(zip(old['envelopes'],old['evidence']['events']))]
     assert select('COMMIT')==[[batch,'oracle-d2-blocks-SHPBL1-20261008',evidence['schemaSequenceSha256'],'2']]
     checkpoints={}
