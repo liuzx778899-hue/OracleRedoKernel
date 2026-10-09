@@ -74,6 +74,22 @@ class CaptureJournalTest {
                 ()->new CaptureJournal().readRawClosed(file,sha(truncated))).getMessage());
     }
 
+    @Test void onlyVerifiedOpenHeaderWaitsAndNeverAuthorizesRecords() throws Exception {
+        byte[][] active=blocks(3);put32(active[1],156,-1);put32(active[1],192,-1);put16(active[1],196,0x7fff);checksum(active[1]);
+        Path file=rawMember("open",active);String hash=sha(Files.readAllBytes(file));
+        var observed=new CaptureJournal().readRawObserved(file,hash);
+        assertNull(observed.closed());assertEquals(41,observed.source().sequence());assertEquals(0,observed.source().blocks());
+        Path open=file;assertThrows(RedoException.class,()->new CaptureJournal().readRawClosed(open,hash));
+        active[1][40]^=1;file=rawMember("corrupt-open",active);Path corrupt=file;
+        assertEquals("CAPTURE_BLOCK_CHECKSUM_MISMATCH",assertThrows(RedoException.class,
+                ()->new CaptureJournal().readRawObserved(corrupt,sha(Files.readAllBytes(corrupt)))).getMessage());
+        active=blocks(3);put32(active[1],156,-1);checksum(active[1]);file=rawMember("false-open",active);Path falseOpen=file;
+        assertEquals("CAPTURE_CLOSED_RANGE_MISMATCH",assertThrows(RedoException.class,
+                ()->new CaptureJournal().readRawObserved(falseOpen,sha(Files.readAllBytes(falseOpen)))).getMessage());
+        Path closed=rawMember("closed-observation",blocks(3));
+        assertNotNull(new CaptureJournal().readRawObserved(closed,sha(Files.readAllBytes(closed))).closed());
+    }
+
     @Test void retainsOnlineCapacityAndRawClosedHeader() throws Exception {
         var capture=read(write("closed",blocks(3),-1));
         assertEquals(409600,capture.source().capacityBlocks());assertEquals(3,capture.source().blocks());

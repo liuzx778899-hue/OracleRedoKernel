@@ -75,6 +75,14 @@ public final class CaptureJournal {
 
     /** Whole immutable member digest is transport evidence, not approval of its source or sequence. */
     public Verified readRawClosed(Path path,String expectedSha256) throws IOException {
+        var observation=readRawObserved(path,expectedSha256);
+        if (observation.closed()==null) throw new RedoException("CAPTURE_CLOSED_RANGE_MISMATCH");
+        return observation.closed();
+    }
+
+    /** An open online header identifies a generation but never authorizes records or publication. */
+    public record RawObservation(Source source,Verified closed) {}
+    public RawObservation readRawObserved(Path path,String expectedSha256) throws IOException {
         byte[] data=Files.readAllBytes(path);
         String actual=hexDigest(data);
         if (!actual.equals(expectedSha256)) throw new RedoException("CAPTURE_RECEIPT_SHA_MISMATCH");
@@ -84,6 +92,18 @@ public final class CaptureJournal {
         if (u32(file,24)+1!=data.length/512L)
             throw new RedoException("RAW_MEMBER_CAPACITY_MISMATCH");
         long nab=u32(header,156),seq=u32(header,8);
+        if (nab==0xffffffffL) {
+            validateBlock(file,0,seq);validateBlock(header,1,seq);
+            if (u16(file,0)!=0x2200 || u32(file,20)!=512 || u32(file,28)!=0x7a7b7c7dL)
+                throw new RedoException("CAPTURE_FILE_HEADER_INVALID");
+            long compatibility=u32(header,20),first=scn(header,180),next=scn(header,192);
+            if (seq==0 || u16(header,176)==0 || (compatibility!=0x13000000L && compatibility!=0x15000000L))
+                throw new RedoException("CAPTURE_SOURCE_HEADER_MISMATCH");
+            if (first>=next || next!=0x7fffffffffffL)
+                throw new RedoException("CAPTURE_CLOSED_RANGE_MISMATCH");
+            return new RawObservation(new Source(actual,data.length,data.length/512L,0,u32(header,24),
+                    u32(header,52),compatibility,u16(header,176),seq,u32(header,160),scn(header,164),first,next),null);
+        }
         if (nab<3 || nab>data.length/512L)
             throw new RedoException("CAPTURE_CLOSED_RANGE_MISMATCH");
         List<byte[]> blocks=new ArrayList<>();
@@ -92,7 +112,8 @@ public final class CaptureJournal {
             validateBlock(raw,i,seq);blocks.add(raw);
         }
         long[] source={u32(header,52),u32(header,20),u32(header,24),u32(header,160),seq,u16(header,176)};
-        return closed(actual,data.length,blocks,source);
+        var verified=closed(actual,data.length,blocks,source);
+        return new RawObservation(verified.source(),verified);
     }
 
     private static void validateBlock(byte[] raw,int index,long sequence) throws RedoException {
