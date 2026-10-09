@@ -1,5 +1,7 @@
 # OracleRedoKernel 当前状态
 
+2026-10-09 LOB冻结完整物理图：[同包反馈](DELIVERY_D4_LOB_NORMAL_20261009.md)。验证提交2271cd1已推送，19图关闭（16commit/3rollback），129原始/17补偿源顺序完整，rollback live0；17图/125节点native前驱/LIFO/结束/live/tail/head零差异，13tail实际打印核等，2seed图仍缺native/基线不批准。BasicFile18页唯一分配关系：16有owned locator、2临时页淘汰；2不同SCN/1prelude明确保留，尚非writer/可见性授权。170class全部不变/树bf2c87dd，旧验证复用；事件0/部署0。下一生产工厂全输入/自主维护/页-locator与完整LOB行→可信获取→正常产品CPACK；完整D1–D5/独立评审/现场/发布未关闭。
+
 2026-10-09 LOB剩余14项原始undo类型化：[同包反馈](DELIVERY_D4_LOB_NORMAL_20261009.md)。内核627a9de已推送，6普通PK/8SecureFile控制配对补齐，19fixture事务129项全类型化；dump范围内125项native完整owner/UBA/位置/opcode零差异，早期4seed undo缺native证据单列/基线不批准。16相关测试rc0，170class树bf2c87dd冻结/前169字节不变，原17补偿输出不变复用。下一步源顺序完整图/begin-advance-head-end/tail/rollback空live，再自主维护/页owner/locator/可信获取/产品CPACK；事件0/部署0，完整D1–D5及独立评审/现场/发布未关闭。
 
 2026-10-09 LOB剩余六条物理补偿补齐：[同包反馈](DELIVERY_D4_LOB_NORMAL_20261009.md)。内核4b0759c已推送，19XID/17补偿全部核等（9堆表/2SecureFile/4BasicFile位图/2LOB索引），native完整owner/UBA/原始位置零差异；6951对象号核等、97media对象未打印单列。89相关测试rc0，冻结169class树b928eb6f。129项undo仍有14项待类型化（6普通PK/4控制13.54/2控制13.52/2控制13.50），自主维护/页owner/完整图/可信获取/产品CPACK待补；事件0/部署0/库exited，基线不批准，失败保全。完整D1–D5/独立评审/现场/发布仍开发中。
