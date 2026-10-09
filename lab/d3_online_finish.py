@@ -4,20 +4,21 @@ R=Path(__file__).resolve().parent.parent;N=R/'lab/out/d3-online-product-20261010
 assert (N/'source-0.started').exists() and (N/'source-1.started').exists()
 assert (N/'controlled-stop.rc').read_text().strip()=='0' and (N/'build-final-driver.rc').read_text().strip()=='0'
 script=(R/'lab/d3_online_product.py').read_text();prefix=script.split('try:\n assert HELPER')[0]
-prefix=prefix.replace("'executed-runtime.py'","'executed-runtime-r7.py'").replace("'online-product-20261010'","'online-product-20261010-r7'")
+prefix=prefix.replace("'executed-runtime.py'","'executed-runtime-r8.py'").replace("'online-product-20261010'","'online-product-20261010-r8'").replace("'candidate.json'","'candidate-final.json'")
 prefix='\n'.join(line for line in prefix.splitlines() if not line.startswith("run('probe-compile'"));prefix=prefix.replace("(N/name).mkdir()","(N/name).mkdir(exist_ok=True)")
 exec(prefix)
 prior_run=run
-def run(name,args,data=None,private=False):return prior_run('r7-'+name,args,data,private)
+def run(name,args,data=None,private=False):return prior_run('r8-'+name,args,data,private)
 props=dict(line.split('=',1) for line in (N/'runtime.secret.env').read_text().splitlines());secrets.extend(v.encode() for k,v in props.items() if 'PASSWORD' in k and v)
 acquired=json.loads((N/'acquire.stdout').read_text())['data'];ACQ=int(acquired['id']);baseline=N/'snapshots'/f'{ACQ}.snapshot';assert sha(baseline)==acquired['snapshotSha256']
 plan=json.loads(props['SH_ORACLE_RAW_PLAN_PLAN_JSON']);first=plan['firstSequence']
 members=[line.split('=',1)[1] for line in (N/'collector.ini').read_text().splitlines() if line.startswith(('member_1=','member_2=','member_3='))]
 candidate=json.loads((N/'candidate-final.json').read_text());assert sha(N/'application-final.jar')==candidate['applicationSha256']
-shutil.copyfile(N/'application.jar',N/'application-initial.jar');shutil.copyfile(N/'application-final.jar',N/'application.jar')
+if not (N/'application-initial.jar').exists():shutil.copyfile(N/'application.jar',N/'application-initial.jar')
+shutil.copyfile(N/'application-final.jar',N/'application.jar')
 cp=str(N)+os.pathsep+os.pathsep.join(map(str,(N/'libs-final').glob('*.jar')))
 old_ack_files=list((N/'acks').glob('*.ack.json'));assert len(old_ack_files)==1;old_ack=old_ack_files[0].read_bytes();old_cp=json.loads(old_ack)
-raws=[freeze_sequence(first,'first'),freeze_sequence(first+1,'next')];assert all(raws)
+raws=[N/'raw-ready/raw-members'/SOURCE/(old_cp['oracleEvidence']['captures'][0]['journalSha256']+'.raw'),freeze_sequence(first+1,'next')];assert all(raws)
 try:
  assert HELPER not in run('containers',['docker','ps','-a','--format','{{.Names}}']).splitlines()
  assert run('source-owner',['docker','inspect',S,'--format','{{.Config.Labels.owner}}|{{.State.Status}}']).strip()=='OracleRedoKernel|exited'
