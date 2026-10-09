@@ -23,8 +23,11 @@ public final class TransactionLifecycle {
         if(!expected.equals(archive))throw new RedoException("PHYSICAL_STATE_IDENTITY_SOURCE");
     }
     void requireRecoveryPending(HeapRowPatch.Xid xid,long segment,long uid,long container)throws RedoException {
+        requireRecoveryPending(xid,segment,uid,container,-1);
+    }
+    void requireRecoveryPending(HeapRowPatch.Xid xid,long segment,long uid,long container,long beginScn)throws RedoException {
         var begin=pending.get(new Key(uid,container,segment,xid.slot(),xid.sequence()));
-        if(begin==null || !begin.identity().xid().equals(xid))throw new RedoException("PHYSICAL_STATE_PENDING_IDENTITY");
+        if(begin==null || !begin.identity().xid().equals(xid) || beginScn>=0 && begin.scn()!=beginScn)throw new RedoException("PHYSICAL_STATE_PENDING_IDENTITY");
     }
 
     /** Identity state only. The caller must durably retain its digest and the bound raw input. */

@@ -6,7 +6,10 @@ import java.util.*;
 final class DictionaryStatisticsChanges {
     record Row(HeapUndoPair physical,long object,int column,int internal) {}
     static Row bind(RedoRecords.Record record,RedoRecords.Vector vector,DictionaryStatisticsBaseline baseline)throws RedoException {
-        var pair=HeapUndoPair.bind(record,vector,baseline.table().columns().size());var h=pair.undo().identity();
+        return fromPhysical(HeapUndoPair.bind(record,vector,baseline.table().columns().size()),baseline);
+    }
+    static Row fromPhysical(HeapUndoPair pair,DictionaryStatisticsBaseline baseline)throws RedoException {
+        var h=pair.undo().identity();
         var role=baseline.table().role();
         if(h.objectId()!=role.logicalObject() || h.dataObjectId()!=role.dataObject() || h.tablespace()!=0
                 || pair.forward().kind()!=HeapRowPatch.Kind.INSERT)

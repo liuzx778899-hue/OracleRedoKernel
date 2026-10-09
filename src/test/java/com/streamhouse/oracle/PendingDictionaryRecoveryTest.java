@@ -12,6 +12,9 @@ class PendingDictionaryRecoveryTest {
     @TempDir Path directory;
     record Fixture(RedoBatch prefix,RedoBatch closed,FrozenHeapBaseline.Snapshot snapshot) {}
     Fixture fixture()throws Exception {
+        return fixture(100);
+    }
+    Fixture fixture(long scn)throws Exception {
         var original=new DictionaryObjectUndoPairTest().records().get(0);
         var undo=original.vectors().get(0);var row=original.vectors().get(1);
         var fields=new ArrayList<>(undo.fields());byte[] metadata=Arrays.copyOf(fields.get(1),76);
@@ -25,10 +28,10 @@ class PendingDictionaryRecoveryTest {
         put(start.fields().get(0),12,identity.uba().sequence(),2);
         var end=new ArchivedPhysicalTransactionsTest().end(identity.xid(),identity.uba().dba(),segment);
         put(end.fields().get(1),4,identity.uba().sequence(),2);put(end.fields().get(1),6,identity.uba().record(),1);
-        var first=writeArchive("prefix.dbf",7,100,200,110,List.of(start,undo,row));
-        var second=writeArchive("suffix.dbf",8,200,300,210,List.of(end));
+        var first=writeArchive("prefix.dbf",7,scn,scn+100,scn+10,List.of(start,undo,row));
+        var second=writeArchive("suffix.dbf",8,scn+100,scn+200,scn+110,List.of(end));
         var baseline=new DictionaryBaselineTest();baseline.directory=directory;
-        var snapshot=baseline.read(baseline.v3().replace("SNAPSHOT_SCN|2522819","SNAPSHOT_SCN|100"));
+        var snapshot=baseline.read(baseline.v3().replace("SNAPSHOT_SCN|2522819","SNAPSHOT_SCN|"+scn));
         return new Fixture(RedoBatch.archives(List.of(first)),RedoBatch.archives(List.of(first,second)),snapshot);
     }
     Path writeArchive(String name,int sequence,long low,long high,long scn,List<RedoRecords.Vector> vectors)throws Exception {

@@ -134,12 +134,12 @@ public final class PhysicalRecoveryState {
         }
         out.flush();return bytes.toByteArray();
     }
-    private static void patch(DataOutputStream out,HeapRowPatch.Patch p)throws IOException {
+    static void patch(DataOutputStream out,HeapRowPatch.Patch p)throws IOException {
         out.writeUTF(p.kind().name());out.writeLong(p.dba());out.writeInt(p.slot());out.writeInt(p.xtype());optionalXid(out,p.xid());optionalUba(out,p.uba());out.writeInt(p.columns().size());
         for(var c:p.columns()){out.writeUTF(c.state().name());data(out,c.bytes());}out.writeBoolean(p.extent()!=null);
         if(p.extent()!=null){var e=p.extent();out.writeInt(e.storedColumns());out.writeInt(e.changedColumns());out.writeInt(e.removedColumn());integer(out,e.sizeDelta());}integer(out,p.lockTo());
     }
-    private static HeapRowPatch.Patch patch(DataInputStream in)throws IOException {
+    static HeapRowPatch.Patch patch(DataInputStream in)throws IOException {
         var kind=HeapRowPatch.Kind.valueOf(in.readUTF());long dba=in.readLong();int slot=in.readInt(),xtype=in.readInt();var xid=optionalXid(in);var uba=optionalUba(in);
         var columns=new ArrayList<HeapRowPatch.Column>();for(int i=0,n=count(in);i<n;i++)columns.add(new HeapRowPatch.Column(HeapRowPatch.State.valueOf(in.readUTF()),data(in)));
         var extent=in.readBoolean()?new HeapRowPatch.RowExtent(in.readInt(),in.readInt(),in.readInt(),integer(in)):null;
@@ -167,12 +167,12 @@ public final class PhysicalRecoveryState {
     private static HeapRowPatch.Xid xid(DataInputStream in)throws IOException {
         var x=new HeapRowPatch.Xid(in.readInt(),in.readInt(),in.readLong());if(x.usn()<1 || x.usn()>65535 || x.slot()<0 || x.slot()>65535 || x.sequence()<0 || x.sequence()>0xffffffffL)throw new RedoException("PHYSICAL_STATE_XID");return x;
     }
-    private static void optionalXid(DataOutputStream out,HeapRowPatch.Xid x)throws IOException {out.writeBoolean(x!=null);if(x!=null)xid(out,x);}
-    private static HeapRowPatch.Xid optionalXid(DataInputStream in)throws IOException {return in.readBoolean()?xid(in):null;}
-    private static void optionalUba(DataOutputStream out,HeapRowPatch.Uba u)throws IOException {out.writeBoolean(u!=null);if(u!=null)uba(out,u);}
-    private static HeapRowPatch.Uba optionalUba(DataInputStream in)throws IOException {return in.readBoolean()?uba(in):null;}
+    static void optionalXid(DataOutputStream out,HeapRowPatch.Xid x)throws IOException {out.writeBoolean(x!=null);if(x!=null)xid(out,x);}
+    static HeapRowPatch.Xid optionalXid(DataInputStream in)throws IOException {return in.readBoolean()?xid(in):null;}
+    static void optionalUba(DataOutputStream out,HeapRowPatch.Uba u)throws IOException {out.writeBoolean(u!=null);if(u!=null)uba(out,u);}
+    static HeapRowPatch.Uba optionalUba(DataInputStream in)throws IOException {return in.readBoolean()?uba(in):null;}
     private static void integer(DataOutputStream out,Integer v)throws IOException {out.writeBoolean(v!=null);if(v!=null)out.writeInt(v);}
     private static Integer integer(DataInputStream in)throws IOException {return in.readBoolean()?in.readInt():null;}
-    private static void data(DataOutputStream out,byte[] v)throws IOException {out.writeBoolean(v!=null);if(v!=null){out.writeInt(v.length);out.write(v);}}
-    private static byte[] data(DataInputStream in)throws IOException {return in.readBoolean()?in.readNBytes(count(in)):null;}
+    static void data(DataOutputStream out,byte[] v)throws IOException {out.writeBoolean(v!=null);if(v!=null){out.writeInt(v.length);out.write(v);}}
+    static byte[] data(DataInputStream in)throws IOException {return in.readBoolean()?in.readNBytes(count(in)):null;}
 }

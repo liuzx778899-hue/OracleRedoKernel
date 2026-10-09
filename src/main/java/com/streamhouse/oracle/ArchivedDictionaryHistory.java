@@ -12,7 +12,9 @@ public final class ArchivedDictionaryHistory {
                     .thenComparingLong(ArchivedUndoInventory.Position::block)
                     .thenComparingInt(ArchivedUndoInventory.Position::offset)
                     .thenComparingInt(ArchivedUndoInventory.Position::vector);
-    record RowOperation(FrozenHeapBaseline.ObjectRole role,HeapRowPatch.Patch forward,HeapRowPatch.Patch inverse) {}
+    record RowOperation(FrozenHeapBaseline.ObjectRole role,HeapRowPatch.Patch forward,HeapRowPatch.Patch inverse,UndoHeader identity) {
+        RowOperation(FrozenHeapBaseline.ObjectRole role,HeapRowPatch.Patch forward,HeapRowPatch.Patch inverse){this(role,forward,inverse,null);}
+    }
     public record Commit(TransactionLifecycle.ClosedIdentity identity,List<ArchivedUndoInventory.Entry> original,
                          int rowPairs,int indexPairs,int controls,List<DictionaryBaseline.Row> rows,ArchivedUndoInventory.Position commitPosition) {
         public Commit {original=List.copyOf(original);rows=List.copyOf(rows);}
@@ -25,20 +27,30 @@ public final class ArchivedDictionaryHistory {
         private final List<Commit> commits;
         private final List<Pending> pending;
         private final List<ArchivedDictionaryClusterMaintenance.Closed> clusterMaintenance;
+        private final List<Context> waitingContexts;
         private Timeline(FrozenHeapBaseline.Snapshot snapshot,List<ArchivedRedo.Header> sources,List<Commit> commits) {
             this(snapshot,sources,commits,List.of(),List.of());
         }
         private Timeline(FrozenHeapBaseline.Snapshot snapshot,List<ArchivedRedo.Header> sources,List<Commit> commits,List<Pending> pending,
                          List<ArchivedDictionaryClusterMaintenance.Closed> clusterMaintenance) {
+            this(snapshot,sources,commits,pending,clusterMaintenance,List.of());
+        }
+        private Timeline(FrozenHeapBaseline.Snapshot snapshot,List<ArchivedRedo.Header> sources,List<Commit> commits,List<Pending> pending,
+                         List<ArchivedDictionaryClusterMaintenance.Closed> clusterMaintenance,List<Context> waitingContexts) {
             this.snapshot=snapshot;this.sources=List.copyOf(sources);this.commits=List.copyOf(commits);
             this.pending=List.copyOf(pending);
             this.clusterMaintenance=List.copyOf(clusterMaintenance);
+            this.waitingContexts=List.copyOf(waitingContexts);
         }
         public List<ArchivedRedo.Header> sources(){return sources;}
         public List<Commit> commits(){return commits;}
         public List<Pending> pending(){return pending;}
         public String baselineSha256(){return snapshot.sha256();}
         public HistoricalDictionaryState materializedState(){return HistoricalDictionaryState.from(snapshot,sources,commits,pending);}
+        public DictionaryPendingState durablePendingState()throws IOException {
+            if(pending.size()!=waitingContexts.size())throw new RedoException("DICTIONARY_PENDING_CONTEXT_MISSING");
+            return DictionaryPendingState.from(snapshot,sources,waitingContexts);
+        }
         /** Source-bound dictionary state receipt; the frozen baseline and raw prefix remain required. */
         public byte[] checkpoint()throws RedoException {
             var out=new StringBuilder("ORK_DICTIONARY_TIMELINE_V1\nB|").append(snapshot.sha256()).append('\n');
@@ -85,10 +97,10 @@ public final class ArchivedDictionaryHistory {
             return rows;
         }
     }
-    private static final class Context {
+    static final class Context {
         final ArchivedUndoInventory inventory;
         final UndoHistory graph;
-        final TransactionLifecycle lifecycle=new TransactionLifecycle();
+        final TransactionLifecycle lifecycle;
         final List<RowOperation> rows=new ArrayList<>();
         final List<DictionaryIndexUndoPair> indexes=new ArrayList<>();
         final List<DictionaryStatisticsChanges.Row> statisticsRows=new ArrayList<>();
@@ -102,7 +114,8 @@ public final class ArchivedDictionaryHistory {
         TransactionLifecycle.ClosedIdentity end;
         ArchivedUndoInventory.Position commitPosition;
         int next,controls;
-        Context(ArchivedUndoInventory inventory){this.inventory=inventory;graph=new UndoHistory(inventory);}
+        Context(ArchivedUndoInventory inventory){this(inventory,new UndoHistory(inventory),new TransactionLifecycle());}
+        Context(ArchivedUndoInventory inventory,UndoHistory graph,TransactionLifecycle lifecycle){this.inventory=inventory;this.graph=graph;this.lifecycle=lifecycle;}
     }
     public static Timeline read(List<Path> archives,Path baseline,String trustedReceipt)throws IOException {
         return read(RedoBatch.archives(archives),FrozenHeapBaseline.read(baseline,trustedReceipt));
@@ -146,7 +159,14 @@ public final class ArchivedDictionaryHistory {
     static Timeline readPrefix(RedoBatch inputs,FrozenHeapBaseline.Snapshot snapshot)throws IOException {
         return read(inputs,snapshot,true);
     }
+    static Timeline readRestored(RedoBatch inputs,FrozenHeapBaseline.Snapshot snapshot,DictionaryPendingState pending)throws IOException {
+        pending.requireBaseline(snapshot);
+        return read(inputs,snapshot,true,pending);
+    }
     private static Timeline read(RedoBatch inputs,FrozenHeapBaseline.Snapshot snapshot,boolean allowPending)throws IOException {
+        return read(inputs,snapshot,allowPending,null);
+    }
+    private static Timeline read(RedoBatch inputs,FrozenHeapBaseline.Snapshot snapshot,boolean allowPending,DictionaryPendingState restored)throws IOException {
         if(snapshot.dictionaryBaseline()==null)throw new RedoException("MISSING_V3_COMPLETE_DICTIONARY_BASELINE");
         if(inputs.isEmpty())throw new RedoException("NO_DICTIONARY_REDO_INPUT");
         var baseline=snapshot.dictionaryBaseline();var roles=new HashMap<Long,FrozenHeapBaseline.ObjectRole>();
@@ -206,21 +226,37 @@ public final class ArchivedDictionaryHistory {
             roles.put(usage.index().role().logicalObject(),usage.index().role());
         }
         if(snapshot.scn()<sources.get(0).firstScn() || snapshot.scn()>=sources.get(sources.size()-1).nextScn())throw new RedoException("DICTIONARY_BASELINE_SCN_OUTSIDE_INPUT_COVERAGE");
+        var saved=restored==null?null:restored.decoded();int prefixCount=saved==null?0:saved.sources().size();
+        if(prefixCount>sources.size() || saved!=null && !saved.sources().equals(sources.subList(0,prefixCount)))throw new RedoException("DICTIONARY_PENDING_SOURCE_PREFIX_CHANGED");
         var contexts=new LinkedHashMap<HeapRowPatch.Xid,Context>();var originals=new HashMap<ArchivedUndoInventory.Position,Context>();
+        var resumed=new HashSet<Context>();
         for(var xid:identities) {
             var inventory=ArchivedUndoInventory.read(inputs,snapshot.source().containerUid(),snapshot.source().containerId(),xid);
             if(!inventory.sources().equals(sources))throw new RedoException("DICTIONARY_INVENTORY_SOURCE_CHANGED");
-            var c=new Context(inventory);contexts.put(xid,c);
+            var prior=saved==null?null:saved.contexts().stream().filter(c->c.inventory.entries().get(0).identity().xid().equals(xid)).findFirst().orElse(null);
+            Context c;
+            if(prior==null)c=new Context(inventory);
+            else {
+                if(!inventory.entries().subList(0,Math.min(prior.next,inventory.entries().size())).equals(prior.inventory.entries()))throw new RedoException("DICTIONARY_PENDING_ORIGINAL_PREFIX_CHANGED");
+                byte[] graph=prior.graph.checkpoint();c=new Context(inventory,UndoHistory.restore(inventory,graph,digest(graph)),prior.lifecycle);
+                c.start=prior.start;c.beginScn=prior.beginScn;c.next=prior.next;c.controls=prior.controls;
+                c.rows.addAll(prior.rows);c.indexes.addAll(prior.indexes);c.statisticsRows.addAll(prior.statisticsRows);c.statisticsIndexes.addAll(prior.statisticsIndexes);
+                c.usageRows.addAll(prior.usageRows);c.usageIndexes.addAll(prior.usageIndexes);resumed.add(c);
+            }
+            contexts.put(xid,c);
             for(var e:inventory.entries())if(originals.putIfAbsent(e.position(),c)!=null)throw new RedoException("DICTIONARY_ORIGINAL_OWNER_COLLISION");
         }
+        if(saved!=null && resumed.size()!=saved.contexts().size())throw new RedoException("DICTIONARY_PENDING_OWNER_MISSING");
         for(var input:inputs) {
             var header=input.header();if(!sources.contains(header))throw new RedoException("DICTIONARY_REPLAY_SOURCE_CHANGED");
-            for(var c:contexts.values())c.lifecycle.archive(header);
+            boolean old=prefixCount>0 && header.sequence()<=sources.get(prefixCount-1).sequence();
+            for(var c:contexts.values())if(!old || !resumed.contains(c))c.lifecycle.archive(header);
             input.visit(header,r->{
                 if(r.containerUid()!=snapshot.source().containerUid())return;
-                for(var c:contexts.values())controls(header,r,c,snapshot);
+                for(var c:contexts.values())if(!old || !resumed.contains(c))controls(header,r,c,snapshot);
                 for(int i=0;i<r.vectors().size();i++) {
                     var at=new ArchivedUndoInventory.Position(header.sequence(),r.block(),r.offset(),i+1);var c=originals.get(at);if(c==null)continue;
+                    if(old && resumed.contains(c))continue;
                     if(c.end!=null || r.scn()<=snapshot.scn())throw new RedoException("DICTIONARY_BASELINE_CROSSES_SYS_TRANSACTION");
                     var v=r.vectors().get(i);var h=UndoHeader.decode(v);var e=c.inventory.entries().get(c.next++);
                     if(!e.position().equals(at) || !e.identity().equals(h))throw new RedoException("DICTIONARY_ORIGINAL_COVERAGE_CHANGED");
@@ -233,11 +269,11 @@ public final class ArchivedDictionaryHistory {
                         if(role.name().equals("OBJ$") && row.opcodeMajor()==11) {
                             var p=DictionaryObjectUndoPair.bind(r,row,role,baseline.layouts().get("OBJ$").columns().size()).physical();
                             if(!p.undo().identity().equals(h))throw new RedoException("DICTIONARY_ROW_FULL_IDENTITY_CONFLICT");
-                            c.lifecycle.requireActive(r,p);c.rows.add(new RowOperation(role,p.forward(),p.undo().inverse()));count++;
+                            c.lifecycle.requireActive(r,p);c.rows.add(new RowOperation(role,p.forward(),p.undo().inverse(),h));count++;
                         } else if((role.name().equals("TAB$") || role.name().equals("COL$")) && row.opcodeMajor()==11) {
                             var layout=baseline.layouts().get(role.name());var p=ClusterUndoPair.bind(r,row,role,layout.tableNumber(),layout.columns().size()-1);
                             if(!p.identity().equals(h))throw new RedoException("DICTIONARY_ROW_FULL_IDENTITY_CONFLICT");
-                            c.rows.add(new RowOperation(role,p.forward().row(),p.inverse().row()));count++;
+                            c.rows.add(new RowOperation(role,p.forward().row(),p.inverse().row(),h));count++;
                         } else if(role.name().equals("HIST_HEAD$") && row.opcodeMajor()==11) {
                             var p=DictionaryStatisticsChanges.bind(r,row,baseline.statistics());
                             if(!p.physical().undo().identity().equals(h))throw new RedoException("STATISTICS_ROW_FULL_IDENTITY_CONFLICT");
@@ -266,6 +302,7 @@ public final class ArchivedDictionaryHistory {
                     if(count!=1)throw new RedoException("DICTIONARY_ORIGINAL_TYPED_PAIR_COVERAGE");
                 }
                 for(var c:contexts.values())for(var v:r.vectors())if(v.containerId()==snapshot.source().containerId()) {
+                    if(old && resumed.contains(c))continue;
                     if(v.opcodeMajor()==5 && v.opcodeMinor()==6 && c.start!=null && c.end==null)throw new RedoException("UNSUPPORTED_ACTIVE_SYS_COMPENSATION");
                     if(v.opcodeMajor()==5 && v.opcodeMinor()==4 && c.lifecycle.knowsEnd(r,v)) {
                         c.end=c.lifecycle.end(r,v);if(c.end.rolledBack())throw new RedoException("UNSUPPORTED_SYS_ROLLBACK_HISTORY");
@@ -300,7 +337,7 @@ public final class ArchivedDictionaryHistory {
                 DictionaryStatisticsChanges.requireComplete(c.statisticsRows,c.statisticsIndexes,baseline.statistics(),snapshot.heap().logicalObject(),rows,baseline);
             commits.add(new Commit(c.end,c.inventory.entries(),c.rowCount(),c.indexCount(),c.controls,rows,c.commitPosition));
         }
-        return new Timeline(snapshot,sources,commits,pending,clusterMaintenance);
+        return new Timeline(snapshot,sources,commits,pending,clusterMaintenance,contexts.values().stream().filter(c->c.end==null).toList());
     }
     private static boolean affectsBaselineScope(ArchivedRedo.Header header,RedoRecords.Record r,RedoRecords.Vector undo,FrozenHeapBaseline.ObjectRole role,FrozenHeapBaseline.Snapshot snapshot,ArchivedDictionaryIndexRestores splitRestores)throws RedoException {
         var fields=undo.fields();

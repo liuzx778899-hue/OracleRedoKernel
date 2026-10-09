@@ -6,7 +6,10 @@ import java.util.*;
 final class DictionaryUsageChanges {
     record Row(HeapUndoPair physical,long object,int internal) {}
     static Row bind(RedoRecords.Record record,RedoRecords.Vector vector,DictionaryUsageBaseline baseline)throws RedoException {
-        var pair=HeapUndoPair.bind(record,vector,baseline.table().columns().size());var identity=pair.undo().identity();
+        return fromPhysical(HeapUndoPair.bind(record,vector,baseline.table().columns().size()),baseline);
+    }
+    static Row fromPhysical(HeapUndoPair pair,DictionaryUsageBaseline baseline)throws RedoException {
+        var identity=pair.undo().identity();
         if(identity.objectId()!=baseline.table().role().logicalObject() || identity.dataObjectId()!=baseline.table().role().dataObject()
                 || identity.tablespace()!=0 || pair.forward().kind()!=HeapRowPatch.Kind.DELETE)throw new RedoException("UNSUPPORTED_USAGE_ROW_OR_GENERATION");
         var values=pair.undo().inverse().columns();
