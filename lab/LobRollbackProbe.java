@@ -177,7 +177,67 @@ public class LobRollbackProbe {
             }
         }
         for(var association:associations)association.finish();
+        if(pending!=0 || unboundOriginals!=0)throw new RedoException("LOB_PROBE_GRAPH_REQUIRES_FULL_PHYSICAL_COVERAGE");
+        closeGraphs(captures,associations,routes,typedOwners);
         System.out.println("SUMMARY|transactions="+xids.size()+"|markers="+markers+"|uniqueRoutes="+routes.size()+"|heapOriginals="+heaps.size()+"|heapCancelled="+cancelled+"|secureOriginals="+fills.size()+"|secureCancelled="+fillCancelled+"|bitmapOriginals="+bitmaps.size()+"|bitmapCancelled="+bitmapCancelled+"|indexOriginals="+indexes.size()+"|indexCancelled="+indexCancelled+"|primaryIndexOriginals="+primaryIndexes.size()+"|secureControlOriginals="+controls.size()+"|pendingPhysicalRoutes="+pending+"|untypedOriginals="+unboundOriginals+"|events=0|mode=PHYSICAL_LOB_COMPENSATION_ONLY");
+    }
+    private static void closeGraphs(java.util.List<CaptureJournal.Verified> captures,java.util.List<ArchivedCompensationAssociations> associations,
+                                    java.util.Map<ArchivedUndoInventory.Position,ArchivedCompensationAssociations.Entry> routes,
+                                    java.util.Set<UndoHeader> typedOwners)throws Exception {
+        for(var association:associations) {
+            var window=association.window();var inventory=window.undo();var graph=new UndoHistory(inventory);
+            var state=new TransactionLifecycle();var xid=inventory.entries().get(0).identity().xid();int next=0,closed=0,advances=0,heads=0;
+            for(var capture:captures) {
+                var source=RedoBatch.captures(java.util.List.of(capture)).get(0).header();state.archive(source);
+                for(var record:new RedoRecords().readCaptured(capture)) {
+                    if(record.containerUid()!=677737149L || compareRecord(source.sequence(),record,window.firstRecord())<0
+                            || compareRecord(source.sequence(),record,window.lastRecord())>0)continue;
+                    for(int i=0;i<record.vectors().size();i++) {
+                        var vector=record.vectors().get(i);var at=new ArchivedUndoInventory.Position(source.sequence(),record.block(),record.offset(),i+1);
+                        if(next>=inventory.entries().size() || !inventory.entries().get(next).position().equals(at))continue;
+                        var entry=inventory.entries().get(next++);var owner=UndoHeader.decode(vector);
+                        if(!owner.equals(entry.identity()) || !typedOwners.contains(owner))throw new RedoException("LOB_PROBE_GRAPH_ORIGINAL_CHANGED");
+                        if(owner.beginsTransaction()) {
+                            int begins=0;
+                            for(var control:record.vectors())if(control.containerId()==3 && control.opcodeMajor()==5 && control.opcodeMinor()==2
+                                    && control.fields().size()==2 && TransactionStart.decode(control).uba().equals(owner.uba())) {
+                                state.begin(record,control);begins++;
+                            }
+                            if(begins!=1)throw new RedoException("LOB_PROBE_GRAPH_BEGIN_COUNT");
+                        }
+                        state.undo(record,vector);graph.append(entry);
+                    }
+                    for(int i=0;i<record.vectors().size();i++) {
+                        var vector=record.vectors().get(i);if(vector.containerId()!=3 || vector.opcodeMajor()!=5)continue;
+                        if(vector.opcodeMinor()==2) {
+                            state.observeSlotControl(record,vector);
+                            if(vector.dba()==window.segmentDba() && vector.fields().size()==1 && vector.fields().get(0).length==32
+                                    && RedoBytes.u16(vector.fields().get(0),0)==xid.slot()) {
+                                int mode=RedoBytes.u16(vector.fields().get(0),16);
+                                if(mode==10) {state.advance(record,vector);advances++;}
+                                else if(mode==2) {state.headUpdate(record,vector);heads++;}
+                                else throw new RedoException("LOB_PROBE_GRAPH_UNKNOWN_SEGMENT_CONTROL");
+                            }
+                        }
+                        var at=new ArchivedUndoInventory.Position(source.sequence(),record.block(),record.offset(),i+1);var route=routes.get(at);
+                        if(route!=null && route.xid().equals(xid))graph.compensate(route.original());
+                    }
+                    for(var vector:record.vectors())if(vector.containerId()==3 && vector.opcodeMajor()==5 && vector.opcodeMinor()==4 && state.knowsEnd(record,vector)) {
+                        var end=state.end(record,vector);
+                        var result=end.rolledBack() ? graph.closeRollback(end) : vector.fields().size()==2 && TransactionEnd.decode(vector).flags()==0
+                                ? graph.closeCommitWithoutNativeTail(end) : graph.close(TransactionEnd.undoTail(vector));
+                        closed++;
+                        System.out.println("GRAPHCLOSED|"+xid.usn()+"."+xid.slot()+"."+xid.sequence()+"|"+end.beginRecordScn()+"|"+end.endRecordScn()+"|"+end.rolledBack()+"|"+
+                                result.original().size()+"|"+result.live().size()+"|"+result.compensated().size()+"|"+result.allocationTail()+"|"+result.activeHead()+"|"+advances+"|"+heads+"|"+vector.dba()+"|"+
+                                source.sequence()+"|"+record.block()+"|"+record.offset()+"|"+(record.vectors().indexOf(vector)+1)+"|"+TransactionEnd.decode(vector).flags());
+                    }
+                }
+            }
+            state.finish();if(closed!=1 || next!=inventory.entries().size())throw new RedoException("LOB_PROBE_GRAPH_WINDOW_NOT_CLOSED");
+        }
+    }
+    private static int compareRecord(long sequence,RedoRecords.Record record,ArchivedUndoInventory.Position at) {
+        int c=Long.compare(sequence,at.archiveSequence());if(c==0)c=Long.compare(record.block(),at.block());return c==0 ? Integer.compare(record.offset(),at.offset()) : c;
     }
     private static String originalPair(String kind,long sequence,RedoRecords.Record record,int i,UndoHeader owner) {
         return kind+"|"+sequence+"|"+record.block()+"|"+record.offset()+"|"+(i+1)+"|"+owner.objectId()+"|"+
