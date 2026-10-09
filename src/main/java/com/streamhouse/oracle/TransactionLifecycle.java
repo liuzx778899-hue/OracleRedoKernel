@@ -22,6 +22,9 @@ public final class TransactionLifecycle {
     void requireRecoveryArchive(ArchivedRedo.Header expected)throws RedoException {
         if(!expected.equals(archive))throw new RedoException("PHYSICAL_STATE_IDENTITY_SOURCE");
     }
+    void requireRecoveryClosed(HeapRowPatch.Xid xid,long segment,long uid,long container)throws RedoException {
+        if(!closed.contains(new Key(uid,container,segment,xid.slot(),xid.sequence())))throw new RedoException("COMPENSATION_WINDOW_CLOSED_IDENTITY");
+    }
     void requireRecoveryPending(HeapRowPatch.Xid xid,long segment,long uid,long container)throws RedoException {
         requireRecoveryPending(xid,segment,uid,container,-1);
     }

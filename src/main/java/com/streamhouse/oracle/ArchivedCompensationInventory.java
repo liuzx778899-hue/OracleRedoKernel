@@ -14,13 +14,15 @@ public final class ArchivedCompensationInventory {
     private final ArchivedUndoInventory.Position firstRecord,lastRecord;
     private final boolean complete;
     private final long segmentDba;
+    private final byte[] identityCheckpoint;
 
-    private ArchivedCompensationInventory(ArchivedUndoInventory undo,List<Entry> entries,
-                                         ArchivedUndoInventory.Position firstRecord,ArchivedUndoInventory.Position lastRecord,boolean complete,long segmentDba) {
+    ArchivedCompensationInventory(ArchivedUndoInventory undo,List<Entry> entries,
+                                 ArchivedUndoInventory.Position firstRecord,ArchivedUndoInventory.Position lastRecord,boolean complete,long segmentDba,byte[] identityCheckpoint) {
         this.undo=undo;this.entries=List.copyOf(entries);
         this.firstRecord=firstRecord;this.lastRecord=lastRecord;
         this.complete=complete;
         this.segmentDba=segmentDba;
+        this.identityCheckpoint=identityCheckpoint.clone();
     }
 
     /** Includes every 5.6/5.11 in the target's verified record window, including unrelated objects. */
@@ -31,14 +33,26 @@ public final class ArchivedCompensationInventory {
         return read(archives,uid,container,xid,false);
     }
     static ArchivedCompensationInventory read(RedoBatch archives,long uid,long container,HeapRowPatch.Xid xid,boolean allowPending) throws IOException {
-        var undo=ArchivedUndoInventory.read(archives,uid,container,xid);
-        var state=new TransactionLifecycle();var entries=new ArrayList<Entry>();
+        return read(archives,uid,container,xid,allowPending,null);
+    }
+    ArchivedCompensationInventory extend(RedoBatch suffix,boolean allowPending)throws IOException {
+        if(complete)throw new RedoException("COMPENSATION_WINDOW_ALREADY_COMPLETE");
+        return read(suffix,undo.containerUid(),undo.containerId(),undo.entries().get(0).identity().xid(),allowPending,this);
+    }
+    public byte[] durableCheckpoint()throws IOException {return CompensationWindowState.encode(this,identityCheckpoint);}
+    public static ArchivedCompensationInventory restoreDurable(byte[] bytes,String trustedSha256)throws IOException {return CompensationWindowState.restore(bytes,trustedSha256);}
+    private static ArchivedCompensationInventory read(RedoBatch archives,long uid,long container,HeapRowPatch.Xid xid,boolean allowPending,ArchivedCompensationInventory prefix)throws IOException {
+        var undo=prefix==null?ArchivedUndoInventory.read(archives,uid,container,xid):ArchivedUndoInventory.extend(archives,prefix.undo());
+        var state=prefix==null?new TransactionLifecycle():TransactionLifecycle.restore(prefix.identityCheckpoint,DurableUndoState.sha(prefix.identityCheckpoint));
+        var entries=new ArrayList<Entry>();if(prefix!=null)entries.addAll(prefix.entries());
         int[] next={0},begins={0},ends={0};boolean[] active={false};
         long[] segment={0};
         ArchivedUndoInventory.Position[] window=new ArchivedUndoInventory.Position[2];
+        int prefixCount=prefix==null?0:prefix.undo().sources().size();
+        if(prefix!=null){next[0]=prefix.undo().entries().size();begins[0]=1;active[0]=true;segment[0]=prefix.segmentDba();window[0]=prefix.firstRecord();}
         for (int source=0;source<archives.size();source++) {
             var path=archives.get(source);var header=path.header();
-            if (!header.equals(undo.sources().get(source))) throw new RedoException("COMPENSATION_INVENTORY_INPUT_CHANGED");
+            if (!header.equals(undo.sources().get(prefixCount+source))) throw new RedoException("COMPENSATION_INVENTORY_INPUT_CHANGED");
             state.archive(header);
             path.visit(header,record->{
                 if (record.containerUid()!=uid) return;
@@ -95,7 +109,7 @@ public final class ArchivedCompensationInventory {
         } else state.finish();
         if (begins[0]!=1 || (!pending && ends[0]!=1) || next[0]!=undo.entries().size())
             throw new RedoException("COMPENSATION_INVENTORY_TRANSACTION_WINDOW_INCOMPLETE");
-        return new ArchivedCompensationInventory(undo,entries,window[0],window[1],!pending,segment[0]);
+        return new ArchivedCompensationInventory(undo,entries,window[0],window[1],!pending,segment[0],state.checkpoint());
     }
 
     public ArchivedUndoInventory undo() { return undo; }

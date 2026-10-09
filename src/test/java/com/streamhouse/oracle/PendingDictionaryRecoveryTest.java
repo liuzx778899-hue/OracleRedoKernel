@@ -75,12 +75,23 @@ class PendingDictionaryRecoveryTest {
         assertThrows(UnsupportedOperationException.class,()->pending.pending().clear());
     }
     @Test void unifiedRecoveryCountsPendingSysWithoutBusinessEvents()throws Exception {
-        var f=fixture();var journal=new CaptureJournal();var first=directory.resolve("prefix.dbf");var second=directory.resolve("suffix.dbf");
+        var f=fixture(2522819);var journal=new CaptureJournal();var first=directory.resolve("prefix.dbf");var second=directory.resolve("suffix.dbf");
         var captures=List.of(journal.readRawClosed(first,digest(Files.readAllBytes(first))),journal.readRawClosed(second,digest(Files.readAllBytes(second))));
         var baseline=directory.resolve("baseline.snapshot");
-        var text=new DictionaryBaselineTest().v3().replace("SNAPSHOT_SCN|2522819","SNAPSHOT_SCN|100");Files.writeString(baseline,text);
+        var text=new DictionaryBaselineTest().v3();Files.writeString(baseline,text);
         var waiting=HistoricalRecovery.prefixCaptured(captures.subList(0,1),baseline,digest(Files.readAllBytes(baseline)),4190000);
         assertEquals(1,waiting.pendingTransactions());assertEquals(0,waiting.completedTransactions());
+        byte[] checkpoint=waiting.checkpoint();String checkpointSha=digest(checkpoint);
+        assertTrue(new String(checkpoint,java.nio.charset.StandardCharsets.UTF_8).startsWith("ORK_HISTORICAL_RECOVERY_V2\n"));
+        assertEquals("HISTORICAL_RECOVERY_DIGEST_MISMATCH",assertThrows(RedoException.class,()->HistoricalRecovery.readCaptured(
+                captures,baseline,digest(Files.readAllBytes(baseline)),4190000,checkpoint,"0".repeat(64))).getMessage());
+        assertEquals("HISTORICAL_RECOVERY_BASELINE_OR_LEAF",assertThrows(RedoException.class,()->HistoricalRecovery.readCaptured(
+                captures,baseline,digest(Files.readAllBytes(baseline)),4190001,checkpoint,checkpointSha)).getMessage());
+        byte[] noncanonical=Arrays.copyOf(checkpoint,checkpoint.length+1);noncanonical[checkpoint.length]='\n';
+        assertEquals("HISTORICAL_RECOVERY_NONCANONICAL",assertThrows(RedoException.class,()->HistoricalRecovery.readCaptured(
+                captures,baseline,digest(Files.readAllBytes(baseline)),4190000,noncanonical,digest(noncanonical))).getMessage());
+        assertEquals("HISTORICAL_RECOVERY_SOURCE_PREFIX_CHANGED",assertThrows(RedoException.class,()->HistoricalRecovery.readCaptured(
+                captures.subList(1,2),baseline,digest(Files.readAllBytes(baseline)),4190000,checkpoint,checkpointSha)).getMessage());
         assertEquals("NO_PHYSICAL_OBJECT_TRANSACTIONS",assertThrows(RedoException.class,()->HistoricalRecovery.readCaptured(
                 captures,baseline,digest(Files.readAllBytes(baseline)),4190000,waiting.checkpoint(),digest(waiting.checkpoint()))).getMessage());
     }
