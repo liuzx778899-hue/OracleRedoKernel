@@ -1,5 +1,7 @@
 # Oracle 开发阶段收口清单
 
+2026-10-10最新收尾覆盖：[D1–D4已有能力收尾与接续](DELIVERY_D1_D4_CLOSEOUT_20261010.md)。已有有限D1恢复发布/D3 producer双窗口、D2历史字典/跨块、C++目录认证传输、RAW/DATE/TIMESTAMP产品链不再重复派工；D2初始水位/同key产品、LOB可信获取/投影/JDBC/CPACK与一般能力/连续在线平台仍保留待证。当前只读保存证据盘点，不是整包验收；独立目标/评审/生产部署/现场/发布未关闭。D5等待决定，TDE Issue #2暂缓且不是第一版交付/发布前置。以下为2026-10-07及后续历史时点清单，不覆盖上述最新范围和处置。
+
 D2初始水位开发态通过：新一次专属T_D2_INITIAL_20261008事务10.11.3606/startSCN2917894未提交时获取可信acquisition101660919708471296/SCN2917903/snapshot1ab759112bc293bd647877d8aa72fc640faa530bf2eb5227260a9cee5e0e1834，独立固定SCN基线SYS6行230cells/3index/业务1row及统计/usage布局零差异。冻结86/87完整BEGIN/undo/commit，保留首前像核对和schema一致性，将完整跨水位事务纳入重放；实际24.4标记下界取原始已观察SCN，不以基线之后限制。prefix rc0/1pending/0events，closed与独立JVM restored均rc0/3完整UPDATE，seed→initial-open→initial-final→seed顺序及前后像核等，输出同字节SHA233746264a2c007959df99906a7422e9eea70e97c6be58a7c2fb52c0ed0bce79。相关37项零失败错误跳过；首正式jar标记拒绝、后续跨水位拒绝及测试误写1而实际2事务失败全文保留。helper37297已停143，源行恢复/NO NO；禁止重放本批源动作或获取。入口lab/out/d2-initial-runtime-20261008/normal-summary.json及d2-initial-source-20261008/archives.json。此为开发classes正常恢复证据，正式产品仍dc90e006/旧内核，未新打包/部署/目标CPACK，不当D2整体验收。下一补一般事务同commitSCN/同key/跨块正常能力，合并候选后集中产品接线；D3连续、D4/D5及独立验收发布保持完整范围。
 
 2026-10-08用户执行优先级覆盖：先补完整D1–D5能力与正常端到端，再集中加固。局部开发仅真实样本、针对性回归及明显漏重/错误提交必要检查；极端并发、多故障组合、反复强杀等后移至完整功能候选。已通过证据复用，相关逻辑改变才复验，按工作包合并简短反馈。最新D2正常主线见[交付](DELIVERY_D2_SYS_MAINLINE_20261008.md)：先行统计与列使用统计契约已补，新84/85正式jar真实pending→闭合两完整UPDATE→跨JVM恢复同字节通过；同件产品目标2/2/1、两窗消费与完整CPACK已正常实证；继续初始水位/恢复及一般事务，不能当完整D2验收。

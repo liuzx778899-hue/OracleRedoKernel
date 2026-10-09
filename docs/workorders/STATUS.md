@@ -1,5 +1,7 @@
 # OracleRedoKernel 当前状态
 
+2026-10-10 D1–D4已有能力收尾：只读盘点8份原证据rc0，不重复测试/源DML/部署。D1及D3 producer双窗口44＋2/target46/46/2、D2历史字典/跨块40事件产品链、D3正式C++目录认证传输、D4 RAW及DATE/TIMESTAMP各4事件产品链按有限已交付收口；D2初始水位3/同key5仅内核冻结证据，产品待证。LOB内核16完整事件已交付，可信获取/投影/JDBC/目标CPACK仍开发中，旧97基线不补批批准。整包/独立目标/评审/生产部署/现场/发布未关闭。唯一必要接续按LOB最小正常接入派单集中处理，不堆局部验证；ARRAY/连续在线等真实剩余范围保留。D5未启动，TDE Issue#2不作第一版门槛；不重建automation。 [收尾单与接续派单](DELIVERY_D1_D4_CLOSEOUT_20261010.md)。
+
 2026-10-10 D4 LOB完整事件达到用户指定停点：代码b62a015已推送，56相关测试PASS，最终同件16事件（14提交变化＋2 raw seed），26前后像/冻结SQL零差异、rollback0；维护16事务/130节点零业务事件，native核等120/早期缺10明确保留。产品集成/部署/现场/发布及独立评审未验收，旧97基线不批准；不重源DML，未启容器。[简短反馈](DELIVERY_D4_LOB_NORMAL_20261009.md)。本轮完成即停止，不自动做产品CPACK/其它D包/D5。D5：TDE暂缓Issue #2、不作第一版交付/发布门槛；RAC/ASM复用既有解析器，只补实际读取接入缺口，最小正常验证，等待用户决定，未声明支持。
 
 2026-10-09 LOB冻结完整物理图：[同包反馈](DELIVERY_D4_LOB_NORMAL_20261009.md)。验证提交2271cd1已推送，19图关闭（16commit/3rollback），129原始/17补偿源顺序完整，rollback live0；17图/125节点native前驱/LIFO/结束/live/tail/head零差异，13tail实际打印核等，2seed图仍缺native/基线不批准。BasicFile18页唯一分配关系：16有owned locator、2临时页淘汰；2不同SCN/1prelude明确保留，尚非writer/可见性授权。170class全部不变/树bf2c87dd，旧验证复用；事件0/部署0。下一生产工厂全输入/自主维护/页-locator与完整LOB行→可信获取→正常产品CPACK；完整D1–D5/独立评审/现场/发布未关闭。
