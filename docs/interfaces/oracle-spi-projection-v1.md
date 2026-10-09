@@ -20,7 +20,7 @@ OracleBatchProjection.Batch projection = OracleBatchProjection.project(input);
 
 NUMBER调用内核严格NUMBER解值，返回BigDecimal；AL32UTF8 VARCHAR2调用严格UTF8 decoder。NULL保留为Map中存在且值为null；NOT NULL列的NULL拒绝，缺列或未知类型拒绝。隐藏列仍保留。before/after map和entries不可变，保留physical列顺序，INSERT/DELETE的不存在像为空map。
 
-RAW扩展候选：schema列类型为`RAW`，非NULL值为不可变`OracleRawValue`，JSON形如`{"hex":"00ffc328"}`，使用非空、小写、偶数长度hex保存精确字节；不按字符集解释，不与VARCHAR2混用。`bytes()`每次返回独立数组。JDBC目标以`setBytes`绑定，目标事件像记为`RAW:00ffc328`；NULL仍为显式null。可信基线查询直接`rawtohex(RAW列)`，历史COL$要求TYPE#=23。此契约尚待真实业务RAW样本和产品正常链路验证，不据单元测试宣称D4验收。
+RAW扩展候选：schema列类型为`RAW`，非NULL值为不可变`OracleRawValue`，JSON形如`{"hex":"00ffc328"}`，使用非空、小写、偶数长度hex保存精确字节；不按字符集解释，不与VARCHAR2混用。`bytes()`每次返回独立数组。JDBC目标以`setBytes`绑定，目标事件像记为`RAW:00ffc328`；NULL仍为显式null。可信基线查询直接`rawtohex(RAW列)`，历史COL$要求TYPE#=23。专属真实冻结95的I/U/D、NULL与回滚完整值已经核等；产品正常目标/CPACK仍待验证，不据有限样本宣称D4整体验收。
 
 `Entry.envelope`是实际`com.streamhouse.spi.EventEnvelope`。eventId为`oracle1:<kernel eventId>`，不伪装SQLServer v2身份；metadata.schemaVersion绑定内核schema摘要，captureInput为`oracle-batch-sha256:<input sha>`，两个完整性标记为true。changedColumns按完整raw cell差异及physical顺序列出，INSERT/DELETE列出存在像列。transactionId使用`oracle-xid:<usn>.<slot>.<sequence>`，transaction.sequence是这份已核有界scope中该XID的1-based DML序号，不宣称缺省知道源端全库事务序号。
 

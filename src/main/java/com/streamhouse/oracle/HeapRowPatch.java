@@ -131,6 +131,7 @@ public final class HeapRowPatch {
                     && fields.size()==4 && fields.get(2).length==2 && u16(fields.get(2),0)==1;
             // Seq90 XA column2: vector content has a self-sized short value; the KDO vector offset is 103/104.
             boolean shortXaColumnTwo=packed && xtype==1 && stored==3 && dictionaryColumns==3 && fields.size()==4
+                    && (u16(kdo,26)==103 || u16(kdo,26)==104)
                     && fields.get(2).length==2 && u16(fields.get(2),0)==2 && fields.get(3).length>=2
                     && (fields.get(3)[0]&255)>=1 && (fields.get(3)[0]&255)<=250
                     && (fields.get(3)[0]&255)==fields.get(3).length-1;
@@ -157,9 +158,10 @@ public final class HeapRowPatch {
                 if (index >= stored || columns.get(index).state() != State.ABSENT)
                     throw new RedoException("INVALID_UPDATE_COLUMN_MAP");
                 byte[] bytes=fields.get(i+3);
-                // Actual seq41 XA: marker3, physical column1 of3, unchanged 16-byte value with one-byte length.
-                boolean shortMarkerThree=packed && u16(kdo,26)==3 && xtype==1 && stored==3 && dictionaryColumns==3
-                        && index==1 && bytes.length==17 && (bytes[0]&255)==16;
+                // Seq41 value16/three columns and RAW seq95 value4/two columns: marker3 has a self-sized short value.
+                boolean shortMarkerThree=packed && u16(kdo,26)==3 && (xtype==1 || xtype==2 && stored==2) && stored==dictionaryColumns
+                        && (stored==2 || stored==3) && index==1 && bytes.length>=2 && bytes.length<=251
+                        && (bytes[0]&255)==bytes.length-1;
                 columns.set(index,value(packed ? packedValue(bytes,u16(kdo,26),shortMarkerThree || shortMarkerTwo || shortXaColumnTwo) : bytes));
             }
         } else {

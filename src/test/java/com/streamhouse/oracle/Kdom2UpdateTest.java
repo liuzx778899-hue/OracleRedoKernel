@@ -47,9 +47,9 @@ class Kdom2UpdateTest {
         assertThrows(RedoException.class,()->new HeapRowPatch().decode(vector(kdo(),hex("0100"),b),2));
         assertThrows(RedoException.class,()->new HeapRowPatch().decode(vector(kdo(),hex("0100"),Arrays.copyOf(value(),904)),2));
     }
-    @Test void refusesUnprovenNullShortAndMultipleColumnLayouts() {
+    @Test void refusesUnprovenNullAndMultipleColumnLayouts() throws Exception {
         assertThrows(RedoException.class,()->new HeapRowPatch().decode(vector(kdo(),hex("0100"),hex("ff")),2));
-        assertThrows(RedoException.class,()->new HeapRowPatch().decode(vector(kdo(),hex("0100"),hex("0161")),2));
+        assertArrayEquals(hex("61"),new HeapRowPatch().decode(vector(kdo(),hex("0100"),hex("0161")),2).columns().get(1).bytes());
         byte[] b=kdo(); b[23]=2;
         assertThrows(RedoException.class,()->new HeapRowPatch().decode(vector(b,hex("00000100"),value()),2));
         assertThrows(RedoException.class,()->new HeapRowPatch().decode(vector(kdo(),hex("0200"),value()),2));
