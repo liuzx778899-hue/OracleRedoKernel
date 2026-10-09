@@ -1,6 +1,10 @@
 # D4 LOB 正常功能开发反馈 · 2026-10-09
 
-当前代码：`codex/d2-normal-index-restore` / `8b9349d2f19809cdbec4be3172bb5bd348307c9c`（前件 `328e63a`）。本工作包完成失败续接、冻结样本、LOB locator/页/填充解码与有限正向 undo 配对；完整 LOB 事件及产品链仍在开发，不判验收。
+当前代码：`codex/d2-normal-index-restore` / `c0c01ae2848482e9dd8c3ffd3f0793e52257c449`（前件 `8b9349d` / `328e63a`）。本工作包完成失败续接、冻结样本、LOB locator/页/填充解码与有限正向 undo/物理补偿配对；完整 LOB 事件及产品链仍在开发，不判验收。
+
+最新离线推进：原始堆表undo发现19个完整XID及其完整inventory/补偿窗口，17个唯一补偿头路由全部按源顺序消费；9堆表逆操作（含3解锁）和2 SecureFile局部填充撤销逐一绑定完整原始身份与逆向字节，native完整owner/原始位置零差异。起始112字节格式、begin解锁、原始UBA/低wrap复用/重复行/跨容器/填充flags与payload反例覆盖，44个不同相关测试通过。SecureFile旧ITL与当前10.26.4262身份分开，opaque fill flags原样核等；追加high-water撤销尚不宣称支持。
+
+最新证据 `continue-r2/rollback-candidate-proof.json`、`rollback-r6/heap-rollback-comparison.json`、`rollback-r6/proof.json` 与完整命令/rc/日志；冻结168class树SHA256 `ffc5085a83efb2dd1a99a87f3ad1d563faa166281c884fd8c6dab3616d97943b`。全归档59堆表original包含诊断cutoff前2个seed INSERT（SCN3036388/3036447），后缀仍为前件57，不据此批准基线。首两次探针的对象范围及起始格式拒绝保留，未放宽对象门禁；剩余6个BasicFile相关13.23/10.22物理补偿明确列为待实现，尚不能调用完整图关闭/发布事件。本候选部署0、事件0，库仍exited；继续BasicFile控制/索引与页owner闭合，然后完整行/可信获取/正常产品CPACK。
 
 后续离线补齐：三列 LOB 专用锁/undo 入口支持实测 ITL1/2 与 rollback unlock，普通堆表入口门禁不变；新增 SecureFile 小内联 locator。全量四个 fixture 堆块共57正向配对（13 LOCK/40 UPDATE/2 INSERT/2 DELETE）与 native 完整 XID/UBA/对象零差异；9回滚行仅结构识别，未完成补偿归属或事务闭合。新增4内联值/4空LOB/4NULL与逐步SQL真值相同，原16完整值在最终class上仍零差异。最终20相关测试 rc0，失败/错误/跳过0。
 

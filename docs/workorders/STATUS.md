@@ -1,5 +1,7 @@
 # OracleRedoKernel 当前状态
 
+2026-10-09 LOB物理补偿推进：[同包反馈](DELIVERY_D4_LOB_NORMAL_20261009.md)。c0c01ae：完整19XID窗口/17唯一路由，9堆表+2SecureFile补偿/native完整owner与原始位置零差异；44不同相关测试rc0，168class树ffc5085a冻结。全归档59original含cutoff前2seed，后缀仍57/早期基线不批准。剩余6个BasicFile相关13.23/10.22补偿、页owner、完整事务/事件/可信获取及产品CPACK待补；事件0/换装0/库exited。对象范围首拒绝保留，未放宽门禁；完整D1–D5及独立评审/现场/发布未关闭。
+
 2026-10-09 LOB堆表正常功能补齐：[同包反馈](DELIVERY_D4_LOB_NORMAL_20261009.md)。代码8b9349d：LOB专用ITL1/2锁/undo及SecureFile小内联候选，最终20相关测试rc0；四堆块57正向配对/native完整owner零差异，4内联/4空/4NULL及原16完整值/SQL零差异，冻结168class树a1291a5f。9回滚行仅识别，LOB完整补偿/事务/可信获取/产品CPACK未完成，事件0/部署0，库仍exited，原失败保留。完整D1–D5/独立评审/现场/发布仍开发中，禁止晚SCN回填批准97。
 
 2026-10-09 LOB正常开发续接：[合并反馈](DELIVERY_D4_LOB_NORMAL_20261009.md)。328e63a：原失败完整回滚/实际字符长度已核，专属两LOB一次16步完成并冻结97；18 BasicFile页、12 SecureFile填充、4页镜像及10正向undo owner与native核等，类型化locator重建16完整值/SQL零差异，12相关测试通过。事件0，原早期3038645未获基线批准，LOB完整事务/事件/产品CPACK仍开发中；库stop0/exited，无换装。产品STATUS首部为当前入口；完整D1–D5及独立评审/部署/现场/发布未完成。
