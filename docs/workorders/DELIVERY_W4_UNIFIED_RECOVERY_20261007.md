@@ -8,6 +8,8 @@
 
 本次相关9项通过（失败/错误/跳过0）。统一入口冻结90–93导出 pending1/completed6，独立JVM续原94得到46完整事件；冻结84导出pending SYS1/completed0，续原85得到2完整事件；两批完整事件列表及batch SHA与strict一致。V1原84状态续85也得到同2事件。V2 checkpoint SHA：业务 `c3b5a182162f6c9e4820b962ba3e05582aae17ad21301590baf8aaa59a0c87d0`，SYS `2b3e6dff1762de059748bd9da1d0e22a082cc3a0d3131444f395bd5ad14d94bf`。证据 `lab/out/d3-stream-runtime-20261009/producer-recovery-r87/summary.json` 与各 command/stdout/stderr/rc；先前夹具SCN小于resetlogs及核验器错leaf失败原文保留，未放宽守卫。
 
+产品接线检查补齐旧登记兼容：新增 verifyPrefixCaptured，按可信旧状态格式重建并逐字节核对，产品 prefix verified 使用该入口，避免生成器升级V2后拒绝已有V1登记。相关3项通过；独立JVM原84的V1及新V2复核均pending1/completed0，证据同目录 legacy-v1-verify/typed-v2-verify。此前仅app构建因本地旧模块坐标缺少现行SPI接口失败，改用必要依赖reactor打包已通过；PowerShell未引号点号属性失败原文保留。兼容修复后候选重新打包，旧中间候选不换装。
+
 代码交付/针对性验证：通过；产品整合、部署、独立现场验收、发布：待证。源/获取/目标写入/容器动作0，产品仍r48/target46。下一将同一提交树打包接产品恢复注册与目标原子提交/checkpoint/ACK正常链路，再继续闭合字典/行像复用及增量发现。D1–D5完整目标active，ARRAY/类型/LOB/RAC/ASM/TDE与独立评审、约定部署、用户生产验证/现场验收均保留。
 
 kernel SHA256 `593e730b67a2622ac9084eeae837eb64477249efe1946f4c5e4856059fe39ea9`，完整 **328/0/0/0**。新增 HistoricalRecovery public 入口；修改 physical 读取器、完整事件工厂及 RedoBatch 前缀视图。四 class 字节变化、新增一个 class、123 class 不变，无新依赖、源动作、目标动作或产品换装。

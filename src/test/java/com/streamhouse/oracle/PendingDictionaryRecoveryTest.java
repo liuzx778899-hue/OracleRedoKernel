@@ -82,6 +82,11 @@ class PendingDictionaryRecoveryTest {
         var waiting=HistoricalRecovery.prefixCaptured(captures.subList(0,1),baseline,digest(Files.readAllBytes(baseline)),4190000);
         assertEquals(1,waiting.pendingTransactions());assertEquals(0,waiting.completedTransactions());
         byte[] checkpoint=waiting.checkpoint();String checkpointSha=digest(checkpoint);
+        assertArrayEquals(checkpoint,HistoricalRecovery.verifyPrefixCaptured(captures.subList(0,1),baseline,
+                digest(Files.readAllBytes(baseline)),4190000,checkpoint,checkpointSha).checkpoint());
+        byte[] malformed={'\n'};
+        assertEquals("HISTORICAL_RECOVERY_BASELINE_OR_LEAF",assertThrows(RedoException.class,()->HistoricalRecovery.verifyPrefixCaptured(
+                captures,baseline,digest(Files.readAllBytes(baseline)),4190000,malformed,digest(malformed))).getMessage());
         assertTrue(new String(checkpoint,java.nio.charset.StandardCharsets.UTF_8).startsWith("ORK_HISTORICAL_RECOVERY_V2\n"));
         assertEquals("HISTORICAL_RECOVERY_DIGEST_MISMATCH",assertThrows(RedoException.class,()->HistoricalRecovery.readCaptured(
                 captures,baseline,digest(Files.readAllBytes(baseline)),4190000,checkpoint,"0".repeat(64))).getMessage());

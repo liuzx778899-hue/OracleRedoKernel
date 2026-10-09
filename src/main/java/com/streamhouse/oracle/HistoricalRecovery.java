@@ -27,10 +27,26 @@ public final class HistoricalRecovery {
         return prefixCaptured(captures,baseline,trustedBaselineSha256,leaf).checkpoint();
     }
     public static Prefix prefixCaptured(List<CaptureJournal.Verified> captures,Path baseline,String trustedBaselineSha256,long leaf)throws IOException {
+        return prefixCaptured(captures,baseline,trustedBaselineSha256,leaf,false);
+    }
+    /** Re-derives an enrolled receipt in its authenticated format; new enrollment always emits V2. */
+    public static Prefix verifyPrefixCaptured(List<CaptureJournal.Verified> captures,Path baseline,String trustedBaselineSha256,long leaf,
+                                             byte[] checkpoint,String trustedCheckpointSha256)throws IOException {
+        byte[] input=checkpoint.clone();
+        if(!digest(input).equals(trustedCheckpointSha256))throw new RedoException("HISTORICAL_RECOVERY_DIGEST_MISMATCH");
+        String format=new String(input,StandardCharsets.UTF_8).split("\n",-1)[0];
+        if(!format.equals("ORK_HISTORICAL_RECOVERY_V1") && !format.equals("ORK_HISTORICAL_RECOVERY_V2"))
+            throw new RedoException("HISTORICAL_RECOVERY_BASELINE_OR_LEAF");
+        var actual=prefixCaptured(captures,baseline,trustedBaselineSha256,leaf,format.equals("ORK_HISTORICAL_RECOVERY_V1"));
+        if(!Arrays.equals(input,actual.checkpoint()))throw new RedoException("HISTORICAL_RECOVERY_STATE_CHANGED");
+        return actual;
+    }
+    private static Prefix prefixCaptured(List<CaptureJournal.Verified> captures,Path baseline,String trustedBaselineSha256,long leaf,boolean legacy)throws IOException {
         var snapshot=FrozenHeapBaseline.read(baseline,trustedBaselineSha256);var inputs=RedoBatch.captures(captures);
         var history=ArchivedDictionaryHistory.readPrefix(inputs,snapshot);
         var physical=ArchivedPhysicalTransactions.readHistoryPrefix(inputs,snapshot,history,leaf);
-        return new Prefix(encodeDurable(inputs,snapshot,leaf,history,physical),physical.state().pending().size()+history.pending().size(),physical.completed().transactions().size());
+        return new Prefix(legacy?encode(snapshot,leaf,history,physical):encodeDurable(inputs,snapshot,leaf,history,physical),
+                physical.state().pending().size()+history.pending().size(),physical.completed().transactions().size());
     }
     public static CapturedHistoricalHeapBatch readCaptured(List<CaptureJournal.Verified> captures,Path baseline,String trustedBaselineSha256,
                                                           long leaf,byte[] checkpoint,String trustedCheckpointSha256)throws IOException {
@@ -38,7 +54,7 @@ public final class HistoricalRecovery {
         if(!digest(checkpoint).equals(trustedCheckpointSha256))throw new RedoException("HISTORICAL_RECOVERY_DIGEST_MISMATCH");
         var snapshot=FrozenHeapBaseline.read(baseline,trustedBaselineSha256);var inputs=RedoBatch.captures(captures);
         String[] lines=new String(checkpoint,StandardCharsets.UTF_8).split("\n");
-        if(lines[0].equals("ORK_HISTORICAL_RECOVERY_V2"))return readDurable(captures,inputs,snapshot,leaf,checkpoint,lines);
+        if(lines.length>0 && lines[0].equals("ORK_HISTORICAL_RECOVERY_V2"))return readDurable(captures,inputs,snapshot,leaf,checkpoint,lines);
         if(lines.length<5 || !lines[0].equals("ORK_HISTORICAL_RECOVERY_V1") || !lines[1].equals("H|"+leaf+"|"+snapshot.sha256()))
             throw new RedoException("HISTORICAL_RECOVERY_BASELINE_OR_LEAF");
         int count=0;

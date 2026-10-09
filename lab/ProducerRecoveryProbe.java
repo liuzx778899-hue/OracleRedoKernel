@@ -14,6 +14,10 @@ public class ProducerRecoveryProbe {
             System.out.println("PENDING="+prefix.pendingTransactions());System.out.println("COMPLETED="+prefix.completedTransactions());
             return;
         }
+        if(args[0].equals("verify")) {
+            var prefix=HistoricalRecovery.verifyPrefixCaptured(captures,baseline,args[4],leaf,Files.readAllBytes(state),args[2]);
+            System.out.println("PENDING="+prefix.pendingTransactions());System.out.println("COMPLETED="+prefix.completedTransactions());return;
+        }
         var restored=HistoricalRecovery.readCaptured(captures,baseline,args[4],leaf,Files.readAllBytes(state),args[2]);
         var reference=CapturedHistoricalHeapBatch.read(captures,baseline,args[4],leaf);
         if(!restored.events().equals(reference.events()) || !restored.sha256().equals(reference.sha256()))throw new AssertionError("COMPLETE_EVENT_OR_BATCH_CHANGED");
