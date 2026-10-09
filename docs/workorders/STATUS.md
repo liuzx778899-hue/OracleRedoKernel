@@ -1,5 +1,7 @@
 # OracleRedoKernel 当前状态
 
+2026-10-09 LOB堆表正常功能补齐：[同包反馈](DELIVERY_D4_LOB_NORMAL_20261009.md)。代码8b9349d：LOB专用ITL1/2锁/undo及SecureFile小内联候选，最终20相关测试rc0；四堆块57正向配对/native完整owner零差异，4内联/4空/4NULL及原16完整值/SQL零差异，冻结168class树a1291a5f。9回滚行仅识别，LOB完整补偿/事务/可信获取/产品CPACK未完成，事件0/部署0，库仍exited，原失败保留。完整D1–D5/独立评审/现场/发布仍开发中，禁止晚SCN回填批准97。
+
 2026-10-09 LOB正常开发续接：[合并反馈](DELIVERY_D4_LOB_NORMAL_20261009.md)。328e63a：原失败完整回滚/实际字符长度已核，专属两LOB一次16步完成并冻结97；18 BasicFile页、12 SecureFile填充、4页镜像及10正向undo owner与native核等，类型化locator重建16完整值/SQL零差异，12相关测试通过。事件0，原早期3038645未获基线批准，LOB完整事务/事件/产品CPACK仍开发中；库stop0/exited，无换装。产品STATUS首部为当前入口；完整D1–D5及独立评审/部署/现场/发布未完成。
 
 当前执行（2026-10-07前缀登记）：[服务端可信前缀登记与交接](DELIVERY_W6_PREFIX_REGISTRATION_20261007.md)。root代码0c48602/P代码217e5cd，kernel61288022完整330、product04744751完整760；原可信获取与75 capture只读复用，认证HTTP服务端生成pending1/completed0状态7d6eef2a并登记。登记故障后APPROVED_PREFIX/审计0、文件保留；解除后同字节复用/登记一次，重复/强杀137重启GET稳定，毒化拒绝/精确恢复；事件/任务/窗口/批次/发布门0，CPACK0，helper停止143。仅显式前缀API，不是自动pipeline pending或75/76产品完整发布通过；新SQL故障底层原因未持久化，是下一修复项。D1未关闭，其余四包及部署现场发布未关闭。新chat交接以HANDOFF_NEW_CHAT_20261007_PREFIX.md为准，旧chat移交后只保留历史。
