@@ -79,6 +79,8 @@ class PendingDictionaryRecoveryTest {
         var restored=ArchivedDictionaryHistory.readRestored(f.closed(),f.snapshot(),pending,closed.commits());
         assertEquals(closed.commits(),restored.commits());assertArrayEquals(closed.checkpoint(),restored.checkpoint());
         assertArrayEquals(closed.materializedState().checkpoint(),restored.materializedState().checkpoint());
+        var incremental=ArchivedDictionaryHistory.readRestoredIncremental(f.closed(),f.snapshot(),pending,closed.commits());
+        assertEquals(closed.commits(),incremental.commits());assertArrayEquals(closed.checkpoint(),incremental.checkpoint());
         var c=closed.commits().get(0);var e=c.original().get(0);var p=e.position();
         var wrong=new ArchivedUndoInventory.Entry(new ArchivedUndoInventory.Position(p.archiveSequence(),p.block(),p.offset()+1,p.vector()),
                 e.identity(),e.opcodeMajor(),e.opcodeMinor(),e.previousDba(),e.rci());
@@ -111,6 +113,21 @@ class PendingDictionaryRecoveryTest {
                 captures.subList(1,2),baseline,digest(Files.readAllBytes(baseline)),4190000,checkpoint,checkpointSha)).getMessage());
         assertEquals("NO_PHYSICAL_OBJECT_TRANSACTIONS",assertThrows(RedoException.class,()->HistoricalRecovery.readCaptured(
                 captures,baseline,digest(Files.readAllBytes(baseline)),4190000,waiting.checkpoint(),digest(waiting.checkpoint()))).getMessage());
+    }
+    @Test void incrementalDiscoveryResumesKnownSysAndAuthenticatesOldMediaRangeEndpoint()throws Exception {
+        var f=fixture(2522819);long scn=f.snapshot().scn();var pending=ArchivedDictionaryHistory.readPrefix(f.prefix(),f.snapshot());
+        var resumed=ArchivedDictionaryHistory.readRestoredIncremental(f.closed(),f.snapshot(),pending.durablePendingState(),List.of());
+        var closed=ArchivedDictionaryHistory.readPrefix(f.closed(),f.snapshot());
+        assertArrayEquals(closed.checkpoint(),resumed.checkpoint());
+        byte[] range=new byte[16];put(range,0,scn+10,4);put(range,8,scn+209,4);put(range,12,0x8000,2);
+        var marker=new RedoRecords.Vector(24,4,0,0,0,0,0,3,List.of(HexFormat.of().parseHex("28230000000000000000000072000c00"),range));
+        var media=writeArchive("media.dbf",9,scn+200,scn+300,scn+210,List.of(marker));
+        var inputs=RedoBatch.archives(List.of(directory.resolve("prefix.dbf"),directory.resolve("suffix.dbf"),media));
+        var extended=ArchivedDictionaryHistory.readRestoredIncremental(inputs,f.snapshot(),closed.durablePendingState(),closed.commits());
+        assertArrayEquals(ArchivedDictionaryHistory.readPrefix(inputs,f.snapshot()).checkpoint(),extended.checkpoint());
+        put(range,0,scn+11,4);writeArchive("media.dbf",9,scn+200,scn+300,scn+210,List.of(marker));
+        assertEquals("UNSUPPORTED_MEDIA_RECOVERY_MARKER_RANGE",assertThrows(RedoException.class,
+                ()->ArchivedDictionaryHistory.readRestoredIncremental(inputs,f.snapshot(),closed.durablePendingState(),closed.commits())).getMessage());
     }
     String digest(byte[] bytes)throws Exception {return HexFormat.of().formatHex(java.security.MessageDigest.getInstance("SHA-256").digest(bytes));}
 }

@@ -23,14 +23,14 @@ public class ProducerRecoveryProbe {
             System.out.println("PENDING="+prefix.pendingTransactions());System.out.println("COMPLETED="+prefix.completedTransactions());return;
         }
         CapturedHistoricalHeapBatch restored;
-        if(args[0].equals("extend")) {
+        if(args[0].equals("extend") || args[0].equals("extend-verify")) {
             var advanced=HistoricalRecovery.extendPrefixCaptured(captures,baseline,args[4],leaf,Files.readAllBytes(state),args[2]);
             var fresh=HistoricalRecovery.prefixCaptured(captures,baseline,args[4],leaf);
             if(!Arrays.equals(advanced.state().checkpoint(),fresh.checkpoint()))throw new AssertionError("EXTENDED_STATE_NOT_FRESH_EQUIVALENT");
             var again=HistoricalRecovery.extendPrefixCaptured(captures,baseline,args[4],leaf,advanced.state().checkpoint(),sha(advanced.state().checkpoint()));
             if(!Arrays.equals(again.state().checkpoint(),advanced.state().checkpoint()) || !again.completed().events().equals(advanced.completed().events()))
                 throw new AssertionError("REPEATED_EXTENSION_CHANGED_STATE_OR_EVENTS");
-            Files.write(Path.of(args[1]+".extended"),advanced.state().checkpoint(),StandardOpenOption.CREATE_NEW);
+            if(args[0].equals("extend"))Files.write(Path.of(args[1]+".extended"),advanced.state().checkpoint(),StandardOpenOption.CREATE_NEW);
             System.out.println("EXTENDED_SHA256="+sha(advanced.state().checkpoint()));
             System.out.println("PENDING="+advanced.state().pendingTransactions());
             System.out.println("FRESH_STATE_EQUAL=true");System.out.println("REPEAT_UNCHANGED=true");restored=advanced.completed();

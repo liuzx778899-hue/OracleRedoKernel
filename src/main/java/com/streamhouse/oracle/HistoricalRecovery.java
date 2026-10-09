@@ -110,7 +110,7 @@ public final class HistoricalRecovery {
         var physical=PhysicalRecoveryState.restore(values[1],digest(values[1]),snapshot,leaf).prefix();
         requireSources(inputs,pending,physical);
         var producer=HistoricalProducerState.restore(values[2],digest(values[2]),snapshot,leaf,physical.completed());
-        var history=version==4?ArchivedDictionaryHistory.readRestored(inputs,snapshot,pending,
+        var history=version==4?ArchivedDictionaryHistory.readRestoredIncremental(inputs,snapshot,pending,
                 DictionaryCommittedState.restore(values[3],digest(values[3]),snapshot,producer.rows().dictionary()))
                 :ArchivedDictionaryHistory.readRestored(inputs,snapshot,pending);
         var extended=ArchivedPhysicalTransactions.readHistoryRestoredPrefix(inputs,snapshot,history,leaf,physical);

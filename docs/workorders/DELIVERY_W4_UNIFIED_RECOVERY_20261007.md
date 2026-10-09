@@ -1,5 +1,15 @@
 # W4 统一历史恢复与完整事件候选
 
+## 2026-10-09 已认证V4的SYS主体增量发现（r96–r100，离线）
+
+V4恢复使用完整认证闭合提交及pending上下文初始化SYS身份，只在新成员执行主体发现；已恢复上下文不再访问旧成员回放，新发现事务若原节点在旧成员仍按完整inventory核验。24.4 mixed media range的下端点若不在新成员已观察SCN中，仅回读其所属旧来源，要求同容器真实SCN存在及原来源header核等，不能从数值范围推断端点存在。旧V4检查点字节/登记复核格式不变，其他格式路径保持。cluster maintenance/index split扫描及业务物理关联仍全读，尚非整体只读后缀producer。
+
+r96相关7项通过；r99最终pending/SYS主体/跨旧来源media端点5项通过，共8个不同相关测试。复用r93保存V4前缀：r97业务90–93→94为46完整事件，扩展SHA仍 `f9277cba8783061958d8e73813cfdfd13bab301cf387948cf9dd21e48d001fbc`；r100 SYS84→85为2完整事件/3字典版本，扩展SHA仍 `51c23da9436a41fd439e099d4da6dd2c40e17b807856ba2a8b629f83d4159a77`。两例完整事件及batch SHA与strict相同，扩展状态与全量逐字节相同，重复扩展不变；没有重新导出已通过的r93状态。
+
+保留失败：r98新合成pending夹具SCN100低于resetlogs，`TRANSACTION_CHECKPOINT_ACTIVE_IDENTITY`；仅改新夹具为真实允许SCN2522819，原守卫保持。r97 SYS启动恰逢Maven重编译共享target/classes，`NoClassDefFoundError: HistoricalRecovery`；构建结束后仅重试该失败SYS阶段至r100，业务成功阶段不重跑。入口 `lab/out/d3-stream-runtime-20261009/producer-recovery-r100/summary.json`、r97 business/r100 sys各command/stdout/stderr/rc以及r96/r98/r99-tests；探针ProducerRecoveryProbe新增extend-verify，不写入或覆盖已有状态。
+
+代码/针对性离线验证通过；产品仍r88–r90 V2候选未打包换装。源DML/获取/目标/容器动作0；旧raw必留。下一继续物理/关联发现状态接线及统一producer进度、低水位/背压；完整D1–D5、独立验证评审/约定部署/用户生产验证/现场验收发布继续待证，goal active。
+
 ## 2026-10-09 V4 已闭合SYS字典复用（r92–r95，离线）
 
 V4在producer capsule新增完整SYS提交元数据（全XID/容器/BEGIN和COMMIT SCN/原始节点/配对计数/提交位置），与R中已保存字典版本的数量、SCN、位置逐项匹配。恢复保留完整历史提交及行值，已闭合SYS不再重建inventory/生命周期或从baseline重放行操作；新提交从最后已闭合字典行和派生完整索引状态继续应用。旧来源/完整原节点所有权仍由累计raw发现核对，marker须归属新上下文或完整保存提交；原V1/V2/V3格式读取和原格式复核保留。

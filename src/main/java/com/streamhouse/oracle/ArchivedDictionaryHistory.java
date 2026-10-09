@@ -167,6 +167,11 @@ public final class ArchivedDictionaryHistory {
         pending.requireBaseline(snapshot);
         return read(inputs,snapshot,true,pending,committed);
     }
+    /** Requires the complete authenticated producer capsule, including every prior committed and pending SYS owner. */
+    static Timeline readRestoredIncremental(RedoBatch inputs,FrozenHeapBaseline.Snapshot snapshot,DictionaryPendingState pending,List<Commit> committed)throws IOException {
+        pending.requireBaseline(snapshot);
+        return read(inputs,snapshot,true,pending,committed,true);
+    }
     private static Timeline read(RedoBatch inputs,FrozenHeapBaseline.Snapshot snapshot,boolean allowPending)throws IOException {
         return read(inputs,snapshot,allowPending,null);
     }
@@ -174,6 +179,9 @@ public final class ArchivedDictionaryHistory {
         return read(inputs,snapshot,allowPending,restored,List.of());
     }
     private static Timeline read(RedoBatch inputs,FrozenHeapBaseline.Snapshot snapshot,boolean allowPending,DictionaryPendingState restored,List<Commit> committed)throws IOException {
+        return read(inputs,snapshot,allowPending,restored,committed,false);
+    }
+    private static Timeline read(RedoBatch inputs,FrozenHeapBaseline.Snapshot snapshot,boolean allowPending,DictionaryPendingState restored,List<Commit> committed,boolean incremental)throws IOException {
         if(snapshot.dictionaryBaseline()==null)throw new RedoException("MISSING_V3_COMPLETE_DICTIONARY_BASELINE");
         if(inputs.isEmpty())throw new RedoException("NO_DICTIONARY_REDO_INPUT");
         var baseline=snapshot.dictionaryBaseline();var roles=new HashMap<Long,FrozenHeapBaseline.ObjectRole>();
@@ -191,9 +199,15 @@ public final class ArchivedDictionaryHistory {
         for(var closed:clusterMaintenance)for(var e:closed.original())if(clusterOriginals.putIfAbsent(e.position(),e.identity())!=null)
             throw new RedoException("CLUSTER_MAINTENANCE_ORIGINAL_OWNER_COLLISION");
         var identities=new LinkedHashSet<HeapRowPatch.Xid>();var sources=new ArrayList<ArchivedRedo.Header>();var continuity=new TransactionLifecycle();var markers=new ArrayList<Long>();
+        var saved=restored==null?null:restored.decoded();int prefixCount=saved==null?0:saved.sources().size();
+        if(prefixCount>inputs.size())throw new RedoException("DICTIONARY_PENDING_SOURCE_PREFIX_CHANGED");
+        for(int i=0;i<prefixCount;i++)if(!saved.sources().get(i).equals(inputs.get(i).header()))throw new RedoException("DICTIONARY_PENDING_SOURCE_PREFIX_CHANGED");
+        if(incremental)for(var c:saved.contexts())identities.add(c.inventory.entries().get(0).identity().xid());
         var observedScns=new HashSet<Long>();
+        int sourceIndex=0;
         for(var input:inputs) {
             var header=input.header();snapshot.requireSource(header);continuity.archive(header);sources.add(header);
+            if(incremental && sourceIndex++<prefixCount)continue;
             input.visit(header,r->{
                 if(r.containerUid()!=snapshot.source().containerUid())return;
                 observedScns.add(r.scn());
@@ -224,6 +238,17 @@ public final class ArchivedDictionaryHistory {
                     if(role!=null && affectsBaselineScope(header,r,v,role,snapshot,splitRestores)) {byte[] b=v.fields().get(0);identities.add(new HeapRowPatch.Xid(u16(b,8),u16(b,10),u32(b,12)));}
                 }
                 for(var v:r.vectors())if(v.containerId()==snapshot.source().containerId() && v.opcodeMajor()==24) {
+                    if(incremental && v.opcodeMinor()==4 && v.fields().size()==2 && v.fields().get(1).length==16) {
+                        long first=u32(v.fields().get(1),0);
+                        if(!observedScns.contains(first))for(int i=0;i<prefixCount;i++) {
+                            var old=inputs.get(i);var oldHeader=old.header();
+                            if(!oldHeader.equals(saved.sources().get(i)))throw new RedoException("DICTIONARY_DISCOVERY_SOURCE_CHANGED");
+                            if(first>=oldHeader.firstScn() && first<oldHeader.nextScn()) {
+                                old.visit(oldHeader,record->{if(record.containerUid()==snapshot.source().containerUid() && record.scn()==first)observedScns.add(first);});
+                                if(!oldHeader.equals(old.header()))throw new RedoException("DICTIONARY_DISCOVERY_SOURCE_CHANGED");
+                            }
+                        }
+                    }
                     HistoricalSchemaBarrier.requireMarkerProfile(r,v,snapshot.scn(),observedScns);
                     if(v.opcodeMinor()==1)for(var role:List.of(snapshot.heap(),snapshot.index())) {
                         var f=v.fields();
@@ -237,7 +262,7 @@ public final class ArchivedDictionaryHistory {
             if(!header.equals(input.header()))throw new RedoException("DICTIONARY_DISCOVERY_SOURCE_CHANGED");
         }
         continuity.finish();
-        if(observedClosed.size()!=closedOriginals.size())throw new RedoException("DICTIONARY_COMMITTED_ORIGINAL_MISSING");
+        if(!incremental && observedClosed.size()!=closedOriginals.size())throw new RedoException("DICTIONARY_COMMITTED_ORIGINAL_MISSING");
         // Auxiliary statistics do not select a schema history; every dependency of a selected SYS transaction is still owned below.
         if(baseline.statistics()!=null) {
             var statistics=baseline.statistics();roles.put(statistics.table().role().logicalObject(),statistics.table().role());
@@ -248,7 +273,6 @@ public final class ArchivedDictionaryHistory {
             roles.put(usage.index().role().logicalObject(),usage.index().role());
         }
         if(snapshot.scn()<sources.get(0).firstScn() || snapshot.scn()>=sources.get(sources.size()-1).nextScn())throw new RedoException("DICTIONARY_BASELINE_SCN_OUTSIDE_INPUT_COVERAGE");
-        var saved=restored==null?null:restored.decoded();int prefixCount=saved==null?0:saved.sources().size();
         if(prefixCount>sources.size() || saved!=null && !saved.sources().equals(sources.subList(0,prefixCount)))throw new RedoException("DICTIONARY_PENDING_SOURCE_PREFIX_CHANGED");
         var contexts=new LinkedHashMap<HeapRowPatch.Xid,Context>();var originals=new HashMap<ArchivedUndoInventory.Position,Context>();
         var resumed=new HashSet<Context>();
@@ -273,6 +297,8 @@ public final class ArchivedDictionaryHistory {
             var header=input.header();if(!sources.contains(header))throw new RedoException("DICTIONARY_REPLAY_SOURCE_CHANGED");
             boolean old=prefixCount>0 && header.sequence()<=sources.get(prefixCount-1).sequence();
             for(var c:contexts.values())if(!old || !resumed.contains(c))c.lifecycle.archive(header);
+            if(incremental && old && contexts.values().stream().noneMatch(c->!resumed.contains(c)
+                    && c.inventory.entries().stream().anyMatch(e->e.position().archiveSequence()<=sources.get(prefixCount-1).sequence())))continue;
             input.visit(header,r->{
                 if(r.containerUid()!=snapshot.source().containerUid())return;
                 for(var c:contexts.values())if(!old || !resumed.contains(c))controls(header,r,c,snapshot);
