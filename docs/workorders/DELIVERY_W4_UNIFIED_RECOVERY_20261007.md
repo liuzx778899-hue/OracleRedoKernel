@@ -1,5 +1,13 @@
 # W4 统一历史恢复与完整事件候选
 
+## 2026-10-09 typed物理pending完整图保留与接续（r101–r103，离线）
+
+PhysicalRecoveryState已有完整durable undo图，但旧typed PendingGraph丢弃其bytes，下一次from又独立从raw读取pending inventory。本轮在typed pending中保留不可变base64完整图；from直接恢复保存图并核来源/容器/全XID/消费计数及legacy动作收据。物理恢复使用该图extend新成员，必须与原始完整发现inventory的sources/entries/control root/容器逐项相同；旧构造路径兼容。物理V1及历史V4的序列化格式和字节保持，无新格式升级。
+
+r101相关21项及r102新增owner/count/legacy收据不匹配拒绝1项，共22个不同测试通过。删除测试raw后，已恢复typed pending能在空raw输入下重新序列化原物理状态同字节；此为组件证明，不是完整pipeline无raw。r103复用r93保存90–93 V4前缀，重复原prefix仍pending1/44完整已闭合事件，恢复及新建committedPrefix与原状态同字节，SHA仍 `70721de1534ae0873eb9724e0727ecec4e66b081ceb448711bfbb886b2437f24`。续原94累计46完整事件，SYS84→85累计2；完整事件及batch SHA与strict相同、扩展状态与全量同字节、重复扩展不变，扩展SHA仍f9277cba8783061958d8e73813cfdfd13bab301cf387948cf9dd21e48d001fbc/51c23da9436a41fd439e099d4da6dd2c40e17b807856ba2a8b629f83d4159a77。输入状态未重导出，构建与探针顺序执行。
+
+入口 `lab/out/d3-stream-runtime-20261009/producer-recovery-r103/summary.json`、pending/business/sys各command/stdout/stderr/rc及physical-graph-r101/r102-tests；探针ProducerRecoveryProbe新增verify-pending。代码/针对性离线验证通过；产品仍r88–r90 V2候选未打包换装。源DML/获取/目标/容器动作0，旧raw必留：物理发现、完整配对/范围、association及maintenance/split仍全读。下一接完整保守窗口/关联发现状态及统一进度/低水位背压；完整D1–D5及独立验证评审/部署/用户生产现场验收发布继续待证，goal active。
+
 ## 2026-10-09 已认证V4的SYS主体增量发现（r96–r100，离线）
 
 V4恢复使用完整认证闭合提交及pending上下文初始化SYS身份，只在新成员执行主体发现；已恢复上下文不再访问旧成员回放，新发现事务若原节点在旧成员仍按完整inventory核验。24.4 mixed media range的下端点若不在新成员已观察SCN中，仅回读其所属旧来源，要求同容器真实SCN存在及原来源header核等，不能从数值范围推断端点存在。旧V4检查点字节/登记复核格式不变，其他格式路径保持。cluster maintenance/index split扫描及业务物理关联仍全读，尚非整体只读后缀producer。

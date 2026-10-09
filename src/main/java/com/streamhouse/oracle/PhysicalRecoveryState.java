@@ -18,13 +18,30 @@ public final class PhysicalRecoveryState {
                                       ArchivedPhysicalTransactions.Prefix prefix)throws IOException {
         var graphs=new ArrayList<byte[]>();
         for(var p:prefix.state().pending()) {
-            var inventory=ArchivedUndoInventory.read(inputs,baseline.source().containerUid(),baseline.source().containerId(),p.xid());
-            byte[] checkpoint=p.graphCheckpoint().getBytes(StandardCharsets.UTF_8);
-            graphs.add(UndoHistory.restore(inventory,checkpoint,sha(checkpoint)).durableCheckpoint());
+            UndoHistory graph;
+            if(p.durableGraph()!=null)graph=pendingGraph(p);
+            else {
+                var inventory=ArchivedUndoInventory.read(inputs,baseline.source().containerUid(),baseline.source().containerId(),p.xid());
+                byte[] checkpoint=p.graphCheckpoint().getBytes(StandardCharsets.UTF_8);
+                graph=UndoHistory.restore(inventory,checkpoint,sha(checkpoint));
+            }
+            var inventory=graph.inventory();
+            if(!inventory.sources().equals(prefix.state().sources()) || inventory.containerUid()!=baseline.source().containerUid()
+                    || inventory.containerId()!=baseline.source().containerId())throw new RedoException("PHYSICAL_STATE_PENDING_GRAPH_SCOPE");
+            graphs.add(graph.durableCheckpoint());
         }
         return new PhysicalRecoveryState(encode(baseline,leaf,prefix,graphs),baseline,leaf);
     }
     public byte[] checkpoint(){return bytes.clone();}
+    static UndoHistory pendingGraph(ArchivedPhysicalTransactions.PendingGraph pending)throws IOException {
+        byte[] bytes;
+        try{bytes=Base64.getDecoder().decode(pending.durableGraph());}
+        catch(IllegalArgumentException e){throw new RedoException("PHYSICAL_STATE_PENDING_GRAPH_FORMAT");}
+        var graph=UndoHistory.restoreDurable(bytes,sha(bytes));var inventory=graph.inventory();
+        if(!new String(graph.checkpoint(),StandardCharsets.UTF_8).equals(pending.graphCheckpoint()) || pending.next()!=inventory.entries().size()
+                || inventory.entries().stream().anyMatch(e->!e.identity().xid().equals(pending.xid())))throw new RedoException("PHYSICAL_STATE_PENDING_GRAPH_SCOPE");
+        return graph;
+    }
     /** Caller must authenticate the state SHA through durable control state. */
     public static PhysicalRecoveryState restore(byte[] bytes,String trustedStateSha256,Path baseline,String trustedBaselineSha256,long leaf)throws IOException {
         return restore(bytes,trustedStateSha256,FrozenHeapBaseline.read(baseline,trustedBaselineSha256),leaf);
@@ -93,7 +110,7 @@ public final class PhysicalRecoveryState {
                         || indexes.stream().anyMatch(p->inventory.entries().stream().noneMatch(e->e.identity().equals(p.undo().identity()))))
                     throw new RedoException("PHYSICAL_STATE_PENDING_GRAPH_SCOPE");
                 pending.add(new ArchivedPhysicalTransactions.PendingGraph(xid,segment,next,operations,List.copyOf(heaps),List.copyOf(indexes),List.copyOf(markers),
-                        new String(graph.checkpoint(),StandardCharsets.UTF_8)));
+                        new String(graph.checkpoint(),StandardCharsets.UTF_8),Base64.getEncoder().encodeToString(graphBytes)));
             }
             var prefix=new ArchivedPhysicalTransactions.Prefix(new ArchivedPhysicalTransactions.Result(List.copyOf(sources),List.copyOf(closed)),
                     new ArchivedPhysicalTransactions.PendingState(List.copyOf(sources),List.copyOf(pending),identity));

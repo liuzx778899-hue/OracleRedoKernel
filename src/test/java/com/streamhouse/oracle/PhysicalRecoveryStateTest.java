@@ -29,6 +29,8 @@ class PhysicalRecoveryStateTest {
         var restored=PhysicalRecoveryState.restore(bytes,DurableUndoState.sha(bytes),snapshot,leaf);
         var prefix=restored.prefix();assertEquals(1,prefix.completed().transactions().get(0).graph().original().size());
         var p=prefix.state().pending().get(0);assertEquals(1,p.indexes().size());assertEquals(1,p.operations().size());
+        assertNotNull(p.durableGraph());
+        assertArrayEquals(state.checkpoint(),PhysicalRecoveryState.from(RedoBatch.archives(List.of()),snapshot,leaf,prefix).checkpoint());
         byte[] key=p.indexes().get(0).forward().key();byte original=key[0];key[0]^=1;
         assertEquals(original,restored.prefix().state().pending().get(0).indexes().get(0).forward().key()[0]);
         bytes[0]^=1;assertArrayEquals(state.checkpoint(),restored.checkpoint());
@@ -42,6 +44,17 @@ class PhysicalRecoveryStateTest {
         var unknown=bytes.clone();unknown[2]='X';
         for(byte[] bad:List.of(Arrays.copyOf(bytes,bytes.length-1),Arrays.copyOf(bytes,bytes.length+1),unknown))
             assertThrows(RedoException.class,()->PhysicalRecoveryState.restore(bad,DurableUndoState.sha(bad),snapshot,leaf));
+    }
+    @Test void retainedTypedGraphCannotUseAnotherOwnerCountOrLegacyReceipt()throws Exception {
+        var prefix=state().prefix();var p=prefix.state().pending().get(0);
+        for(var changed:List.of(
+                new ArchivedPhysicalTransactions.PendingGraph(new HeapRowPatch.Xid(p.xid().usn(),p.xid().slot(),p.xid().sequence()+1),p.segment(),p.next(),p.operations(),p.heaps(),p.indexes(),p.markers(),p.graphCheckpoint(),p.durableGraph()),
+                new ArchivedPhysicalTransactions.PendingGraph(p.xid(),p.segment(),p.next()-1,p.operations(),p.heaps(),p.indexes(),p.markers(),p.graphCheckpoint(),p.durableGraph()),
+                new ArchivedPhysicalTransactions.PendingGraph(p.xid(),p.segment(),p.next(),p.operations(),p.heaps(),p.indexes(),p.markers(),p.graphCheckpoint()+"\n",p.durableGraph()))) {
+            var replaced=new ArchivedPhysicalTransactions.Prefix(prefix.completed(),new ArchivedPhysicalTransactions.PendingState(prefix.state().sources(),List.of(changed),prefix.state().identityCheckpoint()));
+            assertEquals("PHYSICAL_STATE_PENDING_GRAPH_SCOPE",assertThrows(RedoException.class,
+                    ()->PhysicalRecoveryState.from(RedoBatch.archives(List.of()),snapshot,leaf,replaced)).getMessage());
+        }
     }
     @Test void sourceHeaderCountsPendingSegmentAndPairContainerCannotBeRebound()throws Exception {
         var state=state();byte[] bytes=state.checkpoint();var source=bytes.clone();

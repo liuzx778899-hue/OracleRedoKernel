@@ -22,6 +22,16 @@ public class ProducerRecoveryProbe {
             var prefix=HistoricalRecovery.verifyPrefixCaptured(captures,baseline,args[4],leaf,Files.readAllBytes(state),args[2]);
             System.out.println("PENDING="+prefix.pendingTransactions());System.out.println("COMPLETED="+prefix.completedTransactions());return;
         }
+        if(args[0].equals("verify-pending")) {
+            byte[] input=Files.readAllBytes(state);
+            var advanced=HistoricalRecovery.extendPrefixCaptured(captures,baseline,args[4],leaf,input,args[2]);
+            var reference=HistoricalRecovery.committedPrefixCaptured(captures,baseline,args[4],leaf);
+            if(!Arrays.equals(input,advanced.state().checkpoint()) || !Arrays.equals(input,reference.state().checkpoint())
+                    || !advanced.completed().events().equals(reference.completed().events()) || !advanced.completed().sha256().equals(reference.completed().sha256()))
+                throw new AssertionError("PENDING_PREFIX_STATE_OR_COMPLETE_EVENTS_CHANGED");
+            System.out.println("STATE_UNCHANGED=true");System.out.println("PENDING="+advanced.state().pendingTransactions());
+            System.out.println("EVENTS="+advanced.completed().events().size());System.out.println("STATE_SHA256="+sha(input));return;
+        }
         CapturedHistoricalHeapBatch restored;
         if(args[0].equals("extend") || args[0].equals("extend-verify")) {
             var advanced=HistoricalRecovery.extendPrefixCaptured(captures,baseline,args[4],leaf,Files.readAllBytes(state),args[2]);

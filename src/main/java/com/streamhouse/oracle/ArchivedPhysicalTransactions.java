@@ -15,7 +15,12 @@ public final class ArchivedPhysicalTransactions {
                               ArchivedUndoInventory.Position commitPosition) {}
     public record Result(List<ArchivedRedo.Header> sources,List<Transaction> transactions) {}
     record PendingGraph(HeapRowPatch.Xid xid,long segment,int next,List<Operation> operations,List<HeapUndoPair> heaps,
-                        List<IndexUndoPair> indexes,List<ArchivedUndoInventory.Position> markers,String graphCheckpoint) {}
+                        List<IndexUndoPair> indexes,List<ArchivedUndoInventory.Position> markers,String graphCheckpoint,String durableGraph) {
+        PendingGraph(HeapRowPatch.Xid xid,long segment,int next,List<Operation> operations,List<HeapUndoPair> heaps,
+                     List<IndexUndoPair> indexes,List<ArchivedUndoInventory.Position> markers,String graphCheckpoint) {
+            this(xid,segment,next,operations,heaps,indexes,markers,graphCheckpoint,null);
+        }
+    }
     record PendingState(List<ArchivedRedo.Header> sources,List<PendingGraph> pending,String identityCheckpoint) {}
     record Prefix(Result completed,PendingState state) {}
     private static final class Context {
@@ -140,7 +145,16 @@ public final class ArchivedPhysicalTransactions {
                 c.next=(int)inventory.entries().stream().filter(e->e.position().archiveSequence()<=last).count();
                 if(pending!=null) {
                     if(c.next!=pending.next())throw new RedoException("PHYSICAL_RECOVERY_ORIGINAL_PREFIX_CHANGED");
-                    c.graph=UndoHistory.restore(inventory,utf8(pending.graphCheckpoint()),recoveryDigest(utf8(pending.graphCheckpoint())));
+                    if(pending.durableGraph()==null)c.graph=UndoHistory.restore(inventory,utf8(pending.graphCheckpoint()),recoveryDigest(utf8(pending.graphCheckpoint())));
+                    else {
+                        var graph=PhysicalRecoveryState.pendingGraph(pending);
+                        c.graph=prefixCount==paths.size()?graph:graph.extend(paths.suffix(prefixCount));
+                        var extended=c.graph.inventory();
+                        if(!extended.sources().equals(inventory.sources()) || !extended.entries().equals(inventory.entries())
+                                || !java.util.Objects.equals(extended.controlRoot(),inventory.controlRoot())
+                                || extended.containerUid()!=inventory.containerUid() || extended.containerId()!=inventory.containerId())
+                            throw new RedoException("PHYSICAL_RECOVERY_INVENTORY_CHANGED");
+                    }
                     c.segment=pending.segment();c.operations.addAll(pending.operations());c.heaps.addAll(pending.heaps());c.indexes.addAll(pending.indexes());pendingCount++;
                 } else if(closed!=null) {c.result=closed;c.operations.addAll(closed.operations());closedCount++;}
                 else if(c.next>0) {
@@ -323,7 +337,8 @@ public final class ArchivedPhysicalTransactions {
             boolean active=savePending!=null && !c.discovered.associations().window().complete() && c.result==null && !c.coveredByBaseline;
             if ((c.result==null && !c.coveredByBaseline && !active) || c.next!=c.discovered.associations().window().undo().entries().size()) throw new RedoException("PHYSICAL_TRANSACTION_COVERAGE_INCOMPLETE");
             if(active)pending.add(new PendingGraph(c.discovered.xid(),c.segment,c.next,List.copyOf(c.operations),List.copyOf(c.heaps),List.copyOf(c.indexes),
-                    List.copyOf(c.markers),new String(c.graph.checkpoint(),java.nio.charset.StandardCharsets.UTF_8)));
+                    List.copyOf(c.markers),new String(c.graph.checkpoint(),java.nio.charset.StandardCharsets.UTF_8),
+                    java.util.Base64.getEncoder().encodeToString(c.graph.durableCheckpoint())));
         }
         if(savePending!=null)savePending.accept(new PendingState(found.sources(),List.copyOf(pending),new String(state.checkpoint(),java.nio.charset.StandardCharsets.UTF_8)));
         for (int i=0;i<paths.size();i++) requireSource(found,i,paths.get(i).header());
