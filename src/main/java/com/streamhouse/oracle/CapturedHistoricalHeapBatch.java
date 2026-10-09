@@ -75,6 +75,11 @@ public final class CapturedHistoricalHeapBatch {
     static CapturedHistoricalHeapBatch readWithPhysical(List<CaptureJournal.Verified> inputs,RedoBatch paths,FrozenHeapBaseline.Snapshot snapshot,
                                                        ArchivedDictionaryHistory.Timeline history,long leaf,ArchivedPhysicalTransactions.Result physical)throws IOException {
         var rows=ArchivedHeapRows.readHistory(paths,snapshot,leaf,history,physical);
+        return readWithRows(inputs,snapshot,history,leaf,physical,rows);
+    }
+    static CapturedHistoricalHeapBatch readWithRows(List<CaptureJournal.Verified> inputs,FrozenHeapBaseline.Snapshot snapshot,
+                                                   ArchivedDictionaryHistory.Timeline history,long leaf,ArchivedPhysicalTransactions.Result physical,
+                                                   ArchivedHeapRows.Result rows)throws IOException {
         if(!physical.sources().equals(rows.sources()) || !rows.sources().equals(history.sources()))throw new RedoException("HISTORICAL_BATCH_SOURCE_CHANGED");
         var owners=new HashMap<ArchivedUndoInventory.Position,ArchivedPhysicalTransactions.Transaction>();
         for(var t:physical.transactions())for(var live:t.graph().live())if(owners.putIfAbsent(live.position(),t)!=null)

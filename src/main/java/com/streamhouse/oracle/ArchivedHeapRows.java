@@ -32,7 +32,10 @@ public final class ArchivedHeapRows {
         }
     }
     public record Change(ArchivedUndoInventory.Position position,Xid xid,RowKey key,Kind kind,List<Cell> before,List<Cell> after) {}
-    public record Result(List<ArchivedRedo.Header> sources,List<Change> changes,Map<RowKey,List<Cell>> rows) {}
+    public record Result(List<ArchivedRedo.Header> sources,List<Change> changes,Map<RowKey,List<Cell>> rows,
+                         Map<RowKey,ArchivedUndoInventory.Position> lastPositions) {
+        public Result(List<ArchivedRedo.Header> sources,List<Change> changes,Map<RowKey,List<Cell>> rows){this(sources,changes,rows,Map.of());}
+    }
     private record Pending(ArchivedUndoInventory.Position position,Xid xid,RowKey key,HeapUndoPair pair) {}
     private static final Comparator<ArchivedUndoInventory.Position> POSITION_ORDER=
             Comparator.comparingLong(ArchivedUndoInventory.Position::archiveSequence)
@@ -81,6 +84,18 @@ public final class ArchivedHeapRows {
     }
     private static Result read(RedoBatch paths,Baseline baseline,HeapIndexScope scope,long leaf,ArchivedPhysicalTransactions.Result physical,
                                List<FrozenHeapBaseline.PhysicalColumn> schema,ArchivedDictionaryHistory.Timeline history) throws IOException {
+        return read(paths,baseline,scope,leaf,physical,schema,history,null);
+    }
+    static Result readHistoryRestored(RedoBatch paths,FrozenHeapBaseline.Snapshot snapshot,long leaf,ArchivedDictionaryHistory.Timeline history,
+                                      ArchivedPhysicalTransactions.Result physical,HistoricalRowState restored)throws IOException {
+        history.requireBoundTo(paths,snapshot);restored.requirePrefix(snapshot,leaf,physical);
+        var scope=new HeapIndexScope(new HeapIndexScope.Generation(snapshot.heap().logicalObject(),snapshot.heap().dataObject()),
+                new HeapIndexScope.Generation(snapshot.index().logicalObject(),snapshot.index().dataObject()));
+        return read(paths,new Baseline(snapshot.source(),snapshot.scn(),snapshot.heap().logicalObject(),snapshot.columns().size(),snapshot.rows()),
+                scope,leaf,physical,snapshot.columns(),history,restored);
+    }
+    private static Result read(RedoBatch paths,Baseline baseline,HeapIndexScope scope,long leaf,ArchivedPhysicalTransactions.Result physical,
+                               List<FrozenHeapBaseline.PhysicalColumn> schema,ArchivedDictionaryHistory.Timeline history,HistoricalRowState restored) throws IOException {
         if (baseline.columns()<1 || baseline.columns()>255 || baseline.rows().entrySet().stream().anyMatch(e->
                 e.getKey().dataObjectId()!=scope.heap().dataObject() || e.getKey().dba()<=0 || e.getKey().slot()<0 || e.getValue().size()!=baseline.columns()))
             throw new RedoException("BASELINE_ROW_SCOPE_OR_COLUMNS_MISMATCH");
@@ -89,7 +104,8 @@ public final class ArchivedHeapRows {
             throw new RedoException("BASELINE_SOURCE_IDENTITY_MISMATCH");
         if (baseline.scn()<physical.sources().get(0).firstScn() || baseline.scn()>=physical.sources().get(physical.sources().size()-1).nextScn())
             throw new RedoException("BASELINE_SCN_OUTSIDE_INPUT_COVERAGE");
-        var transactions=commitOrdered(physical.transactions().stream().filter(t->t.identity().endRecordScn()>baseline.scn()).toList());
+        var transactions=commitOrdered(physical.transactions().stream().filter(t->t.identity().endRecordScn()>baseline.scn()
+                && (restored==null || restored.after(t))).toList());
         var selected=new HashMap<ArchivedUndoInventory.Position,ArchivedPhysicalTransactions.Transaction>();
         var commits=new java.util.HashSet<ArchivedUndoInventory.Position>();
         for (var t:transactions) {
@@ -105,7 +121,7 @@ public final class ArchivedHeapRows {
         }
         if (selected.isEmpty() && transactions.stream().anyMatch(t->!t.graph().live().isEmpty()))
             throw new RedoException("NO_ROW_CHANGES_AFTER_BASELINE");
-        var rows=new HashMap<>(baseline.rows());var changes=new ArrayList<Change>();var seen=new java.util.HashSet<ArchivedUndoInventory.Position>();
+        var rows=new HashMap<>(restored==null?baseline.rows():restored.rows());var changes=new ArrayList<Change>();var seen=new java.util.HashSet<ArchivedUndoInventory.Position>();
         var pending=new HashMap<Xid,List<Pending>>();
         for (int i=0;i<paths.size();i++) {
             var path=paths.get(i);var h=physical.sources().get(i);
@@ -137,8 +153,8 @@ public final class ArchivedHeapRows {
             if (!h.equals(path.header())) throw new RedoException("ROW_REPLAY_SOURCE_CHANGED");
         }
         if (seen.size()!=selected.size()) throw new RedoException("ROW_REPLAY_INCOMPLETE_SELECTED_INPUT");
-        var lastRowPosition=new HashMap<RowKey,ArchivedUndoInventory.Position>();
-        var replaySchema=schema;
+        var lastRowPosition=new HashMap<RowKey,ArchivedUndoInventory.Position>(restored==null?Map.of():restored.lastPositions());
+        var replaySchema=restored==null?schema:restored.columns();
         for (var t:transactions) {
             if(history!=null) {
                 var next=history.schemaAt(t.identity().endRecordScn(),t.commitPosition());
@@ -157,7 +173,7 @@ public final class ArchivedHeapRows {
         }
         for (int i=0;i<paths.size();i++) if (!physical.sources().get(i).equals(paths.get(i).header()))
             throw new RedoException("ROW_REPLAY_SOURCE_CHANGED");
-        return new Result(physical.sources(),List.copyOf(changes),Map.copyOf(rows));
+        return new Result(physical.sources(),List.copyOf(changes),Map.copyOf(rows),Map.copyOf(lastRowPosition));
     }
 
     static Map<RowKey,List<Cell>> remapRows(Map<RowKey,List<Cell>> rows,List<FrozenHeapBaseline.PhysicalColumn> previous,
@@ -186,7 +202,7 @@ public final class ArchivedHeapRows {
         }
         return Map.copyOf(result);
     }
-    private static void requireCompleteValues(List<Cell> row,List<FrozenHeapBaseline.PhysicalColumn> schema)throws RedoException {
+    static void requireCompleteValues(List<Cell> row,List<FrozenHeapBaseline.PhysicalColumn> schema)throws RedoException {
         if(row.size()!=schema.size())throw new RedoException("HISTORICAL_ROW_SCHEMA_WIDTH_MISMATCH");
         for(int i=0;i<row.size();i++) {
             var cell=row.get(i);var column=schema.get(i);
