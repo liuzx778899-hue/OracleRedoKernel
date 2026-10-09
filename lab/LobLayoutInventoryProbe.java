@@ -79,7 +79,7 @@ public class LobLayoutInventoryProbe {
                             }
                         }
                     }
-                    System.out.println("VECTOR|"+v+"|"+opcode+"|"+vector.dba()+"|"+vector.blockClass()+"|"+vector.fields().size());
+                    System.out.println("VECTOR|"+v+"|"+opcode+"|"+vector.dba()+"|"+vector.blockClass()+"|"+vector.fields().size()+"|"+vector.objectId());
                     for(int f=0;f<vector.fields().size();f++) {
                         byte[] bytes=vector.fields().get(f);
                         System.out.println("FIELD|"+f+"|"+bytes.length+"|"+hex.formatHex(digest.digest(bytes))+"|"+

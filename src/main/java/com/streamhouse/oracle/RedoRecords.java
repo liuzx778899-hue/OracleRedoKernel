@@ -13,7 +13,11 @@ import static com.streamhouse.oracle.RedoBytes.*;
 /** Structural records and vectors only. Opcode meaning and CDC publication are separate gates. */
 public final class RedoRecords {
     public record Vector(int opcodeMajor, int opcodeMinor, int blockClass, int file,
-                         long dba, long scn, int sequence, long containerId, List<byte[]> fields) {}
+                         long dba, long scn, int sequence, long containerId, List<byte[]> fields,long objectId) {
+        public Vector(int opcodeMajor,int opcodeMinor,int blockClass,int file,long dba,long scn,int sequence,long containerId,List<byte[]> fields) {
+            this(opcodeMajor,opcodeMinor,blockClass,file,dba,scn,sequence,containerId,fields,-1);
+        }
+    }
     public record Record(long block, int offset, int length, int validity, long scn,
                          int subScn, long containerUid, List<Vector> vectors) {}
     @FunctionalInterface public interface Visitor { void accept(Record record) throws IOException; }
@@ -70,7 +74,7 @@ public final class RedoRecords {
                         }
                         vectors.add(new Vector(bytes[pos]&255,bytes[pos+1]&255,u16(bytes,pos+2),
                                 u16(bytes,pos+4),u32(bytes,pos+8),scn(bytes,pos+12),bytes[pos+20]&255,
-                                u32(bytes,pos+24),List.copyOf(fields)));
+                                u32(bytes,pos+24),List.copyOf(fields),((long)u16(bytes,pos+6)<<16)|u16(bytes,pos+22)));
                         pos=data;
                     }
                 }

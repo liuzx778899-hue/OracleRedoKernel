@@ -33,6 +33,34 @@ public final class IndexCompensation {
                                       List<IndexUndoPair> history,TransactionLifecycle state) throws RedoException {
         return match(record,marker,row,history,state,null,null);
     }
+    /** Source-routed LOB index purge; leaf position remains the exact observed forward slot. */
+    public static IndexUndoPair matchLob(RedoRecords.Record record,RedoRecords.Vector marker,RedoRecords.Vector row,
+                                       List<IndexUndoPair> history,UndoHeader original)throws RedoException {
+        if(!record.vectors().contains(marker) || !record.vectors().contains(row) || marker.containerId()!=row.containerId())
+            throw new RedoException("LOB_INDEX_COMPENSATION_RECORD_OR_CONTAINER");
+        var c=UndoCompensation.decode(marker);var rollback=decodePurge(row);
+        if(marker.opcodeMinor()!=6 || c.beginsTransaction() || c.crossesUndoBlock() || c.opcodeMajor()!=10 || c.opcodeMinor()!=22 || row.blockClass()!=1 || row.objectId()!=original.dataObjectId())
+            throw new RedoException("LOB_INDEX_COMPENSATION_SCOPE_OR_OPCODE");
+        IndexUndoPair match=null;
+        for(var pair:history) {
+            var u=pair.undo();var f=pair.forward();
+            if(pair.containerUid()!=record.containerUid() || pair.containerId()!=row.containerId() || !u.identity().equals(original)
+                    || c.dba()!=original.uba().dba() || c.slot()!=original.xid().slot() || c.objectId()!=original.objectId()
+                    || c.dataObjectId()!=original.dataObjectId() || c.tablespace()!=original.tablespace() || c.wrap()!=u.wrap()
+                    || c.previousDba()!=u.previousDba() || c.predecessorRecord()!=u.predecessorRecord() || u.kind()!=IndexUndoPair.Kind.PURGE
+                    || f.kind()!=IndexUndoPair.Kind.INSERT || f.block()!=rollback.block() || f.itl()!=rollback.itl()
+                    || f.slot()!=rollback.slot() || f.rowSize()!=rollback.rowSize())continue;
+            if(match!=null)throw new RedoException("LOB_INDEX_COMPENSATION_AMBIGUOUS_ORIGINAL");match=pair;
+        }
+        if(match==null)throw new RedoException("LOB_INDEX_COMPENSATION_MISSING_ORIGINAL");
+        IndexUndoPair.validateLobKeyData(match.forward().key(),match.forward().keydata());
+        IndexUndoPair.validateLobKeyData(match.undo().key(),null);
+        int rows=0;
+        for(var candidate:record.vectors())if(candidate.containerId()==row.containerId() && candidate.opcodeMajor()==10
+                && candidate.opcodeMinor()==3 && decodePurge(candidate).equals(rollback))rows++;
+        if(rows!=1)throw new RedoException("LOB_INDEX_COMPENSATION_AMBIGUOUS_PURGE");
+        return match;
+    }
     /** Position correction is derived from an owned source inventory, never a caller-supplied slot. */
     public static IndexUndoPair match(RedoRecords.Record record,RedoRecords.Vector marker,RedoRecords.Vector row,
                                       List<IndexUndoPair> history,TransactionLifecycle state,IndexLeafPositions positions,

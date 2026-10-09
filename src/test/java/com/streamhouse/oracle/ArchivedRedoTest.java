@@ -40,6 +40,14 @@ class ArchivedRedoTest {
         assertEquals(101,records.get(0).scn()); assertEquals(4,records.get(0).vectors().get(0).opcodeMinor());
         assertArrayEquals(new byte[]{16},records.get(0).vectors().get(0).fields().get(0));
     }
+    @Test void readsObjectIdFromItsTwoHeaderHalves()throws Exception {
+        for(long object:new long[]{79335L,0xffffffffL}) {
+            byte[] b=fixture();put(b,1070,object>>>16,2);put(b,1086,object&0xffff,2);seal(b,1024);
+            var path=write(b);var header=new ArchivedRedo().scan(path);var records=new ArrayList<RedoRecords.Record>();
+            new RedoRecords().visit(path,header,records::add);
+            assertEquals(object,records.get(0).vectors().get(0).objectId());
+        }
+    }
     @Test void rejectsUnalignedTruncation() throws Exception {
         var b=fixture(); Path p=write(Arrays.copyOf(b,b.length-1));
         assertTrue(assertThrows(RedoException.class,()->new ArchivedRedo().scan(p)).getMessage().contains("TRUNCATED"));
