@@ -20,6 +20,7 @@ public final class UndoHistory {
     private boolean failed,closed;
 
     public UndoHistory(ArchivedUndoInventory inventory) { this.inventory=inventory; }
+    ArchivedUndoInventory inventory(){return inventory;}
 
     /** Materialized nodes and actions; caller must durably authenticate the returned bytes. */
     public byte[] durableCheckpoint()throws java.io.IOException {return DurableUndoState.encode(inventory,checkpoint());}

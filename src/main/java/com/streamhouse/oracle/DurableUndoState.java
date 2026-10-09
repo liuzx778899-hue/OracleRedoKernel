@@ -71,31 +71,31 @@ final class DurableUndoState {
         } catch(RedoException e){throw e;}
         catch(IllegalArgumentException|NoSuchElementException|EOFException|UTFDataFormatException e){throw new RedoException("DURABLE_UNDO_MALFORMED");}
     }
-    private static void uba(DataOutputStream out,HeapRowPatch.Uba u)throws IOException {out.writeLong(u.dba());out.writeInt(u.sequence());out.writeInt(u.record());}
-    private static HeapRowPatch.Uba uba(DataInputStream in)throws IOException {
+    static void uba(DataOutputStream out,HeapRowPatch.Uba u)throws IOException {out.writeLong(u.dba());out.writeInt(u.sequence());out.writeInt(u.record());}
+    static HeapRowPatch.Uba uba(DataInputStream in)throws IOException {
         var u=new HeapRowPatch.Uba(in.readLong(),in.readInt(),in.readInt());
         if(u.dba()<=0 || u.dba()>0xffffffffL || u.sequence()<0 || u.sequence()>65535 || u.record()<1 || u.record()>255)
             throw new RedoException("DURABLE_UNDO_UBA");return u;
     }
-    private static void undo(DataOutputStream out,UndoHeader h)throws IOException {
+    static void undo(DataOutputStream out,UndoHeader h)throws IOException {
         out.writeInt(h.xid().usn());out.writeInt(h.xid().slot());out.writeLong(h.xid().sequence());uba(out,h.uba());
         out.writeLong(h.objectId());out.writeLong(h.dataObjectId());out.writeLong(h.tablespace());out.writeBoolean(h.beginsTransaction());
     }
-    private static UndoHeader undo(DataInputStream in)throws IOException {
+    static UndoHeader undo(DataInputStream in)throws IOException {
         var xid=new HeapRowPatch.Xid(in.readInt(),in.readInt(),in.readLong());var u=uba(in);
         var h=new UndoHeader(xid,u,in.readLong(),in.readLong(),in.readLong(),in.readBoolean());
         if(xid.usn()<1 || xid.usn()>65535 || xid.slot()<0 || xid.slot()>65535 || xid.sequence()<0 || xid.sequence()>0xffffffffL
                 || h.objectId()<0 || h.objectId()>0xffffffffL || h.dataObjectId()<0 || h.dataObjectId()>0xffffffffL
                 || h.tablespace()<0 || h.tablespace()>0xffffffffL)throw new RedoException("DURABLE_UNDO_IDENTITY");return h;
     }
-    private static int count(DataInputStream in)throws IOException {
+    static int count(DataInputStream in)throws IOException {
         int n=in.readInt();if(n<0 || n>in.available())throw new RedoException("DURABLE_UNDO_COUNT");return n;
     }
     private static int compare(ArchivedUndoInventory.Position a,ArchivedUndoInventory.Position b) {
         int c=Long.compare(a.archiveSequence(),b.archiveSequence());if(c==0)c=Long.compare(a.block(),b.block());
         if(c==0)c=Integer.compare(a.offset(),b.offset());return c==0?Integer.compare(a.vector(),b.vector()):c;
     }
-    private static String sha(byte[] bytes) {
+    static String sha(byte[] bytes) {
         try{return HexFormat.of().formatHex(java.security.MessageDigest.getInstance("SHA-256").digest(bytes));}
         catch(java.security.NoSuchAlgorithmException e){throw new AssertionError(e);}
     }

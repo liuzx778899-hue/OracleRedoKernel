@@ -173,6 +173,9 @@ public final class ArchivedPhysicalTransactions {
                 }
             });requireSource(found,source,path.header());
         }
+        if(restored!=null)for(var p:restored.state().pending()) {
+            if(!owners.get(p.xid()).markers.equals(p.markers()))throw new RedoException("PHYSICAL_RECOVERY_MARKER_PREFIX_CHANGED");
+        }
         for (int source=prefixCount;source<paths.size();source++) {
             var path=paths.get(source);var header=path.header();requireSource(found,source,header);state.archive(header);
             path.visit(header,r->{

@@ -19,6 +19,14 @@ public final class TransactionLifecycle {
     private ArchivedRedo.Header archive;
     private boolean failed;
 
+    void requireRecoveryArchive(ArchivedRedo.Header expected)throws RedoException {
+        if(!expected.equals(archive))throw new RedoException("PHYSICAL_STATE_IDENTITY_SOURCE");
+    }
+    void requireRecoveryPending(HeapRowPatch.Xid xid,long segment,long uid,long container)throws RedoException {
+        var begin=pending.get(new Key(uid,container,segment,xid.slot(),xid.sequence()));
+        if(begin==null || !begin.identity().xid().equals(xid))throw new RedoException("PHYSICAL_STATE_PENDING_IDENTITY");
+    }
+
     /** Identity state only. The caller must durably retain its digest and the bound raw input. */
     public byte[] checkpoint() throws RedoException {
         checkHealthy();if(archive==null)throw new RedoException("NO_ARCHIVE_INPUT");
