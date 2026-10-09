@@ -85,6 +85,40 @@ class TransactionMarkersTest {
             assertThrows(RedoException.class,()->TransactionEnd.decode(r));
         }
     }
+    RedoRecords.Vector native93Commit() {
+        return vector(4,"0000000095020000000000000900000012000000",
+                "a7014002ea0009000200541b00000000",
+                "020000000200000037cec76a000000000000000000000000","37cec76a");
+    }
+    @Test void native93EmptyExtTwoKeepsIdentityAndTail() throws Exception {
+        var v=native93Commit();var end=TransactionEnd.decode(v);
+        assertEquals(0,end.slot());assertEquals(661,end.sequence());assertFalse(end.rolledBack());
+        assertEquals(new HeapRowPatch.Uba(0x024001a7L,234,9),TransactionEnd.undoTail(v));
+        for(int offset:new int[]{0,4,8,12,16,20}) {
+            var bad=native93Commit();bad.fields().get(2)[offset]^=1;
+            assertThrows(RedoException.class,()->TransactionEnd.decode(bad));
+        }
+        var mixed=native93Commit();mixed.fields().get(1)[8]=1;
+        assertThrows(RedoException.class,()->TransactionEnd.decode(mixed));
+        var unknown=native93Commit();unknown.fields().get(1)[8]=3;
+        unknown.fields().get(2)[0]=3;unknown.fields().get(2)[4]=3;
+        assertThrows(RedoException.class,()->TransactionEnd.decode(unknown));
+    }
+    RedoRecords.Vector native92Rollback() {
+        return vector(4,"1b000000540e0000000000000900000014000000",
+                "03000000030000004dccc76a000000000000000000000000","4dccc76a");
+    }
+    @Test void native92EmptyRollbackHasFullIdentityAndNoTail() throws Exception {
+        var v=native92Rollback();var end=TransactionEnd.decode(v);
+        assertTrue(end.rolledBack());assertEquals(27,end.slot());assertEquals(3668,end.sequence());
+        assertEquals("TRANSACTION_END_HAS_NO_UNDO_TAIL_REFERENCE",assertThrows(RedoException.class,()->TransactionEnd.undoTail(v)).getMessage());
+        for(int offset:new int[]{0,4,8,12,16,20}) {
+            var bad=native92Rollback();bad.fields().get(1)[offset]^=1;
+            assertThrows(RedoException.class,()->TransactionEnd.decode(bad));
+        }
+        var bad=native92Rollback();bad.fields().get(0)[16]=0x12;
+        assertThrows(RedoException.class,()->TransactionEnd.decode(bad));
+    }
     RedoRecords.Vector historicalCommit() {
         return vector(4,"1b0000005a020000000000000900000012000000",
                 "c7004002ff0007000000f01b000b0000",
