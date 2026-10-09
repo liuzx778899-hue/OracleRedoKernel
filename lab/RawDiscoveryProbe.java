@@ -36,7 +36,7 @@ public class RawDiscoveryProbe {
         var closed=service.discover();require(closed.state().equals("CANDIDATE") && closed.nextSequence()==92
                 && closed.candidate().sessions().equals(List.of(20L,10L)) && closed.members().size()==2);
         when(mapper.findById(20)).thenReturn(first);when(mapper.findById(10)).thenReturn(second);
-        var inspected=new OracleRawPlanService(closed.candidate(),root,mapper,acquisition,json).inspect();
+        var inspected=service.inspect(closed.candidate(),null,null);
         require(inspected.state().equals("READY_FOR_REGISTRATION") && inspected.proposal()!=null && inspected.prefix().pendingTransactions()==0);
         var rows=mock(OracleRawEnrollmentMapper.class);var locks=mock(OraclePublicationLockMapper.class);
         var manager=mock(PlatformTransactionManager.class);when(manager.getTransaction(any())).thenAnswer(c->new SimpleTransactionStatus());
