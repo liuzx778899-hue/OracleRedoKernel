@@ -1,5 +1,7 @@
 # OracleRedoKernel 当前状态
 
+2026-10-09 LOB正常开发续接：[合并反馈](DELIVERY_D4_LOB_NORMAL_20261009.md)。328e63a：原失败完整回滚/实际字符长度已核，专属两LOB一次16步完成并冻结97；18 BasicFile页、12 SecureFile填充、4页镜像及10正向undo owner与native核等，类型化locator重建16完整值/SQL零差异，12相关测试通过。事件0，原早期3038645未获基线批准，LOB完整事务/事件/产品CPACK仍开发中；库stop0/exited，无换装。产品STATUS首部为当前入口；完整D1–D5及独立评审/部署/现场/发布未完成。
+
 当前执行（2026-10-07前缀登记）：[服务端可信前缀登记与交接](DELIVERY_W6_PREFIX_REGISTRATION_20261007.md)。root代码0c48602/P代码217e5cd，kernel61288022完整330、product04744751完整760；原可信获取与75 capture只读复用，认证HTTP服务端生成pending1/completed0状态7d6eef2a并登记。登记故障后APPROVED_PREFIX/审计0、文件保留；解除后同字节复用/登记一次，重复/强杀137重启GET稳定，毒化拒绝/精确恢复；事件/任务/窗口/批次/发布门0，CPACK0，helper停止143。仅显式前缀API，不是自动pipeline pending或75/76产品完整发布通过；新SQL故障底层原因未持久化，是下一修复项。D1未关闭，其余四包及部署现场发布未关闭。新chat交接以HANDOFF_NEW_CHAT_20261007_PREFIX.md为准，旧chat移交后只保留历史。
 
 当前执行（2026-10-07产品活跃输入）：[可信产品基线/真实75—76与marker2](DELIVERY_W4_PRODUCT_ACTIVE_MARKER2_20261007.md)。proper HTTP获取101320533446070272/SCN2773486/SHA9a99c587，6SYS/230值/3索引/基线零差异；一次XID10.0.2959跨75/76已结束禁止重放，collector0/next77、95320/3块与归档零差异。原593e完整入口KDOM2拒绝保全；代码73c487f/kernel571cac2a完整330，只1class变/127不变，新profile两完整UPDATE/native零差异，75 pending1持久halt23→独立JVM续76输出相同；两重封checksum反例零stdout/四比较器毒化检出。344双SHA/前353+234+113+100未变，helper/collector停止，NO/NO/旧行保持，bindings0/events0/目标0。产品自动pending登记/跨发布尚未实现；下一服务端可信前缀checkpoint登记与私有产品续接，不重获取/不重源；原goal active。
