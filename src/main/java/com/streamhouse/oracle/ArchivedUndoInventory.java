@@ -15,7 +15,7 @@ public final class ArchivedUndoInventory {
     private final long containerUid,containerId;
     private final UndoControlRoot controlRoot;
 
-    private ArchivedUndoInventory(List<ArchivedRedo.Header> sources,List<Entry> entries,long containerUid,long containerId,UndoControlRoot controlRoot) {
+    ArchivedUndoInventory(List<ArchivedRedo.Header> sources,List<Entry> entries,long containerUid,long containerId,UndoControlRoot controlRoot) {
         this.sources=List.copyOf(sources);this.entries=List.copyOf(entries);
         this.containerUid=containerUid;this.containerId=containerId;
         this.controlRoot=controlRoot;

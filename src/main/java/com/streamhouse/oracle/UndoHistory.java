@@ -21,6 +21,12 @@ public final class UndoHistory {
 
     public UndoHistory(ArchivedUndoInventory inventory) { this.inventory=inventory; }
 
+    /** Materialized nodes and actions; caller must durably authenticate the returned bytes. */
+    public byte[] durableCheckpoint()throws java.io.IOException {return DurableUndoState.encode(inventory,checkpoint());}
+    public static UndoHistory restoreDurable(byte[] bytes,String trustedSha256)throws java.io.IOException {
+        return DurableUndoState.restore(bytes,trustedSha256);
+    }
+
     /** Inventory order closes selector holes; cross-block full predecessor comes from the active head. */
     public HeapRowPatch.Uba append(ArchivedUndoInventory.Entry entry) throws RedoException {
         healthy();
