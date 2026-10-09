@@ -21,8 +21,9 @@ public final class ArchivedPhysicalTransactions {
             this(xid,segment,next,operations,heaps,indexes,markers,graphCheckpoint,null);
         }
     }
-    record PendingState(List<ArchivedRedo.Header> sources,List<PendingGraph> pending,String identityCheckpoint,List<String> windows) {
+    record PendingState(List<ArchivedRedo.Header> sources,List<PendingGraph> pending,String identityCheckpoint,List<String> windows,String discovery) {
         PendingState(List<ArchivedRedo.Header> sources,List<PendingGraph> pending,String identityCheckpoint){this(sources,pending,identityCheckpoint,List.of());}
+        PendingState(List<ArchivedRedo.Header> sources,List<PendingGraph> pending,String identityCheckpoint,List<String> windows){this(sources,pending,identityCheckpoint,windows,null);}
         PendingState {windows=List.copyOf(windows);}
     }
     record Prefix(Result completed,PendingState state) {}
@@ -118,7 +119,15 @@ public final class ArchivedPhysicalTransactions {
         long heapObject=scope.heap().dataObject(),indexObject=scope.index().dataObject();
         var coverage=snapshot==null?List.<BaselineTransactionCoverage.Receipt>of():BaselineTransactionCoverage.read(paths,uid,container,scope,snapshot.scn());
         var covered=coverage.stream().map(c->c.identity().xid()).collect(java.util.stream.Collectors.toSet());
-        var found=restored==null || restored.state().windows().isEmpty()?ArchivedObjectTransactions.readCovered(paths,uid,container,scope,savePending!=null,covered)
+        AssociationDiscoveryState discovery=null;
+        if(restored==null && savePending!=null)discovery=AssociationDiscoveryState.read(paths,uid,container);
+        else if(restored!=null && restored.state().discovery()!=null) {
+            byte[] bytes=java.util.Base64.getDecoder().decode(restored.state().discovery());
+            discovery=AssociationDiscoveryState.restore(bytes,DurableUndoState.sha(bytes),restored.state().sources(),uid,container).extend(paths);
+        }
+        var found=discovery!=null?ArchivedObjectTransactions.readIndexed(paths,uid,container,scope,savePending!=null,covered,
+                restored==null?List.of():restored.state().windows(),discovery)
+                :restored==null || restored.state().windows().isEmpty()?ArchivedObjectTransactions.readCovered(paths,uid,container,scope,savePending!=null,covered)
                 :ArchivedObjectTransactions.readCoveredRestored(paths,uid,container,scope,savePending!=null,covered,restored.state().windows());
         if (found.transactions().isEmpty() && !(savePending!=null && history!=null && !history.pending().isEmpty()))
             throw new RedoException("NO_PHYSICAL_OBJECT_TRANSACTIONS");
@@ -347,7 +356,8 @@ public final class ArchivedPhysicalTransactions {
         if(savePending!=null) {
             var windows=new ArrayList<String>();
             for(var t:found.transactions())windows.add(java.util.Base64.getEncoder().encodeToString(t.associations().window().durableCheckpoint()));
-            savePending.accept(new PendingState(found.sources(),List.copyOf(pending),new String(state.checkpoint(),java.nio.charset.StandardCharsets.UTF_8),windows));
+            savePending.accept(new PendingState(found.sources(),List.copyOf(pending),new String(state.checkpoint(),java.nio.charset.StandardCharsets.UTF_8),windows,
+                    found.discovery()==null?null:java.util.Base64.getEncoder().encodeToString(found.discovery().checkpoint())));
         }
         for (int i=0;i<paths.size();i++) requireSource(found,i,paths.get(i).header());
         return new Result(found.sources(),contexts.stream().filter(c->!c.coveredByBaseline && c.result!=null).map(c->c.result).toList());

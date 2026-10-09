@@ -42,15 +42,22 @@ public final class ArchivedCompensationAssociations {
         return read(paths,window.undo().containerUid(),window.undo().containerId(),window.undo().entries().get(0).identity().xid(),allowPending,window);
     }
     private static ArchivedCompensationAssociations read(RedoBatch paths,long uid,long container,HeapRowPatch.Xid target,boolean allowPending,ArchivedCompensationInventory window)throws IOException {
+        return read(paths,uid,container,target,allowPending,window,null);
+    }
+    static ArchivedCompensationAssociations readIndexed(RedoBatch paths,ArchivedCompensationInventory window,boolean allowPending,AssociationDiscoveryState discovery)throws IOException {
+        discovery.remember(window);
+        return read(paths,window.undo().containerUid(),window.undo().containerId(),window.undo().entries().get(0).identity().xid(),allowPending,window,discovery);
+    }
+    private static ArchivedCompensationAssociations read(RedoBatch paths,long uid,long container,HeapRowPatch.Xid target,boolean allowPending,ArchivedCompensationInventory window,AssociationDiscoveryState discovery)throws IOException {
         var candidates=new ArrayList<List<Candidate>>();var markers=new ArrayList<Marker>();
         for (var e:window.entries()) {
             candidates.add(new ArrayList<>());
         }
 
         for (int source=0;source<paths.size();source++) {
-            var path=paths.get(source);var header=path.header();
+            var path=paths.get(source);var header=discovery==null?path.header():discovery.source(source);
             if (!header.equals(window.undo().sources().get(source))) throw new RedoException("ASSOCIATION_INPUT_CHANGED");
-            path.visit(header,r->{
+            RedoRecords.Visitor visitor=r->{
                 if (r.containerUid()!=uid) return;
                 for (int i=0;i<r.vectors().size();i++) {
                     var v=r.vectors().get(i);if (v.containerId()!=container) continue;
@@ -92,8 +99,9 @@ public final class ArchivedCompensationAssociations {
                         candidates.get(j).add(new Candidate(at,h));
                     }
                 }
-            });
-            if (!header.equals(path.header())) throw new RedoException("ASSOCIATION_INPUT_CHANGED");
+            };
+            if(discovery==null)path.visit(header,visitor);else discovery.visit(source,visitor);
+            if (discovery==null && !header.equals(path.header())) throw new RedoException("ASSOCIATION_INPUT_CHANGED");
         }
         if (!markers.stream().map(Marker::position).toList().equals(window.entries().stream().map(ArchivedCompensationInventory.Entry::position).toList()))
             throw new RedoException("ASSOCIATION_MARKER_COVERAGE_CHANGED");
@@ -103,7 +111,7 @@ public final class ArchivedCompensationAssociations {
             var marker=markers.get(i);Candidate chosen=null;
             for (var candidate:candidates.get(i)) {
                 var xid=candidate.header().xid();var owner=owners.get(xid);
-                if (owner==null) {owner=ArchivedCompensationInventory.read(paths,uid,container,xid,allowPending);owners.put(xid,owner);}
+                if (owner==null) {owner=discovery==null?ArchivedCompensationInventory.read(paths,uid,container,xid,allowPending):discovery.owner(paths,xid,allowPending);owners.put(xid,owner);}
                 if (!owner.undo().sources().equals(window.undo().sources())) throw new RedoException("ASSOCIATION_OWNER_SOURCE_MISMATCH");
                 if(marker.header().crossesUndoBlock() && (owner.segmentDba()!=marker.header().dba()
                         || candidate.header().xid().slot()!=marker.header().slot()))continue;

@@ -1,5 +1,15 @@
 # W4 统一历史恢复与完整事件候选
 
+## 2026-10-09 V6关联发现索引进入producer主链（r110–r115，离线）
+
+内核分支 `codex/d2-normal-index-restore` 本提交：新增认证的关联记录索引 A，保存各源member/header摘要、PDB完整候选记录及已核完整XID owner窗口；字段值以内部二进制编码冻结，遍历重新解码，不暴露可变数组。索引只从新成员追加；对象scope发现和每窗口候选/marker扫描改读认证索引，已保存foreign owner只从后缀推进；新遇到且未保存的owner仍全raw核窗口。完整 begin control、唯一候选、foreign marker/完整XID/窗口覆盖、实际物理pair和associate原始signature查询均保留。W与A的已保存窗口必须同字节，绑定同一源前缀/容器；默认统一状态升V6，V1–V5原格式读取/登记复核保留。
+
+r111相关42项、r113 pending SYS统一入口5项、r115新增索引歧义1项，共48个不同针对性测试通过。删除旧测试raw后，认证索引和foreign owner追加suffix并路由两个marker，entries及整个索引与全量同字节；外部修改遍历数组不污染保存值。相关来源/容器/record位置/窗口遗漏拒绝，begin control与多个候选原节点的原拒绝保持。没有重新跑已通过的全套构建/部署/故障矩阵。
+
+r112真实冻结业务90–93保留7窗口/7 owner/20,054关联记录，pending1/completed6，状态18,024,589字节/SHA `72f490c25351c2c2bd5f52146e4e239921bff348f9969b8f1846923e6b3d06f2`；续94累计46完整事件，扩展SHA `f4009f90ad408b6d74630beba9d99b8162e8dbb9e99cd7f2688add8396e29f01`。SYS84保留scope窗口1/owner1/9,163记录及pending SYS1，状态6,850,633字节/SHA `89b206c85788a68eca9937f2a7de5ef5c8ae27b9a8f75c187f499673fbe3a9d9`；续85累计2完整事件，扩展SHA `90524c30bbbbbe7d89b415425f6a28f43d4a5e7e2424eb45a77a35c4442dd009`。两例完整事件/batch与strict相同，扩展状态与全量同字节且重复不变。复用旧r107 V5业务登记复核pending1/completed6及SYS续接2事件兼容；首次SYS兼容探针命令文件名错误/rc1原诊断保留，仅改正确extend.command并以resume模式重试SYS r114 rc0，不重导出旧状态或重试已通过业务。
+
+入口 `lab/out/d3-stream-runtime-20261009/producer-recovery-r112/summary.json`及export/extend/v5-compat各command/stdout/stderr/rc、v5-compat-harness-error，测试association-discovery-r110/r111/r113/r115-tests。探针ProducerRecoveryProbe只增加索引统计，沿用冻结执行包EvidenceName。代码/针对性离线验证通过；源DML/获取/目标/容器动作0，未打包或换装，实际产品仍r109 V5/应用SHA6e814887…/RPROD5 46/46/1。对象发现仍遍历已保存索引，物理范围/配对/maintenance及新owner仍需要旧raw；不得删除。索引当前未裁剪，全候选记录会增长，下一统一producer/目标CPACK进度、可信低水位与背压；完整D1–D5、独立目标与评审、约定生产部署、用户生产现场验收、发布继续待证，goal active。
+
 ## 2026-10-09 V3–V5集中产品候选集成（r108–r109）
 
 内核 b0ffa10 打包并安装 `0.1.0-producer-66fd6b2299f3`，SHA256 `66fd6b2299f3157983bc63c74b2f0957f532f3fc418cc09ca71a0214001cc385`。P 分支 `codex/oracle-dictionary-acquisition` 提交 7db460c 仅替换 app 内核依赖；适配器 `0.1.0-normal-4273857ee753` 保持。前缀服务/控制器12项测试通过，必要 reactor 离线打包 rc0；应用 SHA256 `6e814887c1708b81cc3ffce220d682e4049a3c3a6a9101e3f7bc3d88d71ced41`，运行及内嵌制品 SHA 均核等。构建与探针顺序执行。

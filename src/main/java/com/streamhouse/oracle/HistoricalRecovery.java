@@ -21,22 +21,22 @@ public final class HistoricalRecovery {
         if(!history.pending().isEmpty())throw new RedoException("COMMITTED_PREFIX_DICTIONARY_PENDING");
         var physical=ArchivedPhysicalTransactions.readHistoryPrefix(inputs,snapshot,history,leaf);
         var rows=ArchivedHeapRows.readHistory(inputs,snapshot,leaf,history,physical.completed());
-        var state=new Prefix(encodeProducer(inputs,snapshot,leaf,history,physical,rows,5),physical.state().pending().size(),physical.completed().transactions().size());
+        var state=new Prefix(encodeProducer(inputs,snapshot,leaf,history,physical,rows,6),physical.state().pending().size(),physical.completed().transactions().size());
         return new CommittedPrefix(state,CapturedHistoricalHeapBatch.readWithRows(List.copyOf(captures),snapshot,history,leaf,physical.completed(),rows));
     }
     public static byte[] checkpointCaptured(List<CaptureJournal.Verified> captures,Path baseline,String trustedBaselineSha256,long leaf)throws IOException {
         return prefixCaptured(captures,baseline,trustedBaselineSha256,leaf).checkpoint();
     }
     public static Prefix prefixCaptured(List<CaptureJournal.Verified> captures,Path baseline,String trustedBaselineSha256,long leaf)throws IOException {
-        return prefixCaptured(captures,baseline,trustedBaselineSha256,leaf,5);
+        return prefixCaptured(captures,baseline,trustedBaselineSha256,leaf,6);
     }
-    /** Re-derives an enrolled receipt in its authenticated format; new enrollment emits V5. */
+    /** Re-derives an enrolled receipt in its authenticated format; new enrollment emits V6. */
     public static Prefix verifyPrefixCaptured(List<CaptureJournal.Verified> captures,Path baseline,String trustedBaselineSha256,long leaf,
                                              byte[] checkpoint,String trustedCheckpointSha256)throws IOException {
         byte[] input=checkpoint.clone();
         if(!digest(input).equals(trustedCheckpointSha256))throw new RedoException("HISTORICAL_RECOVERY_DIGEST_MISMATCH");
         String format=new String(input,StandardCharsets.UTF_8).split("\n",-1)[0];
-        int version=switch(format){case "ORK_HISTORICAL_RECOVERY_V1"->1;case "ORK_HISTORICAL_RECOVERY_V2"->2;case "ORK_HISTORICAL_RECOVERY_V3"->3;case "ORK_HISTORICAL_RECOVERY_V4"->4;case "ORK_HISTORICAL_RECOVERY_V5"->5;default->throw new RedoException("HISTORICAL_RECOVERY_BASELINE_OR_LEAF");};
+        int version=switch(format){case "ORK_HISTORICAL_RECOVERY_V1"->1;case "ORK_HISTORICAL_RECOVERY_V2"->2;case "ORK_HISTORICAL_RECOVERY_V3"->3;case "ORK_HISTORICAL_RECOVERY_V4"->4;case "ORK_HISTORICAL_RECOVERY_V5"->5;case "ORK_HISTORICAL_RECOVERY_V6"->6;default->throw new RedoException("HISTORICAL_RECOVERY_BASELINE_OR_LEAF");};
         var actual=prefixCaptured(captures,baseline,trustedBaselineSha256,leaf,version);
         if(!Arrays.equals(input,actual.checkpoint()))throw new RedoException("HISTORICAL_RECOVERY_STATE_CHANGED");
         return actual;
@@ -56,7 +56,7 @@ public final class HistoricalRecovery {
         if(!digest(checkpoint).equals(trustedCheckpointSha256))throw new RedoException("HISTORICAL_RECOVERY_DIGEST_MISMATCH");
         var snapshot=FrozenHeapBaseline.read(baseline,trustedBaselineSha256);var inputs=RedoBatch.captures(captures);
         String[] lines=new String(checkpoint,StandardCharsets.UTF_8).split("\n");
-        if(lines.length>0 && (lines[0].equals("ORK_HISTORICAL_RECOVERY_V3") || lines[0].equals("ORK_HISTORICAL_RECOVERY_V4") || lines[0].equals("ORK_HISTORICAL_RECOVERY_V5"))) {
+        if(lines.length>0 && (lines[0].equals("ORK_HISTORICAL_RECOVERY_V3") || lines[0].equals("ORK_HISTORICAL_RECOVERY_V4") || lines[0].equals("ORK_HISTORICAL_RECOVERY_V5") || lines[0].equals("ORK_HISTORICAL_RECOVERY_V6"))) {
             var recovered=recoverProducer(captures,inputs,snapshot,leaf,checkpoint,lines);
             if(recovered.state().pendingTransactions()!=0)throw new RedoException("INCOMPLETE_TRANSACTION_IDENTITIES:"+recovered.state().pendingTransactions());
             return recovered.completed();
@@ -92,7 +92,11 @@ public final class HistoricalRecovery {
         String prefix=new String(encodeDurable(inputs,snapshot,leaf,history,physical),StandardCharsets.UTF_8);
         String value=prefix.replace("ORK_HISTORICAL_RECOVERY_V2\n","ORK_HISTORICAL_RECOVERY_V"+version+"\n")+"R|"+Base64.getEncoder().encodeToString(state)+"\n";
         if(version>=4)value+="K|"+Base64.getEncoder().encodeToString(DictionaryCommittedState.encode(history.commits()))+"\n";
-        if(version==5)value+="W|"+Base64.getEncoder().encodeToString(PhysicalDiscoveryState.encode(physical.state().windows()))+"\n";
+        if(version>=5)value+="W|"+Base64.getEncoder().encodeToString(PhysicalDiscoveryState.encode(physical.state().windows()))+"\n";
+        if(version==6) {
+            if(physical.state().discovery()==null)throw new RedoException("PRODUCER_ASSOCIATION_DISCOVERY_MISSING");
+            value+="A|"+physical.state().discovery()+"\n";
+        }
         return utf8(value);
     }
     /** Advances authenticated producer state; computing events never certifies target commit or ACK. */
@@ -100,16 +104,23 @@ public final class HistoricalRecovery {
                                                       byte[] checkpoint,String trustedCheckpointSha256)throws IOException {
         byte[] input=checkpoint.clone();if(!digest(input).equals(trustedCheckpointSha256))throw new RedoException("HISTORICAL_RECOVERY_DIGEST_MISMATCH");
         String[] lines=new String(input,StandardCharsets.UTF_8).split("\n");
-        if(lines.length==0 || !lines[0].equals("ORK_HISTORICAL_RECOVERY_V3") && !lines[0].equals("ORK_HISTORICAL_RECOVERY_V4") && !lines[0].equals("ORK_HISTORICAL_RECOVERY_V5"))throw new RedoException("PRODUCER_RECOVERY_V3_REQUIRED");
+        if(lines.length==0 || !lines[0].equals("ORK_HISTORICAL_RECOVERY_V3") && !lines[0].equals("ORK_HISTORICAL_RECOVERY_V4") && !lines[0].equals("ORK_HISTORICAL_RECOVERY_V5") && !lines[0].equals("ORK_HISTORICAL_RECOVERY_V6"))throw new RedoException("PRODUCER_RECOVERY_V3_REQUIRED");
         return recoverProducer(captures,RedoBatch.captures(captures),FrozenHeapBaseline.read(baseline,trustedBaselineSha256),leaf,input,lines);
     }
     private static CommittedPrefix recoverProducer(List<CaptureJournal.Verified> captures,RedoBatch inputs,FrozenHeapBaseline.Snapshot snapshot,
                                                   long leaf,byte[] checkpoint,String[] lines)throws IOException {
-        int version=lines[0].equals("ORK_HISTORICAL_RECOVERY_V5")?5:lines[0].equals("ORK_HISTORICAL_RECOVERY_V4")?4:3;
+        int version=lines[0].equals("ORK_HISTORICAL_RECOVERY_V6")?6:lines[0].equals("ORK_HISTORICAL_RECOVERY_V5")?5:lines[0].equals("ORK_HISTORICAL_RECOVERY_V4")?4:3;
         byte[][] values=decodeDurable(snapshot,leaf,checkpoint,lines,version);
         var pending=DictionaryPendingState.restore(values[0],digest(values[0]),snapshot);
         var physical=PhysicalRecoveryState.restore(values[1],digest(values[1]),snapshot,leaf).prefix();
-        if(version==5)physical=PhysicalDiscoveryState.restore(values[4],snapshot,physical);
+        if(version>=5)physical=PhysicalDiscoveryState.restore(values[4],snapshot,physical);
+        if(version==6) {
+            var discovery=AssociationDiscoveryState.restore(values[5],digest(values[5]),physical.state().sources(),snapshot.source().containerUid(),snapshot.source().containerId());
+            for(var value:physical.state().windows()) {
+                byte[] bytes=Base64.getDecoder().decode(value);discovery.requireWindow(ArchivedCompensationInventory.restoreDurable(bytes,digest(bytes)));
+            }
+            physical=new ArchivedPhysicalTransactions.Prefix(physical.completed(),new ArchivedPhysicalTransactions.PendingState(physical.state().sources(),physical.state().pending(),physical.state().identityCheckpoint(),physical.state().windows(),Base64.getEncoder().encodeToString(values[5])));
+        }
         requireSources(inputs,pending,physical);
         var producer=HistoricalProducerState.restore(values[2],digest(values[2]),snapshot,leaf,physical.completed());
         var history=version>=4?ArchivedDictionaryHistory.readRestoredIncremental(inputs,snapshot,pending,
@@ -142,7 +153,7 @@ public final class HistoricalRecovery {
     }
     private static byte[][] decodeDurable(FrozenHeapBaseline.Snapshot snapshot,long leaf,byte[] checkpoint,String[] lines,int parts)throws IOException {
         if(lines.length!=parts+2 || !lines[1].equals("H|"+leaf+"|"+snapshot.sha256()))throw new RedoException("HISTORICAL_RECOVERY_BASELINE_OR_LEAF");
-        String[] names={"D|","P|","R|","K|","W|"};byte[][] values=new byte[parts][];var canonical=new StringBuilder(lines[0]+"\n"+lines[1]+"\n");
+        String[] names={"D|","P|","R|","K|","W|","A|"};byte[][] values=new byte[parts][];var canonical=new StringBuilder(lines[0]+"\n"+lines[1]+"\n");
         for(int i=0;i<parts;i++) {
             if(!lines[i+2].startsWith(names[i]))throw new RedoException("HISTORICAL_RECOVERY_BASELINE_OR_LEAF");
             try{values[i]=Base64.getDecoder().decode(lines[i+2].substring(2));}

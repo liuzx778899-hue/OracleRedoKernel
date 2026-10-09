@@ -12,8 +12,9 @@ public final class ArchivedObjectTransactions {
     public record Transaction(HeapRowPatch.Xid xid,ArchivedCompensationAssociations associations) {}
     private final List<ArchivedRedo.Header> sources;
     private final List<Transaction> transactions;
-    private ArchivedObjectTransactions(List<ArchivedRedo.Header> sources,List<Transaction> transactions) {
-        this.sources=List.copyOf(sources);this.transactions=List.copyOf(transactions);
+    private final AssociationDiscoveryState discovery;
+    private ArchivedObjectTransactions(List<ArchivedRedo.Header> sources,List<Transaction> transactions,AssociationDiscoveryState discovery) {
+        this.sources=List.copyOf(sources);this.transactions=List.copyOf(transactions);this.discovery=discovery;
     }
     public static ArchivedObjectTransactions read(List<Path> paths,long uid,long container,Set<Long> objects) throws IOException {
         return read(RedoBatch.archives(paths),uid,container,objects.stream().collect(java.util.stream.Collectors.toUnmodifiableMap(o->o,o->o)));
@@ -40,6 +41,17 @@ public final class ArchivedObjectTransactions {
         }
         return read(paths,uid,container,roles.generations(),allowPending,covered,saved);
     }
+    static ArchivedObjectTransactions readIndexed(RedoBatch paths,long uid,long container,HeapIndexScope roles,boolean allowPending,
+                                                   Set<HeapRowPatch.Xid> covered,List<String> windows,AssociationDiscoveryState discovery)throws IOException {
+        discovery.require(paths,uid,container);
+        var saved=new java.util.HashMap<HeapRowPatch.Xid,ArchivedCompensationInventory>();
+        for(var value:windows) {
+            byte[] bytes=java.util.Base64.getDecoder().decode(value);var window=ArchivedCompensationInventory.restoreDurable(bytes,DurableUndoState.sha(bytes));
+            discovery.requireWindow(window);
+            if(saved.putIfAbsent(window.undo().entries().get(0).identity().xid(),window)!=null)throw new RedoException("OBJECT_TRANSACTION_DUPLICATE_SAVED_WINDOW");
+        }
+        return read(paths,uid,container,roles.generations(),allowPending,covered,saved,discovery);
+    }
     private static ArchivedObjectTransactions read(RedoBatch paths,long uid,long container,java.util.Map<Long,Long> generations) throws IOException {
         return read(paths,uid,container,generations,false);
     }
@@ -52,13 +64,18 @@ public final class ArchivedObjectTransactions {
     }
     private static ArchivedObjectTransactions read(RedoBatch paths,long uid,long container,java.util.Map<Long,Long> generations,
                                                     boolean allowPending,Set<HeapRowPatch.Xid> covered,java.util.Map<HeapRowPatch.Xid,ArchivedCompensationInventory> saved) throws IOException {
+        return read(paths,uid,container,generations,allowPending,covered,saved,null);
+    }
+    private static ArchivedObjectTransactions read(RedoBatch paths,long uid,long container,java.util.Map<Long,Long> generations,
+                                                    boolean allowPending,Set<HeapRowPatch.Xid> covered,java.util.Map<HeapRowPatch.Xid,ArchivedCompensationInventory> saved,AssociationDiscoveryState discovery) throws IOException {
         if (paths.isEmpty() || generations.isEmpty()) throw new RedoException("EMPTY_OBJECT_TRANSACTION_SCOPE_OR_INPUT");
         var scope=new java.util.HashSet<Long>(generations.keySet());scope.addAll(generations.values());var xids=new LinkedHashSet<HeapRowPatch.Xid>();
         var relevantMarkers=new ArrayList<ArchivedUndoInventory.Position>();var sources=new ArrayList<ArchivedRedo.Header>();
         var continuity=new TransactionLifecycle();
-        for (var path:paths) {
+        for (int source=0;source<paths.size();source++) {
+            var path=paths.get(source);
             var header=path.header();continuity.archive(header);sources.add(header);
-            path.visit(header,r->{
+            RedoRecords.Visitor visitor=r->{
                 if (r.containerUid()!=uid) return;
                 for (int i=0;i<r.vectors().size();i++) {
                     var v=r.vectors().get(i);if (v.containerId()!=container || v.opcodeMajor()!=5) continue;
@@ -82,12 +99,14 @@ public final class ArchivedObjectTransactions {
                     if ((scope.contains(object) || scope.contains(data)) && !Long.valueOf(data).equals(generations.get(object)))
                         throw new RedoException("OBJECT_TRANSACTION_MAPPING_MISMATCH");
                 }
-            });
+            };
+            if(discovery==null)path.visit(header,visitor);else discovery.visit(source,visitor);
             if (!header.equals(path.header())) throw new RedoException("OBJECT_TRANSACTION_INPUT_CHANGED");
         }
         var transactions=new ArrayList<Transaction>();var routed=new java.util.HashMap<ArchivedUndoInventory.Position,ArchivedCompensationAssociations.Entry>();
         for (var xid:xids) {
-            var associations=saved.containsKey(xid)?ArchivedCompensationAssociations.readRestored(paths,saved.get(xid),allowPending)
+            var associations=discovery!=null?ArchivedCompensationAssociations.readIndexed(paths,discovery.owner(paths,xid,allowPending),allowPending,discovery)
+                    :saved.containsKey(xid)?ArchivedCompensationAssociations.readRestored(paths,saved.get(xid),allowPending)
                     :ArchivedCompensationAssociations.read(paths,uid,container,xid,allowPending);
             if (!sources.equals(associations.window().undo().sources())) throw new RedoException("OBJECT_TRANSACTION_INPUT_CHANGED");
             for (var original:associations.window().undo().entries())
@@ -106,8 +125,9 @@ public final class ArchivedObjectTransactions {
         }
         for (int i=0;i<paths.size();i++)
             if (!sources.get(i).equals(paths.get(i).header())) throw new RedoException("OBJECT_TRANSACTION_INPUT_CHANGED");
-        return new ArchivedObjectTransactions(sources,transactions);
+        return new ArchivedObjectTransactions(sources,transactions,discovery);
     }
     public List<ArchivedRedo.Header> sources() {return sources;}
     public List<Transaction> transactions() {return transactions;}
+    AssociationDiscoveryState discovery() {return discovery;}
 }

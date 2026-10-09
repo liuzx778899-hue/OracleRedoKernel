@@ -17,6 +17,11 @@ public class ProducerRecoveryProbe {
             }
             for(String line:new String(prefix.checkpoint(),java.nio.charset.StandardCharsets.UTF_8).split("\n"))if(line.startsWith("W|"))
                 System.out.println("WINDOWS="+(new String(Base64.getDecoder().decode(line.substring(2)),java.nio.charset.StandardCharsets.UTF_8).split("\n").length-1));
+            for(String line:new String(prefix.checkpoint(),java.nio.charset.StandardCharsets.UTF_8).split("\n"))if(line.startsWith("A|")) {
+                var values=new String(Base64.getDecoder().decode(line.substring(2)),java.nio.charset.StandardCharsets.UTF_8).lines().toList();
+                System.out.println("ASSOCIATION_RECORDS="+values.stream().filter(s->s.startsWith("R|")).count());
+                System.out.println("ASSOCIATION_OWNERS="+values.stream().filter(s->s.startsWith("O|")).count());
+            }
             System.out.println("PENDING="+prefix.pendingTransactions());System.out.println("COMPLETED="+prefix.completedTransactions());
             return;
         }
