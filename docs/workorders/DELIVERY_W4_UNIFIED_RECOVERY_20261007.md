@@ -1,5 +1,15 @@
 # W4 统一历史恢复与完整事件候选
 
+## 2026-10-09 V3–V5集中产品候选集成（r108–r109）
+
+内核 b0ffa10 打包并安装 `0.1.0-producer-66fd6b2299f3`，SHA256 `66fd6b2299f3157983bc63c74b2f0957f532f3fc418cc09ca71a0214001cc385`。P 分支 `codex/oracle-dictionary-acquisition` 提交 7db460c 仅替换 app 内核依赖；适配器 `0.1.0-normal-4273857ee753` 保持。前缀服务/控制器12项测试通过，必要 reactor 离线打包 rc0；应用 SHA256 `6e814887c1708b81cc3ffce220d682e4049a3c3a6a9101e3f7bc3d88d71ced41`，运行及内嵌制品 SHA 均核等。构建与探针顺序执行。
+
+一次隔离正常运行使用控制 schema `ORKPRODUCER5CTL_20261009`、目标 `ORKTGT_CMT_20261005.RPROD5`；复用可信 acquisition 101673191742861312 / baseline SCN2925153，原冻结90–94，无源DML、无新获取、无晚基线。9801 HTTP checkpoint 为 V5/pending1/completed6，状态 SHA `eacbfcfb197826e03de7e7448707447ad236beedfbc66696b15a76760830421a` 与 r107 全文同字节；9901 续接原94后 task 101930681067876352 DONE，prefix/closed 两窗口 CONSUMED。46 条完整事件前后像、0-based顺序、ID/payload逐项一致；目标46/member46/commit1，ledger46/gate1，历史schemaSequence/batch/target匹配。控制checkpoint与实际ACK全文同字节，SHA `f0fa29eab030e48f930845611b368c93bbb1a5722d1d14f17dde61c682da4368`。源anchor20、NO/NO、current95，原SHPBL1 46/46/4及RPROD1 46/46/1保持。
+
+失败保全：启动就绪探测 ORA-01034/ORA-01012 原文保存，后续ready通过。r109 driver rc1 的最终对比失败为核对脚本 JSON float 10.0 与目标 NUMBER canonical 10 的差异；此前 r90 reconcile 已有 Decimal 修正，本执行包遗漏复用。原 executed.py/driver stderr 不改，当前执行包补 parse_float=Decimal；仅离线新 reconcile 核现有actual/projection/checkpoint/ACK rc0，未重复产品运行或目标提交。固定helper保存日志、stop/remove rc0，自有Oracle stop rc0并inspect exited；数据库/卷保留。
+
+证据入口 `lab/out/d3-stream-runtime-20261009/producer-product-r109/candidate-normal-published.json`、product-proof/checkpoint/actual/reconcile与各stdout/stderr/rc；r108保存kernel package/install、product tests/package。新执行包 `lab/producer_recovery_product_v5.py` 和仅离线 `lab/producer_recovery_v5_reconcile.py`；已执行label禁止重跑。代码/针对性验证通过，本冻结正常产品集成及自有实例换装通过；独立目标/评审、约定生产部署、用户生产验证/现场验收、发布待证，independentTargetAccepted=false。旧raw必留，尚非整体仅后缀producer；下一关联发现持久游标、统一进度与低水位背压。完整D1–D5 goal active，不自审不自合并。
+
 ## 2026-10-09 V5保守窗口进入物理发现主链（r104–r107，离线）
 
 V5新增W capsule保存对象scope内全部已核保守窗口，包括baseline覆盖的闭合窗口。PhysicalDiscoveryState核sources/容器/代际/唯一完整XID、pending图/segment/marker覆盖、闭合图及提交record位置；窗口不当marker owner或补偿证书。ArchivedObjectTransactions复用保存窗口：pending只在新成员推进原生命周期/inventory，闭合窗口只推进来源并拒绝同完整XID新原节点；关联层仍核完整raw候选、外来marker及唯一归属，物理pair/范围门禁保留。V1–V4原格式验证及读取兼容。
