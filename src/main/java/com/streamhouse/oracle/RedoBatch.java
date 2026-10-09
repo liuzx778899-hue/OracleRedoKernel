@@ -38,5 +38,6 @@ final class RedoBatch implements Iterable<RedoBatch.Input> {
     boolean isEmpty() {return inputs.isEmpty();}
     Input get(int index) {return inputs.get(index);}
     RedoBatch prefix(int count) {return new RedoBatch(inputs.subList(0,count));}
+    RedoBatch suffix(int count) {return new RedoBatch(inputs.subList(count,inputs.size()));}
     public Iterator<Input> iterator() {return inputs.iterator();}
 }

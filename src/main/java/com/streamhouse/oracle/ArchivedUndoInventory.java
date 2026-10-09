@@ -26,10 +26,20 @@ public final class ArchivedUndoInventory {
         return read(RedoBatch.archives(archives),containerUid,containerId,xid);
     }
     static ArchivedUndoInventory read(RedoBatch archives,long containerUid,long containerId,HeapRowPatch.Xid xid) throws IOException {
+        return read(archives,containerUid,containerId,xid,null);
+    }
+    static ArchivedUndoInventory extend(RedoBatch suffix,ArchivedUndoInventory prefix)throws IOException {
+        return read(suffix,prefix.containerUid(),prefix.containerId(),prefix.entries().get(0).identity().xid(),prefix);
+    }
+    private static ArchivedUndoInventory read(RedoBatch archives,long containerUid,long containerId,HeapRowPatch.Xid xid,ArchivedUndoInventory prefix)throws IOException {
         if (archives.isEmpty()) throw new RedoException("NO_ARCHIVE_INPUT");
         var continuity=new TransactionLifecycle();
         var sources=new ArrayList<ArchivedRedo.Header>();var entries=new ArrayList<Entry>();
         TransactionStart[] controlStart={null};UndoControlRoot[] root={null};
+        if(prefix!=null) {
+            for(var source:prefix.sources()){continuity.archive(source);sources.add(source);}
+            entries.addAll(prefix.entries());root[0]=prefix.controlRoot();if(root[0]!=null)controlStart[0]=root[0].start();
+        }
         for (var path:archives) {
             var header=path.header();continuity.archive(header);
             path.visit(header,record->{
@@ -54,7 +64,10 @@ public final class ArchivedUndoInventory {
                     if(nonRowBegin) {
                         if(!entries.isEmpty()) throw new RedoException("NON_ROW_BEGIN_NOT_FIRST_IN_INVENTORY");
                         controlStart[0]=UndoControlRoot.begin(record,vector);
-                    } else if(firstRoot) root[0]=UndoControlRoot.bind(controlStart[0],entries.get(0).identity(),record,vector);
+                    } else {
+                        if(undo.beginsTransaction() && !entries.isEmpty())throw new RedoException("UNDO_INVENTORY_REPEATED_BEGIN");
+                        if(firstRoot)root[0]=UndoControlRoot.bind(controlStart[0],entries.get(0).identity(),record,vector);
+                    }
                     if (undo.beginsTransaction() ? previous!=0 || rci!=0 || u16(metadata,22)!=1
                             : u16(metadata,22)!=(xid.sequence()&0xffff) || (!firstRoot && (previous==0 ? rci==0 : rci!=0)))
                         throw new RedoException("UNDO_INVENTORY_METADATA_LINK_MISMATCH");

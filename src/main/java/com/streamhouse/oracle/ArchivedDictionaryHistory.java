@@ -231,14 +231,14 @@ public final class ArchivedDictionaryHistory {
         var contexts=new LinkedHashMap<HeapRowPatch.Xid,Context>();var originals=new HashMap<ArchivedUndoInventory.Position,Context>();
         var resumed=new HashSet<Context>();
         for(var xid:identities) {
-            var inventory=ArchivedUndoInventory.read(inputs,snapshot.source().containerUid(),snapshot.source().containerId(),xid);
-            if(!inventory.sources().equals(sources))throw new RedoException("DICTIONARY_INVENTORY_SOURCE_CHANGED");
             var prior=saved==null?null:saved.contexts().stream().filter(c->c.inventory.entries().get(0).identity().xid().equals(xid)).findFirst().orElse(null);
+            var extended=prior==null?null:prefixCount==inputs.size()?prior.graph:prior.graph.extend(inputs.suffix(prefixCount));
+            var inventory=extended==null?ArchivedUndoInventory.read(inputs,snapshot.source().containerUid(),snapshot.source().containerId(),xid):extended.inventory();
+            if(!inventory.sources().equals(sources))throw new RedoException("DICTIONARY_INVENTORY_SOURCE_CHANGED");
             Context c;
             if(prior==null)c=new Context(inventory);
             else {
-                if(!inventory.entries().subList(0,Math.min(prior.next,inventory.entries().size())).equals(prior.inventory.entries()))throw new RedoException("DICTIONARY_PENDING_ORIGINAL_PREFIX_CHANGED");
-                byte[] graph=prior.graph.checkpoint();c=new Context(inventory,UndoHistory.restore(inventory,graph,digest(graph)),prior.lifecycle);
+                c=new Context(inventory,extended,prior.lifecycle);
                 c.start=prior.start;c.beginScn=prior.beginScn;c.next=prior.next;c.controls=prior.controls;
                 c.rows.addAll(prior.rows);c.indexes.addAll(prior.indexes);c.statisticsRows.addAll(prior.statisticsRows);c.statisticsIndexes.addAll(prior.statisticsIndexes);
                 c.usageRows.addAll(prior.usageRows);c.usageIndexes.addAll(prior.usageIndexes);resumed.add(c);

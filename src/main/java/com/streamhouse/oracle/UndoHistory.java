@@ -27,6 +27,11 @@ public final class UndoHistory {
     public static UndoHistory restoreDurable(byte[] bytes,String trustedSha256)throws java.io.IOException {
         return DurableUndoState.restore(bytes,trustedSha256);
     }
+    /** Discover subsequent originals from new members only; retain the authenticated prefix nodes/actions. */
+    UndoHistory extend(RedoBatch suffix)throws java.io.IOException {
+        byte[] actions=checkpoint();var extended=ArchivedUndoInventory.extend(suffix,inventory);
+        return restore(extended,actions,digest(actions));
+    }
 
     /** Inventory order closes selector holes; cross-block full predecessor comes from the active head. */
     public HeapRowPatch.Uba append(ArchivedUndoInventory.Entry entry) throws RedoException {
