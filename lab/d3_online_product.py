@@ -1,6 +1,6 @@
 """One normal owned online-member run, two switches; source actions never replay."""
 from pathlib import Path
-import os,sys,json,hashlib,shutil,time,secrets as random_secrets,subprocess
+import os,sys,json,hashlib,shutil,time,secrets as random_secrets,subprocess,struct
 R=Path(__file__).resolve().parent.parent
 sys.argv=[str(R/'lab/d3_stream_runtime.py'),'inspect','online-product-20261010']
 exec((R/'lab/d3_stream_runtime.py').read_text().split("if action=='prepare':")[0])
@@ -39,9 +39,12 @@ def closed_files():
  return sorted((N/'raw-ready/raw-members'/SOURCE).glob('*.raw'))
 def freeze_sequence(sequence,label):
  # Read only the authenticated transport outputs, never an archive or dump as event input.
- code="import glob,json,struct\nfor p in glob.glob('/evidence/raw-ready/raw-members/"+SOURCE+"/*.raw'):\n with open(p,'rb') as f:f.seek(512);h=f.read(512)\n if struct.unpack_from('<I',h,8)[0]=="+str(sequence)+" and struct.unpack_from('<I',h,156)[0]!=0xffffffff:print(p)\n"
- paths=run(label+'-closed-paths',['docker','exec','-i',HELPER,'python3','-'],code.encode()).splitlines();assert len(paths)==1,paths
- return N/'raw-ready/raw-members'/SOURCE/Path(paths[0]).name
+ paths=[]
+ for p in closed_files():
+  with p.open('rb') as f:f.seek(512);h=f.read(512)
+  if struct.unpack_from('<I',h,8)[0]==sequence and struct.unpack_from('<I',h,156)[0]!=0xffffffff:paths.append(p)
+ assert len(paths)<=1,paths
+ return paths[0] if paths else None
 def projection(label,inputs):
  return json.loads(run(label,['D:/work/Java/jdk-17.0.7/bin/java.exe','-Xmx1536m','-cp',cp,'OnlineProductProbe',baseline,acquired['snapshotSha256'],'50359491',*inputs]))
 def checkpoint(label,key):
@@ -88,12 +91,13 @@ try:
  props.update(SH_ORACLE_RAW_PLAN_ENABLED='true',SH_ORACLE_RAW_PLAN_PLAN_JSON=json.dumps(plan,separators=(',',':')),SH_ORACLE_RAW_PLAN_REGISTRATION_ENABLED='false',SH_ORACLE_RAW_DISCOVERY_ENABLED='true',SH_ORACLE_RAW_DISCOVERY_GRANT_ID=str(GRANT),SH_ORACLE_RAW_DISCOVERY_INTERVAL_MS='5000')
  start_app('online-app')
  machine=http('machine-register','/machines',dict(name='ORK-ONLINE-NORMAL',sourceId=SOURCE,engineType='oracle',host='127.0.0.1'))
- token=http('machine-token','/machines/'+str(machine['id'])+'/agent-token/rotate',{},True)['agentToken'];secrets.append(token.encode());(N/'machine.secret.env').write_text('SH_AGENT_MACHINE_TOKEN='+token+'\n')
+ token=http('machine-token','/machines/'+str(machine['id'])+'/agent-token/rotate',{},True)['agentToken'];secrets.append(token.encode());(N/'machine.secret.env').write_bytes(('SH_AGENT_MACHINE_TOKEN='+token+'\n').encode())
  config='[agent]\nsource_id='+SOURCE+'\n[oracle]\nmember_count=3\n'+''.join('member_'+str(i+1)+'='+path+'\n' for i,path in enumerate(members))+'spool_dir='+REMOTE+'/spool\npoll_interval_ms=15000\nmax_spool_bytes=2147483647\n[transfer]\nbase_url=http://127.0.0.1:'+str(PORT)+'\n'
- (N/'collector.ini').write_text(config);(N/'run-collector.sh').write_text('#!/bin/sh\nset -eu\nset -a\n. '+REMOTE+'/machine.secret.env\nset +a\necho $$ > '+REMOTE+'/collector.pid\nexec '+REMOTE+'/sh_agent --collect-oracle '+REMOTE+'/collector.ini\n')
+ (N/'collector.ini').write_text(config);(N/'run-collector.sh').write_bytes(('#!/bin/sh\nset -eu\nset -a\n. '+REMOTE+'/machine.secret.env\nset +a\necho $$ > '+REMOTE+'/collector.pid\nexec '+REMOTE+'/sh_agent --collect-oracle '+REMOTE+'/collector.ini\n').encode())
  run('collector-dir',['docker','exec',S,'mkdir',REMOTE])
  for name in ['sh_agent','collector.ini','machine.secret.env','run-collector.sh']:run('collector-copy-'+name.replace('.','-'),['docker','cp',N/name,S+':'+REMOTE+'/'+name])
- run('collector-permissions',['docker','exec',S,'chmod','700',REMOTE+'/sh_agent',REMOTE+'/run-collector.sh'])
+ run('collector-owner',['docker','exec','--user','0',S,'chown','oracle:oinstall',*[REMOTE+'/'+name for name in ['sh_agent','collector.ini','machine.secret.env','run-collector.sh']]])
+ run('collector-permissions',['docker','exec',S,'chmod','700',REMOTE+'/sh_agent',REMOTE+'/run-collector.sh',REMOTE+'/machine.secret.env'])
  cout=(N/'collector.stdout').open('xb');cerr=(N/'collector.stderr').open('xb');collector=subprocess.Popen(['docker','exec',S,REMOTE+'/run-collector.sh'],stdout=cout,stderr=cerr)
  # Before any new business DML, all fixed online paths are transported and the active member waits.
  for attempt in range(90):
@@ -114,7 +118,9 @@ try:
    if ordinal==0 and status.count('TRANSFER|FINISHED|')>=4:
     # Initialize target identity once from the independently parsed frozen transport bytes, then grant only server scope.
     if not raws:
-     raw=freeze_sequence(first,'first');raws.append(raw);projected=projection('first-projection',raws);e=projected['evidence'];assert len(projected['events'])==1
+     raw=freeze_sequence(first,'first')
+     if raw is None:time.sleep(2);continue
+     raws.append(raw);projected=projection('first-projection',raws);e=projected['evidence'];assert len(projected['events'])==1
      identity=':'.join(str(e['source'][k]) for k in ['dbid','activationId','compatibility','thread','resetlogsId','resetlogsScn','containerUid','containerId'])
      grant={k:v for k,v in plan.items() if k!='sessions'}
      sql('grant',f"alter session set container=ORKPDB;\ninsert into {T}_IDENT values(1,'{TARGET}','{identity}','{e['schemaSha256']}');\ninsert into {U}.SH_ORACLE_INPUT_BINDING values({GRANT},'{SOURCE}','online-grant',1,2,'v3-history-consumer','{e['schemaSha256']}','APPROVED_RAW_STREAM',"+clob(grant)+",systimestamp,'owned-online-normal');\ncommit;")
@@ -143,11 +149,14 @@ select 'OLD_TARGET|'||(select count(*) from ORKTGT_CMT_20261005.SHPBL1_APPLIED)|
  result=dict(candidate,agentSha256=sha(binary),sourceActions=2,newAcquisitions=1,onlinePaths=members,firstSequence=first,closedSequences=[first,first+1],sameCollectorPid=pid,automaticRegistration=True,events=2,target=[2,2,2],matchedRows=20,mismatches=0,proofs=proofs,retentionLowWatermarkVerified=False,independentTargetAccepted=False)
  (N/'normal-online-proof.json').write_text(json.dumps(result,indent=2))
 finally:
- if collector is not None:
-  try:
+ try:
+  if collector is not None and collector.poll() is None:
    pid=run('stop-collector-pid',['docker','exec',S,'cat',REMOTE+'/collector.pid']).strip();assert pid.isdecimal()
    cmd=run('stop-collector-owner',['docker','exec',S,'cat','/proc/'+pid+'/cmdline']);assert cmd.split('\0')[0]==REMOTE+'/sh_agent'
-   run('stop-collector',['docker','exec',S,'kill','-TERM',pid]);collector.wait(timeout=60);cout.close();cerr.close();(N/'collector.rc').write_text(str(collector.returncode))
-  finally:run('save-collector-spool',['docker','cp',S+':'+REMOTE+'/spool',N/'source-spool'])
- if helper:stop_app('final-app')
- if started:run('source-stop',['docker','stop','--timeout','60',S])
+   run('stop-collector',['docker','exec',S,'kill','-TERM',pid]);collector.wait(timeout=60)
+  if collector is not None:cout.close();cerr.close();(N/'collector.rc').write_text(str(collector.returncode))
+ finally:
+  try:
+   if helper:stop_app('final-app')
+  finally:
+   if started:run('source-stop',['docker','stop','--timeout','60',S])

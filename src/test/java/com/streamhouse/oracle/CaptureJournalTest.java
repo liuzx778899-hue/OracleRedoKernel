@@ -89,6 +89,15 @@ class CaptureJournalTest {
         Path closed=rawMember("closed-observation",blocks(3));
         assertNotNull(new CaptureJournal().readRawObserved(closed,sha(Files.readAllBytes(closed))).closed());
     }
+    @Test void repeatedClosedMetadataDoesNotHidePayloadOrUnobservedHeaderChanges() throws Exception {
+        Path first=rawMember("first",blocks(3));var original=new CaptureJournal().readRawClosed(first,sha(Files.readAllBytes(first)));
+        byte[][] raw=blocks(3);raw[1][36]^=1;raw[1][172]^=1;checksum(raw[1]);Path repeated=rawMember("repeated",raw);
+        assertTrue(original.sameClosedGeneration(new CaptureJournal().readRawClosed(repeated,sha(Files.readAllBytes(repeated)))));
+        raw[2][40]^=1;checksum(raw[2]);Path changed=rawMember("changed-payload",raw);
+        assertFalse(original.sameClosedGeneration(new CaptureJournal().readRawClosed(changed,sha(Files.readAllBytes(changed)))));
+        raw=blocks(3);raw[1][40]^=1;checksum(raw[1]);Path unknown=rawMember("unknown-header",raw);
+        assertFalse(original.sameClosedGeneration(new CaptureJournal().readRawClosed(unknown,sha(Files.readAllBytes(unknown)))));
+    }
 
     @Test void retainsOnlineCapacityAndRawClosedHeader() throws Exception {
         var capture=read(write("closed",blocks(3),-1));

@@ -33,6 +33,22 @@ public final class CaptureJournal {
         private Verified(Source source,List<byte[]> blocks) { this.source=source; this.blocks=List.copyOf(blocks); }
         public Source source() { return source; }
         byte[] block(long index) { return blocks.get(Math.toIntExact(index)).clone(); }
+        /** Suppress a repeated closed observation; the first receipt and all redo payload bytes stay authoritative. */
+        public boolean sameClosedGeneration(Verified other) {
+            var a=source;var b=other.source;
+            if (a.journalBytes()!=b.journalBytes() || a.capacityBlocks()!=b.capacityBlocks() || a.blocks()!=b.blocks()
+                    || a.dbid()!=b.dbid() || a.activationId()!=b.activationId() || a.compatibility()!=b.compatibility()
+                    || a.thread()!=b.thread() || a.sequence()!=b.sequence() || a.resetlogsId()!=b.resetlogsId()
+                    || a.resetlogsScn()!=b.resetlogsScn() || a.firstScn()!=b.firstScn() || a.nextScn()!=b.nextScn()) return false;
+            if (!Arrays.equals(blocks.get(0),other.blocks.get(0))) return false;
+            byte[] header=blocks.get(1),next=other.blocks.get(1);
+            // Only these differences were observed in the owned 19c closed-member snapshots.
+            for (int i=0;i<512;i++)
+                if (i!=14 && i!=15 && i!=36 && i!=172 && header[i]!=next[i]) return false;
+            for (int i=2;i<blocks.size();i++)
+                if (!Arrays.equals(blocks.get(i),other.blocks.get(i))) return false;
+            return true;
+        }
     }
 
     /** expectedSha256 comes from the trusted acquisition receipt, never from this journal itself. */
