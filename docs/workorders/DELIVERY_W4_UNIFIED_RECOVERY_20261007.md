@@ -1,5 +1,13 @@
 # W4 统一历史恢复与完整事件候选
 
+## 2026-10-09 V3 producer完整行像及事件历史复用（r91，离线）
+
+HistoricalRecovery新登记生成V3，在V2 pending SYS/physical capsule中加入完整HistoricalRowState及既有Change历史（全位置、XID、row key、操作、前后像）。恢复不再从baseline重放已闭合业务行；仅回放新提交并追加历史，通过原事件工厂按可信物理owner和当时schema重建累计事件，保留原publication前缀协议。extendPrefixCaptured返回新状态及完整累计批次，不能以事件数自行授权发布或ACK。旧V1/V2登记仍按原格式逐字节重建，读取兼容。
+
+相关既有10项及新增codec3项通过，失败/错误/跳过0。r91真实冻结90–93导出V3 pending1/completed6，状态SHA `e1acea79a6a12dc1991608e587e66f452070f0077bd10f73687f3a8e248b1afa`；独立JVM续94累计46完整事件，状态SHA `0e68895c9b19123cb669e4b8f2ef04a39a03f1c45498f2a598bee2a67313cae9`。SYS84前缀SHA `754fe8e92857d60ae748bb362933f2721f4c85baa59258c961477cc9416d059e`，续85累计2完整事件。两例完整事件及batch SHA均与strict一致；扩展状态与新建全量状态逐字节相同，重复扩展不改变状态或事件。codec核可信SHA、来源/leaf、完整owner/operation images、唯一位置、提交/逐行顺序及行fence；完整性权威仍来自可信控制摘要及原raw登记重建，不将自行重算SHA视为认证。
+
+原保存V1/V2前缀复核各pending1/completed0通过；复用原V1/V2续85各2事件、同batch SHA通过，无重导出旧状态。证据 `lab/out/d3-stream-runtime-20261009/producer-recovery-r91/summary.json`、各command/stdout/stderr/rc；执行包 `lab/producer-recovery-v3-frozen.ps1`，探针ProducerRecoveryProbe。源DML/获取/目标/容器动作0。当前产品仍r88–r90 V2候选，未重新打包、换装或部署；该轮只交付V3代码及离线验证。旧raw仍必留：已闭合SYS/字典发现、association/物理范围及新提交pair发现仍用累计raw；完整增量producer、低水位/背压和D1–D5其他功能及独立评审/部署/用户生产验收发布未完成，goal active。
+
 ## 2026-10-09 产品 V2 正常恢复链路（r88–r90，当前结果）
 
 内核080621e、产品35631c1均已推送；最终内核坐标 `0.1.0-recovery-a2c7eda9e807` / SHA256 `a2c7eda9e807d7d882b1c22004e72c14eb14e853eef78fd29c8d2c9c2c9ae211`，候选application SHA256 `84c4d79e085811e6c339fa7e0669b0be843e724e58fd62f8b811cc53aed3330a`，嵌入内核及原adapter4273857ee753核等。产品prefix/controller相关12项通过，未重跑全量测试；必要reactor打包完成。

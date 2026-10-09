@@ -89,6 +89,14 @@ public final class ArchivedPhysicalTransactions {
                 new HeapIndexScope.Generation(snapshot.index().logicalObject(),snapshot.index().dataObject()));
         return read(paths,snapshot.source().containerUid(),snapshot.source().containerId(),scope,leaf,snapshot.columns().size(),snapshot,history,null,prefix);
     }
+    static Prefix readHistoryRestoredPrefix(RedoBatch paths,FrozenHeapBaseline.Snapshot snapshot,ArchivedDictionaryHistory.Timeline history,long leaf,Prefix prefix)throws IOException {
+        history.requireBoundTo(paths,snapshot);
+        var scope=new HeapIndexScope(new HeapIndexScope.Generation(snapshot.heap().logicalObject(),snapshot.heap().dataObject()),
+                new HeapIndexScope.Generation(snapshot.index().logicalObject(),snapshot.index().dataObject()));
+        PendingState[] pending={null};
+        var completed=read(paths,snapshot.source().containerUid(),snapshot.source().containerId(),scope,leaf,snapshot.columns().size(),snapshot,history,p->pending[0]=p,prefix);
+        return new Prefix(completed,pending[0]);
+    }
     private static Result read(RedoBatch paths,long uid,long container,HeapIndexScope scope,long leaf,int columns,FrozenHeapBaseline.Snapshot snapshot,ArchivedDictionaryHistory.Timeline history) throws IOException {
         return read(paths,uid,container,scope,leaf,columns,snapshot,history,null);
     }

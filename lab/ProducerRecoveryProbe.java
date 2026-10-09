@@ -18,10 +18,23 @@ public class ProducerRecoveryProbe {
             var prefix=HistoricalRecovery.verifyPrefixCaptured(captures,baseline,args[4],leaf,Files.readAllBytes(state),args[2]);
             System.out.println("PENDING="+prefix.pendingTransactions());System.out.println("COMPLETED="+prefix.completedTransactions());return;
         }
-        var restored=HistoricalRecovery.readCaptured(captures,baseline,args[4],leaf,Files.readAllBytes(state),args[2]);
+        CapturedHistoricalHeapBatch restored;
+        if(args[0].equals("extend")) {
+            var advanced=HistoricalRecovery.extendPrefixCaptured(captures,baseline,args[4],leaf,Files.readAllBytes(state),args[2]);
+            var fresh=HistoricalRecovery.prefixCaptured(captures,baseline,args[4],leaf);
+            if(!Arrays.equals(advanced.state().checkpoint(),fresh.checkpoint()))throw new AssertionError("EXTENDED_STATE_NOT_FRESH_EQUIVALENT");
+            var again=HistoricalRecovery.extendPrefixCaptured(captures,baseline,args[4],leaf,advanced.state().checkpoint(),sha(advanced.state().checkpoint()));
+            if(!Arrays.equals(again.state().checkpoint(),advanced.state().checkpoint()) || !again.completed().events().equals(advanced.completed().events()))
+                throw new AssertionError("REPEATED_EXTENSION_CHANGED_STATE_OR_EVENTS");
+            Files.write(Path.of(args[1]+".extended"),advanced.state().checkpoint(),StandardOpenOption.CREATE_NEW);
+            System.out.println("EXTENDED_SHA256="+sha(advanced.state().checkpoint()));
+            System.out.println("PENDING="+advanced.state().pendingTransactions());
+            System.out.println("FRESH_STATE_EQUAL=true");System.out.println("REPEAT_UNCHANGED=true");restored=advanced.completed();
+        } else restored=HistoricalRecovery.readCaptured(captures,baseline,args[4],leaf,Files.readAllBytes(state),args[2]);
         var reference=CapturedHistoricalHeapBatch.read(captures,baseline,args[4],leaf);
         if(!restored.events().equals(reference.events()) || !restored.sha256().equals(reference.sha256()))throw new AssertionError("COMPLETE_EVENT_OR_BATCH_CHANGED");
         for(var event:restored.events())System.out.println("EVENT="+event.row().eventId()+"|"+event.row().payloadSha256());
         System.out.println("EVENTS="+restored.events().size());System.out.println("BATCH_SHA256="+restored.sha256());
     }
+    static String sha(byte[] bytes)throws Exception {return HexFormat.of().formatHex(java.security.MessageDigest.getInstance("SHA-256").digest(bytes));}
 }

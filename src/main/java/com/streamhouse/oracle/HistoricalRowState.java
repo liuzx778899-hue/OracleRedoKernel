@@ -30,6 +30,7 @@ public final class HistoricalRowState {
     }
     public Map<ArchivedHeapRows.RowKey,List<ArchivedHeapRows.Cell>> rows(){return rows;}
     public Map<ArchivedHeapRows.RowKey,ArchivedUndoInventory.Position> lastPositions(){return lastPositions;}
+    HistoricalDictionaryState dictionary(){return dictionary;}
     public List<FrozenHeapBaseline.PhysicalColumn> columns()throws RedoException {return dictionary.schemaAt(commitScn,commit);}
     boolean after(ArchivedPhysicalTransactions.Transaction transaction) {
         long scn=transaction.identity().endRecordScn();return scn>commitScn || scn==commitScn && commit!=null && compare(transaction.commitPosition(),commit)>0;
