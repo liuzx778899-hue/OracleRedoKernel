@@ -1,5 +1,15 @@
 # W4 统一历史恢复与完整事件候选
 
+## 2026-10-09 产品 V2 正常恢复链路（r88–r90，当前结果）
+
+内核080621e、产品35631c1均已推送；最终内核坐标 `0.1.0-recovery-a2c7eda9e807` / SHA256 `a2c7eda9e807d7d882b1c22004e72c14eb14e853eef78fd29c8d2c9c2c9ae211`，候选application SHA256 `84c4d79e085811e6c339fa7e0669b0be843e724e58fd62f8b811cc53aed3330a`，嵌入内核及原adapter4273857ee753核等。产品prefix/controller相关12项通过，未重跑全量测试；必要reactor打包完成。
+
+专属19c仅按需启动。隔离控制schema `ORKRECOVERYCTL_20261009` 和目标前缀 `RPROD1`，复用原101673191742861312可信acquisition、原baseline SHA及冻结90–94，没有源DML、新获取或晚SCN回填。产品登记90–93 V2 checkpoint `c3b5a182162f6c9e4820b962ba3e05582aae17ad21301590baf8aaa59a0c87d0`，pending1/completed6；续原94通过统一恢复入口得到46完整事件、原任务101909706750275584 DONE、闭合及覆盖prefix窗口CONSUMED。目标46/member46/commit1、ledger46/gate1，46个完整前后像、0基member顺序、ID及payload与冻结字节投影逐项核等；提交使用历史schemaSequence SHA。控制checkpoint和ACK逐字节一致，SHA256 `40fcb704265456a9a4bad27ce0604894a274a8ee65212e890b34f22393527bd2`。
+
+保留失败：初执行包输入目录与文件不满足直接parent契约，`ORACLE_PREFIX_FILE_SCOPE_MISMATCH`；改为同目录hardlink后登记成功，原raw不动、不复制40MB。闭合binding SQL长行触发 `SP2-0027`，仅窗口入库；核对目标0后只补缺失binding，保留原任务并经正式resume入口续跑，未创建第二消费者。首次核验器误用1基ordinal及schema SHA，原rc1/stdout/stderr保留；按实际writer契约离线复核已保存SQL/ACK，全项通过rc0，没有重跑产品。入口 `lab/out/d3-stream-runtime-20261009/producer-product-r88/candidate-normal-published.json`、product-proof.json、r90-r90-actual.stdout、r90-reconcile.stdout/rc及失败目录；脚本producer_recovery_product/resume/reconcile。
+
+原SHPBL1 target46/46/4、源20anchor/NO NO保持。自有库已exited，固定helper ork-product-runtime日志保存后删除，数据库/数据卷保留。代码交付、针对性验证、同实例正常产品集成：通过；生产约定部署、独立目标评审/用户生产验证/现场验收/发布：待证。原运行包r48保留；本候选仅在新隔离schema完成限定正常恢复试跑并停机，不替换原现场验收状态。旧raw仍必留，关联/已闭合SYS/完整行发现仍使用原前缀，完整producer增量/低水位/背压及D2 ARRAY、D4类型/LOB、D5 RAC/ASM/TDE未完成；完整goal active。
+
 ## 2026-10-09 合并恢复接线（开发态，产品尚未换装）
 
 分支 `codex/d2-normal-index-restore`。HistoricalRecovery 的现有产品 public API 现在生成 V2：统一封装 durable pending SYS 上下文和 physical prefix（已闭合图、pending 正反向 pair、完整 undo inventory、生命周期），外部可信 checkpoint SHA、baseline/leaf、两部分来源前缀及 canonical 守卫后直接恢复 typed 状态。V1 读取兼容保留。此次不再先重建物理前缀和 pending SYS 图；关联发现、已闭合 SYS 重放和完整行回放仍使用旧 raw，尚未实现完整 producer 无旧 raw 恢复或删除授权。
