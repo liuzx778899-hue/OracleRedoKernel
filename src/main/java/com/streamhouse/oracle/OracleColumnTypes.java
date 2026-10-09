@@ -7,7 +7,9 @@ public final class OracleColumnTypes {
         return switch(type) {
             case "VARCHAR2"->1;
             case "NUMBER"->2;
+            case "DATE"->12;
             case "RAW"->23;
+            case "TIMESTAMP"->180;
             default->throw new RedoException("UNSUPPORTED_BUSINESS_COLUMN_TYPE");
         };
     }
@@ -16,7 +18,9 @@ public final class OracleColumnTypes {
         return switch((int)type) {
             case 1->"VARCHAR2";
             case 2->"NUMBER";
+            case 12->"DATE";
             case 23->"RAW";
+            case 180->"TIMESTAMP";
             default->throw new RedoException("UNSUPPORTED_BUSINESS_COLUMN_TYPE");
         };
     }

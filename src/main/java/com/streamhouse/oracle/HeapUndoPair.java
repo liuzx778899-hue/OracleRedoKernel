@@ -45,9 +45,16 @@ public record HeapUndoPair(long containerUid,long containerId,Patch forward,Undo
             var extent=p.extent();var prior=before.extent();boolean tail=extent.removedColumn()>=0;
             if (tail) {
                 int removed=extent.removedColumn();var value=before.columns().get(removed);
-                if (prior==null || prior.removedColumn()!=-1 || prior.storedColumns()!=extent.storedColumns()+1
+                boolean suffixTwo=columns==3 && extent.storedColumns()==1 && removed==1 && prior!=null
+                        && prior.storedColumns()==3 && prior.changedColumns()==2 && prior.removedColumn()==-1
+                        && p.columns().get(1).state()==State.NULL && p.columns().get(2).state()==State.NULL
+                        && before.columns().get(1).state()==State.VALUE && before.columns().get(2).state()==State.VALUE
+                        && before.columns().get(1).bytes().length<=250 && before.columns().get(2).bytes().length<=250
+                        && extent.sizeDelta()!=null && extent.sizeDelta()==-(before.columns().get(1).bytes().length+before.columns().get(2).bytes().length+2)
+                        && prior.sizeDelta()!=null && prior.sizeDelta()==-extent.sizeDelta();
+                if (!suffixTwo && (prior==null || prior.removedColumn()!=-1 || prior.storedColumns()!=extent.storedColumns()+1
                         || prior.changedColumns()!=1 || value.state()!=State.VALUE || value.bytes().length>250
-                        || extent.sizeDelta()!=-(value.bytes().length+1))
+                        || extent.sizeDelta()!=-(value.bytes().length+1)))
                     throw new RedoException("ROW_UNDO_TAIL_EXTENT_MISMATCH");
             } else if (prior!=null && prior.removedColumn()>=0) {
                 int added=prior.removedColumn();var value=p.columns().get(added);

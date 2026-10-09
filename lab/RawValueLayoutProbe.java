@@ -18,8 +18,12 @@ public class RawValueLayoutProbe {
                 var header=UndoHeader.decode(vector);if(header.objectId()!=snapshot.heap().logicalObject())continue;
                 System.out.println("RECORD|"+record.scn()+"|"+record.block()+"|"+record.offset()+"|"+header);
                 for(int i=0;i<vector.fields().size();i++)System.out.println("FIELD|"+i+"|"+HexFormat.of().formatHex(vector.fields().get(i)));
-                try {System.out.println("PATCH|"+UndoRowPatch.decode(vector,2));}
+                try {System.out.println("PATCH|"+UndoRowPatch.decode(vector,snapshot.columns().size()));}
                 catch(Exception ex){System.out.println("REFUSED|"+ex.getMessage());}
+                for(var forward:record.vectors())if(forward.opcodeMajor()==11) {
+                    System.out.println("FORWARD|"+forward.opcodeMinor());
+                    for(int i=0;i<forward.fields().size();i++)System.out.println("ROW_FIELD|"+i+"|"+HexFormat.of().formatHex(forward.fields().get(i)));
+                }
             }
         }
     }

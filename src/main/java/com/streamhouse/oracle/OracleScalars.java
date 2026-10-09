@@ -52,4 +52,24 @@ public final class OracleScalars {
                     .onUnmappableCharacter(CodingErrorAction.REPORT).decode(ByteBuffer.wrap(bytes)).toString();
         } catch (CharacterCodingException e) { throw new RedoException("INVALID_VARCHAR2_ENCODING"); }
     }
+
+    public static LocalDateTime timestamp(byte[] bytes) throws RedoException {
+        if(bytes.length!=7 && bytes.length!=11)throw new RedoException("INVALID_TIMESTAMP_LENGTH");
+        var value=date(java.util.Arrays.copyOf(bytes,7));
+        long nanos=bytes.length==7?0:Integer.toUnsignedLong(ByteBuffer.wrap(bytes,7,4).getInt());
+        if(nanos>999999999)throw new RedoException("INVALID_TIMESTAMP_NANOSECONDS");
+        return value.withNano((int)nanos);
+    }
+
+    /** Initial snapshot encoding only; no timezone conversion and no BC era fallback. */
+    public static byte[] temporalBytes(LocalDateTime value,boolean timestamp) throws RedoException {
+        if(value.getYear()<1 || value.getYear()>9999)throw new RedoException("UNSUPPORTED_DATE_ERA");
+        if(!timestamp && value.getNano()!=0)throw new RedoException("DATE_FRACTIONAL_SECONDS");
+        byte[] bytes=new byte[timestamp && value.getNano()!=0?11:7];
+        bytes[0]=(byte)(value.getYear()/100+100);bytes[1]=(byte)(value.getYear()%100+100);
+        bytes[2]=(byte)value.getMonthValue();bytes[3]=(byte)value.getDayOfMonth();
+        bytes[4]=(byte)(value.getHour()+1);bytes[5]=(byte)(value.getMinute()+1);bytes[6]=(byte)(value.getSecond()+1);
+        if(bytes.length==11)ByteBuffer.wrap(bytes,7,4).putInt(value.getNano());
+        return bytes;
+    }
 }

@@ -211,6 +211,8 @@ public final class ArchivedHeapRows {
             if(column.type().equals("NUMBER"))OracleScalars.number(raw);
             else if(column.type().equals("VARCHAR2"))OracleScalars.varchar2(raw,"AL32UTF8");
             else if(column.type().equals("RAW")) {if(raw.length==0)throw new RedoException("EMPTY_RAW_REQUIRES_EXPLICIT_NULL_STATE");}
+            else if(column.type().equals("DATE"))OracleScalars.date(raw);
+            else if(column.type().equals("TIMESTAMP"))OracleScalars.timestamp(raw);
             else throw new RedoException("UNSUPPORTED_HISTORICAL_ROW_VALUE_TYPE");
         }
     }

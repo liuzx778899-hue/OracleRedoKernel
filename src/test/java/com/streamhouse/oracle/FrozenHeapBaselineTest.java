@@ -40,6 +40,16 @@ class FrozenHeapBaselineTest {
         assertEquals("00ffc328",snapshot.rows().values().iterator().next().get(1).hex());
         ArchivedHeapRows.requireCompleteValues(snapshot.rows().values().iterator().next(),snapshot.columns());
     }
+    @Test void temporalColumnsRequireCompleteValidValues()throws Exception {
+        var snapshot=read(sample().replace("TXT|VARCHAR2","TXT|DATE").replace("NOTE|VARCHAR2","NOTE|TIMESTAMP")
+                .replace("6E65772D65706F6368","787C021D183C3B").replace("6E65772D6E6F7465","787C021D183C3B075BCD15"));
+        var row=snapshot.rows().values().iterator().next();
+        ArchivedHeapRows.requireCompleteValues(row,snapshot.columns());
+        var invalid=new java.util.ArrayList<>(row);invalid.set(2,new ArchivedHeapRows.Cell(HeapRowPatch.State.VALUE,"787c021d183c3bffffffff"));
+        assertThrows(RedoException.class,()->ArchivedHeapRows.requireCompleteValues(invalid,snapshot.columns()));
+        assertEquals(12,OracleColumnTypes.oracleId("DATE"));assertEquals("TIMESTAMP",OracleColumnTypes.name(180));
+        assertThrows(RedoException.class,()->OracleColumnTypes.name(181));
+    }
     FrozenHeapBaseline.Snapshot read(String text) throws Exception {var p=directory.resolve("snapshot.txt");Files.writeString(p,text);return FrozenHeapBaseline.read(p,digest(text));}
     @Test void keepsPhysicalColumnsAndDistinctHeapIndexGenerations() throws Exception {
         var snapshot=read(sample());assertEquals(73073,snapshot.heap().logicalObject());assertEquals(73076,snapshot.heap().dataObject());

@@ -67,7 +67,7 @@ public final class FrozenHeapBaseline {
             while (input.peek("COLUMN")) {
                 var c=input.take("COLUMN",9);if (!c[1].equals("BEFORE")) throw new RedoException("SNAPSHOT_COLUMN_PHASE_MISMATCH");
                 int segment=Math.toIntExact(positive(c[2])),internal=Math.toIntExact(positive(c[3]));identifier(c[4]);
-                if (segment!=columns.size()+1 || internal!=segment || !List.of("NUMBER","VARCHAR2","RAW").contains(c[5])
+                if (segment!=columns.size()+1 || internal!=segment || !List.of("NUMBER","VARCHAR2","RAW","DATE","TIMESTAMP").contains(c[5])
                         || !List.of("Y","N").contains(c[6]) || !List.of("YES","NO").contains(c[7]) || !c[8].equals("NO"))
                     throw new RedoException("UNSUPPORTED_SNAPSHOT_PHYSICAL_COLUMN_LAYOUT");
                 columns.add(new PhysicalColumn(segment,internal,c[4],c[5],c[6].equals("Y"),c[7].equals("YES")));

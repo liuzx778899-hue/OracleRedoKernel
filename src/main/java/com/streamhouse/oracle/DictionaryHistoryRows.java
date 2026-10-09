@@ -120,7 +120,7 @@ final class DictionaryHistoryRows {
             int segment=ordinal(baseline.number(row,"SEGCOL#")),internal=ordinal(baseline.number(row,"INTCOL#")),col=ordinal(baseline.number(row,"COL#"));
             long type=baseline.number(row,"TYPE#"),property=baseline.number(row,"PROPERTY"),nulls=baseline.number(row,"NULL$");
             String name=baseline.text(row,"NAME");FrozenHeapBaseline.identifier(name);
-            if(segment<1 || internal!=segment || (type!=1 && type!=2 && type!=23) || (property!=0 && property!=17179869216L) || (nulls!=0 && nulls!=2))
+            if(segment<1 || internal!=segment || (type!=1 && type!=2 && type!=12 && type!=23 && type!=180) || (property!=0 && property!=17179869216L) || (nulls!=0 && nulls!=2))
                 throw new RedoException("UNSTABLE_OR_UNSUPPORTED_HISTORICAL_COLUMNS");
             if(property==0 ? col<1 || !logical.add(col) : col!=0)throw new RedoException("HISTORICAL_LOGICAL_COLUMN_COVERAGE");
             columns.add(new FrozenHeapBaseline.PhysicalColumn(segment,internal,name,OracleColumnTypes.name(type),nulls==0,property!=0));

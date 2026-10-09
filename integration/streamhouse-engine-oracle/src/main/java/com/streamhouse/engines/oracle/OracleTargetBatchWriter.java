@@ -183,6 +183,7 @@ public final class OracleTargetBatchWriter {
         try (var ps=conn.prepareStatement(sql)) {
             for (int i=0;i<args.size();i++) {
                 if(args.get(i) instanceof OracleRawValue raw)ps.setBytes(i+1,raw.bytes());
+                else if(args.get(i) instanceof OracleTemporalValue temporal)ps.setObject(i+1,temporal.localDateTime(),java.sql.Types.TIMESTAMP);
                 else ps.setObject(i+1,args.get(i));
             }
             if (ps.executeUpdate()!=1) throw new SQLException("ORACLE_TARGET_ROW_MATCH_NOT_ONE");
@@ -193,6 +194,7 @@ public final class OracleTargetBatchWriter {
         var fields=new ArrayList<String>();for (var e:values.entrySet()) {
             Object v=e.getValue();String value=v==null ? "NULL" : v instanceof BigDecimal n ? "NUMBER:"+n.toPlainString()
                     : v instanceof OracleRawValue raw ? "RAW:"+raw.hex()
+                    : v instanceof OracleTemporalValue temporal ? temporal.type()+":"+temporal.iso()
                     : "VARCHAR2:"+Base64.getUrlEncoder().withoutPadding().encodeToString(((String)v).getBytes(StandardCharsets.UTF_8));
             fields.add(e.getKey()+"="+value);
         }

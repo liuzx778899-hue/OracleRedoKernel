@@ -48,6 +48,31 @@ public final class OracleSnapshotAcquirer {
     private static List<String> columns(Connection c,Scope s) throws SQLException {
         return query(c,"select segment_column_id||'|'||internal_column_id||'|'||column_name||'|'||data_type||'|'||nullable||'|'||hidden_column||'|'||virtual_column from dba_tab_cols where owner='"+s.owner()+"' and table_name='"+s.table()+"' order by segment_column_id");
     }
+    private static List<String> temporalRows(Connection c,String table,long scn,List<String> columns)throws Exception {
+        var expressions=new ArrayList<String>();
+        expressions.add("'ROW|'||dbms_rowid.rowid_object(rowid)||'|'||dbms_rowid.rowid_relative_fno(rowid)||'|'||dbms_rowid.rowid_block_number(rowid)||'|'||dbms_rowid.rowid_row_number(rowid)");
+        for(String column:columns) {
+            var f=column.split("\\|",-1);String name=f[2],type=f[3];
+            expressions.add(type.equals("DATE") || type.equals("TIMESTAMP")?name:
+                    "rawtohex("+(type.equals("RAW")?name:"utl_raw."+(type.equals("NUMBER")?"cast_from_number":"cast_to_raw")+"("+name+")")+")");
+        }
+        var result=new ArrayList<String>();
+        try(var statement=c.createStatement();var rows=statement.executeQuery("select "+String.join(",",expressions)+" from "+table+" as of scn "+scn+" order by rowid")) {
+            while(rows.next()) {
+                var row=new StringBuilder(rows.getString(1));
+                for(int i=0;i<columns.size();i++) {
+                    String type=columns.get(i).split("\\|",-1)[3],raw;
+                    if(type.equals("DATE") || type.equals("TIMESTAMP")) {
+                        var value=rows.getObject(i+2,java.time.LocalDateTime.class);
+                        raw=value==null?null:HexFormat.of().withUpperCase().formatHex(com.streamhouse.oracle.OracleScalars.temporalBytes(value,type.equals("TIMESTAMP")));
+                    } else raw=rows.getString(i+2);
+                    row.append('|').append(raw==null?"NULL":raw);
+                }
+                result.add(row.toString());
+            }
+        }
+        return List.copyOf(result);
+    }
     /** Owns/closes a fresh source connection. No credentials, SQL truth, dump or mutable receipt is accepted as approval. */
     public Acquisition acquire(Connection fresh,Scope scope,OracleBatchEvidence.Source expected) throws Exception {
         return acquire(fresh,scope,expected,0);
@@ -76,22 +101,24 @@ public final class OracleSnapshotAcquirer {
             identifier(p[2]);
             if(!one(c,"select value from nls_database_parameters where parameter='NLS_CHARACTERSET'").equals("AL32UTF8"))throw new SQLException("SNAPSHOT_CHARSET_UNSUPPORTED");
             long scn=Long.parseLong(one(c,"select to_char(dbms_flashback.get_system_change_number,'FM99999999999999999999') from dual"));
-            String heap=role(c,scope,scope.table(),"TABLE"),index=role(c,scope,scope.index(),"INDEX");var before=columns(c,scope);
+            String heap=role(c,scope,scope.table(),"TABLE"),index=role(c,scope,scope.index(),"INDEX");var physicalBefore=columns(c,scope);
+            var before=physicalBefore.stream().map(row->row.replaceFirst("\\|TIMESTAMP\\([0-9]\\)\\|","|TIMESTAMP|")).toList();
             if(!one(c,"select count(*) from dba_indexes where owner='"+scope.owner()+"' and index_name='"+scope.index()+"' and table_owner='"+scope.owner()+"' and table_name='"+scope.table()+"' and index_type='NORMAL' and partitioned='NO'").equals("1"))throw new SQLException("SNAPSHOT_INDEX_SCOPE_UNSUPPORTED");
             if(before.isEmpty() || before.size()>255)throw new SQLException("SNAPSHOT_COLUMNS_UNSUPPORTED");
             var projection=new StringBuilder();
             for(int i=0;i<before.size();i++) {
                 String[] f=before.get(i).split("\\|",-1);
-                if(f.length!=7 || !f[0].equals(Integer.toString(i+1)) || !f[1].equals(f[0]) || !List.of("NUMBER","VARCHAR2","RAW").contains(f[3])
+                if(f.length!=7 || !f[0].equals(Integer.toString(i+1)) || !f[1].equals(f[0]) || !List.of("NUMBER","VARCHAR2","RAW","DATE","TIMESTAMP").contains(f[3])
                         || !List.of("Y","N").contains(f[4]) || !List.of("YES","NO").contains(f[5]) || !f[6].equals("NO"))throw new SQLException("SNAPSHOT_PHYSICAL_LAYOUT_UNSUPPORTED");
                 identifier(f[2]);String raw=f[3].equals("RAW")?f[2]:"utl_raw."+(f[3].equals("NUMBER")?"cast_from_number":"cast_to_raw")+"("+f[2]+")";
                 projection.append("||'|'||case when ").append(f[2]).append(" is null then 'NULL' else rawtohex(").append(raw).append(") end");
             }
             String table=scope.owner()+"."+scope.table();
-            var rows=query(c,"select 'ROW|'||dbms_rowid.rowid_object(rowid)||'|'||dbms_rowid.rowid_relative_fno(rowid)||'|'||dbms_rowid.rowid_block_number(rowid)||'|'||dbms_rowid.rowid_row_number(rowid)"+projection+" from "+table+" as of scn "+scn+" order by rowid");
+            boolean temporal=before.stream().anyMatch(col->col.split("\\|",-1)[3].equals("DATE") || col.split("\\|",-1)[3].equals("TIMESTAMP"));
+            var rows=temporal?temporalRows(c,table,scn,before):query(c,"select 'ROW|'||dbms_rowid.rowid_object(rowid)||'|'||dbms_rowid.rowid_relative_fno(rowid)||'|'||dbms_rowid.rowid_block_number(rowid)||'|'||dbms_rowid.rowid_row_number(rowid)"+projection+" from "+table+" as of scn "+scn+" order by rowid");
             String count=one(c,"select count(*) from "+table+" as of scn "+scn);
             if(!count.equals(Integer.toString(rows.size())) || !heap.equals(role(c,scope,scope.table(),"TABLE")) || !index.equals(role(c,scope,scope.index(),"INDEX"))
-                    || !before.equals(columns(c,scope)) || !src.equals(source(c)) || !container.equals(pdb(c)))throw new SQLException("SNAPSHOT_ACQUISITION_CHANGED");
+                    || !physicalBefore.equals(columns(c,scope)) || !src.equals(source(c)) || !container.equals(pdb(c)))throw new SQLException("SNAPSHOT_ACQUISITION_CHANGED");
             var roles=new ArrayList<String>();var dictionaryFrames=new ArrayList<String>();OracleDictionaryAcquisition.Result historical=null;
             if(dictionary) {
                 long heapId=Long.parseLong(heap.split("\\|")[2]),indexId=Long.parseLong(index.split("\\|")[2]);
@@ -115,7 +142,7 @@ public final class OracleSnapshotAcquirer {
                 }
                 for(int i=0;i<roles.size();i++)if(!roles.get(i).equals(dictionaryRole(c,List.of("OBJ$","TAB$","COL$").get(i))))throw new SQLException("SNAPSHOT_DICTIONARY_ROLE_CHANGED");
                 if(!heap.equals(role(c,scope,scope.table(),"TABLE")) || !index.equals(role(c,scope,scope.index(),"INDEX"))
-                        || !before.equals(columns(c,scope)) || !src.equals(source(c)) || !container.equals(pdb(c)))throw new SQLException("SNAPSHOT_DICTIONARY_ACQUISITION_CHANGED");
+                        || !physicalBefore.equals(columns(c,scope)) || !src.equals(source(c)) || !container.equals(pdb(c)))throw new SQLException("SNAPSHOT_DICTIONARY_ACQUISITION_CHANGED");
             }
             String format=history?"ORK_HEAP_SNAPSHOT_V3":dictionary?"ORK_HEAP_SNAPSHOT_V2":"ORK_HEAP_SNAPSHOT_V1";
             var out=new StringBuilder("FORMAT|").append(format).append("\nSOURCE|").append(src).append("\nPDB|").append(container).append("\nCHARSET|AL32UTF8\nSNAPSHOT_SCN|").append(scn).append('\n');

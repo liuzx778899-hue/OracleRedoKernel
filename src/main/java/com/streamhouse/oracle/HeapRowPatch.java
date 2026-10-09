@@ -135,6 +135,21 @@ public final class HeapRowPatch {
                     && fields.get(2).length==2 && u16(fields.get(2),0)==2 && fields.get(3).length>=2
                     && (fields.get(3)[0]&255)>=1 && (fields.get(3)[0]&255)<=250
                     && (fields.get(3)[0]&255)==fields.get(3).length-1;
+            // Seq96: two contiguous suffix values share one self-sized XA/XR value stream.
+            boolean packedSuffixTwo=packed && stored==3 && dictionaryColumns==3 && count==2 && delta==0
+                    && u16(kdo,26)==3 && fields.size()==4 && fields.get(2).length==2 && u16(fields.get(2),0)==1;
+            if(packedSuffixTwo) {
+                if((kdo[16]&255)!=0x2c)throw new RedoException("UNSUPPORTED_UPDATE_ROWPIECE");
+                byte[] values=fields.get(3);int at=0;
+                for(int index=1;index<=2;index++) {
+                    if(at>=values.length)throw new RedoException("UNSUPPORTED_KDOM2_VALUE_LENGTH");
+                    int length=values[at++]&255;
+                    if(length<1 || length>250 || at+length>values.length)throw new RedoException("UNSUPPORTED_KDOM2_VALUE_LENGTH");
+                    columns.set(index,value(java.util.Arrays.copyOfRange(values,at,at+length)));at+=length;
+                }
+                if(at!=values.length)throw new RedoException("UNSUPPORTED_KDOM2_VALUE_LENGTH");
+                return new Patch(kind,dba,slot,xtype,null,null,List.copyOf(columns),new RowExtent(stored,count,-1,null),null);
+            }
             if (packed && (count!=1 || u16(kdo,24)!=0 || (!shortColumnTwo && !shortMarkerTwo && !shortXaColumnTwo && u16(kdo,26)!=3 && (u16(kdo,26)!=0 || (kdo[11]&0x7f)!=1))))
                 throw new RedoException("UNSUPPORTED_KDOM2_UPDATE_LAYOUT");
             if ((kdo[16]&255) != 0x2c || stored<1 || stored>dictionaryColumns)
@@ -145,8 +160,12 @@ public final class HeapRowPatch {
                 // Actual seq62 inverse URP: ncol1/nnew0, empty map, marker0; pairing proves the removed column.
                 boolean unmapped=dictionaryColumns==3 && stored==1 && fields.size()==3
                         && fields.get(2).length==0 && u16(kdo,26)==0;
-                if (stored>=dictionaryColumns || (!mapped && !unmapped) || delta>=0)
+                boolean mappedTwo=dictionaryColumns==3 && stored==1 && fields.size()==5 && fields.get(2).length==4
+                        && u16(fields.get(2),0)==1 && u16(fields.get(2),2)==2 && u16(kdo,26)==3
+                        && fields.get(3).length==0 && fields.get(4).length==0;
+                if (stored>=dictionaryColumns || (!mapped && !unmapped && !mappedTwo) || delta>=0)
                     throw new RedoException("UNSUPPORTED_UPDATE_TAIL_MARKER");
+                if(mappedTwo) {columns.set(1,value(new byte[0]));columns.set(2,value(new byte[0]));}
                 extent=new RowExtent(stored,0,stored,delta);
             } else {
                 if (fields.size()!=count+3 || fields.get(2).length!=count*2)

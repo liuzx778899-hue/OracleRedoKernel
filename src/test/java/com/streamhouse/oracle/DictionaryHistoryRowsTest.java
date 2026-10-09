@@ -30,4 +30,13 @@ class DictionaryHistoryRowsTest {
         var op=new ArchivedDictionaryHistory.RowOperation(role,patch,patch);
         assertEquals("DICTIONARY_ROW_BEFORE_VALUE_MISMATCH",assertThrows(RedoException.class,()->new DictionaryHistoryRows(s).apply(List.of(op),List.of())).getMessage());
     }
+    @Test void temporalBusinessTypesSurviveTheHistoricalSchemaGate()throws Exception {
+        var helper=new DictionaryBaselineTest();helper.directory=directory;
+        String fixture=helper.v3().replace("TXT|VARCHAR2","TXT|DATE").replace("NOTE|VARCHAR2","NOTE|TIMESTAMP")
+                .replace("DICT_COLUMN|2|2|TXT|1|","DICT_COLUMN|2|2|TXT|12|")
+                .replace("DICT_COLUMN|3|3|NOTE|1|","DICT_COLUMN|3|3|NOTE|180|")
+                .replace("|545854|C102|","|545854|C10D|").replace("|4E4F5445|C102|","|4E4F5445|C20251|");
+        var snapshot=helper.read(fixture);
+        assertEquals(snapshot.columns(),DictionaryHistoryRows.schema(snapshot,snapshot.dictionaryBaseline().rows()));
+    }
 }

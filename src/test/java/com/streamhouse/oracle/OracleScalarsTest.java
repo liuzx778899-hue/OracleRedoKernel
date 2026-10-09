@@ -28,6 +28,17 @@ class OracleScalarsTest {
         assertThrows(RedoException.class,()->OracleScalars.date(hex("63630a04010101")));
         assertThrows(RedoException.class,()->OracleScalars.date(new byte[0]));
     }
+    @Test void timestampKeepsNanosecondsAndZeroFractionWithoutTimezone()throws Exception {
+        var value=LocalDateTime.of(2024,2,29,23,59,58,123456789);
+        assertEquals(value,OracleScalars.timestamp(hex("787c021d183c3b075bcd15")));
+        assertArrayEquals(hex("787c021d183c3b075bcd15"),OracleScalars.temporalBytes(value,true));
+        assertEquals(value.withNano(0),OracleScalars.timestamp(hex("787c021d183c3b")));
+        assertArrayEquals(hex("787c021d183c3b"),OracleScalars.temporalBytes(value.withNano(0),true));
+        for(String raw:new String[]{"787c021d183c3b3b9aca00","787c021d183c3bffffffff","787c021d183c3b00","787d021d183c3b075bcd15"})
+            assertThrows(RedoException.class,()->OracleScalars.timestamp(hex(raw)),raw);
+        assertThrows(RedoException.class,()->OracleScalars.temporalBytes(value,false));
+        assertThrows(RedoException.class,()->OracleScalars.temporalBytes(value.withYear(0),true));
+    }
     @Test void decodesChineseAndRejectsReplacementFallback() throws Exception {
         assertEquals("中文",OracleScalars.varchar2(hex("e4b8ade69687"),"AL32UTF8"));
         assertThrows(RedoException.class,()->OracleScalars.varchar2(hex("c328"),"AL32UTF8"));

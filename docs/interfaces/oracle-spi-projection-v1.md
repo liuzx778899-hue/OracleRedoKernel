@@ -28,6 +28,8 @@ RAW扩展候选：schema列类型为`RAW`，非NULL值为不可变`OracleRawValu
 
 现行SPI的beginLsn/recordLsn/commitLsn要求SQLServer语义，因此Oracle转换中三者为null；起止record SCN和配对undo RBA在类型化sidecar，不编造commit SCN/墙钟commitAt。未知source.server/database/databaseGuid/recoveryFork均null，DBID/resetlogs/PDB身份在Batch.source，不将DBID转换成GUID。
 
+DATE／无时区TIMESTAMP扩展：业务TYPE#分别12／180，严格解值为不可变 `OracleTemporalValue(type,iso)`；DATE如 `{"type":"DATE","iso":"2026-10-09T12:13:14"}`，TIMESTAMP固定9位小数秒如 `{"type":"TIMESTAMP","iso":"2026-10-09T12:13:14.987654321"}`，不制造时区。JDBC用LocalDateTime绑定，审计像保留类型；NULL仍显式null，非法日期／BC／带时区类型拒绝。真实冻结96的四完整事件、NULL／回滚及有限目标4/4/1、实际CPACK／producer已核等。原早期Acquirer记录采用实验导入，不当正式HTTP获取或生产验收；详见DELIVERY_D4_TEMPORAL_20261009.md。其他类型、精度变更、LOB及D4整体仍待证。
+
 ## 产品接续
 
 这份转换不是SQLServer V2 durable writer输入：该writer要求v2身份、完整source和SQLServer commitLsn。ODS要求commitAt的路径也不得用当前时间补造后放行。产品输入window/Oracle位置扩展、可信schema授权及Oracle目标writer/同事务commit receipt必须独立冻结和验收，之后才能接公开decoder成功路径。
