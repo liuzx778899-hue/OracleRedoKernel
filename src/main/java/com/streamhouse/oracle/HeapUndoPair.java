@@ -12,8 +12,15 @@ public record HeapUndoPair(long containerUid,long containerId,Patch forward,Undo
         return bind(record,row,columns,true);
     }
     private static HeapUndoPair bind(RedoRecords.Record record,RedoRecords.Vector row,int columns,boolean dictionaryObject) throws RedoException {
+        return bind(record,row,columns,dictionaryObject,false);
+    }
+    public static HeapUndoPair bindLob(RedoRecords.Record record,RedoRecords.Vector row,int columns)throws RedoException {
+        if(columns!=3)throw new RedoException("UNSUPPORTED_LOB_HEAP_COLUMN_PROFILE");
+        return bind(record,row,columns,false,true);
+    }
+    private static HeapUndoPair bind(RedoRecords.Record record,RedoRecords.Vector row,int columns,boolean dictionaryObject,boolean lobHeap) throws RedoException {
         if (!record.vectors().contains(row)) throw new RedoException("ROW_VECTOR_NOT_IN_RECORD");
-        var decoder=new HeapRowPatch();var p=dictionaryObject?decoder.decodeDictionaryObject(row,columns):decoder.decode(row,columns);
+        var decoder=new HeapRowPatch();var p=lobHeap?decoder.decodeLob(row,columns):dictionaryObject?decoder.decodeDictionaryObject(row,columns):decoder.decode(row,columns);
         if (p.xtype()!=1 || p.uba()==null) throw new RedoException("NOT_FORWARD_ROW_UNDO_REFERENCE");
         UndoRowPatch match=null;
         int rowMatches=0;
@@ -21,7 +28,7 @@ public record HeapUndoPair(long containerUid,long containerId,Patch forward,Undo
             if (v.containerId()!=row.containerId()) continue;
             if (v.opcodeMajor()==11 && (v.opcodeMinor()==2 || v.opcodeMinor()==3 || v.opcodeMinor()==4 || v.opcodeMinor()==5)
                     && v.dba()==row.dba()) {
-                var other=dictionaryObject?decoder.decodeDictionaryObject(v,columns):decoder.decode(v,columns);
+                var other=lobHeap?decoder.decodeLob(v,columns):dictionaryObject?decoder.decodeDictionaryObject(v,columns):decoder.decode(v,columns);
                 if (other.xtype()==1 && p.uba().equals(other.uba())) rowMatches++;
             }
             if (v.opcodeMajor()!=5 || v.opcodeMinor()!=1 || v.dba()!=p.uba().dba()) continue;
@@ -30,7 +37,7 @@ public record HeapUndoPair(long containerUid,long containerId,Patch forward,Undo
             byte[] b=v.fields().get(0);
             if (u16(b,16)!=p.uba().sequence() || (b[18]&255)!=p.uba().record()) continue;
             if (match!=null) throw new RedoException("AMBIGUOUS_ROW_UNDO_UBA");
-            match=UndoRowPatch.decode(v,columns,dictionaryObject);
+            match=lobHeap?UndoRowPatch.decodeLob(v,columns):UndoRowPatch.decode(v,columns,dictionaryObject);
         }
         if (rowMatches!=1) throw new RedoException("AMBIGUOUS_FORWARD_ROW_UBA");
         if (match==null) throw new RedoException("MISSING_ROW_UNDO_UBA");
@@ -39,7 +46,7 @@ public record HeapUndoPair(long containerUid,long containerId,Patch forward,Undo
         if (before.kind()!=inverse || before.dba()!=p.dba() || before.slot()!=p.slot()
                 || (p.xid()!=null && !p.xid().equals(match.identity().xid())))
             throw new RedoException("ROW_UNDO_OPERATION_POSITION_OR_XID_MISMATCH");
-        if (p.kind()==Kind.LOCK && (!Integer.valueOf(1).equals(p.lockTo()) || !Integer.valueOf(0).equals(before.lockTo())))
+        if (p.kind()==Kind.LOCK && (!Integer.valueOf(lobHeap?row.fields().get(1)[12]&255:1).equals(p.lockTo()) || !Integer.valueOf(0).equals(before.lockTo())))
             throw new RedoException("UNSUPPORTED_HEAP_LOCK_TRANSITION");
         if (p.kind()==Kind.UPDATE) {
             var extent=p.extent();var prior=before.extent();boolean tail=extent.removedColumn()>=0;

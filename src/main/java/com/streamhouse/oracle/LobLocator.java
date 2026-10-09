@@ -39,6 +39,10 @@ public record LobLocator(Kind kind,Storage storage,String lobId,long byteLength,
             if(b[23]!=(byte)0x90)throw new RedoException("UNSUPPORTED_SECUREFILE_LOB_LOCATOR");
             length=((long)(b[27]&255)<<16)|be16(b,28);version=-1;
             if(b[22]==0x48 && b.length==30 && be16(b,24)==4 && b[26]==0 && length==0)inline=new byte[0];
+            else if(b[22]==0x48 && b.length>=31 && be16(b,24)==b.length-26 && b[26]==0 && b[27]==0 && b[29]==1) {
+                length=b[28]&255;inline=Arrays.copyOfRange(b,30,b.length);
+                if(length==0 || inline.length!=length)throw new RedoException("SECUREFILE_LOB_INLINE_LENGTH");
+            }
             else if(b[22]==0x48 && b.length>=31 && be16(b,24)==b.length-26 && b[26]==1 && b[30]==1) {
                 inline=Arrays.copyOfRange(b,31,b.length);if(inline.length!=length)throw new RedoException("SECUREFILE_LOB_INLINE_LENGTH");
             } else if(b[22]==0x40 && b.length==38 && be16(b,24)==12 && b[26]==0x21 && b[31]==0 && b[32]==1) {

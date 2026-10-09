@@ -30,4 +30,13 @@ class LobLocatorTest {
         byte[] secure=hex("00700001010c008000010000000100000034f6cb00124090000c210027100500010300865301");
         assertThrows(RedoException.class,()->decode(secure,Kind.BLOB,Storage.SECUREFILE));
     }
+    @Test void readsFrozenSecureFileInsertedInlineValuesAndRejectsBadLength()throws Exception {
+        byte[] blob=hex("00700001010c008000010000000100000034f6fd000e4890000800000401c32800ff");
+        var b=decode(blob,Kind.BLOB,Storage.SECUREFILE);
+        assertEquals(4,b.byteLength());assertArrayEquals(hex("c32800ff"),b.inlinePayload());
+        var c=decode(hex("00700001020c808000020000000100000034f6fe00144890000e00000a01006e00650077002d6587"),Kind.CLOB,Storage.SECUREFILE);
+        assertEquals(10,c.byteLength());assertArrayEquals(hex("006e00650077002d6587"),c.inlinePayload());
+        blob[28]=5;assertThrows(RedoException.class,()->decode(blob,Kind.BLOB,Storage.SECUREFILE));
+        blob[28]=4;blob[29]=2;assertThrows(RedoException.class,()->decode(blob,Kind.BLOB,Storage.SECUREFILE));
+    }
 }

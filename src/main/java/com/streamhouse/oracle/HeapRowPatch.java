@@ -27,10 +27,18 @@ public final class HeapRowPatch {
     public Patch decode(RedoRecords.Vector vector, int dictionaryColumns) throws RedoException {
         return decode(vector,dictionaryColumns,false);
     }
+    /** Observed three-column LOB heap profile; ordinary heap locks retain their existing gate. */
+    public Patch decodeLob(RedoRecords.Vector vector,int columns)throws RedoException {
+        if(columns!=3)throw new RedoException("UNSUPPORTED_LOB_HEAP_COLUMN_PROFILE");
+        return decode(vector,columns,false,true);
+    }
     Patch decodeDictionaryObject(RedoRecords.Vector vector,int columns) throws RedoException {
         return decode(vector,columns,true);
     }
     private Patch decode(RedoRecords.Vector vector,int dictionaryColumns,boolean dictionaryObject) throws RedoException {
+        return decode(vector,dictionaryColumns,dictionaryObject,false);
+    }
+    private Patch decode(RedoRecords.Vector vector,int dictionaryColumns,boolean dictionaryObject,boolean lobHeap) throws RedoException {
         if (vector.opcodeMajor() != 11 || (vector.opcodeMinor() != 2
                 && vector.opcodeMinor() != 3 && vector.opcodeMinor() != 4 && vector.opcodeMinor() != 5))
             throw new RedoException("UNSUPPORTED_HEAP_OPCODE");
@@ -44,9 +52,10 @@ public final class HeapRowPatch {
             boolean packedUpdate=vector.opcodeMinor()==5 && fields.get(1).length==28 && (fields.get(1)[11]&255)==0x82;
             boolean restoredInsert=vector.opcodeMinor()==2 && fields.get(1).length==49 && (fields.get(1)[11]&255)==2;
             boolean rollbackDelete=vector.opcodeMinor()==3 && fields.get(1).length==20 && (fields.get(1)[11]&255)==2;
-            if (!packedUpdate && !restoredInsert && !rollbackDelete)
+            boolean lobUnlock=lobHeap && vector.opcodeMinor()==4 && fields.get(1).length==20 && fields.get(1)[11]==2 && fields.get(1)[19]==0;
+            if (!packedUpdate && !restoredInsert && !rollbackDelete && !lobUnlock)
                 throw new RedoException("UNSUPPORTED_KTB_Z_ROW_PROFILE");
-            return decodeKdo(fields,vector.opcodeMinor(),vector.dba(),dictionaryColumns);
+            return decodeKdo(fields,vector.opcodeMinor(),vector.dba(),dictionaryColumns,false,lobHeap);
         }
         if (ktb.length < 16) throw new RedoException("TRUNCATED_KTB");
         Xid xid=null;
@@ -68,7 +77,7 @@ public final class HeapRowPatch {
         }
         else throw new RedoException("UNSUPPORTED_KTB_OPERATION");
         Uba uba=ubaOffset < 0 ? null : new Uba(u32(ktb,ubaOffset),u16(ktb,ubaOffset+4),ktb[ubaOffset+6]&255);
-        var row=decodeKdo(fields,vector.opcodeMinor(),vector.dba(),dictionaryColumns,dictionaryObject);
+        var row=decodeKdo(fields,vector.opcodeMinor(),vector.dba(),dictionaryColumns,dictionaryObject,lobHeap);
         return new Patch(row.kind(),row.dba(),row.slot(),row.xtype(),xid,uba,row.columns(),row.extent(),row.lockTo());
     }
 
@@ -77,6 +86,13 @@ public final class HeapRowPatch {
         return decodeKdo(fields,op,dba,dictionaryColumns,false);
     }
     static Patch decodeKdo(List<byte[]> fields,int op,long dba,int dictionaryColumns,boolean dictionaryObject) throws RedoException {
+        return decodeKdo(fields,op,dba,dictionaryColumns,dictionaryObject,false);
+    }
+    static Patch decodeLobKdo(List<byte[]> fields,int op,long dba,int columns)throws RedoException {
+        if(columns!=3)throw new RedoException("UNSUPPORTED_LOB_HEAP_COLUMN_PROFILE");
+        return decodeKdo(fields,op,dba,columns,false,true);
+    }
+    private static Patch decodeKdo(List<byte[]> fields,int op,long dba,int dictionaryColumns,boolean dictionaryObject,boolean lobHeap) throws RedoException {
         if (dictionaryColumns < 1 || dictionaryColumns > 255)
             throw new RedoException("UNSUPPORTED_HEAP_COLUMN_COUNT");
         if (fields.size()<2 || (op!=2 && op!=3 && op!=4 && op!=5))
@@ -103,8 +119,10 @@ public final class HeapRowPatch {
         List<Column> columns=new ArrayList<>();
         for (int i=0;i<dictionaryColumns;i++) columns.add(new Column(State.ABSENT,new byte[0]));
         if (op==4) {
-            if (fields.size()!=2 || xtype!=1 || kdo[12]!=1 || kdo[13]!=0 || u16(kdo,14)!=1
-                    || kdo[18]!=0 || (kdo[19]&255)>1)
+            boolean lobLock=lobHeap && (kdo[12]==1 || kdo[12]==2) && kdo[13]==0
+                    && (u16(kdo,14)==0xffff || u16(kdo,14)==64) && kdo[18]==0 && (kdo[19]==0 || kdo[19]==kdo[12]);
+            if (fields.size()!=2 || (!lobLock && (xtype!=1 || kdo[12]!=1 || kdo[13]!=0 || u16(kdo,14)!=1
+                    || kdo[18]!=0 || (kdo[19]&255)>1)))
                 throw new RedoException("UNSUPPORTED_HEAP_LOCK_LAYOUT");
             return new Patch(Kind.LOCK,dba,u16(kdo,16),xtype,null,null,List.copyOf(columns),null,kdo[19]&255);
         }

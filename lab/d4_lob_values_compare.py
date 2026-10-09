@@ -2,7 +2,11 @@
 from pathlib import Path
 import hashlib,json,re,sys
 R=Path(__file__).resolve().parent.parent;F=R/'lab/out/d4-lob-source-20261009/continue-r2'
-typed=sys.argv[1:]==['--typed-locators'];assert typed or not sys.argv[1:];N=F/('inventory-r6' if typed else 'inventory-r5')
+args=sys.argv[1:];typed='--typed-locators' in args
+if typed:args.remove('--typed-locators')
+if args:
+ assert len(args)==2 and args[0]=='--run' and re.fullmatch(r'inventory-r[1-9][0-9]*',args[1]);N=F/args[1]
+else:N=F/('inventory-r6' if typed else 'inventory-r5')
 pages=[];images=[];fills=[];locators=[];typedLocators=[];pending=None
 for line in (N/'inventory.stdout').read_text().splitlines():
  f=line.split('|')

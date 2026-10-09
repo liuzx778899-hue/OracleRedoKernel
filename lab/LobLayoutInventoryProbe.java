@@ -51,9 +51,19 @@ public class LobLayoutInventoryProbe {
                                 image.xid().usn()+"."+image.xid().slot()+"."+image.xid().sequence()+"|"+hex.formatHex(image.payload()));
                     }
                     // Fixture heap DBAs from the frozen metadata/native inventory, for diagnostics only.
-                    if(vector.opcodeMajor()==11 && (vector.opcodeMinor()==2 || vector.opcodeMinor()==3 || vector.opcodeMinor()==5)
-                            && (vector.dba()==50365967 || vector.dba()==50366015)) {
-                        var row=new HeapRowPatch().decode(vector,3);
+                    if(vector.opcodeMajor()==11 && (vector.opcodeMinor()==2 || vector.opcodeMinor()==3 || vector.opcodeMinor()==4 || vector.opcodeMinor()==5)
+                            && (vector.dba()==50365967 || vector.dba()==50365966 || vector.dba()==50366015 || vector.dba()==50366011)) {
+                        var row=new HeapRowPatch().decodeLob(vector,3);
+                        if(row.xtype()==1) {
+                            var pair=HeapUndoPair.bindLob(record,vector,3);var owner=pair.undo().identity();
+                            System.out.println("HEAPPAIR|"+capture.source().sequence()+"|"+record.block()+"|"+record.offset()+"|"+(v+1)+"|"+
+                                    owner.objectId()+"|"+owner.xid().usn()+"."+owner.xid().slot()+"."+owner.xid().sequence()+"|"+
+                                    owner.uba().dba()+"|"+owner.uba().sequence()+"|"+owner.uba().record()+"|"+row.kind()+"|"+
+                                    row.dba()+"|"+row.slot()+"|"+row.lockTo()+"|"+pair.undo().inverse().lockTo());
+                        } else {
+                            System.out.println("HEAPCOMPENSATION|"+capture.source().sequence()+"|"+record.block()+"|"+record.offset()+"|"+(v+1)+"|"+
+                                    row.kind()+"|"+row.dba()+"|"+row.slot()+"|"+row.lockTo());
+                        }
                         for(int col=0;col<row.columns().size();col++) {
                             var value=row.columns().get(col);if(value.state()==HeapRowPatch.State.ABSENT)continue;
                             System.out.println("LOCATOR|"+capture.source().sequence()+"|"+record.block()+"|"+record.offset()+"|"+(v+1)+"|"+
@@ -61,7 +71,7 @@ public class LobLayoutInventoryProbe {
                                     (value.bytes()==null?"":hex.formatHex(value.bytes())));
                             if(col>0 && value.state()==HeapRowPatch.State.VALUE) {
                                 var locator=LobLocator.decode(value.bytes(),col==1?LobLocator.Kind.BLOB:LobLocator.Kind.CLOB,
-                                        row.dba()==50365967?LobLocator.Storage.BASICFILE:LobLocator.Storage.SECUREFILE);
+                                        row.dba()==50365967 || row.dba()==50365966?LobLocator.Storage.BASICFILE:LobLocator.Storage.SECUREFILE);
                                 System.out.println("LOB|"+record.scn()+"|"+row.dba()+"|"+row.slot()+"|"+col+"|"+locator.kind()+"|"+
                                         locator.storage()+"|"+locator.lobId()+"|"+locator.byteLength()+"|"+locator.version()+"|"+
                                         locator.pages().stream().map(String::valueOf).collect(java.util.stream.Collectors.joining(","))+"|"+
