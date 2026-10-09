@@ -1,5 +1,15 @@
 # D4 RAW 完整值路径候选 · 2026-10-09
 
+## RAW产品正常链路追加
+
+实际运行P源码bf7052e、应用SHA `073c95364a9a15305527a139e846bdd6ac754839930af8cb705cfd6cab1f23c9`，只读既有冻结95和真实早期V3；隔离控制库 `ORKRAWCTL_20261009`、目标 `ORKTGT_CMT_20261005.RRAW1`。自动任务 `101970130061475840` DONE、批次PUBLISHED rc0/4、窗口raw95 CONSUMED；目标事件/成员/提交4/4/1、ledger4/PASS1。四事件完整前后像、序号、ID、payload与schemaSequence逐项核等，0差异；实际RAW列最终ID1/BIN010080FF，DUMP为Typ23/Len4/1,0,80,ff，NULL事件正确，回滚不发布。实际DB checkpoint与ACK全文同字节，SHA `c1019b15c1230f047f67faf8d4bb5fe168b7b8275c77cc76f5465b213816fa7d`；实际producer与离线预期全文同字节，SHA `392040813172f013d65809f156cd06ebf33ed198d6ea37658b10be171b88e87b`，sourceCount1/decodedThrough95/rawLowWater95/pending0/published4。raw保留，ACK不授权删除。
+
+获取边界：早期snapshot确为源DML前实际Acquirer获取；本次以实验SQL导入原获取记录与原command/rc/receipt来源，再经产品GET verified核来源、对象、SHA、SCN与完整历史metadata，独立批准有限输入。不是正式HTTP acquire，也不是晚SCN回填或生产可信导入流程验收。首次导入metadata中的装箱SCN用JSON数字，产品配置要求字符串，GET拒绝ORACLE_ACQUISITION_RECOVERY_REFUSED；当时目标/窗口尚未创建。离线确认只有/scn类型不同、数值不变，只续接修正实验metadata并执行未消费部分；解析器与应用不改，原失败保留。实验读授权配置及同实例目标不能证明生产零配置或独立目标验收。
+
+证据 `lab/out/d4-raw-product-20261009/normal-product-proof.json`、resume-actual.stdout、实际ACK/producer、actual-early-acquisition-import.json、原executed与resume执行副本；product-driver原失败及product-resume rc0在 `lab/out/d4-raw-20261009/`。源DML0/新获取0，源ID1/BIN010080FF及旧RPROG1账46/46/2保持；固定helper两轮日志保存后删除、自有库两轮stop rc0，库与卷保留。仅必要正常集成，未重跑旧源75–95、旧r123链或故障矩阵。
+
+六列：代码交付通过｜针对性回归通过｜有限RAW产品集成通过｜专属实验换装通过、生产未部署｜现场未验收｜未发布。D4仍仅部分功能：其余标量/DATE/TIMESTAMP/LOB待补；D2一般事务、D3连续在线/平台/低水位监管、D5 RAC/ASM/TDE及独立评审/目标/约定生产部署/用户生产验证保持待证。继续当前chat，下一优先完整功能，不继续细拆已通过项验证。
+
 ## 真实冻结RAW正常功能追加
 
 专属新表 `ORKLAB.T_D4_RAW_20261009`，先行真实V3获取SCN3021645、SHA `bfa272f46f9216c852686591c0ab2a2d74daf8d93397b81d18d9c0e5a372ce88`；随后一次新fixture（UPDATE/INSERT/置NULL/DELETE各提交，另一次UPDATE回滚），冻结95 SHA `ff6a12f284c1a19602cef78242c08bf3bf60cf2c5353e5c85b03c3acbc68c7e5`。生产事件入口只读可信snapshot与raw；独立SQL/DUMP值仅作尺子。`lab/out/d4-raw-source-20261009/parser-r4/normal-proof.json`与frozen-r4 rc0：4完整事件、0回滚事件、完整前后像/RAW/NULL逐字节0差异，eventId唯一，最终ID1/BIN010080FF；raw发现leaf50363819。新源DML只执行一次，不重播75–94或95。
