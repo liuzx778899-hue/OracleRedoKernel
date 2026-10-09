@@ -109,7 +109,7 @@ try:
   else:raise AssertionError('LOB publication timeout')
   actual=sql(kind+'-actual',f"""alter session set container=ORKPDB;
 select 'COUNTS|'||(select count(*) from {T}_APPLIED)||'|'||(select count(*) from {T}_MEMBERS)||'|'||(select count(*) from {T}_COMMITS)||'|'||(select count(*) from {U}.SH_EVENT_LEDGER) from dual;
-select 'MATCH|'||count(*) from {T}_ROWS t join ORKLAB.{table} s on s.ID=t.ID where dbms_lob.getlength(t.B)=dbms_lob.getlength(s.B) and dbms_lob.compare(t.B,s.B)=0 and dbms_lob.getlength(t.C)=dbms_lob.getlength(s.C) and dbms_lob.compare(t.C,s.C)=0;
+select 'MATCH|'||count(*) from {T}_ROWS t join ORKLAB.T_D4_LOB{kind}_20261009 s on s.ID=t.ID where dbms_lob.getlength(t.B)=dbms_lob.getlength(s.B) and dbms_lob.compare(t.B,s.B)=0 and dbms_lob.getlength(t.C)=dbms_lob.getlength(s.C) and dbms_lob.compare(t.C,s.C)=0;
 select 'EVENT|'||EVENT_ID||'|'||PAYLOAD_SHA from {T}_APPLIED;
 select 'COMMIT|'||BATCH_SHA||'|'||SCHEMA_SHA||'|'||EVENTS_COUNT from {T}_COMMITS;
 select 'WINDOW|'||STATUS from {U}.SH_CAP_WINDOW;
