@@ -9,6 +9,14 @@ public final class HeapCompensation {
                                     List<HeapUndoPair> history,int columns) throws RedoException {
         return match(record,marker,row,history,columns,null);
     }
+    /** Three-column LOB physical inverse, with an original identity from source-owned association routing. */
+    public static HeapUndoPair matchLob(RedoRecords.Record record,RedoRecords.Vector marker,RedoRecords.Vector row,
+                                       List<HeapUndoPair> history,UndoHeader original)throws RedoException {
+        var c=UndoCompensation.decode(marker);
+        var pair=match(record,marker,row,history,3,c.beginsTransaction() || c.crossesUndoBlock()?original.xid():null,true);
+        if(!pair.undo().identity().equals(original))throw new RedoException("LOB_COMPENSATION_ROUTED_OWNER_MISMATCH");
+        return pair;
+    }
 
     public static HeapUndoPair matchBegin(RedoRecords.Record record,RedoRecords.Vector marker,RedoRecords.Vector row,
                                          List<HeapUndoPair> history,int columns,TransactionLifecycle state) throws RedoException {
@@ -22,13 +30,17 @@ public final class HeapCompensation {
 
     private static HeapUndoPair match(RedoRecords.Record record,RedoRecords.Vector marker,RedoRecords.Vector row,
                                      List<HeapUndoPair> history,int columns,HeapRowPatch.Xid beginXid) throws RedoException {
+        return match(record,marker,row,history,columns,beginXid,false);
+    }
+    private static HeapUndoPair match(RedoRecords.Record record,RedoRecords.Vector marker,RedoRecords.Vector row,
+                                     List<HeapUndoPair> history,int columns,HeapRowPatch.Xid beginXid,boolean lobHeap) throws RedoException {
         if (!record.vectors().contains(marker) || !record.vectors().contains(row)
                 || marker.containerId()!=row.containerId())
             throw new RedoException("COMPENSATION_RECORD_OR_CONTAINER_MISMATCH");
         var c=UndoCompensation.decode(marker);
         if ((c.beginsTransaction() || c.crossesUndoBlock())!=(beginXid!=null) || c.opcodeMajor()!=11 || c.opcodeMinor()!=1)
             throw new RedoException("UNSUPPORTED_HEAP_COMPENSATION_ASSOCIATION");
-        var rollback=new HeapRowPatch().decode(row,columns);
+        var rollback=lobHeap?new HeapRowPatch().decodeLob(row,columns):new HeapRowPatch().decode(row,columns);
         if (rollback.xtype()!=2) throw new RedoException("NOT_HEAP_COMPENSATION_ROW");
         HeapUndoPair match=null;
         for (var pair:history) {
@@ -47,8 +59,8 @@ public final class HeapCompensation {
         int rows=0;
         for (var v:record.vectors()) {
             if (v.containerId()!=row.containerId() || v.dba()!=row.dba() || v.opcodeMajor()!=11
-                    || (v.opcodeMinor()!=2 && v.opcodeMinor()!=3 && v.opcodeMinor()!=5)) continue;
-            var other=new HeapRowPatch().decode(v,columns);
+                    || (v.opcodeMinor()!=2 && v.opcodeMinor()!=3 && v.opcodeMinor()!=5 && !(lobHeap && v.opcodeMinor()==4))) continue;
+            var other=lobHeap?new HeapRowPatch().decodeLob(v,columns):new HeapRowPatch().decode(v,columns);
             if (other.xtype()==2 && sameInverse(other,rollback)) rows++;
         }
         if (rows!=1) throw new RedoException("AMBIGUOUS_HEAP_COMPENSATION_ROW");
@@ -67,6 +79,7 @@ public final class HeapCompensation {
 
     private static boolean sameInverse(HeapRowPatch.Patch a,HeapRowPatch.Patch b) {
         if (a.kind()!=b.kind() || a.dba()!=b.dba() || a.slot()!=b.slot() || a.columns().size()!=b.columns().size()) return false;
+        if(!java.util.Objects.equals(a.lockTo(),b.lockTo()))return false;
         if ((a.extent()==null)!=(b.extent()==null)) return false;
         if (a.extent()!=null && b.extent()!=null && (a.extent().storedColumns()!=b.extent().storedColumns()
                 || a.extent().changedColumns()!=b.extent().changedColumns() || a.extent().removedColumn()!=b.extent().removedColumn())) return false;

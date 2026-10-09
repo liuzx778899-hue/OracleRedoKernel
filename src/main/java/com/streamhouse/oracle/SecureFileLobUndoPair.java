@@ -1,10 +1,12 @@
 package com.streamhouse.oracle;
 
 import java.util.HexFormat;
+import java.util.Arrays;
+import java.util.List;
 import static com.streamhouse.oracle.RedoBytes.*;
 
 /** Exact same-record 26.2 forward/26.1 undo binding; rollback routing and commit approval are separate. */
-public record SecureFileLobUndoPair(UndoHeader owner,SecureFileLobFill forward,long inverseHighWater,SecureFileLobFill inverse) {
+public record SecureFileLobUndoPair(long containerUid,long containerId,UndoHeader owner,SecureFileLobFill forward,long inverseHighWater,SecureFileLobFill inverse) {
     public static SecureFileLobUndoPair bind(RedoRecords.Record record,RedoRecords.Vector vector,long expectedObject)throws RedoException {
         if(!record.vectors().contains(vector))throw new RedoException("SECUREFILE_LOB_FILL_NOT_IN_RECORD");
         var forward=SecureFileLobFill.decode(vector);
@@ -33,7 +35,7 @@ public record SecureFileLobUndoPair(UndoHeader owner,SecureFileLobFill forward,l
             if(!inverse.undo() || !inverse.lobId().equals(forward.lobId()) || inverse.offset()!=forward.offset()
                     || inverse.payload().length!=forward.payload().length)
                 throw new RedoException("SECUREFILE_LOB_INVERSE_EXTENT");
-            return new SecureFileLobUndoPair(owner,forward,-1,inverse);
+            return new SecureFileLobUndoPair(record.containerUid(),vector.containerId(),owner,forward,-1,inverse);
         }
         if(fields.size()!=3 || fields.get(1).length!=12 || fields.get(2).length!=56)
             throw new RedoException("UNSUPPORTED_SECUREFILE_LOB_APPEND_UNDO");
@@ -46,6 +48,36 @@ public record SecureFileLobUndoPair(UndoHeader owner,SecureFileLobFill forward,l
         long high=u16(load,52);
         if(high!=forward.offset() || forward.highWater()!=high+forward.payload().length)
             throw new RedoException("SECUREFILE_LOB_APPEND_UNDO_LENGTH");
-        return new SecureFileLobUndoPair(owner,forward,high,null);
+        return new SecureFileLobUndoPair(record.containerUid(),vector.containerId(),owner,forward,high,null);
+    }
+    /** Observed partial-fill compensation; source-owned routing and full transaction closure remain caller obligations. */
+    public static SecureFileLobUndoPair matchCompensation(RedoRecords.Record record,RedoRecords.Vector marker,
+                                                        RedoRecords.Vector vector,List<SecureFileLobUndoPair> history,
+                                                        UndoHeader original)throws RedoException {
+        if(!record.vectors().contains(marker) || !record.vectors().contains(vector) || marker.containerId()!=vector.containerId())
+            throw new RedoException("SECUREFILE_LOB_COMPENSATION_RECORD_OR_CONTAINER");
+        var c=UndoCompensation.decode(marker);
+        if(c.beginsTransaction() || c.crossesUndoBlock() || c.opcodeMajor()!=26 || c.opcodeMinor()!=1
+                || c.dba()!=original.uba().dba() || c.objectId()!=original.objectId() || c.dataObjectId()!=original.dataObjectId()
+                || c.tablespace()!=original.tablespace() || c.slot()!=original.xid().slot() || c.wrap()!=(original.xid().sequence()&0xffff))
+            throw new RedoException("SECUREFILE_LOB_COMPENSATION_ROUTED_OWNER");
+        var rollback=SecureFileLobFill.decode(vector);if(!rollback.undo())throw new RedoException("SECUREFILE_LOB_COMPENSATION_IS_FORWARD");
+        SecureFileLobUndoPair match=null;
+        for(var pair:history) {
+            var inverse=pair.inverse();
+            if(pair.containerUid()!=record.containerUid() || pair.containerId()!=vector.containerId() || !pair.owner().equals(original)
+                    || inverse==null || !sameInverse(inverse,rollback))continue;
+            if(match!=null)throw new RedoException("SECUREFILE_LOB_COMPENSATION_AMBIGUOUS_ORIGINAL");match=pair;
+        }
+        if(match==null)throw new RedoException("SECUREFILE_LOB_COMPENSATION_MISSING_ORIGINAL");
+        int rows=0;
+        for(var row:record.vectors())if(row.containerId()==vector.containerId() && row.opcodeMajor()==26 && row.opcodeMinor()==2
+                && sameInverse(SecureFileLobFill.decode(row),rollback))rows++;
+        if(rows!=1)throw new RedoException("SECUREFILE_LOB_COMPENSATION_AMBIGUOUS_FILL");
+        return match;
+    }
+    private static boolean sameInverse(SecureFileLobFill a,SecureFileLobFill b) {
+        return a.undo()==b.undo() && a.lobId().equals(b.lobId()) && a.pageDba()==b.pageDba() && a.offset()==b.offset()
+                && a.fillFlags()==b.fillFlags() && a.highWater()==b.highWater() && Arrays.equals(a.payload(),b.payload());
     }
 }

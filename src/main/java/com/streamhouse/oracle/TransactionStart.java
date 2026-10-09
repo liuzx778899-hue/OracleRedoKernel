@@ -13,8 +13,8 @@ public record TransactionStart(long segmentDba, int slot, long sequence, HeapRow
             throw new RedoException("UNSUPPORTED_TRANSACTION_START_LAYOUT");
         byte[] b=fields.get(0);
         int flags=u16(b,16);
-        // Native seq93/94 size136: fbi is a short (0/1); bytes2..3 and22..23 are opaque padding, not parent identity.
-        boolean shortFirstRecord=u16(b,18)==136 && u16(b,20)<=1;
+        // Native seq93/94 size136 and seq97 size112: fbi is a short (0/1); bytes2..3 and22..23 are opaque padding.
+        boolean shortFirstRecord=(u16(b,18)==136 || u16(b,18)==112) && u16(b,20)<=1;
         boolean observedFirstRecord=flags==0x4a && (b[14]&255)==1 && b[15]==0
                 && (shortFirstRecord || u16(b,2)==0 && (u16(b,18)==164 || u16(b,18)==176 || u16(b,18)==316) && u16(b,20)==0);
         boolean observedControlBegin=(flags==0x51 || flags==0x451) && u16(b,2)==0 && (b[14]&255)>0
