@@ -1,5 +1,7 @@
 # OracleRedoKernel 当前状态
 
+2026-10-09 LOB剩余14项原始undo类型化：[同包反馈](DELIVERY_D4_LOB_NORMAL_20261009.md)。内核627a9de已推送，6普通PK/8SecureFile控制配对补齐，19fixture事务129项全类型化；dump范围内125项native完整owner/UBA/位置/opcode零差异，早期4seed undo缺native证据单列/基线不批准。16相关测试rc0，170class树bf2c87dd冻结/前169字节不变，原17补偿输出不变复用。下一步源顺序完整图/begin-advance-head-end/tail/rollback空live，再自主维护/页owner/locator/可信获取/产品CPACK；事件0/部署0，完整D1–D5及独立评审/现场/发布未关闭。
+
 2026-10-09 LOB剩余六条物理补偿补齐：[同包反馈](DELIVERY_D4_LOB_NORMAL_20261009.md)。内核4b0759c已推送，19XID/17补偿全部核等（9堆表/2SecureFile/4BasicFile位图/2LOB索引），native完整owner/UBA/原始位置零差异；6951对象号核等、97media对象未打印单列。89相关测试rc0，冻结169class树b928eb6f。129项undo仍有14项待类型化（6普通PK/4控制13.54/2控制13.52/2控制13.50），自主维护/页owner/完整图/可信获取/产品CPACK待补；事件0/部署0/库exited，基线不批准，失败保全。完整D1–D5/独立评审/现场/发布仍开发中。
 
 2026-10-09 LOB物理补偿推进：[同包反馈](DELIVERY_D4_LOB_NORMAL_20261009.md)。c0c01ae：完整19XID窗口/17唯一路由，9堆表+2SecureFile补偿/native完整owner与原始位置零差异；44不同相关测试rc0，168class树ffc5085a冻结。全归档59original含cutoff前2seed，后缀仍57/早期基线不批准。剩余6个BasicFile相关13.23/10.22补偿、页owner、完整事务/事件/可信获取及产品CPACK待补；事件0/换装0/库exited。对象范围首拒绝保留，未放宽门禁；完整D1–D5及独立评审/现场/发布未关闭。

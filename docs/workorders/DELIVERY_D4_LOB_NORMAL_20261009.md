@@ -1,12 +1,20 @@
 # D4 LOB 正常功能开发反馈 · 2026-10-09
 
+本轮内核 `627a9de429af55e163a89b8d0eacddba53bfa8a2` 已推送：普通PK索引复用原解析，新增SecureFile控制undo窄格式13.54（PUB split撤销）、13.52（FSB队列逆向）、13.50（HBB队列逆向）。PUB正向13.53位于另一记录，按对象/块/完整XID/SCN/chunk DBA/长度筛选唯一前驱并核源顺序，不按邻近位置配对；队列13.49/13.51与原始undo同记录核等。19个fixture事务的129项原始undo均有类型化配对，未类型化项0；本轮16相关测试rc0，错误对象、顺序、SCN、XID、chunk/长度及重复候选拒绝。
+
+独立native比较125项完整owner/UBA/原始位置/opcode零差异，新8项控制与4项正常PK打印字段零差异。旧dump不覆盖cutoff前两seed的4项undo（2堆表+2PK），明确仅原始字节诊断，不宣称native已核。PUB的segment/forward XID在native未打印，原始字段内部核等单列；Ctime及opaque尾部不作语义推断。原129/125计数差失败 `control-comparison-r38.log/.rc` 保全，r39明确范围后rc0，未启动库补dump或重放源。
+
+冻结170class树SHA256 `bf2c87dd690a50d5b15dcae7f1641383e11af70d2647f2952ece8b2621a40499`，前件169class全部逐字节相同；原17补偿输出也逐行相同，复用前件验证。证据内核 `lab/out/d4-lob-source-20261009/continue-r2/control-candidate-proof.json`、`rollback-r38/proof.json`、`rollback-r38/control-comparison.json` 与 `lob-control-tests-r36.log/.rc`。大型制品不入Git。
+
+下一判据：按完整原始输入/补偿源顺序接入UndoHistory，验证begin/advance/head/end、原始分配tail和rollback空live图；然后补源范围内自主维护、BasicFile/SecureFile页owner、可见locator和完整行。类型化129配对不等于完整事务已关闭或LOB事件功能支持；事件0/产品集成0/部署0，旧cutoff不批准为基线，禁止回填旧97。完整D1–D5/可信获取/正常产品CPACK及独立评审/现场/发布继续开发。
+
 本轮内核 `4b0759cb586211b01470a7f2ebc534a0a7b3919c` 已推送：补齐向量头对象号（偏移6高16位/22低16位），BasicFile位图13.23↔13.22正逆配对及显式父块13.24核等、LOB索引10.2/10.22与10.3清除。19完整XID窗口的17补偿均匹配物理逆操作：9堆表/2 SecureFile填充/4位图/2 LOB索引，native完整owner、UBA及原始位置零差异；普通索引格式门禁不变。6951个native打印对象号的向量全部吻合，97个未打印对象号的media marker只核位置/opcode，不宣称对象号已核。89个不同相关测试rc0（结构/库存63，位图/LOB索引/原普通及字典索引26）；错误对象、父块、逆向字节、计数/状态、前驱、slot及重复候选均拒绝。
 
 冻结169class树SHA256 `b928eb6f314a483cca0ed0fb70c511f79e20a6ee59f59b532f8695bc3b1861e6`。证据为内核 `lab/out/d4-lob-source-20261009/continue-r2/basicfile-candidate-proof.json`、`rollback-r34/proof.json`、`rollback-r34/heap-rollback-comparison.json`、`inventory-r22/vector-object-comparison.json` 及测试/命令/rc/日志。探针r29范围外undo拒绝、r30截断计数2过窄拒绝与对象比较r22–r26失败原文保留；修正有真实字节依据，不重放源DML。
 
 完整129项undo中115项已有上述类型化配对，剩余14项明确分派：6项普通PK索引10.22（含cutoff前两seed）、4项SecureFile控制13.54、2项13.52、2项13.50；下一判据为同记录完整身份/逆操作配对及全原始覆盖，再做页owner/locator与事务图闭合。独立维护XID9.12.794/9.18.794不在这19个fixture事务范围，仍待单独处置；不能从邻近记录推断LOB页owner。BasicFile父块来自显式冻结fixture元数据，尚非生产可信获取证明。早期cutoff不批准为基线，不回填授权旧97。当前事件0/集成0/部署0，专属库只读确认exited；完整行、可信获取及正常产品投影/JDBC/目标/CPACK继续开发，独立评审/现场/发布均未通过。
 
-当前代码：`codex/d2-normal-index-restore` / `4b0759cb586211b01470a7f2ebc534a0a7b3919c`（前件 `8b9349d` / `328e63a`）。本工作包完成失败续接、冻结样本、LOB locator/页/填充解码与有限正向 undo/物理补偿配对；完整 LOB 事件及产品链仍在开发，不判验收。
+当前代码：`codex/d2-normal-index-restore` / `627a9de429af55e163a89b8d0eacddba53bfa8a2`（前件 `8b9349d` / `328e63a`）。本工作包完成失败续接、冻结样本、LOB locator/页/填充解码与有限正向 undo/物理补偿配对；完整 LOB 事件及产品链仍在开发，不判验收。
 
 最新离线推进：原始堆表undo发现19个完整XID及其完整inventory/补偿窗口，17个唯一补偿头路由全部按源顺序消费；9堆表逆操作（含3解锁）和2 SecureFile局部填充撤销逐一绑定完整原始身份与逆向字节，native完整owner/原始位置零差异。起始112字节格式、begin解锁、原始UBA/低wrap复用/重复行/跨容器/填充flags与payload反例覆盖，44个不同相关测试通过。SecureFile旧ITL与当前10.26.4262身份分开，opaque fill flags原样核等；追加high-water撤销尚不宣称支持。
 
