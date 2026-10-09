@@ -83,7 +83,7 @@ final class DictionaryHistoryRows {
         if(c.state()==State.ABSENT)throw new RedoException("INCOMPLETE_DICTIONARY_PATCH_CELL");
         return new ArchivedHeapRows.Cell(c.state(),HexFormat.of().formatHex(c.bytes()));
     }
-    private static void requireValues(DictionaryBaseline.Layout layout,List<ArchivedHeapRows.Cell> values)throws RedoException {
+    static void requireValues(DictionaryBaseline.Layout layout,List<ArchivedHeapRows.Cell> values)throws RedoException {
         if(values.size()!=layout.columns().size())throw new RedoException("DICTIONARY_COMPLETE_VALUE_COUNT");
         for(int i=0;i<values.size();i++) {
             var c=layout.columns().get(i);var cell=values.get(i);

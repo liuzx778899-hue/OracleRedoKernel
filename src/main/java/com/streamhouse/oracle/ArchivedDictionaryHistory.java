@@ -38,6 +38,7 @@ public final class ArchivedDictionaryHistory {
         public List<Commit> commits(){return commits;}
         public List<Pending> pending(){return pending;}
         public String baselineSha256(){return snapshot.sha256();}
+        public HistoricalDictionaryState materializedState(){return HistoricalDictionaryState.from(snapshot,sources,commits,pending);}
         /** Source-bound dictionary state receipt; the frozen baseline and raw prefix remain required. */
         public byte[] checkpoint()throws RedoException {
             var out=new StringBuilder("ORK_DICTIONARY_TIMELINE_V1\nB|").append(snapshot.sha256()).append('\n');
