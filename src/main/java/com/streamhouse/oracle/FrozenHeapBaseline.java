@@ -132,7 +132,7 @@ public final class FrozenHeapBaseline {
                         throw new RedoException("SNAPSHOT_DICTIONARY_ANCHOR_COVERAGE");
                 }
                 for(var c:columns) input.exact("DICT_COLUMN|"+c.internal()+"|"+c.segment()+"|"+c.name()+"|"
-                        +OracleColumnTypes.oracleId(c.type())+"|"+(c.nullable()?0:2)+"|"+(c.hidden()?17179869216L:0));
+                        +OracleColumnTypes.oracleId(c.type())+"|"+(c.nullable()?0:2)+"|"+OracleColumnTypes.property(c.type(),c.hidden()));
             }
             DictionaryBaseline dictionaryBaseline=null;
             if(history) {

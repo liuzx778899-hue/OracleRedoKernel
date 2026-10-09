@@ -2,6 +2,10 @@ package com.streamhouse.oracle;
 
 /** Supported business value types; SYS layout types have a separate contract. */
 public final class OracleColumnTypes {
+    /** Exact observed SYS.COL$ property for the supported physical columns. */
+    public static long property(String type,boolean hidden) {
+        return (hidden?17179869216L:0) | (type.equals("BLOB") || type.equals("CLOB")?128:0);
+    }
     private OracleColumnTypes() {}
     public static int oracleId(String type)throws RedoException {
         return switch(type) {

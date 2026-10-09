@@ -13,6 +13,7 @@ class CapturedLobTrustedBatchTest {
     @TempDir Path directory;
     @Test void lobTypesRequireDedicatedCompleteValuePath()throws Exception {
         assertEquals(113,OracleColumnTypes.oracleId("BLOB"));assertEquals("CLOB",OracleColumnTypes.name(112));
+        assertEquals(128,OracleColumnTypes.property("BLOB",false));assertEquals(128,OracleColumnTypes.property("CLOB",false));
         var helper=new FrozenHeapBaselineTest();helper.directory=directory;
         var text=helper.sample().replace("TXT|VARCHAR2","TXT|BLOB");
         assertEquals("UNSUPPORTED_SNAPSHOT_LOB_LAYOUT",assertThrows(RedoException.class,()->helper.read(text)).getMessage());

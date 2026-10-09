@@ -158,7 +158,7 @@ public final class OracleSnapshotAcquirer {
                 var historicalColumns=query(c,"select 'DICT_COLUMN|'||intcol#||'|'||segcol#||'|'||name||'|'||type#||'|'||null$||'|'||property from SYS.COL$ as of scn "+scn+" where obj#="+heapId+" order by segcol#");
                 var wantedColumns=new ArrayList<String>();
                 for(String col:before) {
-                    var f=col.split("\\|",-1);wantedColumns.add("DICT_COLUMN|"+f[1]+"|"+f[0]+"|"+f[2]+"|"+com.streamhouse.oracle.OracleColumnTypes.oracleId(f[3])+"|"+(f[4].equals("Y")?0:2)+"|"+(f[5].equals("YES")?17179869216L:0));
+                    var f=col.split("\\|",-1);wantedColumns.add("DICT_COLUMN|"+f[1]+"|"+f[0]+"|"+f[2]+"|"+com.streamhouse.oracle.OracleColumnTypes.oracleId(f[3])+"|"+(f[4].equals("Y")?0:2)+"|"+com.streamhouse.oracle.OracleColumnTypes.property(f[3],f[5].equals("YES")));
                 }
                 if(!historicalColumns.equals(wantedColumns))throw new SQLException("SNAPSHOT_HISTORICAL_COLUMNS_MISMATCH");
                 dictionaryFrames.addAll(historicalColumns);
