@@ -1,5 +1,23 @@
 # D4 LOB 正常功能开发反馈 · 2026-10-09
 
+## 2026-10-10：D4 LOB完整事件停点
+
+内核代码 `b62a01546981efc54b2836bc248473cce0151e79`（`codex/d2-normal-index-restore`）已推送。既有raw/capture→物理事务图→完整行业务事件路径补齐BasicFile页/分配/locator与SecureFile镜像/填充；声明范围为冻结19c样本的三列ID/BLOB/CLOB，未接可信获取或产品发布。BLOB保留原始二进制，CLOB严格解码；大值、小内联、EMPTY、NULL、删除、partial、trim均产完整前后像。未知格式、缺页/缺owner/不完整图拒绝，不以安全拒绝计支持。
+
+最终同件 `events-r73`：Java rc0，19业务图，16事件（14提交变化＋2 raw seed INSERT），26前后像/冻结SQL零差异，唯一事件ID16，rollback事件0。BasicFile2维护事务/16原始节点，SecureFile14维护事务/114节点，均无业务事件；native逐位置核等120节点，10早期节点不在dump范围，完整清单保留。业务图native与17补偿等已过证据复用；两个seed图的native缺口仍保留，原3038645不是批准基线。元数据SHB存在RBA晚于end但SCN更早的真实记录，保留原位置，按SCN/subSCN核结束tail；仅完整缓冲输入，不宣称流式安全发布水位。
+
+验证：56相关测试通过/0失败/0跳过，`events-tests-r72.log`；错误SHA探针rc1/零stdout；比较器检出字节及NULL/EMPTY毒化。只执行离线定向回归及`jar:jar`，不重放源DML，不重跑旧已过矩阵，不启动容器。原失败r49–r71及早期trim长度误判等日志保全。
+
+证据均在 `lab/out/d4-lob-source-20261009/continue-r2/`：`events-r73/comparison.json`、命令/stdout/stderr/rc、`lob-events-final-proof.json`；安全摘要与脚本入Git，样本和jar不上传。SHA256：
+
+- raw97：`9a617026bd1464e237d5f7aa4495aa851674deb099482fc86e5d453d43a08995`
+- 最终stdout：`07984a8fb075b7d6eef69b8d5edda061ff9a410fc06572da3c69ec862296aad1`
+- kernel jar：`e861868a48a3d90eb83bfd039c3aebcc12d8816619b1e99960447c2ec47c0d2d`
+
+交付状态：代码DELIVERED；定向冻结样本验证PASS；产品集成PENDING；部署NOT_EXECUTED；现场验收NOT_VERIFIED；发布NOT_ACCEPTED，独立评审PENDING。本轮达到用户指定“D4 LOB完整事件”停点，停止，不自动做产品CPACK、其它D包或集中加固；不将有限19c支持标为D4所有格式或完整D1–D5验收。
+
+D5最新范围：TDE明确搁置，[Issue #2](https://github.com/liuzx778899-hue/OracleRedoKernel/issues/2)保持OPEN，不开发、不搭环境、不作第一版交付/发布前置项。后续RAC/ASM先检查现实现，复用redo解析器，只补实际读取接入缺口：ASM完整连续逻辑字节；仅直接底层磁盘路径涉及extent/条带/镜像。RAC逐thread sequence/续读/缺段、多thread事务/字典顺序与发布水位待核。最小正常接入，未知真实记录再针对补解析，不提前声明支持。本轮未启动D5，等待用户决定。
+
 本轮验证提交 `2271cd1677e3d3eb75c3d3640d75dbd75b07f5ba` 已推送：在冻结原始输入中，129项类型化undo和17条已核物理补偿按源顺序接入现有UndoHistory/TransactionLifecycle。19个fixture事务图全部关闭（16 commit/3 rollback，含原失败）；17补偿严格消去当前active head，三个rollback的live节点均0；SecureFile大值一次跨undo块分配通过完整UBA及前驱/slot控制门禁。独立native重建17个图/125原始节点的前驱、LIFO撤销、结束身份/标志、live/tail/head零差异；13个结束记录实际打印分配tail核等，未打印tail不编造。两seed图/4undo仍不在native dump范围，早期基线不批准。
 
 BasicFile18页都有唯一L1 bitmap offset分配关系，其中16页有同一完整XID内LOB ID/版本/页指针对应的locator，2个临时页未形成可见locator后被同一事务LOB索引淘汰。LOB index key仍opaque，索引data指针在样本中指向被淘汰旧页，不能当新页writer证明。记录2个页/分配SCN不同、1个page早于首条undo；等SCN/严格page晚于begin/每页必有locator均不能作通用门禁。当前关联为诊断证据，物理writer/生产可见性尚未授权；不得按邻近或SCN相等偷配。等SCN假设r42、每页必须可见假设r43与漏C型KTB的r45失败原文保全；r46补完整UBA身份后通过，r47修正文件字节SHA256后通过。
