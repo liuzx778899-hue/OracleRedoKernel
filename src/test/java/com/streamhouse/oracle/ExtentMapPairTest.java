@@ -42,6 +42,8 @@ class ExtentMapPairTest {
         var r=record(begin,start);var decoded=TransactionStart.decode(start);
         assertEquals(0x451,decoded.flags());assertEquals(new HeapRowPatch.Xid(10,31,3621),decoded.bindBegin(r));
         start.fields().get(0)[20]=0;
+        assertEquals(0x451,TransactionStart.decode(start).flags());
+        start.fields().get(0)[20]=3;
         assertThrows(RedoException.class,()->TransactionStart.decode(start));
     }
 }

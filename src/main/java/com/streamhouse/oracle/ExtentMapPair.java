@@ -6,6 +6,14 @@ import static com.streamhouse.oracle.RedoBytes.*;
 public record ExtentMapPair(HeapRowPatch.Xid xid,HeapRowPatch.Uba uba,long dataObject,
                             long segment,long extent,long blocks,long previousExtents,long previousBlocks) {
     public static ExtentMapPair bind(RedoRecords.Record record,RedoRecords.Vector undo,RedoRecords.Vector forward) throws RedoException {
+        return bind(record,undo,forward,false);
+    }
+    static ExtentMapPair bindLob(RedoRecords.Record record,RedoRecords.Vector undo,RedoRecords.Vector forward)throws RedoException {
+        if(undo.fields().size()<2 || undo.fields().get(1).length<8 || forward.objectId()<=0
+                || u32(undo.fields().get(1),4)!=forward.objectId())throw new RedoException("LOB_EXTENT_OBJECT_SCOPE");
+        return bind(record,undo,forward,true);
+    }
+    private static ExtentMapPair bind(RedoRecords.Record record,RedoRecords.Vector undo,RedoRecords.Vector forward,boolean lob)throws RedoException {
         if (!record.vectors().contains(undo) || !record.vectors().contains(forward)
                 || undo.containerId()!=forward.containerId() || undo.opcodeMajor()!=5 || undo.opcodeMinor()!=1
                 || forward.opcodeMajor()!=14 || forward.opcodeMinor()!=4)
@@ -23,7 +31,7 @@ public record ExtentMapPair(HeapRowPatch.Xid xid,HeapRowPatch.Uba uba,long dataO
                 || u32(map,4)!=4 || u32(map,8)!=segment || u32(map,12)!=2 || forward.dba()!=segment
                 || delete[0]!=2 || u32(delete,4)!=u32(add,12) || u32(delete,8)!=0 || u32(delete,12)!=0
                 || u32(add,0)!=1 || u32(add,4)!=extent || u32(add,8)!=blocks || blocks==0
-                || axis[0]!=12 || u32(axis,4)!=u32(add,12) || u32(axis,12)!=extent
+                || axis[0]!=12 || u32(axis,4)!=u32(add,12) || u32(axis,12)!=extent+(lob?1:0)
                 || old[0]!=5 || now[0]!=5 || u32(now,4)!=u32(old,4)+1 || u32(now,8)!=u32(old,8)+blocks
                 || u32(old,12)!=0 || u32(old,16)!=0 || u32(now,12)!=0 || u32(now,16)!=0)
             throw new RedoException("EXTENT_MAP_PAIR_VALUES_DISAGREE");

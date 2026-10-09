@@ -18,11 +18,13 @@ public record TransactionStart(long segmentDba, int slot, long sequence, HeapRow
         boolean observedFirstRecord=flags==0x4a && (b[14]&255)==1 && b[15]==0
                 && (shortFirstRecord || u16(b,2)==0 && (u16(b,18)==164 || u16(b,18)==176 || u16(b,18)==316) && u16(b,20)==0);
         boolean observedControlBegin=(flags==0x51 || flags==0x451) && u16(b,2)==0 && (b[14]&255)>0
-                && b[15]==0 && u16(b,18)==80 && b[20]==(flags==0x451?1:0);
+                && b[15]==0 && u16(b,18)==80 && (b[20]==0 || flags==0x451 && (b[20]==1 || b[20]==2));
+        // Frozen LOB PUB allocation: fbi/padding is historical control state, not a current identity.
+        boolean observedPubBegin=flags==0x449 && u16(b,2)==0 && b[14]==1 && b[15]==0 && u16(b,18)==80;
         // Native seq70/82: fbi plus padding is historical control state, not a current identity.
         boolean observedSplitBegin=flags==0x44a && u16(b,2)==0 && (b[14]&255)==1
                 && b[15]==0 && (u16(b,18)==136 || u16(b,18)==148 || u16(b,18)==172 || u16(b,18)==176 || u16(b,18)==232);
-        if ((flags!=0x52 && flags!=0x452 && !observedFirstRecord && !observedControlBegin && !observedSplitBegin) || u32(b,24)!=0 || u32(b,28)!=0)
+        if ((flags!=0x52 && flags!=0x452 && !observedFirstRecord && !observedControlBegin && !observedPubBegin && !observedSplitBegin) || u32(b,24)!=0 || u32(b,28)!=0)
             throw new RedoException("UNSUPPORTED_TRANSACTION_START_FLAGS_OR_PARENT");
         return new TransactionStart(vector.dba(),u16(b,0),u32(b,4),
                 new HeapRowPatch.Uba(u32(b,8),u16(b,12),b[14]&255),flags,u32(fields.get(1),0),vector.containerId());

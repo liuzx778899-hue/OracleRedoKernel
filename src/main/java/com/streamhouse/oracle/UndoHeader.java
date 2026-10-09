@@ -12,7 +12,10 @@ public record UndoHeader(HeapRowPatch.Xid xid, HeapRowPatch.Uba uba, long object
         if (ktudb.length != 20 || (ktubu.length != 24 && ktubu.length != 76))
             throw new RedoException("UNSUPPORTED_UNDO_HEADER_LAYOUT");
         int flags=u16(ktubu,20);
-        if ((ktubu.length == 76 && flags != 0x0c08) || (ktubu.length == 24 && flags != 0))
+        boolean storageBegin=ktubu.length==76 && flags==0x0c88 && ktubu[16]==22 && ktubu[17]==3
+                && u32(ktubu,0)==1 && u32(ktubu,4)==0xffffffffL && vector.fields().size()==3
+                && java.util.Arrays.equals(vector.fields().get(2),new byte[20]);
+        if ((ktubu.length == 76 && flags != 0x0c08 && !storageBegin) || (ktubu.length == 24 && flags != 0))
             throw new RedoException("UNSUPPORTED_UNDO_HEADER_FLAGS");
         return new UndoHeader(new HeapRowPatch.Xid(u16(ktudb,8),u16(ktudb,10),u32(ktudb,12)),
                 new HeapRowPatch.Uba(vector.dba(),u16(ktudb,16),ktudb[18]&255),
