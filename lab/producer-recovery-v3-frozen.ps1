@@ -1,7 +1,8 @@
+param([string]$EvidenceName='producer-recovery-r91')
 $ErrorActionPreference='Stop'
 $root=Split-Path $PSScriptRoot -Parent
 $runtime=Join-Path $root 'lab/out/d3-stream-runtime-20261009'
-$evidence=Join-Path $runtime 'producer-recovery-r91'
+$evidence=Join-Path $runtime $EvidenceName
 New-Item -ItemType Directory -Path $evidence -ErrorAction Stop | Out-Null
 $java='D:/work/Java/jdk-17.0.7/bin'
 $classpath="$root/target/classes;$evidence"

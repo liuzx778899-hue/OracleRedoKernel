@@ -74,6 +74,18 @@ class PendingDictionaryRecoveryTest {
                 ()->ArchivedDictionaryHistory.restore(f.closed(),f.snapshot(),changed,digest(changed))).getMessage());
         assertThrows(UnsupportedOperationException.class,()->pending.pending().clear());
     }
+    @Test void committedDictionaryReusePreservesHistoryAndRequiresOriginalRawOwnership()throws Exception {
+        var f=fixture();var closed=ArchivedDictionaryHistory.readPrefix(f.closed(),f.snapshot());var pending=closed.durablePendingState();
+        var restored=ArchivedDictionaryHistory.readRestored(f.closed(),f.snapshot(),pending,closed.commits());
+        assertEquals(closed.commits(),restored.commits());assertArrayEquals(closed.checkpoint(),restored.checkpoint());
+        assertArrayEquals(closed.materializedState().checkpoint(),restored.materializedState().checkpoint());
+        var c=closed.commits().get(0);var e=c.original().get(0);var p=e.position();
+        var wrong=new ArchivedUndoInventory.Entry(new ArchivedUndoInventory.Position(p.archiveSequence(),p.block(),p.offset()+1,p.vector()),
+                e.identity(),e.opcodeMajor(),e.opcodeMinor(),e.previousDba(),e.rci());
+        var changed=new ArchivedDictionaryHistory.Commit(c.identity(),List.of(wrong),c.rowPairs(),c.indexPairs(),c.controls(),c.rows(),c.commitPosition());
+        assertEquals("DICTIONARY_COMMITTED_ORIGINAL_CHANGED",assertThrows(RedoException.class,
+                ()->ArchivedDictionaryHistory.readRestored(f.closed(),f.snapshot(),pending,List.of(changed))).getMessage());
+    }
     @Test void unifiedRecoveryCountsPendingSysWithoutBusinessEvents()throws Exception {
         var f=fixture(2522819);var journal=new CaptureJournal();var first=directory.resolve("prefix.dbf");var second=directory.resolve("suffix.dbf");
         var captures=List.of(journal.readRawClosed(first,digest(Files.readAllBytes(first))),journal.readRawClosed(second,digest(Files.readAllBytes(second))));
@@ -87,7 +99,7 @@ class PendingDictionaryRecoveryTest {
         byte[] malformed={'\n'};
         assertEquals("HISTORICAL_RECOVERY_BASELINE_OR_LEAF",assertThrows(RedoException.class,()->HistoricalRecovery.verifyPrefixCaptured(
                 captures,baseline,digest(Files.readAllBytes(baseline)),4190000,malformed,digest(malformed))).getMessage());
-        assertTrue(new String(checkpoint,java.nio.charset.StandardCharsets.UTF_8).startsWith("ORK_HISTORICAL_RECOVERY_V3\n"));
+        assertTrue(new String(checkpoint,java.nio.charset.StandardCharsets.UTF_8).startsWith("ORK_HISTORICAL_RECOVERY_V4\n"));
         assertEquals("HISTORICAL_RECOVERY_DIGEST_MISMATCH",assertThrows(RedoException.class,()->HistoricalRecovery.readCaptured(
                 captures,baseline,digest(Files.readAllBytes(baseline)),4190000,checkpoint,"0".repeat(64))).getMessage());
         assertEquals("HISTORICAL_RECOVERY_BASELINE_OR_LEAF",assertThrows(RedoException.class,()->HistoricalRecovery.readCaptured(

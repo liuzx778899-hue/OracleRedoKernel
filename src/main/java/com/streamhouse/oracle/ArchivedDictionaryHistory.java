@@ -163,13 +163,26 @@ public final class ArchivedDictionaryHistory {
         pending.requireBaseline(snapshot);
         return read(inputs,snapshot,true,pending);
     }
+    static Timeline readRestored(RedoBatch inputs,FrozenHeapBaseline.Snapshot snapshot,DictionaryPendingState pending,List<Commit> committed)throws IOException {
+        pending.requireBaseline(snapshot);
+        return read(inputs,snapshot,true,pending,committed);
+    }
     private static Timeline read(RedoBatch inputs,FrozenHeapBaseline.Snapshot snapshot,boolean allowPending)throws IOException {
         return read(inputs,snapshot,allowPending,null);
     }
     private static Timeline read(RedoBatch inputs,FrozenHeapBaseline.Snapshot snapshot,boolean allowPending,DictionaryPendingState restored)throws IOException {
+        return read(inputs,snapshot,allowPending,restored,List.of());
+    }
+    private static Timeline read(RedoBatch inputs,FrozenHeapBaseline.Snapshot snapshot,boolean allowPending,DictionaryPendingState restored,List<Commit> committed)throws IOException {
         if(snapshot.dictionaryBaseline()==null)throw new RedoException("MISSING_V3_COMPLETE_DICTIONARY_BASELINE");
         if(inputs.isEmpty())throw new RedoException("NO_DICTIONARY_REDO_INPUT");
         var baseline=snapshot.dictionaryBaseline();var roles=new HashMap<Long,FrozenHeapBaseline.ObjectRole>();
+        var closedOwners=new HashSet<HeapRowPatch.Xid>();var closedOriginals=new HashMap<ArchivedUndoInventory.Position,UndoHeader>();
+        var observedClosed=new HashSet<ArchivedUndoInventory.Position>();
+        for(var c:committed) {
+            if(!closedOwners.add(c.identity().xid()))throw new RedoException("DICTIONARY_COMMITTED_OWNER_COLLISION");
+            for(var e:c.original())if(closedOriginals.putIfAbsent(e.position(),e.identity())!=null)throw new RedoException("DICTIONARY_COMMITTED_ORIGINAL_COLLISION");
+        }
         for(var layout:baseline.layouts().values())roles.put(layout.role().logicalObject(),layout.role());
         for(var index:baseline.indexes())roles.put(index.role().logicalObject(),index.role());
         var splitRestores=ArchivedDictionaryIndexRestores.read(inputs,snapshot);
@@ -188,6 +201,14 @@ public final class ArchivedDictionaryHistory {
                 for(int i=0;i<r.vectors().size();i++) {
                     var v=r.vectors().get(i);if(v.containerId()!=snapshot.source().containerId() || v.opcodeMajor()!=5 || v.opcodeMinor()!=1)continue;
                     var at=new ArchivedUndoInventory.Position(header.sequence(),r.block(),r.offset(),i+1);
+                    if(!closedOwners.isEmpty() && !v.fields().isEmpty() && v.fields().get(0).length==20) {
+                        byte[] b=v.fields().get(0);var xid=new HeapRowPatch.Xid(u16(b,8),u16(b,10),u32(b,12));
+                        if(closedOwners.contains(xid)) {
+                            var h=UndoHeader.decode(v);
+                            if(!h.equals(closedOriginals.get(at)) || !observedClosed.add(at))throw new RedoException("DICTIONARY_COMMITTED_ORIGINAL_CHANGED");
+                            continue;
+                        }
+                    }
                     var cluster=clusterOriginals.get(at);
                     if(cluster!=null) {
                         if(!cluster.equals(UndoHeader.decode(v)))throw new RedoException("CLUSTER_MAINTENANCE_ORIGINAL_CHANGED");
@@ -216,6 +237,7 @@ public final class ArchivedDictionaryHistory {
             if(!header.equals(input.header()))throw new RedoException("DICTIONARY_DISCOVERY_SOURCE_CHANGED");
         }
         continuity.finish();
+        if(observedClosed.size()!=closedOriginals.size())throw new RedoException("DICTIONARY_COMMITTED_ORIGINAL_MISSING");
         // Auxiliary statistics do not select a schema history; every dependency of a selected SYS transaction is still owned below.
         if(baseline.statistics()!=null) {
             var statistics=baseline.statistics();roles.put(statistics.table().role().logicalObject(),statistics.table().role());
@@ -324,12 +346,20 @@ public final class ArchivedDictionaryHistory {
                         digest(c.lifecycle.checkpoint()),digest(c.graph.checkpoint())));
             }
         }
-        for(long scn:markers)if(contexts.values().stream().noneMatch(c->c.beginScn<=scn && (c.end==null?allowPending:c.end.endRecordScn()>=scn)))throw new RedoException("TARGET_SCHEMA_MARKER_WITHOUT_COMPLETE_SYS_HISTORY");
+        for(long scn:markers)if(contexts.values().stream().noneMatch(c->c.beginScn<=scn && (c.end==null?allowPending:c.end.endRecordScn()>=scn))
+                && committed.stream().noneMatch(c->c.identity().beginRecordScn()<=scn && c.identity().endRecordScn()>=scn))throw new RedoException("TARGET_SCHEMA_MARKER_WITHOUT_COMPLETE_SYS_HISTORY");
         var ordered=new ArrayList<>(contexts.values().stream().filter(c->c.end!=null).toList());
         ordered.sort(Comparator.comparingLong((Context c)->c.end.endRecordScn()).thenComparing(c->c.commitPosition,POSITION_ORDER));
-        var state=new DictionaryHistoryRows(snapshot);var commits=new ArrayList<Commit>();var positions=new HashSet<ArchivedUndoInventory.Position>();
+        var state=new DictionaryHistoryRows(snapshot,committed.isEmpty()?baseline.rows():committed.get(committed.size()-1).rows());
+        var commits=new ArrayList<>(committed);var positions=new HashSet<ArchivedUndoInventory.Position>();
+        for(var c:committed)positions.add(c.commitPosition());
         for(var c:ordered) {
             if(c.end.endRecordScn()<=snapshot.scn() || !positions.add(c.commitPosition))throw new RedoException("AMBIGUOUS_DICTIONARY_COMMIT_POSITION");
+            if(!commits.isEmpty()) {
+                var last=commits.get(commits.size()-1);
+                if(c.end.endRecordScn()<last.identity().endRecordScn() || c.end.endRecordScn()==last.identity().endRecordScn()
+                        && POSITION_ORDER.compare(c.commitPosition,last.commitPosition())<=0)throw new RedoException("DICTIONARY_COMMITTED_PREFIX_ORDER");
+            }
             if(!c.usageRows.isEmpty() || !c.usageIndexes.isEmpty())
                 DictionaryUsageChanges.requireComplete(c.usageRows,c.usageIndexes,baseline.usage(),snapshot.heap().logicalObject(),state.current(),baseline);
             var rows=state.apply(c.rows,c.indexes);

@@ -11,8 +11,11 @@ final class DictionaryHistoryRows {
     private final Map<Position,DictionaryBaseline.Row> rows=new LinkedHashMap<>();
     private final Map<String,Set<DictionaryIndexKey>> indexes;
     DictionaryHistoryRows(FrozenHeapBaseline.Snapshot snapshot)throws RedoException {
+        this(snapshot,snapshot.dictionaryBaseline().rows());
+    }
+    DictionaryHistoryRows(FrozenHeapBaseline.Snapshot snapshot,List<DictionaryBaseline.Row> initial)throws RedoException {
         this.snapshot=snapshot;baseline=snapshot.dictionaryBaseline();
-        for(var row:baseline.rows())rows.put(new Position(row.role(),row.key()),row);
+        for(var row:initial)rows.put(new Position(row.role(),row.key()),row);
         indexes=expectedIndexes();
     }
     List<DictionaryBaseline.Row> apply(List<ArchivedDictionaryHistory.RowOperation> operations,List<DictionaryIndexUndoPair> indexOperations)throws RedoException {

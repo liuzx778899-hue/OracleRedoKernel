@@ -1,5 +1,13 @@
 # W4 统一历史恢复与完整事件候选
 
+## 2026-10-09 V4 已闭合SYS字典复用（r92–r95，离线）
+
+V4在producer capsule新增完整SYS提交元数据（全XID/容器/BEGIN和COMMIT SCN/原始节点/配对计数/提交位置），与R中已保存字典版本的数量、SCN、位置逐项匹配。恢复保留完整历史提交及行值，已闭合SYS不再重建inventory/生命周期或从baseline重放行操作；新提交从最后已闭合字典行和派生完整索引状态继续应用。旧来源/完整原节点所有权仍由累计raw发现核对，marker须归属新上下文或完整保存提交；原V1/V2/V3格式读取和原格式复核保留。
+
+相关17个不同测试通过，失败/错误/跳过0（r92的11项、r94的5项及r95新增闭合复用/所有权回归1项）。r93真实84保存1闭合字典版本/pending SYS1，状态SHA `80e1ff2c52019f827c61bbbfddae83648c07154f3e2d90c46b3acea3f2c6e6fc`；续85得到3版本/pending0/2完整事件，扩展SHA `51c23da9436a41fd439e099d4da6dd2c40e17b807856ba2a8b629f83d4159a77`。真实业务90–93 pending1/completed6→94累计46完整事件，前缀SHA `70721de1534ae0873eb9724e0727ecec4e66b081ceb448711bfbb886b2437f24`，扩展SHA `f9277cba8783061958d8e73813cfdfd13bab301cf387948cf9dd21e48d001fbc`。两例完整事件/batch SHA与strict相同，扩展状态与新建全量状态逐字节相同，重复恢复不改变状态/事件。原保存V3两例按原格式复核及续接通过，不重导出旧状态；V1/V2相关路径未改变，复用前轮兼容证据。
+
+入口 `lab/out/d3-stream-runtime-20261009/producer-recovery-r93/summary.json` 和各command/stdout/stderr/rc，r92/r94/r95-tests；执行包 `producer-recovery-v3-frozen.ps1 -EvidenceName producer-recovery-r93`（保留原r91默认，目录存在即拒绝重跑）。代码交付/针对性验证通过；产品仍r88–r90的V2候选，未打包换装部署。源DML/新获取/目标/容器动作0。旧raw必留：字典发现、cluster maintenance、物理关联/新pair发现仍使用完整累计输入；安全低水位/背压和完整D1–D5及独立评审/约定部署/用户生产现场验收发布继续待证，goal active。
+
 ## 2026-10-09 V3 producer完整行像及事件历史复用（r91，离线）
 
 HistoricalRecovery新登记生成V3，在V2 pending SYS/physical capsule中加入完整HistoricalRowState及既有Change历史（全位置、XID、row key、操作、前后像）。恢复不再从baseline重放已闭合业务行；仅回放新提交并追加历史，通过原事件工厂按可信物理owner和当时schema重建累计事件，保留原publication前缀协议。extendPrefixCaptured返回新状态及完整累计批次，不能以事件数自行授权发布或ACK。旧V1/V2登记仍按原格式逐字节重建，读取兼容。

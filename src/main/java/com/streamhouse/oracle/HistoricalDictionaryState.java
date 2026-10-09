@@ -23,6 +23,16 @@ public final class HistoricalDictionaryState {
                 pending.stream().map(ArchivedDictionaryHistory.Pending::beginScn).toList());
     }
     public List<ArchivedRedo.Header> sources(){return sources;}
+    List<ArchivedDictionaryHistory.Commit> withCommitMetadata(List<ArchivedDictionaryHistory.Commit> metadata)throws RedoException {
+        if(metadata.size()!=versions.size())throw new RedoException("DICTIONARY_COMMITTED_VERSION_COUNT");
+        var commits=new ArrayList<ArchivedDictionaryHistory.Commit>();
+        for(int i=0;i<metadata.size();i++) {
+            var c=metadata.get(i);var v=versions.get(i);
+            if(c.identity().endRecordScn()!=v.scn() || !c.commitPosition().equals(v.position()))throw new RedoException("DICTIONARY_COMMITTED_VERSION_POSITION");
+            commits.add(new ArchivedDictionaryHistory.Commit(c.identity(),c.original(),c.rowPairs(),c.indexPairs(),c.controls(),v.rows(),c.commitPosition()));
+        }
+        return List.copyOf(commits);
+    }
     public List<FrozenHeapBaseline.PhysicalColumn> schemaAt(long scn,ArchivedUndoInventory.Position position)throws RedoException {
         return DictionaryHistoryRows.schema(baseline,rowsAt(scn,position));
     }

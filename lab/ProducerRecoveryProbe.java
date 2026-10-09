@@ -11,6 +11,10 @@ public class ProducerRecoveryProbe {
         if(args[0].equals("export")) {
             var prefix=HistoricalRecovery.prefixCaptured(captures,baseline,args[4],leaf);
             Files.write(state,prefix.checkpoint(),StandardOpenOption.CREATE_NEW);
+            for(String line:new String(prefix.checkpoint(),java.nio.charset.StandardCharsets.UTF_8).split("\n"))if(line.startsWith("K|")) {
+                var in=new java.io.DataInputStream(new java.io.ByteArrayInputStream(Base64.getDecoder().decode(line.substring(2))));
+                in.readUTF();System.out.println("DICTIONARY_COMMITS="+in.readInt());
+            }
             System.out.println("PENDING="+prefix.pendingTransactions());System.out.println("COMPLETED="+prefix.completedTransactions());
             return;
         }
