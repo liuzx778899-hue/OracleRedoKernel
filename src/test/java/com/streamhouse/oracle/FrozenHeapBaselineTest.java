@@ -34,6 +34,12 @@ class FrozenHeapBaselineTest {
                 """;
     }
     String digest(String text) throws Exception {return HexFormat.of().formatHex(MessageDigest.getInstance("SHA-256").digest(text.getBytes(java.nio.charset.StandardCharsets.UTF_8)));}
+    @Test void rawColumnKeepsBinaryBytesInTrustedSnapshot()throws Exception {
+        var snapshot=read(sample().replace("TXT|VARCHAR2","TXT|RAW").replace("6E65772D65706F6368","00FFC328"));
+        assertEquals("RAW",snapshot.columns().get(1).type());
+        assertEquals("00ffc328",snapshot.rows().values().iterator().next().get(1).hex());
+        ArchivedHeapRows.requireCompleteValues(snapshot.rows().values().iterator().next(),snapshot.columns());
+    }
     FrozenHeapBaseline.Snapshot read(String text) throws Exception {var p=directory.resolve("snapshot.txt");Files.writeString(p,text);return FrozenHeapBaseline.read(p,digest(text));}
     @Test void keepsPhysicalColumnsAndDistinctHeapIndexGenerations() throws Exception {
         var snapshot=read(sample());assertEquals(73073,snapshot.heap().logicalObject());assertEquals(73076,snapshot.heap().dataObject());

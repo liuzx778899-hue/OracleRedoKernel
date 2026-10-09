@@ -82,10 +82,10 @@ public final class OracleSnapshotAcquirer {
             var projection=new StringBuilder();
             for(int i=0;i<before.size();i++) {
                 String[] f=before.get(i).split("\\|",-1);
-                if(f.length!=7 || !f[0].equals(Integer.toString(i+1)) || !f[1].equals(f[0]) || !List.of("NUMBER","VARCHAR2").contains(f[3])
+                if(f.length!=7 || !f[0].equals(Integer.toString(i+1)) || !f[1].equals(f[0]) || !List.of("NUMBER","VARCHAR2","RAW").contains(f[3])
                         || !List.of("Y","N").contains(f[4]) || !List.of("YES","NO").contains(f[5]) || !f[6].equals("NO"))throw new SQLException("SNAPSHOT_PHYSICAL_LAYOUT_UNSUPPORTED");
-                identifier(f[2]);String function=f[3].equals("NUMBER")?"cast_from_number":"cast_to_raw";
-                projection.append("||'|'||case when ").append(f[2]).append(" is null then 'NULL' else rawtohex(utl_raw.").append(function).append('(').append(f[2]).append(")) end");
+                identifier(f[2]);String raw=f[3].equals("RAW")?f[2]:"utl_raw."+(f[3].equals("NUMBER")?"cast_from_number":"cast_to_raw")+"("+f[2]+")";
+                projection.append("||'|'||case when ").append(f[2]).append(" is null then 'NULL' else rawtohex(").append(raw).append(") end");
             }
             String table=scope.owner()+"."+scope.table();
             var rows=query(c,"select 'ROW|'||dbms_rowid.rowid_object(rowid)||'|'||dbms_rowid.rowid_relative_fno(rowid)||'|'||dbms_rowid.rowid_block_number(rowid)||'|'||dbms_rowid.rowid_row_number(rowid)"+projection+" from "+table+" as of scn "+scn+" order by rowid");
@@ -105,7 +105,7 @@ public final class OracleSnapshotAcquirer {
                 var historicalColumns=query(c,"select 'DICT_COLUMN|'||intcol#||'|'||segcol#||'|'||name||'|'||type#||'|'||null$||'|'||property from SYS.COL$ as of scn "+scn+" where obj#="+heapId+" order by segcol#");
                 var wantedColumns=new ArrayList<String>();
                 for(String col:before) {
-                    var f=col.split("\\|",-1);wantedColumns.add("DICT_COLUMN|"+f[1]+"|"+f[0]+"|"+f[2]+"|"+(f[3].equals("NUMBER")?2:1)+"|"+(f[4].equals("Y")?0:2)+"|"+(f[5].equals("YES")?17179869216L:0));
+                    var f=col.split("\\|",-1);wantedColumns.add("DICT_COLUMN|"+f[1]+"|"+f[0]+"|"+f[2]+"|"+com.streamhouse.oracle.OracleColumnTypes.oracleId(f[3])+"|"+(f[4].equals("Y")?0:2)+"|"+(f[5].equals("YES")?17179869216L:0));
                 }
                 if(!historicalColumns.equals(wantedColumns))throw new SQLException("SNAPSHOT_HISTORICAL_COLUMNS_MISMATCH");
                 dictionaryFrames.addAll(historicalColumns);

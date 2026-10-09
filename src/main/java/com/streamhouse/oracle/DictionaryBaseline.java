@@ -28,7 +28,7 @@ public record DictionaryBaseline(Map<String,Layout> layouts,List<Index> indexes,
         for(var row:rows)if(row.role().equals("COL$")) {
             long internal=number(row,"INTCOL#");var col=columns.stream().filter(c->c.internal()==internal).findFirst().orElseThrow(()->new RedoException("DICTIONARY_COLUMN_METADATA_MISMATCH"));
             if(!seen.add(internal) || number(row,"SEGCOL#")!=col.segment() || !text(row,"NAME").equals(col.name())
-                    || number(row,"TYPE#")!=(col.type().equals("NUMBER")?2:1) || number(row,"NULL$")!=(col.nullable()?0:2)
+                    || number(row,"TYPE#")!=OracleColumnTypes.oracleId(col.type()) || number(row,"NULL$")!=(col.nullable()?0:2)
                     || number(row,"PROPERTY")!=(col.hidden()?17179869216L:0))throw new RedoException("DICTIONARY_COLUMN_METADATA_MISMATCH");
         }
         if(seen.size()!=columns.size())throw new RedoException("DICTIONARY_COLUMN_METADATA_MISMATCH");

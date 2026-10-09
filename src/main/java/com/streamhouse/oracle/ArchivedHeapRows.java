@@ -210,6 +210,7 @@ public final class ArchivedHeapRows {
             byte[] raw=HexFormat.of().parseHex(cell.hex());
             if(column.type().equals("NUMBER"))OracleScalars.number(raw);
             else if(column.type().equals("VARCHAR2"))OracleScalars.varchar2(raw,"AL32UTF8");
+            else if(column.type().equals("RAW")) {if(raw.length==0)throw new RedoException("EMPTY_RAW_REQUIRES_EXPLICIT_NULL_STATE");}
             else throw new RedoException("UNSUPPORTED_HISTORICAL_ROW_VALUE_TYPE");
         }
     }
