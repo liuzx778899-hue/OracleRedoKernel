@@ -40,7 +40,7 @@ class OracleBatchProjectionTest {
     @Test void notNullAndUnsupportedTypeRefuse() {
         assertEquals("ORACLE_NULL_IN_NOT_NULL_COLUMN",assertThrows(RedoException.class,
                 ()->OracleBatchProjection.image(List.of(id),List.of(new ArchivedHeapRows.Cell(HeapRowPatch.State.NULL,"")))).getMessage());
-        var lob=new FrozenHeapBaseline.PhysicalColumn(1,1,"LOB","CLOB",true,false);
+        var lob=new FrozenHeapBaseline.PhysicalColumn(1,1,"LOB","BFILE",true,false);
         assertEquals("ORACLE_UNSUPPORTED_PROJECTION_TYPE",assertThrows(RedoException.class,
                 ()->OracleBatchProjection.image(List.of(lob),List.of(value("01")))).getMessage());
     }

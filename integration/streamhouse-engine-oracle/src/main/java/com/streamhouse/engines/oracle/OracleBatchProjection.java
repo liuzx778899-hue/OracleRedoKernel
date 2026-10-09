@@ -114,6 +114,7 @@ public final class OracleBatchProjection {
                     case "RAW"->new OracleRawValue(HexFormat.of().formatHex(bytes));
                     case "DATE"->OracleTemporalValue.of("DATE",OracleScalars.date(bytes));
                     case "TIMESTAMP"->OracleTemporalValue.of("TIMESTAMP",OracleScalars.timestamp(bytes));
+                    case "BLOB","CLOB"->new OracleLobValue(column.type(),cell.hex());
                     default->throw new RedoException("ORACLE_UNSUPPORTED_PROJECTION_TYPE");
                 };
             }

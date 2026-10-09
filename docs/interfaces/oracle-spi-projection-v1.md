@@ -32,6 +32,12 @@ DATE／无时区TIMESTAMP扩展：业务TYPE#分别12／180，严格解值为不
 
 ## 产品接续
 
+LOB正常接入候选（2026-10-10）：V3新增可选的两组`LOB|BEFORE/AFTER`帧，绑定BLOB/CLOB的storage、LOB与LOB index owner/name/logical/data object。仅三列NUMBER/BLOB/CLOB、同存储型、固定schema；读取完整JDBC值并在相同SCN获取六SYS锚点，前后物理metadata与LOB角色复核。非NULL空值以空hex保存，NULL另存。缺帧、混合存储、对象冲突/代际变化拒绝；普通恢复入口不能把逻辑LOB值当堆locator。
+
+`CapturedHeapBatch.read`仅在此可信LOB快照下进入既有LOB工厂：完整连续raw上下文重建至基线，逐物理rowkey与独立获取的完整值核等；只返回基线之后的事件，跨基线活跃事务、相关字典写入或缺上下文拒绝。旧97的声明scope/诊断seed不获回填发布授权。L2位图父scope来自同来源、同LOB对象的唯一13.24元数据，随后由已有完整维护/补偿配对核验，不按L1页头地址猜偏移。该候选不支持LOB历史DDL、独立增量producer或任意LOB布局。
+
+投影值为不可变`OracleLobValue(type,hex)`，CLOB hex严格UTF8，BLOB保留全部字节，空hex与SQL NULL区别保留。目标非空值用标准JDBC setBlob/setClob流绑定，EMPTY用empty_blob/empty_clob表达式；前像同时核LOB长度与DBMS_LOB.COMPARE内容，不用标量等号或只比前缀。提交/事件账/CPACK仍由既有产品协议产生。上述为待集成候选契约，不代表实际目标或发布已通过；JDBC依据[Oracle 19c LOB API](https://docs.oracle.com/en/database/oracle/oracle-database/19/adlob/overview-of-supplied-LOB-APIs.html)，实证以本次正常接入反馈为准。
+
 这份转换不是SQLServer V2 durable writer输入：该writer要求v2身份、完整source和SQLServer commitLsn。ODS要求commitAt的路径也不得用当前时间补造后放行。产品输入window/Oracle位置扩展、可信schema授权及Oracle目标writer/同事务commit receipt必须独立冻结和验收，之后才能接公开decoder成功路径。
 
 本轮真实binary互通为：冻结raw capture→同件Oracle内核→独立转换模块→实际SPI类型。SPI contract jar从产品完整提交树只读编译，不是产品完整reactor发布制品；未部署产品连接器，没有目标写入/ACK，也没有现场或发布通过。

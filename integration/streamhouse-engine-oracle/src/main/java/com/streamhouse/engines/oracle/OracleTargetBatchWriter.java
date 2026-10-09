@@ -165,35 +165,54 @@ public final class OracleTargetBatchWriter {
         if(!mapped.keySet().containsAll(logical.keySet()))throw new SQLException("ORACLE_TARGET_HISTORICAL_COLUMN_UNMAPPED");
         return mapped;
     }
-    private static void applyRow(Connection conn,Target target,EventEnvelope event,List<OracleBatchEvidence.Column> columns) throws SQLException {
+    static void applyRow(Connection conn,Target target,EventEnvelope event,List<OracleBatchEvidence.Column> columns) throws SQLException {
         Map<String,Object> before=targetImage(event.before(),columns);
         Map<String,Object> after=targetImage(event.after(),columns);var args=new ArrayList<Object>();String sql;
         for (var name:before.keySet()) identifier(name);for (var name:after.keySet()) identifier(name);
         if (event.operation()==EventEnvelope.Operation.INSERT) {
             sql="insert into "+target.table("ROWS")+"("+String.join(",",after.keySet())+") values("
-                    +after.keySet().stream().map(k->"?").collect(Collectors.joining(","))+")";args.addAll(after.values());
+                    +after.values().stream().map(v->valueSql(v,args)).collect(Collectors.joining(","))+")";
         } else {
-            String where=before.entrySet().stream().map(e->e.getKey()+(e.getValue()==null ? " is null" : "=?")).collect(Collectors.joining(" and "));
+            var predicates=new ArrayList<String>();var beforeArgs=new ArrayList<Object>();
+            for(var entry:before.entrySet()) {
+                var value=entry.getValue();String name=entry.getKey();
+                if(value==null)predicates.add(name+" is null");
+                else if(value instanceof OracleLobValue lob && lob.hex().isEmpty())predicates.add("("+name+" is not null and dbms_lob.getlength("+name+")=0)");
+                else if(value instanceof OracleLobValue) {
+                    predicates.add("(dbms_lob.getlength("+name+")=dbms_lob.getlength(?) and dbms_lob.compare("+name+",?)=0)");
+                    beforeArgs.add(value);beforeArgs.add(value);
+                } else {predicates.add(name+"=?");beforeArgs.add(value);}
+            }
+            String where=String.join(" and ",predicates);
             if (where.isEmpty()) throw new SQLException("ORACLE_TARGET_MISSING_BEFORE");
             if (event.operation()==EventEnvelope.Operation.UPDATE) {
-                sql="update "+target.table("ROWS")+" set "+after.keySet().stream().map(k->k+"=?").collect(Collectors.joining(","))+" where "+where;args.addAll(after.values());
+                sql="update "+target.table("ROWS")+" set "+after.entrySet().stream().map(e->e.getKey()+"="+valueSql(e.getValue(),args)).collect(Collectors.joining(","))+" where "+where;
             } else sql="delete from "+target.table("ROWS")+" where "+where;
-            before.values().stream().filter(v->v!=null).forEach(args::add);
+            args.addAll(beforeArgs);
         }
         try (var ps=conn.prepareStatement(sql)) {
             for (int i=0;i<args.size();i++) {
                 if(args.get(i) instanceof OracleRawValue raw)ps.setBytes(i+1,raw.bytes());
+                else if(args.get(i) instanceof OracleLobValue lob) {
+                    if(lob.type().equals("BLOB"))ps.setBlob(i+1,new java.io.ByteArrayInputStream(lob.bytes()));
+                    else ps.setClob(i+1,new java.io.StringReader(lob.text()));
+                }
                 else if(args.get(i) instanceof OracleTemporalValue temporal)ps.setObject(i+1,temporal.localDateTime(),java.sql.Types.TIMESTAMP);
                 else ps.setObject(i+1,args.get(i));
             }
             if (ps.executeUpdate()!=1) throw new SQLException("ORACLE_TARGET_ROW_MATCH_NOT_ONE");
         }
     }
+    private static String valueSql(Object value,List<Object> args) {
+        if(value instanceof OracleLobValue lob && lob.hex().isEmpty())return lob.type().equals("BLOB")?"empty_blob()":"empty_clob()";
+        args.add(value);return "?";
+    }
     private static String image(Map<String,Object> values) {
         if (values==null) return "";
         var fields=new ArrayList<String>();for (var e:values.entrySet()) {
             Object v=e.getValue();String value=v==null ? "NULL" : v instanceof BigDecimal n ? "NUMBER:"+n.toPlainString()
                     : v instanceof OracleRawValue raw ? "RAW:"+raw.hex()
+                    : v instanceof OracleLobValue lob ? lob.type()+":"+lob.hex()
                     : v instanceof OracleTemporalValue temporal ? temporal.type()+":"+temporal.iso()
                     : "VARCHAR2:"+Base64.getUrlEncoder().withoutPadding().encodeToString(((String)v).getBytes(StandardCharsets.UTF_8));
             fields.add(e.getKey()+"="+value);

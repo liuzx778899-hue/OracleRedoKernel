@@ -17,10 +17,16 @@ public final class FrozenHeapBaseline {
     public record ObjectRole(String owner,String name,long logicalObject,long dataObject) {}
     public record PhysicalColumn(int segment,int internal,String name,String type,boolean nullable,boolean hidden) {}
     public record DictionaryAnchor(ObjectRole dictionary,long targetObject,ArchivedHeapRows.RowKey key) {}
+    public record LobColumn(int column,LobLocator.Storage storage,ObjectRole lob,ObjectRole index) {}
     public record Snapshot(String sha256,ArchivedHeapRows.Source source,long scn,ObjectRole heap,ObjectRole index,
                            List<PhysicalColumn> columns,Map<ArchivedHeapRows.RowKey,List<ArchivedHeapRows.Cell>> rows,
-                           List<DictionaryAnchor> dictionaryAnchors,DictionaryBaseline dictionaryBaseline) {
-        public Snapshot { dictionaryAnchors=List.copyOf(dictionaryAnchors); }
+                           List<DictionaryAnchor> dictionaryAnchors,DictionaryBaseline dictionaryBaseline,List<LobColumn> lobs) {
+        public Snapshot { dictionaryAnchors=List.copyOf(dictionaryAnchors);lobs=List.copyOf(lobs); }
+        public Snapshot(String sha256,ArchivedHeapRows.Source source,long scn,ObjectRole heap,ObjectRole index,
+                        List<PhysicalColumn> columns,Map<ArchivedHeapRows.RowKey,List<ArchivedHeapRows.Cell>> rows,
+                        List<DictionaryAnchor> anchors,DictionaryBaseline dictionary) {
+            this(sha256,source,scn,heap,index,columns,rows,anchors,dictionary,List.of());
+        }
         public Snapshot(String sha256,ArchivedHeapRows.Source source,long scn,ObjectRole heap,ObjectRole index,
                         List<PhysicalColumn> columns,Map<ArchivedHeapRows.RowKey,List<ArchivedHeapRows.Cell>> rows,List<DictionaryAnchor> dictionaryAnchors) {
             this(sha256,source,scn,heap,index,columns,rows,dictionaryAnchors,null);
@@ -34,6 +40,7 @@ public final class FrozenHeapBaseline {
                 throw new RedoException("SNAPSHOT_REDO_SOURCE_MISMATCH");
         }
         public ArchivedHeapRows.Baseline baselineForEqualObjectScope() throws RedoException {
+            if(!lobs.isEmpty())throw new RedoException("LOB_REQUIRES_COMPLETE_VALUE_BATCH");
             if (heap.logicalObject()!=heap.dataObject() || index.logicalObject()!=index.dataObject())
                 throw new RedoException("UNSUPPORTED_SNAPSHOT_LOGICAL_DATA_OBJECT_MAPPING");
             return new ArchivedHeapRows.Baseline(source,scn,heap.logicalObject(),columns.size(),rows);
@@ -67,11 +74,28 @@ public final class FrozenHeapBaseline {
             while (input.peek("COLUMN")) {
                 var c=input.take("COLUMN",9);if (!c[1].equals("BEFORE")) throw new RedoException("SNAPSHOT_COLUMN_PHASE_MISMATCH");
                 int segment=Math.toIntExact(positive(c[2])),internal=Math.toIntExact(positive(c[3]));identifier(c[4]);
-                if (segment!=columns.size()+1 || internal!=segment || !List.of("NUMBER","VARCHAR2","RAW","DATE","TIMESTAMP").contains(c[5])
+                if (segment!=columns.size()+1 || internal!=segment || !List.of("NUMBER","VARCHAR2","RAW","DATE","TIMESTAMP","BLOB","CLOB").contains(c[5])
                         || !List.of("Y","N").contains(c[6]) || !List.of("YES","NO").contains(c[7]) || !c[8].equals("NO"))
                     throw new RedoException("UNSUPPORTED_SNAPSHOT_PHYSICAL_COLUMN_LAYOUT");
                 columns.add(new PhysicalColumn(segment,internal,c[4],c[5],c[6].equals("Y"),c[7].equals("YES")));
                 before.add(String.join("|",java.util.Arrays.copyOfRange(c,2,c.length)));
+            }
+            var lobs=new ArrayList<LobColumn>();var lobFrames=new ArrayList<String>();
+            while(input.peek("LOB")) {
+                var f=input.take("LOB",12);if(!f[1].equals("BEFORE"))throw new RedoException("SNAPSHOT_LOB_PHASE");
+                int column=Math.toIntExact(positive(f[2]));var storage=LobLocator.Storage.valueOf(f[3]);
+                var lob=role(new String[]{"HEAP","BEFORE",f[4],f[5],f[6],f[7]},"BEFORE");
+                var lobIndex=role(new String[]{"INDEX","BEFORE",f[8],f[9],f[10],f[11]},"BEFORE");
+                lobs.add(new LobColumn(column,storage,lob,lobIndex));lobFrames.add(String.join("|",java.util.Arrays.copyOfRange(f,2,f.length)));
+            }
+            boolean hasLob=columns.stream().anyMatch(c->c.type().equals("BLOB") || c.type().equals("CLOB"));
+            if(hasLob || !lobs.isEmpty()) {
+                var objects=new java.util.HashSet<Long>();objects.add(heap.dataObject());objects.add(index.dataObject());
+                if(!history || columns.size()!=3 || !columns.stream().map(PhysicalColumn::type).toList().equals(List.of("NUMBER","BLOB","CLOB"))
+                        || columns.stream().anyMatch(PhysicalColumn::hidden) || lobs.size()!=2 || lobs.get(0).column()!=2 || lobs.get(1).column()!=3
+                        || lobs.get(0).storage()!=lobs.get(1).storage())throw new RedoException("UNSUPPORTED_SNAPSHOT_LOB_LAYOUT");
+                for(var l:lobs)for(var r:List.of(l.lob(),l.index()))if(!r.owner().equals(heap.owner()) || r.logicalObject()!=r.dataObject() || !objects.add(r.dataObject()))
+                    throw new RedoException("SNAPSHOT_LOB_OBJECT_COLLISION_OR_GENERATION");
             }
             if (columns.isEmpty() || columns.size()>255 || columns.stream().map(PhysicalColumn::name).distinct().count()!=columns.size())
                 throw new RedoException("SNAPSHOT_COLUMN_COVERAGE_MISMATCH");
@@ -128,7 +152,8 @@ public final class FrozenHeapBaseline {
                 var values=new ArrayList<ArchivedHeapRows.Cell>();
                 for (int i=0;i<columns.size();i++) {
                     String raw=row[i+5];boolean isNull=raw.equals("NULL");
-                    if ((isNull && !columns.get(i).nullable()) || (!isNull && !raw.matches("(?:[0-9A-F]{2})+")))
+                    boolean lob=columns.get(i).type().equals("BLOB") || columns.get(i).type().equals("CLOB");
+                    if ((isNull && !columns.get(i).nullable()) || (!isNull && !raw.matches(lob?"(?:[0-9A-F]{2})*":"(?:[0-9A-F]{2})+")))
                         throw new RedoException("SNAPSHOT_ROW_VALUE_OR_NULLABILITY_MISMATCH");
                     values.add(new ArchivedHeapRows.Cell(isNull ? HeapRowPatch.State.NULL : HeapRowPatch.State.VALUE,isNull ? "" : raw));
                 }
@@ -139,13 +164,14 @@ public final class FrozenHeapBaseline {
             if (!heap.equals(role(input.take("HEAP",6),"AFTER")) || !index.equals(role(input.take("INDEX",6),"AFTER")))
                 throw new RedoException("SNAPSHOT_OBJECT_GENERATION_CHANGED_DURING_QUERY");
             for (var c:before) input.exact("COLUMN|AFTER|"+c);
+            for(var f:lobFrames)input.exact("LOB|AFTER|"+f);
             for(var dict:dictionaryRoles) input.exact("DICT_ROLE|AFTER|SYS|"+dict.name()+"|"+dict.logicalObject()+"|"+dict.dataObject());
             if(history)for(var dict:dictionaryBaseline.indexes())input.exact("DICT_INDEX|AFTER|"+dict.role().name()+"|"+dict.role().logicalObject()+"|"+dict.role().dataObject()+"|"+dict.indexDba());
             if(history && dictionaryBaseline.statistics()!=null)dictionaryBaseline.statistics().requireAfter(input);
             if(history && dictionaryBaseline.usage()!=null)dictionaryBaseline.usage().requireAfter(input);
             input.exact("SOURCE_AFTER|"+String.join("|",java.util.Arrays.copyOfRange(sourceFields,1,sourceFields.length)));
             input.exact("END|"+format);if (input.at!=input.lines.size()) throw new RedoException("SNAPSHOT_UNEXPECTED_TRAILING_OUTPUT");
-            return new Snapshot(digest,source,scn,heap,index,List.copyOf(columns),Map.copyOf(rows),anchors,dictionaryBaseline);
+            return new Snapshot(digest,source,scn,heap,index,List.copyOf(columns),Map.copyOf(rows),anchors,dictionaryBaseline,lobs);
         } catch (IllegalArgumentException | ArithmeticException e) {throw new RedoException("MALFORMED_SNAPSHOT_FIELD");}
     }
     private static ObjectRole role(String[] fields,String phase) throws RedoException {

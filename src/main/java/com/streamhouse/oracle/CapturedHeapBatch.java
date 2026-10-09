@@ -47,6 +47,7 @@ public final class CapturedHeapBatch {
                                          String trustedAcquisitionSha256,long leaf) throws IOException {
         var inputs=List.copyOf(captures);
         var snapshot=FrozenHeapBaseline.read(snapshotPath,trustedAcquisitionSha256);
+        if(!snapshot.lobs().isEmpty())return CapturedLobTrustedBatch.read(inputs,snapshot,leaf);
         var physical=ArchivedPhysicalTransactions.readVerifiedBaseline(RedoBatch.captures(inputs),snapshotPath,trustedAcquisitionSha256,leaf);
         var rows=ArchivedHeapRows.readCaptured(inputs,snapshotPath,trustedAcquisitionSha256,leaf);
         if (!physical.sources().equals(rows.sources())) throw new RedoException("CAPTURED_BATCH_SOURCE_CHANGED");
@@ -75,7 +76,14 @@ public final class CapturedHeapBatch {
         return new CapturedHeapBatch(snapshot,schema,sources,events,batch,leaf);
     }
     static String schemaDigest(FrozenHeapBaseline.Snapshot snapshot) {
-        return schemaDigest(snapshot.heap(),snapshot.index(),snapshot.columns());
+        String fixed=schemaDigest(snapshot.heap(),snapshot.index(),snapshot.columns());
+        return snapshot.lobs().isEmpty()?fixed:hash(out->{text(out,fixed);for(var lob:snapshot.lobs())text(out,lob.toString());});
+    }
+    static CapturedHeapBatch lob(FrozenHeapBaseline.Snapshot snapshot,List<CaptureJournal.Source> captures,List<Event> events,long leaf) {
+        var schema=new Schema(snapshot.heap(),snapshot.index(),snapshot.columns(),schemaDigest(snapshot));
+        String batch=hash(out->{text(out,"ORK_TRUSTED_LOB_BATCH_V1");text(out,snapshot.sha256());text(out,schema.sha256());out.writeLong(leaf);
+            for(var c:captures)text(out,c.journalSha256());for(var e:events){text(out,e.eventId());text(out,e.payloadSha256());}});
+        return new CapturedHeapBatch(snapshot,schema,captures,events,batch,leaf);
     }
     static String schemaDigest(FrozenHeapBaseline.ObjectRole heap,FrozenHeapBaseline.ObjectRole index,List<FrozenHeapBaseline.PhysicalColumn> columns) {
         return hash(out->{

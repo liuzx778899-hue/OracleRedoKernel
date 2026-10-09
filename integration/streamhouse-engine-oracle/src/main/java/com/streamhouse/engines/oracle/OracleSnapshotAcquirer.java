@@ -53,7 +53,7 @@ public final class OracleSnapshotAcquirer {
         expressions.add("'ROW|'||dbms_rowid.rowid_object(rowid)||'|'||dbms_rowid.rowid_relative_fno(rowid)||'|'||dbms_rowid.rowid_block_number(rowid)||'|'||dbms_rowid.rowid_row_number(rowid)");
         for(String column:columns) {
             var f=column.split("\\|",-1);String name=f[2],type=f[3];
-            expressions.add(type.equals("DATE") || type.equals("TIMESTAMP")?name:
+            expressions.add(List.of("DATE","TIMESTAMP","BLOB","CLOB").contains(type)?name:
                     "rawtohex("+(type.equals("RAW")?name:"utl_raw."+(type.equals("NUMBER")?"cast_from_number":"cast_to_raw")+"("+name+")")+")");
         }
         var result=new ArrayList<String>();
@@ -65,6 +65,17 @@ public final class OracleSnapshotAcquirer {
                     if(type.equals("DATE") || type.equals("TIMESTAMP")) {
                         var value=rows.getObject(i+2,java.time.LocalDateTime.class);
                         raw=value==null?null:HexFormat.of().withUpperCase().formatHex(com.streamhouse.oracle.OracleScalars.temporalBytes(value,type.equals("TIMESTAMP")));
+                    } else if(type.equals("BLOB")) {
+                        var lob=rows.getBlob(i+2);raw=null;
+                        if(lob!=null)try(var stream=lob.getBinaryStream()) {raw=HexFormat.of().withUpperCase().formatHex(stream.readAllBytes());}finally{lob.free();}
+                    } else if(type.equals("CLOB")) {
+                        var lob=rows.getClob(i+2);raw=null;
+                        if(lob!=null)try(var reader=lob.getCharacterStream()) {
+                            var text=new java.io.StringWriter();reader.transferTo(text);
+                            var bytes=StandardCharsets.UTF_8.newEncoder().onMalformedInput(java.nio.charset.CodingErrorAction.REPORT)
+                                    .onUnmappableCharacter(java.nio.charset.CodingErrorAction.REPORT).encode(java.nio.CharBuffer.wrap(text.toString()));
+                            byte[] value=new byte[bytes.remaining()];bytes.get(value);raw=HexFormat.of().withUpperCase().formatHex(value);
+                        }finally{lob.free();}
                     } else raw=rows.getString(i+2);
                     row.append('|').append(raw==null?"NULL":raw);
                 }
@@ -88,6 +99,17 @@ public final class OracleSnapshotAcquirer {
     private static String dictionaryRole(Connection c,String name) throws SQLException {
         return one(c,"select owner||'|'||object_name||'|'||object_id||'|'||data_object_id from dba_objects where owner='SYS' and object_name='"+name+"' and object_type='TABLE'");
     }
+    private static List<String> lobRoles(Connection c,Scope scope,List<String> columns)throws SQLException {
+        var result=new ArrayList<String>();
+        for(int i=0;i<columns.size();i++) {
+            var f=columns.get(i).split("\\|",-1);if(!List.of("BLOB","CLOB").contains(f[3]))continue;
+            String entry=one(c,"select segment_name||'|'||index_name||'|'||securefile||'|'||in_row||'|'||logging from dba_lobs where owner='"+scope.owner()+"' and table_name='"+scope.table()+"' and column_name='"+f[2]+"'");
+            var l=entry.split("\\|",-1);if(l.length!=5 || !List.of("YES","NO").contains(l[2]) || !l[3].equals("YES") || !l[4].equals("YES"))throw new SQLException("SNAPSHOT_LOB_STORAGE_UNSUPPORTED");
+            identifier(l[0]);identifier(l[1]);
+            result.add((i+1)+"|"+(l[2].equals("YES")?"SECUREFILE":"BASICFILE")+"|"+role(c,scope,l[0],"LOB")+"|"+role(c,scope,l[1],"INDEX"));
+        }
+        return List.copyOf(result);
+    }
     private Acquisition acquire(Connection fresh,Scope scope,OracleBatchEvidence.Source expected,int version) throws Exception {
         boolean dictionary=version>0,history=version==2;
         try(var c=fresh) {
@@ -105,17 +127,21 @@ public final class OracleSnapshotAcquirer {
             var before=physicalBefore.stream().map(row->row.replaceFirst("\\|TIMESTAMP\\([0-9]\\)\\|","|TIMESTAMP|")).toList();
             if(!one(c,"select count(*) from dba_indexes where owner='"+scope.owner()+"' and index_name='"+scope.index()+"' and table_owner='"+scope.owner()+"' and table_name='"+scope.table()+"' and index_type='NORMAL' and partitioned='NO'").equals("1"))throw new SQLException("SNAPSHOT_INDEX_SCOPE_UNSUPPORTED");
             if(before.isEmpty() || before.size()>255)throw new SQLException("SNAPSHOT_COLUMNS_UNSUPPORTED");
+            boolean hasLob=before.stream().anyMatch(row->List.of("BLOB","CLOB").contains(row.split("\\|",-1)[3]));
+            if(hasLob && (!history || before.size()!=3 || !before.stream().map(row->row.split("\\|",-1)[3]).toList().equals(List.of("NUMBER","BLOB","CLOB"))))
+                throw new SQLException("SNAPSHOT_LOB_HISTORY_LAYOUT_REQUIRED");
+            var lobBefore=hasLob?lobRoles(c,scope,before):List.<String>of();
             var projection=new StringBuilder();
             for(int i=0;i<before.size();i++) {
                 String[] f=before.get(i).split("\\|",-1);
-                if(f.length!=7 || !f[0].equals(Integer.toString(i+1)) || !f[1].equals(f[0]) || !List.of("NUMBER","VARCHAR2","RAW","DATE","TIMESTAMP").contains(f[3])
+                if(f.length!=7 || !f[0].equals(Integer.toString(i+1)) || !f[1].equals(f[0]) || !List.of("NUMBER","VARCHAR2","RAW","DATE","TIMESTAMP","BLOB","CLOB").contains(f[3])
                         || !List.of("Y","N").contains(f[4]) || !List.of("YES","NO").contains(f[5]) || !f[6].equals("NO"))throw new SQLException("SNAPSHOT_PHYSICAL_LAYOUT_UNSUPPORTED");
                 identifier(f[2]);String raw=f[3].equals("RAW")?f[2]:"utl_raw."+(f[3].equals("NUMBER")?"cast_from_number":"cast_to_raw")+"("+f[2]+")";
                 projection.append("||'|'||case when ").append(f[2]).append(" is null then 'NULL' else rawtohex(").append(raw).append(") end");
             }
             String table=scope.owner()+"."+scope.table();
             boolean temporal=before.stream().anyMatch(col->col.split("\\|",-1)[3].equals("DATE") || col.split("\\|",-1)[3].equals("TIMESTAMP"));
-            var rows=temporal?temporalRows(c,table,scn,before):query(c,"select 'ROW|'||dbms_rowid.rowid_object(rowid)||'|'||dbms_rowid.rowid_relative_fno(rowid)||'|'||dbms_rowid.rowid_block_number(rowid)||'|'||dbms_rowid.rowid_row_number(rowid)"+projection+" from "+table+" as of scn "+scn+" order by rowid");
+            var rows=temporal || hasLob?temporalRows(c,table,scn,before):query(c,"select 'ROW|'||dbms_rowid.rowid_object(rowid)||'|'||dbms_rowid.rowid_relative_fno(rowid)||'|'||dbms_rowid.rowid_block_number(rowid)||'|'||dbms_rowid.rowid_row_number(rowid)"+projection+" from "+table+" as of scn "+scn+" order by rowid");
             String count=one(c,"select count(*) from "+table+" as of scn "+scn);
             if(!count.equals(Integer.toString(rows.size())) || !heap.equals(role(c,scope,scope.table(),"TABLE")) || !index.equals(role(c,scope,scope.index(),"INDEX"))
                     || !physicalBefore.equals(columns(c,scope)) || !src.equals(source(c)) || !container.equals(pdb(c)))throw new SQLException("SNAPSHOT_ACQUISITION_CHANGED");
@@ -148,11 +174,14 @@ public final class OracleSnapshotAcquirer {
             var out=new StringBuilder("FORMAT|").append(format).append("\nSOURCE|").append(src).append("\nPDB|").append(container).append("\nCHARSET|AL32UTF8\nSNAPSHOT_SCN|").append(scn).append('\n');
             out.append("HEAP|BEFORE|").append(heap).append("\nINDEX|BEFORE|").append(index).append('\n');
             for(String col:before)out.append("COLUMN|BEFORE|").append(col).append('\n');
+            for(String lob:lobBefore)out.append("LOB|BEFORE|").append(lob).append('\n');
             for(String dict:roles)out.append("DICT_ROLE|BEFORE|").append(dict).append('\n');
             for(String frame:dictionaryFrames)out.append(frame).append('\n');
             for(String row:rows)out.append(row).append('\n');
             out.append("ROW_COUNT|").append(count).append("\nHEAP|AFTER|").append(heap).append("\nINDEX|AFTER|").append(index).append('\n');
             for(String col:before)out.append("COLUMN|AFTER|").append(col).append('\n');
+            if(hasLob && !lobBefore.equals(lobRoles(c,scope,before)))throw new SQLException("SNAPSHOT_LOB_GENERATION_CHANGED");
+            for(String lob:lobBefore)out.append("LOB|AFTER|").append(lob).append('\n');
             for(String dict:roles)out.append("DICT_ROLE|AFTER|").append(dict).append('\n');
             if(history)for(String frame:historical.after())out.append(frame).append('\n');
             out.append("SOURCE_AFTER|").append(src).append("\nEND|").append(format).append('\n');
