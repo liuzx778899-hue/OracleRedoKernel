@@ -57,4 +57,18 @@ class CompensationWindowStateTest {
             assertThrows(RedoException.class,()->ArchivedCompensationInventory.restoreDurable(bad,DurableUndoState.sha(bad)));
         assertThrows(RedoException.class,()->window.extend(RedoBatch.archives(paths).prefix(1),true));assertArrayEquals(bytes,window.durableCheckpoint());
     }
+    @Test void closedWindowAdvancesOnlySourcesAndCannotAcquireNewOriginals()throws Exception {
+        var paths=new ArrayList<>(fixture());byte[] third=Files.readAllBytes(paths.get(1));Arrays.fill(third,1024,third.length,(byte)0);
+        put(third,692,300,4);put(third,704,400,4);
+        for(int block=1;block<third.length/512;block++){put(third,block*512,0x2201,2);put(third,block*512+4,block,4);put(third,block*512+8,9,4);}
+        for(int block=0;block<third.length/512;block++)seal(third,block*512);
+        var path=dir.resolve("third.dbf");Files.write(path,third);paths.add(path);
+        var old=ArchivedCompensationInventory.read(paths.subList(0,2),677737149,3,f.a);
+        var advanced=old.advanceClosed(RedoBatch.archives(List.of(path)));var full=ArchivedCompensationInventory.read(paths,677737149,3,f.a);
+        assertArrayEquals(full.durableCheckpoint(),advanced.durableCheckpoint());assertEquals(old.entries(),advanced.entries());
+        assertEquals(old.lastRecord(),advanced.lastRecord());
+        f.records.record(third,2,310,List.of(f.start(f.a,0x02400110,0x02402ccb,41),f.undo(f.a,0x02402ccb,41)));
+        put(third,2*512+8,9,4);for(int block=0;block<third.length/512;block++)seal(third,block*512);Files.write(path,third);
+        assertThrows(RedoException.class,()->old.advanceClosed(RedoBatch.archives(List.of(path))));
+    }
 }

@@ -101,7 +101,7 @@ class PendingDictionaryRecoveryTest {
         byte[] malformed={'\n'};
         assertEquals("HISTORICAL_RECOVERY_BASELINE_OR_LEAF",assertThrows(RedoException.class,()->HistoricalRecovery.verifyPrefixCaptured(
                 captures,baseline,digest(Files.readAllBytes(baseline)),4190000,malformed,digest(malformed))).getMessage());
-        assertTrue(new String(checkpoint,java.nio.charset.StandardCharsets.UTF_8).startsWith("ORK_HISTORICAL_RECOVERY_V4\n"));
+        assertTrue(new String(checkpoint,java.nio.charset.StandardCharsets.UTF_8).startsWith("ORK_HISTORICAL_RECOVERY_V5\n"));
         assertEquals("HISTORICAL_RECOVERY_DIGEST_MISMATCH",assertThrows(RedoException.class,()->HistoricalRecovery.readCaptured(
                 captures,baseline,digest(Files.readAllBytes(baseline)),4190000,checkpoint,"0".repeat(64))).getMessage());
         assertEquals("HISTORICAL_RECOVERY_BASELINE_OR_LEAF",assertThrows(RedoException.class,()->HistoricalRecovery.readCaptured(

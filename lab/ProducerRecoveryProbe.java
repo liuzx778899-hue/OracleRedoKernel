@@ -15,6 +15,8 @@ public class ProducerRecoveryProbe {
                 var in=new java.io.DataInputStream(new java.io.ByteArrayInputStream(Base64.getDecoder().decode(line.substring(2))));
                 in.readUTF();System.out.println("DICTIONARY_COMMITS="+in.readInt());
             }
+            for(String line:new String(prefix.checkpoint(),java.nio.charset.StandardCharsets.UTF_8).split("\n"))if(line.startsWith("W|"))
+                System.out.println("WINDOWS="+(new String(Base64.getDecoder().decode(line.substring(2)),java.nio.charset.StandardCharsets.UTF_8).split("\n").length-1));
             System.out.println("PENDING="+prefix.pendingTransactions());System.out.println("COMPLETED="+prefix.completedTransactions());
             return;
         }
@@ -26,7 +28,7 @@ public class ProducerRecoveryProbe {
             byte[] input=Files.readAllBytes(state);
             var advanced=HistoricalRecovery.extendPrefixCaptured(captures,baseline,args[4],leaf,input,args[2]);
             var reference=HistoricalRecovery.committedPrefixCaptured(captures,baseline,args[4],leaf);
-            if(!Arrays.equals(input,advanced.state().checkpoint()) || !Arrays.equals(input,reference.state().checkpoint())
+            if(!Arrays.equals(input,advanced.state().checkpoint()) || !Arrays.equals(input,HistoricalRecovery.verifyPrefixCaptured(captures,baseline,args[4],leaf,input,args[2]).checkpoint())
                     || !advanced.completed().events().equals(reference.completed().events()) || !advanced.completed().sha256().equals(reference.completed().sha256()))
                 throw new AssertionError("PENDING_PREFIX_STATE_OR_COMPLETE_EVENTS_CHANGED");
             System.out.println("STATE_UNCHANGED=true");System.out.println("PENDING="+advanced.state().pendingTransactions());

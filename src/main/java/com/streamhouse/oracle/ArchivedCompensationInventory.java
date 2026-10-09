@@ -39,6 +39,10 @@ public final class ArchivedCompensationInventory {
         if(complete)throw new RedoException("COMPENSATION_WINDOW_ALREADY_COMPLETE");
         return read(suffix,undo.containerUid(),undo.containerId(),undo.entries().get(0).identity().xid(),allowPending,this);
     }
+    ArchivedCompensationInventory advanceClosed(RedoBatch suffix)throws IOException {
+        if(!complete)throw new RedoException("COMPENSATION_WINDOW_NOT_COMPLETE");
+        return read(suffix,undo.containerUid(),undo.containerId(),undo.entries().get(0).identity().xid(),false,this);
+    }
     public byte[] durableCheckpoint()throws IOException {return CompensationWindowState.encode(this,identityCheckpoint);}
     public static ArchivedCompensationInventory restoreDurable(byte[] bytes,String trustedSha256)throws IOException {return CompensationWindowState.restore(bytes,trustedSha256);}
     private static ArchivedCompensationInventory read(RedoBatch archives,long uid,long container,HeapRowPatch.Xid xid,boolean allowPending,ArchivedCompensationInventory prefix)throws IOException {
@@ -49,7 +53,8 @@ public final class ArchivedCompensationInventory {
         long[] segment={0};
         ArchivedUndoInventory.Position[] window=new ArchivedUndoInventory.Position[2];
         int prefixCount=prefix==null?0:prefix.undo().sources().size();
-        if(prefix!=null){next[0]=prefix.undo().entries().size();begins[0]=1;active[0]=true;segment[0]=prefix.segmentDba();window[0]=prefix.firstRecord();}
+        if(prefix!=null){next[0]=prefix.undo().entries().size();begins[0]=1;active[0]=!prefix.complete();ends[0]=prefix.complete()?1:0;segment[0]=prefix.segmentDba();window[0]=prefix.firstRecord();window[1]=prefix.complete()?prefix.lastRecord():null;
+            if(prefix.complete() && undo.entries().size()!=prefix.undo().entries().size())throw new RedoException("COMPENSATION_WINDOW_CLOSED_ORIGINAL_CHANGED");}
         for (int source=0;source<archives.size();source++) {
             var path=archives.get(source);var header=path.header();
             if (!header.equals(undo.sources().get(prefixCount+source))) throw new RedoException("COMPENSATION_INVENTORY_INPUT_CHANGED");

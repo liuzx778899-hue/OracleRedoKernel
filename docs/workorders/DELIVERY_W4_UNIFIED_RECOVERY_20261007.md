@@ -1,5 +1,13 @@
 # W4 统一历史恢复与完整事件候选
 
+## 2026-10-09 V5保守窗口进入物理发现主链（r104–r107，离线）
+
+V5新增W capsule保存对象scope内全部已核保守窗口，包括baseline覆盖的闭合窗口。PhysicalDiscoveryState核sources/容器/代际/唯一完整XID、pending图/segment/marker覆盖、闭合图及提交record位置；窗口不当marker owner或补偿证书。ArchivedObjectTransactions复用保存窗口：pending只在新成员推进原生命周期/inventory，闭合窗口只推进来源并拒绝同完整XID新原节点；关联层仍核完整raw候选、外来marker及唯一归属，物理pair/范围门禁保留。V1–V4原格式验证及读取兼容。
+
+r104相关31项、r105新增窗口集合匹配1项及r106新增闭合推进1项，共33个不同相关测试通过。r105新合成第三成员遗漏block identity，`BLOCK_IDENTITY_MISMATCH:block=2`/rc1原文保留；仅补测试块头，未改守卫。r107真实90–93 V5保存7窗口/pending1/completed6，状态SHA `eacbfcfb197826e03de7e7448707447ad236beedfbc66696b15a76760830421a`；经保存窗口续原94累计46完整事件，扩展SHA `1eafb39a42ea8dd90240531dbc65af1e256db391c4d7ea198721594fce9a605f`。SYS84保存1个scope窗口/pending SYS1/completed business0，状态SHA `ede36339780518e2f8757ae185855ea7e8cf1f4bddb478fef2cbe0a0dcb9425b`；续85累计2完整事件，扩展SHA `601459037d9bde5b8f124438155c1149f5cd6ec6614d3204732fb560f1a5ae6e`。两例完整事件/batch与strict相同，扩展状态与全量逐字节相同，重复扩展不变。复用原V4业务前缀复核pending1/completed6及SYS续接2事件通过，没有重导出旧V4状态；其他旧格式相关路径未改变，沿用已有证据。
+
+证据 `lab/out/d3-stream-runtime-20261009/producer-recovery-r107/summary.json`及export/extend/v4-business-verify/v4-sys-resume command/stdout/stderr/rc、physical-window-r104/r105/r106-tests；执行包producer-recovery-v3-frozen.ps1使用独立EvidenceName。代码/针对性离线验证通过；产品仍r88–r90 V2候选未打包換装部署。源DML/获取/目标/容器动作0。旧raw必留：主体对象发现、关联候选与foreign owner、完整物理pair/范围、maintenance/split仍全读，尚非整体仅后缀producer。下一持久关联候选/发现游标及统一进度/低水位背压；完整D1–D5及独立验证评审/约定部署/用户生产现场验收发布继续待证，goal active。
+
 ## 2026-10-09 typed物理pending完整图保留与接续（r101–r103，离线）
 
 PhysicalRecoveryState已有完整durable undo图，但旧typed PendingGraph丢弃其bytes，下一次from又独立从raw读取pending inventory。本轮在typed pending中保留不可变base64完整图；from直接恢复保存图并核来源/容器/全XID/消费计数及legacy动作收据。物理恢复使用该图extend新成员，必须与原始完整发现inventory的sources/entries/control root/容器逐项相同；旧构造路径兼容。物理V1及历史V4的序列化格式和字节保持，无新格式升级。

@@ -37,7 +37,7 @@ public final class ArchivedCompensationAssociations {
     static ArchivedCompensationAssociations readRestored(RedoBatch paths,ArchivedCompensationInventory prefix,boolean allowPending)throws IOException {
         int count=prefix.undo().sources().size();if(count>paths.size())throw new RedoException("ASSOCIATION_WINDOW_SOURCE_PREFIX_CHANGED");
         for(int i=0;i<count;i++)if(!prefix.undo().sources().get(i).equals(paths.get(i).header()))throw new RedoException("ASSOCIATION_WINDOW_SOURCE_PREFIX_CHANGED");
-        var window=count==paths.size()?prefix:prefix.extend(paths.suffix(count),allowPending);
+        var window=count==paths.size()?prefix:prefix.complete()?prefix.advanceClosed(paths.suffix(count)):prefix.extend(paths.suffix(count),allowPending);
         if(!allowPending && !window.complete())throw new RedoException("COMPENSATION_INVENTORY_TRANSACTION_WINDOW_INCOMPLETE");
         return read(paths,window.undo().containerUid(),window.undo().containerId(),window.undo().entries().get(0).identity().xid(),allowPending,window);
     }

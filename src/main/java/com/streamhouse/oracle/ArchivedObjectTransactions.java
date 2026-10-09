@@ -31,6 +31,15 @@ public final class ArchivedObjectTransactions {
                                                   boolean allowPending,Set<HeapRowPatch.Xid> covered)throws IOException {
         return read(paths,uid,container,roles.generations(),allowPending,covered);
     }
+    static ArchivedObjectTransactions readCoveredRestored(RedoBatch paths,long uid,long container,HeapIndexScope roles,
+                                                          boolean allowPending,Set<HeapRowPatch.Xid> covered,List<String> windows)throws IOException {
+        var saved=new java.util.HashMap<HeapRowPatch.Xid,ArchivedCompensationInventory>();
+        for(var value:windows) {
+            byte[] bytes=java.util.Base64.getDecoder().decode(value);var window=ArchivedCompensationInventory.restoreDurable(bytes,DurableUndoState.sha(bytes));
+            if(saved.putIfAbsent(window.undo().entries().get(0).identity().xid(),window)!=null)throw new RedoException("OBJECT_TRANSACTION_DUPLICATE_SAVED_WINDOW");
+        }
+        return read(paths,uid,container,roles.generations(),allowPending,covered,saved);
+    }
     private static ArchivedObjectTransactions read(RedoBatch paths,long uid,long container,java.util.Map<Long,Long> generations) throws IOException {
         return read(paths,uid,container,generations,false);
     }
@@ -39,6 +48,10 @@ public final class ArchivedObjectTransactions {
     }
     private static ArchivedObjectTransactions read(RedoBatch paths,long uid,long container,java.util.Map<Long,Long> generations,
                                                     boolean allowPending,Set<HeapRowPatch.Xid> covered) throws IOException {
+        return read(paths,uid,container,generations,allowPending,covered,java.util.Map.of());
+    }
+    private static ArchivedObjectTransactions read(RedoBatch paths,long uid,long container,java.util.Map<Long,Long> generations,
+                                                    boolean allowPending,Set<HeapRowPatch.Xid> covered,java.util.Map<HeapRowPatch.Xid,ArchivedCompensationInventory> saved) throws IOException {
         if (paths.isEmpty() || generations.isEmpty()) throw new RedoException("EMPTY_OBJECT_TRANSACTION_SCOPE_OR_INPUT");
         var scope=new java.util.HashSet<Long>(generations.keySet());scope.addAll(generations.values());var xids=new LinkedHashSet<HeapRowPatch.Xid>();
         var relevantMarkers=new ArrayList<ArchivedUndoInventory.Position>();var sources=new ArrayList<ArchivedRedo.Header>();
@@ -74,7 +87,8 @@ public final class ArchivedObjectTransactions {
         }
         var transactions=new ArrayList<Transaction>();var routed=new java.util.HashMap<ArchivedUndoInventory.Position,ArchivedCompensationAssociations.Entry>();
         for (var xid:xids) {
-            var associations=ArchivedCompensationAssociations.read(paths,uid,container,xid,allowPending);
+            var associations=saved.containsKey(xid)?ArchivedCompensationAssociations.readRestored(paths,saved.get(xid),allowPending)
+                    :ArchivedCompensationAssociations.read(paths,uid,container,xid,allowPending);
             if (!sources.equals(associations.window().undo().sources())) throw new RedoException("OBJECT_TRANSACTION_INPUT_CHANGED");
             for (var original:associations.window().undo().entries())
                 if (!Long.valueOf(original.identity().dataObjectId()).equals(generations.get(original.identity().objectId())))
@@ -85,6 +99,7 @@ public final class ArchivedObjectTransactions {
             }
             transactions.add(new Transaction(xid,associations));
         }
+        if(!xids.containsAll(saved.keySet()))throw new RedoException("OBJECT_TRANSACTION_SAVED_WINDOW_OWNER_MISSING");
         for (var at:relevantMarkers) {
             var a=routed.get(at);
             if (a==null || !xids.contains(a.xid())) throw new RedoException("UNDISCOVERED_OBJECT_TRANSACTION_COMPENSATION");

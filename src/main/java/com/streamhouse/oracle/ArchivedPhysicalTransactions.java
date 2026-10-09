@@ -21,7 +21,10 @@ public final class ArchivedPhysicalTransactions {
             this(xid,segment,next,operations,heaps,indexes,markers,graphCheckpoint,null);
         }
     }
-    record PendingState(List<ArchivedRedo.Header> sources,List<PendingGraph> pending,String identityCheckpoint) {}
+    record PendingState(List<ArchivedRedo.Header> sources,List<PendingGraph> pending,String identityCheckpoint,List<String> windows) {
+        PendingState(List<ArchivedRedo.Header> sources,List<PendingGraph> pending,String identityCheckpoint){this(sources,pending,identityCheckpoint,List.of());}
+        PendingState {windows=List.copyOf(windows);}
+    }
     record Prefix(Result completed,PendingState state) {}
     private static final class Context {
         final ArchivedObjectTransactions.Transaction discovered;
@@ -115,7 +118,8 @@ public final class ArchivedPhysicalTransactions {
         long heapObject=scope.heap().dataObject(),indexObject=scope.index().dataObject();
         var coverage=snapshot==null?List.<BaselineTransactionCoverage.Receipt>of():BaselineTransactionCoverage.read(paths,uid,container,scope,snapshot.scn());
         var covered=coverage.stream().map(c->c.identity().xid()).collect(java.util.stream.Collectors.toSet());
-        var found=ArchivedObjectTransactions.readCovered(paths,uid,container,scope,savePending!=null,covered);
+        var found=restored==null || restored.state().windows().isEmpty()?ArchivedObjectTransactions.readCovered(paths,uid,container,scope,savePending!=null,covered)
+                :ArchivedObjectTransactions.readCoveredRestored(paths,uid,container,scope,savePending!=null,covered,restored.state().windows());
         if (found.transactions().isEmpty() && !(savePending!=null && history!=null && !history.pending().isEmpty()))
             throw new RedoException("NO_PHYSICAL_OBJECT_TRANSACTIONS");
         var contexts=new ArrayList<Context>();var owners=new HashMap<HeapRowPatch.Xid,Context>();
@@ -340,7 +344,11 @@ public final class ArchivedPhysicalTransactions {
                     List.copyOf(c.markers),new String(c.graph.checkpoint(),java.nio.charset.StandardCharsets.UTF_8),
                     java.util.Base64.getEncoder().encodeToString(c.graph.durableCheckpoint())));
         }
-        if(savePending!=null)savePending.accept(new PendingState(found.sources(),List.copyOf(pending),new String(state.checkpoint(),java.nio.charset.StandardCharsets.UTF_8)));
+        if(savePending!=null) {
+            var windows=new ArrayList<String>();
+            for(var t:found.transactions())windows.add(java.util.Base64.getEncoder().encodeToString(t.associations().window().durableCheckpoint()));
+            savePending.accept(new PendingState(found.sources(),List.copyOf(pending),new String(state.checkpoint(),java.nio.charset.StandardCharsets.UTF_8),windows));
+        }
         for (int i=0;i<paths.size();i++) requireSource(found,i,paths.get(i).header());
         return new Result(found.sources(),contexts.stream().filter(c->!c.coveredByBaseline && c.result!=null).map(c->c.result).toList());
     }
