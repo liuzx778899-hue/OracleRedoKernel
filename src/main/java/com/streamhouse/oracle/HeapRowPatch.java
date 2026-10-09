@@ -120,7 +120,8 @@ public final class HeapRowPatch {
         for (int i=0;i<dictionaryColumns;i++) columns.add(new Column(State.ABSENT,new byte[0]));
         if (op==4) {
             boolean lobLock=lobHeap && (kdo[12]==1 || kdo[12]==2) && kdo[13]==0
-                    && (u16(kdo,14)==0xffff || u16(kdo,14)==64) && kdo[18]==0 && (kdo[19]==0 || kdo[19]==kdo[12]);
+                    && (u16(kdo,14)==0xffff || u16(kdo,14)==64 || (u16(kdo,14)==0 && kdo[12]==1 && (kdo[19]==0 || kdo[19]==1)))
+                    && kdo[18]==0 && (kdo[19]==0 || kdo[19]==kdo[12]);
             if (fields.size()!=2 || (!lobLock && (xtype!=1 || kdo[12]!=1 || kdo[13]!=0 || u16(kdo,14)!=1
                     || kdo[18]!=0 || (kdo[19]&255)>1)))
                 throw new RedoException("UNSUPPORTED_HEAP_LOCK_LAYOUT");

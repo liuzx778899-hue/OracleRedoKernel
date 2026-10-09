@@ -11,6 +11,14 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class CapturedLobTrustedBatchTest {
     @TempDir Path directory;
+    @Test void observedSecureFileZeroFlagLockRemainsLobScoped()throws Exception {
+        var kdo=java.util.HexFormat.of().parseHex("3f8600033a860003fa1204010100000000000001");
+        var fields=List.of(new byte[24],kdo);
+        assertEquals(HeapRowPatch.Kind.LOCK,HeapRowPatch.decodeLobKdo(fields,4,50366015,3).kind());
+        assertThrows(RedoException.class,()->HeapRowPatch.decodeKdo(fields,4,50366015,3));
+        kdo[19]=0;assertEquals(0,HeapRowPatch.decodeLobKdo(fields,4,50366015,3).lockTo());
+        kdo[14]=2;assertThrows(RedoException.class,()->HeapRowPatch.decodeLobKdo(fields,4,50366015,3));
+    }
     @Test void lobTypesRequireDedicatedCompleteValuePath()throws Exception {
         assertEquals(113,OracleColumnTypes.oracleId("BLOB"));assertEquals("CLOB",OracleColumnTypes.name(112));
         assertEquals(128,OracleColumnTypes.property("BLOB",false));assertEquals(128,OracleColumnTypes.property("CLOB",false));

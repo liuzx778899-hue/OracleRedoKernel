@@ -1,20 +1,22 @@
 """Two finite normal LOB product batches. Every source change executes once."""
 from pathlib import Path
 import os,sys,json,hashlib,shutil,time,secrets as random_secrets,zipfile
-resume=sys.argv[1:]==['--resume-acquisition'];assert resume or len(sys.argv)==1
-R=Path('D:/work/vibecode/OracleRedoKernel');label='d4-lob-product-20261010'+('-r13' if resume else '')
+secure_retry=sys.argv[1:]==['--resume-secure-verified'];secure_resume=secure_retry or sys.argv[1:]==['--resume-secure'];verified_resume=sys.argv[1:]==['--resume-verified'];resume=secure_resume or verified_resume or sys.argv[1:]==['--resume-acquisition'];assert resume or len(sys.argv)==1
+revision='r16' if secure_retry else 'r15' if secure_resume else 'r14' if verified_resume else 'r13'
+R=Path('D:/work/vibecode/OracleRedoKernel');label='d4-lob-product-20261010'+('-'+revision if resume else '')
 sys.argv=[str(R/'lab/d3_stream_runtime.py'),'inspect',label]
 exec((R/'lab/d3_stream_runtime.py').read_text().split("if action=='prepare':")[0])
-N=R/'lab/out/d4-lob-product-20261010';execution=N/('executed-product-r13.py' if resume else 'executed-product.py');assert not execution.exists();shutil.copyfile(__file__,execution)
+N=R/'lab/out/d4-lob-product-20261010';execution=N/('executed-product-'+revision+'.py' if resume else 'executed-product.py');assert not execution.exists();shutil.copyfile(__file__,execution)
 if resume:
- assert (N/'runtime-r10.rc').read_text().strip()=='1' and not (N/'B-source-action.started').exists()
+ assert (N/('runtime-r15.rc' if secure_retry else 'runtime-r14.rc' if secure_resume else 'runtime-r13.rc' if verified_resume else 'runtime-r10.rc')).read_text().strip()=='1'
+ assert not (N/('S-source-action.started' if secure_resume else 'B-source-action.started')).exists()
  props=dict(line.split('=',1) for line in (N/'runtime.secret.env').read_text().splitlines())
  secrets.extend(v.encode() for k,v in props.items() if 'PASSWORD' in k and v)
  prior_run=run
- def run(name,args,data=None,private=False):return prior_run('r13-'+name,args,data,private)
+ def run(name,args,data=None,private=False):return prior_run(revision+'-'+name,args,data,private)
 app=R/'lab/out/streamhouse-oracle-gate-worktree/server/streamhouse-app/target/streamhouse-app-0.1.0-SNAPSHOT.jar'
 assert (N/('product-package-r13.rc' if resume else 'product-package-r9.rc')).read_text().strip()=='0';shutil.copyfile(app,N/'application.jar')
-libs=N/('libs-r13' if resume else 'libs');libs.mkdir()
+libs=N/('libs-'+revision if resume else 'libs');libs.mkdir()
 with zipfile.ZipFile(app) as archive:
  for name in archive.namelist():
   if name.startswith('BOOT-INF/lib/') and name.endswith('.jar'):
@@ -37,8 +39,9 @@ def clob(value):
 started=False;helper=False
 try:
  assert HELPER not in run('containers',['docker','ps','-a','--format','{{.Names}}']).splitlines()
- assert run('source-state',['docker','inspect',S,'--format','{{.Config.Labels.owner}}|{{.State.Status}}']).strip()==('OracleRedoKernel|running' if resume else 'OracleRedoKernel|exited')
- if not resume:run('source-start',['docker','start',S])
+ state=run('source-state',['docker','inspect',S,'--format','{{.Config.Labels.owner}}|{{.State.Status}}']).strip()
+ assert state in ['OracleRedoKernel|running','OracleRedoKernel|exited']
+ if state.endswith('|exited'):run('source-start',['docker','start',S])
  started=True
  for attempt in range(30):
   try:
@@ -49,7 +52,19 @@ try:
   time.sleep(5)
  assert 'LOGGING|NO|NO' in out
  proofs=[]
- for ordinal,kind in enumerate(['B','S']):
+ if secure_resume:
+  actual=(N/'r14-B-actual.stdout').read_text();assert all(v in actual for v in ['COUNTS|1|1|1|1','MATCH|1','WINDOW|CONSUMED','|DONE'])
+  prepared=json.loads((N/'r14-B-preparation.stdout').read_text());e=prepared['evidence']
+  assert f"EVENT|{e['events'][0]['eventId']}|{e['events'][0]['payloadSha256']}" in actual
+  assert f"COMMIT|{e['batchSha256']}|{e['schemaSha256']}|1" in actual
+  parts=sorted((int(line.split('|')[1]),line.split('|')[2]) for line in actual.splitlines() if line.startswith('CPHEX|'));assert [i for i,_ in parts]==list(range(len(parts)))
+  raw=bytes.fromhex(''.join(data for _,data in parts));checkpoint=json.loads(raw);ack=N/'acks'/(hashlib.sha256(b'oracle-d4-lob-b\0lob-b').hexdigest()+'.ack.json')
+  assert e['schemaSequenceSha256'] is None and e['eventSchemas']==[]
+  assert ack.read_bytes()==raw and dict(checkpoint['oracleEvidence'],eventSchemas=[],schemaSequenceSha256=None)==e
+  acquired=json.loads((N/'r13-B-acquire.stdout').read_text())['data']
+  proof=dict(storage='B',acquisition=acquired,events=1,target=[1,1,1],mismatches=0,cpAckSha256=sha(ack),checkpoint=checkpoint,independentTargetAccepted=False)
+  (N/'B-normal-proof.json').write_text(json.dumps(proof,indent=2));proofs.append(proof)
+ for ordinal,kind in [(1,'S')] if secure_resume else enumerate(['B','S']):
   U='ORKLOB'+kind+'CTL_20261010';SOURCE='oracle-d4-lob-'+kind.lower();prefix='RLOB'+kind+'1';T='ORKTGT_CMT_20261005.'+prefix;TARGET='oracle-lob-'+prefix;table='T_D4_LOB'+kind+'_20261009'
   if resume and kind=='B':password=props['SPRING_DATASOURCE_PASSWORD']
   else:
@@ -64,11 +79,12 @@ try:
    except (AssertionError,ValueError):
     if attempt==39:raise
     time.sleep(3)
-  acquired=http(kind+'-acquire','/oracle/acquisitions/historical',dict(sourceId=SOURCE));ACQ=int(acquired['id'])
-  verified=http(kind+'-verified',f'/oracle/acquisitions/{ACQ}');assert verified==acquired
+  # Finish owned target/control segment initialization before the static-schema baseline.
+  if not (verified_resume and kind=='B'):sql(kind+'-target',f"alter session set container=ORKPDB;\ncreate table {T}_ROWS(ID number primary key,B blob,C clob);\ninsert into {T}_ROWS select ID,B,C from ORKLAB.{table};\nalter table {U}.SH_ORACLE_ACQUISITION allocate extent;\ncommit;")
+  acquired=json.loads((N/'r13-B-acquire.stdout').read_text())['data'] if verified_resume and kind=='B' else http(kind+'-acquire','/oracle/acquisitions/historical',dict(sourceId=SOURCE));ACQ=int(acquired['id'])
+  verified=http(kind+'-verified',f'/oracle/acquisitions/{ACQ}');assert {k:v for k,v in verified.items() if k!='registeredAt'}=={k:v for k,v in acquired.items() if k!='registeredAt'}
   baseline=N/'snapshots'/f'{ACQ}.snapshot';assert sha(baseline)==acquired['snapshotSha256']
-  # New target baseline comes from actual source ASOF; this is target initialization, never event input.
-  sql(kind+'-target',f"alter session set container=ORKPDB;\ncreate table {T}_ROWS(ID number primary key,B blob,C clob);\ninsert into {T}_ROWS select ID,B,C from ORKLAB.{table} as of scn {acquired['snapshotScn']};\ncommit;")
+  assert 'ANCHOR|1' in sql(kind+'-target-anchor',f"alter session set container=ORKPDB;\nselect 'ANCHOR|'||count(*) from {T}_ROWS t join ORKLAB.{table} as of scn {acquired['snapshotScn']} s on s.ID=t.ID where dbms_lob.compare(t.B,s.B)=0 and dbms_lob.getlength(t.B)=dbms_lob.getlength(s.B) and dbms_lob.compare(t.C,s.C)=0 and dbms_lob.getlength(t.C)=dbms_lob.getlength(s.C);")
   (N/(kind+'-source-action.started')).write_text('one new post-baseline UPDATE; never replay\n')
   sql(kind+'-source-action',f"alter session set container=ORKPDB;\nbegin update ORKLAB.{table} set B=hextoraw('0010FF80C328A5'),C=to_clob(unistr('\\6536\\5C3E-20261010')) where ID=1; if sql%rowcount<>1 then raise_application_error(-20001,'ROW_COUNT');end if;end;\n/\ncommit;")
   sql(kind+'-archive','alter system archive log current;')
@@ -83,7 +99,8 @@ try:
   identity=':'.join(str(e['source'][k]) for k in ['dbid','activationId','compatibility','thread','resetlogsId','resetlogsScn','containerUid','containerId'])
   sql(kind+'-target-ledger',f"alter session set container=ORKPDB;\ncreate table {T}_IDENT(ID number primary key,TARGET_ID varchar2(128) not null,SOURCE_BINDING varchar2(512) not null,SCHEMA_SHA varchar2(64) not null);\ninsert into {T}_IDENT values(1,'{TARGET}','{identity}','{e['schemaSha256']}');\ncreate table {T}_APPLIED(EVENT_ID varchar2(80) primary key,PAYLOAD_SHA varchar2(64) not null,BEFORE_IMAGE varchar2(4000),AFTER_IMAGE varchar2(4000),OPERATION varchar2(16) not null);\ncreate table {T}_MEMBERS(BATCH_SHA varchar2(64),ORDINAL number,EVENT_ID varchar2(80) references {T}_APPLIED(EVENT_ID),primary key(BATCH_SHA,ORDINAL),unique(BATCH_SHA,EVENT_ID));\ncreate table {T}_COMMITS(BATCH_SHA varchar2(64) primary key,TARGET_ID varchar2(128) not null,SCHEMA_SHA varchar2(64) not null,EVENTS_COUNT number not null);\ncommit;")
   window='lob-'+kind.lower();binding=dict(baselinePath=None,capturePaths=['/evidence/inputs/'+p.name for p in captures],evidence=e,envelopesSha256=prepared['envelopesSha256'],acquisitionId=ACQ,inputFormat='RAW_MEMBER')
-  sql(kind+'-enroll',f"alter session set container=ORKPDB;\ninsert into {U}.SH_ORACLE_INPUT_BINDING values(19601,'{SOURCE}','{window}',1,{len(captures)},'v3-history-consumer','{e['schemaSha256']}','APPROVED_BOUNDED',"+clob(binding)+f",systimestamp,'owned-normal-LOB');\ninsert into {U}.SH_CAP_WINDOW(ID,SOURCE_ID,ENGINE_TYPE,WINDOW_KEY,ISSUE_SEQ_START,ISSUE_SEQ_END,HEAD_PATH,FROZEN,FILE_SHA256,TOTAL_SIZE,DROPPED_SEGMENTS,STATUS,REGISTERED_AT) values(19602,'{SOURCE}','oracle','{window}',1,{len(captures)},'/evidence/inputs/97.raw',1,'97.raw {sha(old)}',{sum(p.stat().st_size for p in captures)},0,'PENDING',systimestamp);\ncommit;")
+  hashes='\n'.join(p.name+' '+sha(p) for p in captures)
+  sql(kind+'-enroll',f"alter session set container=ORKPDB;\ninsert into {U}.SH_ORACLE_INPUT_BINDING values(19601,'{SOURCE}','{window}',1,{len(captures)},'v3-history-consumer','{e['schemaSha256']}','APPROVED_BOUNDED',"+clob(binding)+f",systimestamp,'owned-normal-LOB');\ninsert into {U}.SH_CAP_WINDOW(ID,SOURCE_ID,ENGINE_TYPE,WINDOW_KEY,ISSUE_SEQ_START,ISSUE_SEQ_END,HEAD_PATH,FROZEN,FILE_SHA256,TOTAL_SIZE,DROPPED_SEGMENTS,STATUS,REGISTERED_AT) values(19602,'{SOURCE}','oracle','{window}',1,{len(captures)},'/evidence/inputs/97.raw',1,'{hashes}',{sum(p.stat().st_size for p in captures)},0,'PENDING',systimestamp);\ncommit;")
   for attempt in range(60):
    status=sql(f'{kind}-wait-{attempt}',f"alter session set container=ORKPDB;\nselect 'BATCH|'||STATE||'|'||RC||'|'||EVENT_COUNT from {U}.SH_PIPELINE_BATCH where WINDOW_KEY='{window}';")
    if 'BATCH|PUBLISHED|0|1' in status:break
@@ -112,7 +129,8 @@ for i in 0..trunc((dbms_lob.getlength(r.CHECKPOINT_JSON)-1)/1000) loop dbms_outp
   for attempt in range(30):
    if ack.exists():break
    time.sleep(1)
-  assert ack.read_bytes()==raw and checkpoint['oracleEvidence']==e
+  assert e['schemaSequenceSha256'] is None and e['eventSchemas']==[]
+  assert ack.read_bytes()==raw and dict(checkpoint['oracleEvidence'],eventSchemas=[],schemaSequenceSha256=None)==e
   proof=dict(storage=kind,acquisition=acquired,events=1,target=[1,1,1],mismatches=0,cpAckSha256=sha(ack),checkpoint=checkpoint,independentTargetAccepted=False)
   (N/(kind+'-normal-proof.json')).write_text(json.dumps(proof,indent=2));proofs.append(proof)
   run(kind+'-helper-logs',['docker','logs',HELPER]);run(kind+'-helper-stop',['docker','stop','-t','20',HELPER]);run(kind+'-helper-remove',['docker','rm',HELPER]);helper=False
