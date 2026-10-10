@@ -32,7 +32,9 @@ public record IndexUndoPair(long containerUid,long containerId,Forward forward,I
             throw new RedoException("UNSUPPORTED_INDEX_FORWARD_MODE");
         HeapRowPatch.Xid xid=null;
         int offset;
-        if (((ktb[0]&255)==1 && ktb.length==24) || ((ktb[0]&255)==17 && ktb.length==70)) {
+        // Owned seq102 SYS I_COL1: native F owner plus two historical cleanout entries; only F owns this operation.
+        boolean dictionaryTwoCleanout=dictionary && ktb.length==80 && ktb[44]==2 && ktb[45]==2 && ktb[46]==0x0d;
+        if (((ktb[0]&255)==1 && ktb.length==24) || ((ktb[0]&255)==17 && (ktb.length==70 || dictionaryTwoCleanout))) {
             xid=new HeapRowPatch.Xid(u16(ktb,8),u16(ktb,10),u32(ktb,12)); offset=16;
         } else if ((ktb[0]&255)==2 && ktb.length==16) offset=8;
         else throw new RedoException("UNSUPPORTED_INDEX_FORWARD_KTB");

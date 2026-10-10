@@ -2,13 +2,13 @@ package com.streamhouse.oracle;
 
 import static com.streamhouse.oracle.RedoBytes.*;
 
-/** Observed COL$ cluster-key SKL pair. Neither dictionary scope exclusion nor transaction closure authority. */
+/** Observed SYS cluster-key SKL pair. Neither dictionary scope exclusion nor transaction closure authority. */
 public record DictionaryClusterLinkPair(long containerUid,long containerId,FrozenHeapBaseline.ObjectRole role,
                                        UndoHeader identity,Link forward,Link inverse) {
     public record Link(int direction,long block,int slot,long linkBlock,int linkSlot,int lock) {}
     public static DictionaryClusterLinkPair bind(RedoRecords.Record record,RedoRecords.Vector row,
                                                   FrozenHeapBaseline.ObjectRole role)throws RedoException {
-        if(!role.owner().equals("SYS") || !role.name().equals("COL$") || record.vectors().size()!=2
+        if(!role.owner().equals("SYS") || !(role.name().equals("COL$") || role.name().equals("TAB$")) || record.vectors().size()!=2
                 || record.vectors().get(1)!=row || row.opcodeMajor()!=11 || row.opcodeMinor()!=10 || row.fields().size()!=2)
             throw new RedoException("UNSUPPORTED_DICTIONARY_CLUSTER_LINK_PAIR");
         var undo=record.vectors().get(0);

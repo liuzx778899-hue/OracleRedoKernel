@@ -23,6 +23,16 @@ class DictionaryIndexUndoPairTest {
         assertEquals(new HeapRowPatch.Xid(10,18,2272),p.physical().undo().identity().xid());
         assertThrows(RedoException.class,()->IndexUndoPair.bind(record(u,r),r));
     }
+    @Test void twoEntryCleanoutKeepsCurrentOwnerAndRefusesUnknownProfile()throws Exception {
+        var base=row();var u=undo();
+        byte[] ktb=hex("110d0000000000000a0004006e1100005708400295013300000000000000000000000000000000000000000002020d00303d2f0000800000020600809a042f0003060080193d2f000000000000000000");
+        System.arraycopy(base.fields().get(0),0,ktb,0,24);ktb[0]=17;
+        var r=new RedoRecords.Vector(10,2,1,9,base.dba(),base.scn(),1,3,List.of(ktb,base.fields().get(1),base.fields().get(2),base.fields().get(3)));
+        var pair=bind(u,r).physical();
+        assertEquals(pair.undo().identity().xid(),pair.forward().xid());assertEquals(pair.undo().identity().uba(),pair.forward().uba());
+        assertThrows(RedoException.class,()->IndexUndoPair.bind(record(r,u),r));
+        ktb[45]=3;assertThrows(RedoException.class,()->bind(u,r));
+    }
     @Test void inlineNumberKeySupportsSparseInsertAndRestoreFieldsOnlyInScopedPath()throws Exception {
         var u=new RedoRecords.Vector(5,1,22,11,37749054,2522910,1,3,List.of(
                 hex("680016122200000003001e00c1020000b4012700"),hex("310000003100000000000000000000000a161e260000c102"),

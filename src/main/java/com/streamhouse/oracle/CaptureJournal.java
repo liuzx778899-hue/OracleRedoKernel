@@ -44,7 +44,7 @@ public final class CaptureJournal {
             byte[] header=blocks.get(1),next=other.blocks.get(1);
             // Only these differences were observed in the owned 19c closed-member snapshots.
             for (int i=0;i<512;i++)
-                if (i!=14 && i!=15 && i!=36 && i!=172 && header[i]!=next[i]) return false;
+                if (i!=14 && i!=15 && i!=36 && i!=37 && i!=172 && header[i]!=next[i]) return false;
             for (int i=2;i<blocks.size();i++)
                 if (!Arrays.equals(blocks.get(i),other.blocks.get(i))) return false;
             return true;

@@ -46,6 +46,16 @@ class HistoricalSchemaBarrierTest {
         var e=assertThrows(RedoException.class,()->HistoricalSchemaBarrier.requireUnchanged(record(2501918,677737149,v),snapshot));
         assertEquals("UNSUPPORTED_HISTORICAL_SCHEMA_MARKER",e.getMessage());
     }
+    @Test void observedSingleIndexMarkerStillRefusesTargetAndUnknownSecondaryProfile()throws Exception {
+        var v=marker();v.fields().set(0,HexFormat.of().parseHex("e02e000009000100ac0300003f0002000000010001000000"));
+        v.fields().set(3,HexFormat.of().parseHex("000000004100000000000000"));
+        v.fields().set(8,"SYS".getBytes(StandardCharsets.UTF_8));v.fields().set(9,"I_OBJ#_INTCOL#".getBytes(StandardCharsets.UTF_8));
+        v.fields().set(10,HexFormat.of().parseHex("020000003f0000000000000000000000ffff0100"));v.fields().set(11,new byte[0]);
+        HistoricalSchemaBarrier.requireUnchanged(record(2501918,677737149,v),snapshot);
+        java.nio.ByteBuffer.wrap(v.fields().get(3)).order(java.nio.ByteOrder.LITTLE_ENDIAN).putInt(4,(int)snapshot.index().logicalObject());refuse(v);
+        v.fields().get(10)[12]=1;
+        assertEquals("UNSUPPORTED_HISTORICAL_SCHEMA_MARKER",assertThrows(RedoException.class,()->HistoricalSchemaBarrier.requireUnchanged(record(2501918,677737149,v),snapshot)).getMessage());
+    }
     RedoRecords.Vector multipleObjectMarker() {
         var v=marker();v.fields().set(3,HexFormat.of().parseHex("6c0000008832010001000000"));
         v.fields().set(8,"OTHER".getBytes(StandardCharsets.UTF_8));v.fields().set(9,new byte[0]);

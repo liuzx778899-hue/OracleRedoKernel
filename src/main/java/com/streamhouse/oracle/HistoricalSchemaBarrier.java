@@ -44,7 +44,7 @@ final class HistoricalSchemaBarrier {
         if(vector.opcodeMajor()!=24)throw new RedoException("NOT_SCHEMA_FAMILY_MARKER");
         if(vector.opcodeMinor()==1) {
             if(fields.size()!=46 || fields.get(0).length!=24 || u32(fields.get(0),0)!=0x2ee0 || fields.get(3).length!=12
-                    || (fields.get(11).length!=4 && !observedTriggerMarker(fields) && !observedMultipleObjects(fields)))
+                    || (fields.get(11).length!=4 && !observedTriggerMarker(fields) && !observedIndexMarker(fields) && !observedMultipleObjects(fields)))
                 throw new RedoException("UNSUPPORTED_HISTORICAL_SCHEMA_MARKER");
         } else if(vector.opcodeMinor()==4) {
             if((record.validity()!=1 && record.validity()!=5) || record.vectors().size()!=1 || vector.blockClass()!=0 || vector.file()!=0 || vector.dba()!=0 || vector.scn()!=0 || vector.sequence()!=0
@@ -66,6 +66,14 @@ final class HistoricalSchemaBarrier {
                 && u32(fields.get(3),0)==0 && u32(fields.get(3),4)>0 && u32(fields.get(3),8)==0
                 && fields.get(10).length==20 && u32(fields.get(10),4)==59
                 && fields.get(4).length==0 && fields.get(12).length==0 && fields.get(13).length==0
+                && fields.get(8).length>0 && fields.get(9).length>0;
+    }
+    /** Seq102 native-matched 24.1 records carry one primary index identity and no secondary arrays. */
+    private static boolean observedIndexMarker(java.util.List<byte[]> fields) {
+        return u16(fields.get(0),12)==63 && u16(fields.get(0),14)==2
+                && u32(fields.get(3),0)==0 && u32(fields.get(3),4)>0 && u32(fields.get(3),8)==0
+                && Arrays.equals(fields.get(10),java.util.HexFormat.of().parseHex("020000003f0000000000000000000000ffff0100"))
+                && fields.get(11).length==0 && fields.get(12).length==0 && fields.get(13).length==0
                 && fields.get(8).length>0 && fields.get(9).length>0;
     }
     /** Seq92 native-matched markers carry two object identities and parallel flag arrays. */

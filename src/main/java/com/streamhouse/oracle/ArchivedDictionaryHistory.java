@@ -415,12 +415,51 @@ public final class ArchivedDictionaryHistory {
         }
         if(fields.size()<4 || fields.get(3).length<20)throw new RedoException("UNREADABLE_DICTIONARY_DISCOVERY_ROW");
         byte[] k=fields.get(3);int op=k[10]&255,slot;
+        if(role.name().equals("TAB$") && (op==10 || op==6 || op==2 && k.length==54))
+            return affectsObservedTabCluster(r,undo,role,snapshot);
         if(op==5 && (k.length==29 || k.length==30))slot=u16(k,20);
         else if((op==3 || op==4) && k.length==20)slot=u16(k,16);
         else if(op==2 && (k.length==49 || k.length==52))slot=u16(k,42);
         else throw new RedoException("UNSUPPORTED_DICTIONARY_DISCOVERY_ROW");
         var key=new ArchivedHeapRows.RowKey(role.dataObject(),u32(k,0),slot);
         return snapshot.dictionaryAnchors().stream().anyMatch(a->a.dictionary().equals(role) && a.key().equals(key));
+    }
+    // Seq102 native diagnostics locate these physical operations. This only selects scope;
+    // an operation touching an anchor still requires the existing complete history parser.
+    static boolean affectsObservedTabCluster(RedoRecords.Record r,RedoRecords.Vector undo,FrozenHeapBaseline.ObjectRole role,FrozenHeapBaseline.Snapshot snapshot)throws RedoException {
+        var fields=undo.fields();byte[] k=fields.get(3);int op=k[10]&255;
+        if(!role.owner().equals("SYS") || !role.name().equals("TAB$") || u32(k,0)==0 || k[11]!=1 || k[12]==0 || k[13]!=0 || u16(k,14)!=0)
+            throw new RedoException("UNSUPPORTED_DICTIONARY_DISCOVERY_ROW");
+        if(op==10) {
+            if(r.vectors().size()!=2)throw new RedoException("UNSUPPORTED_DICTIONARY_DISCOVERY_ROW");
+            var pair=DictionaryClusterLinkPair.bind(r,r.vectors().get(1),role);
+            return touchesClusterAnchor(snapshot,role,pair.forward().block(),pair.forward().slot())
+                    || touchesClusterAnchor(snapshot,role,pair.forward().linkBlock(),pair.forward().linkSlot())
+                    || touchesClusterAnchor(snapshot,role,pair.inverse().linkBlock(),pair.inverse().linkSlot());
+        }
+        if(k.length!=54 || k[16]!=0x6c || k[18]!=44 || k[44]!=1 || fields.size()!=48)
+            throw new RedoException("UNSUPPORTED_DICTIONARY_DISCOVERY_ROW");
+        int slot=u16(k,42);boolean selected=touchesClusterAnchor(snapshot,role,u32(k,0),slot);
+        if(op==2)return selected;
+        if(op!=6 || r.vectors().size()!=2)throw new RedoException("UNSUPPORTED_DICTIONARY_DISCOVERY_ROW");
+        var row=r.vectors().get(1);
+        if(row.opcodeMajor()!=11 || row.opcodeMinor()!=6 || row.containerId()!=undo.containerId() || row.fields().size()!=2)
+            throw new RedoException("UNSUPPORTED_DICTIONARY_DISCOVERY_ROW");
+        var h=UndoHeader.decode(undo);byte[] ktb=row.fields().get(0);
+        if(ktb.length!=16 || ktb[0]!=2 || ktb[1]!=0x0d || u32(ktb,8)!=h.uba().dba()
+                || u16(ktb,12)!=h.uba().sequence() || (ktb[14]&255)!=h.uba().record()
+                || h.objectId()!=role.logicalObject() || h.dataObjectId()!=role.dataObject())
+            throw new RedoException("DICTIONARY_DISCOVERY_ROW_IDENTITY_CONFLICT");
+        byte[] next=row.fields().get(1);
+        if(next.length!=48 || u32(next,0)!=u32(k,0) || row.dba()!=u32(k,0) || next[10]!=6 || next[11]!=1
+                || next[12]!=k[12] || next[13]!=0 || u16(next,14)!=0 || next[16]!=0x20 || next[18]!=0
+                || next[44]!=1 || u16(next,42)!=slot || u32(next,28)==0)
+            throw new RedoException("UNSUPPORTED_DICTIONARY_DISCOVERY_ROW");
+        return selected || touchesClusterAnchor(snapshot,role,u32(next,28),u16(next,32));
+    }
+    private static boolean touchesClusterAnchor(FrozenHeapBaseline.Snapshot snapshot,FrozenHeapBaseline.ObjectRole role,long block,int slot) {
+        return snapshot.dictionaryAnchors().stream().anyMatch(a->a.key().dataObjectId()==role.dataObject()
+                && a.key().dba()==block && a.key().slot()==slot);
     }
     private static void controls(ArchivedRedo.Header header,RedoRecords.Record r,Context c,FrozenHeapBaseline.Snapshot snapshot)throws RedoException {
         var first=c.inventory.entries().get(0);boolean initial=first.position().archiveSequence()==header.sequence() && first.position().block()==r.block() && first.position().offset()==r.offset();
