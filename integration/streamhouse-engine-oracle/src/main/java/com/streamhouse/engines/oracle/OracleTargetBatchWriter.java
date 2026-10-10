@@ -181,7 +181,7 @@ public final class OracleTargetBatchWriter {
                 else if(value instanceof OracleLobValue) {
                     predicates.add("(dbms_lob.getlength("+name+")=dbms_lob.getlength(?) and dbms_lob.compare("+name+",?)=0)");
                     beforeArgs.add(value);beforeArgs.add(value);
-                } else {predicates.add(name+"=?");beforeArgs.add(value);}
+                } else predicates.add(name+"="+valueSql(value,beforeArgs));
             }
             String where=String.join(" and ",predicates);
             if (where.isEmpty()) throw new SQLException("ORACLE_TARGET_MISSING_BEFORE");
@@ -205,6 +205,11 @@ public final class OracleTargetBatchWriter {
     }
     private static String valueSql(Object value,List<Object> args) {
         if(value instanceof OracleLobValue lob && lob.hex().isEmpty())return lob.type().equals("BLOB")?"empty_blob()":"empty_clob()";
+        if(value instanceof OracleTemporalValue temporal && temporal.localDateTime().getYear()<=0) {
+            args.add(temporal.bcText());
+            return temporal.type().equals("DATE")?"to_date(?, 'YYYY-MM-DD\"T\"HH24:MI:SS BC')"
+                    :"to_timestamp(?, 'YYYY-MM-DD\"T\"HH24:MI:SS.FF9 BC')";
+        }
         args.add(value);return "?";
     }
     private static String image(Map<String,Object> values) {

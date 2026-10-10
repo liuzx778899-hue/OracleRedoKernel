@@ -10,6 +10,14 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class FrozenHeapBaselineTest {
     @TempDir Path directory;
+    @Test void implicitPrimaryKeyNullFlagRetainsNonNullMetadataAndRejectsContradictions()throws Exception {
+        String implicit=dictionarySample().replace("DICT_COLUMN|1|1|ID|2|2|0","DICT_COLUMN|1|1|ID|2|1|0");
+        assertNotEquals(dictionarySample(),implicit);
+        assertFalse(read(implicit).columns().get(0).nullable());
+        assertFalse(OracleColumnTypes.nullable(1));assertFalse(OracleColumnTypes.nullable(2));assertTrue(OracleColumnTypes.nullable(0));
+        assertThrows(RedoException.class,()->read(implicit.replace("DICT_COLUMN|1|1|ID|2|1|0","DICT_COLUMN|1|1|ID|2|3|0")));
+        assertThrows(RedoException.class,()->read(implicit.replace("COLUMN|BEFORE|1|1|ID|NUMBER|N","COLUMN|BEFORE|1|1|ID|NUMBER|Y")));
+    }
     String sample() {
         return """
                 FORMAT|ORK_HEAP_SNAPSHOT_V1

@@ -7,6 +7,12 @@ public final class OracleColumnTypes {
         return (hidden?17179869216L:0) | (type.equals("BLOB") || type.equals("CLOB")?128:0);
     }
     private OracleColumnTypes() {}
+    /** Observed COL$ NULL$: 1 is the implicit primary-key non-null form, 2 explicit NOT NULL. */
+    public static boolean nullable(long flag)throws RedoException {
+        if(flag==0)return true;
+        if(flag==1 || flag==2)return false;
+        throw new RedoException("UNSUPPORTED_COLUMN_NULL_FLAG");
+    }
     public static int oracleId(String type)throws RedoException {
         return switch(type) {
             case "VARCHAR2"->1;

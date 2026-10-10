@@ -21,4 +21,8 @@ public record OracleTemporalValue(String type,String iso) {
         return new OracleTemporalValue(type,value.format(format(type)));
     }
     public LocalDateTime localDateTime() {return LocalDateTime.parse(iso,format(type));}
+    public String bcText() {
+        var value=localDateTime();if(value.getYear()>0)throw new IllegalArgumentException("BC_VALUE_REQUIRED");
+        return value.format(DateTimeFormatter.ofPattern(type.equals("DATE")?"yyyy-MM-dd'T'HH:mm:ss":"yyyy-MM-dd'T'HH:mm:ss.SSSSSSSSS"))+" BC";
+    }
 }

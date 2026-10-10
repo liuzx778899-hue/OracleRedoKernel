@@ -48,6 +48,17 @@ public final class OracleSnapshotAcquirer {
     private static List<String> columns(Connection c,Scope s) throws SQLException {
         return query(c,"select segment_column_id||'|'||internal_column_id||'|'||column_name||'|'||data_type||'|'||nullable||'|'||hidden_column||'|'||virtual_column from dba_tab_cols where owner='"+s.owner()+"' and table_name='"+s.table()+"' order by segment_column_id");
     }
+    /** Oracle JDBC datum bytes preserve BC and fractional seconds without a Java calendar conversion. */
+    static byte[] temporalBytes(ResultSet rows,int column,String type)throws Exception {
+        var api=Class.forName("oracle.jdbc.OracleResultSet");
+        var oracleRows=rows.unwrap(api);
+        var datum=api.getMethod(type.equals("DATE")?"getDATE":"getTIMESTAMP",int.class).invoke(oracleRows,column);
+        if(datum==null)return null;
+        byte[] bytes=(byte[])Class.forName("oracle.sql.Datum").getMethod("getBytes").invoke(datum);
+        if(type.equals("DATE"))com.streamhouse.oracle.OracleScalars.date(bytes);
+        else com.streamhouse.oracle.OracleScalars.timestamp(bytes);
+        return bytes;
+    }
     private static List<String> temporalRows(Connection c,String table,long scn,List<String> columns)throws Exception {
         var expressions=new ArrayList<String>();
         expressions.add("'ROW|'||dbms_rowid.rowid_object(rowid)||'|'||dbms_rowid.rowid_relative_fno(rowid)||'|'||dbms_rowid.rowid_block_number(rowid)||'|'||dbms_rowid.rowid_row_number(rowid)");
@@ -63,8 +74,8 @@ public final class OracleSnapshotAcquirer {
                 for(int i=0;i<columns.size();i++) {
                     String type=columns.get(i).split("\\|",-1)[3],raw;
                     if(type.equals("DATE") || type.equals("TIMESTAMP")) {
-                        var value=rows.getObject(i+2,java.time.LocalDateTime.class);
-                        raw=value==null?null:HexFormat.of().withUpperCase().formatHex(com.streamhouse.oracle.OracleScalars.temporalBytes(value,type.equals("TIMESTAMP")));
+                        var value=temporalBytes(rows,i+2,type);
+                        raw=value==null?null:HexFormat.of().withUpperCase().formatHex(value);
                     } else if(type.equals("BLOB")) {
                         var lob=rows.getBlob(i+2);raw=null;
                         if(lob!=null)try(var stream=lob.getBinaryStream()) {raw=HexFormat.of().withUpperCase().formatHex(stream.readAllBytes());}finally{lob.free();}
@@ -156,9 +167,12 @@ public final class OracleSnapshotAcquirer {
                     dictionaryFrames.addAll(anchors);
                 }
                 var historicalColumns=query(c,"select 'DICT_COLUMN|'||intcol#||'|'||segcol#||'|'||name||'|'||type#||'|'||null$||'|'||property from SYS.COL$ as of scn "+scn+" where obj#="+heapId+" order by segcol#");
+                if(historicalColumns.size()!=before.size())throw new SQLException("SNAPSHOT_HISTORICAL_COLUMNS_MISMATCH");
                 var wantedColumns=new ArrayList<String>();
-                for(String col:before) {
-                    var f=col.split("\\|",-1);wantedColumns.add("DICT_COLUMN|"+f[1]+"|"+f[0]+"|"+f[2]+"|"+com.streamhouse.oracle.OracleColumnTypes.oracleId(f[3])+"|"+(f[4].equals("Y")?0:2)+"|"+com.streamhouse.oracle.OracleColumnTypes.property(f[3],f[5].equals("YES")));
+                for(int i=0;i<before.size();i++) {
+                    var f=before.get(i).split("\\|",-1);var actual=historicalColumns.get(i).split("\\|",-1);
+                    if(actual.length!=7 || com.streamhouse.oracle.OracleColumnTypes.nullable(Long.parseLong(actual[5]))!=f[4].equals("Y"))throw new SQLException("SNAPSHOT_HISTORICAL_COLUMNS_MISMATCH");
+                    wantedColumns.add("DICT_COLUMN|"+f[1]+"|"+f[0]+"|"+f[2]+"|"+com.streamhouse.oracle.OracleColumnTypes.oracleId(f[3])+"|"+actual[5]+"|"+com.streamhouse.oracle.OracleColumnTypes.property(f[3],f[5].equals("YES")));
                 }
                 if(!historicalColumns.equals(wantedColumns))throw new SQLException("SNAPSHOT_HISTORICAL_COLUMNS_MISMATCH");
                 dictionaryFrames.addAll(historicalColumns);

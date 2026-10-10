@@ -134,8 +134,12 @@ public final class FrozenHeapBaseline {
                     if(selected.size()!=expected || (dict.name().equals("OBJ$") && selected.stream().map(DictionaryAnchor::targetObject).distinct().count()!=2))
                         throw new RedoException("SNAPSHOT_DICTIONARY_ANCHOR_COVERAGE");
                 }
-                for(var c:columns) input.exact("DICT_COLUMN|"+c.internal()+"|"+c.segment()+"|"+c.name()+"|"
-                        +OracleColumnTypes.oracleId(c.type())+"|"+(c.nullable()?0:2)+"|"+OracleColumnTypes.property(c.type(),c.hidden()));
+                for(var c:columns) {
+                    var f=input.take("DICT_COLUMN",7);
+                    if(!String.join("|",java.util.Arrays.copyOf(f,5)).equals("DICT_COLUMN|"+c.internal()+"|"+c.segment()+"|"+c.name()+"|"+OracleColumnTypes.oracleId(c.type()))
+                            || OracleColumnTypes.nullable(Long.parseLong(f[5]))!=c.nullable()
+                            || Long.parseLong(f[6])!=OracleColumnTypes.property(c.type(),c.hidden()))throw new RedoException("SNAPSHOT_DICTIONARY_COLUMN_MISMATCH");
+                }
             }
             DictionaryBaseline dictionaryBaseline=null;
             if(history) {

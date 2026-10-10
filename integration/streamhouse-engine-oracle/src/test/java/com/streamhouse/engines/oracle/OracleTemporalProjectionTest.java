@@ -15,6 +15,8 @@ class OracleTemporalProjectionTest {
         assertEquals(new OracleTemporalValue("DATE","-0043-03-15T12:34:56"),image.get("D"));
         assertEquals(new OracleTemporalValue("TIMESTAMP","0000-01-01T00:00:00.000000001"),image.get("TS"));
         assertEquals(LocalDateTime.of(0,1,1,0,0,0,1),((OracleTemporalValue)image.get("TS")).localDateTime());
+        assertEquals("0044-03-15T12:34:56 BC",((OracleTemporalValue)image.get("D")).bcText());
+        assertEquals("0001-01-01T00:00:00.000000001 BC",((OracleTemporalValue)image.get("TS")).bcText());
         assertThrows(IllegalArgumentException.class,()->OracleTemporalValue.of("DATE",LocalDateTime.of(-4712,1,1,0,0)));
     }
     @Test void keepsTypeWallClockNanosecondsAndNull()throws Exception {

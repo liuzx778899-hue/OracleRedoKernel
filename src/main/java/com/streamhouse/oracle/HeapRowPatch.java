@@ -156,13 +156,14 @@ public final class HeapRowPatch {
                     && fields.get(2).length==2 && u16(fields.get(2),0)==2 && fields.get(3).length>=2
                     && (fields.get(3)[0]&255)>=1 && (fields.get(3)[0]&255)<=250
                     && (fields.get(3)[0]&255)==fields.get(3).length-1;
-            // Seq96: two contiguous suffix values share one self-sized XA/XR value stream.
-            boolean packedSuffixTwo=packed && stored==3 && dictionaryColumns==3 && count==2 && delta==0
+            // Seq96 and seq110: contiguous suffix values share one self-sized XA/XR value stream.
+            boolean packedSuffix=packed && stored==dictionaryColumns && delta==0
+                    && (stored==3 && count==2 || stored==6 && count==5)
                     && u16(kdo,26)==3 && fields.size()==4 && fields.get(2).length==2 && u16(fields.get(2),0)==1;
-            if(packedSuffixTwo) {
+            if(packedSuffix) {
                 if((kdo[16]&255)!=0x2c)throw new RedoException("UNSUPPORTED_UPDATE_ROWPIECE");
                 byte[] values=fields.get(3);int at=0;
-                for(int index=1;index<=2;index++) {
+                for(int index=1;index<=count;index++) {
                     if(at>=values.length)throw new RedoException("UNSUPPORTED_KDOM2_VALUE_LENGTH");
                     int length=values[at++]&255;
                     if(length<1 || length>250 || at+length>values.length)throw new RedoException("UNSUPPORTED_KDOM2_VALUE_LENGTH");

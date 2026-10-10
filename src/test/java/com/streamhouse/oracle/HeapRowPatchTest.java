@@ -12,6 +12,21 @@ class HeapRowPatchTest {
     static final String URP="8300000382000003fa120501020000002c02120000000401ffff000000";
     static final String C="020d10000c000000be2c4002f2001c00";
     byte[] hex(String s) { return HexFormat.of().parseHex(s); }
+    @Test void observedSixColumnPackedTemporalSuffixKeepsAllFiveValues()throws Exception {
+        // Preserve seq110 suffix encoding; relocate its block to this test fixture address.
+        String kdo="8300000382000003fa1205810200ffff2c0212000000060500000300";
+        String values="076438030f0d2339076438030f0d233a0b6438030f0d23393ae3af000b6438030f0d23393ade67700b6463010101010100000001";
+        var p=new HeapRowPatch().decode(vector(5,F,kdo,"0100",values),6);
+        assertEquals(HeapRowPatch.State.ABSENT,p.columns().get(0).state());
+        assertEquals(java.time.LocalDateTime.of(-43,3,15,12,34,56),OracleScalars.date(p.columns().get(1).bytes()));
+        assertEquals(57,OracleScalars.timestamp(p.columns().get(2).bytes()).getSecond());
+        assertEquals(988000000,OracleScalars.timestamp(p.columns().get(3).bytes()).getNano());
+        assertEquals(987654000,OracleScalars.timestamp(p.columns().get(4).bytes()).getNano());
+        assertEquals(java.time.LocalDateTime.of(0,1,1,0,0,0,1),OracleScalars.timestamp(p.columns().get(5).bytes()));
+        assertThrows(RedoException.class,()->new HeapRowPatch().decode(vector(5,F,kdo,"0100",values+"00"),6));
+        assertThrows(RedoException.class,()->new HeapRowPatch().decode(vector(5,F,kdo,"0200",values),6));
+        assertThrows(RedoException.class,()->new HeapRowPatch().decode(vector(5,F,kdo,"0100",values.substring(0,values.length()-2)),6));
+    }
     RedoRecords.Vector vector(int op,String... fields) {
         return new RedoRecords.Vector(11,op,1,12,0x03000083,2148761,1,3,
                 Arrays.stream(fields).map(this::hex).toList());

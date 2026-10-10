@@ -1,5 +1,7 @@
 # OracleRedoKernel 当前状态
 
+2026-10-11 BC/精度正常JDBC链：原生datum获取、raw110后缀布局与隐式PK NULL$1补齐；基线后1完整UPDATE，44BC/1BC及精度0/3/6/9独立SQL差异0，真实首次1/重试0、目标1/1/1/1六列差集0；BC再获取原始字节差异0。内核84774209/适配器6ce27a89、相关40＋7项通过，库停/helper删除；区域/LTZ上下文、新HTTP CPACK与其余五项缺口继续，D5搁置。[反馈](DELIVERY_BC_PRECISION_JDBC_20261011.md)。
+
 2026-10-11 时间变体首包：专属raw109 3行/24字段字节核等，BC/精度0/3/6/9及偏移时区18解析值/SQL差异0；内核03135a33/适配器d2c561a4，35内核回归＋2投影测试通过，源停rc0/Desktop停止。BC纪年/纳秒/偏移解析和非LOB九列IRP补齐；获取层、region/LTZ上下文、完整事件/真实目标/HTTP CPACK待补，不能标时间类型完整支持。其余五项目标继续，D5搁置。[字节解析反馈](DELIVERY_TEMPORAL_VARIANTS_SCALARS_20261011.md)。
 
 2026-10-11 ARRAY回滚首包：raw108完整入口输出20唯一INSERT、仅ID200–219，完整值差异0/撤销事件0；整笔回滚与保存点撤销完整节点通过。113受影响回归及最终补偿门禁13项相关复查失败0，旧raw107 envelope未变；候选5f459036888a。仅离线开发，库保持停止；部分行补偿/pending恢复、同SCN恢复发布、LOB历史回收、时间类型及新产品接线继续，D5搁置。[首包反馈](DELIVERY_ARRAY_ROLLBACK_20261011.md)。
