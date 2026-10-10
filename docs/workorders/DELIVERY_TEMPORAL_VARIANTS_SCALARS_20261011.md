@@ -17,3 +17,11 @@
 复现：Java17构建内核后 `py -3.12 lab/temporal_variants_verify.py verify-next`，新输出目录，读取冻结raw和独立真值；不能重放 source 脚本。SQL/native只作尺子，均不成为事件输入；24字节核等不等于24种类型完整事件链通过。
 
 接续：获取层目前按LocalDateTime编码，需保证BC、纳秒及区域/本地时区获取无信息损失；region时区、LTZ源上下文、完整事件、目标提交和HTTP checkpoint/ACK待补。当前适配器只证明BC类型投影，实际BC JDBC写入尚未验证。完成五项后统一更新固定依赖、合并main及部署清单，不要求执行方现在重新部署本包。ARRAY部分行补偿/pending恢复、同commitSCN恢复发布、LOB历史/代际/安全回收继续，D5不作为门槛。
+
+## 区域/LTZ上下文接续（2026-10-11）
+
+只读复用原三行/原raw109，OracleResultSet原生TSTZ/LTZ datum字节在+00:00和+05:30两个独立会话下均与原raw核等：18字段/差异0、源DML0；确认COL$181/231/property0，源DBTZ +00:00/timezlrg_32.dat，Oracle JDBC与源库时区名称交集取得595区域映射，382=Europe/Paris。没有通过Java TZDB推断Oracle DST。源停/helper自动删除/Desktop停止。
+
+内核新增OracleTimeZoneContext及V4可信基线帧：区域映射/DBTZ/时区文件版本绑定schema SHA；未知区域、重复/乱序编号、前后上下文变化、没有V4上下文的时区列拒绝。TSTZ保留UTC+偏移/区域，LTZ保留数据库墙钟+DBTZ；原V1–V3字段与schema摘要保持原路径。冻结Paris冬令/夏令/秋季及BC值、上下文/基线/相关批次37测试错误/失败0；这是内核与获取字节前置，正式OracleSnapshotAcquirer V4输出、时区投影、目标原生datum写入及HTTP/CPACK尚未接通，不标完整支持。
+
+开发kernel SHA256 `3a7c1ad198bd1fe95ff8a369ecc83b65559113c2a433c10afe3ee392d9e8c851`；证据 `lab/out/temporal-variants-20261011/context-r1/proof.json`，context输出SHA256 `42b407aac8363c2e9158613fbed72ab50c7e9b31bcfea6a926f1f15f98aab42f`。只读复核脚本tz_context_verify.py；原始大字节与凭据不入Git。Oracle官方TIMESTAMPTZ字节构造及原生方法契约：[JDBC API](https://docs.oracle.com/en/database/oracle/oracle-database/21/jajdb/oracle/sql/TIMESTAMPTZ.html)，源端LTZ会话初始化依据[Oracle Extensions](https://docs.oracle.com/en/database/oracle/oracle-database/21/jjdbc/Oracle-extensions.html)。

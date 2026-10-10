@@ -20,6 +20,8 @@ public final class OracleColumnTypes {
             case "DATE"->12;
             case "RAW"->23;
             case "TIMESTAMP"->180;
+            case "TIMESTAMP WITH TIME ZONE"->181;
+            case "TIMESTAMP WITH LOCAL TIME ZONE"->231;
             case "CLOB"->112;
             case "BLOB"->113;
             default->throw new RedoException("UNSUPPORTED_BUSINESS_COLUMN_TYPE");
@@ -33,6 +35,8 @@ public final class OracleColumnTypes {
             case 12->"DATE";
             case 23->"RAW";
             case 180->"TIMESTAMP";
+            case 181->"TIMESTAMP WITH TIME ZONE";
+            case 231->"TIMESTAMP WITH LOCAL TIME ZONE";
             case 112->"CLOB";
             case 113->"BLOB";
             default->throw new RedoException("UNSUPPORTED_BUSINESS_COLUMN_TYPE");

@@ -15,8 +15,10 @@ import java.util.List;
 /** Complete fixed-schema captured heap batch. Not a historical dictionary or public CDC authorization. */
 public final class CapturedHeapBatch {
     public record Schema(FrozenHeapBaseline.ObjectRole heap,FrozenHeapBaseline.ObjectRole index,
-                         List<FrozenHeapBaseline.PhysicalColumn> columns,String sha256) {
+                         List<FrozenHeapBaseline.PhysicalColumn> columns,String sha256,OracleTimeZoneContext timeZoneContext) {
         public Schema { columns=List.copyOf(columns); }
+        public Schema(FrozenHeapBaseline.ObjectRole heap,FrozenHeapBaseline.ObjectRole index,
+                      List<FrozenHeapBaseline.PhysicalColumn> columns,String sha256) {this(heap,index,columns,sha256,null);}
     }
     public record Event(String eventId,String payloadSha256,ArchivedUndoInventory.Position pairedUndoPosition,
                         TransactionLifecycle.ClosedIdentity transaction,ArchivedHeapRows.RowKey rowKey,
@@ -55,7 +57,7 @@ public final class CapturedHeapBatch {
         for (var t:physical.transactions()) for (var live:t.graph().live())
             if (owners.putIfAbsent(live.position(),t.identity())!=null)
                 throw new RedoException("CAPTURED_BATCH_POSITION_OWNER_AMBIGUOUS");
-        var schema=new Schema(snapshot.heap(),snapshot.index(),snapshot.columns(),schemaDigest(snapshot));
+        var schema=new Schema(snapshot.heap(),snapshot.index(),snapshot.columns(),schemaDigest(snapshot),snapshot.timeZoneContext());
         var events=new ArrayList<Event>();var ids=new java.util.HashSet<String>();
         for (var change:rows.changes()) {
             var owner=owners.get(change.position());
@@ -76,11 +78,14 @@ public final class CapturedHeapBatch {
         return new CapturedHeapBatch(snapshot,schema,sources,events,batch,leaf);
     }
     static String schemaDigest(FrozenHeapBaseline.Snapshot snapshot) {
-        String fixed=schemaDigest(snapshot.heap(),snapshot.index(),snapshot.columns());
+        String base=schemaDigest(snapshot.heap(),snapshot.index(),snapshot.columns());var context=snapshot.timeZoneContext();
+        String fixed=context==null?base:hash(out->{text(out,"ORK_TIMEZONE_SCHEMA_V1");text(out,base);
+            text(out,context.databaseZone());out.writeInt(context.fileVersion());
+            for(var region:new java.util.TreeMap<>(context.regions()).entrySet()){out.writeInt(region.getKey());text(out,region.getValue());}});
         return snapshot.lobs().isEmpty()?fixed:hash(out->{text(out,fixed);for(var lob:snapshot.lobs())text(out,lob.toString());});
     }
     static CapturedHeapBatch lob(FrozenHeapBaseline.Snapshot snapshot,List<CaptureJournal.Source> captures,List<Event> events,long leaf) {
-        var schema=new Schema(snapshot.heap(),snapshot.index(),snapshot.columns(),schemaDigest(snapshot));
+        var schema=new Schema(snapshot.heap(),snapshot.index(),snapshot.columns(),schemaDigest(snapshot),snapshot.timeZoneContext());
         String batch=hash(out->{text(out,"ORK_TRUSTED_LOB_BATCH_V1");text(out,snapshot.sha256());text(out,schema.sha256());out.writeLong(leaf);
             for(var c:captures)text(out,c.journalSha256());for(var e:events){text(out,e.eventId());text(out,e.payloadSha256());}});
         return new CapturedHeapBatch(snapshot,schema,captures,events,batch,leaf);

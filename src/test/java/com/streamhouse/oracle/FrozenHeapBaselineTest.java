@@ -56,7 +56,9 @@ class FrozenHeapBaselineTest {
         var invalid=new java.util.ArrayList<>(row);invalid.set(2,new ArchivedHeapRows.Cell(HeapRowPatch.State.VALUE,"787c021d183c3bffffffff"));
         assertThrows(RedoException.class,()->ArchivedHeapRows.requireCompleteValues(invalid,snapshot.columns()));
         assertEquals(12,OracleColumnTypes.oracleId("DATE"));assertEquals("TIMESTAMP",OracleColumnTypes.name(180));
-        assertThrows(RedoException.class,()->OracleColumnTypes.name(181));
+        assertEquals("TIMESTAMP WITH TIME ZONE",OracleColumnTypes.name(181));
+        assertEquals("TIMESTAMP WITH LOCAL TIME ZONE",OracleColumnTypes.name(231));
+        assertThrows(RedoException.class,()->OracleColumnTypes.name(182));
     }
     FrozenHeapBaseline.Snapshot read(String text) throws Exception {var p=directory.resolve("snapshot.txt");Files.writeString(p,text);return FrozenHeapBaseline.read(p,digest(text));}
     @Test void keepsPhysicalColumnsAndDistinctHeapIndexGenerations() throws Exception {

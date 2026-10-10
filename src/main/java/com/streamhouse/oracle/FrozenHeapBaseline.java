@@ -20,8 +20,13 @@ public final class FrozenHeapBaseline {
     public record LobColumn(int column,LobLocator.Storage storage,ObjectRole lob,ObjectRole index) {}
     public record Snapshot(String sha256,ArchivedHeapRows.Source source,long scn,ObjectRole heap,ObjectRole index,
                            List<PhysicalColumn> columns,Map<ArchivedHeapRows.RowKey,List<ArchivedHeapRows.Cell>> rows,
-                           List<DictionaryAnchor> dictionaryAnchors,DictionaryBaseline dictionaryBaseline,List<LobColumn> lobs) {
+                           List<DictionaryAnchor> dictionaryAnchors,DictionaryBaseline dictionaryBaseline,List<LobColumn> lobs,OracleTimeZoneContext timeZoneContext) {
         public Snapshot { dictionaryAnchors=List.copyOf(dictionaryAnchors);lobs=List.copyOf(lobs); }
+        public Snapshot(String sha256,ArchivedHeapRows.Source source,long scn,ObjectRole heap,ObjectRole index,
+                        List<PhysicalColumn> columns,Map<ArchivedHeapRows.RowKey,List<ArchivedHeapRows.Cell>> rows,
+                        List<DictionaryAnchor> anchors,DictionaryBaseline dictionary,List<LobColumn> lobs) {
+            this(sha256,source,scn,heap,index,columns,rows,anchors,dictionary,lobs,null);
+        }
         public Snapshot(String sha256,ArchivedHeapRows.Source source,long scn,ObjectRole heap,ObjectRole index,
                         List<PhysicalColumn> columns,Map<ArchivedHeapRows.RowKey,List<ArchivedHeapRows.Cell>> rows,
                         List<DictionaryAnchor> anchors,DictionaryBaseline dictionary) {
@@ -57,12 +62,23 @@ public final class FrozenHeapBaseline {
         for (byte b:bytes) if (b<0) throw new RedoException("UNSUPPORTED_SNAPSHOT_TEXT_ENCODING");
         try {
             var input=new Input(new String(bytes,StandardCharsets.US_ASCII));
-            boolean history=!input.lines.isEmpty() && input.lines.get(0).equals("FORMAT|ORK_HEAP_SNAPSHOT_V3");
+            boolean zoned=!input.lines.isEmpty() && input.lines.get(0).equals("FORMAT|ORK_HEAP_SNAPSHOT_V4");
+            boolean history=zoned || (!input.lines.isEmpty() && input.lines.get(0).equals("FORMAT|ORK_HEAP_SNAPSHOT_V3"));
             boolean dictionary=history || (!input.lines.isEmpty() && input.lines.get(0).equals("FORMAT|ORK_HEAP_SNAPSHOT_V2"));
-            String format=history?"ORK_HEAP_SNAPSHOT_V3":dictionary ? "ORK_HEAP_SNAPSHOT_V2" : "ORK_HEAP_SNAPSHOT_V1";
+            String format=zoned?"ORK_HEAP_SNAPSHOT_V4":history?"ORK_HEAP_SNAPSHOT_V3":dictionary ? "ORK_HEAP_SNAPSHOT_V2" : "ORK_HEAP_SNAPSHOT_V1";
             input.exact("FORMAT|"+format);
             var sourceFields=input.take("SOURCE",7);var pdb=input.take("PDB",4);identifier(pdb[3]);
-            input.exact("CHARSET|AL32UTF8");long scn=positive(input.take("SNAPSHOT_SCN",2)[1]);
+            input.exact("CHARSET|AL32UTF8");OracleTimeZoneContext timeZoneContext=null;
+            if(zoned) {
+                var f=input.take("TZ_CONTEXT",4);if(!f[1].equals("BEFORE"))throw new RedoException("SNAPSHOT_TIMEZONE_PHASE");
+                var regions=new java.util.TreeMap<Integer,String>();int previous=0;
+                while(input.peek("TZ_REGION")) {
+                    var region=input.take("TZ_REGION",3);int id=Math.toIntExact(positive(region[1]));
+                    if(id<=previous)throw new RedoException("SNAPSHOT_TIMEZONE_REGION_ORDER");previous=id;regions.put(id,region[2]);
+                }
+                timeZoneContext=new OracleTimeZoneContext(f[2],Math.toIntExact(positive(f[3])),regions);
+            }
+            long scn=positive(input.take("SNAPSHOT_SCN",2)[1]);
             if (!sourceFields[6].equals("19.0.0")) throw new RedoException("UNSUPPORTED_SNAPSHOT_COMPATIBILITY");
             var source=new ArchivedHeapRows.Source(positive(sourceFields[1]),positive(sourceFields[2]),0x13000000L,
                     Math.toIntExact(positive(sourceFields[5])),positive(sourceFields[3]),positive(sourceFields[4]),positive(pdb[1]),positive(pdb[2]));
@@ -74,12 +90,14 @@ public final class FrozenHeapBaseline {
             while (input.peek("COLUMN")) {
                 var c=input.take("COLUMN",9);if (!c[1].equals("BEFORE")) throw new RedoException("SNAPSHOT_COLUMN_PHASE_MISMATCH");
                 int segment=Math.toIntExact(positive(c[2])),internal=Math.toIntExact(positive(c[3]));identifier(c[4]);
-                if (segment!=columns.size()+1 || internal!=segment || !List.of("NUMBER","VARCHAR2","RAW","DATE","TIMESTAMP","BLOB","CLOB").contains(c[5])
+                if (segment!=columns.size()+1 || internal!=segment || !List.of("NUMBER","VARCHAR2","RAW","DATE","TIMESTAMP","TIMESTAMP WITH TIME ZONE","TIMESTAMP WITH LOCAL TIME ZONE","BLOB","CLOB").contains(c[5])
                         || !List.of("Y","N").contains(c[6]) || !List.of("YES","NO").contains(c[7]) || !c[8].equals("NO"))
                     throw new RedoException("UNSUPPORTED_SNAPSHOT_PHYSICAL_COLUMN_LAYOUT");
                 columns.add(new PhysicalColumn(segment,internal,c[4],c[5],c[6].equals("Y"),c[7].equals("YES")));
                 before.add(String.join("|",java.util.Arrays.copyOfRange(c,2,c.length)));
             }
+            if(zoned!=columns.stream().anyMatch(c->c.type().equals("TIMESTAMP WITH TIME ZONE") || c.type().equals("TIMESTAMP WITH LOCAL TIME ZONE")))
+                throw new RedoException("SNAPSHOT_TIMEZONE_CONTEXT_REQUIRED");
             var lobs=new ArrayList<LobColumn>();var lobFrames=new ArrayList<String>();
             while(input.peek("LOB")) {
                 var f=input.take("LOB",12);if(!f[1].equals("BEFORE"))throw new RedoException("SNAPSHOT_LOB_PHASE");
@@ -162,6 +180,8 @@ public final class FrozenHeapBaseline {
                     boolean lob=columns.get(i).type().equals("BLOB") || columns.get(i).type().equals("CLOB");
                     if ((isNull && !columns.get(i).nullable()) || (!isNull && !raw.matches(lob?"(?:[0-9A-F]{2})*":"(?:[0-9A-F]{2})+")))
                         throw new RedoException("SNAPSHOT_ROW_VALUE_OR_NULLABILITY_MISMATCH");
+                    if(!isNull && columns.get(i).type().equals("TIMESTAMP WITH TIME ZONE"))timeZoneContext.timestampWithTimeZone(HexFormat.of().parseHex(raw));
+                    if(!isNull && columns.get(i).type().equals("TIMESTAMP WITH LOCAL TIME ZONE"))timeZoneContext.timestampWithLocalTimeZone(HexFormat.of().parseHex(raw));
                     values.add(new ArchivedHeapRows.Cell(isNull ? HeapRowPatch.State.NULL : HeapRowPatch.State.VALUE,isNull ? "" : raw));
                 }
                 if (rows.putIfAbsent(new ArchivedHeapRows.RowKey(dataObject,(file<<22)|block,slot),List.copyOf(values))!=null)
@@ -176,9 +196,10 @@ public final class FrozenHeapBaseline {
             if(history)for(var dict:dictionaryBaseline.indexes())input.exact("DICT_INDEX|AFTER|"+dict.role().name()+"|"+dict.role().logicalObject()+"|"+dict.role().dataObject()+"|"+dict.indexDba());
             if(history && dictionaryBaseline.statistics()!=null)dictionaryBaseline.statistics().requireAfter(input);
             if(history && dictionaryBaseline.usage()!=null)dictionaryBaseline.usage().requireAfter(input);
+            if(zoned)input.exact("TZ_CONTEXT|AFTER|"+timeZoneContext.databaseZone()+"|"+timeZoneContext.fileVersion());
             input.exact("SOURCE_AFTER|"+String.join("|",java.util.Arrays.copyOfRange(sourceFields,1,sourceFields.length)));
             input.exact("END|"+format);if (input.at!=input.lines.size()) throw new RedoException("SNAPSHOT_UNEXPECTED_TRAILING_OUTPUT");
-            return new Snapshot(digest,source,scn,heap,index,List.copyOf(columns),Map.copyOf(rows),anchors,dictionaryBaseline,lobs);
+            return new Snapshot(digest,source,scn,heap,index,List.copyOf(columns),Map.copyOf(rows),anchors,dictionaryBaseline,lobs,timeZoneContext);
         } catch (IllegalArgumentException | ArithmeticException e) {throw new RedoException("MALFORMED_SNAPSHOT_FIELD");}
     }
     private static ObjectRole role(String[] fields,String phase) throws RedoException {
