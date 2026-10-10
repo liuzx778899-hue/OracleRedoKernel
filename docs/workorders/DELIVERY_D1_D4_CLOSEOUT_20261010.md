@@ -5,10 +5,10 @@
 | 包/已实现能力 | 本次处置 | 已有证据 | 仍未闭合 |
 |---|---|---|---|
 | D1 有限持久恢复/完整发布，D3 producer双窗口 | 有限正常开发交付收口，不再作为待接线项 | r123：44＋2事件，target/member/commit 46/46/2，完整像零差异，实际CP/ACK与持久producer核等；第二窗验证前一提交链后续接 | 独立评审/目标、约定生产部署、现场/发布 |
-| D2 历史字典/SYS跨窗、正常跨块 | 已有有限产品链交付收口 | 原84/85两事件产品链；90/91 40事件、target40/40/1、前后像40、两窗消费、CP/ACK同字节 | 同commitSCN真实样本、基线后ARRAY等一般能力；不能把同key/初始水位核内核通过升级为实库产品验收 |
-| D2 初始水位、活跃同key | 内核代码/真实冻结正确性已交付，产品状态单列待证 | 86/87直接/恢复3事件；88/89直接/恢复5事件；后续正式候选核验复用 | 这两个具体场景的目标/CPACK实证未独立补齐，不重跑源实验 |
+| D2 历史字典/SYS跨窗、正常跨块 | 已有有限产品链交付收口 | 原84/85两事件产品链；90/91 40事件、target40/40/1、前后像40、两窗消费、CP/ACK同字节 | 同commitSCN真实样本、基线后ARRAY等一般能力；独立评审/目标验收待证 |
+| D2 初始水位、活跃同key | 有限正常产品链已补齐，独立验收单列 | 原内核直接/恢复证据复用；同件d028ca54复核原HTTP基线，86/87实际target3/3/1、88/89 target5/5/1，完整像/最终行零差异，实际CPACK/producer同字节 | 有限产品证据已补齐，未重跑源实验；独立评审/目标验收待证 |
 | D3 C++闭合成员/目录发现/认证传输 | 有限在线正常产品链已交付 | r49旧传输证据复用；新固定online100/101闭合、自动登记两窗各1，target2/2/2、20行/完整像零差异、CPACK/producer核等；见[简短反馈](DELIVERY_D3_ONLINE_NORMAL_20261010.md) | 保留低水位/持续容量背压、平台与长期连续运行；本轮实际队列满和源锁读取延迟保留，有受控重启，不宣称全程同PID；旧raw全保留 |
-| D4 RAW、DATE、无时区TIMESTAMP | 有限正常产品链交付收口 | 原95/96各4完整事件、target4/4/1、零差异、实际JDBC/CPACK核等 | 实验导入获取不等于正式HTTP获取；其它类型/时区/BC/精度等仍待证 |
+| D4 RAW、DATE、无时区TIMESTAMP | 有限正常产品链交付收口 | 原95/96各4完整事件、target4/4/1、零差异、实际JDBC/CPACK核等 | 现有正式HTTP获取已实际核验RAW/DATE/TIMESTAMP，与同SCN SQL零差异；旧各4事件产品证据复用，新获取不批准旧raw，也不是一次新HTTP基线后完整发布；其它类型/时区/BC/精度待证 |
 | D4 BasicFile/SecureFile LOB | 内核完整事件及有限正常产品链交付收口 | 旧97内核16事件证据复用；新认证HTTP基线后的98/99各1完整事件、target1/1/1、完整LOB零差异、真实CPACK核等，旧事件发布0；见[简短反馈](DELIVERY_D4_LOB_PRODUCT_20261010.md) | 不补批旧97。静态schema/完整原始上下文边界保留；独立目标/评审/生产部署/现场/发布待证 |
 
 保存证据入口：D1/D3 `d3-stream-runtime-20261009/producer-progress-product-r123/normal-published.json`；D2 `d2-blocks-runtime-20261008/product/closure-proof.json`、`d2-initial-runtime-20261008/normal-summary.json`、`d2-overlap-runtime-20261008/normal-summary.json`；D3 `d3-stream-runtime-20261009/directory-http-r49/summary.json`；D4 `d4-raw-product-20261009/normal-product-proof.json`、`d4-temporal-product-20261009/normal-product-proof.json`、`d4-lob-source-20261009/continue-r2/lob-events-final-proof.json`，均相对OracleRedoKernel的lab/out。原提交、SHA、rc和失败原文以各已交付包为准，避免再做重复封存。不要合计这些不同候选的事件数冒充一个统一发布件。
