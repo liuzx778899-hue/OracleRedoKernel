@@ -34,7 +34,7 @@ public final class IndexCompensation {
                     || marker.containerId()!=row.containerId())throw new RedoException("INDEX_ARRAY_COMPENSATION_SOURCE");
             var c=UndoCompensation.decode(marker);var purge=decodeArrayPurge(row);
             var owned=history.stream().filter(p->p.undo().identity().equals(original)).toList();
-            if(marker.fields().size()!=3 || owned.size()!=20 || owned.size()!=purge.slots().size()
+            if(marker.fields().size()!=3 || owned.size()!=UndoCompensation.arrayCancelledKeys(marker) || owned.size()!=purge.slots().size()
                     || c.beginsTransaction() || c.crossesUndoBlock() || c.opcodeMajor()!=10 || c.opcodeMinor()!=22)
                 throw new RedoException("INDEX_ARRAY_COMPENSATION_COVERAGE_OR_BITMAP");
             int size=0;

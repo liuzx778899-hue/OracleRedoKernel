@@ -21,7 +21,9 @@ public final class HeapArrayUndoPair {
         int ubaOffset=current?8:16;
         var uba=new Uba(u32(ktb,ubaOffset),u16(ktb,ubaOffset+4),ktb[ubaOffset+6]&255);
         if(uba.dba()==0 || uba.record()==0)throw new RedoException("INVALID_HEAP_ARRAY_UBA");
-        var slots=slots(vector.fields().get(1),11,1,vector.dba());
+        byte[] kdo=vector.fields().get(1);
+        if(kdo.length<20 || (kdo[12]!=1 && kdo[12]!=2))throw new RedoException("UNSUPPORTED_HEAP_ARRAY_ITL");
+        var slots=slots(kdo,11,kdo[12]&255,vector.dba());
         byte[] sizes=vector.fields().get(2),data=vector.fields().get(3);
         if(columns<1 || columns>255 || sizes.length!=slots.size()*2)
             throw new RedoException("HEAP_ARRAY_COLUMNS_OR_LENGTH_COUNT");
@@ -56,7 +58,8 @@ public final class HeapArrayUndoPair {
         byte[] ktb=vector.fields().get(0);
         boolean shortZ=ktb.length==8 && ktb[0]==3 && ktb[1]==0x0d && ktb[2]==0
                 && (ktb[3]==0 || ktb[3]==(byte)0x80);
-        if(!shortZ && !(ktb.length==16 && ktb[0]==2 && ktb[1]==0x0d))
+        if(!shortZ && !Arrays.equals(ktb,new byte[]{3,13,36,0,11,0,(byte)255,(byte)255})
+                && !(ktb.length==16 && ktb[0]==2 && ktb[1]==0x0d))
             throw new RedoException("UNSUPPORTED_HEAP_ARRAY_ROLLBACK_KTB");
         var slots=slots(vector.fields().get(1),12,0,vector.dba(),2);
         var absent=new ArrayList<Column>();
@@ -96,7 +99,8 @@ public final class HeapArrayUndoPair {
         byte[] ktb=fields.get(2);
         // Native archives90/107 both identify Z with no owner; trailing padding is not an XID/UBA.
         boolean shortZ=ktb.length==8 && ktb[0]==3 && ktb[1]==0x0d && ktb[2]==0 && (ktb[3]==0 || ktb[3]==(byte)0x80);
-        if(!shortZ && !(ktb.length==16 && ktb[0]==2 && ktb[1]==0x0d))
+        if(!shortZ && !Arrays.equals(ktb,new byte[]{3,13,36,0,11,0,(byte)255,(byte)255})
+                && !(ktb.length==16 && ktb[0]==2 && ktb[1]==0x0d))
             throw new RedoException("UNSUPPORTED_HEAP_ARRAY_INVERSE_KTB");
         byte[] metadata=fields.get(1),kdo=fields.get(3);
         if(metadata[16]!=11 || metadata[17]!=1 || (metadata[18]&255)!=identity.xid().slot()

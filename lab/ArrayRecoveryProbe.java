@@ -24,11 +24,14 @@ public class ArrayRecoveryProbe {
                 }
         }
         if(leaf==0)throw new AssertionError("ARRAY_INDEX_LEAF_MISSING");
-        if(args[0].equals("enroll")) {
+        if(args[0].equals("enroll") || args[0].equals("pending")) {
             var prefix=HistoricalRecovery.committedPrefixCaptured(captures,baseline,baselineSha,leaf);
-            if(prefix.state().pendingTransactions()!=0)throw new AssertionError("CLOSED_ARRAY_PENDING");
+            if(args[0].equals("enroll") && prefix.state().pendingTransactions()!=0)throw new AssertionError("CLOSED_ARRAY_PENDING");
+            if(args[0].equals("pending") && (prefix.state().pendingTransactions()==0 || !prefix.completed().events().isEmpty()))
+                throw new AssertionError("ARRAY_PENDING_REQUIRED_WITHOUT_EVENTS");
             Files.write(state,prefix.state().checkpoint(),StandardOpenOption.CREATE_NEW);
             System.out.println("CHECKPOINT_SHA256="+sha(prefix.state().checkpoint()));
+            System.out.println("PENDING_TRANSACTIONS="+prefix.state().pendingTransactions());
             System.out.println("COMPLETED_EVENTS="+prefix.completed().events().size());
         }else if(args[0].equals("resume")) {
             byte[] bytes=Files.readAllBytes(state);
@@ -43,6 +46,8 @@ public class ArrayRecoveryProbe {
                     .configure(SerializationFeature.ORDER_MAP_ENTRIES_BY_KEYS,true);
             System.out.println("EVENTS="+projected.entries().size());
             System.out.println("EVENTS_SHA256="+sha(json.writeValueAsBytes(projected.entries().stream().map(OracleBatchProjection.Entry::envelope).toList())));
+            Files.write(state.resolveSibling(state.getFileName()+".events.json"),
+                    json.writeValueAsBytes(projected.entries().stream().map(OracleBatchProjection.Entry::envelope).toList()),StandardOpenOption.CREATE_NEW);
             System.out.println("RESTORED_EQUALS_DIRECT=true");
         }else throw new IllegalArgumentException("mode");
     }

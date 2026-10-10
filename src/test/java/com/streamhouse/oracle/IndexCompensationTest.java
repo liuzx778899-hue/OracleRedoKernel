@@ -7,6 +7,14 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class IndexCompensationTest {
     byte[] hex(String s) { return HexFormat.of().parseHex(s); }
+    @Test void raw112TenKeyClearBitmapIsCountBoundAndUnknownBitsRefuse()throws Exception {
+        var marker=new RedoRecords.Vector(5,6,36,11,0x02400dd3L,3247087,2,3,List.of(
+                hex("d33a0100d33a010005000000000000000a161a1f10000614040d0000"),hex("4411000002000000"),hex("00fc")));
+        assertEquals(10,UndoCompensation.arrayCancelledKeys(marker));
+        assertEquals(10,UndoCompensation.decode(marker).opcodeMajor());
+        marker.fields().get(2)[0]=1;
+        assertThrows(RedoException.class,()->UndoCompensation.decode(marker));
+    }
     // Raw108 RBA15191/20 and15200/84: independent native dump calls rowSize279 the total array size.
     RedoRecords.Vector arrayPurge(int slot) {
         byte[] leaf=hex("02250100170100001400000001000100010001000100010001000100010001000100010001000100010001000100010001000100");

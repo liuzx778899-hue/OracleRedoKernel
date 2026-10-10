@@ -8,6 +8,24 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class HeapArrayUndoPairTest {
     static byte[] hex(String text){return HexFormat.of().parseHex(text);}
+    @Test void raw112QmiUsesItsSecondItlAsTheLock()throws Exception {
+        var r=record();r.vectors().get(0).fields().get(3)[12]=2;
+        r.vectors().get(1).fields().get(1)[12]=2;r.vectors().get(1).fields().get(1)[17]=2;
+        assertEquals(3,HeapArrayUndoPair.bind(r,r.vectors().get(1),3).size());
+        r.vectors().get(1).fields().get(1)[17]=1;
+        assertThrows(RedoException.class,()->HeapArrayUndoPair.bind(r,r.vectors().get(1),3));
+    }
+    @Test void raw112NativeZPaddingDoesNotBecomeUndoOwnership()throws Exception {
+        var r=record();var old=r.vectors().get(0);var fields=new ArrayList<>(old.fields());
+        fields.set(2,hex("030d24000b00ffff"));
+        var undo=new RedoRecords.Vector(old.opcodeMajor(),old.opcodeMinor(),old.blockClass(),old.file(),old.dba(),old.scn(),old.sequence(),old.containerId(),fields);
+        assertEquals(3,HeapArrayUndoPair.inverse(undo,3).size());
+        var rollback=rollback(true);var rollbackFields=new ArrayList<>(rollback.fields());rollbackFields.set(0,hex("030d24000b00ffff"));
+        var xr=new RedoRecords.Vector(11,12,rollback.blockClass(),rollback.file(),rollback.dba(),rollback.scn(),rollback.sequence(),rollback.containerId(),rollbackFields);
+        assertEquals(20,HeapArrayUndoPair.rollback(xr,3).size());
+        fields.get(2)[2]++;
+        assertThrows(RedoException.class,()->HeapArrayUndoPair.inverse(undo,3));
+    }
     // Frozen raw108, RBA 15191/248 and 15200/296; native dump independently identifies XR QMD.
     RedoRecords.Vector rollback(boolean begin) {
         return new RedoRecords.Vector(11,12,1,12,0x0300b4fcL,3225993,1,3,List.of(
