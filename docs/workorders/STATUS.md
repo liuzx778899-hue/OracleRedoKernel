@@ -1,5 +1,7 @@
 # OracleRedoKernel 当前状态
 
+2026-10-11 D5两个19.3安装包均在E盘核对官方SHA通过；OL8首次安装INS-08101/build rc127原文保留，改用官方19.3 Dockerfile默认OL7后Grid/DB软件安装及RAC relink已有成功输出。用户要求释放本机内存，已停止全部8个Desktop业务容器、Docker Desktop及专属D5 WSL；镜像层提交期间主动停止/build rc1、WSL停rc0，缓存及数据保留，未启动RAC/ASM、D5未通过。内存即时值约68%/可用19.8GiB；后续先恢复镜像并检查二进制，再做真实接入，普通功能原待项继续保留。[环境反馈](DELIVERY_D5_MEDIA_BUILD_STOP_20261011.md)。
+
 2026-10-10 基线后ARRAY INSERT正常链：新原始107输出20唯一完整事件，独立SQL差异0；实际JDBC首次20/同批重试0，目标20/20/1/21及双向差集0，48项受影响回归通过。候选e2575809138a，源停rc0/helper移除；一般ARRAY回滚及新产品HTTP/CPACK仍待。用户授权E盘Docker D5实验；Grid官方SHA核等，E盘独立WSL/Docker及loop块设备前置通过后已停止，Database Home包待拷入，RAC/ASM真实接入未通过。LOB历史恢复回收/类型变体继续；[反馈](DELIVERY_ARRAY_NORMAL_D5_PREP_20261010.md)。
 
 2026-10-10 常规九列混合LOB产品接线完成：同件c8382f8/app a49de18c，完整产品861项通过；BasicFile/SecureFile新HTTP获取后各1未来TXT变化，target/ledger均1/1/1/1、九列完整值零差异，实际CPACK/ACK字节一致。内核3a9ccc651b60/适配器87eb1e9064de固定坐标已装本地Maven；主仓新装Oracle V729–731八处DEFAULT语法修复并实库通过，原失败保留。源停rc0/helper删除，主仓合并/部署清单继续，ARRAY已启动但完整链待证、LOB历史回收/D5待；[反馈](DELIVERY_COMMON_PRODUCT_20261010.md)。
