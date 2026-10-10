@@ -53,12 +53,15 @@ public final class ArchivedIndexLeafInventory {
                     }
                     var position=new ArchivedUndoInventory.Position(header.sequence(),r.block(),r.offset(),i+1);
                     if (v.opcodeMajor()==10 && (v.opcodeMinor()==2 || v.opcodeMinor()==4 || v.opcodeMinor()==5 && v.fields().size()==3)) {
-                        var pair=IndexUndoPair.bind(r,v);var f=pair.forward();var u=pair.undo();
-                        if (u.identity().objectId()!=indexObject || u.identity().dataObjectId()!=indexDataObject)
-                            throw new RedoException("INDEX_LEAF_INVENTORY_OBJECT_MISMATCH");
-                        byte[] data=f.kind()==IndexUndoPair.Kind.INSERT ? f.keydata() : u.keydata();
-                        entries.add(new Entry(position,r.scn(),f.kind(),f.block(),f.itl(),f.slot(),f.rowSize(),u.identity(),null,
-                                HexFormat.of().formatHex(u.key()),HexFormat.of().formatHex(data),pairSignature(pair),vectorSignature(v),null));
+                        var pairs=v.opcodeMinor()==2 && v.fields().size()==5?IndexArrayUndoPair.bind(r,v):List.of(IndexUndoPair.bind(r,v));
+                        for(var pair:pairs) {
+                            var f=pair.forward();var u=pair.undo();
+                            if (u.identity().objectId()!=indexObject || u.identity().dataObjectId()!=indexDataObject)
+                                throw new RedoException("INDEX_LEAF_INVENTORY_OBJECT_MISMATCH");
+                            byte[] data=f.kind()==IndexUndoPair.Kind.INSERT ? f.keydata() : u.keydata();
+                            entries.add(new Entry(position,r.scn(),f.kind(),f.block(),f.itl(),f.slot(),f.rowSize(),u.identity(),null,
+                                    HexFormat.of().formatHex(u.key()),HexFormat.of().formatHex(data),pairSignature(pair),vectorSignature(v),null));
+                        }
                     } else if (v.opcodeMajor()==10 && (v.opcodeMinor()==3 || v.opcodeMinor()==5)) {
                         var leaf=IndexCompensation.decodeRollback(v);UndoCompensation marker=null;String markerSignature=null;
                         long rows=r.vectors().stream().filter(other -> other.containerId()==container && other.dba()==leafDba

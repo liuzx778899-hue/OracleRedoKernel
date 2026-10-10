@@ -1,5 +1,7 @@
 # OracleRedoKernel 当前状态
 
+2026-10-10 基线后ARRAY INSERT正常链：新原始107输出20唯一完整事件，独立SQL差异0；实际JDBC首次20/同批重试0，目标20/20/1/21及双向差集0，48项受影响回归通过。候选e2575809138a，源停rc0/helper移除；一般ARRAY回滚及新产品HTTP/CPACK仍待。用户授权E盘Docker D5实验；Grid官方SHA核等，E盘独立WSL/Docker及loop块设备前置通过后已停止，Database Home包待拷入，RAC/ASM真实接入未通过。LOB历史恢复回收/类型变体继续；[反馈](DELIVERY_ARRAY_NORMAL_D5_PREP_20261010.md)。
+
 2026-10-10 常规九列混合LOB产品接线完成：同件c8382f8/app a49de18c，完整产品861项通过；BasicFile/SecureFile新HTTP获取后各1未来TXT变化，target/ledger均1/1/1/1、九列完整值零差异，实际CPACK/ACK字节一致。内核3a9ccc651b60/适配器87eb1e9064de固定坐标已装本地Maven；主仓新装Oracle V729–731八处DEFAULT语法修复并实库通过，原失败保留。源停rc0/helper删除，主仓合并/部署清单继续，ARRAY已启动但完整链待证、LOB历史回收/D5待；[反馈](DELIVERY_COMMON_PRODUCT_20261010.md)。
 
 2026-10-10 常规混合LOB首包：BasicFile/SecureFile九列各1基线后事件、完整值零差异，真实JDBC目标各1/1/1、独立提交核验与恢复复读新增0；原三列8项及相关生命周期24项通过，库停止rc0。开发候选内核3a9ccc651b60/适配器87eb1e9064de，新产品HTTP/CPACK/固定适配器坐标及部署待证，ARRAY/LOB历史回收仍待，D5尚未启动。[首包反馈](DELIVERY_COMMON_MIXED_LOB_20261010.md)。

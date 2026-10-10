@@ -188,8 +188,14 @@ public final class ArchivedPhysicalTransactions {
                 for (int i=0;i<r.vectors().size();i++) {
                     var v=r.vectors().get(i);if (!originals.containsKey(position(header,r,i))) continue;
                     var h=UndoHeader.decode(v);undoBlocks.add(v.dba());
-                    if (h.dataObjectId()==heapObject) heapBlocks.add(UndoRowPatch.decode(v,columnsAt(history,snapshot,r.scn(),columns,new ArchivedUndoInventory.Position(header.sequence(),r.block(),r.offset(),i+1))).inverse().dba());
-                    else if (IndexUndoPair.decodeUndo(v).block()!=leaf) throw new RedoException("PHYSICAL_INDEX_OUTSIDE_DECLARED_LEAF");
+                    if (h.dataObjectId()==heapObject) {
+                        int width=columnsAt(history,snapshot,r.scn(),columns,new ArchivedUndoInventory.Position(header.sequence(),r.block(),r.offset(),i+1));
+                        var inverse=heapArrayInverse(v)?HeapArrayUndoPair.inverse(v,width).get(0):UndoRowPatch.decode(v,width);
+                        heapBlocks.add(inverse.inverse().dba());
+                    } else {
+                        var inverse=indexArrayInverse(v)?IndexArrayUndoPair.inverse(v).get(0):IndexUndoPair.decodeUndo(v);
+                        if(inverse.block()!=leaf)throw new RedoException("PHYSICAL_INDEX_OUTSIDE_DECLARED_LEAF");
+                    }
                 }
             });
             requireSource(found,source,paths.get(source).header());
@@ -246,14 +252,17 @@ public final class ArchivedPhysicalTransactions {
                     c.graph.append(e);int count=0;
                     for (int j=0;j<r.vectors().size();j++) {
                         var row=r.vectors().get(j);if (row.containerId()!=container) continue;
-                        if (h.dataObjectId()==heapObject && heap(row)) {
+                        if (h.dataObjectId()==heapObject && (heap(row) || heapArray(row))) {
                             int rowColumns=columnsAt(history,snapshot,r.scn(),columns,new ArchivedUndoInventory.Position(header.sequence(),r.block(),r.offset(),i+1));
-                            var f=new HeapRowPatch().decode(row,rowColumns);
+                            var f=heapArray(row)?HeapArrayUndoPair.forward(row,rowColumns).get(0):new HeapRowPatch().decode(row,rowColumns);
                             if (f.xtype()!=1 || !h.uba().equals(f.uba())) continue;
-                            var pair=HeapUndoPair.bind(r,row,rowColumns);state.requireActive(r,pair);c.heaps.add(pair);
+                            var pairs=heapArray(row)?HeapArrayUndoPair.bind(r,row,rowColumns):List.of(HeapUndoPair.bind(r,row,rowColumns));
+                            for(var pair:pairs){state.requireActive(r,pair);c.heaps.add(pair);}
                         } else if (h.dataObjectId()==indexObject && row.opcodeMajor()==10 && (row.opcodeMinor()==2 || row.opcodeMinor()==4 || row.opcodeMinor()==5 && row.fields().size()==3)) {
-                            if (!h.uba().equals(IndexUndoPair.decodeForward(row).uba())) continue;
-                            var pair=IndexUndoPair.bind(r,row);state.requireActive(r,pair);c.indexes.add(pair);
+                            boolean array=row.opcodeMinor()==2 && row.fields().size()==5;
+                            if (!h.uba().equals((array?IndexArrayUndoPair.forward(row).get(0):IndexUndoPair.decodeForward(row)).uba())) continue;
+                            var pairs=array?IndexArrayUndoPair.bind(r,row):List.of(IndexUndoPair.bind(r,row));
+                            for(var pair:pairs){state.requireActive(r,pair);c.indexes.add(pair);}
                         } else continue;
                         if (!paired.add(j)) throw new RedoException("PHYSICAL_ROW_PAIRED_TWICE");count++;
                     }
@@ -293,6 +302,10 @@ public final class ArchivedPhysicalTransactions {
                         rowIndex=j;
                     }
                     if (matched==null || !matched.equals(route.original())) throw new RedoException("PHYSICAL_COMPENSATION_NOT_ASSOCIATED_ORIGINAL");
+                    var matchedIdentity=matched;
+                    if(c.heaps.stream().filter(p->p.undo().identity().equals(matchedIdentity)).count()>1
+                            || c.indexes.stream().filter(p->p.undo().identity().equals(matchedIdentity)).count()>1)
+                        throw new RedoException("UNSUPPORTED_ARRAY_COMPENSATION");
                     if (!paired.add(rowIndex)) throw new RedoException("PHYSICAL_ROW_PAIRED_TWICE");
                     c.graph.compensate(matched);c.operations.add(new Operation(at,matched,true));
                 }
@@ -363,6 +376,9 @@ public final class ArchivedPhysicalTransactions {
         return new Result(found.sources(),contexts.stream().filter(c->!c.coveredByBaseline && c.result!=null).map(c->c.result).toList());
     }
     private static boolean heap(RedoRecords.Vector v) {return v.opcodeMajor()==11 && (v.opcodeMinor()==2 || v.opcodeMinor()==3 || v.opcodeMinor()==4 || v.opcodeMinor()==5);}
+    private static boolean heapArray(RedoRecords.Vector v) {return v.opcodeMajor()==11 && v.opcodeMinor()==11;}
+    private static boolean heapArrayInverse(RedoRecords.Vector v) {return v.fields().size()==4 && v.fields().get(3).length>10 && v.fields().get(3)[10]==12;}
+    private static boolean indexArrayInverse(RedoRecords.Vector v) {return v.fields().size()==6 && v.fields().get(3).length>2 && v.fields().get(3)[2]==0x21;}
     private static byte[] utf8(String value){return value.getBytes(java.nio.charset.StandardCharsets.UTF_8);}
     private static String recoveryDigest(byte[] bytes)throws RedoException {
         try{return java.util.HexFormat.of().formatHex(java.security.MessageDigest.getInstance("SHA-256").digest(bytes));}

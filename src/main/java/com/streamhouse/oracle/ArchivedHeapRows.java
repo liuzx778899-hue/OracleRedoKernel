@@ -134,20 +134,23 @@ public final class ArchivedHeapRows {
                     if(history!=null && !recordSchema.equals(history.schemaAt(owner.identity().endRecordScn(),owner.commitPosition())))
                         throw new RedoException("UNSUPPORTED_ROW_RECORD_SCHEMA_TRANSITION");
                     int rowColumns=history==null?baseline.columns():recordSchema.size();
-                    var undo=UndoHeader.decode(r.vectors().get(v));HeapUndoPair found=null;int forwardIndex=-1;
+                    var undo=UndoHeader.decode(r.vectors().get(v));List<HeapUndoPair> found=null;int forwardIndex=-1;
                     for (var f:r.vectors()) if (f.containerId()==source.containerId() && f.opcodeMajor()==11
-                            && (f.opcodeMinor()==2 || f.opcodeMinor()==3 || f.opcodeMinor()==4 || f.opcodeMinor()==5)) {
-                        var patch=new HeapRowPatch().decode(f,rowColumns);
+                            && (f.opcodeMinor()==2 || f.opcodeMinor()==3 || f.opcodeMinor()==4 || f.opcodeMinor()==5 || f.opcodeMinor()==11)) {
+                        boolean array=f.opcodeMinor()==11;
+                        var patch=array?HeapArrayUndoPair.forward(f,rowColumns).get(0):new HeapRowPatch().decode(f,rowColumns);
                         if (patch.xtype()!=1 || !undo.uba().equals(patch.uba())) continue;
                         if (found!=null) throw new RedoException("ROW_REPLAY_PAIR_AMBIGUOUS");
-                        found=HeapUndoPair.bind(r,f,rowColumns);forwardIndex=r.vectors().indexOf(f);
+                        found=array?HeapArrayUndoPair.bind(r,f,rowColumns):List.of(HeapUndoPair.bind(r,f,rowColumns));forwardIndex=r.vectors().indexOf(f);
                     }
-                    if (found==null || !undo.equals(found.undo().identity()) || !owner.identity().xid().equals(undo.xid()) || !seen.add(at))
+                    if (found==null || found.stream().anyMatch(pair->!undo.equals(pair.undo().identity())) || !owner.identity().xid().equals(undo.xid()) || !seen.add(at))
                         throw new RedoException("ROW_REPLAY_PAIR_OWNER_OR_COVERAGE_MISMATCH");
                     if (forwardIndex<=previousForward) throw new RedoException("ROW_REPLAY_FORWARD_AND_UNDO_ORDER_DISAGREE");
                     previousForward=forwardIndex;
-                    var p=found.forward();var key=new RowKey(undo.dataObjectId(),p.dba(),p.slot());
-                    pending.computeIfAbsent(undo.xid(),ignored->new ArrayList<>()).add(new Pending(at,undo.xid(),key,found));
+                    for(var pair:found) {
+                        var p=pair.forward();var key=new RowKey(undo.dataObjectId(),p.dba(),p.slot());
+                        pending.computeIfAbsent(undo.xid(),ignored->new ArrayList<>()).add(new Pending(at,undo.xid(),key,pair));
+                    }
                 }
             });
             if (!h.equals(path.header())) throw new RedoException("ROW_REPLAY_SOURCE_CHANGED");
