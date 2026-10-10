@@ -6,6 +6,7 @@ import static com.streamhouse.oracle.DurableUndoState.*;
 
 /** Committed full images and event history; pending physical rows remain in the physical state. */
 final class HistoricalProducerState {
+    private record RowPosition(ArchivedUndoInventory.Position position,ArchivedHeapRows.RowKey key) {}
     record Restored(HistoricalRowState rows,List<ArchivedHeapRows.Change> changes) {}
     static byte[] encode(HistoricalRowState rows,List<ArchivedHeapRows.Change> changes)throws IOException {
         var bytes=new ByteArrayOutputStream();var out=new DataOutputStream(bytes);out.writeUTF("ORK_HISTORICAL_PRODUCER_V1");
@@ -30,7 +31,7 @@ final class HistoricalProducerState {
             var owners=new HashMap<ArchivedUndoInventory.Position,ArchivedPhysicalTransactions.Transaction>();
             for(var t:physical.transactions())for(var entry:t.graph().live())
                 if(owners.putIfAbsent(entry.position(),t)!=null)throw new RedoException("PRODUCER_STATE_OWNER_COLLISION");
-            var changes=new ArrayList<ArchivedHeapRows.Change>();var positions=new HashSet<ArchivedUndoInventory.Position>();
+            var changes=new ArrayList<ArchivedHeapRows.Change>();var positions=new HashSet<RowPosition>();
             ArchivedPhysicalTransactions.Transaction previous=null;
             var rowPositions=new HashMap<ArchivedHeapRows.RowKey,ArchivedUndoInventory.Position>();
             for(int i=0,n=count(in);i<n;i++) {
@@ -39,7 +40,7 @@ final class HistoricalProducerState {
                 var key=new ArchivedHeapRows.RowKey(in.readLong(),in.readLong(),in.readInt());
                 var kind=HeapRowPatch.Kind.valueOf(in.readUTF());var before=cells(in);var after=cells(in);var owner=owners.get(at);
                 if(owner==null || owner.identity().rolledBack() || owner.identity().endRecordScn()<=baseline.scn()
-                        || !owner.identity().xid().equals(xid) || !positions.add(at) || key.dataObjectId()!=baseline.heap().dataObject()
+                        || !owner.identity().xid().equals(xid) || !positions.add(new RowPosition(at,key)) || key.dataObjectId()!=baseline.heap().dataObject()
                         || key.dba()<=0 || key.dba()>0xffffffffL || key.slot()<0 || key.slot()>65535
                         || owner.graph().live().stream().noneMatch(e->e.position().equals(at) && e.identity().dataObjectId()==key.dataObjectId()))
                     throw new RedoException("PRODUCER_STATE_CHANGE_OWNER_OR_KEY");

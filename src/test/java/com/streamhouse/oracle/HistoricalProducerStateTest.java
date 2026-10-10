@@ -48,4 +48,16 @@ class HistoricalProducerStateTest {
         byte[] bytes=HistoricalProducerState.encode(f.rows(),List.of(f.change()));var extra=Arrays.copyOf(bytes,bytes.length+1);
         assertThrows(RedoException.class,()->HistoricalProducerState.restore(extra,sha(extra),f.baseline(),501,f.physical()));
     }
+    @Test void distinctArrayRowsShareAnOwnedPositionButDuplicateRowRefuses()throws Exception {
+        var f=fixture();var c=f.change();var key=new ArchivedHeapRows.RowKey(c.key().dataObjectId(),c.key().dba(),c.key().slot()+1);
+        var helper=new HistoricalRowStateTest();helper.directory=directory;
+        var values=new HashMap<>(f.rows().rows());values.put(key,c.after());
+        var positions=new HashMap<>(f.rows().lastPositions());positions.put(key,c.position());
+        var rows=helper.state(f.baseline(),values,positions);
+        var second=new ArchivedHeapRows.Change(c.position(),c.xid(),key,HeapRowPatch.Kind.INSERT,List.of(),c.after());
+        byte[] bytes=HistoricalProducerState.encode(rows,List.of(c,second));
+        assertEquals(List.of(c,second),HistoricalProducerState.restore(bytes,sha(bytes),f.baseline(),501,f.physical()).changes());
+        byte[] duplicate=HistoricalProducerState.encode(rows,List.of(c,second,second));
+        assertThrows(RedoException.class,()->HistoricalProducerState.restore(duplicate,sha(duplicate),f.baseline(),501,f.physical()));
+    }
 }

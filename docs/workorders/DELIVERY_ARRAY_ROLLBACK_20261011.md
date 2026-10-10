@@ -25,3 +25,10 @@
 ARRAY 部分行补偿、pending恢复及一般未覆盖布局继续；相同commit SCN恢复/发布、LOB历史/代际/安全回收、时间类型变体与StreamHouse正常HTTP→目标→checkpoint/ACK继续。已有commit SCN＋真实提交位置排序直接复用。
 
 当前为内核开发候选，不要求那边重编译部署本包；完成五项、更新固定内核/适配器依赖并闭合正常产品链后，统一合并main并交付重编译部署清单。生产部署、现场验收、发布均未通过，D5不作为当前门槛。
+# 2026-10-11 ARRAY 已提交状态恢复续接
+
+冻结 raw108 复用，未启动容器或重放源 DML。两独立 JVM：完整 ARRAY 提交与整节点撤销后生成 V6 checkpoint，再恢复全部20条已提交 INSERT；事件、完整前后像、批次摘要及投影证据与直接读取完全相同。原恢复失败 `PRODUCER_STATE_CHANGE_OWNER_OR_KEY` 保存在 `lab/out/array-rollback-20261011/recovery-r1/resume.log`。
+
+修复 `HistoricalProducerState` 按物理位置＋行键识别重复：同一 ARRAY undo 位置的不同物理行允许恢复，重复同一行仍拒绝；既有 XID、live undo 数据对象、提交排序、行水位与完整像门禁保留。12项针对性恢复状态测试失败0，测试命令rc0；独立恢复rc0，checkpoint SHA256 `a6ee0e29a1fa9dfb01ebe5d6dfdf21f8cbb4cd7a623078664e8b0574522645e3`，历史投影20事件 SHA256 `9790ca6a4e782e7dfc9642e35cca1e1297faf5281e9687d4b41bd4a615e7036f`。历史投影与此前固定模式投影使用不同事件授权摘要，不以跨模式摘要相同作为判据。
+
+这次仅关闭已提交 ARRAY 状态恢复缺口。部分行补偿、pending 跨窗口恢复、新产品 HTTP/checkpoint/ACK 接线继续；五项目标未全完，D5搁置。
