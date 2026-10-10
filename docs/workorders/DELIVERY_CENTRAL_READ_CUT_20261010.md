@@ -22,3 +22,7 @@
 首条未来产品窗已闭合：内核 e3ac633（固定53fa9a98275d），产品37ee409，正式app SHA256 `3e90524a8122d0cafd47251e0271c0715b8379f5f27daf32c7790b1561e8b90b`。raw-stream-21002-3 CONSUMED / PUBLISHED rc0 / 1事件，实际目标 applied/member/commit/ledger `3/3/3/3`、20行零差异，规范化完整前后像一致。实际DONE任务102287965065310208的3605字节CP与ACK完全一致，producer SHA256 `5b1914f2d198d3eefb8ef9952b7b3ea70dca567580087f6ddd32ab783fda9487`、decodedThrough102/pending0；见 `future-window-1-proof.json`。源首条UPDATE重放0，第二条继续执行中。
 
 观察脚本失败单独保留：目标行像为规范化串，JSON筛选错误导致首轮校验无行；随后证据文件Path拼接TypeError、collector停止等待超时原文保留。第一窗产品发布和实际凭证均已核对，脚本错误不当产品通过/失败证明。自有库停止rc0，固定helper另保存日志后清除；已通过首窗不重复整套验收。后续第二窗/再回收/切点毒化/独立评审仍待，不宣称全程同PID或整包验收。
+
+2026-10-10 独立只读评审发现并修复回收前置条件：已消费不等于已封存。删除前要求所有引用受删raw的历史绑定均属于已逐项核验SEALED_COMMIT的前驱链；链外有限窗口拒绝回收。修复独立复核通过，相关16项测试rc0；正式修复制品/实库回收尚待。第二条未来UPDATE ID2仅执行一次，103已闭合并登记窗口4；当前GATED rc0/1事件、任务RUNNING，目标/CPACK待闭合。观察超时保留运行进程，未重放源DML，不标测试环境验收。
+
+2026-10-10 第二条未来窗口实际闭合：raw-stream-21002-4 / batch102311534864363520，CONSUMED/PUBLISHED rc0/1事件；目标applied/member/commit/ledger 4/4/4/4、20行与规范化完整前后像一致，实际DONE任务CP与ACK逐字节相同，producer2f032ce7读至103/pending0。future-window-2-proof.json、windows-r10-verify.rc0；两条新UPDATE各执行一次/旧DML重放0，helper清理/源停止rc0。独立评审P2修复7eaca10已推送，16相关测试通过、复核通过；正式app-r4 SHA256 6b26d0852e15b6b6227f43b734f3c437911f971d2f38e5a507648aa648e5f32f 构建rc0，尚未运行该修复候选。剩余只做新切点保留103/回收批准101与102、一次恢复及切点毒化拒绝，再统一验收反馈；不重复已通过窗口，不启动长期平台/性能调优/D5。

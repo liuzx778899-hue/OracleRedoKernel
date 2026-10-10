@@ -1,5 +1,9 @@
 # OracleRedoKernel 当前状态
 
+2026-10-10 第二条未来窗口实际闭合：raw-stream-21002-4 / batch102311534864363520，CONSUMED/PUBLISHED rc0/1事件；目标applied/member/commit/ledger 4/4/4/4、20行与规范化完整前后像一致，实际DONE任务CP与ACK逐字节相同，producer2f032ce7读至103/pending0。future-window-2-proof.json、windows-r10-verify.rc0；两条新UPDATE各执行一次/旧DML重放0，helper清理/源停止rc0。独立评审P2修复7eaca10已推送，16相关测试通过、复核通过；正式app-r4 SHA256 6b26d0852e15b6b6227f43b734f3c437911f971d2f38e5a507648aa648e5f32f 构建rc0，尚未运行该修复候选。剩余只做新切点保留103/回收批准101与102、一次恢复及切点毒化拒绝，再统一验收反馈；不重复已通过窗口，不启动长期平台/性能调优/D5。
+
+2026-10-10 独立只读评审发现并修复回收前置条件：已消费不等于已封存。删除前要求所有引用受删raw的历史绑定均属于已逐项核验SEALED_COMMIT的前驱链；链外有限窗口拒绝回收。修复独立复核通过，相关16项测试rc0；正式修复制品/实库回收尚待。第二条未来UPDATE ID2仅执行一次，103已闭合并登记窗口4；当前GATED rc0/1事件、任务RUNNING，目标/CPACK待闭合。观察超时保留运行进程，未重放源DML，不标测试环境验收。
+
 2026-10-10 首条未来正常产品窗已闭合：core e3ac633/产品37ee409/app3e90524a，raw-stream-21002-3发布1事件rc0/CONSUMED，目标账3/3/3/3、20行/完整像零差异；实际DONE任务3605字节CPACK一致，producer5b1914f2读至102/pending0。首条源UPDATE未重放；观察脚本JSON筛选、Path拼接与停止超时原文保留，库停止/固定helper清理。第二窗与下一次回收/切点毒化继续，独立评审待证；不标测试环境验收通过。 [统一反馈](DELIVERY_CENTRAL_READ_CUT_20261010.md)。
 
 2026-10-10 正常续接冻结解析已过：不重放首条未来 UPDATE，闭合102后补实际 SYS KTB/闭合头37、TAB$范围/单对象marker读取缺口；相关14+30项通过，101/102完整入口唯一UPDATE ID1/NOTE anchor→readcut-next-1、完整像/pending0，next-projection-r3 rc0。有界原生诊断只供验证，库已停。正式制品更新及产品新窗目标/CPACK、第二条正常窗、后续回收与独立评审尚待；未标测试环境验收通过。 [合并反馈](DELIVERY_CENTRAL_READ_CUT_20261010.md)。
