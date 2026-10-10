@@ -17,9 +17,9 @@ def sha(p):
     with Path(p).open('rb') as f:
         for data in iter(lambda:f.read(1048576),b''):h.update(data)
     return h.hexdigest()
-def run(name,args,data=None):
+def run(name,args,data=None,timeout=180):
     name=label+'-'+name;assert not (N/(name+'.rc')).exists(),name
-    p=subprocess.run(list(map(str,args)),input=data,capture_output=True,timeout=180)
+    p=subprocess.run(list(map(str,args)),input=data,capture_output=True,timeout=timeout)
     for suffix,content in [('stdout',p.stdout),('stderr',p.stderr)]:
         for secret in secrets:content=content.replace(secret,b'<redacted-secret>')
         (N/(name+'.'+suffix)).write_bytes(content)
@@ -29,13 +29,13 @@ def sql(name,body):
     text='whenever sqlerror exit failure rollback\nwhenever oserror exit failure rollback\nset pages 0 heading off feedback off lines 32767 long 300000 longchunksize 300000 trimspool on\nalter session set container=ORKPDB;\n'+body+'\nexit success\n'
     (N/(label+'-'+name+'.sql')).write_text(text)
     out=run(name,['docker','exec','-i',S,'sqlplus','-s','/','as','sysdba'],text.encode());assert 'SP2-' not in out;return out
-def request(name,path,body=None,machine=False,success=True):
+def request(name,path,body=None,machine=False,success=True,timeout=180):
     login=json.loads((R/'lab/out/product-active-20261007/admin.secret.json').read_text())
     code="""import json,urllib.request,urllib.error
 def req(path,body,headers):
  request=urllib.request.Request(BASE+path,data=None if body is None else json.dumps(body).encode(),headers=headers)
  try:
-  with urllib.request.urlopen(request,timeout=180) as response:return json.loads(response.read())
+  with urllib.request.urlopen(request,timeout=TIMEOUT) as response:return json.loads(response.read())
  except urllib.error.HTTPError as ex:return json.loads(ex.read())
 headers={'Content-Type':'application/json'}
 if MACHINE:headers['X-SH-Agent-Token']=TOKEN
@@ -43,8 +43,8 @@ else:
  auth=req('/auth/login',LOGIN,headers);assert auth['code']==0;headers['Authorization']='Bearer '+auth['data']['token']
 print(json.dumps(req(PATH,BODY,headers)))
 """
-    for key,value in [('BASE',f'http://127.0.0.1:{PORT}/api/v1'),('MACHINE',machine),('TOKEN',token),('LOGIN',login),('PATH',path),('BODY',body)]:code=code.replace(key,repr(value))
-    value=json.loads(run(name,['docker','exec','-i',S,'python3','-'],code.encode()))
+    for key,value in [('BASE',f'http://127.0.0.1:{PORT}/api/v1'),('MACHINE',machine),('TOKEN',token),('LOGIN',login),('PATH',path),('BODY',body),('TIMEOUT',timeout)]:code=code.replace(key,repr(value))
+    value=json.loads(run(name,['docker','exec','-i',S,'python3','-'],code.encode(),timeout=timeout+30))
     assert (value['code']==0)==success,(name,value)
     return value.get('data') if success else value
 def counts(name):
