@@ -1,5 +1,11 @@
 # OracleRedoKernel 当前状态
 
+2026-10-11 ARRAY回滚首包：raw108完整入口输出20唯一INSERT、仅ID200–219，完整值差异0/撤销事件0；整笔回滚与保存点撤销完整节点通过。113受影响回归及最终补偿门禁13项相关复查失败0，旧raw107 envelope未变；候选5f459036888a。仅离线开发，库保持停止；部分行补偿/pending恢复、同SCN恢复发布、LOB历史回收、时间类型及新产品接线继续，D5搁置。[首包反馈](DELIVERY_ARRAY_ROLLBACK_20261011.md)。
+
+2026-10-11 用户收窄当前目标：完成 ARRAY 回滚/部分行补偿、相同 commit SCN 排序恢复、LOB 历史恢复回收、时间类型变体及 StreamHouse 新能力正常端到端后开始模拟测试；D5 RAC/ASM 暂时搁置，不作为阻塞。新 ARRAY 回滚样本已冻结：SCN3225957、heap80544/index80545，raw108 SHA256 `716ac017f4a5c6c5c034046830fc820eac089e58fbb277bc3cfecd7f70232ecb`、7784960字节；整笔回滚与保存点回滚后 SQL 仅保留20条新行，raw/native 核对发现 11.12 QMD 批量补偿、10.3 多键PURGE及5.6三字段布局。当前只完成取证，事件解析/恢复/目标链未通过；原始失败保留，source/native停rc0。已有 commit SCN+提交位置排序实现复用，重点补同SCN恢复与发布核验。
+
+2026-10-11 官方普通 RAC 镜像 `database/rac:19.3.0` 已获用户接受条款并拉取到 E 盘独立 OracleRedoD5 引擎，摘要 `e60fdd7428187383e62b1a28fe25fff1c3fa1e21ea7ee2dde43acc9d9367876a`；pull rc0，Grid crsctl.bin/DB oracle 文件检查及 SQL*Plus 19.3.0.0.0 版本检查 rc0，临时容器移除、WSL 停 rc0。`rac_ru` 页面明确当前账号无 CPU 镜像访问权限；首轮 TLS 超时及旧镜像检查命令修正过程保留于 E:\OracleRedoKernel-lab\d5\rac-pull-r2\delivery.md。RAC/ASM 尚未配置/验证，旧版 OL7 与 WSL cgroup/systemd 兼容性待实测，D5 未通过；下一步双节点/共享 ASM/真实多 thread redo，普通功能原待项继续。
+
 2026-10-11 D5两个19.3安装包均在E盘核对官方SHA通过；OL8首次安装INS-08101/build rc127原文保留，改用官方19.3 Dockerfile默认OL7后Grid/DB软件安装及RAC relink已有成功输出。用户要求释放本机内存，已停止全部8个Desktop业务容器、Docker Desktop及专属D5 WSL；镜像层提交期间主动停止/build rc1、WSL停rc0，缓存及数据保留，未启动RAC/ASM、D5未通过。内存即时值约68%/可用19.8GiB；后续先恢复镜像并检查二进制，再做真实接入，普通功能原待项继续保留。[环境反馈](DELIVERY_D5_MEDIA_BUILD_STOP_20261011.md)。
 
 2026-10-10 基线后ARRAY INSERT正常链：新原始107输出20唯一完整事件，独立SQL差异0；实际JDBC首次20/同批重试0，目标20/20/1/21及双向差集0，48项受影响回归通过。候选e2575809138a，源停rc0/helper移除；一般ARRAY回滚及新产品HTTP/CPACK仍待。用户授权E盘Docker D5实验；Grid官方SHA核等，E盘独立WSL/Docker及loop块设备前置通过后已停止，Database Home包待拷入，RAC/ASM真实接入未通过。LOB历史恢复回收/类型变体继续；[反馈](DELIVERY_ARRAY_NORMAL_D5_PREP_20261010.md)。

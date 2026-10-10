@@ -63,7 +63,9 @@ public final class ArchivedIndexLeafInventory {
                                     HexFormat.of().formatHex(u.key()),HexFormat.of().formatHex(data),pairSignature(pair),vectorSignature(v),null));
                         }
                     } else if (v.opcodeMajor()==10 && (v.opcodeMinor()==3 || v.opcodeMinor()==5)) {
-                        var leaf=IndexCompensation.decodeRollback(v);UndoCompensation marker=null;String markerSignature=null;
+                        boolean array=v.opcodeMinor()==3 && v.fields().size()==2 && v.fields().get(1).length>6;
+                        var purges=array?IndexCompensation.decodeArrayPurge(v):null;
+                        var leaf=array?null:IndexCompensation.decodeRollback(v);UndoCompensation marker=null;String markerSignature=null;
                         long rows=r.vectors().stream().filter(other -> other.containerId()==container && other.dba()==leafDba
                                 && other.opcodeMajor()==10 && (other.opcodeMinor()==3 || other.opcodeMinor()==5)).count();
                         if (rows!=1) throw new RedoException("AMBIGUOUS_INDEX_LEAF_INVENTORY_ROLLBACK");
@@ -76,7 +78,9 @@ public final class ArchivedIndexLeafInventory {
                             marker=candidate;markerSignature=vectorSignature(c);
                         }
                         if (marker==null) throw new RedoException("MISSING_INDEX_LEAF_INVENTORY_MARKER");
-                        entries.add(new Entry(position,r.scn(),leaf.kind(),leaf.block(),leaf.itl(),leaf.slot(),leaf.rowSize(),null,marker,null,null,null,vectorSignature(v),markerSignature));
+                        if(array)for(int slot:purges.slots())
+                            entries.add(new Entry(position,r.scn(),IndexUndoPair.Kind.PURGE,purges.block(),purges.itl(),slot,purges.rowSize(),null,marker,null,null,null,vectorSignature(v),markerSignature));
+                        else entries.add(new Entry(position,r.scn(),leaf.kind(),leaf.block(),leaf.itl(),leaf.slot(),leaf.rowSize(),null,marker,null,null,null,vectorSignature(v),markerSignature));
                     } else throw new RedoException("UNSUPPORTED_INDEX_LEAF_WINDOW_OPCODE:"+v.opcodeMajor()+"."+v.opcodeMinor());
                 }
             });

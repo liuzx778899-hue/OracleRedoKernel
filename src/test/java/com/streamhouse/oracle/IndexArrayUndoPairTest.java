@@ -30,6 +30,15 @@ class IndexArrayUndoPairTest {
             assertArrayEquals(p.forward().key(),p.undo().key());assertEquals(IndexUndoPair.Kind.PURGE,p.undo().kind());
         }
     }
+    @Test void currentUbaWithoutInlineXidBindsOnlyItsOwnedUndo()throws Exception {
+        var r=record();var original=r.vectors().get(1);var fields=new ArrayList<>(original.fields());
+        byte[] ktb=new byte[16];ktb[0]=2;ktb[1]=13;System.arraycopy(fields.get(0),16,ktb,8,8);fields.set(0,ktb);
+        var row=new RedoRecords.Vector(10,2,1,12,original.dba(),original.scn(),1,3,List.copyOf(fields));
+        var owned=new RedoRecords.Record(r.block(),r.offset(),100,1,r.scn(),1,r.containerUid(),List.of(r.vectors().get(0),row));
+        var pairs=IndexArrayUndoPair.bind(owned,row);assertEquals(20,pairs.size());assertNull(pairs.get(0).forward().xid());
+        ktb[14]++;
+        assertThrows(RedoException.class,()->IndexArrayUndoPair.bind(owned,row));
+    }
     @Test void refusesMismatchedKeysPartialBitmapAndDuplicateSlots() {
         var keys=record();keys.vectors().get(0).fields().get(4)[1]++;
         assertThrows(RedoException.class,()->IndexArrayUndoPair.bind(keys,keys.vectors().get(1)));

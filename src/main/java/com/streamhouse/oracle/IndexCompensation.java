@@ -7,6 +7,54 @@ import static com.streamhouse.oracle.RedoBytes.*;
 public final class IndexCompensation {
     public record Purge(long block,int itl,int slot,int rowSize) {}
     public record LeafRollback(IndexUndoPair.Kind kind,long block,int itl,int slot,int rowSize) {}
+    public record ArrayPurge(long block,int itl,int sno,int rowSize,List<Integer> slots) {}
+    /** Raw108 multi-key PURGE: repeated slots are successive deletions, not duplicate owners. */
+    public static ArrayPurge decodeArrayPurge(RedoRecords.Vector vector)throws RedoException {
+        if(vector.opcodeMajor()!=10 || vector.opcodeMinor()!=3 || vector.fields().size()!=2)
+            throw new RedoException("UNSUPPORTED_INDEX_ARRAY_PURGE_LAYOUT");
+        byte[] ktb=vector.fields().get(0),leaf=vector.fields().get(1);
+        boolean shortZ=ktb.length==8 && ktb[0]==3 && ktb[1]==13 && ktb[2]==0
+                && (ktb[3]==0 || ktb[3]==(byte)0x80);
+        if(ktb.length<2 || ktb[1]!=13 || !(ktb[0]==4 && ktb.length==32 || ktb[0]==2 && ktb.length==16 || shortZ)
+                || leaf.length<12 || leaf[0]==0 || leaf[1]!=0x25 || u16(leaf,6)!=0 || u16(leaf,10)!=0)
+            throw new RedoException("UNSUPPORTED_INDEX_ARRAY_PURGE_PROFILE");
+        int count=u16(leaf,8);
+        if(count==0 || leaf.length!=12+count*2 || u16(leaf,4)<count*4)
+            throw new RedoException("INDEX_ARRAY_PURGE_COUNT_OR_SIZE");
+        var slots=new java.util.ArrayList<Integer>();
+        for(int i=0;i<count;i++)slots.add(u16(leaf,12+i*2));
+        if(u16(leaf,2)!=slots.get(0))throw new RedoException("INDEX_ARRAY_PURGE_SNO");
+        return new ArrayPurge(vector.dba(),leaf[0]&255,u16(leaf,2),u16(leaf,4),List.copyOf(slots));
+    }
+    static List<IndexUndoPair> matchArray(RedoRecords.Record record,RedoRecords.Vector marker,RedoRecords.Vector row,
+                                         List<IndexUndoPair> history,UndoHeader original,TransactionLifecycle state,
+                                         IndexLeafPositions positions,ArchivedUndoInventory.Position at)throws RedoException {
+        try {
+            if(positions==null || at==null || !record.vectors().contains(marker) || !record.vectors().contains(row)
+                    || marker.containerId()!=row.containerId())throw new RedoException("INDEX_ARRAY_COMPENSATION_SOURCE");
+            var c=UndoCompensation.decode(marker);var purge=decodeArrayPurge(row);
+            var owned=history.stream().filter(p->p.undo().identity().equals(original)).toList();
+            if(marker.fields().size()!=3 || owned.size()!=20 || owned.size()!=purge.slots().size()
+                    || c.beginsTransaction() || c.crossesUndoBlock() || c.opcodeMajor()!=10 || c.opcodeMinor()!=22)
+                throw new RedoException("INDEX_ARRAY_COMPENSATION_COVERAGE_OR_BITMAP");
+            int size=0;
+            for(int i=0;i<owned.size();i++) {
+                var p=owned.get(i);var u=p.undo();var f=p.forward();
+                if(p.containerUid()!=record.containerUid() || p.containerId()!=row.containerId()
+                        || original.xid().slot()!=c.slot() || (original.xid().sequence()&0xffff)!=c.wrap()
+                        || original.uba().dba()!=c.dba() || original.objectId()!=c.objectId()
+                        || original.dataObjectId()!=c.dataObjectId() || original.tablespace()!=c.tablespace()
+                        || u.wrap()!=c.wrap() || u.previousDba()!=c.previousDba() || u.predecessorRecord()!=c.predecessorRecord()
+                        || u.kind()!=IndexUndoPair.Kind.PURGE || f.kind()!=IndexUndoPair.Kind.INSERT
+                        || f.block()!=purge.block() || f.itl()!=purge.itl()
+                        || positions.slotBefore(p,record,marker,row,at,state,i)!=purge.slots().get(i))
+                    throw new RedoException("INDEX_ARRAY_COMPENSATION_ORIGINAL_MISMATCH");
+                size+=f.rowSize();state.requireActive(record,p);
+            }
+            if(size!=purge.rowSize())throw new RedoException("INDEX_ARRAY_COMPENSATION_TOTAL_SIZE");
+            positions.matched(at);return owned;
+        } catch(RedoException e){state.compensationRefused();if(positions!=null)positions.refused();throw e;}
+    }
     public static Purge decodePurge(RedoRecords.Vector vector) throws RedoException {
         if (vector.opcodeMajor()!=10 || vector.opcodeMinor()!=3)
             throw new RedoException("UNSUPPORTED_INDEX_PURGE_LAYOUT");
@@ -36,7 +84,7 @@ public final class IndexCompensation {
     /** Source-routed LOB index purge; leaf position remains the exact observed forward slot. */
     public static IndexUndoPair matchLob(RedoRecords.Record record,RedoRecords.Vector marker,RedoRecords.Vector row,
                                        List<IndexUndoPair> history,UndoHeader original)throws RedoException {
-        if(!record.vectors().contains(marker) || !record.vectors().contains(row) || marker.containerId()!=row.containerId())
+        if(marker.fields().size()!=2 || !record.vectors().contains(marker) || !record.vectors().contains(row) || marker.containerId()!=row.containerId())
             throw new RedoException("LOB_INDEX_COMPENSATION_RECORD_OR_CONTAINER");
         var c=UndoCompensation.decode(marker);var rollback=decodePurge(row);
         if(marker.opcodeMinor()!=6 || c.beginsTransaction() || c.crossesUndoBlock() || c.opcodeMajor()!=10 || c.opcodeMinor()!=22 || row.blockClass()!=1 || row.objectId()!=original.dataObjectId())
@@ -70,6 +118,7 @@ public final class IndexCompensation {
             if (!record.vectors().contains(marker) || !record.vectors().contains(row)
                     || marker.containerId()!=row.containerId())
                 throw new RedoException("INDEX_COMPENSATION_RECORD_OR_CONTAINER_MISMATCH");
+            if(marker.fields().size()!=2)throw new RedoException("UNSUPPORTED_SINGLE_INDEX_COMPENSATION_FIELDS");
             var c=UndoCompensation.decode(marker);
             if (marker.opcodeMinor()!=6 || c.beginsTransaction() || c.crossesUndoBlock()
                     || c.opcodeMajor()!=10 || c.opcodeMinor()!=22)

@@ -88,7 +88,7 @@ public final class ArchivedObjectTransactions {
                         if(covered.contains(new HeapRowPatch.Xid(RedoBytes.u16(identity,8),RedoBytes.u16(identity,10),RedoBytes.u32(identity,12))))continue;
                         if (scope.contains(object) || scope.contains(data)) xids.add(UndoHeader.decode(v).xid());
                     } else if (v.opcodeMinor()==6 || v.opcodeMinor()==11) {
-                        if (v.fields().size()!=2 || v.fields().get(0).length!=28 || v.fields().get(1).length!=8)
+                        if ((v.fields().size()!=2 && v.fields().size()!=3) || v.fields().get(0).length!=28 || v.fields().get(1).length!=8)
                             throw new RedoException("UNREADABLE_OBJECT_TRANSACTION_COMPENSATION");
                         object=RedoBytes.u32(v.fields().get(0),0);data=RedoBytes.u32(v.fields().get(0),4);
                         if (scope.contains(object) || scope.contains(data)) {

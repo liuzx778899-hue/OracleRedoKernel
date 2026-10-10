@@ -14,7 +14,9 @@ final class BaselineTransactionCoverage {
     static List<Receipt> read(RedoBatch paths,long uid,long container,HeapIndexScope scope,long scn) throws IOException {
         var candidates=new HashSet<HeapRowPatch.Xid>();
         for(var path:paths)path.visit(path.header(),r->{
-            if(r.containerUid()!=uid)return;
+            // A new ARRAY after acquisition belongs to the ordinary physical parser,
+            // including its compensation; it cannot be an initialization receipt.
+            if(r.containerUid()!=uid || r.scn()>scn)return;
             for(var v:r.vectors()) {
                 if(v.containerId()!=container || v.opcodeMajor()!=5 || v.opcodeMinor()!=1
                         || v.fields().size()<2 || v.fields().get(0).length!=20 || v.fields().get(1).length<24)continue;

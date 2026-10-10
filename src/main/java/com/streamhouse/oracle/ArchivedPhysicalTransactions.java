@@ -285,12 +285,24 @@ public final class ArchivedPhysicalTransactions {
                         // Association consumed the source-owned foreign window; target block operations still require pairing below.
                         continue;
                     }
-                    var marker=UndoCompensation.decode(v);UndoHeader matched=null;int rowIndex=-1;
+                    var marker=UndoCompensation.decode(v);UndoHeader matched=null;int rowIndex=-1;boolean arrayMatched=false;
                     for (int j=0;j<r.vectors().size();j++) {
                         var row=r.vectors().get(j);if (row.containerId()!=container) continue;
                         if (marker.dataObjectId()==indexObject && row.opcodeMajor()==10 && (row.opcodeMinor()==3 || row.opcodeMinor()==5)) {
                             if (matched!=null) throw new RedoException("PHYSICAL_COMPENSATION_ROW_AMBIGUOUS");
-                            matched=IndexCompensation.match(r,v,row,c.indexes,state,c.positions,position(header,r,j)).undo().identity();
+                            if(row.opcodeMinor()==3 && row.fields().size()==2 && row.fields().get(1).length>6) {
+                                matched=IndexCompensation.matchArray(r,v,row,c.indexes,route.original(),state,c.positions,position(header,r,j)).get(0).undo().identity();
+                                arrayMatched=true;
+                            } else matched=IndexCompensation.match(r,v,row,c.indexes,state,c.positions,position(header,r,j)).undo().identity();
+                        } else if(marker.dataObjectId()==heapObject && row.opcodeMajor()==11 && row.opcodeMinor()==12) {
+                            if(matched!=null)throw new RedoException("PHYSICAL_COMPENSATION_ROW_AMBIGUOUS");
+                            int rowColumns=columnsAt(history,snapshot,r.scn(),columns,new ArchivedUndoInventory.Position(header.sequence(),r.block(),r.offset(),i+1));
+                            var pairs=HeapArrayUndoPair.matchRollback(r,v,row,c.heaps,rowColumns,route.original());
+                            if(marker.beginsTransaction() && !state.beginCompensationIdentity(r,v).equals(route.original().xid())
+                                    || marker.crossesUndoBlock() && !state.crossCompensationIdentity(r,v).equals(route.original().xid()))
+                                throw new RedoException("HEAP_ARRAY_COMPENSATION_LIFECYCLE_IDENTITY");
+                            for(var pair:pairs)state.requireActive(r,pair);
+                            matched=route.original();arrayMatched=true;
                         } else if (marker.dataObjectId()==heapObject && heap(row) && new HeapRowPatch().decode(row,columnsAt(history,snapshot,r.scn(),columns,new ArchivedUndoInventory.Position(header.sequence(),r.block(),r.offset(),i+1))).xtype()==2) {
                             if (matched!=null) throw new RedoException("PHYSICAL_COMPENSATION_ROW_AMBIGUOUS");
                             int rowColumns=columnsAt(history,snapshot,r.scn(),columns,new ArchivedUndoInventory.Position(header.sequence(),r.block(),r.offset(),i+1));
@@ -303,8 +315,8 @@ public final class ArchivedPhysicalTransactions {
                     }
                     if (matched==null || !matched.equals(route.original())) throw new RedoException("PHYSICAL_COMPENSATION_NOT_ASSOCIATED_ORIGINAL");
                     var matchedIdentity=matched;
-                    if(c.heaps.stream().filter(p->p.undo().identity().equals(matchedIdentity)).count()>1
-                            || c.indexes.stream().filter(p->p.undo().identity().equals(matchedIdentity)).count()>1)
+                    if(!arrayMatched && (c.heaps.stream().filter(p->p.undo().identity().equals(matchedIdentity)).count()>1
+                            || c.indexes.stream().filter(p->p.undo().identity().equals(matchedIdentity)).count()>1))
                         throw new RedoException("UNSUPPORTED_ARRAY_COMPENSATION");
                     if (!paired.add(rowIndex)) throw new RedoException("PHYSICAL_ROW_PAIRED_TWICE");
                     c.graph.compensate(matched);c.operations.add(new Operation(at,matched,true));

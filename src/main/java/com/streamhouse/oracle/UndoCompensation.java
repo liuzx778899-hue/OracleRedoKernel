@@ -11,9 +11,14 @@ public record UndoCompensation(long dba, long objectId, long dataObjectId, long 
         if (vector.opcodeMajor()!=5 || (vector.opcodeMinor()!=6 && vector.opcodeMinor()!=11))
             throw new RedoException("UNSUPPORTED_COMPENSATION_OPCODE");
         var fields=vector.fields();
-        if (fields.size()!=2 || fields.get(0).length!=28 || fields.get(1).length!=8)
+        if ((fields.size()!=2 && fields.size()!=3) || fields.get(0).length!=28 || fields.get(1).length!=8)
             throw new RedoException("UNSUPPORTED_COMPENSATION_LAYOUT");
         byte[] b=fields.get(0);
+        // Raw108 ARRAY cancellation updates the last undo buffer's bitmap. This header
+        // alone authorizes nothing; the array matcher also requires count and full physical coverage.
+        if(fields.size()==3 && (vector.opcodeMinor()!=6 || b[16]!=10 || b[17]!=22
+                || !java.util.Arrays.equals(fields.get(2),new byte[]{0,0,(byte)0xf0})))
+            throw new RedoException("UNSUPPORTED_COMPENSATION_ARRAY_BITMAP");
         int flags=u16(b,20);
         boolean begin=vector.opcodeMinor()==11 && flags==0x0c18;
         boolean cross=vector.opcodeMinor()==11 && flags==0x0010 && (b[19]&255)==0 && u32(b,12)!=0;

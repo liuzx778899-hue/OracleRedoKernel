@@ -8,6 +8,55 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class HeapArrayUndoPairTest {
     static byte[] hex(String text){return HexFormat.of().parseHex(text);}
+    // Frozen raw108, RBA 15191/248 and 15200/296; native dump independently identifies XR QMD.
+    RedoRecords.Vector rollback(boolean begin) {
+        return new RedoRecords.Vector(11,12,1,12,0x0300b4fcL,3225993,1,3,List.of(
+                hex(begin?"030d008081393100":"020d000000000000330d4002af011a00"),
+                hex(begin?"fcb40003fab40003fa120c02010000000000140000000100020003000400050006000700080009000a000b000c000d000e000f0010001100120013000000"
+                        :"fcb40003fab40003fa120c0201000000000014001400150016001700180019001a001b001c001d001e001f00200021002200230024002500260027000000")));
+    }
+    @Test void decodesFrozenFullAndSavepointRollbackSlotsWithoutInventingValues()throws Exception {
+        for(boolean begin:List.of(true,false)) {
+            var rows=HeapArrayUndoPair.rollback(rollback(begin),3);
+            assertEquals(20,rows.size());
+            for(int i=0;i<20;i++) {
+                var row=rows.get(i);assertEquals(i+(begin?0:20),row.slot());
+                assertEquals(HeapRowPatch.Kind.DELETE,row.kind());assertEquals(2,row.xtype());
+                assertNull(row.xid());assertNull(row.uba());
+                assertTrue(row.columns().stream().allMatch(c->c.state()==HeapRowPatch.State.ABSENT));
+            }
+        }
+    }
+    @Test void refusesPoisonedRollbackCountDuplicateSlotAndForwardXtype() {
+        var count=rollback(true);count.fields().get(1)[18]--;
+        assertThrows(RedoException.class,()->HeapArrayUndoPair.rollback(count,3));
+        var duplicate=rollback(true);duplicate.fields().get(1)[22]=0;
+        assertThrows(RedoException.class,()->HeapArrayUndoPair.rollback(duplicate,3));
+        var xtype=rollback(false);xtype.fields().get(1)[11]=1;
+        assertThrows(RedoException.class,()->HeapArrayUndoPair.rollback(xtype,3));
+    }
+    @Test void completeOwnedArrayIsRequiredBeforeCancellingItsUndoNode()throws Exception {
+        var r=record();var pairs=HeapArrayUndoPair.bind(r,r.vectors().get(1),3);var original=pairs.get(0).undo().identity();
+        byte[] header=java.util.Arrays.copyOf(r.vectors().get(0).fields().get(1),28);header[20]=0x18;
+        var marker=new RedoRecords.Vector(5,11,35,11,0x02400110L,2923460,1,3,List.of(header,new byte[8]));
+        byte[] kdo=r.vectors().get(0).fields().get(3).clone();kdo[11]=2;
+        var row=new RedoRecords.Vector(11,12,1,12,0x03006cbcL,2923460,1,3,List.of(hex("030d000000000000"),kdo));
+        var cancellation=new RedoRecords.Record(1320,20,100,1,2923460,1,677737149,List.of(row,marker));
+        assertEquals(pairs,HeapArrayUndoPair.matchRollback(cancellation,marker,row,pairs,3,original));
+        assertThrows(RedoException.class,()->HeapArrayUndoPair.matchRollback(cancellation,marker,row,pairs.subList(0,2),3,original));
+        kdo[24]=3;
+        assertThrows(RedoException.class,()->HeapArrayUndoPair.matchRollback(cancellation,marker,row,pairs,3,original));
+    }
+    @Test void currentUbaWithoutXidStillRequiresExactSameRecordUndoOwnership()throws Exception {
+        var r=record();byte[] prior=r.vectors().get(1).fields().get(0);byte[] current=new byte[16];current[0]=2;current[1]=13;
+        System.arraycopy(prior,16,current,8,8);
+        var fields=new ArrayList<>(r.vectors().get(1).fields());fields.set(0,current);
+        var row=new RedoRecords.Vector(11,11,1,12,0x03006cbcL,2923459,1,3,List.copyOf(fields));
+        var own=new RedoRecords.Record(1319,76,100,1,2923459,1,677737149,List.of(r.vectors().get(0),row));
+        var pairs=HeapArrayUndoPair.bind(own,row,3);assertEquals(3,pairs.size());assertNull(pairs.get(0).forward().xid());
+        current[14]++;
+        assertThrows(RedoException.class,()->HeapArrayUndoPair.bind(own,row,3));
+    }
     // Owned 19.3 archive90 QMI/QMD headers; small row values exercise the same bounded layout.
     RedoRecords.Record record() {
         var undo=new RedoRecords.Vector(5,1,36,11,0x02400232L,2923459,1,3,List.of(

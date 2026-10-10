@@ -16,7 +16,8 @@ public final class IndexArrayUndoPair {
         boolean cleanout=ktb.length==70 && ktb[0]==17 && ktb[44]==2 && ktb[45]==1 && u16(ktb,46)==0x0d
                 && u16(ktb,52)==0x8000 && u16(ktb,54)==0 && u16(ktb,56)==0x0602 && u16(ktb,58)==0x8000
                 && u16(ktb,64)==0 && u32(ktb,66)==0;
-        if(!(ktb.length==24 && ktb[0]==1 || cleanout) || ktb[1]!=0x0d || leaf.length<12 || leaf[0]==0 || leaf[1]!=0x20
+        boolean current=ktb.length==16 && ktb[0]==2;
+        if(!(ktb.length==24 && ktb[0]==1 || cleanout || current) || ktb[1]!=0x0d || leaf.length<12 || leaf[0]==0 || leaf[1]!=0x20
                 || u16(leaf,6)!=0 || u16(leaf,10)!=0)
             throw new RedoException("UNSUPPORTED_INDEX_ARRAY_FORWARD_PROFILE");
         int count=u16(leaf,8);
@@ -25,8 +26,9 @@ public final class IndexArrayUndoPair {
                 // Native archives90/107 show sno at the first/last slot; the explicit slots own each key.
                 || u16(leaf,2)!=u16(leaf,12) && u16(leaf,2)!=u16(leaf,12+(count-1)*2))
             throw new RedoException("INDEX_ARRAY_FORWARD_COUNT_OR_SIZE");
-        var xid=new HeapRowPatch.Xid(u16(ktb,8),u16(ktb,10),u32(ktb,12));
-        var uba=new HeapRowPatch.Uba(u32(ktb,16),u16(ktb,20),ktb[22]&255);
+        var xid=current?null:new HeapRowPatch.Xid(u16(ktb,8),u16(ktb,10),u32(ktb,12));
+        int ubaOffset=current?8:16;
+        var uba=new HeapRowPatch.Uba(u32(ktb,ubaOffset),u16(ktb,ubaOffset+4),ktb[ubaOffset+6]&255);
         if(uba.dba()==0 || uba.record()==0)throw new RedoException("INVALID_INDEX_ARRAY_UBA");
         var result=new ArrayList<IndexUndoPair.Forward>();int offset=0;var slots=new HashSet<Integer>();
         for(int i=0;i<count;i++) {
@@ -45,7 +47,7 @@ public final class IndexArrayUndoPair {
         byte[] metadata=fields.get(1),ktb=fields.get(2),leaf=fields.get(3),keys=fields.get(4),bitmap=fields.get(5);
         if(metadata[16]!=10 || metadata[17]!=22 || (metadata[18]&255)!=identity.xid().slot()
                 || !identity.beginsTransaction() && u16(metadata,22)!=(identity.xid().sequence()&0xffff)
-                || ktb.length!=32 || ktb[0]!=4 || ktb[1]!=0x0d || leaf.length<24
+                || !(ktb.length==32 && ktb[0]==4 || ktb.length==16 && ktb[0]==2) || ktb[1]!=0x0d || leaf.length<24
                 || leaf[0]!=3 || leaf[1]==0 || leaf[2]!=0x21 || leaf[3]!=0 || u32(leaf,4)==0 || u32(leaf,8)==0
                 || u32(leaf,14)!=0 || u16(leaf,22)!=0)
             throw new RedoException("UNSUPPORTED_INDEX_ARRAY_INVERSE_PROFILE");
@@ -86,7 +88,7 @@ public final class IndexArrayUndoPair {
         var result=new ArrayList<IndexUndoPair>();
         for(int i=0;i<forward.size();i++) {
             var f=forward.get(i);var u=inverse.get(i);
-            if(f.block()!=u.block() || f.itl()!=u.itl() || !f.xid().equals(u.identity().xid()) || !Arrays.equals(f.key(),u.key()))
+            if(f.block()!=u.block() || f.itl()!=u.itl() || f.xid()!=null && !f.xid().equals(u.identity().xid()) || !Arrays.equals(f.key(),u.key()))
                 throw new RedoException("INDEX_ARRAY_INVERSE_BLOCK_ITL_XID_OR_KEY");
             result.add(new IndexUndoPair(record.containerUid(),row.containerId(),f,u));
         }

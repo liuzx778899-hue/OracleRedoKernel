@@ -7,6 +7,29 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class IndexCompensationTest {
     byte[] hex(String s) { return HexFormat.of().parseHex(s); }
+    // Raw108 RBA15191/20 and15200/84: independent native dump calls rowSize279 the total array size.
+    RedoRecords.Vector arrayPurge(int slot) {
+        byte[] leaf=hex("02250100170100001400000001000100010001000100010001000100010001000100010001000100010001000100010001000100");
+        leaf[2]=(byte)slot;
+        for(int i=0;i<20;i++)leaf[12+i*2]=(byte)slot;
+        return new RedoRecords.Vector(10,3,1,12,0x0300b503L,3225993,1,3,List.of(
+                hex("040d0000000000000a001000a71300002b0d4002af01450000800080fe363100"),leaf));
+    }
+    @Test void frozenArrayPurgeRetainsSuccessiveRepeatedSlotsAndAggregateSize()throws Exception {
+        for(int slot:List.of(1,21)) {
+            var purge=IndexCompensation.decodeArrayPurge(arrayPurge(slot));
+            assertEquals(279,purge.rowSize());assertEquals(2,purge.itl());
+            assertEquals(java.util.Collections.nCopies(20,slot),purge.slots());
+        }
+    }
+    @Test void arrayPurgeRefusesTruncatedCountUnknownFlagsAndWrongSno() {
+        var count=arrayPurge(1);count.fields().get(1)[8]--;
+        assertThrows(RedoException.class,()->IndexCompensation.decodeArrayPurge(count));
+        var flags=arrayPurge(1);flags.fields().get(1)[1]=0x21;
+        assertThrows(RedoException.class,()->IndexCompensation.decodeArrayPurge(flags));
+        var sno=arrayPurge(21);sno.fields().get(1)[2]++;
+        assertThrows(RedoException.class,()->IndexCompensation.decodeArrayPurge(sno));
+    }
     RedoRecords.Vector marker() {
         return new RedoRecords.Vector(5,6,22,11,37756973,2148795,2,3,List.of(
                 hex("411d0100411d010005000000000000000a16042f10009d02040d0001"),hex("340a000002000000")));

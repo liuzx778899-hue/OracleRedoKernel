@@ -41,19 +41,31 @@ public final class IndexLeafPositions {
                 association=a;
             }
             if (association==null) throw new RedoException("MISSING_INDEX_POSITION_ASSOCIATION");
+            boolean array=i+1<entries.size() && e.position().equals(entries.get(i+1).position())
+                    || i>0 && e.position().equals(entries.get(i-1).position());
             int original=-1;
             for (int j=0;j<i;j++) {
                 var o=entries.get(j);
-                if (!association.original().equals(o.original()) || !sameRecord(o.position(),association.originalPosition())) continue;
+                if (!association.original().equals(o.original()) || !sameRecord(o.position(),association.originalPosition()) || cancelled.contains(j)) continue;
+                if(array && replaySlot(entries,j,i)!=e.slot())continue;
                 if (original!=-1) throw new RedoException("AMBIGUOUS_INDEX_POSITION_ROLLBACK_ORIGINAL");
                 original=j;
             }
             if (original<0) throw new RedoException("INDEX_POSITION_ROLLBACK_ORIGINAL_OUTSIDE_LEAF_WINDOW");
             var o=entries.get(original);
             if ((e.kind()==IndexUndoPair.Kind.PURGE ? IndexUndoPair.Kind.INSERT : IndexUndoPair.Kind.DELETE)!=o.kind()
-                    || e.itl()!=o.itl() || e.rowSize()!=o.rowSize() || replaySlot(entries,original,i)!=e.slot())
+                    || e.itl()!=o.itl() || !array && e.rowSize()!=o.rowSize() || replaySlot(entries,original,i)!=e.slot())
                 throw new RedoException("INDEX_POSITION_ROLLBACK_PHYSICAL_MISMATCH");
             if (!cancelled.add(original)) throw new RedoException("INDEX_POSITION_ORIGINAL_ALREADY_CANCELLED");
+            if(array && (i+1==entries.size() || !e.position().equals(entries.get(i+1).position()))) {
+                int total=0,count=0;
+                for(int j=0;j<i;j++)if(association.original().equals(entries.get(j).original())) {
+                    if(!cancelled.contains(j))throw new RedoException("INDEX_ARRAY_POSITION_PARTIAL_CANCELLATION");
+                    total+=entries.get(j).rowSize();count++;
+                }
+                int first=i;while(first>0 && e.position().equals(entries.get(first-1).position()))first--;
+                if(total!=e.rowSize() || count!=i-first+1)throw new RedoException("INDEX_ARRAY_POSITION_SIZE_OR_COVERAGE");
+            }
         }
         return new IndexLeafPositions(leaf,true);
     }
@@ -77,6 +89,10 @@ public final class IndexLeafPositions {
 
     int slotBefore(IndexUndoPair pair,RedoRecords.Record record,RedoRecords.Vector marker,RedoRecords.Vector row,
                    ArchivedUndoInventory.Position at,TransactionLifecycle state) throws RedoException {
+        return slotBefore(pair,record,marker,row,at,state,-1);
+    }
+    int slotBefore(IndexUndoPair pair,RedoRecords.Record record,RedoRecords.Vector marker,RedoRecords.Vector row,
+                   ArchivedUndoInventory.Position at,TransactionLifecycle state,int ordinal) throws RedoException {
         if (failed) throw new RedoException("INDEX_LEAF_POSITIONS_ALREADY_REFUSED");
         try {
             if (lastMatched!=null && compare(at,lastMatched)<=0) throw new RedoException("INDEX_POSITION_QUERY_REPEATED_OR_REORDERED");
@@ -90,7 +106,7 @@ public final class IndexLeafPositions {
                 throw new RedoException("INDEX_POSITION_QUERY_RECORD_OR_VECTOR_MISMATCH");
             if (!pair.undo().identity().xid().equals(inventory.window().undo().entries().get(0).identity().xid()))
                 throw new RedoException("INDEX_POSITION_ORIGINAL_OUTSIDE_TARGET_TRANSACTION");
-            int original=-1,target=-1;
+            int original=-1,target=-1,queryOrdinal=0;
             var entries=inventory.entries();String signature=ArchivedIndexLeafInventory.pairSignature(pair);
             for (int i=0;i<entries.size();i++) {
                 var e=entries.get(i);
@@ -98,7 +114,10 @@ public final class IndexLeafPositions {
                     if (original!=-1) throw new RedoException("AMBIGUOUS_INDEX_POSITION_ORIGINAL");
                     original=i;
                 }
-                if (e.position().equals(at)) target=i;
+                if (e.position().equals(at)) {
+                    if(ordinal<0 || queryOrdinal==ordinal)target=i;
+                    queryOrdinal++;
+                }
             }
             if (original<0 || target<=original) throw new RedoException("INDEX_POSITION_ORIGINAL_OR_QUERY_NOT_OWNED");
             var query=entries.get(target);
