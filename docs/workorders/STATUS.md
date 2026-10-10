@@ -1,5 +1,7 @@
 # OracleRedoKernel 当前状态
 
+2026-10-11 时间变体首包：专属raw109 3行/24字段字节核等，BC/精度0/3/6/9及偏移时区18解析值/SQL差异0；内核03135a33/适配器d2c561a4，35内核回归＋2投影测试通过，源停rc0/Desktop停止。BC纪年/纳秒/偏移解析和非LOB九列IRP补齐；获取层、region/LTZ上下文、完整事件/真实目标/HTTP CPACK待补，不能标时间类型完整支持。其余五项目标继续，D5搁置。[字节解析反馈](DELIVERY_TEMPORAL_VARIANTS_SCALARS_20261011.md)。
+
 2026-10-11 ARRAY回滚首包：raw108完整入口输出20唯一INSERT、仅ID200–219，完整值差异0/撤销事件0；整笔回滚与保存点撤销完整节点通过。113受影响回归及最终补偿门禁13项相关复查失败0，旧raw107 envelope未变；候选5f459036888a。仅离线开发，库保持停止；部分行补偿/pending恢复、同SCN恢复发布、LOB历史回收、时间类型及新产品接线继续，D5搁置。[首包反馈](DELIVERY_ARRAY_ROLLBACK_20261011.md)。
 
 2026-10-11 用户收窄当前目标：完成 ARRAY 回滚/部分行补偿、相同 commit SCN 排序恢复、LOB 历史恢复回收、时间类型变体及 StreamHouse 新能力正常端到端后开始模拟测试；D5 RAC/ASM 暂时搁置，不作为阻塞。新 ARRAY 回滚样本已冻结：SCN3225957、heap80544/index80545，raw108 SHA256 `716ac017f4a5c6c5c034046830fc820eac089e58fbb277bc3cfecd7f70232ecb`、7784960字节；整笔回滚与保存点回滚后 SQL 仅保留20条新行，raw/native 核对发现 11.12 QMD 批量补偿、10.3 多键PURGE及5.6三字段布局。当前只完成取证，事件解析/恢复/目标链未通过；原始失败保留，source/native停rc0。已有 commit SCN+提交位置排序实现复用，重点补同SCN恢复与发布核验。

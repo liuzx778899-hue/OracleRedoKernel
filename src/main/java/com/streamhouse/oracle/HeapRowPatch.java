@@ -105,9 +105,9 @@ public final class HeapRowPatch {
         boolean statisticsInsert=op==2 && kdo.length==51 && (kdo[18]&255)==18 && kdo[11]==1;
         // Observed COL_USAGE$ DELETE inverse stores ten columns and a two-byte null bitmap.
         boolean usageInsert=op==2 && dictionaryColumns==10 && kdo.length==50 && (kdo[18]&255)==10 && kdo[11]==1;
-        // Seq104 mixed scalar/four-LOB seed has nine columns and a two-byte null bitmap.
-        boolean lobNineInsert=lobHeap && op==2 && dictionaryColumns==9 && kdo.length==50 && (kdo[18]&255)==9 && kdo[11]==1;
-        int expectedKdo=sysNine?30:op == 2 ? statisticsInsert?51:usageInsert || lobNineInsert?50:49 : op == 3 || op == 4 ? 20 : packed || tail ? 28 : 29;
+        // Seq104 mixed LOB and seq109 temporal rows both have nine columns and a two-byte null bitmap.
+        boolean nineColumnInsert=op==2 && dictionaryColumns==9 && kdo.length==50 && (kdo[18]&255)==9 && kdo[11]==1;
+        int expectedKdo=sysNine?30:op == 2 ? statisticsInsert?51:usageInsert || nineColumnInsert?50:49 : op == 3 || op == 4 ? 20 : packed || tail ? 28 : 29;
         if (kdo.length != expectedKdo || (kdo[10]&255) != op || u32(kdo,0) != dba)
             throw new RedoException("UNSUPPORTED_KDO_LAYOUT_OR_BLOCK");
         if(dictionaryObject && (dictionaryColumns!=37 || op!=5 || packed || tail || kdo[11]!=1 || kdo[12]!=1 || kdo[13]!=0

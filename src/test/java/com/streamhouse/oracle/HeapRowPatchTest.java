@@ -26,7 +26,8 @@ class HeapRowPatchTest {
         assertEquals(HeapRowPatch.Kind.INSERT,p.kind());assertEquals(9,p.extent().storedColumns());
         for(int i=0;i<9;i++)assertArrayEquals(new byte[]{(byte)(i+1)},p.columns().get(i).bytes());
         assertThrows(RedoException.class,()->new HeapRowPatch().decodeLob(v,8));
-        assertThrows(RedoException.class,()->new HeapRowPatch().decode(v,9));
+        var scalar=new HeapRowPatch().decode(v,9);
+        for(int i=0;i<9;i++)assertArrayEquals(p.columns().get(i).bytes(),scalar.columns().get(i).bytes());
         fields.get(1)[18]=10;
         assertThrows(RedoException.class,()->new HeapRowPatch().decodeLob(v,9));
     }

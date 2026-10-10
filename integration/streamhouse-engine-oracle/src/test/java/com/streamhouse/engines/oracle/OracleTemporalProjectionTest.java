@@ -7,6 +7,16 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 class OracleTemporalProjectionTest {
+    @Test void frozenBcRowsKeepOracleEraThroughTypedProjection()throws Exception {
+        var columns=List.of(new FrozenHeapBaseline.PhysicalColumn(1,1,"D","DATE",false,false),
+                new FrozenHeapBaseline.PhysicalColumn(2,2,"TS","TIMESTAMP",false,false));
+        var image=OracleBatchProjection.image(columns,List.of(new ArchivedHeapRows.Cell(HeapRowPatch.State.VALUE,"6438030f0d2339"),
+                new ArchivedHeapRows.Cell(HeapRowPatch.State.VALUE,"6463010101010100000001")));
+        assertEquals(new OracleTemporalValue("DATE","-0043-03-15T12:34:56"),image.get("D"));
+        assertEquals(new OracleTemporalValue("TIMESTAMP","0000-01-01T00:00:00.000000001"),image.get("TS"));
+        assertEquals(LocalDateTime.of(0,1,1,0,0,0,1),((OracleTemporalValue)image.get("TS")).localDateTime());
+        assertThrows(IllegalArgumentException.class,()->OracleTemporalValue.of("DATE",LocalDateTime.of(-4712,1,1,0,0)));
+    }
     @Test void keepsTypeWallClockNanosecondsAndNull()throws Exception {
         var columns=List.of(new FrozenHeapBaseline.PhysicalColumn(1,1,"D","DATE",false,false),
                 new FrozenHeapBaseline.PhysicalColumn(2,2,"TS","TIMESTAMP",true,false));

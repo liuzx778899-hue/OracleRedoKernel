@@ -36,10 +36,13 @@ public final class OracleScalars {
     public static LocalDateTime date(byte[] bytes) throws RedoException {
         if (bytes.length != 7) throw new RedoException("INVALID_DATE_LENGTH");
         int century=(bytes[0]&255)-100, year=(bytes[1]&255)-100;
-        if (century < 0 || year < 0 || year > 99 || century*100+year < 1 || century*100+year > 9999)
+        int oracleYear=century*100+year;
+        if (Math.abs(year)>99 || century<0 && year>0 || century>0 && year<0
+                || oracleYear==0 || oracleYear < -4712 || oracleYear>9999)
             throw new RedoException("UNSUPPORTED_DATE_ERA");
         try {
-            return LocalDateTime.of(century*100+year,bytes[2]&255,bytes[3]&255,
+            // Oracle has no year zero. ISO year 0 is Oracle 1 BC.
+            return LocalDateTime.of(oracleYear<0?oracleYear+1:oracleYear,bytes[2]&255,bytes[3]&255,
                     (bytes[4]&255)-1,(bytes[5]&255)-1,(bytes[6]&255)-1);
         } catch (DateTimeException e) { throw new RedoException("INVALID_DATE_VALUE"); }
     }
@@ -61,12 +64,26 @@ public final class OracleScalars {
         return value.withNano((int)nanos);
     }
 
-    /** Initial snapshot encoding only; no timezone conversion and no BC era fallback. */
+    /** UTC first eleven bytes plus the explicit offset; region codes need their own source context. */
+    public static java.time.OffsetDateTime timestampWithOffset(byte[] bytes)throws RedoException {
+        if(bytes.length!=13)throw new RedoException("INVALID_TIMESTAMP_TZ_LENGTH");
+        if((bytes[11]&128)!=0)throw new RedoException("TIMESTAMP_TZ_REGION_CONTEXT_REQUIRED");
+        int hours=(bytes[11]&255)-20,minutes=(bytes[12]&255)-60;
+        if(hours < -12 || hours>14 || Math.abs(minutes)>59 || hours==-12 && minutes<0 || hours==14 && minutes>0)
+            throw new RedoException("INVALID_TIMESTAMP_TZ_OFFSET");
+        try {
+            var offset=java.time.ZoneOffset.ofHoursMinutes(hours,minutes);
+            return timestamp(java.util.Arrays.copyOf(bytes,11)).atOffset(java.time.ZoneOffset.UTC).withOffsetSameInstant(offset);
+        } catch(DateTimeException e){throw new RedoException("INVALID_TIMESTAMP_TZ_OFFSET");}
+    }
+
+    /** Initial snapshot encoding; preserves the Oracle BC/AD era without a machine timezone. */
     public static byte[] temporalBytes(LocalDateTime value,boolean timestamp) throws RedoException {
-        if(value.getYear()<1 || value.getYear()>9999)throw new RedoException("UNSUPPORTED_DATE_ERA");
+        if(value.getYear() < -4711 || value.getYear()>9999)throw new RedoException("UNSUPPORTED_DATE_ERA");
         if(!timestamp && value.getNano()!=0)throw new RedoException("DATE_FRACTIONAL_SECONDS");
         byte[] bytes=new byte[timestamp && value.getNano()!=0?11:7];
-        bytes[0]=(byte)(value.getYear()/100+100);bytes[1]=(byte)(value.getYear()%100+100);
+        int oracleYear=value.getYear()<=0?value.getYear()-1:value.getYear();
+        bytes[0]=(byte)(oracleYear/100+100);bytes[1]=(byte)(oracleYear%100+100);
         bytes[2]=(byte)value.getMonthValue();bytes[3]=(byte)value.getDayOfMonth();
         bytes[4]=(byte)(value.getHour()+1);bytes[5]=(byte)(value.getMinute()+1);bytes[6]=(byte)(value.getSecond()+1);
         if(bytes.length==11)ByteBuffer.wrap(bytes,7,4).putInt(value.getNano());

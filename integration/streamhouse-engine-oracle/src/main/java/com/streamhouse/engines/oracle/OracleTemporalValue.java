@@ -13,7 +13,7 @@ public record OracleTemporalValue(String type,String iso) {
     }
     public OracleTemporalValue {
         var value=LocalDateTime.parse(iso,format(type));
-        if(value.getYear()<1 || value.getYear()>9999 || !iso.equals(value.format(format(type))))
+        if(value.getYear() < -4711 || value.getYear()>9999 || !iso.equals(value.format(format(type))))
             throw new IllegalArgumentException("ORACLE_TEMPORAL_VALUE");
     }
     public static OracleTemporalValue of(String type,LocalDateTime value) {
