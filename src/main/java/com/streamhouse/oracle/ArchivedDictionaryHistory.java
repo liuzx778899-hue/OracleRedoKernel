@@ -21,6 +21,9 @@ public final class ArchivedDictionaryHistory {
     }
     public record Pending(HeapRowPatch.Xid xid,long beginScn,int originals,int rowPairs,int indexPairs,int controls,
                           String identitySha256,String graphSha256) {}
+    static Timeline committedState(FrozenHeapBaseline.Snapshot snapshot,List<ArchivedRedo.Header> sources,List<Commit> commits) {
+        return new Timeline(snapshot,sources,commits);
+    }
     public static final class Timeline {
         private final FrozenHeapBaseline.Snapshot snapshot;
         private final List<ArchivedRedo.Header> sources;

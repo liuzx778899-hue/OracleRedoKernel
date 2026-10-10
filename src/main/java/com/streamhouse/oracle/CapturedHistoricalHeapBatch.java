@@ -80,6 +80,11 @@ public final class CapturedHistoricalHeapBatch {
     static CapturedHistoricalHeapBatch readWithRows(List<CaptureJournal.Verified> inputs,FrozenHeapBaseline.Snapshot snapshot,
                                                    ArchivedDictionaryHistory.Timeline history,long leaf,ArchivedPhysicalTransactions.Result physical,
                                                    ArchivedHeapRows.Result rows)throws IOException {
+        return readWithSourceRows(inputs.stream().map(CaptureJournal.Verified::source).toList(),snapshot,history,leaf,physical,rows);
+    }
+    static CapturedHistoricalHeapBatch readWithSourceRows(List<CaptureJournal.Source> sources,FrozenHeapBaseline.Snapshot snapshot,
+                                                   ArchivedDictionaryHistory.Timeline history,long leaf,ArchivedPhysicalTransactions.Result physical,
+                                                   ArchivedHeapRows.Result rows)throws IOException {
         if(!physical.sources().equals(rows.sources()) || !rows.sources().equals(history.sources()))throw new RedoException("HISTORICAL_BATCH_SOURCE_CHANGED");
         var owners=new HashMap<ArchivedUndoInventory.Position,ArchivedPhysicalTransactions.Transaction>();
         for(var t:physical.transactions())for(var live:t.graph().live())if(owners.putIfAbsent(live.position(),t)!=null)
@@ -94,7 +99,6 @@ public final class CapturedHistoricalHeapBatch {
             String id=eventId(snapshot.source(),schema.sha256(),change);if(!ids.add(id))throw new RedoException("HISTORICAL_BATCH_DUPLICATE_EVENT_ID");
             events.add(new Event(schema,new CapturedHeapBatch.Event(id,payloadDigest(change,owner),change.position(),owner,change.key(),change.kind(),change.before(),change.after())));
         }
-        var sources=inputs.stream().map(CaptureJournal.Verified::source).toList();
         String digest=hash(out->{
             text(out,"ORK_CAPTURED_HISTORICAL_HEAP_BATCH_V1");text(out,snapshot.sha256());out.writeLong(leaf);out.writeInt(sources.size());
             for(var s:sources)text(out,s.journalSha256());

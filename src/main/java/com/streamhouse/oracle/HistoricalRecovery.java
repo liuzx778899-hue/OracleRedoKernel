@@ -13,6 +13,80 @@ public final class HistoricalRecovery {
         @Override public byte[] checkpoint(){return checkpoint.clone();}
     }
     public record CommittedPrefix(Prefix state,CapturedHistoricalHeapBatch completed) {}
+    /** Reconstructs sealed historical audit values without raw; never authorizes a new input or reclamation itself. */
+    public static CapturedHistoricalHeapBatch auditState(List<CaptureJournal.Source> sources,Path baseline,String trustedBaselineSha256,
+                                                         long leaf,byte[] checkpoint,String trustedCheckpointSha256)throws IOException {
+        sources=List.copyOf(sources);checkpoint=checkpoint.clone();
+        if(!digest(checkpoint).equals(trustedCheckpointSha256))throw new RedoException("HISTORICAL_RECOVERY_DIGEST_MISMATCH");
+        String[] lines=new String(checkpoint,StandardCharsets.UTF_8).split("\n");
+        if(lines.length==0 || !lines[0].equals("ORK_HISTORICAL_RECOVERY_V6"))throw new RedoException("READ_CUT_V6_REQUIRED");
+        var snapshot=FrozenHeapBaseline.read(baseline,trustedBaselineSha256);var values=decodeDurable(snapshot,leaf,checkpoint,lines,6);
+        var physical=PhysicalRecoveryState.restore(values[1],digest(values[1]),snapshot,leaf).prefix();
+        var pending=DictionaryPendingState.restore(values[0],digest(values[0]),snapshot).decoded();
+        if(!pending.sources().equals(physical.state().sources()) || !pending.contexts().isEmpty())throw new RedoException("READ_CUT_DICTIONARY_PENDING");
+        if(sources.size()!=pending.sources().size())throw new RedoException("READ_CUT_AUDIT_SOURCES_CHANGED");
+        for(int i=0;i<sources.size();i++) {
+            var s=sources.get(i);var h=pending.sources().get(i);
+            if(s.capacityBlocks()<s.blocks() || !new ArchivedRedo.Header(s.journalSha256(),s.journalBytes(),s.dbid(),s.activationId(),s.compatibility(),
+                    s.thread(),s.sequence(),s.resetlogsId(),s.resetlogsScn(),s.firstScn(),s.nextScn(),s.blocks()).equals(h))
+                throw new RedoException("READ_CUT_AUDIT_SOURCES_CHANGED");
+        }
+        var producer=HistoricalProducerState.restore(values[2],digest(values[2]),snapshot,leaf,physical.completed());
+        var commits=DictionaryCommittedState.restore(values[3],digest(values[3]),snapshot,producer.rows().dictionary());
+        var history=ArchivedDictionaryHistory.committedState(snapshot,pending.sources(),commits);
+        var rows=new ArchivedHeapRows.Result(pending.sources(),producer.changes(),producer.rows().rows(),producer.rows().lastPositions());
+        return CapturedHistoricalHeapBatch.readWithSourceRows(sources,snapshot,history,leaf,physical.completed(),rows);
+    }
+    /** Materialized read origin only. The caller must separately prove target/control/ACK closure before reclamation. */
+    public record ReadCut(byte[] baseline,String baselineSha256,long scn,long requiredRawFirstSequence) {
+        public ReadCut { baseline=baseline.clone(); }
+        @Override public byte[] baseline(){return baseline.clone();}
+    }
+    /** Conservative static-schema cut; retain the final member for baseline coverage and boundary transactions. */
+    public static ReadCut readCutCaptured(List<CaptureJournal.Verified> captures,Path baseline,String trustedBaselineSha256,
+                                         long leaf,byte[] checkpoint,String trustedCheckpointSha256)throws IOException {
+        captures=List.copyOf(captures);checkpoint=checkpoint.clone();
+        var state=verifyPrefixCaptured(captures,baseline,trustedBaselineSha256,leaf,checkpoint,trustedCheckpointSha256);
+        if(state.pendingTransactions()!=0)throw new RedoException("READ_CUT_PENDING_TRANSACTIONS");
+        String[] lines=new String(checkpoint,StandardCharsets.UTF_8).split("\n");
+        if(!lines[0].equals("ORK_HISTORICAL_RECOVERY_V6"))throw new RedoException("READ_CUT_V6_REQUIRED");
+        var snapshot=FrozenHeapBaseline.read(baseline,trustedBaselineSha256);
+        if(!snapshot.lobs().isEmpty())throw new RedoException("READ_CUT_LOB_NOT_IMPLEMENTED");
+        var values=decodeDurable(snapshot,leaf,checkpoint,lines,6);
+        var physical=PhysicalRecoveryState.restore(values[1],digest(values[1]),snapshot,leaf).prefix();
+        var producer=HistoricalProducerState.restore(values[2],digest(values[2]),snapshot,leaf,physical.completed());
+        var last=physical.state().sources().get(physical.state().sources().size()-1);long scn=last.nextScn()-1;
+        if(scn<=snapshot.scn())throw new RedoException("READ_CUT_NOT_ADVANCING");
+        var dictionary=producer.rows().dictionary();
+        if(!dictionary.rowsAt(scn,null).equals(snapshot.dictionaryBaseline().rows())
+                || !dictionary.schemaAt(scn,null).equals(snapshot.columns()))throw new RedoException("READ_CUT_SCHEMA_CHANGE_NOT_IMPLEMENTED");
+        // Preserve the complete authenticated SYS baseline; only parsed business rows and SCN advance.
+        byte[] template=java.nio.file.Files.readAllBytes(baseline);
+        if(!digest(template).equals(trustedBaselineSha256))throw new RedoException("READ_CUT_BASELINE_CHANGED");
+        var output=new StringBuilder();boolean emitted=false;
+        for(String line:new String(template,StandardCharsets.US_ASCII).split("\n")) {
+            line=line.stripTrailing();
+            if(line.startsWith("SNAPSHOT_SCN|")){output.append("SNAPSHOT_SCN|").append(scn).append('\n');continue;}
+            if(line.startsWith("ROW|"))continue;
+            if(line.startsWith("ROW_COUNT|")) {
+                var rows=producer.rows().rows();
+                for(var key:rows.keySet().stream().sorted(Comparator.comparingLong(ArchivedHeapRows.RowKey::dataObjectId)
+                        .thenComparingLong(ArchivedHeapRows.RowKey::dba).thenComparingInt(ArchivedHeapRows.RowKey::slot)).toList()) {
+                    output.append("ROW|").append(key.dataObjectId()).append('|').append(key.dba()>>>22).append('|')
+                            .append(key.dba()&0x3fffffL).append('|').append(key.slot());
+                    for(var cell:rows.get(key)) {
+                        if(cell.state()!=HeapRowPatch.State.NULL && cell.state()!=HeapRowPatch.State.VALUE)throw new RedoException("READ_CUT_INCOMPLETE_ROW");
+                        output.append('|').append(cell.state()==HeapRowPatch.State.NULL?"NULL":cell.hex().toUpperCase(Locale.ROOT));
+                    }
+                    output.append('\n');
+                }
+                output.append("ROW_COUNT|").append(rows.size()).append('\n');emitted=true;
+            }else output.append(line).append('\n');
+        }
+        if(!emitted)throw new RedoException("READ_CUT_BASELINE_ROWS_MISSING");
+        byte[] bytes=output.toString().getBytes(StandardCharsets.US_ASCII);
+        return new ReadCut(bytes,digest(bytes),scn,last.sequence());
+    }
     /** Publishable complete business transactions; pending business graphs remain bound to the raw prefix. */
     public static CommittedPrefix committedPrefixCaptured(List<CaptureJournal.Verified> captures,Path baseline,
                                                           String trustedBaselineSha256,long leaf)throws IOException {
