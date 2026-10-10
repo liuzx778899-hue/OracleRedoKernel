@@ -1,5 +1,7 @@
 # OracleRedoKernel 当前状态
 
+2026-10-10 首条未来正常产品窗已闭合：core e3ac633/产品37ee409/app3e90524a，raw-stream-21002-3发布1事件rc0/CONSUMED，目标账3/3/3/3、20行/完整像零差异；实际DONE任务3605字节CPACK一致，producer5b1914f2读至102/pending0。首条源UPDATE未重放；观察脚本JSON筛选、Path拼接与停止超时原文保留，库停止/固定helper清理。第二窗与下一次回收/切点毒化继续，独立评审待证；不标测试环境验收通过。 [统一反馈](DELIVERY_CENTRAL_READ_CUT_20261010.md)。
+
 2026-10-10 正常续接冻结解析已过：不重放首条未来 UPDATE，闭合102后补实际 SYS KTB/闭合头37、TAB$范围/单对象marker读取缺口；相关14+30项通过，101/102完整入口唯一UPDATE ID1/NOTE anchor→readcut-next-1、完整像/pending0，next-projection-r3 rc0。有界原生诊断只供验证，库已停。正式制品更新及产品新窗目标/CPACK、第二条正常窗、后续回收与独立评审尚待；未标测试环境验收通过。 [合并反馈](DELIVERY_CENTRAL_READ_CUT_20261010.md)。
 
 2026-10-10 中央redo可信恢复切点有限闭环：core d2b1ea3/产品3658012，原100/101生成SCN3090136保留101；单独中央副本100实际回收200MiB，缺ACK拒绝；删除后独立进程范围101–101/发现仅101、重复回收0，目标账2/2/2/2与原raw/ACK不变，resume-r2 rc0/清理rc0。首次JDBC核验重读旧raw拒绝保留，已修接线并通过相关14项；52项及切换类7项证据复用。正常未来两窗继续执行，独立评审因子代理额度不足待证；集中测试环境验收未过，长期平台/生产现场/D5不启动，TDE Issue#2搁置。 [进展反馈](DELIVERY_CENTRAL_READ_CUT_20261010.md)。

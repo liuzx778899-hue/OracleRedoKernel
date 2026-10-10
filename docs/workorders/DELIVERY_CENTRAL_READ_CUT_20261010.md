@@ -18,3 +18,7 @@
 正常续接补齐（2026-10-10）：首条 UPDATE 未重放，根容器归档已闭合 102。首次产品续接暴露只读 staging 配置及缺目录，修正测试接线后完成现有队列传输；失败日志保留。冻结 102 又暴露 SYS I_COL1 的双 cleanout KTB、101 闭合头 byte37、TAB$ 三种物理范围形态及三条单主对象 24.1 marker。仅依据实际字节和有界原生诊断补读取：当前 undo 身份单独核验，TAB$ 行槽位/双向链接/覆盖目的地检查所有共享簇字典锚点；触及锚点仍走完整历史，不宣称通用簇解析。marker 只识别已观察精确形态，目标对象仍拒绝。原生 dump 不作事件输入，诊断结束自有库停止 rc0。
 
 两个读取修复相关 14 项通过；字典范围/marker 相关最终 30 项通过。冻结 101/102 正常完整入口 `next-projection-r3.rc=0`，唯一 UPDATE ID=1，NOTE anchor→readcut-next-1，完整 before/after，pending0，事件 payload SHA256 `cf9b23715cb1fa64ccb7859ac958751b5c8b8e7b2b3d1037bca483eb5231c195`。`next-frozen-proof.json` 为离线结果，尚未表示新产品窗/目标提交/CPACK通过；第二条 UPDATE 未执行。下一步更新正式制品接回产品消费既有 102，再执行第二条新变化。独立评审仍待证。
+
+首条未来产品窗已闭合：内核 e3ac633（固定53fa9a98275d），产品37ee409，正式app SHA256 `3e90524a8122d0cafd47251e0271c0715b8379f5f27daf32c7790b1561e8b90b`。raw-stream-21002-3 CONSUMED / PUBLISHED rc0 / 1事件，实际目标 applied/member/commit/ledger `3/3/3/3`、20行零差异，规范化完整前后像一致。实际DONE任务102287965065310208的3605字节CP与ACK完全一致，producer SHA256 `5b1914f2d198d3eefb8ef9952b7b3ea70dca567580087f6ddd32ab783fda9487`、decodedThrough102/pending0；见 `future-window-1-proof.json`。源首条UPDATE重放0，第二条继续执行中。
+
+观察脚本失败单独保留：目标行像为规范化串，JSON筛选错误导致首轮校验无行；随后证据文件Path拼接TypeError、collector停止等待超时原文保留。第一窗产品发布和实际凭证均已核对，脚本错误不当产品通过/失败证明。自有库停止rc0，固定helper另保存日志后清除；已通过首窗不重复整套验收。后续第二窗/再回收/切点毒化/独立评审仍待，不宣称全程同PID或整包验收。
