@@ -71,7 +71,7 @@ try:
  with (N/'collector.stdout').open('xb') as out,(N/'collector.stderr').open('xb') as err:
   collector=subprocess.Popen(['docker','exec',HELPER,'/retention/run-collector.sh'],stdout=out,stderr=err)
   samples=[]
-  for i in range(90):
+  for i in range(180):
    assert collector.poll() is None,'same collector must remain live through backpressure and release'
    queued=0;inodes=set()
    for p in (N/'spool'/source).iterdir():
