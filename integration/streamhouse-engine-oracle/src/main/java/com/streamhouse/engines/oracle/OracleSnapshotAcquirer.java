@@ -128,7 +128,7 @@ public final class OracleSnapshotAcquirer {
             if(!one(c,"select count(*) from dba_indexes where owner='"+scope.owner()+"' and index_name='"+scope.index()+"' and table_owner='"+scope.owner()+"' and table_name='"+scope.table()+"' and index_type='NORMAL' and partitioned='NO'").equals("1"))throw new SQLException("SNAPSHOT_INDEX_SCOPE_UNSUPPORTED");
             if(before.isEmpty() || before.size()>255)throw new SQLException("SNAPSHOT_COLUMNS_UNSUPPORTED");
             boolean hasLob=before.stream().anyMatch(row->List.of("BLOB","CLOB").contains(row.split("\\|",-1)[3]));
-            if(hasLob && (!history || before.size()!=3 || !before.stream().map(row->row.split("\\|",-1)[3]).toList().equals(List.of("NUMBER","BLOB","CLOB"))))
+            if(hasLob && (!history || before.stream().anyMatch(row->!row.split("\\|",-1)[5].equals("NO"))))
                 throw new SQLException("SNAPSHOT_LOB_HISTORY_LAYOUT_REQUIRED");
             var lobBefore=hasLob?lobRoles(c,scope,before):List.<String>of();
             var projection=new StringBuilder();

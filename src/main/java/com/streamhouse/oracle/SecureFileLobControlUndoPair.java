@@ -10,6 +10,33 @@ public record SecureFileLobControlUndoPair(long containerUid,long containerId,Un
     private static HeapRowPatch.Xid xid(byte[] b,int p) {
         return new HeapRowPatch.Xid(u16(b,p),u16(b,p+2),u32(b,p+4));
     }
+    /** Seq104 PUB cancellation restores the inverse body with a rollback SCN and a zero padded tail. */
+    static SecureFileLobControlUndoPair matchPubCompensation(RedoRecords.Record record,RedoRecords.Vector marker,
+            RedoRecords.Vector row,java.util.List<SecureFileLobControlUndoPair> history,UndoHeader original)throws RedoException {
+        if(!record.vectors().contains(marker) || !record.vectors().contains(row) || marker.containerId()!=row.containerId())
+            throw new RedoException("SECUREFILE_PUB_COMPENSATION_RECORD");
+        var c=UndoCompensation.decode(marker);
+        if(marker.opcodeMinor()!=6 || c.beginsTransaction() || c.crossesUndoBlock() || c.opcodeMajor()!=13 || c.opcodeMinor()!=54
+                || c.objectId()!=original.objectId() || c.dataObjectId()!=original.dataObjectId() || c.tablespace()!=original.tablespace()
+                || c.dba()!=original.uba().dba() || c.slot()!=original.xid().slot() || c.wrap()!=(original.xid().sequence()&0xffff)
+                || row.opcodeMajor()!=13 || row.opcodeMinor()!=53 || row.blockClass()!=10 || row.objectId()!=original.dataObjectId()
+                || row.fields().size()!=1 || row.fields().get(0).length!=140)
+            throw new RedoException("SECUREFILE_PUB_COMPENSATION_SCOPE");
+        var bytes=row.fields().get(0);SecureFileLobControlUndoPair match=null;
+        for(var pair:history) {
+            if(pair.undoMinor()!=54 || !pair.owner().equals(original) || pair.containerUid()!=record.containerUid()
+                    || pair.containerId()!=row.containerId() || pair.block()!=row.dba())continue;
+            var inverse=pair.inverse();
+            if(scn(bytes,16)!=record.scn()-1 || scn(bytes,16)<scn(inverse,16) || (u16(bytes,20)&0x8000)!=(u16(inverse,20)&0x8000))
+                throw new RedoException("SECUREFILE_PUB_COMPENSATION_SCN");
+            for(int i=0;i<bytes.length;i++)if((i<16 || i>=22) && bytes[i]!=(i<inverse.length?inverse[i]:0))
+                throw new RedoException("SECUREFILE_PUB_COMPENSATION_INVERSE");
+            if(match!=null)throw new RedoException("SECUREFILE_PUB_COMPENSATION_AMBIGUOUS");match=pair;
+        }
+        if(match==null)throw new RedoException("SECUREFILE_PUB_COMPENSATION_MISSING_ORIGINAL");
+        long rows=record.vectors().stream().filter(v->v.containerId()==row.containerId() && v.opcodeMajor()==13 && v.opcodeMinor()==53 && v.dba()==row.dba()).count();
+        if(rows!=1)throw new RedoException("SECUREFILE_PUB_COMPENSATION_ROW_COUNT");return match;
+    }
     public static SecureFileLobControlUndoPair bind(RedoRecords.Record record,RedoRecords.Vector original,
                                                    RedoRecords.Record forwardRecord,RedoRecords.Vector forward,long object)throws RedoException {
         if(!record.vectors().contains(original) || !forwardRecord.vectors().contains(forward)
@@ -28,10 +55,17 @@ public record SecureFileLobControlUndoPair(long containerUid,long containerId,Un
                     || u32(body,24)!=owner.tablespace() || u32(body,28)!=object || u32(body,32)==0
                     || u32(body,36)==0 || u32(body,40)==0 || !xid(body,56).equals(owner.xid()))
                 throw new RedoException("UNSUPPORTED_SECUREFILE_PUB_UNDO");
-            if(forward.blockClass()!=10 || after.length!=28 || u32(after,0)!=3 || !xid(after,12).equals(owner.xid())
-                    || u32(after,4)!=u32(body,36) || u32(after,8)!=u32(body,40)
-                    || scn(after,20)!=scn(body,16) || forwardRecord.scn()!=scn(body,16) || record.scn()!=scn(body,16)
-                    || forwardRecord.block()>record.block() || forwardRecord.block()==record.block() && forwardRecord.offset()>=record.offset())
+            boolean split=after.length==28 && u32(after,0)==3 && xid(after,12).equals(owner.xid())
+                    && u32(after,4)==u32(body,36) && u32(after,8)==u32(body,40) && scn(after,20)==scn(body,16)
+                    && (forwardRecord.block()<record.block() || forwardRecord.block()==record.block() && forwardRecord.offset()<record.offset());
+            // Seq104 reuses the PUB chunk after a quota rollback; forward precedes undo at the same SCN.
+            boolean reuse=after.length==68 && u32(after,0)==4 && u32(after,4)==1 && u32(after,8)==0 && u32(after,12)==1
+                    && u32(after,16)==u32(body,36) && u32(after,20)==u32(body,40) && u32(after,64)==2
+                    && xid(after,36).equals(owner.xid()) && scn(after,44)==scn(body,16)
+                    && (forwardRecord.block()<record.block() || forwardRecord.block()==record.block() && forwardRecord.offset()<record.offset()
+                        || record.equals(forwardRecord) && record.vectors().indexOf(forward)<record.vectors().indexOf(original));
+            if(reuse)for(int i:new int[]{24,28,32,52,56,60})if(u32(after,i)!=0)throw new RedoException("SECUREFILE_PUB_REUSE_RESERVED");
+            if(forward.blockClass()!=10 || (!split && !reuse) || forwardRecord.scn()!=scn(body,16) || record.scn()!=scn(body,16))
                 throw new RedoException("SECUREFILE_PUB_SPLIT_IDENTITY_OR_ORDER");
             for(int i=8;i<16;i++)if(body[i]!=0)throw new RedoException("SECUREFILE_PUB_UNDO_RESERVED");
             for(int i=44;i<56;i++)if(body[i]!=0)throw new RedoException("SECUREFILE_PUB_UNDO_RESERVED");

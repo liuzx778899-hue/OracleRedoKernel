@@ -36,10 +36,35 @@ class HistoricalSchemaBarrierTest {
         v.fields().set(7,"alter table ORKLAB.T_SCHEMA_BARRIER_20261005 add EXTRA number".getBytes(StandardCharsets.UTF_8));
         HistoricalSchemaBarrier.requireUnchanged(record(2501918,677737149,v),snapshot);
     }
+    @Test void observedUserQuotaMarkerHasNoTableScopeAndRejectsUnprovenVariants()throws Exception {
+        var v=marker();var f=v.fields();
+        f.set(0,HexFormat.of().parseHex("e02e00000a002000551200002b0002000000010001000000"));
+        f.set(3,HexFormat.of().parseHex("6a0000000000000000000000"));f.set(9,new byte[0]);f.set(11,new byte[0]);
+        f.set(10,HexFormat.of().parseHex("000000002b0000000000080000000000ffff109d"));
+        f.set(7,"alter table ORKLAB.T_SCHEMA_BARRIER_20261005 add X number".getBytes(StandardCharsets.UTF_8));
+        HistoricalSchemaBarrier.requireUnchanged(record(2501918,677737149,v),snapshot);
+        f.set(3,HexFormat.of().parseHex("6a000000c723010000000000"));
+        assertThrows(RedoException.class,()->HistoricalSchemaBarrier.requireUnchanged(record(2501918,677737149,v),snapshot));
+        f.set(3,HexFormat.of().parseHex("6a0000000000000000000000"));f.get(10)[19]^=1;
+        assertThrows(RedoException.class,()->HistoricalSchemaBarrier.requireUnchanged(record(2501918,677737149,v),snapshot));
+    }
     @Test void preAcquisitionOrDifferentContainerDoesNotChangeThisGeneration() throws Exception {
         HistoricalSchemaBarrier.requireUnchanged(record(2501884,677737149,marker()),snapshot);
         HistoricalSchemaBarrier.requireUnchanged(record(2501918,677737150,marker()),snapshot);
         var v=marker();v=new RedoRecords.Vector(24,1,0,0,0,0,0,1,v.fields());HistoricalSchemaBarrier.requireUnchanged(record(2501918,677737149,v),snapshot);
+    }
+    @Test void lobSegmentAndLobIndexRemainInsideTheStaticSchemaBarrier() {
+        var lob=new FrozenHeapBaseline.ObjectRole("ORKLAB","LOB_TEST",80001,80001);
+        var index=new FrozenHeapBaseline.ObjectRole("ORKLAB","LOB_INDEX_TEST",80002,80002);
+        var withLob=new FrozenHeapBaseline.Snapshot(snapshot.sha256(),snapshot.source(),snapshot.scn(),snapshot.heap(),snapshot.index(),
+                snapshot.columns(),snapshot.rows(),snapshot.dictionaryAnchors(),snapshot.dictionaryBaseline(),
+                List.of(new FrozenHeapBaseline.LobColumn(1,LobLocator.Storage.BASICFILE,lob,index)));
+        for(var role:List.of(lob,index)) {
+            var v=marker();v.fields().set(8,"OTHER".getBytes(StandardCharsets.UTF_8));v.fields().set(9,new byte[0]);
+            v.fields().set(11,new byte[4]);java.nio.ByteBuffer.wrap(v.fields().get(3)).order(java.nio.ByteOrder.LITTLE_ENDIAN).putInt(4,(int)role.logicalObject());
+            var e=assertThrows(RedoException.class,()->HistoricalSchemaBarrier.requireUnchanged(record(2501918,677737149,v),withLob));
+            assertTrue(e.getMessage().startsWith("HISTORICAL_SCHEMA_BARRIER"));
+        }
     }
     @Test void unknownMarkerProfileCannotEstablishUnrelatedScope() {
         var v=marker();v.fields().remove(45);

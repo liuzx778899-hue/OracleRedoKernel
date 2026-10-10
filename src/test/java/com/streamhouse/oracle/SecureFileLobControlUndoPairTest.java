@@ -51,6 +51,41 @@ class SecureFileLobControlUndoPairTest {
             assertEquals(fsb ? 50366037 : 50366036,p.chunk());
         }
     }
+    @Test void observedPubReuseRequiresPhysicalOrderOwnerAndExtent()throws Exception {
+        var u=pubUndo();u.fields().get(3)[40]=2;
+        byte[] bytes=new byte[68];var b=java.nio.ByteBuffer.wrap(bytes).order(java.nio.ByteOrder.LITTLE_ENDIAN);
+        b.putInt(0,4).putInt(4,1).putInt(12,1).putInt(16,50366035).putInt(20,2).putInt(64,2);
+        System.arraycopy(u.fields().get(3),56,bytes,36,8);System.arraycopy(u.fields().get(3),16,bytes,44,8);
+        var f=new RedoRecords.Vector(13,53,10,12,50366343,3043623,1,3,List.of(bytes),79341);
+        var r=record(11,f,u);var p=SecureFileLobControlUndoPair.bind(r,u,r,f,79341);
+        assertEquals(2,p.length());
+        assertEquals(2,SecureFileLobControlUndoPair.bind(record(11,u),u,record(10,f),f,79341).length());
+        var reversed=record(11,u,f);
+        assertThrows(RedoException.class,()->SecureFileLobControlUndoPair.bind(reversed,u,reversed,f,79341));
+        for(int offset:new int[]{4,12,16,20,24,36,40,44,52,64}) {
+            bytes[offset]^=1;
+            assertThrows(RedoException.class,()->SecureFileLobControlUndoPair.bind(r,u,r,f,79341));
+            bytes[offset]^=1;
+        }
+    }
+    @Test void pubRollbackMatchesOwnedInverseAndRejectsChanges()throws Exception {
+        var u=pubUndo();var f=split(79341);var p=SecureFileLobControlUndoPair.bind(record(11,u),u,record(10,f),f,79341);
+        var body=java.util.Arrays.copyOf(p.inverse(),140);
+        java.nio.ByteBuffer.wrap(body).order(java.nio.ByteOrder.LITTLE_ENDIAN).putInt(16,3043624);
+        var row=new RedoRecords.Vector(13,53,10,12,p.block(),3043625,1,3,List.of(body),79341);
+        var header=java.util.Arrays.copyOf(u.fields().get(1),28);header[20]=0x10;
+        java.nio.ByteBuffer.wrap(header).order(java.nio.ByteOrder.LITTLE_ENDIAN).putInt(24,(int)p.block());
+        var marker=new RedoRecords.Vector(5,6,24,12,p.owner().uba().dba(),3043625,1,3,List.of(header,new byte[8]),0xffffffffL);
+        var r=new RedoRecords.Record(12,16,1016,1,3043625,1,677737149,List.of(row,marker));
+        assertEquals(p,SecureFileLobControlUndoPair.matchPubCompensation(r,marker,row,List.of(p),p.owner()));
+        assertThrows(RedoException.class,()->SecureFileLobControlUndoPair.matchPubCompensation(r,marker,row,List.of(p,p),p.owner()));
+        for(int offset:new int[]{0,24,36,56,87,88,139,21,22}) {
+            body[offset]^=1;
+            assertThrows(RedoException.class,()->SecureFileLobControlUndoPair.matchPubCompensation(r,marker,row,List.of(p),p.owner()));
+            body[offset]^=1;
+        }
+        assertThrows(RedoException.class,()->SecureFileLobControlUndoPair.matchPubCompensation(r,marker,row,List.of(),p.owner()));
+    }
     @Test void refusesPubObjectOrderIdentityExtentAndScnMismatch() {
         var u=pubUndo();var other=split(79343);
         assertThrows(RedoException.class,()->SecureFileLobControlUndoPair.bind(record(11,u),u,record(10,other),other,79341));

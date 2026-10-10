@@ -23,13 +23,12 @@ public final class CapturedLobBatch {
     public static Result read(List<CaptureJournal.Verified> captures,CapturedLobTransactions.Scope scope)throws IOException {
         var graph=CapturedLobTransactions.read(captures,scope);
         var maintenance=CapturedLobMaintenance.read(graph);
-        var columns=List.of(new FrozenHeapBaseline.PhysicalColumn(1,1,"ID","NUMBER",false,false),
-                new FrozenHeapBaseline.PhysicalColumn(2,2,"B","BLOB",true,false),new FrozenHeapBaseline.PhysicalColumn(3,3,"C","CLOB",true,false));
+        var columns=scope.columns();
         var source=ArchivedHeapRows.Source.of(graph.records().get(0).source(),scope.uid(),scope.container());
         String schema=CapturedHeapBatch.hash(out->{CapturedHeapBatch.text(out,"ORK_DECLARED_LOB_SCHEMA_V1");CapturedHeapBatch.text(out,scope.toString());});
-        var basic=new ArrayList<CapturedBasicFileLobValues>();
-        if(scope.storage()==LobLocator.Storage.BASICFILE)for(int c=1;c<3;c++)basic.add(CapturedBasicFileLobValues.read(captures,
-                new CapturedBasicFileLobValues.Scope(scope.uid(),scope.container(),scope.heap(),scope.object(c),scope.index(c),scope.bitmap(c),c)));
+        var basic=new HashMap<Integer,CapturedBasicFileLobValues>();
+        if(scope.storage()==LobLocator.Storage.BASICFILE)for(var l:scope.lobs())basic.put(l.column(),CapturedBasicFileLobValues.read(captures,
+                new CapturedBasicFileLobValues.Scope(scope.uid(),scope.container(),scope.heap(),l.object(),l.index(),l.bitmap(),l.column(),columns.size(),l.kind())));
         var rawRows=new HashMap<ArchivedHeapRows.RowKey,List<ArchivedHeapRows.Cell>>();
         var logicalRows=new HashMap<ArchivedHeapRows.RowKey,List<ArchivedHeapRows.Cell>>();
         var locators=new HashMap<ArchivedHeapRows.RowKey,Locator[]>();var events=new ArrayList<CapturedHeapBatch.Event>();var ids=new java.util.HashSet<String>();
@@ -49,29 +48,30 @@ public final class CapturedLobBatch {
                 }
                 var original=transaction.graph().live().stream().filter(e->e.identity().equals(owner)).findFirst().orElseThrow().position();
                 pending.putIfAbsent(key,new Pending(original,logicalRows.getOrDefault(key,List.of())));
-                var after=ArchivedHeapRows.apply(pair,current,3,columns);
+                var after=ArchivedHeapRows.apply(pair,current,columns.size(),columns);
                 if(after.isEmpty()) {rawRows.remove(key);locators.remove(key);continue;}
-                OracleScalars.number(HexFormat.of().parseHex(after.get(0).hex()));
-                rawRows.put(key,after);var locations=locators.computeIfAbsent(key,k->new Locator[2]);
-                for(int c=1;c<3;c++)if(p.columns().get(c).state()!=State.ABSENT || (p.extent()!=null && p.extent().removedColumn()==c))
-                    locations[c-1]=new Locator(row.position(),owner);
+                for(int c=0;c<columns.size();c++)if(!columns.get(c).type().equals("BLOB") && !columns.get(c).type().equals("CLOB"))
+                    ArchivedHeapRows.requireCompleteValues(List.of(after.get(c)),List.of(columns.get(c)));
+                rawRows.put(key,after);var locations=locators.computeIfAbsent(key,k->new Locator[columns.size()]);
+                for(var l:scope.lobs()) {int c=l.column();if(p.columns().get(c).state()!=State.ABSENT || (p.extent()!=null && p.extent().removedColumn()==c))
+                    locations[c]=new Locator(row.position(),owner);}
             }
             for(var entry:pending.entrySet()) {
                 var key=entry.getKey();var p=entry.getValue();var raw=rawRows.get(key);var logical=new ArrayList<ArchivedHeapRows.Cell>();
                 if(raw!=null) {
-                    logical.add(raw.get(0));var locations=locators.get(key);
-                    for(int c=1;c<3;c++) {
-                        var cell=raw.get(c);if(cell.state()==State.NULL) {logical.add(cell);continue;}
-                        var at=locations[c-1];if(at==null)throw new RedoException("LOB_BATCH_LOCATOR_ORIGIN_MISSING");
+                    logical.addAll(raw);var locations=locators.get(key);
+                    for(var l:scope.lobs()) {int c=l.column();
+                        var cell=raw.get(c);if(cell.state()==State.NULL)continue;
+                        var at=locations[c];if(at==null)throw new RedoException("LOB_BATCH_LOCATOR_ORIGIN_MISSING");
                         byte[] bytes;
                         if(scope.storage()==LobLocator.Storage.BASICFILE) {
-                            var value=basic.get(c-1).valueAt(at.position());
+                            var value=basic.get(c).valueAt(at.position());
                             for(var page:value.pages())if(graph.transaction(page.owner().xid()).graph().live().stream().noneMatch(e->e.identity().equals(page.owner())))
                                 throw new RedoException("LOB_BATCH_PAGE_ALLOCATION_NOT_LIVE");
                             bytes=value.bytes();
                         } else bytes=CapturedSecureFileLobValues.value(graph,c,HexFormat.of().parseHex(cell.hex()),transaction.commit(),at.owner());
                         if(bytes==null)throw new RedoException("LOB_BATCH_VALUE_STATE_MISMATCH");
-                        logical.add(new ArchivedHeapRows.Cell(State.VALUE,HexFormat.of().formatHex(bytes)));
+                        logical.set(c,new ArchivedHeapRows.Cell(State.VALUE,HexFormat.of().formatHex(bytes)));
                     }
                 }
                 var before=p.before();var after=List.copyOf(logical);

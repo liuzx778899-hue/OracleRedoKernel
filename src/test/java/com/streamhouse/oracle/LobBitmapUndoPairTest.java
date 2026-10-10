@@ -68,6 +68,16 @@ class LobBitmapUndoPairTest {
         assertThrows(RedoException.class,()->LobBitmapUndoPair.bind(record(u),u,79335,50365977));
         assertThrows(RedoException.class,()->LobBitmapUndoPair.bind(record(u,u,row),u,79335,50365977));
     }
+    @Test void absentParentOnlyAcceptsAnInverseWithoutParentCompensation() throws Exception {
+        var u=original(false);var row=primary(false,false);
+        var p=LobBitmapUndoPair.bind(record(u,row),u,79335,0);
+        assertFalse(p.parentCompensation());
+        var m=marker(false);
+        assertEquals(p,LobBitmapUndoPair.matchCompensation(record(primary(false,true),m),m,List.of(p),p.owner()));
+        assertThrows(RedoException.class,()->LobBitmapUndoPair.matchCompensation(record(primary(false,true),m,parent(50365977,79335)),m,List.of(p),p.owner()));
+        var parentUndo=original(true);
+        assertThrows(RedoException.class,()->LobBitmapUndoPair.bind(record(parentUndo,primary(true,false)),parentUndo,79335,0));
+    }
     @Test void retainsObservedTrimCountAndRefusesUnknownCount() throws Exception {
         var u=original(false);var row=primary(false,false);
         u.fields().get(3)[4]=2;row.fields().get(0)[4]=2;

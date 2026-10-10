@@ -20,11 +20,11 @@ public record LobBitmapUndoPair(long containerUid,long containerId,UndoHeader ow
     public static LobBitmapUndoPair bind(RedoRecords.Record record,RedoRecords.Vector original,long object,long parentDba)throws RedoException {
         if(!record.vectors().contains(original))throw new RedoException("LOB_BITMAP_ORIGINAL_NOT_IN_RECORD");
         var owner=UndoHeader.decode(original);var f=original.fields();var m=f.get(1);
-        if(owner.objectId()!=object || owner.dataObjectId()!=object || owner.beginsTransaction() || parentDba==0
+        if(owner.objectId()!=object || owner.dataObjectId()!=object || owner.beginsTransaction() || parentDba<0
                 || f.size()!=4 || m[16]!=13 || m[17]!=23 || m[18]!=(byte)owner.xid().slot() || u16(m,22)!=(owner.xid().sequence()&0xffff)
                 || f.get(2).length!=20)throw new RedoException("LOB_BITMAP_ORIGINAL_SCOPE_OR_PROFILE");
         byte[] b=f.get(2);long dba=u32(b,0);
-        if(dba==0 || u32(b,4)!=8 || u32(b,8)>1 || u32(b,12)!=9 || u32(b,16)!=2)
+        if(dba==0 || u32(b,4)!=8 || u32(b,8)>1 || (u32(b,8)==1 && parentDba==0) || u32(b,12)!=9 || u32(b,16)!=2)
             throw new RedoException("LOB_BITMAP_INVERSE_METADATA");
         var inverse=new RedoRecords.Vector(13,22,8,original.file(),dba,original.scn(),original.sequence(),original.containerId(),List.of(f.get(3)),object);
         primary(inverse,object,dba);int rows=0,undo=0;

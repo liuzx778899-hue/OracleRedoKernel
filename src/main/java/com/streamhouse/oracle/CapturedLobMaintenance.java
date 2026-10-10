@@ -15,7 +15,7 @@ final class CapturedLobMaintenance {
     }
     static List<Receipt> read(CapturedLobTransactions input)throws IOException {
         var scope=input.scope();var candidates=new HashSet<HeapRowPatch.Xid>();var business=new HashSet<HeapRowPatch.Xid>();
-        var objects=List.of(scope.heap(),scope.primaryIndex(),scope.blob(),scope.blobIndex(),scope.clob(),scope.clobIndex());
+        var objects=scope.objects();
         for(var t:input.transactions())business.add(t.identity().xid());
         for(var at:input.records())for(var v:at.record().vectors())if(v.containerId()==scope.container() && v.opcodeMajor()==5 && v.opcodeMinor()==1) {
             var f=v.fields();if(f.size()<2 || f.get(0).length!=20 || f.get(1).length<24)throw new RedoException("LOB_MAINTENANCE_UNREADABLE_SCOPE");
@@ -56,7 +56,7 @@ final class CapturedLobMaintenance {
                                     && UndoHeadUpdate.decode(control).uba().equals(uba))count++;
                             if(count!=1)throw new RedoException("LOB_MAINTENANCE_ROOT_HEAD");
                         } else if(stage==2) {
-                            object=u32(m,0);long parent=object==scope.blob()?scope.blobBitmap():object==scope.clob()?scope.clobBitmap():0;
+                            object=u32(m,0);long parent=scope.bitmapFor(object);
                             if(major!=13 || minor!=25 || parent==0 || u32(m,4)!=object || f.size()!=4 || f.get(2).length!=8 || f.get(3).length!=20
                                     || u32(f.get(2),0)!=parent || u32(f.get(2),4)!=9 || u32(f.get(3),0)!=3 || u32(f.get(3),4)!=1
                                     || u32(f.get(3),12)!=1 || u32(f.get(3),16)!=0)throw new RedoException("LOB_MAINTENANCE_PARENT_UNDO");
@@ -137,7 +137,7 @@ final class CapturedLobMaintenance {
                     if(u32(m,12)!=0) {
                         if(rci!=0 || u32(m,12)!=head.dba())throw new RedoException("SECUREFILE_METADATA_BLOCK_PREDECESSOR");
                         int count=0;for(var control:r.vectors())if(control.containerId()==scope.container() && control.opcodeMajor()==5 && control.opcodeMinor()==2
-                                && control.fields().size()==1 && u16(control.fields().get(0),16)==10 && UndoBlockAdvance.decode(control).uba().equals(uba)) {
+                                && (control.fields().size()==1 || control.fields().size()==2) && u16(control.fields().get(0),16)==10 && UndoBlockAdvance.decode(control).uba().equals(uba)) {
                             state.advance(r,control);count++;
                         }
                         if(count!=1)throw new RedoException("SECUREFILE_METADATA_ADVANCE_COUNT");
@@ -149,17 +149,21 @@ final class CapturedLobMaintenance {
                 } else if(major==22 && minor==3) {
                     if(u32(m,0)!=1 || u32(m,4)!=0xffffffffL || f.size()!=3 || !Arrays.equals(f.get(2),new byte[20]))throw new RedoException("SECUREFILE_METADATA_SPACE_HEADER");
                 } else if(major==14 && minor==5) {
-                    object=u32(m,4);if(u32(m,0)!=1 || (object!=scope.blob() && object!=scope.clob()) || u16(m,20)!=0x80)throw new RedoException("SECUREFILE_METADATA_EXTENT_SCOPE");
+                    object=u32(m,4);if(u32(m,0)!=1 || !scope.isLob(object) || u16(m,20)!=0x80)throw new RedoException("SECUREFILE_METADATA_EXTENT_SCOPE");
                     var pair=secureExtent(r,v,scope,object);extent=pair[0];blocks=pair[1];
                 } else if(major==13 && (minor==50 || minor==54 || minor==56)) {
-                    long target=u32(m,0);if((target!=scope.blob() && target!=scope.clob()) || u32(m,4)!=target || u16(m,20)!=0 || f.size()<4)
+                    long target=u32(m,0);if(!scope.isLob(target) || u32(m,4)!=target || u16(m,20)!=0 || f.size()<4)
                         throw new RedoException("SECUREFILE_METADATA_CONTROL_SCOPE");
                     var metadata=f.get(2);var body=f.get(3);long mode=u32(body,0);
+                    if(minor==50 && metadata.length==12 && body.length==40 && u16(body,0)==15 && f.size()==4) {
+                        requireHbbReservationPair(r,v,target);
+                    }
                     boolean profile=minor==50 && metadata.length==12 && u32(metadata,8)==8 &&
                             ((mode==1 && body.length==76 && f.size()==4) || (mode==2 && body.length==80 && f.size()==4)
                              || (mode==4 && body.length==20 && ((f.size()==5 && f.get(4).length==8)
                                  || (f.size()==7 && f.get(4).length==8 && f.get(5).length==76 && f.get(6).length==76)))
-                             || (mode==8 && body.length==332 && f.size()==4))
+                             || (mode==8 && body.length==332 && f.size()==4)
+                             || (u16(body,0)==15 && body.length==40 && f.size()==4))
                         || minor==54 && metadata.length==8 && u32(metadata,4)==10 && f.size()==4 &&
                             ((mode==8 && body.length==88) || (mode==14 && body.length==5288))
                         || minor==56 && metadata.length==8 && u32(metadata,4)==4 && f.size()==4 &&
@@ -195,7 +199,8 @@ final class CapturedLobMaintenance {
                 if(v.opcodeMinor()==2)state.observeSlotControl(r,v);
                 if(v.opcodeMinor()==6 || v.opcodeMinor()==11)throw new RedoException("SECUREFILE_METADATA_COMPENSATION_UNSUPPORTED");
                 if(v.opcodeMinor()==4 && state.knowsEnd(r,v)) {
-                    closed=state.end(r,v);if(closed.rolledBack() || (v.fields().size()==2?TransactionEnd.decode(v).flags()!=0:!TransactionEnd.undoTail(v).equals(head)))
+                    closed=state.end(r,v);var end=TransactionEnd.decode(v);
+                    if(closed.rolledBack() || (end.flags()==0x10?false:v.fields().size()==2?end.flags()!=0:!TransactionEnd.undoTail(v).equals(head)))
                         throw new RedoException("SECUREFILE_METADATA_END_OR_TAIL:"+xid+":"+head+":"+TransactionEnd.decode(v)+":"+java.util.HexFormat.of().formatHex(v.fields().get(1)));
                 }
             }
@@ -211,6 +216,28 @@ final class CapturedLobMaintenance {
                 || f.get(4)[0]!=5 || fs.get(1)[0]!=5 || u32(fs.get(1),4)!=u32(f.get(4),4)+1
                 || u32(fs.get(1),8)!=u32(f.get(4),8)+blocks || u32(f.get(4),12)!=0 || u32(f.get(4),16)!=0 || u32(fs.get(1),12)!=0 || u32(fs.get(1),16)!=0)
             throw new RedoException("SECUREFILE_METADATA_EXTENT_PAIR");return new long[]{extent,blocks};
+    }
+    /** Seq104/native Reserve Chunks for FSG; unused dump high bits are not length or identity authority. */
+    static void requireHbbReservationPair(RedoRecords.Record record,RedoRecords.Vector undo,long object)throws RedoException {
+        var f=undo.fields();var metadata=f.get(2);var before=f.get(3);var owner=UndoHeader.decode(undo);
+        if(f.size()!=4 || metadata.length!=12 || u32(metadata,8)!=8 || u32(metadata,4)==0 || before.length!=40
+                || u16(before,0)!=15 || owner.objectId()!=object || owner.dataObjectId()!=object)
+            throw new RedoException("SECUREFILE_HBB_RESERVATION_SCOPE");
+        var rows=record.vectors().stream().filter(v->v.containerId()==undo.containerId() && v.opcodeMajor()==13 && v.opcodeMinor()==49
+                && v.objectId()==object && v.dba()==u32(metadata,0)).toList();
+        if(rows.size()!=1)throw new RedoException("SECUREFILE_HBB_RESERVATION_PAIR_COUNT");
+        var row=rows.get(0);if(row.blockClass()!=8 || row.fields().size()!=1 || row.fields().get(0).length!=40)
+            throw new RedoException("SECUREFILE_HBB_RESERVATION_FORWARD_PROFILE");
+        var after=row.fields().get(0);
+        if(u32(after,0)!=15)throw new RedoException("SECUREFILE_HBB_RESERVATION_FORWARD_PROFILE");
+        for(var bytes:List.of(before,after))for(int at:new int[]{4,12,28,32,36})if(u32(bytes,at)!=0)
+            throw new RedoException("SECUREFILE_HBB_RESERVATION_RESERVED");
+        boolean reserve=u32(before,8)==0 && u32(before,16)==0 && u32(after,8)>0 && u32(after,16)==4
+                && u32(before,20)==0 && u32(before,24)==0 && u32(after,20)==0 && u32(after,24)==0;
+        boolean release=u32(before,8)>0 && u32(before,16)==4 && u32(after,8)==0 && u32(after,16)==0
+                && u32(before,20)==0 && u32(before,24)==0 && u16(after,20)==owner.xid().usn()
+                && u16(after,22)==owner.xid().slot() && u32(after,24)==owner.xid().sequence();
+        if(!reserve && !release)throw new RedoException("SECUREFILE_HBB_RESERVATION_INVERSE");
     }
     private static HeapRowPatch.Xid xid(RedoRecords.Vector v)throws RedoException {
         if(v.fields().isEmpty() || v.fields().get(0).length!=20)throw new RedoException("LOB_MAINTENANCE_UNREADABLE_IDENTITY");

@@ -66,6 +66,32 @@ class TransactionMarkersTest {
                 vector(4,"020000007e020000000000000900000012000000","87004002ff00350000006c0700000000",
                 "000000000000000075c7c36a000000000000000000000000","75c7c36a");
     }
+    @Test void native104MaintenanceExtensionsPreserveTailAndRejectUnknownVariants()throws Exception {
+        for(boolean offset:new boolean[]{false,true}) {
+            var v=offset?vector(4,"0f000000e5030000000000000900000012000000","830640023c0101000c00040b007f0000",
+                    "0b0000000c0000002e0eca6a000000000000000000000000","2e0eca6a"):
+                    vector(4,"1d000000c4020000000000000900000012000000","8b0b40021b0101000200040b007f0000",
+                    "00000000020000002f0eca6a010000000500000005000000","2f0eca6a");
+            assertFalse(TransactionEnd.decode(v).rolledBack());
+            assertEquals(new HeapRowPatch.Uba(offset?0x02400683L:0x02400b8bL,offset?316:283,1),TransactionEnd.undoTail(v));
+            for(int at:new int[]{4,8,12,16,20}) {
+                v.fields().get(2)[at]^=1;
+                assertThrows(RedoException.class,()->TransactionEnd.decode(v));v.fields().get(2)[at]^=1;
+            }
+            v.fields().get(1)[8]^=1;
+            assertThrows(RedoException.class,()->TransactionEnd.decode(v));
+        }
+    }
+    @Test void native104MaintenanceEndWithoutTailCannotSupplyBusinessUndoTail()throws Exception {
+        for(var v:java.util.List.of(
+                vector(4,"1c000000e4030000000000000900000010000000","0b0000000c0000002e0eca6a000000000000000000000000","2e0eca6a"),
+                vector(4,"20000000c4020000000000000900000010000000","00000000020000002f0eca6a010000000500000005000000","2f0eca6a"))) {
+            assertFalse(TransactionEnd.decode(v).rolledBack());
+            assertEquals("TRANSACTION_END_HAS_NO_UNDO_TAIL_REFERENCE",assertThrows(RedoException.class,()->TransactionEnd.undoTail(v)).getMessage());
+            v.fields().get(0)[16]=0x14;
+            assertThrows(RedoException.class,()->TransactionEnd.decode(v));
+        }
+    }
     @Test void observedEmptyCommitExtensionsKeepTheirActualTailAndIdentity() throws Exception {
         for(boolean ext:new boolean[]{false,true}) {
             var v=emptyExtension(ext);var end=TransactionEnd.decode(v);assertFalse(end.rolledBack());

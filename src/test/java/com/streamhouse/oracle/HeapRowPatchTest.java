@@ -16,6 +16,20 @@ class HeapRowPatchTest {
         return new RedoRecords.Vector(11,op,1,12,0x03000083,2148761,1,3,
                 Arrays.stream(fields).map(this::hex).toList());
     }
+    @Test void observedMixedNineColumnLobInsertRetainsEachPhysicalValue()throws Exception {
+        var fields=new java.util.ArrayList<byte[]>();
+        fields.add(hex("010d00000000000005000f00ad020000a70b400234011200"));
+        fields.add(hex("0b9a00030a9a0003fa120201010000002c0109000000000060000000000000000000000002000000270100000000000028c3"));
+        for(int i=0;i<9;i++)fields.add(new byte[]{(byte)(i+1)});
+        var v=new RedoRecords.Vector(11,2,1,12,50371083,3169164,1,3,fields);
+        var p=new HeapRowPatch().decodeLob(v,9);
+        assertEquals(HeapRowPatch.Kind.INSERT,p.kind());assertEquals(9,p.extent().storedColumns());
+        for(int i=0;i<9;i++)assertArrayEquals(new byte[]{(byte)(i+1)},p.columns().get(i).bytes());
+        assertThrows(RedoException.class,()->new HeapRowPatch().decodeLob(v,8));
+        assertThrows(RedoException.class,()->new HeapRowPatch().decode(v,9));
+        fields.get(1)[18]=10;
+        assertThrows(RedoException.class,()->new HeapRowPatch().decodeLob(v,9));
+    }
     @Test void decodesInsertBytesAndTransactionIdentity() throws Exception {
         var p=new HeapRowPatch().decode(vector(2,F,IRP,"c102","616c706861","c202182e","787e0a04090a0b"),4);
         assertEquals(0,p.slot()); assertEquals(new HeapRowPatch.Xid(10,12,1105),p.xid());

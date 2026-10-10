@@ -7,13 +7,34 @@ import java.util.HashSet;
 import java.util.List;
 import static com.streamhouse.oracle.RedoBytes.*;
 
-/** Complete source-owned LOB graphs for the observed three-column heap profile. No baseline/publication authority. */
+/** Complete source-owned LOB graphs. No baseline/publication authority. */
 public final class CapturedLobTransactions {
+    public record Lob(int column,LobLocator.Kind kind,long object,long index,long bitmap) {}
     public record Scope(long uid,long container,long heap,long primaryIndex,LobLocator.Storage storage,
-                        long blob,long blobIndex,long blobBitmap,long clob,long clobIndex,long clobBitmap) {
-        long object(int column) {return column==1?blob:clob;}
-        long index(int column) {return column==1?blobIndex:clobIndex;}
-        long bitmap(int column) {return column==1?blobBitmap:clobBitmap;}
+                        List<FrozenHeapBaseline.PhysicalColumn> columns,List<Lob> lobs) {
+        public Scope {columns=List.copyOf(columns);lobs=List.copyOf(lobs);}
+        public Scope(long uid,long container,long heap,long primaryIndex,LobLocator.Storage storage,
+                     long blob,long blobIndex,long blobBitmap,long clob,long clobIndex,long clobBitmap) {
+            this(uid,container,heap,primaryIndex,storage,List.of(
+                    new FrozenHeapBaseline.PhysicalColumn(1,1,"ID","NUMBER",false,false),
+                    new FrozenHeapBaseline.PhysicalColumn(2,2,"B","BLOB",true,false),
+                    new FrozenHeapBaseline.PhysicalColumn(3,3,"C","CLOB",true,false)),
+                    List.of(new Lob(1,LobLocator.Kind.BLOB,blob,blobIndex,blobBitmap),new Lob(2,LobLocator.Kind.CLOB,clob,clobIndex,clobBitmap)));
+        }
+        Lob lob(int column) {return lobs.stream().filter(l->l.column()==column).findFirst().orElseThrow();}
+        long object(int column) {return lob(column).object();}
+        long index(int column) {return lob(column).index();}
+        long bitmap(int column) {return lob(column).bitmap();}
+        boolean isLob(long object) {return lobs.stream().anyMatch(l->l.object()==object);}
+        boolean isLobIndex(long object) {return lobs.stream().anyMatch(l->l.index()==object);}
+        long bitmapFor(long object) {return lobs.stream().filter(l->l.object()==object).mapToLong(Lob::bitmap).findFirst().orElse(0);}
+        List<Long> objects() {var result=new ArrayList<Long>(List.of(heap,primaryIndex));for(var l:lobs){result.add(l.object());result.add(l.index());}return List.copyOf(result);}
+        public long blob() {return lobs.stream().filter(l->l.kind()==LobLocator.Kind.BLOB).findFirst().orElseThrow().object();}
+        public long blobIndex() {return lobs.stream().filter(l->l.kind()==LobLocator.Kind.BLOB).findFirst().orElseThrow().index();}
+        public long blobBitmap() {return lobs.stream().filter(l->l.kind()==LobLocator.Kind.BLOB).findFirst().orElseThrow().bitmap();}
+        public long clob() {return lobs.stream().filter(l->l.kind()==LobLocator.Kind.CLOB).findFirst().orElseThrow().object();}
+        public long clobIndex() {return lobs.stream().filter(l->l.kind()==LobLocator.Kind.CLOB).findFirst().orElseThrow().index();}
+        public long clobBitmap() {return lobs.stream().filter(l->l.kind()==LobLocator.Kind.CLOB).findFirst().orElseThrow().bitmap();}
     }
     record At(ArchivedRedo.Header source,RedoRecords.Record record) {
         ArchivedUndoInventory.Position position(int vector) {return new ArchivedUndoInventory.Position(source.sequence(),record.block(),record.offset(),vector+1);}
@@ -38,10 +59,19 @@ public final class CapturedLobTransactions {
     }
     public static CapturedLobTransactions read(List<CaptureJournal.Verified> captures,Scope scope)throws IOException {
         if(scope==null)throw new RedoException("INVALID_LOB_TRANSACTION_SCOPE");
-        var objects=List.of(scope.heap(),scope.primaryIndex(),scope.blob(),scope.blobIndex(),scope.clob(),scope.clobIndex());
+        var objects=scope.objects();
         if(scope.uid()<=0 || scope.container()<=0 || scope.storage()==null || objects.stream().anyMatch(o->o<=0)
                 || objects.stream().distinct().count()!=objects.size()
-                || (scope.storage()==LobLocator.Storage.BASICFILE && (scope.blobBitmap()<=0 || scope.clobBitmap()<=0)))
+                || scope.columns().isEmpty() || scope.columns().size()>255 || scope.lobs().isEmpty()
+                || java.util.stream.IntStream.range(0,scope.columns().size()).anyMatch(i->scope.columns().get(i).segment()!=i+1
+                    || scope.columns().get(i).internal()!=i+1 || scope.columns().get(i).hidden()
+                    || !List.of("NUMBER","VARCHAR2","RAW","DATE","TIMESTAMP","BLOB","CLOB").contains(scope.columns().get(i).type()))
+                || scope.columns().stream().map(FrozenHeapBaseline.PhysicalColumn::name).distinct().count()!=scope.columns().size()
+                || scope.lobs().stream().map(Lob::column).distinct().count()!=scope.lobs().size()
+                || scope.columns().stream().filter(c->c.type().equals("BLOB") || c.type().equals("CLOB")).count()!=scope.lobs().size()
+                || scope.lobs().stream().anyMatch(l->l.column()<0 || l.column()>=scope.columns().size() || l.kind()==null
+                    || !scope.columns().get(l.column()).type().equals(l.kind().name())
+                    || l.bitmap()<0))
             throw new RedoException("INVALID_LOB_TRANSACTION_SCOPE");
         var inputs=RedoBatch.captures(captures);var continuity=new TransactionLifecycle();var records=new ArrayList<At>();
         for(var input:inputs) {var h=input.header();continuity.archive(h);input.visit(h,r->{if(r.containerUid()==scope.uid())records.add(new At(h,r));});}
@@ -56,22 +86,23 @@ public final class CapturedLobTransactions {
             var association=ArchivedCompensationAssociations.read(inputs,scope.uid(),scope.container(),xid);
             var inventory=association.window().undo();var typed=new HashSet<UndoHeader>();var rows=new ArrayList<Row>();
             var heaps=new ArrayList<HeapUndoPair>();var fills=new ArrayList<SecureFileLobUndoPair>();
+            var controls=new ArrayList<SecureFileLobControlUndoPair>();
             var bitmaps=new ArrayList<LobBitmapUndoPair>();var indexes=new ArrayList<IndexUndoPair>();
             for(var entry:inventory.entries()) {
                 var at=find(records,entry.position());var original=at.record().vectors().get(entry.position().vector()-1);
                 var owner=entry.identity();long object=owner.objectId();
                 if(object==scope.heap()) {
-                    var pair=findHeap(at.record(),original);heaps.add(pair);
+                    var pair=findHeap(at.record(),original,scope.columns().size());heaps.add(pair);
                     int v=-1;
                     for(int i=0;i<at.record().vectors().size();i++) {
                         var candidate=at.record().vectors().get(i);
                         if(candidate.opcodeMajor()!=11 || candidate.dba()!=pair.forward().dba() || candidate.containerId()!=scope.container())continue;
-                        var p=new HeapRowPatch().decodeLob(candidate,3);
+                        var p=new HeapRowPatch().decodeLob(candidate,scope.columns().size());
                         if(p.xtype()==1 && owner.uba().equals(p.uba())) {if(v>=0)throw new RedoException("LOB_GRAPH_HEAP_AMBIGUOUS");v=i;}
                     }
                     if(v<0)throw new RedoException("LOB_GRAPH_HEAP_MISSING");
                     rows.add(new Row(at.position(v),pair));typed.add(pair.undo().identity());
-                } else if(object==scope.primaryIndex() || (scope.storage()==LobLocator.Storage.BASICFILE && (object==scope.blobIndex() || object==scope.clobIndex()))) {
+                } else if(object==scope.primaryIndex() || (scope.storage()==LobLocator.Storage.BASICFILE && scope.isLobIndex(object))) {
                     IndexUndoPair pair=null;
                     for(var v:at.record().vectors())if(v.containerId()==scope.container() && v.objectId()==object && v.opcodeMajor()==10 && (v.opcodeMinor()==2 || v.opcodeMinor()==4)) {
                         var bound=object==scope.primaryIndex()?IndexUndoPair.bind(at.record(),v):IndexUndoPair.bindLob(at.record(),v,object);
@@ -79,9 +110,9 @@ public final class CapturedLobTransactions {
                         if(pair!=null)throw new RedoException("LOB_GRAPH_INDEX_AMBIGUOUS");pair=bound;
                     }
                     if(pair==null)throw new RedoException("LOB_GRAPH_INDEX_MISSING");indexes.add(pair);typed.add(pair.undo().identity());
-                } else if(object==scope.blob() || object==scope.clob()) {
+                } else if(scope.isLob(object)) {
                     if(scope.storage()==LobLocator.Storage.BASICFILE) {
-                        var pair=LobBitmapUndoPair.bind(at.record(),original,object,object==scope.blob()?scope.blobBitmap():scope.clobBitmap());
+                        var pair=LobBitmapUndoPair.bind(at.record(),original,object,scope.bitmapFor(object));
                         bitmaps.add(pair);typed.add(pair.owner());
                     } else if(entry.opcodeMajor()==26 && entry.opcodeMinor()==1) {
                         SecureFileLobUndoPair pair=null;
@@ -99,13 +130,16 @@ public final class CapturedLobTransactions {
                             if(entry.opcodeMinor()!=54 && candidate!=at)continue;
                             if(entry.opcodeMinor()==54) {
                                 var b=v.fields().get(0);var inverse=original.fields().get(3);
-                                if(b.length!=28 || u32(b,0)!=3 || u32(b,4)!=u32(inverse,36) || u32(b,8)!=u32(inverse,40) || scn(b,20)!=scn(inverse,16)
-                                        || !new HeapRowPatch.Xid(u16(b,12),u16(b,14),u32(b,16)).equals(xid))continue;
+                                boolean split=b.length==28 && u32(b,0)==3 && u32(b,4)==u32(inverse,36) && u32(b,8)==u32(inverse,40)
+                                        && scn(b,20)==scn(inverse,16) && new HeapRowPatch.Xid(u16(b,12),u16(b,14),u32(b,16)).equals(xid);
+                                boolean reuse=b.length==68 && u32(b,0)==4 && u32(b,16)==u32(inverse,36) && u32(b,20)==u32(inverse,40)
+                                        && scn(b,44)==scn(inverse,16) && new HeapRowPatch.Xid(u16(b,36),u16(b,38),u32(b,40)).equals(xid);
+                                if(!split && !reuse)continue;
                             }
                             var bound=SecureFileLobControlUndoPair.bind(at.record(),original,candidate.record(),v,object);
                             if(pair!=null)throw new RedoException("LOB_GRAPH_CONTROL_AMBIGUOUS");pair=bound;
                         }
-                        if(pair==null)throw new RedoException("LOB_GRAPH_CONTROL_MISSING");typed.add(pair.owner());
+                        if(pair==null)throw new RedoException("LOB_GRAPH_CONTROL_MISSING");controls.add(pair);typed.add(pair.owner());
                     }
                 } else throw new RedoException("LOB_GRAPH_UNKNOWN_OBJECT");
                 if(!typed.contains(owner))throw new RedoException("LOB_GRAPH_ORIGINAL_NOT_TYPED");
@@ -115,14 +149,16 @@ public final class CapturedLobTransactions {
                 var at=find(records,route.position());var marker=at.record().vectors().get(route.position().vector()-1);
                 var actual=association.associate(at.source(),at.record(),marker,route.position());
                 var owner=actual.original();long object=owner.objectId();int matches=0;
-                if(scope.storage()==LobLocator.Storage.BASICFILE && (object==scope.blob() || object==scope.clob())) {
+                if(scope.storage()==LobLocator.Storage.BASICFILE && scope.isLob(object)) {
                     LobBitmapUndoPair.matchCompensation(at.record(),marker,bitmaps,owner);matches=1;
                 } else for(var v:at.record().vectors())if(v.containerId()==scope.container()) {
                     if(object==scope.heap() && v.opcodeMajor()==11 && v.opcodeMinor()>=2 && v.opcodeMinor()<=5) {
-                        HeapCompensation.matchLob(at.record(),marker,v,heaps,owner);matches++;
-                    } else if((object==scope.blob() || object==scope.clob()) && v.opcodeMajor()==26 && v.opcodeMinor()==2) {
+                        HeapCompensation.matchLob(at.record(),marker,v,heaps,owner,scope.columns().size());matches++;
+                    } else if(scope.isLob(object) && v.opcodeMajor()==26 && v.opcodeMinor()==2) {
                         SecureFileLobUndoPair.matchCompensation(at.record(),marker,v,fills,owner);matches++;
-                    } else if((object==scope.blobIndex() || object==scope.clobIndex()) && v.opcodeMajor()==10 && v.opcodeMinor()==3) {
+                    } else if(scope.isLob(object) && v.opcodeMajor()==13 && v.opcodeMinor()==53) {
+                        SecureFileLobControlUndoPair.matchPubCompensation(at.record(),marker,v,controls,owner);matches++;
+                    } else if(scope.isLobIndex(object) && v.opcodeMajor()==10 && v.opcodeMinor()==3) {
                         IndexCompensation.matchLob(at.record(),marker,v,indexes,owner);matches++;
                     }
                 }
@@ -166,10 +202,10 @@ public final class CapturedLobTransactions {
         }
         transactions.sort((a,b)->compare(a.commit(),b.commit()));return new CapturedLobTransactions(scope,records,transactions);
     }
-    private static HeapUndoPair findHeap(RedoRecords.Record r,RedoRecords.Vector original)throws RedoException {
+    private static HeapUndoPair findHeap(RedoRecords.Record r,RedoRecords.Vector original,int columns)throws RedoException {
         var owner=UndoHeader.decode(original);HeapUndoPair result=null;
         for(var v:r.vectors())if(v.containerId()==original.containerId() && v.opcodeMajor()==11 && v.opcodeMinor()>=2 && v.opcodeMinor()<=5) {
-            var bound=HeapUndoPair.bindLob(r,v,3);if(!bound.undo().identity().equals(owner))continue;
+            var bound=HeapUndoPair.bindLob(r,v,columns);if(!bound.undo().identity().equals(owner))continue;
             if(result!=null)throw new RedoException("LOB_GRAPH_HEAP_AMBIGUOUS");result=bound;
         }
         if(result==null)throw new RedoException("LOB_GRAPH_HEAP_MISSING");return result;

@@ -11,7 +11,7 @@ import static com.streamhouse.oracle.CapturedLobTransactions.*;
 /** Observed uncompressed SecureFile images plus source-owned live fills. */
 final class CapturedSecureFileLobValues {
     static byte[] value(CapturedLobTransactions input,int column,byte[] raw,ArchivedUndoInventory.Position position,UndoHeader locatorOwner)throws IOException {
-        var scope=input.scope();var kind=column==1?LobLocator.Kind.BLOB:LobLocator.Kind.CLOB;
+        var scope=input.scope();var kind=scope.lob(column).kind();
         var locator=LobLocator.decode(raw,kind,LobLocator.Storage.SECUREFILE);
         if(locator.inlinePayload()!=null)return logical(kind,locator.inlinePayload());
         var current=input.transaction(locatorOwner.xid());var parts=new ArrayList<byte[]>();
@@ -21,8 +21,11 @@ final class CapturedSecureFileLobValues {
                 var v=at.record().vectors().get(i);
                 if(v.containerId()!=scope.container() || v.opcodeMajor()!=26 || v.opcodeMinor()!=6 || v.dba()!=dba || compare(at.position(i),position)>0)continue;
                 var candidate=SecureFileLobPageImage.decode(v,scope.object(column));
-                if(!candidate.lobId().equals(locator.lobId()))throw new RedoException("SECUREFILE_VALUE_IMAGE_LOCATOR_IDENTITY");
                 var owner=input.transaction(candidate.xid());
+                // Seq104 reuses pages from the earlier, completely verified quota rollback.
+                if(owner.identity().rolledBack() && owner.identity().endRecordScn()<current.identity().beginRecordScn()
+                        && at.record().scn()>=owner.identity().beginRecordScn() && at.record().scn()<=owner.identity().endRecordScn())continue;
+                if(!candidate.lobId().equals(locator.lobId()))throw new RedoException("SECUREFILE_VALUE_IMAGE_LOCATOR_IDENTITY");
                 if(owner.identity().rolledBack() || (!candidate.xid().equals(locatorOwner.xid()) && owner.identity().endRecordScn()>current.identity().beginRecordScn()))
                     throw new RedoException("SECUREFILE_VALUE_IMAGE_UNCOMMITTED_OWNER");
                 if(image!=null)throw new RedoException("SECUREFILE_VALUE_REUSED_IMAGE_UNSUPPORTED");

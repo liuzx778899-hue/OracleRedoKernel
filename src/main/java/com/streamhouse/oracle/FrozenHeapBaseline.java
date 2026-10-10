@@ -91,9 +91,12 @@ public final class FrozenHeapBaseline {
             boolean hasLob=columns.stream().anyMatch(c->c.type().equals("BLOB") || c.type().equals("CLOB"));
             if(hasLob || !lobs.isEmpty()) {
                 var objects=new java.util.HashSet<Long>();objects.add(heap.dataObject());objects.add(index.dataObject());
-                if(!history || columns.size()!=3 || !columns.stream().map(PhysicalColumn::type).toList().equals(List.of("NUMBER","BLOB","CLOB"))
-                        || columns.stream().anyMatch(PhysicalColumn::hidden) || lobs.size()!=2 || lobs.get(0).column()!=2 || lobs.get(1).column()!=3
-                        || lobs.get(0).storage()!=lobs.get(1).storage())throw new RedoException("UNSUPPORTED_SNAPSHOT_LOB_LAYOUT");
+                if(!history || lobs.isEmpty() || columns.stream().anyMatch(PhysicalColumn::hidden)
+                        || columns.stream().filter(c->c.type().equals("BLOB") || c.type().equals("CLOB")).count()!=lobs.size()
+                        || lobs.stream().map(LobColumn::column).distinct().count()!=lobs.size()
+                        || lobs.stream().anyMatch(l->l.column()<1 || l.column()>columns.size()
+                            || !List.of("BLOB","CLOB").contains(columns.get(l.column()-1).type()) || l.storage()!=lobs.get(0).storage()))
+                    throw new RedoException("UNSUPPORTED_SNAPSHOT_LOB_LAYOUT");
                 for(var l:lobs)for(var r:List.of(l.lob(),l.index()))if(!r.owner().equals(heap.owner()) || r.logicalObject()!=r.dataObject() || !objects.add(r.dataObject()))
                     throw new RedoException("SNAPSHOT_LOB_OBJECT_COLLISION_OR_GENERATION");
             }

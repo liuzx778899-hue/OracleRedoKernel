@@ -27,9 +27,9 @@ public final class HeapRowPatch {
     public Patch decode(RedoRecords.Vector vector, int dictionaryColumns) throws RedoException {
         return decode(vector,dictionaryColumns,false);
     }
-    /** Observed three-column LOB heap profile; ordinary heap locks retain their existing gate. */
+    /** LOB heap decoding retains the observed byte profiles and the separate ordinary lock gate. */
     public Patch decodeLob(RedoRecords.Vector vector,int columns)throws RedoException {
-        if(columns!=3)throw new RedoException("UNSUPPORTED_LOB_HEAP_COLUMN_PROFILE");
+        if(columns<1 || columns>255)throw new RedoException("UNSUPPORTED_LOB_HEAP_COLUMN_PROFILE");
         return decode(vector,columns,false,true);
     }
     Patch decodeDictionaryObject(RedoRecords.Vector vector,int columns) throws RedoException {
@@ -89,7 +89,7 @@ public final class HeapRowPatch {
         return decodeKdo(fields,op,dba,dictionaryColumns,dictionaryObject,false);
     }
     static Patch decodeLobKdo(List<byte[]> fields,int op,long dba,int columns)throws RedoException {
-        if(columns!=3)throw new RedoException("UNSUPPORTED_LOB_HEAP_COLUMN_PROFILE");
+        if(columns<1 || columns>255)throw new RedoException("UNSUPPORTED_LOB_HEAP_COLUMN_PROFILE");
         return decodeKdo(fields,op,dba,columns,false,true);
     }
     private static Patch decodeKdo(List<byte[]> fields,int op,long dba,int dictionaryColumns,boolean dictionaryObject,boolean lobHeap) throws RedoException {
@@ -105,7 +105,9 @@ public final class HeapRowPatch {
         boolean statisticsInsert=op==2 && kdo.length==51 && (kdo[18]&255)==18 && kdo[11]==1;
         // Observed COL_USAGE$ DELETE inverse stores ten columns and a two-byte null bitmap.
         boolean usageInsert=op==2 && dictionaryColumns==10 && kdo.length==50 && (kdo[18]&255)==10 && kdo[11]==1;
-        int expectedKdo=sysNine?30:op == 2 ? statisticsInsert?51:usageInsert?50:49 : op == 3 || op == 4 ? 20 : packed || tail ? 28 : 29;
+        // Seq104 mixed scalar/four-LOB seed has nine columns and a two-byte null bitmap.
+        boolean lobNineInsert=lobHeap && op==2 && dictionaryColumns==9 && kdo.length==50 && (kdo[18]&255)==9 && kdo[11]==1;
+        int expectedKdo=sysNine?30:op == 2 ? statisticsInsert?51:usageInsert || lobNineInsert?50:49 : op == 3 || op == 4 ? 20 : packed || tail ? 28 : 29;
         if (kdo.length != expectedKdo || (kdo[10]&255) != op || u32(kdo,0) != dba)
             throw new RedoException("UNSUPPORTED_KDO_LAYOUT_OR_BLOCK");
         if(dictionaryObject && (dictionaryColumns!=37 || op!=5 || packed || tail || kdo[11]!=1 || kdo[12]!=1 || kdo[13]!=0

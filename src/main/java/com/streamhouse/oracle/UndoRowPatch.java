@@ -12,7 +12,7 @@ public record UndoRowPatch(UndoHeader identity, HeapRowPatch.Patch inverse,
         return decode(vector,dictionaryColumns,dictionaryObject,false);
     }
     public static UndoRowPatch decodeLob(RedoRecords.Vector vector,int columns)throws RedoException {
-        if(columns!=3)throw new RedoException("UNSUPPORTED_LOB_HEAP_COLUMN_PROFILE");
+        if(columns<1 || columns>255)throw new RedoException("UNSUPPORTED_LOB_HEAP_COLUMN_PROFILE");
         return decode(vector,columns,false,true);
     }
     private static UndoRowPatch decode(RedoRecords.Vector vector,int dictionaryColumns,boolean dictionaryObject,boolean lobHeap) throws RedoException {

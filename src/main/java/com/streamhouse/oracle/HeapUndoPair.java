@@ -15,7 +15,7 @@ public record HeapUndoPair(long containerUid,long containerId,Patch forward,Undo
         return bind(record,row,columns,dictionaryObject,false);
     }
     public static HeapUndoPair bindLob(RedoRecords.Record record,RedoRecords.Vector row,int columns)throws RedoException {
-        if(columns!=3)throw new RedoException("UNSUPPORTED_LOB_HEAP_COLUMN_PROFILE");
+        if(columns<1 || columns>255)throw new RedoException("UNSUPPORTED_LOB_HEAP_COLUMN_PROFILE");
         return bind(record,row,columns,false,true);
     }
     private static HeapUndoPair bind(RedoRecords.Record record,RedoRecords.Vector row,int columns,boolean dictionaryObject,boolean lobHeap) throws RedoException {

@@ -12,8 +12,12 @@ public final class HeapCompensation {
     /** Three-column LOB physical inverse, with an original identity from source-owned association routing. */
     public static HeapUndoPair matchLob(RedoRecords.Record record,RedoRecords.Vector marker,RedoRecords.Vector row,
                                        List<HeapUndoPair> history,UndoHeader original)throws RedoException {
+        return matchLob(record,marker,row,history,original,3);
+    }
+    static HeapUndoPair matchLob(RedoRecords.Record record,RedoRecords.Vector marker,RedoRecords.Vector row,
+                                List<HeapUndoPair> history,UndoHeader original,int columns)throws RedoException {
         var c=UndoCompensation.decode(marker);
-        var pair=match(record,marker,row,history,3,c.beginsTransaction() || c.crossesUndoBlock()?original.xid():null,true);
+        var pair=match(record,marker,row,history,columns,c.beginsTransaction() || c.crossesUndoBlock()?original.xid():null,true);
         if(!pair.undo().identity().equals(original))throw new RedoException("LOB_COMPENSATION_ROUTED_OWNER_MISMATCH");
         return pair;
     }
