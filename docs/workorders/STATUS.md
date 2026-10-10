@@ -1,5 +1,7 @@
 # OracleRedoKernel 当前状态
 
+2026-10-10 常规九列混合LOB产品接线完成：同件c8382f8/app a49de18c，完整产品861项通过；BasicFile/SecureFile新HTTP获取后各1未来TXT变化，target/ledger均1/1/1/1、九列完整值零差异，实际CPACK/ACK字节一致。内核3a9ccc651b60/适配器87eb1e9064de固定坐标已装本地Maven；主仓新装Oracle V729–731八处DEFAULT语法修复并实库通过，原失败保留。源停rc0/helper删除，主仓合并/部署清单继续，ARRAY已启动但完整链待证、LOB历史回收/D5待；[反馈](DELIVERY_COMMON_PRODUCT_20261010.md)。
+
 2026-10-10 常规混合LOB首包：BasicFile/SecureFile九列各1基线后事件、完整值零差异，真实JDBC目标各1/1/1、独立提交核验与恢复复读新增0；原三列8项及相关生命周期24项通过，库停止rc0。开发候选内核3a9ccc651b60/适配器87eb1e9064de，新产品HTTP/CPACK/固定适配器坐标及部署待证，ARRAY/LOB历史回收仍待，D5尚未启动。[首包反馈](DELIVERY_COMMON_MIXED_LOB_20261010.md)。
 
 2026-10-10 用户授权新顺序：先补常规混合大字段、ARRAY/同commitSCN、类型及LOB历史/恢复回收功能，正常链闭合后推进D5 RAC/ASM读取与thread接入；长期/压力/现场等后移模拟生产，TDE继续搁置。混合LOB首包代码开发与原冻结受影响回归已启动，新样本/产品链及新制品待证，D5尚未启动；[执行单](DISPATCH_COMMON_FUNCTIONS_D5_20261010.md)。以下旧“不启动D5”为此前授权时点，不覆盖本次顺序授权。
