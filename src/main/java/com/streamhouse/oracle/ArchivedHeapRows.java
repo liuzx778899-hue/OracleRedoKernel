@@ -136,8 +136,8 @@ public final class ArchivedHeapRows {
                     int rowColumns=history==null?baseline.columns():recordSchema.size();
                     var undo=UndoHeader.decode(r.vectors().get(v));List<HeapUndoPair> found=null;int forwardIndex=-1;
                     for (var f:r.vectors()) if (f.containerId()==source.containerId() && f.opcodeMajor()==11
-                            && (f.opcodeMinor()==2 || f.opcodeMinor()==3 || f.opcodeMinor()==4 || f.opcodeMinor()==5 || f.opcodeMinor()==11)) {
-                        boolean array=f.opcodeMinor()==11;
+                            && (f.opcodeMinor()==2 || f.opcodeMinor()==3 || f.opcodeMinor()==4 || f.opcodeMinor()==5 || f.opcodeMinor()==11 || f.opcodeMinor()==19)) {
+                        boolean array=f.opcodeMinor()==11 || f.opcodeMinor()==19;
                         var patch=array?HeapArrayUndoPair.forward(f,rowColumns).get(0):new HeapRowPatch().decode(f,rowColumns);
                         if (patch.xtype()!=1 || !undo.uba().equals(patch.uba())) continue;
                         if (found!=null) throw new RedoException("ROW_REPLAY_PAIR_AMBIGUOUS");
@@ -216,6 +216,16 @@ public final class ArchivedHeapRows {
             else if(column.type().equals("RAW")) {if(raw.length==0)throw new RedoException("EMPTY_RAW_REQUIRES_EXPLICIT_NULL_STATE");}
             else if(column.type().equals("DATE"))OracleScalars.date(raw);
             else if(column.type().equals("TIMESTAMP"))OracleScalars.timestamp(raw);
+            else if(column.type().equals("TIMESTAMP WITH LOCAL TIME ZONE"))OracleScalars.timestamp(raw);
+            else if(column.type().equals("TIMESTAMP WITH TIME ZONE")) {
+                // Structural validation only; publication projection must bind the trusted source region context.
+                if(raw.length!=13)throw new RedoException("INVALID_TIMESTAMP_TZ_LENGTH");
+                if((raw[11]&128)==0)OracleScalars.timestampWithOffset(raw);
+                else {
+                    if((raw[12]&3)!=0 || ((raw[11]&127)<<6|((raw[12]&255)>>>2))==0)throw new RedoException("UNSUPPORTED_TIMESTAMP_TZ_REGION_FLAGS");
+                    OracleScalars.timestamp(java.util.Arrays.copyOf(raw,11));
+                }
+            }
             else throw new RedoException("UNSUPPORTED_HISTORICAL_ROW_VALUE_TYPE");
         }
     }

@@ -78,10 +78,7 @@ public final class CapturedHeapBatch {
         return new CapturedHeapBatch(snapshot,schema,sources,events,batch,leaf);
     }
     static String schemaDigest(FrozenHeapBaseline.Snapshot snapshot) {
-        String base=schemaDigest(snapshot.heap(),snapshot.index(),snapshot.columns());var context=snapshot.timeZoneContext();
-        String fixed=context==null?base:hash(out->{text(out,"ORK_TIMEZONE_SCHEMA_V1");text(out,base);
-            text(out,context.databaseZone());out.writeInt(context.fileVersion());
-            for(var region:new java.util.TreeMap<>(context.regions()).entrySet()){out.writeInt(region.getKey());text(out,region.getValue());}});
+        String fixed=schemaDigest(snapshot.heap(),snapshot.index(),snapshot.columns(),snapshot.timeZoneContext());
         return snapshot.lobs().isEmpty()?fixed:hash(out->{text(out,fixed);for(var lob:snapshot.lobs())text(out,lob.toString());});
     }
     static CapturedHeapBatch lob(FrozenHeapBaseline.Snapshot snapshot,List<CaptureJournal.Source> captures,List<Event> events,long leaf) {
@@ -101,6 +98,12 @@ public final class CapturedHeapBatch {
                 out.writeBoolean(c.nullable());out.writeBoolean(c.hidden());
             }
         });
+    }
+    static String schemaDigest(FrozenHeapBaseline.ObjectRole heap,FrozenHeapBaseline.ObjectRole index,List<FrozenHeapBaseline.PhysicalColumn> columns,OracleTimeZoneContext context) {
+        String base=schemaDigest(heap,index,columns);
+        return context==null?base:hash(out->{text(out,"ORK_TIMEZONE_SCHEMA_V1");text(out,base);
+            text(out,context.databaseZone());out.writeInt(context.fileVersion());
+            for(var region:new java.util.TreeMap<>(context.regions()).entrySet()){out.writeInt(region.getKey());text(out,region.getValue());}});
     }
     static String eventId(ArchivedHeapRows.Source source,String schema,ArchivedHeapRows.Change change) {
         return hash(out->{

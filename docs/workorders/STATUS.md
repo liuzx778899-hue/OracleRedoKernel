@@ -1,5 +1,7 @@
 # OracleRedoKernel 当前状态
 
+2026-10-11 时区正式链：V4原生获取→raw111 ARRAY UPDATE→3完整事件→真实JDBC首次3/重试0，target3/3/1/3，Paris区域/冬夏令/负偏移、LTZ与9位纳秒独立SQL差异0，再获取6字节值差异0。11.19/KDO21三行同undo提交解析补齐，49内核/10适配器相关测试通过；目标核27044/最终核04c7de81事件证据不变，适配器ddf291e4。库停/helper删除/Desktop停；时间新HTTP CPACK/产品新依赖及ARRAY部分补偿恢复、同SCN恢复发布、LOB历史回收仍待，五项未全完，D5搁置。[合并反馈](DELIVERY_TEMPORAL_VARIANTS_SCALARS_20261011.md)。
+
 2026-10-11 区域/LTZ上下文前置：原raw109复用/只读源DML0，两会话原生TSTZ/LTZ共18字段字节差异0，DBTZ +00:00/时区文件32/595区域映射已冻结；内核上下文解析及V4可信帧/schema绑定完成，相关37项通过，源停/helper删除/Desktop停止。正式V4获取输出、时区投影/目标/HTTP CPACK仍待，不标时区功能完整支持；五项目标继续/D5搁置。[续接反馈](DELIVERY_TEMPORAL_VARIANTS_SCALARS_20261011.md)。
 
 2026-10-11 BC/精度正常JDBC链：原生datum获取、raw110后缀布局与隐式PK NULL$1补齐；基线后1完整UPDATE，44BC/1BC及精度0/3/6/9独立SQL差异0，真实首次1/重试0、目标1/1/1/1六列差集0；BC再获取原始字节差异0。内核84774209/适配器6ce27a89、相关40＋7项通过，库停/helper删除；区域/LTZ上下文、新HTTP CPACK与其余五项缺口继续，D5搁置。[反馈](DELIVERY_BC_PRECISION_JDBC_20261011.md)。

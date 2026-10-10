@@ -388,8 +388,8 @@ public final class ArchivedPhysicalTransactions {
         return new Result(found.sources(),contexts.stream().filter(c->!c.coveredByBaseline && c.result!=null).map(c->c.result).toList());
     }
     private static boolean heap(RedoRecords.Vector v) {return v.opcodeMajor()==11 && (v.opcodeMinor()==2 || v.opcodeMinor()==3 || v.opcodeMinor()==4 || v.opcodeMinor()==5);}
-    private static boolean heapArray(RedoRecords.Vector v) {return v.opcodeMajor()==11 && v.opcodeMinor()==11;}
-    private static boolean heapArrayInverse(RedoRecords.Vector v) {return v.fields().size()==4 && v.fields().get(3).length>10 && v.fields().get(3)[10]==12;}
+    private static boolean heapArray(RedoRecords.Vector v) {return v.opcodeMajor()==11 && (v.opcodeMinor()==11 || v.opcodeMinor()==19);}
+    private static boolean heapArrayInverse(RedoRecords.Vector v) {return v.fields().size()>3 && v.fields().get(3).length>10 && (v.fields().size()==4 && v.fields().get(3)[10]==12 || v.fields().size()==8 && v.fields().get(3)[10]==19);}
     private static boolean indexArrayInverse(RedoRecords.Vector v) {return v.fields().size()==6 && v.fields().get(3).length>2 && v.fields().get(3)[2]==0x21;}
     private static byte[] utf8(String value){return value.getBytes(java.nio.charset.StandardCharsets.UTF_8);}
     private static String recoveryDigest(byte[] bytes)throws RedoException {

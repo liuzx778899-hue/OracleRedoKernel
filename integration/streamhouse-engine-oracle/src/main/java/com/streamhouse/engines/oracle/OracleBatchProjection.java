@@ -56,7 +56,7 @@ public final class OracleBatchProjection {
     static Entry projectEntry(CapturedHeapBatch.Schema schema,CapturedHeapBatch.Event event,String batchSha256,
                               Map<HeapRowPatch.Xid,Long> ordinals) throws RedoException {
             var columns=schema.columns();
-            var before=image(columns,event.before());var after=image(columns,event.after());
+            var before=image(columns,event.before(),schema.timeZoneContext());var after=image(columns,event.after(),schema.timeZoneContext());
             var changed=new ArrayList<String>();
             for (int i=0;i<columns.size();i++) if (event.before().isEmpty() || event.after().isEmpty()
                     || !event.before().get(i).equals(event.after().get(i))) changed.add(columns.get(i).name());
@@ -98,6 +98,9 @@ public final class OracleBatchProjection {
                 columns,input.leaf(),input.sha256(),events);
     }
     static Map<String,Object> image(List<FrozenHeapBaseline.PhysicalColumn> columns,List<ArchivedHeapRows.Cell> cells) throws RedoException {
+        return image(columns,cells,null);
+    }
+    static Map<String,Object> image(List<FrozenHeapBaseline.PhysicalColumn> columns,List<ArchivedHeapRows.Cell> cells,com.streamhouse.oracle.OracleTimeZoneContext context) throws RedoException {
         if (cells.isEmpty()) return null;
         if (cells.size()!=columns.size()) throw new RedoException("ORACLE_IMAGE_COLUMN_COVERAGE");
         var image=new LinkedHashMap<String,Object>();
@@ -114,6 +117,7 @@ public final class OracleBatchProjection {
                     case "RAW"->new OracleRawValue(HexFormat.of().formatHex(bytes));
                     case "DATE"->OracleTemporalValue.of("DATE",OracleScalars.date(bytes));
                     case "TIMESTAMP"->OracleTemporalValue.of("TIMESTAMP",OracleScalars.timestamp(bytes));
+                    case "TIMESTAMP WITH TIME ZONE","TIMESTAMP WITH LOCAL TIME ZONE"->OracleZonedTemporalValue.of(column.type(),bytes,context);
                     case "BLOB","CLOB"->new OracleLobValue(column.type(),cell.hex());
                     default->throw new RedoException("ORACLE_UNSUPPORTED_PROJECTION_TYPE");
                 };

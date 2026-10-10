@@ -95,7 +95,7 @@ public final class CapturedHistoricalHeapBatch {
             if(owner==null || owner.rolledBack() || !owner.xid().equals(change.xid()) || owner.endRecordScn()<=snapshot.scn())
                 throw new RedoException("HISTORICAL_BATCH_ROW_OWNER_MISMATCH");
             var columns=history.schemaAt(owner.endRecordScn(),transaction.commitPosition());
-            var schema=new Schema(snapshot.heap(),snapshot.index(),columns,schemaDigest(snapshot.heap(),snapshot.index(),columns));
+            var schema=new Schema(snapshot.heap(),snapshot.index(),columns,schemaDigest(snapshot.heap(),snapshot.index(),columns,snapshot.timeZoneContext()),snapshot.timeZoneContext());
             String id=eventId(snapshot.source(),schema.sha256(),change);if(!ids.add(id))throw new RedoException("HISTORICAL_BATCH_DUPLICATE_EVENT_ID");
             events.add(new Event(schema,new CapturedHeapBatch.Event(id,payloadDigest(change,owner),change.position(),owner,change.key(),change.kind(),change.before(),change.after())));
         }

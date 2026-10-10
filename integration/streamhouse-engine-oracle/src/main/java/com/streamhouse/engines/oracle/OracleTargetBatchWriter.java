@@ -32,6 +32,7 @@ public final class OracleTargetBatchWriter {
     public CommitReceipt verifyCommitted(Connection freshConnection,Target target,OracleBatchProjection.Batch batch) throws SQLException {
         try (var conn=freshConnection) {
             if (!conn.getAutoCommit()) throw new SQLException("ORACLE_TARGET_REQUIRES_FRESH_AUTOCOMMIT_CONNECTION");
+            requireTimeZoneContext(conn,batch.schema());
             var expected=receipt(target,batch);
             String sql="select i.TARGET_ID,i.SOURCE_BINDING,i.SCHEMA_SHA,c.TARGET_ID,c.SCHEMA_SHA,c.EVENTS_COUNT,"
                     +"m.ORDINAL,m.EVENT_ID,a.PAYLOAD_SHA,a.BEFORE_IMAGE,a.AFTER_IMAGE,a.OPERATION from "+target.table("IDENT")+" i"
@@ -71,6 +72,7 @@ public final class OracleTargetBatchWriter {
         // Ownership is explicit: the caller must not supply an existing transaction or pooled shared handle.
         try (var conn=freshConnection) {
             if (!conn.getAutoCommit()) throw new SQLException("ORACLE_TARGET_REQUIRES_FRESH_AUTOCOMMIT_CONNECTION");
+            requireTimeZoneContext(conn,batch.schema());
             conn.setAutoCommit(false);
             try {
                 try (var ps=conn.prepareStatement("select TARGET_ID,SOURCE_BINDING,SCHEMA_SHA from "+target.table("IDENT")+" where ID=1 for update nowait");var rs=ps.executeQuery()) {
@@ -181,6 +183,9 @@ public final class OracleTargetBatchWriter {
                 else if(value instanceof OracleLobValue) {
                     predicates.add("(dbms_lob.getlength("+name+")=dbms_lob.getlength(?) and dbms_lob.compare("+name+",?)=0)");
                     beforeArgs.add(value);beforeArgs.add(value);
+                } else if(value instanceof OracleZonedTemporalValue temporal && temporal.type().equals("TIMESTAMP WITH TIME ZONE")) {
+                    predicates.add(name+"=? and upper(to_char("+name+",'TZR'))=upper(?)");
+                    beforeArgs.add(value);beforeArgs.add(temporal.zone().equals("Z")?"+00:00":temporal.zone());
                 } else predicates.add(name+"="+valueSql(value,beforeArgs));
             }
             String where=String.join(" and ",predicates);
@@ -197,6 +202,7 @@ public final class OracleTargetBatchWriter {
                     if(lob.type().equals("BLOB"))ps.setBlob(i+1,new java.io.ByteArrayInputStream(lob.bytes()));
                     else ps.setClob(i+1,new java.io.StringReader(lob.text()));
                 }
+                else if(args.get(i) instanceof OracleZonedTemporalValue temporal)bindNativeTemporal(ps,i+1,temporal);
                 else if(args.get(i) instanceof OracleTemporalValue temporal)ps.setObject(i+1,temporal.localDateTime(),java.sql.Types.TIMESTAMP);
                 else ps.setObject(i+1,args.get(i));
             }
@@ -212,6 +218,26 @@ public final class OracleTargetBatchWriter {
         }
         args.add(value);return "?";
     }
+    static void requireTimeZoneContext(Connection conn,com.streamhouse.oracle.CapturedHeapBatch.Schema schema)throws SQLException {
+        var context=schema.timeZoneContext();if(context==null)return;
+        boolean local=schema.columns().stream().anyMatch(c->c.type().equals("TIMESTAMP WITH LOCAL TIME ZONE"));
+        try(var statement=conn.createStatement();var rows=statement.executeQuery("select dbtimezone,version from v$timezone_file")) {
+            if(!rows.next() || rows.getInt(2)!=context.fileVersion() || local && !rows.getString(1).equals(context.databaseZone()) || rows.next())
+                throw new SQLException("ORACLE_TARGET_TIMEZONE_CONTEXT_MISMATCH");
+        }
+        if(local)try {
+            var api=Class.forName("oracle.jdbc.OracleConnection");
+            api.getMethod("setSessionTimeZone",String.class).invoke(conn.unwrap(api),context.databaseZone());
+        } catch(ReflectiveOperationException e){throw new SQLException("ORACLE_TARGET_TIMEZONE_SESSION_INITIALIZATION",e);}
+    }
+    private static void bindNativeTemporal(java.sql.PreparedStatement statement,int column,OracleZonedTemporalValue value)throws SQLException {
+        try {
+            String name=value.type().equals("TIMESTAMP WITH TIME ZONE")?"TIMESTAMPTZ":"TIMESTAMPLTZ";
+            var datum=Class.forName("oracle.sql."+name).getConstructor(byte[].class).newInstance((Object)value.bytes());
+            var api=Class.forName("oracle.jdbc.OraclePreparedStatement");
+            api.getMethod("set"+name,int.class,datum.getClass()).invoke(statement.unwrap(api),column,datum);
+        } catch(ReflectiveOperationException e){throw new SQLException("ORACLE_TARGET_NATIVE_TEMPORAL_BIND",e);}
+    }
     private static String image(Map<String,Object> values) {
         if (values==null) return "";
         var fields=new ArrayList<String>();for (var e:values.entrySet()) {
@@ -219,6 +245,7 @@ public final class OracleTargetBatchWriter {
                     : v instanceof OracleRawValue raw ? "RAW:"+raw.hex()
                     : v instanceof OracleLobValue lob ? lob.type()+":"+lob.hex()
                     : v instanceof OracleTemporalValue temporal ? temporal.type()+":"+temporal.iso()
+                    : v instanceof OracleZonedTemporalValue temporal ? temporal.type()+":"+temporal.hex()+":"+temporal.databaseZone()+":"+temporal.timeZoneVersion()+":"+temporal.zone()
                     : "VARCHAR2:"+Base64.getUrlEncoder().withoutPadding().encodeToString(((String)v).getBytes(StandardCharsets.UTF_8));
             fields.add(e.getKey()+"="+value);
         }

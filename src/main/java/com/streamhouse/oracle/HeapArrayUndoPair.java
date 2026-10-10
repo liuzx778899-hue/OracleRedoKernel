@@ -10,6 +10,7 @@ import static com.streamhouse.oracle.RedoBytes.*;
 /** Observed 19.3 QMI / QMD pair. One owned undo node retains every physical row, in source order. */
 public final class HeapArrayUndoPair {
     public static List<Patch> forward(RedoRecords.Vector vector,int columns)throws RedoException {
+        if(vector.opcodeMajor()==11 && vector.opcodeMinor()==19)return HeapArrayUpdatePair.forward(vector,columns);
         if(vector.opcodeMajor()!=11 || vector.opcodeMinor()!=11 || vector.fields().size()!=4)
             throw new RedoException("UNSUPPORTED_HEAP_ARRAY_OPCODE_OR_FIELDS");
         byte[] ktb=vector.fields().get(0);
@@ -88,6 +89,7 @@ public final class HeapArrayUndoPair {
         return owned;
     }
     static List<UndoRowPatch> inverse(RedoRecords.Vector vector,int columns)throws RedoException {
+        if(vector.fields().size()==8 && vector.fields().get(3).length>10 && vector.fields().get(3)[10]==19)return HeapArrayUpdatePair.inverse(vector,columns);
         var identity=UndoHeader.decode(vector);var fields=vector.fields();
         if(columns<1 || columns>255 || fields.size()!=4)
             throw new RedoException("UNSUPPORTED_HEAP_ARRAY_INVERSE_FIELDS");
@@ -110,6 +112,7 @@ public final class HeapArrayUndoPair {
         return List.copyOf(rows);
     }
     public static List<HeapUndoPair> bind(RedoRecords.Record record,RedoRecords.Vector row,int columns)throws RedoException {
+        if(row.opcodeMajor()==11 && row.opcodeMinor()==19)return HeapArrayUpdatePair.bind(record,row,columns);
         if(!record.vectors().contains(row))throw new RedoException("HEAP_ARRAY_VECTOR_NOT_IN_RECORD");
         var forward=forward(row,columns);var uba=forward.get(0).uba();RedoRecords.Vector undo=null;int owners=0;
         for(var vector:record.vectors()) {
