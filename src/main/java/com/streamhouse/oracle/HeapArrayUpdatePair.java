@@ -22,9 +22,10 @@ final class HeapArrayUpdatePair {
         byte[] metadata=fields.get(1),ktb=fields.get(2);
         if(metadata[16]!=11 || metadata[17]!=1 || (metadata[18]&255)!=identity.xid().slot()
                 || !identity.beginsTransaction() && u16(metadata,22)!=(identity.xid().sequence()&0xffff)
-                || ktb.length!=8 || ktb[0]!=3 || ktb[1]!=0x0d)throw new RedoException("ARRAY_UPDATE_UNDO_IDENTITY");
+                || !(ktb.length==8 && ktb[0]==3 && ktb[1]==0x0d
+                    || ktb.length==16 && ktb[0]==2 && ktb[1]==0x0d))throw new RedoException("ARRAY_UPDATE_UNDO_IDENTITY");
         long dba=u32(fields.get(3),0);var result=new ArrayList<UndoRowPatch>();
-        for(var row:rows(fields.subList(3,8),dba,true)) {
+        for(var row:rows(fields.subList(3,8),dba,ktb[0]!=2)) {
             var patch=HeapRowPatch.decodeKdo(List.of(ktb,row.get(0),row.get(1),row.get(2)),5,dba,columns);
             result.add(new UndoRowPatch(identity,patch,u32(metadata,12),metadata[19]&255,u16(metadata,22)));
         }
@@ -32,7 +33,7 @@ final class HeapArrayUpdatePair {
     }
     private static List<List<byte[]>> rows(List<byte[]> fields,long dba,boolean inverse)throws RedoException {
         byte[] header=fields.get(0),kdos=fields.get(1),maps=fields.get(2),sizes=fields.get(3),data=fields.get(4);
-        if(header.length!=20 || u32(header,0)!=dba || u32(header,4)==0 || header[10]!=19 || header[11]!=1 || header[12]==0 || header[13]!=0)
+        if((header.length!=20 && !(header.length==18 && u16(header,16)==3)) || u32(header,0)!=dba || u32(header,4)==0 || header[10]!=19 || header[11]!=1 || header[12]==0 || header[13]!=0)
             throw new RedoException("UNSUPPORTED_ARRAY_UPDATE_HEADER");
         int count=u16(header,16),aligned=(count*2+3)&~3;
         if(count==0 || kdos.length!=count*28 || maps.length!=count*2 || sizes.length!=aligned+16)
@@ -71,10 +72,42 @@ final class HeapArrayUpdatePair {
         for(int i=0;i<forward.size();i++) {
             var p=forward.get(i);var q=inverse.get(i);
             byte[] a=Arrays.copyOfRange(row.fields().get(2),i*28,i*28+28),b=Arrays.copyOfRange(undo.fields().get(4),i*28,i*28+28);
-            a[17]=0;if(!Arrays.equals(a,b) || p.xid()!=null && !p.xid().equals(identity.xid()) || !p.uba().equals(identity.uba())
+            a[17]=b[17];if(!Arrays.equals(a,b) || p.xid()!=null && !p.xid().equals(identity.xid()) || !p.uba().equals(identity.uba())
                     || p.dba()!=q.inverse().dba() || p.slot()!=q.inverse().slot())throw new RedoException("ARRAY_UPDATE_ROW_OR_OWNER_MISMATCH");
             result.add(new HeapUndoPair(record.containerUid(),row.containerId(),p,q));
         }
         return List.copyOf(result);
+    }
+    static List<HeapUndoPair> matchRollback(RedoRecords.Record record,RedoRecords.Vector marker,RedoRecords.Vector row,
+                                          List<HeapUndoPair> history,int columns,UndoHeader original)throws RedoException {
+        if(!record.vectors().contains(marker) || !record.vectors().contains(row) || marker.containerId()!=row.containerId()
+                || row.opcodeMajor()!=11 || row.opcodeMinor()!=19 || row.fields().size()!=6)
+            throw new RedoException("ARRAY_UPDATE_COMPENSATION_RECORD");
+        var c=UndoCompensation.decode(marker);var fields=new ArrayList<>(row.fields().subList(1,6));
+        byte[] ktb=row.fields().get(0);
+        if(!(ktb.length==8 && ktb[0]==3 && ktb[1]==0x0d || ktb.length==16 && ktb[0]==2 && ktb[1]==0x0d))
+            throw new RedoException("ARRAY_UPDATE_COMPENSATION_KTB");
+        byte[] header=fields.get(0).clone();
+        if(header.length!=20 && header.length!=18 || header[11]!=2)throw new RedoException("ARRAY_UPDATE_COMPENSATION_XTYPE");
+        header[11]=1;fields.set(0,header);
+        var patches=new ArrayList<Patch>();
+        for(var values:rows(fields,row.dba(),ktb[0]!=2)) {
+            byte[] kdo=values.get(0).clone();kdo[11]=(byte)0x82;
+            patches.add(new HeapRowPatch().decode(new RedoRecords.Vector(11,5,row.blockClass(),row.file(),row.dba(),row.scn(),row.sequence(),row.containerId(),
+                    List.of(row.fields().get(0),kdo,values.get(1),values.get(2))),columns));
+        }
+        var owned=history.stream().filter(p->p.undo().identity().equals(original)).toList();
+        if(c.opcodeMajor()!=11 || c.opcodeMinor()!=1 || owned.isEmpty() || owned.size()!=patches.size())throw new RedoException("ARRAY_UPDATE_COMPENSATION_COVERAGE");
+        for(int i=0;i<owned.size();i++) {
+            var pair=owned.get(i);var u=pair.undo();
+            if(pair.containerUid()!=record.containerUid() || pair.containerId()!=row.containerId()
+                    || original.beginsTransaction()!=c.beginsTransaction() || original.xid().slot()!=c.slot() || u.wrap()!=c.wrap()
+                    || original.objectId()!=c.objectId() || original.dataObjectId()!=c.dataObjectId() || original.tablespace()!=c.tablespace()
+                    || u.previousDba()!=c.previousDba() || u.predecessorRecord()!=c.predecessorRecord()
+                    || !c.beginsTransaction() && !c.crossesUndoBlock() && (original.uba().dba()!=c.dba() || (original.xid().sequence()&0xffff)!=c.wrap())
+                    || pair.forward().kind()!=Kind.UPDATE || !HeapCompensation.sameInverse(u.inverse(),patches.get(i)))
+                throw new RedoException("ARRAY_UPDATE_COMPENSATION_ORIGINAL_MISMATCH");
+        }
+        return owned;
     }
 }

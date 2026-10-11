@@ -294,10 +294,11 @@ public final class ArchivedPhysicalTransactions {
                                 matched=IndexCompensation.matchArray(r,v,row,c.indexes,route.original(),state,c.positions,position(header,r,j)).get(0).undo().identity();
                                 arrayMatched=true;
                             } else matched=IndexCompensation.match(r,v,row,c.indexes,state,c.positions,position(header,r,j)).undo().identity();
-                        } else if(marker.dataObjectId()==heapObject && row.opcodeMajor()==11 && row.opcodeMinor()==12) {
+                        } else if(marker.dataObjectId()==heapObject && row.opcodeMajor()==11 && (row.opcodeMinor()==12 || row.opcodeMinor()==19 && row.fields().size()==6 && row.fields().get(1).length>=12 && row.fields().get(1)[11]==2)) {
                             if(matched!=null)throw new RedoException("PHYSICAL_COMPENSATION_ROW_AMBIGUOUS");
                             int rowColumns=columnsAt(history,snapshot,r.scn(),columns,new ArchivedUndoInventory.Position(header.sequence(),r.block(),r.offset(),i+1));
-                            var pairs=HeapArrayUndoPair.matchRollback(r,v,row,c.heaps,rowColumns,route.original());
+                            var pairs=row.opcodeMinor()==19?HeapArrayUpdatePair.matchRollback(r,v,row,c.heaps,rowColumns,route.original())
+                                    :HeapArrayUndoPair.matchRollback(r,v,row,c.heaps,rowColumns,route.original());
                             if(marker.beginsTransaction() && !state.beginCompensationIdentity(r,v).equals(route.original().xid())
                                     || marker.crossesUndoBlock() && !state.crossCompensationIdentity(r,v).equals(route.original().xid()))
                                 throw new RedoException("HEAP_ARRAY_COMPENSATION_LIFECYCLE_IDENTITY");

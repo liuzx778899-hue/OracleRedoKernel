@@ -1,5 +1,7 @@
 # OracleRedoKernel 当前状态
 
+2026-10-11 ARRAY UPDATE补偿续接：raw116复用/源动作0，最后KTB守卫重新编译，34项相关回归通过；projection-r5只发布保留事务3条完整UPDATE，独立after.snapshot完整值差异0/撤销事件0，两独立JVM恢复与直接读取及投影证据完全一致。package rc0/内核f02b15ca；本候选未部署。任意节点部分行及LOB历史/代际/恢复回收继续开发，五项未全完，D5搁置。[反馈](DELIVERY_ARRAY_UPDATE_ROLLBACK_20261011.md)。
+
 2026-10-11 同SCN离线衔接：不同XID/相同commit SCN/反向开始顺序，提交位置排序→checkpoint恢复→事务边界发布后另一个事务仍保留，颠倒顺序拒绝；25相关项＋最终受影响类5项通过，生产代码不变，无重复制品/部署/源动作。合成测试，不冒充实库同SCN产品双窗；LOB静态schema/切点拒绝仍待补，ARRAY未覆盖撤销继续。容器/Desktop已停，五项未全完，D5搁置。[合并反馈](DELIVERY_ARRAY_TEMPORAL_PRODUCT_20261011.md)。
 
 2026-10-11 时间新产品链通过：62df082/app fca25207，完整862项通过；原HTTP基线及115复用，源动作0，3完整UPDATE/target3/3/1/3，九列BC/纳秒/区域/LTZ差异0，实际CPACK同字节。ARRAY原20条产品证据复用；源已停/helper移除，同SCN恢复与LOB历史回收及ARRAY未覆盖撤销继续，D5搁置，五项未全完。[反馈](DELIVERY_ARRAY_TEMPORAL_PRODUCT_20261011.md)。

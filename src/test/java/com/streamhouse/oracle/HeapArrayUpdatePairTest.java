@@ -3,6 +3,20 @@ import java.util.*;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 class HeapArrayUpdatePairTest {
+ @Test void raw116FullArrayUpdateRollbackRequiresEveryOwnedOldValue()throws Exception {
+  var f=forward();var u=undo();var record=new RedoRecords.Record(1,16,1000,13,1,1,677737149,List.of(f,u));
+  var owned=HeapArrayUpdatePair.bind(record,f,3);var original=owned.get(0).undo().identity();
+  var fields=new ArrayList<byte[]>();for(var value:u.fields().subList(2,8))fields.add(value.clone());
+  fields.get(1)[11]=2;
+  var xr=new RedoRecords.Vector(11,19,1,12,f.dba(),1,1,3,fields);
+  byte[] metadata=Arrays.copyOf(u.fields().get(1),28);metadata[20]=0x18;
+  var marker=new RedoRecords.Vector(5,11,35,11,0x02400110L,1,1,3,List.of(metadata,new byte[8]));
+  var cancellation=new RedoRecords.Record(2,16,1000,1,2,1,677737149,List.of(xr,marker));
+  assertEquals(owned,HeapArrayUpdatePair.matchRollback(cancellation,marker,xr,owned,3,original));
+  assertThrows(RedoException.class,()->HeapArrayUpdatePair.matchRollback(cancellation,marker,xr,owned.subList(0,2),3,original));
+  fields.get(5)[2]++;
+  assertThrows(RedoException.class,()->HeapArrayUpdatePair.matchRollback(cancellation,marker,xr,owned,3,original));
+ }
  @Test void observedRaw115ThreeRowLengthAlignmentRejectsUnknownMarker()throws Exception {
   var f=forward();f.fields().get(4)[6]=3;
   assertEquals(3,HeapArrayUndoPair.forward(f,3).size());

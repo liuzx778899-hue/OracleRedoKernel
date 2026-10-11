@@ -81,7 +81,7 @@ public final class HeapCompensation {
         } catch (RedoException e) { state.compensationRefused(); throw e; }
     }
 
-    private static boolean sameInverse(HeapRowPatch.Patch a,HeapRowPatch.Patch b) {
+    static boolean sameInverse(HeapRowPatch.Patch a,HeapRowPatch.Patch b) {
         if (a.kind()!=b.kind() || a.dba()!=b.dba() || a.slot()!=b.slot() || a.columns().size()!=b.columns().size()) return false;
         if(!java.util.Objects.equals(a.lockTo(),b.lockTo()))return false;
         if ((a.extent()==null)!=(b.extent()==null)) return false;
