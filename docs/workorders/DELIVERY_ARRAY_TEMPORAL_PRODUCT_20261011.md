@@ -15,3 +15,9 @@ ARRAY：新认证HTTP基线后仅一次INSERT SELECT20，原始114解析20唯一
 原始115 SHA256 `814818e7be0e1b1ba2853203d9c5864fdd12d5e14c24fb23940b067513a98cbe`；认证基线SHA256 `b5fd3acc8debc0921672b12edd6af8e1b9b1913c6c84b6f765f6304639ac334e`。证据runtime-r2/T-proof.json与proof.json，原失败runtime-r1/T-preparation.stderr保留；本次preparation/enroll/actual/stop/remove/source-stop均rc0，源exited/helper移除。ARRAY原20条通过证据复用，九列解码补齐不改其路径，未重复部署旧场景。
 
 代码已提交｜相关验证通过｜正常产品链通过（当前样本范围）｜主仓合并待证｜部署待证｜现场验收待证｜发布未开始。候选二进制只进入产品固定坐标，内核研究过程不进入产品。时间类型本次正常链收口，其它五项目标剩余继续，D5搁置；最终main合并和部署清单待其余功能收尾。
+
+## 同SCN恢复与发布边界离线衔接
+
+既有生产实现不变，新增两个不同XID同commit SCN、开始顺序与实际提交位置顺序相反的有限测试：提交位置排序→完整事件/行状态恢复→发布首个完整事务→仅留下同SCN的另一事务。两个事件ID不同；恢复后的checkpoint同字节；颠倒已认证状态中的提交顺序拒绝。相关四类25项通过，整理新测试时一次变量作用域编译错误原文保留，最终受影响类5项通过，旧类未改；无新制品/重复部署/源端动作。证据`lab/out/same-scn-state-20261011/tests.log`及`tests-final-r2.log`。
+
+这是合成的内核状态/发布衔接核验，不冒充实库冻结的两个同SCN提交事务或真实产品双窗证据；该实际场景待证。LOB盘点确认现有路径仍是静态LOB schema，恢复切点明确拒绝`READ_CUT_LOB_NOT_IMPLEMENTED`，对象代际/历史字典及页值原点持久化尚未补齐；不能删除门禁当作功能支持。接续优先补LOB历史/恢复和旧上下文回收，并保留未覆盖的ARRAY补偿边界，五项整体未完成。所有容器/Desktop已停，D5继续搁置。

@@ -60,4 +60,41 @@ class HistoricalProducerStateTest {
         byte[] duplicate=HistoricalProducerState.encode(rows,List.of(c,second,second));
         assertThrows(RedoException.class,()->HistoricalProducerState.restore(duplicate,sha(duplicate),f.baseline(),501,f.physical()));
     }
+    @Test void equalScnDistinctOwnersKeepCommitOrderThroughRestoreAndPublication()throws Exception {
+        var f=fixture();var s=f.baseline();var first=f.physical().transactions().get(0);var c=f.change();
+        var xid=new HeapRowPatch.Xid(1,3,4);var uba=new HeapRowPatch.Uba(1235,1,1);
+        var at=new ArchivedUndoInventory.Position(90,9,32,1);
+        var key=new ArchivedHeapRows.RowKey(c.key().dataObjectId(),c.key().dba(),c.key().slot()+1);
+        var undo=new ArchivedUndoInventory.Entry(at,new UndoHeader(xid,uba,s.heap().logicalObject(),s.heap().dataObject(),0,true),11,1,0,0);
+        var identity=new TransactionLifecycle.ClosedIdentity(xid,s.source().containerUid(),s.source().containerId(),
+                first.identity().beginRecordScn()+1,first.identity().endRecordScn(),false);
+        var second=new ArchivedPhysicalTransactions.Transaction(identity,List.of(),
+                new UndoHistory.Result(List.of(undo),List.of(undo),List.of(),uba,uba),new ArchivedUndoInventory.Position(90,10,16,1));
+        var physical=new ArchivedPhysicalTransactions.Result(f.physical().sources(),List.of(first,second));
+        assertEquals(List.of(second,first),ArchivedHeapRows.commitOrdered(physical.transactions()));
+        var inserted=new ArrayList<>(c.after());inserted.set(0,new ArchivedHeapRows.Cell(HeapRowPatch.State.VALUE,"c103"));
+        var values=new HashMap<>(f.rows().rows());values.put(key,List.copyOf(inserted));
+        var positions=new HashMap<>(f.rows().lastPositions());positions.put(key,at);
+        var helper=new HistoricalRowStateTest();helper.directory=directory;var rows=helper.state(s,values,positions);
+        var insertion=new ArchivedHeapRows.Change(at,xid,key,HeapRowPatch.Kind.INSERT,List.of(),inserted);
+        byte[] checkpoint=HistoricalProducerState.encode(rows,List.of(insertion,c));
+        var restored=HistoricalProducerState.restore(checkpoint,sha(checkpoint),s,501,physical);
+        assertEquals(List.of(insertion,c),restored.changes());
+        assertArrayEquals(checkpoint,HistoricalProducerState.encode(restored.rows(),restored.changes()));
+        assertFalse(restored.rows().after(first));assertFalse(restored.rows().after(second));
+        byte[] reversed=HistoricalProducerState.encode(rows,List.of(c,insertion));
+        assertEquals("PRODUCER_STATE_COMMIT_ORDER",assertThrows(RedoException.class,
+                ()->HistoricalProducerState.restore(reversed,sha(reversed),s,501,physical)).getMessage());
+        var history=ArchivedDictionaryHistory.committedState(s,physical.sources(),List.of());
+        var h=physical.sources().get(0);
+        var source=new CaptureJournal.Source(h.sha256(),h.bytes(),h.blocks(),h.blocks(),h.dbid(),h.activationId(),h.compatibility(),h.thread(),
+                h.sequence(),h.resetlogsId(),h.resetlogsScn(),h.firstScn(),h.nextScn());
+        var changes=new ArchivedHeapRows.Result(physical.sources(),restored.changes(),restored.rows().rows(),restored.rows().lastPositions());
+        var batch=CapturedHistoricalHeapBatch.readWithSourceRows(List.of(source),s,history,501,physical,changes);
+        assertEquals(2,batch.events().stream().map(e->e.row().eventId()).distinct().count());
+        var suffix=batch.afterPublished(batch.publicationBoundary(1));
+        assertEquals(List.of(batch.events().get(1)),suffix.events());
+        assertEquals(first.identity(),suffix.events().get(0).row().transaction());
+        assertTrue(batch.afterPublished(batch.publicationBoundary(2)).events().isEmpty());
+    }
 }
