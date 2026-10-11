@@ -1,5 +1,7 @@
 # OracleRedoKernel 当前状态
 
+2026-10-11 时间新产品链通过：62df082/app fca25207，完整862项通过；原HTTP基线及115复用，源动作0，3完整UPDATE/target3/3/1/3，九列BC/纳秒/区域/LTZ差异0，实际CPACK同字节。ARRAY原20条产品证据复用；源已停/helper移除，同SCN恢复与LOB历史回收及ARRAY未覆盖撤销继续，D5搁置，五项未全完。[反馈](DELIVERY_ARRAY_TEMPORAL_PRODUCT_20261011.md)。
+
 2026-10-11 新产品接线：最新main隔离候选完整862项通过；认证HTTP后ARRAY20事件，目标20/20/1/20、完整行差异0、实际CPACK同字节。时间新UPDATE3已冻结115，九列后缀拒绝修复，25相关项通过/离线3完整事件；新候选时间目标CPACK续接待证，源DML不重放。库/helper/Desktop停；同SCN恢复与LOB历史回收继续，D5搁置，五项未全完。[反馈](DELIVERY_ARRAY_TEMPORAL_PRODUCT_20261011.md)。
 
 2026-10-11 ARRAY部分执行失败/pending跨窗：一次新实验raw112/113冻结，20堆行/10索引键失败后补偿及savepoint逐行UPDATE撤销，补齐10键位图/ITL2/Z填充；首窗pending1/事件0，独立JVM续读20唯一INSERT/SQL完整值差异0/撤销事件0，与直接历史工厂相同，34项相关测试通过。库/helper/Desktop已停；任意节点部分行及11.19回滚未证明，产品新链及其它四项继续，D5搁置。[反馈](DELIVERY_ARRAY_PARTIAL_RECOVERY_20261011.md)。
