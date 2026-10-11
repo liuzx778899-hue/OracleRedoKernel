@@ -31,6 +31,22 @@ class HeapRowPatchTest {
         return new RedoRecords.Vector(11,op,1,12,0x03000083,2148761,1,3,
                 Arrays.stream(fields).map(this::hex).toList());
     }
+    @Test void observedRaw115NineColumnSuffixPreservesEightTemporalValues()throws Exception {
+        String kdo="8300000382000003fa120581020062002c0200000000090800000300";
+        String values="076438030f0d2339076438030f0d23390b6438030f0d23390754d4c00b6438030f0d2339075bca000b64630101010101000000010d787c031f08012e00000001111e0d787c031f021f2e3ade68b185f80b787c031f021f2e075bcd15";
+        var p=new HeapRowPatch().decode(vector(5,F,kdo,"0100",values),9);
+        assertEquals(HeapRowPatch.State.ABSENT,p.columns().get(0).state());
+        assertEquals(java.time.LocalDateTime.of(-43,3,15,12,34,56),OracleScalars.date(p.columns().get(1).bytes()));
+        assertEquals(123000000,OracleScalars.timestamp(p.columns().get(3).bytes()).getNano());
+        assertEquals(123456000,OracleScalars.timestamp(p.columns().get(4).bytes()).getNano());
+        assertEquals(java.time.LocalDateTime.of(0,1,1,0,0,0,1),OracleScalars.timestamp(p.columns().get(5).bytes()));
+        assertArrayEquals(hex("787c031f08012e00000001111e"),p.columns().get(6).bytes());
+        assertArrayEquals(hex("787c031f021f2e3ade68b185f8"),p.columns().get(7).bytes());
+        assertArrayEquals(hex("787c031f021f2e075bcd15"),p.columns().get(8).bytes());
+        assertThrows(RedoException.class,()->new HeapRowPatch().decode(vector(5,F,kdo,"0200",values),9));
+        assertThrows(RedoException.class,()->new HeapRowPatch().decode(vector(5,F,kdo,"0100",values+"00"),9));
+        assertThrows(RedoException.class,()->new HeapRowPatch().decode(vector(5,F,kdo,"0100",values.substring(0,values.length()-2)),9));
+    }
     @Test void observedMixedNineColumnLobInsertRetainsEachPhysicalValue()throws Exception {
         var fields=new java.util.ArrayList<byte[]>();
         fields.add(hex("010d00000000000005000f00ad020000a70b400234011200"));

@@ -156,9 +156,9 @@ public final class HeapRowPatch {
                     && fields.get(2).length==2 && u16(fields.get(2),0)==2 && fields.get(3).length>=2
                     && (fields.get(3)[0]&255)>=1 && (fields.get(3)[0]&255)<=250
                     && (fields.get(3)[0]&255)==fields.get(3).length-1;
-            // Seq96 and seq110: contiguous suffix values share one self-sized XA/XR value stream.
+            // Seq96/110/115: contiguous suffix values share one self-sized XA/XR value stream.
             boolean packedSuffix=packed && stored==dictionaryColumns && delta==0
-                    && (stored==3 && count==2 || stored==6 && count==5)
+                    && (stored==3 && count==2 || stored==6 && count==5 || stored==9 && count==8)
                     && u16(kdo,26)==3 && fields.size()==4 && fields.get(2).length==2 && u16(fields.get(2),0)==1;
             if(packedSuffix) {
                 if((kdo[16]&255)!=0x2c)throw new RedoException("UNSUPPORTED_UPDATE_ROWPIECE");

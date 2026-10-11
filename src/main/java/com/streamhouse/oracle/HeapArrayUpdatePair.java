@@ -37,7 +37,8 @@ final class HeapArrayUpdatePair {
         int count=u16(header,16),aligned=(count*2+3)&~3;
         if(count==0 || kdos.length!=count*28 || maps.length!=count*2 || sizes.length!=aligned+16)
             throw new RedoException("ARRAY_UPDATE_ROW_COUNT");
-        for(int i=count*2;i<aligned;i++)if(sizes[i]!=0)throw new RedoException("ARRAY_UPDATE_LENGTH_ALIGNMENT");
+        if(aligned!=count*2 && !(u16(sizes,count*2)==0 || count==3 && u16(sizes,count*2)==3))
+            throw new RedoException("ARRAY_UPDATE_LENGTH_ALIGNMENT");
         var result=new ArrayList<List<byte[]>>();var slots=new HashSet<Integer>();int offset=0;
         for(int i=0;i<count;i++) {
             byte[] kdo=Arrays.copyOfRange(kdos,i*28,(i+1)*28);int length=u16(sizes,i*2);
