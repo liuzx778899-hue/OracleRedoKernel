@@ -1,5 +1,9 @@
 # OracleRedoKernel 当前状态
 
+2026-10-11 LOB ADD/DROP正常链：BasicFile/SecureFile各2完整UPDATE、值差异0，两独立进程恢复与直接解析完全一致/毒化拒绝；43项执行39/跳过4、失败错误0，package rc0/内核26284ca9，未部署。存储迁移源动作一次已成功，raw120冻结/库和Desktop停；TRUNCATE及迁移解析仍有明确缺口，统一checkpoint/回收/产品新链继续。用户要求能验证的全部收口后开发结束；当前尚未收口，不标完成。D5继续搁置。[反馈](DELIVERY_LOB_HISTORY_20261011.md)。
+
+2026-10-11 用户补充 LOB 存储迁移为必验项：先覆盖 BasicFile→SecureFile，连同迁移后正常 DML、历史对象代际、完整值、独立进程恢复及 checkpoint/ACK 约束下的安全回收；不以 TRUNCATE/静态 LOB 证据替代。迁移各环节待证，原五项目标不变，D5搁置。验收范围已同步[执行单](DISPATCH_COMMON_FUNCTIONS_D5_20261010.md)。
+
 2026-10-11 ARRAY UPDATE补偿续接：raw116复用/源动作0，最后KTB守卫重新编译，34项相关回归通过；projection-r5只发布保留事务3条完整UPDATE，独立after.snapshot完整值差异0/撤销事件0，两独立JVM恢复与直接读取及投影证据完全一致。package rc0/内核f02b15ca；本候选未部署。任意节点部分行及LOB历史/代际/恢复回收继续开发，五项未全完，D5搁置。[反馈](DELIVERY_ARRAY_UPDATE_ROLLBACK_20261011.md)。
 
 2026-10-11 同SCN离线衔接：不同XID/相同commit SCN/反向开始顺序，提交位置排序→checkpoint恢复→事务边界发布后另一个事务仍保留，颠倒顺序拒绝；25相关项＋最终受影响类5项通过，生产代码不变，无重复制品/部署/源动作。合成测试，不冒充实库同SCN产品双窗；LOB静态schema/切点拒绝仍待补，ARRAY未覆盖撤销继续。容器/Desktop已停，五项未全完，D5搁置。[合并反馈](DELIVERY_ARRAY_TEMPORAL_PRODUCT_20261011.md)。

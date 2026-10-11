@@ -45,9 +45,12 @@ public final class CapturedBasicFileLobValues {
         continuity.finish();return new CapturedBasicFileLobValues(inputs,scope,records);
     }
     public Value valueAt(ArchivedUndoInventory.Position position)throws IOException {
+        return valueAt(position,scope.columns());
+    }
+    Value valueAt(ArchivedUndoInventory.Position position,int columns)throws IOException {
         At at=recordAt(position);var row=vectorAt(at,position);
         if(row.containerId()!=scope.container() || row.objectId()!=scope.heapObject())throw new RedoException("BASICFILE_VALUE_HEAP_SCOPE");
-        var pair=HeapUndoPair.bindLob(at.record(),row,scope.columns());var owner=pair.undo().identity();var current=window(owner.xid());
+        var pair=HeapUndoPair.bindLob(at.record(),row,columns);var owner=pair.undo().identity();var current=window(owner.xid());
         if(owner.objectId()!=scope.heapObject() || owner.dataObjectId()!=scope.heapObject())throw new RedoException("BASICFILE_VALUE_LOCATOR_OWNER");
         var cell=pair.forward().columns().get(scope.column());var kind=scope.kind();
         if(cell.state()==HeapRowPatch.State.ABSENT)throw new RedoException("BASICFILE_VALUE_LOCATOR_ABSENT");

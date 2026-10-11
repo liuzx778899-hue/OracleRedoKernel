@@ -120,10 +120,12 @@ final class DictionaryHistoryRows {
             int segment=ordinal(baseline.number(row,"SEGCOL#")),internal=ordinal(baseline.number(row,"INTCOL#")),col=ordinal(baseline.number(row,"COL#"));
             long type=baseline.number(row,"TYPE#"),property=baseline.number(row,"PROPERTY"),nulls=baseline.number(row,"NULL$");
             String name=baseline.text(row,"NAME");FrozenHeapBaseline.identifier(name);
-            if(segment<1 || internal!=segment || (type!=1 && type!=2 && type!=12 && type!=23 && type!=180 && type!=181 && type!=231) || (property!=0 && property!=17179869216L))
+            boolean hidden=property==17179869216L;
+            if(segment<1 || internal!=segment || (type!=1 && type!=2 && type!=12 && type!=23 && type!=180 && type!=181 && type!=231 && type!=112 && type!=113)
+                    || property!=OracleColumnTypes.property(OracleColumnTypes.name(type),hidden))
                 throw new RedoException("UNSTABLE_OR_UNSUPPORTED_HISTORICAL_COLUMNS");
-            if(property==0 ? col<1 || !logical.add(col) : col!=0)throw new RedoException("HISTORICAL_LOGICAL_COLUMN_COVERAGE");
-            columns.add(new FrozenHeapBaseline.PhysicalColumn(segment,internal,name,OracleColumnTypes.name(type),OracleColumnTypes.nullable(nulls),property!=0));
+            if(!hidden ? col<1 || !logical.add(col) : col!=0)throw new RedoException("HISTORICAL_LOGICAL_COLUMN_COVERAGE");
+            columns.add(new FrozenHeapBaseline.PhysicalColumn(segment,internal,name,OracleColumnTypes.name(type),OracleColumnTypes.nullable(nulls),hidden));
         }
         columns.sort(Comparator.comparingInt(FrozenHeapBaseline.PhysicalColumn::segment));
         for(int i=0;i<columns.size();i++)if(columns.get(i).segment()!=i+1)throw new RedoException("HISTORICAL_COLUMN_PHYSICAL_COVERAGE");

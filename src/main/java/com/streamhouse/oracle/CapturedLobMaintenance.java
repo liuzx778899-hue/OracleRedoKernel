@@ -14,9 +14,13 @@ final class CapturedLobMaintenance {
         Receipt {originals=List.copyOf(originals);}
     }
     static List<Receipt> read(CapturedLobTransactions input)throws IOException {
+        return read(input,null);
+    }
+    static List<Receipt> read(CapturedLobTransactions input,ArchivedDictionaryHistory.Timeline history)throws IOException {
         var scope=input.scope();var candidates=new HashSet<HeapRowPatch.Xid>();var business=new HashSet<HeapRowPatch.Xid>();
         var objects=scope.objects();
         for(var t:input.transactions())business.add(t.identity().xid());
+        if(history!=null)for(var commit:history.commits())business.add(commit.identity().xid());
         for(var at:input.records())for(var v:at.record().vectors())if(v.containerId()==scope.container() && v.opcodeMajor()==5 && v.opcodeMinor()==1) {
             var f=v.fields();if(f.size()<2 || f.get(0).length!=20 || f.get(1).length<24)throw new RedoException("LOB_MAINTENANCE_UNREADABLE_SCOPE");
             var m=f.get(1);long object=u32(m,0),data=u32(m,4);

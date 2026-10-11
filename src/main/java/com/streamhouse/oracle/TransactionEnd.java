@@ -36,19 +36,20 @@ public record TransactionEnd(long segmentDba, int slot, long sequence, int flags
             // Narrow observed extension shape. No interpretation of its extra control semantics.
             boolean sized=flags!=0x10 && u32(extra,0)==0 && u32(extra,4)==1 && u32(extra,12)==1
                     && u32(extra,16)==observedSize && u32(extra,20)==observedSize;
-            // Seq59/93 native-matched commit tails with ext 0/1/2 and an otherwise empty extension.
+            // Seq59/93/117 native-matched commit tails with ext 0/1/2/3 and an otherwise empty extension.
             // The extra control payload is not interpreted as a transaction identity or undo tail.
             // Native seq82 ktucf ext=0, spc=4194, fbi=1: fbi/padding is not extension or identity authority.
-            boolean empty=flags==0x12 && u32(extra,0)<=2 && u32(extra,4)==u32(extra,0)
+            boolean empty=flags==0x12 && u32(extra,0)<=3 && u32(extra,4)==u32(extra,0)
                     && u16(fields.get(1),8)==u32(extra,0) && fields.get(1)[7]==0
                     && u32(extra,12)==0 && u32(extra,16)==0 && u32(extra,20)==0;
             // Native seq92 SCN2939701 identifies this exact empty extension as full rollback.
             boolean emptyRollback=flags==0x14 && u32(extra,0)==3 && u32(extra,4)==3
                     && u32(extra,12)==0 && u32(extra,16)==0 && u32(extra,20)==0;
-            // Seq104 native-matched SecureFile maintenance tails: ktucf ext=12 and ext=2.
+            // Seq104/117 native-matched SecureFile maintenance tails: ext=12/2 and 3->4/4->5.
             // These opaque extensions do not supply XID or replace the explicit UBA tail.
             boolean maintenance=(flags==0x12 || flags==0x10) && (flags==0x10 || fields.get(1)[7]==0) &&
-                    ((u32(extra,0)==11 && u32(extra,4)==12 && (flags==0x10 || u16(fields.get(1),8)==12)
+                    (((u32(extra,0)==11 && u32(extra,4)==12 || u32(extra,0)==3 && u32(extra,4)==4 || u32(extra,0)==4 && u32(extra,4)==5)
+                        && (flags==0x10 || u16(fields.get(1),8)==u32(extra,4))
                         && u32(extra,12)==0 && u32(extra,16)==0 && u32(extra,20)==0)
                      || (u32(extra,0)==0 && u32(extra,4)==2 && (flags==0x10 || u16(fields.get(1),8)==2)
                         && u32(extra,12)==1 && u32(extra,16)==5 && u32(extra,20)==5));

@@ -11,6 +11,34 @@ class DictionaryHistoryRowsTest {
     FrozenHeapBaseline.Snapshot baseline()throws Exception {
         var helper=new DictionaryBaselineTest();helper.directory=directory;return helper.read(helper.v3());
     }
+    @Test void lobPropertyIsAVisibleColumnAndMustMatchItsExactType()throws Exception {
+        var snapshot=baseline();var baseline=snapshot.dictionaryBaseline();
+        var layout=baseline.layouts().get("COL$");
+        int typeAt=java.util.stream.IntStream.range(0,layout.columns().size()).filter(i->layout.columns().get(i).name().equals("TYPE#")).findFirst().orElseThrow();
+        int propertyAt=java.util.stream.IntStream.range(0,layout.columns().size()).filter(i->layout.columns().get(i).name().equals("PROPERTY")).findFirst().orElseThrow();
+        for(String type:List.of("BLOB","CLOB")) {
+            var columns=new ArrayList<>(snapshot.columns());var prior=columns.get(1);
+            columns.set(1,new FrozenHeapBaseline.PhysicalColumn(prior.segment(),prior.internal(),prior.name(),type,prior.nullable(),false));
+            var rows=new ArrayList<DictionaryBaseline.Row>();
+            for(var row:baseline.rows()) {
+                if(!row.role().equals("COL$") || baseline.number(row,"INTCOL#")!=2){rows.add(row);continue;}
+                var values=new ArrayList<>(row.values());
+                values.set(typeAt,new ArchivedHeapRows.Cell(HeapRowPatch.State.VALUE,type.equals("BLOB")?"c2020e":"c2020d"));
+                values.set(propertyAt,new ArchivedHeapRows.Cell(HeapRowPatch.State.VALUE,"c2021d"));
+                rows.add(new DictionaryBaseline.Row(row.role(),row.target(),row.key(),values));
+            }
+            var lobBaseline=new DictionaryBaseline(baseline.layouts(),baseline.indexes(),rows);
+            var lobSnapshot=new FrozenHeapBaseline.Snapshot(snapshot.sha256(),snapshot.source(),snapshot.scn(),snapshot.heap(),snapshot.index(),columns,
+                    snapshot.rows(),snapshot.dictionaryAnchors(),lobBaseline);
+            assertEquals(columns,DictionaryHistoryRows.schema(lobSnapshot,rows));
+            DictionaryBaseline.Row row=null;
+            for(var candidate:rows)if(candidate.role().equals("COL$") && lobBaseline.number(candidate,"INTCOL#")==2)row=candidate;
+            assertNotNull(row);
+            var invalid=new ArrayList<>(row.values());invalid.set(propertyAt,new ArchivedHeapRows.Cell(HeapRowPatch.State.VALUE,"80"));
+            rows.set(rows.indexOf(row),new DictionaryBaseline.Row(row.role(),row.target(),row.key(),invalid));
+            assertThrows(RedoException.class,()->DictionaryHistoryRows.schema(lobSnapshot,rows));
+        }
+    }
     @Test void observedTabClusterScopeIncludesBothLinkEndpointsAcrossSharedDictionaryRoles()throws Exception {
         var snapshot=baseline();var role=snapshot.dictionaryBaseline().layouts().get("TAB$").role();
         var fixture=new DictionaryClusterLinkPairTest();var record=fixture.record(false);

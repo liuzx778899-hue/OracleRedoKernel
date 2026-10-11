@@ -78,7 +78,10 @@ public final class CapturedHeapBatch {
         return new CapturedHeapBatch(snapshot,schema,sources,events,batch,leaf);
     }
     static String schemaDigest(FrozenHeapBaseline.Snapshot snapshot) {
-        String fixed=schemaDigest(snapshot.heap(),snapshot.index(),snapshot.columns(),snapshot.timeZoneContext());
+        return schemaDigest(snapshot,snapshot.columns());
+    }
+    static String schemaDigest(FrozenHeapBaseline.Snapshot snapshot,List<FrozenHeapBaseline.PhysicalColumn> columns) {
+        String fixed=schemaDigest(snapshot.heap(),snapshot.index(),columns,snapshot.timeZoneContext());
         return snapshot.lobs().isEmpty()?fixed:hash(out->{text(out,fixed);for(var lob:snapshot.lobs())text(out,lob.toString());});
     }
     static CapturedHeapBatch lob(FrozenHeapBaseline.Snapshot snapshot,List<CaptureJournal.Source> captures,List<Event> events,long leaf) {

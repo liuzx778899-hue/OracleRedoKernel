@@ -10,6 +10,19 @@ class TransactionMarkersTest {
         return new RedoRecords.Vector(5,minor,35,9,0x02400110,2148790,1,3,
                 java.util.Arrays.stream(fields).map(this::hex).toList());
     }
+    @Test void native117SecureFileMaintenanceExtensionsRemainBoundToTheirTailAndSeal()throws Exception {
+        for(var v:java.util.List.of(
+                vector(4,"1400000008040000000000000900000012000000","af004002420103000300781e00000000",
+                        "030000000300000037f0ca6a000000000000000000000000","37f0ca6a"),
+                vector(4,"0b00000009040000000000000900000012000000","4001400243012c000400121100770000",
+                        "030000000400000037f0ca6a000000000000000000000000","37f0ca6a"),
+                vector(4,"0e0000000a040000000000000900000012000000","12114002440101000500040b007f0000",
+                        "040000000500000063f0ca6a000000000000000000000000","63f0ca6a"))) {
+            assertFalse(TransactionEnd.decode(v).rolledBack());assertNotNull(TransactionEnd.undoTail(v));
+            v.fields().get(1)[8]++;assertThrows(RedoException.class,()->TransactionEnd.decode(v));v.fields().get(1)[8]--;
+            v.fields().get(3)[0]++;assertThrows(RedoException.class,()->TransactionEnd.decode(v));
+        }
+    }
     @Test void commitRetainsSegmentAddressWithoutGuessingUsn() throws Exception {
         var h=TransactionEnd.decode(vector(4,"0c00000051040000000000000900000002000000",
                 "be2c4002f20008004f00b21c00000000","ea44c16a"));
@@ -126,8 +139,9 @@ class TransactionMarkersTest {
         }
         var mixed=native93Commit();mixed.fields().get(1)[8]=1;
         assertThrows(RedoException.class,()->TransactionEnd.decode(mixed));
-        var unknown=native93Commit();unknown.fields().get(1)[8]=3;
-        unknown.fields().get(2)[0]=3;unknown.fields().get(2)[4]=3;
+        // Empty ext3 is now independently observed in raw117; empty ext4 remains unknown.
+        var unknown=native93Commit();unknown.fields().get(1)[8]=4;
+        unknown.fields().get(2)[0]=4;unknown.fields().get(2)[4]=4;
         assertThrows(RedoException.class,()->TransactionEnd.decode(unknown));
     }
     RedoRecords.Vector native92Rollback() {

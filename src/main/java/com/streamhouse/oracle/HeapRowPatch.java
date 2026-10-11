@@ -112,7 +112,7 @@ public final class HeapRowPatch {
             throw new RedoException("UNSUPPORTED_KDO_LAYOUT_OR_BLOCK");
         if(dictionaryObject && (dictionaryColumns!=37 || op!=5 || packed || tail || kdo[11]!=1 || kdo[12]!=1 || kdo[13]!=0
                 || u16(kdo,14)!=0 || kdo[16]!=0x2c || (kdo[17]!=0 && kdo[17]!=1)
-                || (kdo[18]!=0 && !((kdo[23]&255)==6 && (kdo[22]&255)==26)) || kdo[19]!=0
+                || (kdo[18]!=0 && !((kdo[23]&255)==6 && (kdo[22]&255)==26 || sysNine && (kdo[22]&255)==26)) || kdo[19]!=0
                 || !java.util.List.of(6,8,9).contains(kdo[23]&255) || u16(kdo,26)!=(sysNine?0x20:0x10)
                 || kdo[28]!=0 || (sysNine && kdo[29]!=0)))
             throw new RedoException("UNSUPPORTED_DICTIONARY_OBJECT_UPDATE_PROFILE");
@@ -122,7 +122,7 @@ public final class HeapRowPatch {
         for (int i=0;i<dictionaryColumns;i++) columns.add(new Column(State.ABSENT,new byte[0]));
         if (op==4) {
             boolean lobLock=lobHeap && (kdo[12]==1 || kdo[12]==2) && kdo[13]==0
-                    && (u16(kdo,14)==0xffff || u16(kdo,14)==64 || (u16(kdo,14)==0 && kdo[12]==1 && (kdo[19]==0 || kdo[19]==1)))
+                    && (u16(kdo,14)==0xffff || u16(kdo,14)==64 || (u16(kdo,14)==0 && (kdo[19]==0 || kdo[19]==kdo[12])))
                     && kdo[18]==0 && (kdo[19]==0 || kdo[19]==kdo[12]);
             if (fields.size()!=2 || (!lobLock && (xtype!=1 || kdo[12]!=1 || kdo[13]!=0 || u16(kdo,14)!=1
                     || kdo[18]!=0 || (kdo[19]&255)>1)))

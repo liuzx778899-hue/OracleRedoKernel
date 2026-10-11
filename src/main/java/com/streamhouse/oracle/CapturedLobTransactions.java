@@ -58,6 +58,10 @@ public final class CapturedLobTransactions {
         throw new RedoException("LOB_VALUE_OWNER_OUTSIDE_COMPLETE_GRAPHS");
     }
     public static CapturedLobTransactions read(List<CaptureJournal.Verified> captures,Scope scope)throws IOException {
+        return read(captures,scope,null,null);
+    }
+    static CapturedLobTransactions read(List<CaptureJournal.Verified> captures,Scope scope,ArchivedDictionaryHistory.Timeline history,
+                                        FrozenHeapBaseline.Snapshot snapshot)throws IOException {
         if(scope==null)throw new RedoException("INVALID_LOB_TRANSACTION_SCOPE");
         var objects=scope.objects();
         if(scope.uid()<=0 || scope.container()<=0 || scope.storage()==null || objects.stream().anyMatch(o->o<=0)
@@ -80,6 +84,7 @@ public final class CapturedLobTransactions {
                 && v.fields().size()>1 && v.fields().get(1).length>=24 && u32(v.fields().get(1),0)==scope.heap()) {
             if((u16(v.fields().get(1),20)&0x10)==0)xids.add(UndoHeader.decode(v).xid());
         }
+        if(history!=null)xids.removeIf(xid->history.commits().stream().anyMatch(c->c.identity().xid().equals(xid)));
         if(xids.isEmpty())throw new RedoException("NO_LOB_TRANSACTIONS");
         var transactions=new ArrayList<Transaction>();
         for(var xid:xids) {
@@ -92,12 +97,14 @@ public final class CapturedLobTransactions {
                 var at=find(records,entry.position());var original=at.record().vectors().get(entry.position().vector()-1);
                 var owner=entry.identity();long object=owner.objectId();
                 if(object==scope.heap()) {
-                    var pair=findHeap(at.record(),original,scope.columns().size());heaps.add(pair);
+                    int columns=history==null || at.record().scn()<=snapshot.scn()?scope.columns().size()
+                            :history.schemaAt(at.record().scn(),entry.position()).size();
+                    var pair=findHeap(at.record(),original,columns);heaps.add(pair);
                     int v=-1;
                     for(int i=0;i<at.record().vectors().size();i++) {
                         var candidate=at.record().vectors().get(i);
                         if(candidate.opcodeMajor()!=11 || candidate.dba()!=pair.forward().dba() || candidate.containerId()!=scope.container())continue;
-                        var p=new HeapRowPatch().decodeLob(candidate,scope.columns().size());
+                        var p=new HeapRowPatch().decodeLob(candidate,columns);
                         if(p.xtype()==1 && owner.uba().equals(p.uba())) {if(v>=0)throw new RedoException("LOB_GRAPH_HEAP_AMBIGUOUS");v=i;}
                     }
                     if(v<0)throw new RedoException("LOB_GRAPH_HEAP_MISSING");
@@ -153,7 +160,8 @@ public final class CapturedLobTransactions {
                     LobBitmapUndoPair.matchCompensation(at.record(),marker,bitmaps,owner);matches=1;
                 } else for(var v:at.record().vectors())if(v.containerId()==scope.container()) {
                     if(object==scope.heap() && v.opcodeMajor()==11 && v.opcodeMinor()>=2 && v.opcodeMinor()<=5) {
-                        HeapCompensation.matchLob(at.record(),marker,v,heaps,owner,scope.columns().size());matches++;
+                        int columns=heaps.stream().filter(p->p.undo().identity().equals(owner)).findFirst().orElseThrow().forward().columns().size();
+                        HeapCompensation.matchLob(at.record(),marker,v,heaps,owner,columns);matches++;
                     } else if(scope.isLob(object) && v.opcodeMajor()==26 && v.opcodeMinor()==2) {
                         SecureFileLobUndoPair.matchCompensation(at.record(),marker,v,fills,owner);matches++;
                     } else if(scope.isLob(object) && v.opcodeMajor()==13 && v.opcodeMinor()==53) {

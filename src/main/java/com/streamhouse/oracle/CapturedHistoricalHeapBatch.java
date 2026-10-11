@@ -58,7 +58,15 @@ public final class CapturedHistoricalHeapBatch {
         var inputs=List.copyOf(captures);var paths=RedoBatch.captures(inputs);
         var snapshot=FrozenHeapBaseline.read(snapshotPath,trustedAcquisitionSha256);
         var history=ArchivedDictionaryHistory.read(paths,snapshot);
+        if(!snapshot.lobs().isEmpty())return lob(snapshot,inputs.stream().map(CaptureJournal.Verified::source).toList(),
+                CapturedLobTrustedBatch.readHistorical(inputs,snapshot,leaf,history),leaf);
         return read(inputs,paths,snapshot,history,leaf);
+    }
+    private static CapturedHistoricalHeapBatch lob(FrozenHeapBaseline.Snapshot snapshot,List<CaptureJournal.Source> captures,List<Event> events,long leaf) {
+        String digest=hash(out->{text(out,"ORK_HISTORICAL_LOB_BATCH_V1");text(out,snapshot.sha256());out.writeLong(leaf);
+            for(var capture:captures)text(out,capture.journalSha256());
+            for(var event:events){text(out,event.schema().sha256());text(out,event.row().eventId());text(out,event.row().payloadSha256());}});
+        return new CapturedHistoricalHeapBatch(snapshot,captures,events,digest,leaf);
     }
     public static CapturedHistoricalHeapBatch readRestored(List<CaptureJournal.Verified> captures,Path snapshotPath,String trustedAcquisitionSha256,
                                                          long leaf,byte[] dictionaryCheckpoint,String trustedCheckpointSha256)throws IOException {
@@ -69,6 +77,8 @@ public final class CapturedHistoricalHeapBatch {
     }
     private static CapturedHistoricalHeapBatch read(List<CaptureJournal.Verified> inputs,RedoBatch paths,FrozenHeapBaseline.Snapshot snapshot,
                                                    ArchivedDictionaryHistory.Timeline history,long leaf)throws IOException {
+        if(!snapshot.lobs().isEmpty())return lob(snapshot,inputs.stream().map(CaptureJournal.Verified::source).toList(),
+                CapturedLobTrustedBatch.readHistorical(inputs,snapshot,leaf,history),leaf);
         var physical=ArchivedPhysicalTransactions.readHistory(paths,snapshot,history,leaf);
         return readWithPhysical(inputs,paths,snapshot,history,leaf,physical);
     }

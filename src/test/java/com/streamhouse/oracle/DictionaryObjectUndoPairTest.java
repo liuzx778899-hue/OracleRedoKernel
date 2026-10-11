@@ -73,4 +73,12 @@ class DictionaryObjectUndoPairTest {
             assertEquals(6,DictionaryObjectUndoPair.bind(r,row,role,37).physical().forward().extent().changedColumns());
         }
     }
+    @Test void raw118NineColumnCkixRequiresMatchingImagesAndStored26()throws Exception {
+        var r=records().get(2);var row=r.vectors().get(1);var inverse=r.vectors().get(0).fields().get(3);
+        row.fields().get(1)[18]=(byte)251;inverse[18]=(byte)251;
+        row.fields().get(1)[22]=26;inverse[22]=26;
+        assertEquals(9,DictionaryObjectUndoPair.bind(r,row,role,37).physical().forward().extent().changedColumns());
+        inverse[18]=(byte)127;
+        assertThrows(RedoException.class,()->DictionaryObjectUndoPair.bind(r,row,role,37));
+    }
 }

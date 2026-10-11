@@ -11,12 +11,36 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class CapturedLobTrustedBatchTest {
     @TempDir Path directory;
+    @Test void raw117LobUpdateMaterializesOneTrailingNullWithoutLosingOtherBeforeValues()throws Exception {
+        var hex=java.util.HexFormat.of();
+        var undo=new RedoRecords.Vector(5,1,36,11,0x0240161cL,3268416,1,3,List.of(
+                hex.parseHex("c4008c0d22000000080003001a03000024012882"),hex.parseHex("623c0100623c010005000000000000000b01032700001a03"),
+                hex.parseHex("020d1c00020008001c16400224012700"),hex.parseHex("13bf000312bf0003fa120501020000002c020000000004030900000000"),
+                hex.parseHex("010002000300"),hex.parseHex("73656564"),
+                hex.parseHex("00700001010c0000000100000001000000350a21001309000000000000030000000000010080ff"),
+                hex.parseHex("00700001020c8000000200000001000000350a22002209000000000000120000000000010073006500650064002d0074006500780074")));
+        var row=new RedoRecords.Vector(11,5,1,12,0x0300bf13L,3268416,1,3,List.of(hex.parseHex("020d4002cc0009001c16400224012800"),
+                hex.parseHex("13bf000312bf0003fa120501020000002c02000000000504f7ff000000"),hex.parseHex("0100020003000400"),hex.parseHex("6164646564"),
+                hex.parseHex("00700001010c0000000100000001000000350a8500100900000000000000000000000000"),
+                hex.parseHex("00700001020c8000000200000001000000350a8600100900000000000000000000000000"),hex.parseHex("65787472612d6b657074")),80994);
+        var record=new RedoRecords.Record(8054,468,848,9,3268416,1,677737149,List.of(row,undo));
+        var pair=HeapUndoPair.bindLob(record,row,5);
+        assertEquals(HeapRowPatch.State.NULL,pair.undo().inverse().columns().get(4).state());
+        assertEquals(3,pair.undo().inverse().extent().changedColumns());
+        assertEquals("73656564",hex.formatHex(pair.undo().inverse().columns().get(1).bytes()));
+        assertThrows(RedoException.class,()->HeapUndoPair.bind(record,row,5));
+        row.fields().get(1)[24]++;
+        assertThrows(RedoException.class,()->HeapUndoPair.bindLob(record,row,5));
+    }
     @Test void observedSecureFileZeroFlagLockRemainsLobScoped()throws Exception {
         var kdo=java.util.HexFormat.of().parseHex("3f8600033a860003fa1204010100000000000001");
         var fields=List.of(new byte[24],kdo);
         assertEquals(HeapRowPatch.Kind.LOCK,HeapRowPatch.decodeLobKdo(fields,4,50366015,3).kind());
         assertThrows(RedoException.class,()->HeapRowPatch.decodeKdo(fields,4,50366015,3));
         kdo[19]=0;assertEquals(0,HeapRowPatch.decodeLobKdo(fields,4,50366015,3).lockTo());
+        // Raw117/native LKR uses zero flags with ITL2, both acquire-lock2 and inverse-unlock0.
+        kdo[12]=2;kdo[19]=2;assertEquals(2,HeapRowPatch.decodeLobKdo(fields,4,50366015,5).lockTo());
+        kdo[19]=0;assertEquals(0,HeapRowPatch.decodeLobKdo(fields,4,50366015,5).lockTo());
         kdo[14]=2;assertThrows(RedoException.class,()->HeapRowPatch.decodeLobKdo(fields,4,50366015,3));
     }
     @Test void lobTypesRequireDedicatedCompleteValuePath()throws Exception {

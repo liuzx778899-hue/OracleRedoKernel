@@ -110,7 +110,8 @@ public final class ArchivedDictionaryHistory {
         final List<DictionaryIndexUndoPair> statisticsIndexes=new ArrayList<>();
         final List<DictionaryUsageChanges.Row> usageRows=new ArrayList<>();
         final List<DictionaryIndexUndoPair> usageIndexes=new ArrayList<>();
-        int rowCount(){return rows.size()+statisticsRows.size()+usageRows.size();}
+        final List<LobDroppedColumn> lobDrops=new ArrayList<>();
+        int rowCount(){return rows.size()+statisticsRows.size()+usageRows.size()+lobDrops.size();}
         int indexCount(){return indexes.size()+statisticsIndexes.size()+usageIndexes.size();}
         TransactionStart start;
         long beginScn;
@@ -313,7 +314,11 @@ public final class ArchivedDictionaryHistory {
                     if(!e.position().equals(at) || !e.identity().equals(h))throw new RedoException("DICTIONARY_ORIGINAL_COVERAGE_CHANGED");
                     c.lifecycle.undo(r,v);c.graph.append(e);
                     if(c.inventory.controlRoot()!=null && h.equals(c.inventory.controlRoot().allocationBegin())) {c.controls++;continue;}
-                    var role=roles.get(h.objectId());if(role==null || role.dataObject()!=h.dataObjectId())throw new RedoException("UNKNOWN_OR_CONFLICTING_DICTIONARY_DEPENDENCY:"+at+":"+h.objectId()+":"+h.dataObjectId());
+                    var role=roles.get(h.objectId());
+                    if(role==null && !snapshot.lobs().isEmpty() && h.objectId()==snapshot.heap().logicalObject()) {
+                        c.lobDrops.add(LobDroppedColumn.bind(r,v,snapshot));continue;
+                    }
+                    if(role==null || role.dataObject()!=h.dataObjectId())throw new RedoException("UNKNOWN_OR_CONFLICTING_DICTIONARY_DEPENDENCY:"+at+":"+h.objectId()+":"+h.dataObjectId());
                     int count=0;
                     for(var row:r.vectors()) {
                         if(row.containerId()!=snapshot.source().containerId())continue;
@@ -369,6 +374,7 @@ public final class ArchivedDictionaryHistory {
         for(var c:contexts.values()) {
             if(c.end!=null || !allowPending)c.lifecycle.finish();
             else {
+                if(!c.lobDrops.isEmpty())throw new RedoException("LOB_DROP_PENDING_DICTIONARY_NOT_IMPLEMENTED");
                 if(c.start==null || c.next!=c.inventory.entries().size() || c.next!=c.rowCount()+c.indexCount()+c.controls)
                     throw new RedoException("DICTIONARY_PENDING_ORIGINAL_COVERAGE");
                 pending.add(new Pending(c.inventory.entries().get(0).identity().xid(),c.beginScn,c.next,c.rowCount(),c.indexCount(),c.controls,
@@ -391,7 +397,14 @@ public final class ArchivedDictionaryHistory {
             }
             if(!c.usageRows.isEmpty() || !c.usageIndexes.isEmpty())
                 DictionaryUsageChanges.requireComplete(c.usageRows,c.usageIndexes,baseline.usage(),snapshot.heap().logicalObject(),state.current(),baseline);
-            var rows=state.apply(c.rows,c.indexes);
+            var priorRows=state.current();var rows=state.apply(c.rows,c.indexes);
+            if(!c.lobDrops.isEmpty()) {
+                var prior=DictionaryHistoryRows.schema(snapshot,priorRows);var next=DictionaryHistoryRows.schema(snapshot,rows);
+                if(prior.size()!=next.size()+1 || !next.equals(prior.subList(0,next.size()))
+                        || List.of("BLOB","CLOB").contains(prior.get(next.size()).type())
+                        || c.lobDrops.stream().anyMatch(d->d.column()!=next.size()))
+                    throw new RedoException("LOB_DROP_DICTIONARY_COLUMN_CONFLICT");
+            }
             if(!c.statisticsRows.isEmpty() || !c.statisticsIndexes.isEmpty())
                 DictionaryStatisticsChanges.requireComplete(c.statisticsRows,c.statisticsIndexes,baseline.statistics(),snapshot.heap().logicalObject(),rows,baseline);
             commits.add(new Commit(c.end,c.inventory.entries(),c.rowCount(),c.indexCount(),c.controls,rows,c.commitPosition));

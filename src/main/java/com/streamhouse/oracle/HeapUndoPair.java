@@ -50,6 +50,26 @@ public record HeapUndoPair(long containerUid,long containerId,Patch forward,Undo
             throw new RedoException("UNSUPPORTED_HEAP_LOCK_TRANSITION");
         if (p.kind()==Kind.UPDATE) {
             var extent=p.extent();var prior=before.extent();boolean tail=extent.removedColumn()>=0;
+            // Raw117/native URP changes existing LOB locators and materializes one trailing NULL column.
+            boolean lobAppend=lobHeap && !tail && prior!=null && prior.removedColumn()==-1
+                    && extent.storedColumns()==prior.storedColumns()+1 && extent.changedColumns()==prior.changedColumns()+1
+                    && extent.sizeDelta()!=null && prior.sizeDelta()!=null && extent.sizeDelta()==-prior.sizeDelta();
+            if(lobAppend) {
+                int added=prior.storedColumns();
+                if(added>=columns || p.columns().get(added).state()!=State.VALUE || before.columns().get(added).state()!=State.ABSENT)
+                    throw new RedoException("LOB_ROW_APPEND_COLUMN_MISMATCH");
+                int delta=0;
+                for(int i=0;i<columns;i++) {
+                    var f=p.columns().get(i);var b=before.columns().get(i);
+                    if(i!=added && (f.state()==State.ABSENT)!=(b.state()==State.ABSENT))throw new RedoException("LOB_ROW_APPEND_CHANGED_COLUMNS");
+                    if(f.state()!=State.ABSENT)delta+=f.bytes().length+1;
+                    if(b.state()!=State.ABSENT)delta-=b.bytes().length+1;
+                }
+                if(delta!=extent.sizeDelta())throw new RedoException("LOB_ROW_APPEND_SIZE_DELTA");
+                var values=new java.util.ArrayList<>(before.columns());values.set(added,new Column(State.NULL,new byte[0]));
+                before=new Patch(before.kind(),before.dba(),before.slot(),before.xtype(),before.xid(),before.uba(),java.util.List.copyOf(values),prior,before.lockTo());
+                match=new UndoRowPatch(match.identity(),before,match.previousDba(),match.predecessorRecord(),match.wrap());
+            }
             if (tail) {
                 int removed=extent.removedColumn();var value=before.columns().get(removed);
                 boolean suffixTwo=columns==3 && extent.storedColumns()==1 && removed==1 && prior!=null
@@ -70,7 +90,7 @@ public record HeapUndoPair(long containerUid,long containerId,Patch forward,Undo
                         || extent.sizeDelta()==null || extent.sizeDelta()!=value.bytes().length+1
                         || prior.sizeDelta()!=-extent.sizeDelta())
                     throw new RedoException("ROW_UNDO_TAIL_EXTENT_MISMATCH");
-            } else if (prior==null || extent.storedColumns()!=prior.storedColumns())
+            } else if (!lobAppend && (prior==null || extent.storedColumns()!=prior.storedColumns()))
                 throw new RedoException("UNSUPPORTED_ROW_UNDO_EXTENT_TRANSITION");
             for (int i=0;i<columns;i++) {
                 if (tail && i==extent.removedColumn()) continue;
