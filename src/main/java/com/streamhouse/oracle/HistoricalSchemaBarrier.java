@@ -46,7 +46,7 @@ final class HistoricalSchemaBarrier {
         if(vector.opcodeMajor()!=24)throw new RedoException("NOT_SCHEMA_FAMILY_MARKER");
         if(vector.opcodeMinor()==1) {
             if(fields.size()!=46 || fields.get(0).length!=24 || u32(fields.get(0),0)!=0x2ee0 || fields.get(3).length!=12
-                    || (fields.get(11).length!=4 && !observedTriggerMarker(fields) && !observedIndexMarker(fields) && !observedMultipleObjects(fields)
+                    || (fields.get(11).length!=4 && !observedTriggerMarker(fields) && !observedIndexMarker(fields) && !observedMultipleObjects(fields) && !observedRedefinitionObjects(fields)
                         && !observedUserQuotaMarker(fields)))
                 throw new RedoException("UNSUPPORTED_HISTORICAL_SCHEMA_MARKER");
         } else if(vector.opcodeMinor()==4) {
@@ -93,6 +93,24 @@ final class HistoricalSchemaBarrier {
         int count=fields.get(11).length/4,secondary=u16(fields.get(10),14);
         return count==2 && u16(fields.get(10),12)==count && (secondary==0 || secondary==count)
                 && fields.get(12).length==count*2 && fields.get(13).length==secondary*2;
+    }
+    /** Raw120 native-matched MLOG/RUPD dependency arrays. SQL text grants no scope authority. */
+    private static boolean observedRedefinitionObjects(java.util.List<byte[]> fields) {
+        byte[] b=fields.get(10);if(b.length!=20 || u32(b,0)!=0x202 || u32(b,8)!=0 || u16(b,16)!=0 || b[18]!=2 || (b[19]&255)!=0x9d)return false;
+        int count=u16(b,12),secondary=u16(b,14);long operation=u32(b,4);
+        boolean create=operation==1 && (count==2 && secondary==1 || count==3 && secondary==2);
+        boolean drop=operation==12 && (count==3 || count==4) && secondary==0;
+        if(!create && !drop || u16(fields.get(0),12)!=operation || u16(fields.get(0),14)!=2
+                || fields.get(11).length!=count*4 || fields.get(12).length!=count*2 || fields.get(13).length!=secondary*2)return false;
+        var objects=new java.util.HashSet<Long>();int changed=0;
+        for(int i=0;i<count;i++) {
+            long object=u32(fields.get(11),i*4);int flag=u16(fields.get(12),i*2);
+            if(object==0 || !objects.add(object) || (flag!=1 && !(drop && flag==4)))return false;
+            if(flag==4)changed++;
+        }
+        if(u32(fields.get(11),0)!=u32(fields.get(3),4) || changed!=(drop?1:0))return false;
+        for(int i=0;i<secondary;i++)if(u16(fields.get(13),i*2)!=i)return false;
+        return true;
     }
     /** Call only after requireMarkerProfile; every affected identity participates in scope. */
     static boolean affectsObject(RedoRecords.Vector vector,long object) {

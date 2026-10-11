@@ -33,7 +33,17 @@ final class DictionaryHistoryRows {
             var existing=rows.get(position);int offset=layout.tableNumber()<0?0:1;
             if(f.kind()==Kind.INSERT) {
                 if(existing!=null)throw new RedoException("DICTIONARY_ROW_INSERT_POSITION_OCCUPIED");
-                Long parent=parents.get(key);if(parent==null)throw new RedoException("DICTIONARY_NEW_ROW_WITHOUT_INDEX_PARENT");
+                Long parent=parents.get(key);
+                if(operation.role().name().equals("OBJ$")) {
+                    var object=f.columns().get(0);
+                    if(object.state()!=State.VALUE)throw new RedoException("DICTIONARY_NEW_OBJECT_ID_MISSING");
+                    try {parent=OracleScalars.number(object.bytes()).longValueExact();}
+                    catch(ArithmeticException failure){throw new RedoException("DICTIONARY_NEW_OBJECT_ID_INVALID");}
+                    long objectId=parent;
+                    if(parent<=0 || parent>0xffffffffL || rows.values().stream().anyMatch(r->r.role().equals("OBJ$") && r.target()==objectId))
+                        throw new RedoException("DICTIONARY_NEW_OBJECT_ID_CONFLICT");
+                }
+                if(parent==null)throw new RedoException("DICTIONARY_NEW_ROW_WITHOUT_INDEX_PARENT");
                 var values=completeInsert(layout,f,parent);
                 rows.put(position,new DictionaryBaseline.Row(operation.role().name(),parent,key,values));
             } else {
@@ -44,7 +54,7 @@ final class DictionaryHistoryRows {
                     if(cell.state()!=State.ABSENT && !existing.values().get(i+offset).equals(cell(cell)))throw new RedoException("DICTIONARY_ROW_BEFORE_VALUE_MISMATCH");
                 }
                 if(f.kind()==Kind.DELETE) {
-                    Long parent=parents.get(key);
+                    Long parent=operation.role().name().equals("OBJ$")?existing.target():parents.get(key);
                     if(parent==null || parent!=existing.target() || !existing.values().equals(completeInsert(layout,inverse,parent)))throw new RedoException("DICTIONARY_DELETE_COMPLETE_BEFORE_MISMATCH");
                     rows.remove(position);
                 } else if(f.kind()==Kind.UPDATE) {
@@ -61,6 +71,20 @@ final class DictionaryHistoryRows {
     }
     List<DictionaryBaseline.Row> current(){return List.copyOf(rows.values());}
     private List<ArchivedHeapRows.Cell> completeInsert(DictionaryBaseline.Layout layout,Patch patch,long parent)throws RedoException {
+        if(layout.role().name().equals("OBJ$") && layout.tableNumber()==-1 && layout.columns().size()==37 && patch.kind()==Kind.INSERT
+                && patch.extent()!=null && List.of(25,26).contains(patch.extent().storedColumns()) && patch.columns().size()==37) {
+            var value=new ArrayList<ArchivedHeapRows.Cell>();
+            for(int i=0;i<patch.columns().size();i++) {
+                var column=patch.columns().get(i);
+                if(i>=patch.extent().storedColumns() && column.state()!=State.ABSENT)
+                    throw new RedoException("DICTIONARY_INSERT_STORED_COLUMN_BOUNDARY_MISMATCH");
+                value.add(i<patch.extent().storedColumns()?cell(column):new ArchivedHeapRows.Cell(State.NULL,""));
+            }
+            requireValues(layout,value);
+            var row=new DictionaryBaseline.Row("OBJ$",parent,new ArchivedHeapRows.RowKey(layout.role().dataObject(),patch.dba(),patch.slot()),value);
+            if(baseline.number(row,"OBJ#")!=parent)throw new RedoException("DICTIONARY_ROW_PARENT_VALUE_CONFLICT");
+            return List.copyOf(value);
+        }
         if(!layout.role().name().equals("COL$") || layout.tableNumber()!=5 || layout.columns().size()!=37 || patch.kind()!=Kind.INSERT
                 || patch.extent()==null || patch.extent().storedColumns()!=32 || patch.columns().size()!=36)
             throw new RedoException("UNSUPPORTED_DICTIONARY_INSERT_COMPLETENESS_PROFILE");

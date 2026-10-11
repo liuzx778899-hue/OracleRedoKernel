@@ -101,19 +101,22 @@ public final class HeapRowPatch {
         boolean packed=op==5 && kdo.length==28 && ((kdo[11]&255)==0x81 || (kdo[11]&255)==0x82);
         boolean tail=op==5 && kdo.length==28 && (kdo[11]&255)==1 && (kdo[23]&255)==0;
         boolean sysNine=dictionaryObject && dictionaryColumns==37 && op==5 && kdo.length==30 && (kdo[23]&255)==9;
+        boolean sysFive=dictionaryObject && dictionaryColumns==37 && op==5 && kdo.length==29 && (kdo[23]&255)==5 && (kdo[22]&255)==26;
+        boolean sysInsert=dictionaryObject && dictionaryColumns==37 && op==2 && kdo.length==52
+                && ((kdo[18]&255)==25 || (kdo[18]&255)==26) && kdo[11]==1 && kdo[12]==1;
         // Observed HIST_HEAD$ IRP stores 18 columns and a longer null bitmap; offsets of row identity and values are unchanged.
         boolean statisticsInsert=op==2 && kdo.length==51 && (kdo[18]&255)==18 && kdo[11]==1;
         // Observed COL_USAGE$ DELETE inverse stores ten columns and a two-byte null bitmap.
         boolean usageInsert=op==2 && dictionaryColumns==10 && kdo.length==50 && (kdo[18]&255)==10 && kdo[11]==1;
         // Seq104 mixed LOB and seq109 temporal rows both have nine columns and a two-byte null bitmap.
         boolean nineColumnInsert=op==2 && dictionaryColumns==9 && kdo.length==50 && (kdo[18]&255)==9 && kdo[11]==1;
-        int expectedKdo=sysNine?30:op == 2 ? statisticsInsert?51:usageInsert || nineColumnInsert?50:49 : op == 3 || op == 4 ? 20 : packed || tail ? 28 : 29;
+        int expectedKdo=sysNine?30:op == 2 ? sysInsert?52:statisticsInsert?51:usageInsert || nineColumnInsert?50:49 : op == 3 || op == 4 ? 20 : packed || tail ? 28 : 29;
         if (kdo.length != expectedKdo || (kdo[10]&255) != op || u32(kdo,0) != dba)
             throw new RedoException("UNSUPPORTED_KDO_LAYOUT_OR_BLOCK");
-        if(dictionaryObject && (dictionaryColumns!=37 || op!=5 || packed || tail || kdo[11]!=1 || kdo[12]!=1 || kdo[13]!=0
+        if(dictionaryObject && !sysInsert && op!=3 && (dictionaryColumns!=37 || op!=5 || packed || tail || kdo[11]!=1 || kdo[12]!=1 || kdo[13]!=0
                 || u16(kdo,14)!=0 || kdo[16]!=0x2c || (kdo[17]!=0 && kdo[17]!=1)
-                || (kdo[18]!=0 && !((kdo[23]&255)==6 && (kdo[22]&255)==26 || sysNine && (kdo[22]&255)==26)) || kdo[19]!=0
-                || !java.util.List.of(6,8,9).contains(kdo[23]&255) || u16(kdo,26)!=(sysNine?0x20:0x10)
+                || (kdo[18]!=0 && !((kdo[23]&255)==6 && (kdo[22]&255)==26 || sysNine && (kdo[22]&255)==26 || sysFive)) || kdo[19]!=0
+                || !java.util.List.of(5,6,8,9).contains(kdo[23]&255) || (kdo[23]==5 && !sysFive) || u16(kdo,26)!=(sysNine?0x20:sysFive?8:0x10)
                 || kdo[28]!=0 || (sysNine && kdo[29]!=0)))
             throw new RedoException("UNSUPPORTED_DICTIONARY_OBJECT_UPDATE_PROFILE");
         int xtype=(kdo[11]&255)&(packed ? 0x7f : 0xff);

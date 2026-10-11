@@ -103,6 +103,31 @@ class DictionaryHistoryRowsTest {
         var op=new ArchivedDictionaryHistory.RowOperation(role,patch,patch);
         assertEquals("DICTIONARY_ROW_BEFORE_VALUE_MISMATCH",assertThrows(RedoException.class,()->new DictionaryHistoryRows(s).apply(List.of(op),List.of())).getMessage());
     }
+    @Test void raw120ObjectInsertMaterializesStoredValuesAndNullableSuffixOnly()throws Exception {
+        var snapshot=baseline();var role=snapshot.dictionaryBaseline().layouts().get("OBJ$").role();
+        var record=new DictionaryObjectUndoPairTest().records("/dictionary-object-insert-raw120.txt").get(0);
+        var pair=DictionaryObjectUndoPair.bind(record,record.vectors().get(1),role,37).physical();
+        var operation=new ArchivedDictionaryHistory.RowOperation(role,pair.forward(),pair.undo().inverse(),pair.undo().identity());
+        var state=new DictionaryHistoryRows(snapshot);var rows=state.apply(List.of(operation),List.of());
+        var inserted=rows.stream().filter(r->r.role().equals("OBJ$") && r.target()==81024).findFirst().orElseThrow();
+        assertEquals(37,inserted.values().size());assertEquals("T_D4_MIG_INT_20261011",snapshot.dictionaryBaseline().text(inserted,"NAME"));
+        assertTrue(inserted.values().subList(26,37).stream().allMatch(c->c.state()==HeapRowPatch.State.NULL));
+        assertThrows(RedoException.class,()->state.apply(List.of(operation),List.of()));
+        var remove=new ArchivedDictionaryHistory.RowOperation(role,pair.undo().inverse(),pair.forward(),pair.undo().identity());
+        assertEquals(snapshot.dictionaryBaseline().rows(),state.apply(List.of(remove),List.of()));
+        var badColumns=new ArrayList<>(pair.forward().columns());badColumns.set(26,new HeapRowPatch.Column(HeapRowPatch.State.NULL,new byte[0]));
+        var patch=pair.forward();var badPatch=new HeapRowPatch.Patch(patch.kind(),patch.dba(),patch.slot(),patch.xtype(),patch.xid(),patch.uba(),badColumns,patch.extent(),patch.lockTo());
+        assertEquals("DICTIONARY_INSERT_STORED_COLUMN_BOUNDARY_MISMATCH",assertThrows(RedoException.class,()->new DictionaryHistoryRows(snapshot).apply(
+                List.of(new ArchivedDictionaryHistory.RowOperation(role,badPatch,pair.undo().inverse())),List.of())).getMessage());
+        var layouts=new HashMap<>(snapshot.dictionaryBaseline().layouts());var old=layouts.get("OBJ$");
+        var columns=new ArrayList<>(old.columns());var suffix=columns.get(26);
+        columns.set(26,new DictionaryBaseline.Column(suffix.segment(),suffix.internal(),suffix.name(),suffix.type(),true));
+        layouts.put("OBJ$",new DictionaryBaseline.Layout(role,-1,columns));
+        var invalidBaseline=new DictionaryBaseline(layouts,snapshot.dictionaryBaseline().indexes(),snapshot.dictionaryBaseline().rows());
+        var invalid=new FrozenHeapBaseline.Snapshot(snapshot.sha256(),snapshot.source(),snapshot.scn(),snapshot.heap(),snapshot.index(),snapshot.columns(),
+                snapshot.rows(),snapshot.dictionaryAnchors(),invalidBaseline);
+        assertEquals("DICTIONARY_REQUIRED_VALUE_MISSING",assertThrows(RedoException.class,()->new DictionaryHistoryRows(invalid).apply(List.of(operation),List.of())).getMessage());
+    }
     @Test void temporalBusinessTypesSurviveTheHistoricalSchemaGate()throws Exception {
         var helper=new DictionaryBaselineTest();helper.directory=directory;
         String fixture=helper.v3().replace("TXT|VARCHAR2","TXT|DATE").replace("NOTE|VARCHAR2","NOTE|TIMESTAMP")

@@ -107,6 +107,23 @@ class HistoricalSchemaBarrierTest {
         v.fields().get(10)[12]=2;v.fields().get(10)[14]=1;v.fields().set(13,new byte[2]);
         assertThrows(RedoException.class,()->HistoricalSchemaBarrier.requireUnchanged(record(2501918,677737149,v),snapshot));
     }
+    @Test void raw120RedefinitionArraysKeepEveryAffectedObjectAndExactFlags()throws Exception {
+        for(String[] profile:List.of(
+                new String[]{"020200000100000000000000020001000000029d","853c0100763c0100","01000100","0000"},
+                new String[]{"020200000100000000000000030002000000029d","863c0100853c0100763c0100","010001000100","00000100"},
+                new String[]{"020200000c00000000000000030000000000029d","853c0100803c0100763c0100","010004000100",""},
+                new String[]{"020200000c00000000000000040000000000029d","863c0100853c0100803c0100763c0100","0100010004000100",""})) {
+            var v=marker();var hex=HexFormat.of();
+            for(int i=0;i<4;i++)v.fields().set(10+i,hex.parseHex(profile[i]));
+            v.fields().get(0)[12]=v.fields().get(10)[4];
+            System.arraycopy(v.fields().get(11),0,v.fields().get(3),4,4);
+            HistoricalSchemaBarrier.requireMarkerProfile(record(2501918,677737149,v),v);
+            v.fields().get(12)[0]=2;
+            assertThrows(RedoException.class,()->HistoricalSchemaBarrier.requireMarkerProfile(record(2501918,677737149,v),v));
+            v.fields().get(12)[0]=1;v.fields().get(10)[14]++;
+            assertThrows(RedoException.class,()->HistoricalSchemaBarrier.requireMarkerProfile(record(2501918,677737149,v),v));
+        }
+    }
     RedoRecords.Vector observedTriggerMarker() {
         var v=marker();
         v.fields().set(0,HexFormat.of().parseHex("e02e00000a000800c10d00003b0002000000010001000000"));

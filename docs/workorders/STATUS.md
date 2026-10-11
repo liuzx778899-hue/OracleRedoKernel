@@ -1,5 +1,9 @@
 # OracleRedoKernel 当前状态
 
+2026-10-11 用户再次明确 D5 搁置：RAC/ASM 不纳入本轮开发收尾，不自动恢复；TDE 继续搁置。执行单已同步覆盖旧顺序。常规功能继续，当前开发尚未结束。
+
+2026-10-11 LOB迁移解析续接：raw120复用/源动作0，补真实 SYS 空间扩展、重定义多对象标记及 OBJ$ 五列UPDATE/25与26列INSERT配对和完整值边界；相关68项通过/失败错误跳过0，B/S原ADD→DROP完整2事件及摘要不变。package-r2 rc0/内核b6bb1a25，未部署。迁移完整入口仍拒绝 SYS 索引依赖36/36，完整对象切换、TRUNCATE、统一恢复回收与产品新链继续，不标迁移通过。[反馈](DELIVERY_LOB_HISTORY_20261011.md)。
+
 2026-10-11 LOB ADD/DROP正常链：BasicFile/SecureFile各2完整UPDATE、值差异0，两独立进程恢复与直接解析完全一致/毒化拒绝；43项执行39/跳过4、失败错误0，package rc0/内核26284ca9，未部署。存储迁移源动作一次已成功，raw120冻结/库和Desktop停；TRUNCATE及迁移解析仍有明确缺口，统一checkpoint/回收/产品新链继续。用户要求能验证的全部收口后开发结束；当前尚未收口，不标完成。D5继续搁置。[反馈](DELIVERY_LOB_HISTORY_20261011.md)。
 
 2026-10-11 用户补充 LOB 存储迁移为必验项：先覆盖 BasicFile→SecureFile，连同迁移后正常 DML、历史对象代际、完整值、独立进程恢复及 checkpoint/ACK 约束下的安全回收；不以 TRUNCATE/静态 LOB 证据替代。迁移各环节待证，原五项目标不变，D5搁置。验收范围已同步[执行单](DISPATCH_COMMON_FUNCTIONS_D5_20261010.md)。

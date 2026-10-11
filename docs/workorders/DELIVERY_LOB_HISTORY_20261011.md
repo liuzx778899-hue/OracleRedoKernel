@@ -13,3 +13,9 @@
 迁移实验路径参考 [Oracle 19c 官方 LOB 存储文档](https://docs.oracle.com/en/database/oracle/oracle-database/19/adlob/using-oracle-LOBs-storage.html)。SQL、native dump 和获取结果仅为比较尺子；事件生产仍只解析原始 redo。
 
 后续直接接冻结 raw119/120：TRUNCATE 当前拒绝 `NON_ROW_FIRST_ROOT_IDENTITY_OR_LINK_MISMATCH`；迁移拒绝 `UNSUPPORTED_DICTIONARY_DISCOVERY_ROW`。保留原失败，不当成功。对象代际/重建/迁移解析、统一生产 checkpoint 与值原点恢复、readCut 安全回收、产品新链仍须补完；ARRAY 任意节点部分行及真实同SCN两窗继续。原五项未全完，不合并/部署未完成能力；D5 按用户要求搁置，TDE 不启动。
+
+2026-10-11 迁移解析续接：不重做迁移，复用 raw120。已补三类实际字节前置：SYS TAB$ cluster 空间扩展仅在完整同记录前后配对后排除字典行变化；重定义的 24.1 多对象数组要求确切数量、唯一对象及配套标记；OBJ$ 五列 UPDATE、25/26列 INSERT 与 inverse DELETE 按当前 UBA/完整 XID 绑定，37列布局仅在省略尾部可空且没有存储值时补 NULL。两条安全的真实 SYS 元数据记录已作为小型测试资源保存，来源为 raw120 RBA9741/16、9783/16；不是业务行数据。
+
+本次相关9类共68项，失败/错误/跳过0（tests-close-r1 加最终受影响类复查，避免重跑全部）；BasicFile/SecureFile 原 ADD→DROP 完整入口各2事件且 envelope 摘要与前包完全一致。package-r2 rc0，最终内核 SHA256 `b6bb1a25815b35c08ea6a797fc8a5363c269c7db6690e023affeac35f75b94aa`，未更换产品依赖、未部署。证据位于 `lab/out/lob-migration-20261011`：tests-close-r1、tests-insert25-r1、tests-insert-boundary-r1、B/S-drop-regression-r1、package-r2。
+
+完整迁移入口仍未通过：migration-r5 rc1，原文 `UNKNOWN_OR_CONFLICTING_DICTIONARY_DEPENDENCY:Position[archiveSequence=120, block=9855, offset=176, vector=1]:36:36`。这笔重定义事务包含当前基线未覆盖的 SYS 对象索引及新对象依赖，不能绕过后发布。接下来先补完整所属事务的字典依赖，再连接迁移后的 heap/PK/LOB 对象、值原点及恢复回收；TRUNCATE 根记录缺口仍保留。前述首个迁移失败为历史时点，此处为最新失败。用户再次明确 D5 搁置，RAC/ASM 不作为本轮阻塞、不自动恢复，库/helper/Desktop 均保持停止。

@@ -8,7 +8,10 @@ import static org.junit.jupiter.api.Assertions.*;
 class DictionaryObjectUndoPairTest {
     final FrozenHeapBaseline.ObjectRole role=new FrozenHeapBaseline.ObjectRole("SYS","OBJ$",18,18);
     List<RedoRecords.Record> records()throws Exception {
-        String text;try(var in=getClass().getResourceAsStream("/dictionary-object-row-profiles.txt")){text=new String(in.readAllBytes(),StandardCharsets.US_ASCII);}
+        return records("/dictionary-object-row-profiles.txt");
+    }
+    List<RedoRecords.Record> records(String resource)throws Exception {
+        String text;try(var in=getClass().getResourceAsStream(resource)){text=new String(in.readAllBytes(),StandardCharsets.US_ASCII);}
         var out=new ArrayList<RedoRecords.Record>();var vectors=new ArrayList<RedoRecords.Vector>();long block=0,scn=0;int offset=0;
         for(String line:text.lines().toList()) {
             var f=line.split("\\|",-1);
@@ -80,5 +83,45 @@ class DictionaryObjectUndoPairTest {
         assertEquals(9,DictionaryObjectUndoPair.bind(r,row,role,37).physical().forward().extent().changedColumns());
         inverse[18]=(byte)127;
         assertThrows(RedoException.class,()->DictionaryObjectUndoPair.bind(r,row,role,37));
+    }
+    @Test void raw120FiveColumnUpdatesRemainStored26AndUseTheirOwnBitmapMarker()throws Exception {
+        var r=records().get(0);var row=r.vectors().get(1);var undo=r.vectors().get(0);
+        var forward=new ArrayList<>(row.fields());var inverse=new ArrayList<>(undo.fields());
+        forward.get(1)[23]=5;inverse.get(3)[23]=5;forward.get(1)[26]=8;inverse.get(3)[26]=8;
+        forward.set(2,Arrays.copyOf(forward.get(2),10));inverse.set(4,Arrays.copyOf(inverse.get(4),10));
+        forward.remove(forward.size()-1);inverse.remove(inverse.size()-1);
+        var f=new RedoRecords.Vector(11,5,row.blockClass(),row.file(),row.dba(),row.scn(),row.sequence(),row.containerId(),forward);
+        var u=new RedoRecords.Vector(5,1,undo.blockClass(),undo.file(),undo.dba(),undo.scn(),undo.sequence(),undo.containerId(),inverse);
+        var record=new RedoRecords.Record(r.block(),r.offset(),r.length(),r.validity(),r.scn(),r.subScn(),r.containerUid(),List.of(u,f));
+        assertEquals(5,DictionaryObjectUndoPair.bind(record,f,role,37).physical().forward().extent().changedColumns());
+        forward.get(1)[26]=16;
+        assertThrows(RedoException.class,()->DictionaryObjectUndoPair.bind(record,f,role,37));
+    }
+    @Test void raw120ObjectInsertRequiresItsCurrentOwnerAndInverseDelete()throws Exception {
+        var record=records("/dictionary-object-insert-raw120.txt").get(0);var row=record.vectors().get(1);
+        var pair=DictionaryObjectUndoPair.bind(record,row,role,37).physical();
+        assertEquals(HeapRowPatch.Kind.INSERT,pair.forward().kind());
+        assertEquals(HeapRowPatch.Kind.DELETE,pair.undo().inverse().kind());
+        assertEquals(26,pair.forward().extent().storedColumns());assertEquals(34,pair.forward().slot());
+        assertEquals(81024,OracleScalars.number(pair.forward().columns().get(0).bytes()).longValueExact());
+        assertEquals("T_D4_MIG_INT_20261011",OracleScalars.varchar2(pair.forward().columns().get(3).bytes(),"AL32UTF8"));
+        assertThrows(RedoException.class,()->HeapUndoPair.bind(record,row,37));
+        for(int at:new int[]{11,12,18,42,44}) {
+            var bad=records("/dictionary-object-insert-raw120.txt").get(0);bad.vectors().get(1).fields().get(1)[at]^=1;
+            assertThrows(RedoException.class,()->DictionaryObjectUndoPair.bind(bad,bad.vectors().get(1),role,37));
+        }
+        for(int at:new int[]{8,12,18}) {
+            var bad=records("/dictionary-object-insert-raw120.txt").get(0);bad.vectors().get(1).fields().get(0)[at]^=1;
+            assertThrows(RedoException.class,()->DictionaryObjectUndoPair.bind(bad,bad.vectors().get(1),role,37));
+        }
+    }
+    @Test void raw120LobIndexObjectInsertStores25ColumnsAndBindsCurrentUba()throws Exception {
+        var record=records("/dictionary-object-insert-raw120.txt").get(1);var row=record.vectors().get(1);
+        var pair=DictionaryObjectUndoPair.bind(record,row,role,37).physical();
+        assertEquals(25,pair.forward().extent().storedColumns());assertEquals(35,pair.forward().slot());
+        assertEquals(81028,OracleScalars.number(pair.forward().columns().get(0).bytes()).longValueExact());
+        assertEquals("SYS_IL0000081024C00004$$",OracleScalars.varchar2(pair.forward().columns().get(3).bytes(),"AL32UTF8"));
+        row.fields().get(0)[8]^=1;
+        assertThrows(RedoException.class,()->DictionaryObjectUndoPair.bind(record,row,role,37));
     }
 }

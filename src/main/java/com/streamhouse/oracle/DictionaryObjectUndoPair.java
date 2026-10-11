@@ -13,7 +13,7 @@ public record DictionaryObjectUndoPair(FrozenHeapBaseline.ObjectRole role,HeapUn
         if(h.objectId()!=role.logicalObject() || h.dataObjectId()!=role.dataObject() || h.tablespace()!=0)
             throw new RedoException("DICTIONARY_OBJECT_GENERATION_MISMATCH");
         // Six-column OBJ$ ckix is a physical byte-valued reference, matched in both images, never a parent identity.
-        for(var undo:record.vectors())if(undo.containerId()==row.containerId() && undo.opcodeMajor()==5 && undo.opcodeMinor()==1
+        for(var undo:record.vectors())if(row.opcodeMinor()==5 && undo.containerId()==row.containerId() && undo.opcodeMajor()==5 && undo.opcodeMinor()==1
                 && UndoHeader.decode(undo).equals(h) && row.fields().get(1)[18]!=undo.fields().get(3)[18])
             throw new RedoException("DICTIONARY_OBJECT_CKIX_PAIR_MISMATCH");
         return new DictionaryObjectUndoPair(role,pair);

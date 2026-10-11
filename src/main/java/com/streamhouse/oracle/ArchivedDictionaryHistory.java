@@ -427,6 +427,9 @@ public final class ArchivedDictionaryHistory {
             if(count!=1)throw new RedoException("DICTIONARY_DISCOVERY_INDEX_COVERAGE");return selected;
         }
         if(fields.size()<4 || fields.get(3).length<20)throw new RedoException("UNREADABLE_DICTIONARY_DISCOVERY_ROW");
+        if(role.name().equals("TAB$") && fields.get(1)[16]==14 && fields.get(1)[17]==5) {
+            DictionarySpaceHwmPair.require(r,undo,role);return false;
+        }
         byte[] k=fields.get(3);int op=k[10]&255,slot;
         if(role.name().equals("TAB$") && (op==10 || op==6 || op==2 && k.length==54))
             return affectsObservedTabCluster(r,undo,role,snapshot);
