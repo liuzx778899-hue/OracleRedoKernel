@@ -1,5 +1,7 @@
 # OracleRedoKernel 当前状态
 
+2026-10-11 实际开发续接：新增 SYS39 DATAOBJ#/TYPE#/SPARE3/ROWID 物理配对（保留 NULL DATAOBJ#）、SYS OBJ$ 存储25列的五列更新、TRUNCATE空间头flags128及受控bitmap首根配对。raw119 B/S共8处heap/PK/BLOB/CLOB代际对应通过；raw120 SYS39共33条配对通过；B/S原始undo图分别44/78条闭合。相关44项通过，受影响恢复/LOB测试执行19项通过、1项条件跳过。源动作0；这仍是解析依赖补齐，未发布事件、未部署。完整TRUNCATE入口现在拒绝未接入的旧PK空间依赖80999/80999，迁移全事务、LOB统一恢复回收、ARRAY节点内部分行、真实同SCN产品链及main统一交付继续开发，不标完成。原始命令/rc在lab/out/lob-history-20261011/offline-r1的generation-root-tests-r2、generation-affected-tests-r1、B/S-generation-r1、B-truncate-graph-r1、S-truncate-graph-r2、B-truncate-entry-r2，以及lob-migration-20261011/data-object-index-profile-r4；失败轮次保留。
+
 2026-10-11 用户要求一次安排、整体收尾：ARRAY部分行撤销、LOB历史对象变化、LOB统一恢复回收、真实同SCN恢复发布、产品及main统一交付五项合成一个收尾包。中间只报进度，全部完成后统一交付；不再按局部测试通过结束整轮。D5/TDE搁置，已过证据复用。具体完成判据与执行顺序见[统一执行单](DISPATCH_COMMON_FUNCTIONS_D5_20261010.md)。
 
 2026-10-11 用户再次明确 D5 搁置：RAC/ASM 不纳入本轮开发收尾，不自动恢复；TDE 继续搁置。执行单已同步覆盖旧顺序。常规功能继续，当前开发尚未结束。

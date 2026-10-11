@@ -97,6 +97,20 @@ class DictionaryObjectUndoPairTest {
         forward.get(1)[26]=16;
         assertThrows(RedoException.class,()->DictionaryObjectUndoPair.bind(record,f,role,37));
     }
+    @Test void raw119TruncateLobFiveColumnUpdateStores25AndKeepsLogicalObject()throws Exception {
+        var r=records("/dictionary-object-generation-raw119.txt").get(0);var row=r.vectors().get(1);
+        var pair=DictionaryObjectUndoPair.bind(r,row,role,37).physical();
+        assertEquals(25,pair.forward().extent().storedColumns());assertEquals(5,pair.forward().extent().changedColumns());
+        assertEquals(80997,OracleScalars.number(pair.forward().columns().get(0).bytes()).longValueExact());
+        assertEquals(81008,OracleScalars.number(pair.forward().columns().get(1).bytes()).longValueExact());
+        assertEquals(80997,OracleScalars.number(pair.undo().inverse().columns().get(1).bytes()).longValueExact());
+        assertEquals(HeapRowPatch.State.NULL,pair.forward().columns().get(14).state());
+        for(int stored:new int[]{24,27}) {
+            var invalid=records("/dictionary-object-generation-raw119.txt").get(0);
+            invalid.vectors().get(1).fields().get(1)[22]=(byte)stored;invalid.vectors().get(0).fields().get(3)[22]=(byte)stored;
+            assertThrows(RedoException.class,()->DictionaryObjectUndoPair.bind(invalid,invalid.vectors().get(1),role,37));
+        }
+    }
     @Test void raw120ObjectInsertRequiresItsCurrentOwnerAndInverseDelete()throws Exception {
         var record=records("/dictionary-object-insert-raw120.txt").get(0);var row=record.vectors().get(1);
         var pair=DictionaryObjectUndoPair.bind(record,row,role,37).physical();

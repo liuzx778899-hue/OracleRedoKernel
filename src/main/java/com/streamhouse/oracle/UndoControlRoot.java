@@ -21,9 +21,11 @@ public record UndoControlRoot(TransactionStart start,UndoHeader allocationBegin,
     }
     static UndoControlRoot bind(TransactionStart start,UndoHeader begin,RedoRecords.Record record,RedoRecords.Vector undo) throws RedoException {
         var h=UndoHeader.decode(undo);byte[] m=undo.fields().get(1);
+        boolean bitmap=m[16]==13 && m[17]==23;
+        if(bitmap)requireBitmapRoot(record,undo,h);
         if(record.containerUid()!=start.containerUid() || undo.containerId()!=start.containerId()
                 || !h.xid().equals(begin.xid()) || h.beginsTransaction() || h.objectId()==0 || h.dataObjectId()==0
-                || h.tablespace()!=0 || m[16]!=11 || m[17]!=1 || u32(m,12)!=0 || m[19]!=0
+                || (!bitmap && (h.tablespace()!=0 || m[16]!=11 || m[17]!=1)) || u32(m,12)!=0 || m[19]!=0
                 || u16(m,22)!=(h.xid().sequence()&0xffff) || h.uba().dba()!=begin.uba().dba()
                 || h.uba().sequence()!=begin.uba().sequence() || h.uba().record()!=begin.uba().record()+1)
             throw new RedoException("NON_ROW_FIRST_ROOT_IDENTITY_OR_LINK_MISMATCH");
@@ -48,5 +50,20 @@ public record UndoControlRoot(TransactionStart start,UndoHeader allocationBegin,
         }
         if(originals!=1) throw new RedoException("NON_ROW_FIRST_ROOT_UNDO_AMBIGUOUS");
         return new UndoControlRoot(start,begin,h);
+    }
+    private static void requireBitmapRoot(RedoRecords.Record record,RedoRecords.Vector undo,UndoHeader h)throws RedoException {
+        var fields=undo.fields();
+        if(h.objectId()!=h.dataObjectId() || h.tablespace()!=5 || fields.size()!=4 || fields.get(2).length!=8
+                || u32(fields.get(2),0)==0 || u32(fields.get(2),4)!=8
+                || !java.util.Arrays.equals(fields.get(3),java.util.HexFormat.of().parseHex("010000000200000008000000010000550000")))
+            throw new RedoException("UNSUPPORTED_NON_ROW_BITMAP_ROOT");
+        int matched=0;
+        for(var v:record.vectors())if(v.containerId()==undo.containerId() && v.opcodeMajor()==13) {
+            if(v.opcodeMinor()!=22 || v.blockClass()!=8 || v.objectId()!=h.dataObjectId() || v.dba()!=u32(fields.get(2),0)
+                    || v.fields().size()!=1 || !java.util.Arrays.equals(v.fields().get(0),java.util.HexFormat.of().parseHex("01000000020000000800000001010100")))
+                throw new RedoException("NON_ROW_BITMAP_ROOT_FORWARD_MISMATCH");
+            matched++;
+        }
+        if(matched!=1)throw new RedoException("NON_ROW_BITMAP_ROOT_PAIR_COUNT");
     }
 }

@@ -84,4 +84,27 @@ class UndoControlRootTest {
         assertThrows(RedoException.class,()->h.close(i.entries().get(1).identity().uba()));
         var missing=new UndoHistory(i);assertThrows(RedoException.class,()->missing.append(i.entries().get(1)));
     }
+    List<RedoRecords.Record> bitmapRecords()throws Exception {
+        var result=new ArrayList<>(new DictionaryObjectUndoPairTest().records("/dictionary-bitmap-root-raw119.txt"));
+        var record=result.get(1);var vectors=new ArrayList<>(record.vectors());var old=vectors.get(2);
+        vectors.set(2,new RedoRecords.Vector(13,22,8,old.file(),old.dba(),old.scn(),old.sequence(),old.containerId(),old.fields(),80999));
+        result.set(1,new RedoRecords.Record(record.block(),record.offset(),record.length(),record.validity(),record.scn(),record.subScn(),record.containerUid(),vectors));
+        return result;
+    }
+    @Test void raw119BitmapRootNeedsItsExactForwardAndAllocationHead()throws Exception {
+        var records=bitmapRecords();var allocation=records.get(0);var r=records.get(1);
+        var begin=UndoHeader.decode(allocation.vectors().get(1));var start=UndoControlRoot.begin(allocation,allocation.vectors().get(1));
+        var root=UndoControlRoot.bind(start,begin,r,r.vectors().get(1));
+        assertEquals(80999,root.rowRoot().objectId());assertEquals(5,root.rowRoot().tablespace());
+        for(int field:new int[]{2,3}) {
+            var invalid=bitmapRecords().get(1);invalid.vectors().get(1).fields().get(field)[0]^=1;
+            assertThrows(RedoException.class,()->UndoControlRoot.bind(start,begin,invalid,invalid.vectors().get(1)));
+        }
+        var invalid=bitmapRecords().get(1);invalid.vectors().get(2).fields().get(0)[14]^=1;
+        assertThrows(RedoException.class,()->UndoControlRoot.bind(start,begin,invalid,invalid.vectors().get(1)));
+        var missing=new RedoRecords.Record(r.block(),r.offset(),r.length(),r.validity(),r.scn(),r.subScn(),r.containerUid(),r.vectors().subList(0,2));
+        assertThrows(RedoException.class,()->UndoControlRoot.bind(start,begin,missing,missing.vectors().get(1)));
+        r.vectors().get(0).fields().get(0)[14]++;
+        assertThrows(RedoException.class,()->UndoControlRoot.bind(start,begin,r,r.vectors().get(1)));
+    }
 }

@@ -101,7 +101,8 @@ public final class HeapRowPatch {
         boolean packed=op==5 && kdo.length==28 && ((kdo[11]&255)==0x81 || (kdo[11]&255)==0x82);
         boolean tail=op==5 && kdo.length==28 && (kdo[11]&255)==1 && (kdo[23]&255)==0;
         boolean sysNine=dictionaryObject && dictionaryColumns==37 && op==5 && kdo.length==30 && (kdo[23]&255)==9;
-        boolean sysFive=dictionaryObject && dictionaryColumns==37 && op==5 && kdo.length==29 && (kdo[23]&255)==5 && (kdo[22]&255)==26;
+        boolean sysFive=dictionaryObject && dictionaryColumns==37 && op==5 && kdo.length==29 && (kdo[23]&255)==5
+                && ((kdo[22]&255)==25 || (kdo[22]&255)==26);
         boolean sysInsert=dictionaryObject && dictionaryColumns==37 && op==2 && kdo.length==52
                 && ((kdo[18]&255)==25 || (kdo[18]&255)==26) && kdo[11]==1 && kdo[12]==1;
         // Observed HIST_HEAD$ IRP stores 18 columns and a longer null bitmap; offsets of row identity and values are unchanged.

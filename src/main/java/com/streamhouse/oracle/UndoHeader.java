@@ -15,7 +15,10 @@ public record UndoHeader(HeapRowPatch.Xid xid, HeapRowPatch.Uba uba, long object
         boolean storageBegin=ktubu.length==76 && flags==0x0c88 && ktubu[16]==22 && ktubu[17]==3
                 && u32(ktubu,0)==1 && u32(ktubu,4)==0xffffffffL && vector.fields().size()==3
                 && java.util.Arrays.equals(vector.fields().get(2),new byte[20]);
-        if ((ktubu.length == 76 && flags != 0x0c08 && !storageBegin) || (ktubu.length == 24 && flags != 0))
+        // Observed raw119 segment-space undo. This admits its identity only, not its physical operation or publication.
+        boolean segmentSpace=ktubu.length==24 && flags==0x80 && ktubu[16]==14 && (ktubu[17]==5 || ktubu[17]==8)
+                && u32(ktubu,0)==1 && u32(ktubu,4)>0 && u32(ktubu,8)==5;
+        if ((ktubu.length == 76 && flags != 0x0c08 && !storageBegin) || (ktubu.length == 24 && flags != 0 && !segmentSpace))
             throw new RedoException("UNSUPPORTED_UNDO_HEADER_FLAGS");
         return new UndoHeader(new HeapRowPatch.Xid(u16(ktudb,8),u16(ktudb,10),u32(ktudb,12)),
                 new HeapRowPatch.Uba(vector.dba(),u16(ktudb,16),ktudb[18]&255),
