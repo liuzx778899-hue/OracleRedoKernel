@@ -97,9 +97,15 @@ final class HeapArrayUpdatePair {
                     List.of(row.fields().get(0),kdo,values.get(1),values.get(2))),columns));
         }
         var owned=history.stream().filter(p->p.undo().identity().equals(original)).toList();
-        if(c.opcodeMajor()!=11 || c.opcodeMinor()!=1 || owned.isEmpty() || owned.size()!=patches.size())throw new RedoException("ARRAY_UPDATE_COMPENSATION_COVERAGE");
-        for(int i=0;i<owned.size();i++) {
-            var pair=owned.get(i);var u=pair.undo();
+        if(c.opcodeMajor()!=11 || c.opcodeMinor()!=1 || owned.isEmpty() || patches.isEmpty() || patches.size()>owned.size())throw new RedoException("ARRAY_UPDATE_COMPENSATION_COVERAGE");
+        var matched=new ArrayList<HeapUndoPair>();
+        for(var patch:patches) {
+            var candidates=owned.stream().filter(p->HeapCompensation.sameInverse(p.undo().inverse(),patch)).toList();
+            if(candidates.size()!=1 || matched.contains(candidates.get(0)))throw new RedoException("ARRAY_UPDATE_COMPENSATION_ORIGINAL_MISMATCH");
+            matched.add(candidates.get(0));
+        }
+        for(int i=0;i<matched.size();i++) {
+            var pair=matched.get(i);var u=pair.undo();
             if(pair.containerUid()!=record.containerUid() || pair.containerId()!=row.containerId()
                     || original.beginsTransaction()!=c.beginsTransaction() || original.xid().slot()!=c.slot() || u.wrap()!=c.wrap()
                     || original.objectId()!=c.objectId() || original.dataObjectId()!=c.dataObjectId() || original.tablespace()!=c.tablespace()
@@ -108,6 +114,6 @@ final class HeapArrayUpdatePair {
                     || pair.forward().kind()!=Kind.UPDATE || !HeapCompensation.sameInverse(u.inverse(),patches.get(i)))
                 throw new RedoException("ARRAY_UPDATE_COMPENSATION_ORIGINAL_MISMATCH");
         }
-        return owned;
+        return List.copyOf(matched);
     }
 }

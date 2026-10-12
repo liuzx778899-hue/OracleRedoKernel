@@ -10,6 +10,13 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class FrozenHeapBaselineTest {
     @TempDir Path directory;
+    @Test void clusterSlotIdentityIncludesTheDictionaryTable()throws Exception {
+        String shared=dictionarySample().replace("DICT_ANCHOR|COL$|73073|2|1|35216|49","DICT_ANCHOR|COL$|73073|2|1|35216|7");
+        var snapshot=read(shared);
+        assertEquals(snapshot.dictionaryAnchors().stream().filter(a->a.dictionary().name().equals("TAB$")).findFirst().orElseThrow().key(),
+                snapshot.dictionaryAnchors().stream().filter(a->a.dictionary().name().equals("COL$")).findFirst().orElseThrow().key());
+        assertThrows(RedoException.class,()->read(shared.replace("DICT_ANCHOR|COL$|73073|2|1|35216|50","DICT_ANCHOR|COL$|73073|2|1|35216|7")));
+    }
     @Test void implicitPrimaryKeyNullFlagRetainsNonNullMetadataAndRejectsContradictions()throws Exception {
         String implicit=dictionarySample().replace("DICT_COLUMN|1|1|ID|2|2|0","DICT_COLUMN|1|1|ID|2|1|0");
         assertNotEquals(dictionarySample(),implicit);

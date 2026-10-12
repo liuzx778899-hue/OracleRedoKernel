@@ -14,6 +14,10 @@ public record UndoHeadUpdate(long segmentDba,int slot,HeapRowPatch.Uba uba,long 
         return new UndoHeadUpdate(vector.dba(),u16(b,0),new HeapRowPatch.Uba(u32(b,8),u16(b,12),b[14]&255),vector.containerId());
     }
     public UndoHeader bindUndo(RedoRecords.Record record) throws RedoException {
+        return bindUndo(record,false);
+    }
+    UndoHeader bindArrayRoot(RedoRecords.Record record)throws RedoException {return bindUndo(record,true);}
+    private UndoHeader bindUndo(RedoRecords.Record record,boolean arrayRoot)throws RedoException {
         UndoHeader match=null;
         for (var v:record.vectors()) {
             if (v.containerId()!=containerId || v.opcodeMajor()!=5 || v.opcodeMinor()!=1 || v.dba()!=uba.dba()) continue;
@@ -21,7 +25,7 @@ public record UndoHeadUpdate(long segmentDba,int slot,HeapRowPatch.Uba uba,long 
             if (!h.uba().equals(uba)) continue;
             if (match!=null) throw new RedoException("AMBIGUOUS_UNDO_HEAD_UPDATE_UBA");
             byte[] b=v.fields().get(1);
-            if (h.beginsTransaction() || h.xid().slot()!=slot || u32(b,12)==0 || (b[19]&255)!=0
+            if (h.beginsTransaction() || h.xid().slot()!=slot || (arrayRoot?u32(b,12)!=0 || !ArchivedUndoInventory.arrayRootAssigned(record,v,h):u32(b,12)==0) || (b[19]&255)!=0
                     || u16(b,22)!=(h.xid().sequence()&0xffff))
                 throw new RedoException("UNDO_HEAD_UPDATE_IDENTITY_OR_LINK_MISMATCH");
             match=h;

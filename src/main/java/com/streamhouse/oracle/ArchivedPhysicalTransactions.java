@@ -10,7 +10,10 @@ import static com.streamhouse.oracle.RedoBytes.*;
 
 /** Source-owned bounded physical graphs. Declared object/leaf/column scope is not a historical dictionary. */
 public final class ArchivedPhysicalTransactions {
-    public record Operation(ArchivedUndoInventory.Position position,UndoHeader original,boolean compensation) {}
+    public record Operation(ArchivedUndoInventory.Position position,UndoHeader original,boolean compensation,List<ArchivedHeapRows.RowKey> cancelledRows) {
+        public Operation(ArchivedUndoInventory.Position position,UndoHeader original,boolean compensation){this(position,original,compensation,List.of());}
+        public Operation {cancelledRows=List.copyOf(cancelledRows);}
+    }
     public record Transaction(TransactionLifecycle.ClosedIdentity identity,List<Operation> operations,UndoHistory.Result graph,
                               ArchivedUndoInventory.Position commitPosition) {}
     public record Result(List<ArchivedRedo.Header> sources,List<Transaction> transactions) {}
@@ -286,6 +289,7 @@ public final class ArchivedPhysicalTransactions {
                         continue;
                     }
                     var marker=UndoCompensation.decode(v);UndoHeader matched=null;int rowIndex=-1;boolean arrayMatched=false;
+                    List<ArchivedHeapRows.RowKey> cancelledRows=List.of();
                     for (int j=0;j<r.vectors().size();j++) {
                         var row=r.vectors().get(j);if (row.containerId()!=container) continue;
                         if (marker.dataObjectId()==indexObject && row.opcodeMajor()==10 && (row.opcodeMinor()==3 || row.opcodeMinor()==5)) {
@@ -303,6 +307,12 @@ public final class ArchivedPhysicalTransactions {
                                     || marker.crossesUndoBlock() && !state.crossCompensationIdentity(r,v).equals(route.original().xid()))
                                 throw new RedoException("HEAP_ARRAY_COMPENSATION_LIFECYCLE_IDENTITY");
                             for(var pair:pairs)state.requireActive(r,pair);
+                            if(pairs.size()<c.heaps.stream().filter(p->p.undo().identity().equals(route.original())).count()) {
+                                if(marker.beginsTransaction() || marker.crossesUndoBlock())throw new RedoException("PARTIAL_ARRAY_ROOT_COMPENSATION_UNSUPPORTED");
+                                cancelledRows=pairs.stream().map(p->new ArchivedHeapRows.RowKey(route.original().dataObjectId(),p.forward().dba(),p.forward().slot())).toList();
+                                for(var operation:c.operations)if(operation.original().equals(route.original()) && operation.cancelledRows().stream().anyMatch(cancelledRows::contains))
+                                    throw new RedoException("PARTIAL_ARRAY_ROW_ALREADY_CANCELLED");
+                            }
                             matched=route.original();arrayMatched=true;
                         } else if (marker.dataObjectId()==heapObject && heap(row) && new HeapRowPatch().decode(row,columnsAt(history,snapshot,r.scn(),columns,new ArchivedUndoInventory.Position(header.sequence(),r.block(),r.offset(),i+1))).xtype()==2) {
                             if (matched!=null) throw new RedoException("PHYSICAL_COMPENSATION_ROW_AMBIGUOUS");
@@ -320,7 +330,12 @@ public final class ArchivedPhysicalTransactions {
                             || c.indexes.stream().filter(p->p.undo().identity().equals(matchedIdentity)).count()>1))
                         throw new RedoException("UNSUPPORTED_ARRAY_COMPENSATION");
                     if (!paired.add(rowIndex)) throw new RedoException("PHYSICAL_ROW_PAIRED_TWICE");
-                    c.graph.compensate(matched);c.operations.add(new Operation(at,matched,true));
+                    var cancelled=new HashSet<ArchivedHeapRows.RowKey>(cancelledRows);
+                    for(var operation:c.operations)if(operation.original().equals(matched))cancelled.addAll(operation.cancelledRows());
+                    boolean wholeNode=!cancelledRows.isEmpty() && c.heaps.stream().filter(p->p.undo().identity().equals(matchedIdentity))
+                            .allMatch(p->cancelled.contains(new ArchivedHeapRows.RowKey(matchedIdentity.dataObjectId(),p.forward().dba(),p.forward().slot())));
+                    if(cancelledRows.isEmpty() || wholeNode)c.graph.compensate(matched);
+                    c.operations.add(new Operation(at,matched,true,cancelledRows));
                 }
                 var recordAt=new ArchivedUndoInventory.Position(header.sequence(),r.block(),r.offset(),0);
                 boolean inWindow=contexts.stream().anyMatch(c->c.inWindow(recordAt));
@@ -338,7 +353,16 @@ public final class ArchivedPhysicalTransactions {
                         state.observeSlotControl(r,v);
                         if (!starts.contains(i)) {
                             if(v.fields().size()==1 && v.fields().get(0).length==32 && u16(v.fields().get(0),16)==10)state.advance(r,v);
-                            else if(v.fields().size()==1 && v.fields().get(0).length==32 && u16(v.fields().get(0),16)==2)state.headUpdate(r,v);
+                            else if(v.fields().size()==1 && v.fields().get(0).length==32 && u16(v.fields().get(0),16)==2) {
+                                var head=UndoHeadUpdate.decode(v);Context restart=null;
+                                for(var candidate:contexts)if(candidate.segment==v.dba() && candidate.inWindow(recordAt)) {
+                                    var root=candidate.graph.inventory().entries().stream().filter(e->e.identity().uba().equals(head.uba()) && e.identity().dataObjectId()==heapObject && e.opcodeMajor()==11 && e.opcodeMinor()==1 && e.previousDba()==0 && e.rci()==0 && !e.identity().beginsTransaction()).findFirst();
+                                    if(root.isPresent() && candidate.graph.isCompensatedRestartRoot(root.get().identity())) {
+                                        if(restart!=null)throw new RedoException("AMBIGUOUS_ARRAY_ROOT_CONTEXT");restart=candidate;
+                                    }
+                                }
+                                if(restart!=null)state.arrayRootHeadUpdate(r,v,restart.graph);else state.headUpdate(r,v);
+                            }
                             else requireForeignBegin(r,v,scope,owners,recordAt);
                         }
                     } else if (v.opcodeMinor()!=1 && v.opcodeMinor()!=4 && v.opcodeMinor()!=6 && v.opcodeMinor()!=11)

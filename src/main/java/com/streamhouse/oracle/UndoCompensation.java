@@ -6,13 +6,14 @@ import static com.streamhouse.oracle.RedoBytes.*;
 public record UndoCompensation(long dba, long objectId, long dataObjectId, long tablespace, long previousDba,
                                int opcodeMajor, int opcodeMinor, int slot, int predecessorRecord,
                                int flags, int wrap, boolean beginsTransaction) {
-    public boolean crossesUndoBlock() { return !beginsTransaction && predecessorRecord==0 && previousDba!=0; }
+    public boolean crossesUndoBlock() { return !beginsTransaction && predecessorRecord==0 && (previousDba!=0 || opcodeMajor==11 && opcodeMinor==1 && flags==0x0010); }
     /** Independently observed complete clear bitmaps: raw108 twenty keys; raw112 ten keys. */
     static int arrayCancelledKeys(RedoRecords.Vector vector)throws RedoException {
         if(vector.fields().size()!=3)throw new RedoException("UNSUPPORTED_COMPENSATION_ARRAY_BITMAP");
         byte[] bitmap=vector.fields().get(2);
         if(java.util.Arrays.equals(bitmap,new byte[]{0,0,(byte)0xf0}))return 20;
         if(java.util.Arrays.equals(bitmap,new byte[]{0,(byte)0xfc}))return 10;
+        if(java.util.Arrays.equals(bitmap,new byte[]{0,(byte)0x80}))return 15;
         throw new RedoException("UNSUPPORTED_COMPENSATION_ARRAY_BITMAP");
     }
     public static UndoCompensation decode(RedoRecords.Vector vector) throws RedoException {
@@ -30,7 +31,8 @@ public record UndoCompensation(long dba, long objectId, long dataObjectId, long 
         int flags=u16(b,20);
         boolean begin=vector.opcodeMinor()==11 && flags==0x0c18;
         boolean cross=vector.opcodeMinor()==11 && flags==0x0010 && (b[19]&255)==0 && u32(b,12)!=0;
-        if ((vector.opcodeMinor()==11 && !begin && !cross)
+        boolean emptyRoot=vector.opcodeMinor()==11 && flags==0x0010 && (b[19]&255)==0 && u32(b,12)==0 && b[16]==11 && b[17]==1 && u16(b,22)>1;
+        if ((vector.opcodeMinor()==11 && !begin && !cross && !emptyRoot)
                 || (vector.opcodeMinor()==6 && (flags!=0x0010 || ((b[19]&255)==0 && u32(b,12)!=0)))
                 || (begin && ((b[19]&255)!=0 || u16(b,22)!=1)))
             throw new RedoException("UNSUPPORTED_COMPENSATION_FLAGS");

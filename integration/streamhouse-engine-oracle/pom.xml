@@ -4,8 +4,8 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>com.streamhouse</groupId>
   <artifactId>streamhouse-engine-oracle</artifactId>
-  <version>0.1.0-SNAPSHOT</version>
-  <properties><maven.compiler.release>17</maven.compiler.release><project.build.sourceEncoding>UTF-8</project.build.sourceEncoding><oracle.kernel.version>0.1.0-SNAPSHOT</oracle.kernel.version><streamhouse.spi.version>0.1.0-oracle-evidence-ddff6ae</streamhouse.spi.version></properties>
+  <version>0.1.0-v1-rc1</version>
+  <properties><maven.compiler.release>17</maven.compiler.release><project.build.sourceEncoding>UTF-8</project.build.sourceEncoding><oracle.kernel.version>0.1.0-v1-rc1</oracle.kernel.version><streamhouse.spi.version>0.1.0-oracle-evidence-ddff6ae</streamhouse.spi.version></properties>
   <dependencies>
     <dependency><groupId>com.streamhouse</groupId><artifactId>streamhouse-spi</artifactId><version>${streamhouse.spi.version}</version></dependency>
     <dependency><groupId>com.streamhouse.oracle</groupId><artifactId>oracle-redo-kernel</artifactId><version>${oracle.kernel.version}</version></dependency>

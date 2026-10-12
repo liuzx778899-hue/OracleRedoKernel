@@ -21,7 +21,8 @@ public final class IndexArrayUndoPair {
                 || u16(leaf,6)!=0 || u16(leaf,10)!=0)
             throw new RedoException("UNSUPPORTED_INDEX_ARRAY_FORWARD_PROFILE");
         int count=u16(leaf,8);
-        if(count==0 || leaf.length!=12+count*2 || sizes.length!=count*2 || data.length!=count*6
+        boolean paddedFifteen=count==15 && leaf.length==12+count*2+2 && u16(leaf,leaf.length-2)==0;
+        if(count==0 || leaf.length!=12+count*2 && !paddedFifteen || sizes.length!=count*2 || data.length!=count*6
                 || u16(leaf,4)!=count*4+keys.length+data.length
                 // Native archives90/107 show sno at the first/last slot; the explicit slots own each key.
                 || u16(leaf,2)!=u16(leaf,12) && u16(leaf,2)!=u16(leaf,12+(count-1)*2))
@@ -48,11 +49,12 @@ public final class IndexArrayUndoPair {
         if(metadata[16]!=10 || metadata[17]!=22 || (metadata[18]&255)!=identity.xid().slot()
                 || !identity.beginsTransaction() && u16(metadata,22)!=(identity.xid().sequence()&0xffff)
                 || !(ktb.length==32 && ktb[0]==4 || ktb.length==16 && ktb[0]==2) || ktb[1]!=0x0d || leaf.length<24
-                || leaf[0]!=3 || leaf[1]==0 || leaf[2]!=0x21 || leaf[3]!=0 || u32(leaf,4)==0 || u32(leaf,8)==0
+                || leaf[0]!=3 || leaf[1]==0 || leaf[2]!=0x21 || (leaf[3]!=0 && !(leaf[3]==(byte)0x93 && u16(leaf,20)==10 && u16(leaf,18)==0)) || u32(leaf,4)==0 || u32(leaf,8)==0
                 || u32(leaf,14)!=0 || u16(leaf,22)!=0)
             throw new RedoException("UNSUPPORTED_INDEX_ARRAY_INVERSE_PROFILE");
         int count=u16(leaf,20);
-        if(count==0 || leaf.length!=24+count*2 || bitmap.length!=(count+7)/8)
+        boolean paddedFifteen=count==15 && leaf.length==24+count*2+2 && u16(leaf,leaf.length-2)==0;
+        if(count==0 || leaf.length!=24+count*2 && !paddedFifteen || bitmap.length!=(count+7)/8)
             throw new RedoException("INDEX_ARRAY_INVERSE_COUNT");
         for(byte value:bitmap)if(value!=(byte)0xff)throw new RedoException("UNSUPPORTED_INDEX_ARRAY_PURGE_BITMAP");
         var result=new ArrayList<IndexUndoPair.Inverse>();int offset=0;

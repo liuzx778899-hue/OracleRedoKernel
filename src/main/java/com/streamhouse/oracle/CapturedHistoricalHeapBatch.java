@@ -14,17 +14,22 @@ public final class CapturedHistoricalHeapBatch {
     private final String sha256;
     private final long leaf;
     private final boolean incremental;
+    private final CapturedHeapBatch.Schema acquisitionSchema;
     private CapturedHistoricalHeapBatch(FrozenHeapBaseline.Snapshot snapshot,List<CaptureJournal.Source> captures,List<Event> events,String sha256,long leaf) {
         this(snapshot,captures,events,sha256,leaf,false);
     }
     private CapturedHistoricalHeapBatch(FrozenHeapBaseline.Snapshot snapshot,List<CaptureJournal.Source> captures,List<Event> events,String sha256,long leaf,boolean incremental) {
+        this(snapshot,captures,events,sha256,leaf,incremental,new CapturedHeapBatch.Schema(snapshot.heap(),snapshot.index(),snapshot.columns(),CapturedHeapBatch.schemaDigest(snapshot),snapshot.timeZoneContext()));
+    }
+    private CapturedHistoricalHeapBatch(FrozenHeapBaseline.Snapshot snapshot,List<CaptureJournal.Source> captures,List<Event> events,String sha256,long leaf,boolean incremental,CapturedHeapBatch.Schema acquisitionSchema) {
         this.snapshot=snapshot;this.captures=List.copyOf(captures);this.events=List.copyOf(events);this.sha256=sha256;this.leaf=leaf;
         this.incremental=incremental;
+        this.acquisitionSchema=acquisitionSchema;
     }
     public ArchivedHeapRows.Source source(){return snapshot.source();}
     public String baselineSha256(){return snapshot.sha256();}
     public long baselineScn(){return snapshot.scn();}
-    public CapturedHeapBatch.Schema baselineSchema(){return new CapturedHeapBatch.Schema(snapshot.heap(),snapshot.index(),snapshot.columns(),CapturedHeapBatch.schemaDigest(snapshot),snapshot.timeZoneContext());}
+    public CapturedHeapBatch.Schema baselineSchema(){return acquisitionSchema;}
     public List<CaptureJournal.Source> captures(){return captures;}
     public List<Event> events(){return events;}
     public String sha256(){return sha256;}
@@ -52,21 +57,25 @@ public final class CapturedHistoricalHeapBatch {
         if(boundary==null || !publicationBoundary(boundary.events()).equals(boundary))
             throw new RedoException("HISTORICAL_PUBLICATION_PREFIX_CHANGED");
         String digest=hash(out->{text(out,"ORK_INCREMENTAL_HISTORICAL_BATCH_V1");text(out,sha256);text(out,boundary.sha256());out.writeInt(boundary.events());});
-        return new CapturedHistoricalHeapBatch(snapshot,captures,events.subList(boundary.events(),events.size()),digest,leaf,true);
+        return new CapturedHistoricalHeapBatch(snapshot,captures,events.subList(boundary.events(),events.size()),digest,leaf,true,acquisitionSchema);
     }
     public static CapturedHistoricalHeapBatch read(List<CaptureJournal.Verified> captures,Path snapshotPath,String trustedAcquisitionSha256,long leaf)throws IOException {
         var inputs=List.copyOf(captures);var paths=RedoBatch.captures(inputs);
         var snapshot=FrozenHeapBaseline.read(snapshotPath,trustedAcquisitionSha256);
+        if(snapshot.lobOrigin()!=null)return LobProducerRecovery.readOrigin(inputs,snapshot,leaf);
         var history=ArchivedDictionaryHistory.read(paths,snapshot);
         if(!snapshot.lobs().isEmpty())return lob(snapshot,inputs.stream().map(CaptureJournal.Verified::source).toList(),
                 CapturedLobTrustedBatch.readHistorical(inputs,snapshot,leaf,history),leaf);
         return read(inputs,paths,snapshot,history,leaf);
     }
-    private static CapturedHistoricalHeapBatch lob(FrozenHeapBaseline.Snapshot snapshot,List<CaptureJournal.Source> captures,List<Event> events,long leaf) {
+    static CapturedHistoricalHeapBatch lob(FrozenHeapBaseline.Snapshot snapshot,List<CaptureJournal.Source> captures,List<Event> events,long leaf) {
+        return lob(snapshot,captures,events,leaf,snapshot);
+    }
+    static CapturedHistoricalHeapBatch lob(FrozenHeapBaseline.Snapshot snapshot,List<CaptureJournal.Source> captures,List<Event> events,long leaf,FrozenHeapBaseline.Snapshot acquisition) {
         String digest=hash(out->{text(out,"ORK_HISTORICAL_LOB_BATCH_V1");text(out,snapshot.sha256());out.writeLong(leaf);
             for(var capture:captures)text(out,capture.journalSha256());
             for(var event:events){text(out,event.schema().sha256());text(out,event.row().eventId());text(out,event.row().payloadSha256());}});
-        return new CapturedHistoricalHeapBatch(snapshot,captures,events,digest,leaf);
+        return new CapturedHistoricalHeapBatch(snapshot,captures,events,digest,leaf,false,new CapturedHeapBatch.Schema(acquisition.heap(),acquisition.index(),acquisition.columns(),CapturedHeapBatch.schemaDigest(acquisition),acquisition.timeZoneContext()));
     }
     public static CapturedHistoricalHeapBatch readRestored(List<CaptureJournal.Verified> captures,Path snapshotPath,String trustedAcquisitionSha256,
                                                          long leaf,byte[] dictionaryCheckpoint,String trustedCheckpointSha256)throws IOException {

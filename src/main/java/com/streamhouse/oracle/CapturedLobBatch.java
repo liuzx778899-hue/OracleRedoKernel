@@ -25,14 +25,17 @@ public final class CapturedLobBatch {
     }
     static Result read(List<CaptureJournal.Verified> captures,CapturedLobTransactions.Scope scope,ArchivedDictionaryHistory.Timeline history,
                        FrozenHeapBaseline.Snapshot snapshot)throws IOException {
-        var graph=CapturedLobTransactions.read(captures,scope,history,snapshot);
+        return read(RedoBatch.captures(captures),scope,history,snapshot);
+    }
+    static Result read(RedoBatch inputs,CapturedLobTransactions.Scope scope,ArchivedDictionaryHistory.Timeline history,FrozenHeapBaseline.Snapshot snapshot)throws IOException {
+        var graph=CapturedLobTransactions.read(inputs,scope,history,snapshot);
         var maintenance=CapturedLobMaintenance.read(graph,history);
         var columns=scope.columns();
         var source=ArchivedHeapRows.Source.of(graph.records().get(0).source(),scope.uid(),scope.container());
         String schema=CapturedHeapBatch.hash(out->{CapturedHeapBatch.text(out,"ORK_DECLARED_LOB_SCHEMA_V1");CapturedHeapBatch.text(out,scope.toString());});
         var basic=new HashMap<Integer,CapturedBasicFileLobValues>();
-        if(scope.storage()==LobLocator.Storage.BASICFILE)for(var l:scope.lobs())basic.put(l.column(),CapturedBasicFileLobValues.read(captures,
-                new CapturedBasicFileLobValues.Scope(scope.uid(),scope.container(),scope.heap(),l.object(),l.index(),l.bitmap(),l.column(),columns.size(),l.kind())));
+        if(scope.storage()==LobLocator.Storage.BASICFILE)for(var l:scope.lobs())basic.put(l.column(),CapturedBasicFileLobValues.read(inputs,
+                new CapturedBasicFileLobValues.Scope(scope.uid(),scope.container(),scope.heap(),l.object(),l.index(),l.bitmap(),l.column(),columns.size(),l.kind(),scope.logical(scope.heap()))));
         var rawRows=new HashMap<ArchivedHeapRows.RowKey,List<ArchivedHeapRows.Cell>>();
         var logicalRows=new HashMap<ArchivedHeapRows.RowKey,List<ArchivedHeapRows.Cell>>();
         var locators=new HashMap<ArchivedHeapRows.RowKey,Locator[]>();var events=new ArrayList<CapturedHeapBatch.Event>();var ids=new java.util.HashSet<String>();
@@ -53,6 +56,14 @@ public final class CapturedLobBatch {
             }
             previousCommit=transaction.identity().endRecordScn();
             var pending=new LinkedHashMap<ArchivedHeapRows.RowKey,Pending>();
+            for(var copy:transaction.copies()) {
+                var key=new ArchivedHeapRows.RowKey(scope.heap(),copy.image().dba(),0);
+                if(rawRows.containsKey(key) || copy.image().row().size()!=columns.size())throw new RedoException("LOB_MIGRATION_COPY_ROW_POSITION");
+                rawRows.put(key,copy.image().row());pending.put(key,new Pending(copy.position(),List.of()));
+                var locations=new Locator[columns.size()];
+                for(var l:scope.lobs())locations[l.column()]=new Locator(copy.position(),copy.owner(),columns.size());
+                locators.put(key,locations);
+            }
             for(var row:transaction.rows()) {
                 var pair=row.pair();var owner=pair.undo().identity();
                 if(transaction.graph().live().stream().noneMatch(e->e.identity().equals(owner)))continue;
@@ -60,7 +71,7 @@ public final class CapturedLobBatch {
                 var p=pair.forward();var key=new ArchivedHeapRows.RowKey(scope.heap(),p.dba(),p.slot());
                 var current=rawRows.get(key);
                 if(p.kind()==Kind.LOCK) {
-                    if(current==null || p.lockTo()==null || (p.lockTo()!=1 && p.lockTo()!=2) || !Integer.valueOf(0).equals(pair.undo().inverse().lockTo())
+                    if(current==null || p.lockTo()==null || (p.lockTo()!=1 && p.lockTo()!=2 && p.lockTo()!=3) || !Integer.valueOf(0).equals(pair.undo().inverse().lockTo())
                             || p.columns().stream().anyMatch(c->c.state()!=State.ABSENT) || pair.undo().inverse().columns().stream().anyMatch(c->c.state()!=State.ABSENT))
                         throw new RedoException("LOB_BATCH_UNVERIFIED_LOCK");
                     continue;
@@ -105,7 +116,7 @@ public final class CapturedLobBatch {
             }
         }
         String sha=CapturedHeapBatch.hash(out->{CapturedHeapBatch.text(out,"ORK_CAPTURED_LOB_BATCH_V1");CapturedHeapBatch.text(out,schema);
-            for(var capture:captures)CapturedHeapBatch.text(out,capture.source().journalSha256());
+            for(var input:inputs)CapturedHeapBatch.text(out,input.header().sha256());
             out.writeInt(events.size());for(var event:events) {CapturedHeapBatch.text(out,event.eventId());CapturedHeapBatch.text(out,event.payloadSha256());}});
         return new Result(events,graph.transactions(),maintenance.stream().map(r->new Maintenance(r.identity(),r.originals(),r.object(),r.extent(),r.blocks())).toList(),sha);
     }

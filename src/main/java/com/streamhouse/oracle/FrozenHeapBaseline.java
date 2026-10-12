@@ -20,8 +20,13 @@ public final class FrozenHeapBaseline {
     public record LobColumn(int column,LobLocator.Storage storage,ObjectRole lob,ObjectRole index) {}
     public record Snapshot(String sha256,ArchivedHeapRows.Source source,long scn,ObjectRole heap,ObjectRole index,
                            List<PhysicalColumn> columns,Map<ArchivedHeapRows.RowKey,List<ArchivedHeapRows.Cell>> rows,
-                           List<DictionaryAnchor> dictionaryAnchors,DictionaryBaseline dictionaryBaseline,List<LobColumn> lobs,OracleTimeZoneContext timeZoneContext) {
+                           List<DictionaryAnchor> dictionaryAnchors,DictionaryBaseline dictionaryBaseline,List<LobColumn> lobs,OracleTimeZoneContext timeZoneContext,String lobOrigin) {
         public Snapshot { dictionaryAnchors=List.copyOf(dictionaryAnchors);lobs=List.copyOf(lobs); }
+        public Snapshot(String sha256,ArchivedHeapRows.Source source,long scn,ObjectRole heap,ObjectRole index,
+                        List<PhysicalColumn> columns,Map<ArchivedHeapRows.RowKey,List<ArchivedHeapRows.Cell>> rows,
+                        List<DictionaryAnchor> anchors,DictionaryBaseline dictionary,List<LobColumn> lobs,OracleTimeZoneContext timeZoneContext) {
+            this(sha256,source,scn,heap,index,columns,rows,anchors,dictionary,lobs,timeZoneContext,null);
+        }
         public Snapshot(String sha256,ArchivedHeapRows.Source source,long scn,ObjectRole heap,ObjectRole index,
                         List<PhysicalColumn> columns,Map<ArchivedHeapRows.RowKey,List<ArchivedHeapRows.Cell>> rows,
                         List<DictionaryAnchor> anchors,DictionaryBaseline dictionary,List<LobColumn> lobs) {
@@ -53,22 +58,34 @@ public final class FrozenHeapBaseline {
     }
 
     public static Snapshot read(Path path,String trustedAcquisitionSha256) throws IOException {
+        if(trustedAcquisitionSha256==null || !trustedAcquisitionSha256.matches("[0-9a-f]{64}"))throw new RedoException("MISSING_TRUSTED_SNAPSHOT_RECEIPT");
+        return read(Files.readAllBytes(path),trustedAcquisitionSha256);
+    }
+    static Snapshot read(byte[] supplied,String trustedAcquisitionSha256)throws IOException {
         if (trustedAcquisitionSha256==null || !trustedAcquisitionSha256.matches("[0-9a-f]{64}"))
             throw new RedoException("MISSING_TRUSTED_SNAPSHOT_RECEIPT");
-        byte[] bytes=Files.readAllBytes(path);String digest;
+        byte[] bytes=supplied.clone();String digest;
         try {digest=HexFormat.of().formatHex(MessageDigest.getInstance("SHA-256").digest(bytes));}
         catch (NoSuchAlgorithmException e) {throw new AssertionError(e);}
         if (!digest.equals(trustedAcquisitionSha256)) throw new RedoException("SNAPSHOT_ACQUISITION_DIGEST_MISMATCH");
         for (byte b:bytes) if (b<0) throw new RedoException("UNSUPPORTED_SNAPSHOT_TEXT_ENCODING");
         try {
             var input=new Input(new String(bytes,StandardCharsets.US_ASCII));
+            boolean origin=!input.lines.isEmpty() && input.lines.get(0).equals("FORMAT|ORK_HEAP_SNAPSHOT_V5");
             boolean zoned=!input.lines.isEmpty() && input.lines.get(0).equals("FORMAT|ORK_HEAP_SNAPSHOT_V4");
-            boolean history=zoned || (!input.lines.isEmpty() && input.lines.get(0).equals("FORMAT|ORK_HEAP_SNAPSHOT_V3"));
+            boolean history=origin || zoned || (!input.lines.isEmpty() && input.lines.get(0).equals("FORMAT|ORK_HEAP_SNAPSHOT_V3"));
             boolean dictionary=history || (!input.lines.isEmpty() && input.lines.get(0).equals("FORMAT|ORK_HEAP_SNAPSHOT_V2"));
-            String format=zoned?"ORK_HEAP_SNAPSHOT_V4":history?"ORK_HEAP_SNAPSHOT_V3":dictionary ? "ORK_HEAP_SNAPSHOT_V2" : "ORK_HEAP_SNAPSHOT_V1";
+            String format=origin?"ORK_HEAP_SNAPSHOT_V5":zoned?"ORK_HEAP_SNAPSHOT_V4":history?"ORK_HEAP_SNAPSHOT_V3":dictionary ? "ORK_HEAP_SNAPSHOT_V2" : "ORK_HEAP_SNAPSHOT_V1";
             input.exact("FORMAT|"+format);
+            String lobOrigin=null;
+            if(origin) {
+                var f=input.take("LOB_READ_ORIGIN",3);byte[] state=java.util.Base64.getDecoder().decode(f[2]);
+                if(!LobOriginCapsule.sha(state).equals(f[1]))throw new RedoException("SNAPSHOT_LOB_ORIGIN_DIGEST");
+                lobOrigin=f[2];
+            }
             var sourceFields=input.take("SOURCE",7);var pdb=input.take("PDB",4);identifier(pdb[3]);
             input.exact("CHARSET|AL32UTF8");OracleTimeZoneContext timeZoneContext=null;
+            zoned=zoned || origin && input.peek("TZ_CONTEXT");
             if(zoned) {
                 var f=input.take("TZ_CONTEXT",4);if(!f[1].equals("BEFORE"))throw new RedoException("SNAPSHOT_TIMEZONE_PHASE");
                 var regions=new java.util.TreeMap<Integer,String>();int previous=0;
@@ -115,7 +132,7 @@ public final class FrozenHeapBaseline {
                         || lobs.stream().anyMatch(l->l.column()<1 || l.column()>columns.size()
                             || !List.of("BLOB","CLOB").contains(columns.get(l.column()-1).type()) || l.storage()!=lobs.get(0).storage()))
                     throw new RedoException("UNSUPPORTED_SNAPSHOT_LOB_LAYOUT");
-                for(var l:lobs)for(var r:List.of(l.lob(),l.index()))if(!r.owner().equals(heap.owner()) || r.logicalObject()!=r.dataObject() || !objects.add(r.dataObject()))
+                for(var l:lobs)for(var r:List.of(l.lob(),l.index()))if(!r.owner().equals(heap.owner()) || !origin && r.logicalObject()!=r.dataObject() || !objects.add(r.dataObject()))
                     throw new RedoException("SNAPSHOT_LOB_OBJECT_COLLISION_OR_GENERATION");
             }
             if (columns.isEmpty() || columns.size()>255 || columns.stream().map(PhysicalColumn::name).distinct().count()!=columns.size())
@@ -142,7 +159,7 @@ public final class FrozenHeapBaseline {
                     long target=positive(a[2]),dataObject=positive(a[3]),file=positive(a[4]),block=positive(a[5]);int slot=Integer.parseInt(a[6]);
                     if(dataObject!=dict.dataObject() || file>1023 || block>=0x400000L || slot<0 || slot>65535
                             || (target!=heap.logicalObject() && (!dict.name().equals("OBJ$") || target!=index.logicalObject()))
-                            || !keys.add(file+":"+block+":"+slot))
+                            || !keys.add(dict.name()+":"+file+":"+block+":"+slot))
                         throw new RedoException("SNAPSHOT_DICTIONARY_ANCHOR_SCOPE");
                     anchors.add(new DictionaryAnchor(dict,target,new ArchivedHeapRows.RowKey(dataObject,(file<<22)|block,slot)));
                 }
@@ -199,7 +216,8 @@ public final class FrozenHeapBaseline {
             if(zoned)input.exact("TZ_CONTEXT|AFTER|"+timeZoneContext.databaseZone()+"|"+timeZoneContext.fileVersion());
             input.exact("SOURCE_AFTER|"+String.join("|",java.util.Arrays.copyOfRange(sourceFields,1,sourceFields.length)));
             input.exact("END|"+format);if (input.at!=input.lines.size()) throw new RedoException("SNAPSHOT_UNEXPECTED_TRAILING_OUTPUT");
-            return new Snapshot(digest,source,scn,heap,index,List.copyOf(columns),Map.copyOf(rows),anchors,dictionaryBaseline,lobs,timeZoneContext);
+            if(origin && lobs.isEmpty())throw new RedoException("SNAPSHOT_LOB_ORIGIN_WITHOUT_LOBS");
+            return new Snapshot(digest,source,scn,heap,index,List.copyOf(columns),Map.copyOf(rows),anchors,dictionaryBaseline,lobs,timeZoneContext,lobOrigin);
         } catch (IllegalArgumentException | ArithmeticException e) {throw new RedoException("MALFORMED_SNAPSHOT_FIELD");}
     }
     private static ObjectRole role(String[] fields,String phase) throws RedoException {

@@ -101,7 +101,7 @@ class DictionaryHistoryRowsTest {
         columns.set(3,new HeapRowPatch.Column(HeapRowPatch.State.VALUE,new byte[]{'X'}));
         var patch=new HeapRowPatch.Patch(HeapRowPatch.Kind.UPDATE,row.key().dba(),row.key().slot(),1,null,null,columns,new HeapRowPatch.RowExtent(26,1,-1,0),null);
         var op=new ArchivedDictionaryHistory.RowOperation(role,patch,patch);
-        assertEquals("DICTIONARY_ROW_BEFORE_VALUE_MISMATCH",assertThrows(RedoException.class,()->new DictionaryHistoryRows(s).apply(List.of(op),List.of())).getMessage());
+        assertTrue(assertThrows(RedoException.class,()->new DictionaryHistoryRows(s).apply(List.of(op),List.of())).getMessage().startsWith("DICTIONARY_ROW_BEFORE_VALUE_MISMATCH:"));
     }
     @Test void raw120ObjectInsertMaterializesStoredValuesAndNullableSuffixOnly()throws Exception {
         var snapshot=baseline();var role=snapshot.dictionaryBaseline().layouts().get("OBJ$").role();

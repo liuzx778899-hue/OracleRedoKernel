@@ -149,6 +149,7 @@ public final class ArchivedHeapRows {
                     previousForward=forwardIndex;
                     for(var pair:found) {
                         var p=pair.forward();var key=new RowKey(undo.dataObjectId(),p.dba(),p.slot());
+                        if(owner.operations().stream().anyMatch(o->o.original().equals(undo) && o.cancelledRows().contains(key)))continue;
                         pending.computeIfAbsent(undo.xid(),ignored->new ArrayList<>()).add(new Pending(at,undo.xid(),key,pair));
                     }
                 }

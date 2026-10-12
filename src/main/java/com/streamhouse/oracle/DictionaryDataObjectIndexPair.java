@@ -48,6 +48,15 @@ public record DictionaryDataObjectIndexPair(IndexUndoPair physical,Long dataObje
                         : baseline.number(row,"DATAOBJ#")!=dataObject) || baseline.number(row,"TYPE#")!=type || baseline.number(row,"SPARE3")!=spare3)
             throw new RedoException("DICTIONARY_DATA_OBJECT_INDEX_ROW_MISMATCH");
     }
+    void requireObject(HeapRowPatch.Patch row,UndoHeader owner)throws RedoException {
+        if(row.dba()!=rowDba || row.slot()!=rowSlot || !physical.undo().identity().xid().equals(owner.xid()))
+            throw new RedoException("DICTIONARY_DATA_OBJECT_INDEX_ROW_MISMATCH");
+        var data=row.columns().get(1);
+        if((dataObject==null ? data.state()!=HeapRowPatch.State.NULL : data.state()!=HeapRowPatch.State.VALUE || number(data.bytes())!=dataObject)
+                || row.columns().get(6).state()!=HeapRowPatch.State.VALUE || number(row.columns().get(6).bytes())!=type
+                || row.columns().get(17).state()!=HeapRowPatch.State.VALUE || number(row.columns().get(17).bytes())!=spare3)
+            throw new RedoException("DICTIONARY_DATA_OBJECT_INDEX_ROW_MISMATCH");
+    }
     /** Physical generation proof only; the complete owning transaction must still close before publication. */
     public static FrozenHeapBaseline.ObjectRole requireGeneration(DictionaryObjectUndoPair object,
             FrozenHeapBaseline.ObjectRole target,long type,long owner,DictionaryDataObjectIndexPair before,DictionaryDataObjectIndexPair after)throws RedoException {

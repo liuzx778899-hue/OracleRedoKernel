@@ -54,7 +54,8 @@ public final class PhysicalRecoveryState {
     ArchivedPhysicalTransactions.Prefix prefix()throws IOException {
         try {
             var in=new DataInputStream(new ByteArrayInputStream(bytes));
-            if(!in.readUTF().equals("ORK_PHYSICAL_STATE_V1") || !in.readUTF().equals(baseline.sha256()) || in.readLong()!=leaf)
+            String format=in.readUTF();boolean partial=format.equals("ORK_PHYSICAL_STATE_V2");
+            if(!partial && !format.equals("ORK_PHYSICAL_STATE_V1") || !in.readUTF().equals(baseline.sha256()) || in.readLong()!=leaf)
                 throw new RedoException("PHYSICAL_STATE_BASELINE_LEAF_OR_FORMAT");
             var sources=new ArrayList<ArchivedRedo.Header>();var continuity=new TransactionLifecycle();
             for(int i=0,n=count(in);i<n;i++) {
@@ -71,7 +72,7 @@ public final class PhysicalRecoveryState {
             for(int i=0,n=count(in);i<n;i++) {
                 var id=new TransactionLifecycle.ClosedIdentity(xid(in),in.readLong(),in.readLong(),in.readLong(),in.readLong(),in.readBoolean());
                 scope(id.containerUid(),id.containerId());if(!owners.add(id.xid()))throw new RedoException("PHYSICAL_STATE_DUPLICATE_OWNER");
-                var operations=operations(in,sources,id.xid());var original=entries(in,sources,id.xid());
+                var operations=operations(in,sources,id.xid(),partial);var original=entries(in,sources,id.xid());
                 var live=entries(in,sources,id.xid());var compensated=new ArrayList<UndoHeader>();
                 for(int j=0,m=count(in);j<m;j++){var h=undo(in);owner(h,id.xid());compensated.add(h);}
                 var graph=new UndoHistory.Result(original,live,List.copyOf(compensated),optionalUba(in),optionalUba(in));
@@ -82,7 +83,7 @@ public final class PhysicalRecoveryState {
             var pending=new ArrayList<ArchivedPhysicalTransactions.PendingGraph>();var graphs=new ArrayList<byte[]>();
             for(int i=0,n=count(in);i<n;i++) {
                 var xid=xid(in);if(!owners.add(xid))throw new RedoException("PHYSICAL_STATE_DUPLICATE_OWNER");
-                long segment=in.readLong();int next=in.readInt();var operations=operations(in,sources,xid);
+                long segment=in.readLong();int next=in.readInt();var operations=operations(in,sources,xid,partial);
                 lifecycle.requireRecoveryPending(xid,segment,baseline.source().containerUid(),baseline.source().containerId());
                 var heaps=new ArrayList<HeapUndoPair>();
                 for(int j=0,m=count(in);j<m;j++) {
@@ -124,7 +125,9 @@ public final class PhysicalRecoveryState {
     }
     private static void owner(UndoHeader h,HeapRowPatch.Xid xid)throws RedoException {if(!h.xid().equals(xid))throw new RedoException("PHYSICAL_STATE_XID");}
     private static byte[] encode(FrozenHeapBaseline.Snapshot baseline,long leaf,ArchivedPhysicalTransactions.Prefix prefix,List<byte[]> graphs)throws IOException {
-        var bytes=new ByteArrayOutputStream();var out=new DataOutputStream(bytes);out.writeUTF("ORK_PHYSICAL_STATE_V1");out.writeUTF(baseline.sha256());out.writeLong(leaf);
+        boolean partial=prefix.completed().transactions().stream().flatMap(t->t.operations().stream()).anyMatch(o->!o.cancelledRows().isEmpty())
+                || prefix.state().pending().stream().flatMap(p->p.operations().stream()).anyMatch(o->!o.cancelledRows().isEmpty());
+        var bytes=new ByteArrayOutputStream();var out=new DataOutputStream(bytes);out.writeUTF(partial?"ORK_PHYSICAL_STATE_V2":"ORK_PHYSICAL_STATE_V1");out.writeUTF(baseline.sha256());out.writeLong(leaf);
         out.writeInt(prefix.state().sources().size());for(var h:prefix.state().sources()) {
             out.writeUTF(h.sha256());out.writeLong(h.bytes());out.writeLong(h.dbid());out.writeLong(h.activationId());out.writeLong(h.compatibility());out.writeInt(h.thread());
             out.writeLong(h.sequence());out.writeLong(h.resetlogsId());out.writeLong(h.resetlogsScn());out.writeLong(h.firstScn());out.writeLong(h.nextScn());out.writeLong(h.blocks());
@@ -132,12 +135,12 @@ public final class PhysicalRecoveryState {
         byte[] identity=prefix.state().identityCheckpoint().getBytes(StandardCharsets.UTF_8);out.writeInt(identity.length);out.write(identity);out.writeInt(prefix.completed().transactions().size());
         for(var t:prefix.completed().transactions()) {
             var id=t.identity();xid(out,id.xid());out.writeLong(id.containerUid());out.writeLong(id.containerId());out.writeLong(id.beginRecordScn());out.writeLong(id.endRecordScn());out.writeBoolean(id.rolledBack());
-            operations(out,t.operations());entries(out,t.graph().original());entries(out,t.graph().live());out.writeInt(t.graph().compensated().size());
+            operations(out,t.operations(),partial);entries(out,t.graph().original());entries(out,t.graph().live());out.writeInt(t.graph().compensated().size());
             for(var h:t.graph().compensated())undo(out,h);optionalUba(out,t.graph().allocationTail());optionalUba(out,t.graph().activeHead());position(out,t.commitPosition());
         }
         out.writeInt(prefix.state().pending().size());int g=0;
         for(var p:prefix.state().pending()) {
-            xid(out,p.xid());out.writeLong(p.segment());out.writeInt(p.next());operations(out,p.operations());out.writeInt(p.heaps().size());
+            xid(out,p.xid());out.writeLong(p.segment());out.writeInt(p.next());operations(out,p.operations(),partial);out.writeInt(p.heaps().size());
             for(var pair:p.heaps()) {
                 out.writeLong(pair.containerUid());out.writeLong(pair.containerId());patch(out,pair.forward());var u=pair.undo();undo(out,u.identity());patch(out,u.inverse());
                 out.writeLong(u.previousDba());out.writeInt(u.predecessorRecord());out.writeInt(u.wrap());
@@ -163,11 +166,21 @@ public final class PhysicalRecoveryState {
         if(dba<=0 || dba>0xffffffffL || slot<0 || slot>65535 || columns.size()>255)throw new RedoException("PHYSICAL_STATE_PATCH");
         return new HeapRowPatch.Patch(kind,dba,slot,xtype,xid,uba,List.copyOf(columns),extent,integer(in));
     }
-    private static void operations(DataOutputStream out,List<ArchivedPhysicalTransactions.Operation> values)throws IOException {
-        out.writeInt(values.size());for(var o:values){position(out,o.position());undo(out,o.original());out.writeBoolean(o.compensation());}
+    private static void operations(DataOutputStream out,List<ArchivedPhysicalTransactions.Operation> values,boolean partial)throws IOException {
+        out.writeInt(values.size());for(var o:values){position(out,o.position());undo(out,o.original());out.writeBoolean(o.compensation());
+            if(partial){out.writeInt(o.cancelledRows().size());for(var key:o.cancelledRows()){out.writeLong(key.dataObjectId());out.writeLong(key.dba());out.writeInt(key.slot());}}
+        }
     }
-    private static List<ArchivedPhysicalTransactions.Operation> operations(DataInputStream in,List<ArchivedRedo.Header> sources,HeapRowPatch.Xid xid)throws IOException {
-        var list=new ArrayList<ArchivedPhysicalTransactions.Operation>();for(int i=0,n=count(in);i<n;i++){var p=position(in,sources);var h=undo(in);owner(h,xid);list.add(new ArchivedPhysicalTransactions.Operation(p,h,in.readBoolean()));}return List.copyOf(list);
+    private static List<ArchivedPhysicalTransactions.Operation> operations(DataInputStream in,List<ArchivedRedo.Header> sources,HeapRowPatch.Xid xid,boolean partial)throws IOException {
+        var list=new ArrayList<ArchivedPhysicalTransactions.Operation>();for(int i=0,n=count(in);i<n;i++){
+            var p=position(in,sources);var h=undo(in);owner(h,xid);boolean compensation=in.readBoolean();var rows=new ArrayList<ArchivedHeapRows.RowKey>();
+            if(partial)for(int j=0,m=count(in);j<m;j++){
+                var key=new ArchivedHeapRows.RowKey(in.readLong(),in.readLong(),in.readInt());
+                if(!compensation || key.dataObjectId()!=h.dataObjectId() || key.dba()<=0 || key.slot()<0 || rows.contains(key))throw new RedoException("PHYSICAL_STATE_PARTIAL_ROW_SCOPE");
+                rows.add(key);
+            }
+            list.add(new ArchivedPhysicalTransactions.Operation(p,h,compensation,rows));
+        }return List.copyOf(list);
     }
     private static void entries(DataOutputStream out,List<ArchivedUndoInventory.Entry> values)throws IOException {
         out.writeInt(values.size());for(var e:values){position(out,e.position());undo(out,e.identity());out.writeInt(e.opcodeMajor());out.writeInt(e.opcodeMinor());out.writeLong(e.previousDba());out.writeInt(e.rci());}

@@ -25,6 +25,12 @@ class ClusterRowPatchTest {
         var f=insert();f.set(10,hex("80"));
         assertThrows(RedoException.class,()->ClusterRowPatch.decode(f,2,4229540,5,36));
     }
+    @Test void clusterKeySlotZeroIsPhysicalAndDoesNotSupplyAParentObject()throws Exception {
+        var fields=insert();fields.get(1)[19]=0;
+        var decoded=ClusterRowPatch.decode(fields,2,4229540,5,36);
+        assertEquals(0,decoded.clusterKeyIndex());assertNull(decoded.row().xid());
+        assertEquals(HeapRowPatch.Kind.INSERT,decoded.row().kind());
+    }
     @Test void preservesSparseColumnsAndClusterIdentityWithoutCreatingParentIdentity() throws Exception {
         var p=ClusterRowPatch.decode(update(),5,4229540,5,36);
         assertEquals(5,p.tableNumber());assertNull(p.clusterKeyIndex());assertEquals(51,p.row().slot());

@@ -24,7 +24,7 @@ final class CapturedLobMaintenance {
         for(var at:input.records())for(var v:at.record().vectors())if(v.containerId()==scope.container() && v.opcodeMajor()==5 && v.opcodeMinor()==1) {
             var f=v.fields();if(f.size()<2 || f.get(0).length!=20 || f.get(1).length<24)throw new RedoException("LOB_MAINTENANCE_UNREADABLE_SCOPE");
             var m=f.get(1);long object=u32(m,0),data=u32(m,4);
-            if(!objects.contains(object) && !objects.contains(data))continue;
+            if(!objects.contains(data))continue;
             var xid=xid(v);if(!business.contains(xid))candidates.add(xid);
         }
         var receipts=new ArrayList<Receipt>();
@@ -154,7 +154,10 @@ final class CapturedLobMaintenance {
                     if(u32(m,0)!=1 || u32(m,4)!=0xffffffffL || f.size()!=3 || !Arrays.equals(f.get(2),new byte[20]))throw new RedoException("SECUREFILE_METADATA_SPACE_HEADER");
                 } else if(major==14 && minor==5) {
                     object=u32(m,4);if(u32(m,0)!=1 || !scope.isLob(object) || u16(m,20)!=0x80)throw new RedoException("SECUREFILE_METADATA_EXTENT_SCOPE");
-                    var pair=secureExtent(r,v,scope,object);extent=pair[0];blocks=pair[1];
+                    long[] pair;
+                    try {pair=secureExtent(r,v,scope,object);}
+                    catch(RedoException failure){throw new RedoException(failure.getMessage()+":"+at.position(i)+":"+object);}
+                    extent=pair[0];blocks=pair[1];
                 } else if(major==13 && (minor==50 || minor==54 || minor==56)) {
                     long target=u32(m,0);if(!scope.isLob(target) || u32(m,4)!=target || u16(m,20)!=0 || f.size()<4)
                         throw new RedoException("SECUREFILE_METADATA_CONTROL_SCOPE");
@@ -214,6 +217,16 @@ final class CapturedLobMaintenance {
     private static long[] secureExtent(RedoRecords.Record r,RedoRecords.Vector undo,Scope scope,long object)throws RedoException {
         var f=undo.fields();if(f.size()!=5 || f.get(2).length!=24 || f.get(3).length!=16 || f.get(4).length!=20)throw new RedoException("SECUREFILE_METADATA_EXTENT_LAYOUT");
         var map=f.get(2);long segment=u32(map,0),extent=u32(map,16),blocks=u32(map,20);var forward=only(r,scope,14,4,object,segment);var fs=forward.fields();
+        if(fs.size()==2 && fs.get(0).length==16 && fs.get(1).length==20 && f.get(3)[0]==1 && fs.get(0)[0]==2) {
+            var before=f.get(3);var after=fs.get(0);var old=f.get(4);var next=fs.get(1);
+            if(u32(map,4)!=4 || u32(map,8)!=segment || u32(map,12)!=2 || extent!=0 || blocks!=0
+                    || u32(before,4)==0 || (u32(before,8)!=8 && u32(before,8)!=128) || u32(before,12)+1!=u32(old,4)
+                    || u32(after,4)!=u32(before,12) || u32(after,8)!=0 || u32(after,12)!=0 || old[0]!=5 || next[0]!=5
+                    || u32(old,4)!=u32(next,4)+1 || u32(old,8)!=u32(next,8)+u32(before,8)
+                    || u32(old,12)!=0 || u32(old,16)!=0 || u32(next,12)!=0 || u32(next,16)!=0)
+                throw new RedoException("SECUREFILE_METADATA_EXTENT_RELEASE_PAIR");
+            return new long[]{u32(before,4),u32(before,8)};
+        }
         if(fs.size()!=2 || fs.get(0).length!=16 || fs.get(1).length!=20 || u32(map,4)!=4 || u32(map,8)!=segment || u32(map,12)!=2
                 || (blocks!=8 && blocks!=128) || f.get(3)[0]!=2 || u32(f.get(3),4)!=u32(fs.get(0),12) || u32(f.get(3),8)!=0 || u32(f.get(3),12)!=0
                 || u32(fs.get(0),0)!=1 || u32(fs.get(0),4)!=extent || u32(fs.get(0),8)!=blocks
@@ -260,9 +273,10 @@ final class CapturedLobMaintenance {
         if(!new HeapRowPatch.Xid(u16(ktb,8),u16(ktb,10),u32(ktb,12)).equals(xid)
                 || !new HeapRowPatch.Uba(u32(ktb,16),u16(ktb,20),ktb[22]&255).equals(uba)
                 || u32(after,0)!=forward.dba() || after[10]!=5 || after[11]!=1 || after[16]!=0x6c || after[17]!=2 || before[17]!=0
-                || (after[22]&255)!=stored || after[23]!=1 || u16(after,24)!=0 || u16(after,26)!=0 || after[28]!=0)
+                || (after[22]&255)!=stored || after[23]!=1 || (short)u16(after,24)!=f.get(3).length-u.get(5).length
+                || (short)u16(before,24)!=u.get(5).length-f.get(3).length || u16(after,26)!=0 || after[28]!=0)
             throw new RedoException("LOB_MAINTENANCE_STATISTICS_IDENTITY");
-        byte[] normalized=after.clone();normalized[17]=0;
+        byte[] normalized=after.clone();normalized[17]=0;normalized[24]=before[24];normalized[25]=before[25];
         if(!Arrays.equals(before,normalized))throw new RedoException("LOB_MAINTENANCE_STATISTICS_ROW_POSITION");
         OracleScalars.number(u.get(5));OracleScalars.number(f.get(3));
     }

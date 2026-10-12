@@ -21,6 +21,20 @@ public final class UndoHistory {
 
     public UndoHistory(ArchivedUndoInventory inventory) { this.inventory=inventory; }
     ArchivedUndoInventory inventory(){return inventory;}
+    boolean isCompensatedRestartRoot(UndoHeader original)throws RedoException {
+        healthy();var node=head==null?null:nodes.get(head);
+        return node!=null && node.entry().identity().equals(original) && node.predecessor()==null && !original.beginsTransaction()
+                && node.entry().previousDba()==0 && node.entry().rci()==0 && inventory.entries().get(0).identity().beginsTransaction()
+                && compensated.contains(inventory.entries().get(0).identity());
+    }
+    boolean awaitsCompensatedBeginRestart(UndoHeader original)throws RedoException {
+        healthy();
+        return head==null && next==1 && inventory.entries().size()>1 && compensated.size()==1
+                && compensated.get(0).equals(inventory.entries().get(0).identity())
+                && inventory.entries().get(0).identity().beginsTransaction()
+                && inventory.entries().get(next).identity().equals(original)
+                && inventory.entries().get(next).previousDba()==0 && inventory.entries().get(next).rci()==0;
+    }
 
     /** Materialized nodes and actions; caller must durably authenticate the returned bytes. */
     public byte[] durableCheckpoint()throws java.io.IOException {return DurableUndoState.encode(inventory,checkpoint());}
@@ -47,8 +61,12 @@ public final class UndoHistory {
         } else if(rowRoot) {
             if(next!=1 || head!=null) refuse("UNDO_HISTORY_NON_ROW_ROOT_ORDER_MISMATCH");
         } else {
-            if (head==null) refuse("UNDO_HISTORY_MISSING_ACTIVE_PREDECESSOR");
-            if (entry.previousDba()==0) {
+            boolean restart=head==null && entry.previousDba()==0 && entry.rci()==0 && !compensated.isEmpty()
+                    && inventory.entries().get(0).identity().beginsTransaction() && compensated.contains(inventory.entries().get(0).identity());
+            if (head==null && !restart) refuse("UNDO_HISTORY_MISSING_ACTIVE_PREDECESSOR");
+            if (restart) {
+                // A source-bound physical compensation removed the initial root; the next owned original starts an empty active chain.
+            } else if (entry.previousDba()==0) {
                 var explicit=new HeapRowPatch.Uba(address.dba(),address.sequence(),entry.rci());
                 if (!explicit.equals(head)) refuse("UNDO_HISTORY_SAME_BLOCK_HEAD_MISMATCH");
             } else if (entry.rci()!=0 || entry.previousDba()!=head.dba()) refuse("UNDO_HISTORY_CROSS_BLOCK_HEAD_MISMATCH");

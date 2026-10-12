@@ -21,11 +21,11 @@ public record DictionaryBaseline(Map<String,Layout> layouts,List<Index> indexes,
             if(number(row,"DATAOBJ#")!=role.dataObject() || !text(row,"NAME").equals(role.name()) || number(row,"TYPE#")!=(role.equals(heap)?2:1))
                 throw new RedoException("DICTIONARY_OBJECT_METADATA_MISMATCH");
         }
-        var tab=rows.stream().filter(r->r.role().equals("TAB$")).findFirst().orElseThrow();
+        var tab=rows.stream().filter(r->r.role().equals("TAB$") && r.target()==heap.logicalObject()).findFirst().orElseThrow();
         if(number(tab,"DATAOBJ#")!=heap.dataObject() || number(tab,"COLS")!=columns.stream().filter(c->!c.hidden()).count()
                 || number(tab,"INTCOLS")!=columns.size() || number(tab,"KERNELCOLS")!=columns.size())throw new RedoException("DICTIONARY_TABLE_METADATA_MISMATCH");
         var seen=new HashSet<Long>();
-        for(var row:rows)if(row.role().equals("COL$")) {
+        for(var row:rows)if(row.role().equals("COL$") && row.target()==heap.logicalObject()) {
             long internal=number(row,"INTCOL#");var col=columns.stream().filter(c->c.internal()==internal).findFirst().orElseThrow(()->new RedoException("DICTIONARY_COLUMN_METADATA_MISMATCH"));
             if(!seen.add(internal) || number(row,"SEGCOL#")!=col.segment() || !text(row,"NAME").equals(col.name())
                     || number(row,"TYPE#")!=OracleColumnTypes.oracleId(col.type()) || OracleColumnTypes.nullable(number(row,"NULL$"))!=col.nullable()

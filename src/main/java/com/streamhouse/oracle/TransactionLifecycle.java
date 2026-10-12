@@ -182,10 +182,17 @@ public final class TransactionLifecycle {
     }
 
     public UndoHeader headUpdate(RedoRecords.Record record,RedoRecords.Vector vector) throws RedoException {
+        return headUpdate(record,vector,null);
+    }
+    UndoHeader arrayRootHeadUpdate(RedoRecords.Record record,RedoRecords.Vector vector,UndoHistory graph)throws RedoException {
+        return headUpdate(record,vector,graph);
+    }
+    private UndoHeader headUpdate(RedoRecords.Record record,RedoRecords.Vector vector,UndoHistory graph)throws RedoException {
         checkRecord(record);
         try {
             if (!record.vectors().contains(vector)) refuse("UNDO_HEAD_UPDATE_NOT_IN_RECORD");
-            var update=UndoHeadUpdate.decode(vector);var h=update.bindUndo(record);
+            var update=UndoHeadUpdate.decode(vector);var h=graph==null?update.bindUndo(record):update.bindArrayRoot(record);
+            if(graph!=null && !graph.isCompensatedRestartRoot(h))refuse("ARRAY_ROOT_PREVIOUS_HEAD_NOT_CANCELLED");
             int controls=0;
             for (var candidate:record.vectors()) {
                 if (candidate.containerId()!=vector.containerId() || candidate.opcodeMajor()!=5 || candidate.opcodeMinor()!=2

@@ -50,13 +50,13 @@ public final class RedoRecords {
                 byte[] bytes=cursor.read((int)length);
                 int validity=bytes[4]&255;
                 // 0x09/0x0d observed and dump-matched on dedicated 19.3 CDB fixtures.
-                if (validity != 1 && validity != 2 && validity != 4 && validity != 5
+                if (validity != 0 && validity != 1 && validity != 2 && validity != 4 && validity != 5
                         && validity != 6 && validity != 9 && validity != 13)
                     throw new RedoException("UNSUPPORTED_RECORD_VALIDITY:"+validity);
                 int recordHeader=(validity & 4) != 0 ? 68 : 24;
                 if (length < recordHeader) throw new RedoException("TRUNCATED_RECORD_HEADER");
                 List<Vector> vectors=new ArrayList<>();
-                if ((validity & 3) != 0) {
+                if (validity==0 || (validity & 3) != 0) {
                     int pos=recordHeader;
                     while (pos < length) {
                         if (length-pos < 36) throw new RedoException("TRUNCATED_VECTOR_HEADER");
@@ -77,6 +77,16 @@ public final class RedoRecords {
                                 u32(bytes,pos+24),List.copyOf(fields),((long)u16(bytes,pos+6)<<16)|u16(bytes,pos+22)));
                         pos=data;
                     }
+                }
+                if(validity==0) {
+                    // Frozen raw121's CDB-root invalidated IRP is absent from the native SCN dump.
+                    // Validate its framing and the observed scope; never turn its stale body into changes.
+                    if(u32(bytes,16)!=1 || vectors.size()!=2 || vectors.stream().anyMatch(v->v.containerId()!=1)
+                            || vectors.get(0).opcodeMajor()!=5 || vectors.get(0).opcodeMinor()!=1
+                            || vectors.get(1).opcodeMajor()!=11 || vectors.get(1).opcodeMinor()!=2
+                            || !vectors.get(0).fields().stream().map(f->f.length).toList().equals(List.of(20,24,16,20)))
+                        throw new RedoException("UNSUPPORTED_INVALIDATED_RECORD_PROFILE:block="+block+":offset="+offset);
+                    continue;
                 }
                 long scn=u32(bytes,8) | ((long)u16(bytes,6)<<32);
                 visitor.accept(new Record(block,offset,(int)length,validity,scn,u16(bytes,12),

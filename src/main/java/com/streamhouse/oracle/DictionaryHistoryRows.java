@@ -20,8 +20,18 @@ final class DictionaryHistoryRows {
     }
     List<DictionaryBaseline.Row> apply(List<ArchivedDictionaryHistory.RowOperation> operations,List<DictionaryIndexUndoPair> indexOperations)throws RedoException {
         var parents=new HashMap<ArchivedHeapRows.RowKey,Long>();
+        var parentValues=new HashMap<Long,byte[]>();
+        for(var row:rows.values())if(row.role().equals("OBJ$"))parentValues.put(row.target(),HexFormat.of().parseHex(row.values().get(0).hex()));
+        var knownParents=new HashSet<Long>();
+        for(var row:rows.values())if(row.role().equals("OBJ$") && baseline.number(row,"TYPE#")==2)knownParents.add(row.target());
+        for(var operation:operations)if(operation.role().name().equals("OBJ$") && operation.forward().kind()==Kind.INSERT
+                && operation.forward().columns().get(6).state()==State.VALUE
+                && OracleScalars.number(operation.forward().columns().get(6).bytes()).compareTo(java.math.BigDecimal.valueOf(2))==0) {
+            try {knownParents.add(OracleScalars.number(operation.forward().columns().get(0).bytes()).longValueExact());}
+            catch(ArithmeticException failure){throw new RedoException("DICTIONARY_NEW_OBJECT_ID_INVALID");}
+        }
         for(var pair:indexOperations) {
-            var key=pair.key();if(key.objectId()!=snapshot.heap().logicalObject())throw new RedoException("DICTIONARY_INDEX_FOREIGN_PARENT_UNSUPPORTED");
+            var key=pair.key();if(!knownParents.contains(key.objectId()))throw new RedoException("DICTIONARY_INDEX_UNKNOWN_TABLE_PARENT");
             var rowKey=new ArchivedHeapRows.RowKey(baseline.layouts().get("COL$").role().dataObject(),key.rowDba(),key.rowSlot());
             var prior=parents.putIfAbsent(rowKey,key.objectId());if(prior!=null && prior!=key.objectId())throw new RedoException("DICTIONARY_INDEX_PARENT_CONFLICT");
             var entries=indexes.get(pair.role().name());boolean insert=pair.physical().forward().kind()==IndexUndoPair.Kind.INSERT || pair.physical().forward().kind()==IndexUndoPair.Kind.RESTORE;
@@ -42,20 +52,32 @@ final class DictionaryHistoryRows {
                     long objectId=parent;
                     if(parent<=0 || parent>0xffffffffL || rows.values().stream().anyMatch(r->r.role().equals("OBJ$") && r.target()==objectId))
                         throw new RedoException("DICTIONARY_NEW_OBJECT_ID_CONFLICT");
+                    parentValues.put(parent,object.bytes());
+                }
+                if(operation.role().name().equals("TAB$")) {
+                    var candidates=new HashSet<Long>();
+                    if(operation.clusterKeyIndex()!=null)for(var column:operations)if(column.role().name().equals("COL$")
+                            && column.forward().kind()==Kind.INSERT && column.forward().dba()==f.dba()
+                            && operation.clusterKeyIndex().equals(column.clusterKeyIndex())) {
+                        var columnKey=new ArchivedHeapRows.RowKey(column.role().dataObject(),column.forward().dba(),column.forward().slot());
+                        var referenced=parents.get(columnKey);if(referenced!=null)candidates.add(referenced);
+                    }
+                    if(candidates.size()!=1)throw new RedoException("DICTIONARY_NEW_TABLE_CLUSTER_PARENT_COVERAGE");
+                    parent=candidates.iterator().next();
                 }
                 if(parent==null)throw new RedoException("DICTIONARY_NEW_ROW_WITHOUT_INDEX_PARENT");
-                var values=completeInsert(layout,f,parent);
+                var values=completeInsert(layout,f,parent,parentValues);
                 rows.put(position,new DictionaryBaseline.Row(operation.role().name(),parent,key,values));
             } else {
                 if(existing==null)throw new RedoException("DICTIONARY_ROW_BEFORE_MISSING");
                 if(inverse.columns().size()!=layout.columns().size()-offset)throw new RedoException("DICTIONARY_ROW_PATCH_LAYOUT_MISMATCH");
                 for(int i=0;i<inverse.columns().size();i++) {
                     var cell=inverse.columns().get(i);
-                    if(cell.state()!=State.ABSENT && !existing.values().get(i+offset).equals(cell(cell)))throw new RedoException("DICTIONARY_ROW_BEFORE_VALUE_MISMATCH");
+                    if(cell.state()!=State.ABSENT && !existing.values().get(i+offset).equals(cell(cell)))throw new RedoException("DICTIONARY_ROW_BEFORE_VALUE_MISMATCH:"+position+":"+layout.columns().get(i+offset).name()+":owner="+operation.identity());
                 }
                 if(f.kind()==Kind.DELETE) {
-                    Long parent=operation.role().name().equals("OBJ$")?existing.target():parents.get(key);
-                    if(parent==null || parent!=existing.target() || !existing.values().equals(completeInsert(layout,inverse,parent)))throw new RedoException("DICTIONARY_DELETE_COMPLETE_BEFORE_MISMATCH");
+                    Long parent=operation.role().name().equals("OBJ$") || operation.role().name().equals("TAB$")?existing.target():parents.get(key);
+                    if(parent==null || parent!=existing.target() || !existing.values().equals(completeInsert(layout,inverse,parent,parentValues)))throw new RedoException("DICTIONARY_DELETE_COMPLETE_BEFORE_MISMATCH:"+operation.role().name()+":"+key);
                     rows.remove(position);
                 } else if(f.kind()==Kind.UPDATE) {
                     var values=new ArrayList<>(existing.values());
@@ -70,7 +92,7 @@ final class DictionaryHistoryRows {
         return List.copyOf(rows.values());
     }
     List<DictionaryBaseline.Row> current(){return List.copyOf(rows.values());}
-    private List<ArchivedHeapRows.Cell> completeInsert(DictionaryBaseline.Layout layout,Patch patch,long parent)throws RedoException {
+    private List<ArchivedHeapRows.Cell> completeInsert(DictionaryBaseline.Layout layout,Patch patch,long parent,Map<Long,byte[]> parentValues)throws RedoException {
         if(layout.role().name().equals("OBJ$") && layout.tableNumber()==-1 && layout.columns().size()==37 && patch.kind()==Kind.INSERT
                 && patch.extent()!=null && List.of(25,26).contains(patch.extent().storedColumns()) && patch.columns().size()==37) {
             var value=new ArrayList<ArchivedHeapRows.Cell>();
@@ -85,22 +107,23 @@ final class DictionaryHistoryRows {
             if(baseline.number(row,"OBJ#")!=parent)throw new RedoException("DICTIONARY_ROW_PARENT_VALUE_CONFLICT");
             return List.copyOf(value);
         }
-        if(!layout.role().name().equals("COL$") || layout.tableNumber()!=5 || layout.columns().size()!=37 || patch.kind()!=Kind.INSERT
-                || patch.extent()==null || patch.extent().storedColumns()!=32 || patch.columns().size()!=36)
+        boolean table=layout.role().name().equals("TAB$") && layout.tableNumber()==1 && layout.columns().size()==45
+                && patch.kind()==Kind.INSERT && patch.extent()!=null && patch.extent().storedColumns()==44 && patch.columns().size()==44;
+        if(!table && (!layout.role().name().equals("COL$") || layout.tableNumber()!=5 || layout.columns().size()!=37 || patch.kind()!=Kind.INSERT
+                || patch.extent()==null || patch.extent().storedColumns()!=32 || patch.columns().size()!=36))
             throw new RedoException("UNSUPPORTED_DICTIONARY_INSERT_COMPLETENESS_PROFILE");
         var value=new ArrayList<ArchivedHeapRows.Cell>();
         // The parent bytes must come from a complete index association, not the cluster-key slot number.
-        byte[] parentBytes=null;
-        for(var row:rows.values())if(row.target()==parent) {parentBytes=HexFormat.of().parseHex(row.values().get(0).hex());break;}
+        byte[] parentBytes=parentValues.get(parent);
         if(parentBytes==null)throw new RedoException("DICTIONARY_INSERT_PARENT_NOT_IN_BASELINE_SCOPE");
         value.add(new ArchivedHeapRows.Cell(State.VALUE,HexFormat.of().formatHex(parentBytes)));
         for(int i=0;i<patch.columns().size();i++) {
             var c=patch.columns().get(i);
             if(c.state()==State.ABSENT) {
-                if(i<32 || layout.columns().get(i+1).required())throw new RedoException("DICTIONARY_INSERT_UNPROVEN_ABSENT_COLUMN");
+                if(i<(table?44:32) || layout.columns().get(i+1).required())throw new RedoException("DICTIONARY_INSERT_UNPROVEN_ABSENT_COLUMN");
                 value.add(new ArchivedHeapRows.Cell(State.NULL,""));
             } else {
-                if(i>=32)throw new RedoException("DICTIONARY_INSERT_STORED_COLUMN_BOUNDARY_MISMATCH");
+                if(i>=(table?44:32))throw new RedoException("DICTIONARY_INSERT_STORED_COLUMN_BOUNDARY_MISMATCH");
                 value.add(cell(c));
             }
         }
@@ -125,7 +148,7 @@ final class DictionaryHistoryRows {
     private Map<String,Set<DictionaryIndexKey>> expectedIndexes()throws RedoException {
         var result=new LinkedHashMap<String,Set<DictionaryIndexKey>>();for(var index:baseline.indexes())result.put(index.role().name(),new HashSet<>());
         for(var row:rows.values())if(row.role().equals("COL$")) {
-            long parent=baseline.number(row,"OBJ#");if(parent!=row.target() || parent!=snapshot.heap().logicalObject())throw new RedoException("DICTIONARY_ROW_PARENT_VALUE_CONFLICT");
+            long parent=baseline.number(row,"OBJ#");if(parent!=row.target())throw new RedoException("DICTIONARY_ROW_PARENT_VALUE_CONFLICT");
             var key=row.key();String name=baseline.text(row,"NAME");int col=ordinal(baseline.number(row,"COL#")),internal=ordinal(baseline.number(row,"INTCOL#"));
             if(col<0 || internal<1)throw new RedoException("DICTIONARY_COLUMN_KEY_ORDINAL_INVALID");
             result.get("I_COL1").add(new DictionaryIndexKey(parent,name,null,key.dba(),key.slot()));
@@ -135,12 +158,16 @@ final class DictionaryHistoryRows {
         return result;
     }
     static List<FrozenHeapBaseline.PhysicalColumn> schema(FrozenHeapBaseline.Snapshot snapshot,List<DictionaryBaseline.Row> rows)throws RedoException {
+        return schema(snapshot,rows,snapshot.heap(),snapshot.index());
+    }
+    static List<FrozenHeapBaseline.PhysicalColumn> schema(FrozenHeapBaseline.Snapshot snapshot,List<DictionaryBaseline.Row> rows,
+            FrozenHeapBaseline.ObjectRole heap,FrozenHeapBaseline.ObjectRole index)throws RedoException {
         var baseline=snapshot.dictionaryBaseline();var columns=new ArrayList<FrozenHeapBaseline.PhysicalColumn>();
-        var colRows=new ArrayList<>(rows.stream().filter(r->r.role().equals("COL$")).toList());
+        var colRows=new ArrayList<>(rows.stream().filter(r->r.role().equals("COL$") && r.target()==heap.logicalObject()).toList());
         var logical=new HashSet<Integer>();
         // Validate order without assuming internal and physical ordinals have the same meaning.
         for(var row:colRows) {
-            if(row.target()!=snapshot.heap().logicalObject() || baseline.number(row,"OBJ#")!=row.target())throw new RedoException("DICTIONARY_ROW_PARENT_VALUE_CONFLICT");
+            if(baseline.number(row,"OBJ#")!=row.target())throw new RedoException("DICTIONARY_ROW_PARENT_VALUE_CONFLICT");
             int segment=ordinal(baseline.number(row,"SEGCOL#")),internal=ordinal(baseline.number(row,"INTCOL#")),col=ordinal(baseline.number(row,"COL#"));
             long type=baseline.number(row,"TYPE#"),property=baseline.number(row,"PROPERTY"),nulls=baseline.number(row,"NULL$");
             String name=baseline.text(row,"NAME");FrozenHeapBaseline.identifier(name);
@@ -154,7 +181,7 @@ final class DictionaryHistoryRows {
         columns.sort(Comparator.comparingInt(FrozenHeapBaseline.PhysicalColumn::segment));
         for(int i=0;i<columns.size();i++)if(columns.get(i).segment()!=i+1)throw new RedoException("HISTORICAL_COLUMN_PHYSICAL_COVERAGE");
         for(int i=1;i<=logical.size();i++)if(!logical.contains(i))throw new RedoException("HISTORICAL_LOGICAL_COLUMN_COVERAGE");
-        new DictionaryBaseline(baseline.layouts(),baseline.indexes(),rows).requireMetadata(snapshot.heap(),snapshot.index(),columns);
+        new DictionaryBaseline(baseline.layouts(),baseline.indexes(),rows).requireMetadata(heap,index,columns);
         return List.copyOf(columns);
     }
     private static int ordinal(long value)throws RedoException {

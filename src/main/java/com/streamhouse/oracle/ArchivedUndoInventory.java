@@ -36,6 +36,7 @@ public final class ArchivedUndoInventory {
         var continuity=new TransactionLifecycle();
         var sources=new ArrayList<ArchivedRedo.Header>();var entries=new ArrayList<Entry>();
         TransactionStart[] controlStart={null};UndoControlRoot[] root={null};
+        var authorizationRoots=new java.util.HashSet<HeapRowPatch.Uba>();boolean[] verifiedAuthorizationRetry={false};
         if(prefix!=null) {
             for(var source:prefix.sources()){continuity.archive(source);sources.add(source);}
             entries.addAll(prefix.entries());root[0]=prefix.controlRoot();if(root[0]!=null)controlStart[0]=root[0].start();
@@ -68,8 +69,15 @@ public final class ArchivedUndoInventory {
                         if(undo.beginsTransaction() && !entries.isEmpty())throw new RedoException("UNDO_INVENTORY_REPEATED_BEGIN");
                         if(firstRoot)root[0]=UndoControlRoot.bind(controlStart[0],entries.get(0).identity(),record,vector);
                     }
+                    boolean authorizationRoot=false;
+                    boolean arrayRoot=!undo.beginsTransaction() && !entries.isEmpty() && entries.get(0).identity().beginsTransaction()
+                            && previous==0 && rci==0 && metadata[16]==11 && metadata[17]==1 && arrayRootAssigned(record,vector,undo);
+                    if(!undo.beginsTransaction() && !firstRoot && previous==0 && rci==0 && undo.objectId()==61 && undo.dataObjectId()==61 && undo.tablespace()==0) {
+                        if(!verifiedAuthorizationRetry[0]) {authorizationRoots.addAll(DictionaryAuthorizationRetry.roots(archives,containerUid,containerId,xid));verifiedAuthorizationRetry[0]=true;}
+                        authorizationRoot=authorizationRoots.contains(undo.uba());
+                    }
                     if (undo.beginsTransaction() ? previous!=0 || rci!=0 || u16(metadata,22)!=1
-                            : u16(metadata,22)!=(xid.sequence()&0xffff) || (!firstRoot && (previous==0 ? rci==0 : rci!=0)))
+                            : u16(metadata,22)!=(xid.sequence()&0xffff) || (!firstRoot && !authorizationRoot && !arrayRoot && (previous==0 ? rci==0 : rci!=0)))
                         throw new RedoException("UNDO_INVENTORY_METADATA_LINK_MISMATCH");
                     entries.add(new Entry(new Position(header.sequence(),record.block(),record.offset(),index+1),undo,
                             metadata[16]&255,metadata[17]&255,previous,rci));
@@ -84,6 +92,20 @@ public final class ArchivedUndoInventory {
     }
 
     public List<ArchivedRedo.Header> sources() { return sources; }
+    /** Inventory recognition only; the physical graph must prove the previous head was completely cancelled. */
+    static boolean arrayRootAssigned(RedoRecords.Record record,RedoRecords.Vector undo,UndoHeader owner)throws RedoException {
+        if(undo.fields().size()!=4 || undo.fields().get(3).length<22 || undo.fields().get(3)[10]!=12)return false;
+        int heads=0,rows=0;
+        for(var v:record.vectors())if(v.containerId()==undo.containerId()) {
+            if(v.opcodeMajor()==5 && v.opcodeMinor()==2 && v.fields().size()==1 && v.fields().get(0).length==32) {
+                byte[] b=v.fields().get(0);if(u16(b,0)!=owner.xid().slot())continue;
+                var head=UndoHeadUpdate.decode(v);
+                if(!head.uba().equals(owner.uba()) || u16(b,18)!=u16(undo.fields().get(0),0))throw new RedoException("ARRAY_ROOT_HEAD_ASSIGNMENT_MISMATCH");heads++;
+            }
+            if(v.opcodeMajor()==11 && v.opcodeMinor()==11 && HeapUndoPair.referencesOriginal(v,owner.uba()))rows++;
+        }
+        return heads==1 && rows==1;
+    }
     public List<Entry> entries() { return entries; }
     public long containerUid() { return containerUid; }
     public long containerId() { return containerId; }

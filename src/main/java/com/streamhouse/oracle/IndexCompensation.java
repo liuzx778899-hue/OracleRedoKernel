@@ -19,7 +19,8 @@ public final class IndexCompensation {
                 || leaf.length<12 || leaf[0]==0 || leaf[1]!=0x25 || u16(leaf,6)!=0 || u16(leaf,10)!=0)
             throw new RedoException("UNSUPPORTED_INDEX_ARRAY_PURGE_PROFILE");
         int count=u16(leaf,8);
-        if(count==0 || leaf.length!=12+count*2 || u16(leaf,4)<count*4)
+        boolean paddedFifteen=count==15 && leaf.length==12+count*2+2 && u16(leaf,leaf.length-2)==0x9d72;
+        if(count==0 || leaf.length!=12+count*2 && !paddedFifteen || u16(leaf,4)<count*4)
             throw new RedoException("INDEX_ARRAY_PURGE_COUNT_OR_SIZE");
         var slots=new java.util.ArrayList<Integer>();
         for(int i=0;i<count;i++)slots.add(u16(leaf,12+i*2));

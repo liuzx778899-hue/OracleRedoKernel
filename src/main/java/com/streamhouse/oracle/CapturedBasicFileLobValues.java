@@ -12,7 +12,11 @@ import static com.streamhouse.oracle.RedoBytes.*;
 /** Source-owned BasicFile values at forward heap locators. Declared scope is not publication or baseline authority. */
 public final class CapturedBasicFileLobValues {
     public record Scope(long uid,long container,long heapObject,long lobObject,long lobIndexObject,long bitmapParent,int column,
-                        int columns,LobLocator.Kind kind) {
+                        int columns,LobLocator.Kind kind,long heapLogicalObject) {
+        public Scope(long uid,long container,long heapObject,long lobObject,long lobIndexObject,long bitmapParent,int column,
+                     int columns,LobLocator.Kind kind) {
+            this(uid,container,heapObject,lobObject,lobIndexObject,bitmapParent,column,columns,kind,heapObject);
+        }
         public Scope(long uid,long container,long heapObject,long lobObject,long lobIndexObject,long bitmapParent,int column) {
             this(uid,container,heapObject,lobObject,lobIndexObject,bitmapParent,column,3,column==1?LobLocator.Kind.BLOB:column==2?LobLocator.Kind.CLOB:null);
         }
@@ -33,11 +37,14 @@ public final class CapturedBasicFileLobValues {
     private final HashMap<HeapRowPatch.Xid,Window> windows=new HashMap<>();
     private CapturedBasicFileLobValues(RedoBatch inputs,Scope scope,List<At> records) {this.inputs=inputs;this.scope=scope;this.records=List.copyOf(records);}
     public static CapturedBasicFileLobValues read(List<CaptureJournal.Verified> captures,Scope scope)throws IOException {
+        return read(RedoBatch.captures(captures),scope);
+    }
+    static CapturedBasicFileLobValues read(RedoBatch inputs,Scope scope)throws IOException {
         if(scope==null || scope.uid()<=0 || scope.container()<=0 || scope.heapObject()<=0 || scope.lobObject()<=0 || scope.lobIndexObject()<=0
                 || scope.heapObject()==scope.lobObject() || scope.heapObject()==scope.lobIndexObject() || scope.lobObject()==scope.lobIndexObject()
                 || scope.bitmapParent()<0 || scope.kind()==null || scope.columns()<1 || scope.columns()>255
                 || scope.column()<0 || scope.column()>=scope.columns())throw new RedoException("INVALID_BASICFILE_VALUE_SCOPE");
-        var inputs=RedoBatch.captures(captures);var continuity=new TransactionLifecycle();var records=new ArrayList<At>();
+        var continuity=new TransactionLifecycle();var records=new ArrayList<At>();
         for(var input:inputs) {
             var header=input.header();continuity.archive(header);
             input.visit(header,r->{if(r.containerUid()==scope.uid())records.add(new At(header.sequence(),r));});
@@ -51,7 +58,7 @@ public final class CapturedBasicFileLobValues {
         At at=recordAt(position);var row=vectorAt(at,position);
         if(row.containerId()!=scope.container() || row.objectId()!=scope.heapObject())throw new RedoException("BASICFILE_VALUE_HEAP_SCOPE");
         var pair=HeapUndoPair.bindLob(at.record(),row,columns);var owner=pair.undo().identity();var current=window(owner.xid());
-        if(owner.objectId()!=scope.heapObject() || owner.dataObjectId()!=scope.heapObject())throw new RedoException("BASICFILE_VALUE_LOCATOR_OWNER");
+        if(owner.objectId()!=scope.heapLogicalObject() || owner.dataObjectId()!=scope.heapObject())throw new RedoException("BASICFILE_VALUE_LOCATOR_OWNER");
         var cell=pair.forward().columns().get(scope.column());var kind=scope.kind();
         if(cell.state()==HeapRowPatch.State.ABSENT)throw new RedoException("BASICFILE_VALUE_LOCATOR_ABSENT");
         if(cell.state()==HeapRowPatch.State.NULL)return new Value(owner,cell.state(),kind,null,List.of());

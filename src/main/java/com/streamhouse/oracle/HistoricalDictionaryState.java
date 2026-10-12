@@ -5,8 +5,8 @@ import java.util.*;
 
 /** Complete committed dictionary values. The trusted state digest must come from durable control state. */
 public final class HistoricalDictionaryState {
-    private record Version(long scn,ArchivedUndoInventory.Position position,List<DictionaryBaseline.Row> rows) {
-        Version { rows=List.copyOf(rows); }
+    private record Version(long scn,ArchivedUndoInventory.Position position,List<DictionaryBaseline.Row> rows,List<FrozenHeapBaseline.ObjectRole> generations) {
+        Version { rows=List.copyOf(rows);generations=List.copyOf(generations); }
     }
     private final FrozenHeapBaseline.Snapshot baseline;
     private final List<ArchivedRedo.Header> sources;
@@ -19,7 +19,7 @@ public final class HistoricalDictionaryState {
     static HistoricalDictionaryState from(FrozenHeapBaseline.Snapshot baseline,List<ArchivedRedo.Header> sources,
                                           List<ArchivedDictionaryHistory.Commit> commits,List<ArchivedDictionaryHistory.Pending> pending) {
         return new HistoricalDictionaryState(baseline,sources,commits.stream()
-                .map(c->new Version(c.identity().endRecordScn(),c.commitPosition(),c.rows())).toList(),
+                .map(c->new Version(c.identity().endRecordScn(),c.commitPosition(),c.rows(),c.generations())).toList(),
                 pending.stream().map(ArchivedDictionaryHistory.Pending::beginScn).toList());
     }
     public List<ArchivedRedo.Header> sources(){return sources;}
@@ -28,13 +28,24 @@ public final class HistoricalDictionaryState {
         var commits=new ArrayList<ArchivedDictionaryHistory.Commit>();
         for(int i=0;i<metadata.size();i++) {
             var c=metadata.get(i);var v=versions.get(i);
-            if(c.identity().endRecordScn()!=v.scn() || !c.commitPosition().equals(v.position()))throw new RedoException("DICTIONARY_COMMITTED_VERSION_POSITION");
-            commits.add(new ArchivedDictionaryHistory.Commit(c.identity(),c.original(),c.rowPairs(),c.indexPairs(),c.controls(),v.rows(),c.commitPosition()));
+            if(c.identity().endRecordScn()!=v.scn() || !c.commitPosition().equals(v.position()) || !c.generations().equals(v.generations()))throw new RedoException("DICTIONARY_COMMITTED_VERSION_POSITION");
+            commits.add(new ArchivedDictionaryHistory.Commit(c.identity(),c.original(),c.rowPairs(),c.indexPairs(),c.controls(),v.rows(),c.commitPosition(),c.generations()));
         }
         return List.copyOf(commits);
     }
     public List<FrozenHeapBaseline.PhysicalColumn> schemaAt(long scn,ArchivedUndoInventory.Position position)throws RedoException {
-        return DictionaryHistoryRows.schema(baseline,rowsAt(scn,position));
+        return DictionaryHistoryRows.schema(baseline,rowsAt(scn,position),objectAt(baseline.heap(),scn,position),objectAt(baseline.index(),scn,position));
+    }
+    private FrozenHeapBaseline.ObjectRole objectAt(FrozenHeapBaseline.ObjectRole role,long scn,ArchivedUndoInventory.Position position) {
+        var current=role;
+        for(var version:versions) {
+            if(version.scn()>scn || version.scn()==scn && position!=null && compare(version.position(),position)>0)break;
+            if(ArchivedDictionaryHistory.isMigration(version.generations(),baseline)) {
+                if(role.equals(baseline.heap()))current=version.generations().get(0);
+                else if(role.equals(baseline.index()))current=version.generations().get(1);
+            } else for(var next:version.generations())if(next.logicalObject()==current.logicalObject())current=next;
+        }
+        return current;
     }
     public List<DictionaryBaseline.Row> rowsAt(long scn,ArchivedUndoInventory.Position position)throws RedoException {
         if(sources.isEmpty() || scn<baseline.scn() || scn>=sources.get(sources.size()-1).nextScn())
@@ -49,7 +60,10 @@ public final class HistoricalDictionaryState {
     }
     public byte[] checkpoint()throws IOException {
         var bytes=new ByteArrayOutputStream();var out=new DataOutputStream(bytes);
-        out.writeUTF("ORK_HISTORICAL_DICTIONARY_STATE_V1");out.writeUTF(baseline.sha256());out.writeInt(sources.size());
+        boolean generations=versions.stream().anyMatch(v->!v.generations().isEmpty());
+        boolean foreign=versions.stream().flatMap(v->v.rows().stream()).anyMatch(r->r.target()!=baseline.heap().logicalObject()
+                && !(r.role().equals("OBJ$") && r.target()==baseline.index().logicalObject()));
+        out.writeUTF(foreign?"ORK_HISTORICAL_DICTIONARY_STATE_V3":generations?"ORK_HISTORICAL_DICTIONARY_STATE_V2":"ORK_HISTORICAL_DICTIONARY_STATE_V1");out.writeUTF(baseline.sha256());out.writeInt(sources.size());
         for(var h:sources) {
             out.writeUTF(h.sha256());out.writeLong(h.bytes());out.writeLong(h.dbid());out.writeLong(h.activationId());
             out.writeLong(h.compatibility());out.writeInt(h.thread());out.writeLong(h.sequence());out.writeLong(h.resetlogsId());
@@ -64,6 +78,7 @@ public final class HistoricalDictionaryState {
                 out.writeLong(row.key().dba());out.writeInt(row.key().slot());out.writeInt(row.values().size());
                 for(var cell:row.values()){out.writeUTF(cell.state().name());out.writeUTF(cell.hex());}
             }
+            if(generations || foreign)DictionaryCommittedState.writeGenerations(out,v.generations());
         }
         out.writeInt(pendingBegins.size());for(long scn:pendingBegins)out.writeLong(scn);
         out.flush();return bytes.toByteArray();
@@ -79,7 +94,8 @@ public final class HistoricalDictionaryState {
         if(baseline.dictionaryBaseline()==null)throw new RedoException("MISSING_V3_COMPLETE_DICTIONARY_BASELINE");
         try {
             var in=new DataInputStream(new ByteArrayInputStream(input));
-            if(!in.readUTF().equals("ORK_HISTORICAL_DICTIONARY_STATE_V1") || !in.readUTF().equals(baseline.sha256()))
+            String format=in.readUTF();boolean foreign=format.equals("ORK_HISTORICAL_DICTIONARY_STATE_V3");boolean generations=foreign || format.equals("ORK_HISTORICAL_DICTIONARY_STATE_V2");
+            if((!generations && !format.equals("ORK_HISTORICAL_DICTIONARY_STATE_V1")) || !in.readUTF().equals(baseline.sha256()))
                 throw new RedoException("DICTIONARY_STATE_BASELINE_OR_FORMAT");
             var sources=new ArrayList<ArchivedRedo.Header>();
             for(int i=0,n=count(in);i<n;i++) {
@@ -111,11 +127,19 @@ public final class HistoricalDictionaryState {
                     for(int k=0;k<cells;k++)values.add(new ArchivedHeapRows.Cell(HeapRowPatch.State.valueOf(in.readUTF()),in.readUTF()));
                     DictionaryHistoryRows.requireValues(layout,values);
                     var row=new DictionaryBaseline.Row(role,target,key,values);
-                    if(baseline.dictionaryBaseline().number(row,"OBJ#")!=target || target!=baseline.heap().logicalObject()
+                    if(baseline.dictionaryBaseline().number(row,"OBJ#")!=target || target<=0 || target>0xffffffffL || !foreign && target!=baseline.heap().logicalObject()
                             && !(role.equals("OBJ$") && target==baseline.index().logicalObject()))throw new RedoException("DICTIONARY_STATE_ROW_PARENT");
                     rows.add(row);
                 }
-                versions.add(new Version(scn,at,rows));
+                if(foreign) {
+                    var objects=new HashMap<Long,DictionaryBaseline.Row>();
+                    for(var row:rows)if(row.role().equals("OBJ$") && objects.putIfAbsent(row.target(),row)!=null)throw new RedoException("DICTIONARY_STATE_OBJECT_DUPLICATE");
+                    for(var row:rows)if(!row.role().equals("OBJ$")) {
+                        var parent=objects.get(row.target());
+                        if(parent==null || baseline.dictionaryBaseline().number(parent,"TYPE#")!=2)throw new RedoException("DICTIONARY_STATE_ROW_PARENT");
+                    }
+                }
+                versions.add(new Version(scn,at,rows,generations?DictionaryCommittedState.readGenerations(in,baseline,foreign):List.of()));
             }
             var pending=new ArrayList<Long>();
             for(int i=0,n=count(in);i<n;i++) {

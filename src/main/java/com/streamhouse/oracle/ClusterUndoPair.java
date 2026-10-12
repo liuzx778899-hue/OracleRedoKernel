@@ -14,6 +14,12 @@ public record ClusterUndoPair(long containerUid,long containerId,FrozenHeapBasel
         if((b[0]==1 && b.length==24) || (b[0]==17 && (b.length==70 || b.length==80 && b[44]==2 && b[45]==2))) {
             xid=new Xid(u16(b,8),u16(b,10),u32(b,12));offset=16;
         } else if(b[0]==2 && b.length==16)offset=8;
+        else if(b[0]==18 && b.length==70 && b[44]==2 && b[45]==1 && b[46]==0x0d
+                && v.opcodeMajor()==11 && v.opcodeMinor()==2 && v.fields().size()>1 && v.fields().get(1).length==54
+                && v.fields().get(1)[18]==44 && v.fields().get(1)[44]==1) {
+            // Raw120 TAB$ insert: cleanout-C owns its current UBA; the historical entry does not supply the current XID.
+            offset=8;
+        }
         else throw new RedoException("UNSUPPORTED_CLUSTER_FORWARD_KTB");
         var uba=new Uba(u32(b,offset),u16(b,offset+4),b[offset+6]&255);
         if(uba.dba()==0 || uba.record()==0)throw new RedoException("INVALID_CLUSTER_FORWARD_UBA");
@@ -25,7 +31,14 @@ public record ClusterUndoPair(long containerUid,long containerId,FrozenHeapBasel
         if(row.opcodeMajor()!=11 || row.opcodeMinor()<2 || row.opcodeMinor()>5)
             throw new RedoException("UNSUPPORTED_CLUSTER_FORWARD_OPCODE");
         if(!role.owner().equals("SYS") || !(role.name().equals("TAB$") && tableNumber==1
-                || role.name().equals("COL$") && tableNumber==5))
+                || role.name().equals("COL$") && tableNumber==5
+                || role.name().equals("LOB$") && tableNumber==6 && columns==14 && role.logicalObject()==109 && role.dataObject()==2
+                || role.name().equals("MLOG$") && tableNumber==1 && columns==24 && role.logicalObject()==871 && role.dataObject()==869
+                || row.opcodeMinor()==5 && role.name().equals("SEG$") && tableNumber==2 && columns==16 && role.logicalObject()==14 && role.dataObject()==8
+                || role.name().equals("IND$") && tableNumber==3 && columns==36 && role.logicalObject()==19 && role.dataObject()==2
+                || role.name().equals("ICOL$") && tableNumber==4 && columns==13 && role.logicalObject()==20 && role.dataObject()==2
+                || role.name().equals("CDEF$") && tableNumber==1 && columns==20 && role.logicalObject()==31 && role.dataObject()==29
+                || role.name().equals("CCOL$") && tableNumber==2 && columns==10 && role.logicalObject()==32 && role.dataObject()==29))
             throw new RedoException("CLUSTER_DICTIONARY_ROLE_OR_TABLE_MISMATCH");
         var ref=current(row);var forward=ClusterRowPatch.decode(row.fields(),row.opcodeMinor(),row.dba(),tableNumber,columns);
         RedoRecords.Vector original=null;int forwards=0;
