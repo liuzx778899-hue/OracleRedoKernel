@@ -2,7 +2,15 @@
 
 用户决定：本轮完成固定场景覆盖和main合并后，Oracle开发暂止；下一阶段是模拟验证。开发不追求全场景证明，不再追加实样本门、故障矩阵、D5/RAC/ASM或TDE。
 
-版本固定为 `0.1.0-v1-rc1`，内核 `com.streamhouse.oracle:oracle-redo-kernel`，适配器 `com.streamhouse:streamhouse-engine-oracle`。正式候选从完整提交树构建；源码提交、制品SHA256、产品提交和远端main记录在本轮候选清单。构建/合并记录待实际完成后补齐，不提前记通过。
+版本固定为 `0.1.0-v1-rc1`，内核 `com.streamhouse.oracle:oracle-redo-kernel`，适配器 `com.streamhouse:streamhouse-engine-oracle`。候选从完整提交树构建：内核源码 `fa64577a8c8be51457692a0046d728eb1a86a446`，产品源码 `86bf6d1700e92219697c46d8f20e8a30cd76fa78`。内核/适配器/应用构建rc0，产品相关57项通过，应用内嵌依赖SHA与独立制品一致。两个远端main推送rc0，内核main已包含fa64577，产品main已包含交付提交91617fd。后续文档提交不改变制品源码，最终main头和制品摘要以交付manifest为准。
+
+| 制品 | SHA256 |
+| --- | --- |
+| 内核 | bb4b085bb443e842d4783c28e82eacc3a5c458c62ebee023725a31f466c280a6 |
+| 适配器 | 968acacf87f4e850327d587f3bba641e3d57fa04ef48ce27fb29434dd0569cd1 |
+| 应用 | 708bb608d482db2929e16dc52121873b5288bb0e2bf96446c21b64c2827e34a1 |
+
+交付包 `lab/out/v1-candidate-20261012/oracle-v1-rc1.zip`，包含应用、两固定依赖、POM、manifest、SHA256SUMS与模拟启动说明，不含口令、原始样本或开发覆盖类。产品本地main有他人未推送提交与dirty，保持原样；远端main使用隔离集成工作树完成，不发布其它本地历史。本轮Oracle开发结束，不自动开始更多开发实验。
 
 ## 本轮固定场景与取舍
 
